@@ -1,6 +1,6 @@
 {
   "name": "sensor-js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Data Components for building Reactive Maps Interfaces",
   "main": "lib/app.js",
   "scripts": {
