@@ -95,7 +95,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		AppbaseInputField: _AppbaseInputField.AppbaseInputField,
 		AppbaseButtonGroup: _AppbaseButtonGroup.AppbaseButtonGroup,
 		AppbaseGoogleSearch: _AppbaseGoogleSearch.AppbaseGoogleSearch,
-		AppbaseChannelManager: _ChannelManager.ChannelManager,
+		AppbaseChannelManager: _ChannelManager.manager,
 		AppbaseSensorHelper: helper
 	};
 
