@@ -5,7 +5,7 @@ import {AppbaseSearch} from './sensors/AppbaseSearch';
 import {AppbaseDistanceSensor} from './sensors/AppbaseDistanceSensor';
 import {AppbaseInputField} from './sensors/AppbaseInputField';
 import {AppbaseButtonGroup} from './sensors/AppbaseButtonGroup';
-import {AppbaseAppbaseGoogleSearch} from './sensors/AppbaseGoogleSearch';
+import {AppbaseGoogleSearch} from './sensors/AppbaseGoogleSearch';
 // middleware
 import {AppbaseReactiveMap} from './middleware/AppbaseReactiveMap';
 
@@ -17,5 +17,5 @@ module.exports = {
 	AppbaseDistanceSensor: AppbaseDistanceSensor,
 	AppbaseInputField: AppbaseInputField,
 	AppbaseButtonGroup: AppbaseButtonGroup,
-	AppbaseAppbaseGoogleSearch: AppbaseGoogleSearch
+	AppbaseGoogleSearch: AppbaseGoogleSearch
 };
