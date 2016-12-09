@@ -3,11 +3,11 @@ import { render } from 'react-dom';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
-export class AppbaseInputField extends Component {
+export class AppbaseButtonGroup extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
-			currentValue: ''
+			selected: null
 		};
 		this.type = 'match';
 		this.handleChange = this.handleChange.bind(this);
@@ -17,6 +17,9 @@ export class AppbaseInputField extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
+		if(this.props.defaultSelected) {
+			this.handleChange(this.props.defaultSelected);
+		}
 	}
 
 	// set the query type and input data
@@ -50,43 +53,65 @@ export class AppbaseInputField extends Component {
 	}
 
 	// handle the input change and pass the value inside sensor info
-	handleChange(event) {
-		let inputVal = event.target.value;
+	handleChange(record) {
 		this.setState({
-			'currentValue': inputVal
+			'selected': record
 		});
 		var obj = {
 			key: this.props.sensorId,
-			value: inputVal
+			value: record
 		};
-
 		// pass the selected sensor value with sensorId as key,
 		let isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
-
+	renderButtons() {
+		let buttons;
+		let selectedText = this.state.selected && this.state.selected.text ? this.state.selected.text : '';
+		if(this.props.data) {
+			buttons = this.props.data.map((record, i) => {
+				return (
+					<button key={i} className={"ab-buttonGroup-button btn "+ (selectedText === record.text ? 'red' : '')}
+						onClick={() => this.handleChange(record)} title={record.title ? record.title: record.text}>
+						{record.text}
+					</button>
+				);
+			});
+		}
+		return buttons;
+	}
 	// render
 	render() {
+		let title, titleExists;
+		if(this.props.title) {
+			titleExists = true;
+			title = (<h4 className="componentTitle col s12 col-xs-12">{this.props.title}</h4>);
+		}
 		return (
-			<div className="ab-component ab-InputFieldComponent">
-				<input className="ab-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue} />
+			<div className={"col s12 col-xs-12 card thumbnail ab-buttonGroupComponent reactiveComponent"} style={this.props.defaultStyle}>
+				<div className="row">
+					{title}
+					<div className="col s12 col-xs-12">
+						{this.renderButtons()}
+					</div>
+				</div>
 			</div>
 		);
 	}
 }
 
-AppbaseInputField.propTypes = {
+AppbaseButtonGroup.propTypes = {
 	inputData: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
-	title: React.PropTypes.string
+	data: React.PropTypes.any.isRequired
 };
 // Default props value
-AppbaseInputField.defaultProps = {
+AppbaseButtonGroup.defaultProps = {
 	placeholder: "Search...",
 	size: 10
 };
 
 // context type
-AppbaseInputField.contextTypes = {
+AppbaseButtonGroup.contextTypes = {
 	appbaseConfig: React.PropTypes.any.isRequired
 };

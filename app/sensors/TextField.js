@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
-export class AppbaseInputField extends Component {
+export class TextField extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -25,7 +25,7 @@ export class AppbaseInputField extends Component {
 			key: this.props.sensorId,
 			value: {
 				queryType: this.type,
-				inputData: this.props.inputData,
+				inputData: this.props.appbaseField,
 				defaultQuery: this.defaultQuery
 			}
 		};
@@ -36,7 +36,7 @@ export class AppbaseInputField extends Component {
 	defaultQuery(value) {
 		return {
 			'term': {
-				[this.props.inputData]: value
+				[this.props.appbaseField]: value
 			}
 		};
 	}
@@ -75,18 +75,18 @@ export class AppbaseInputField extends Component {
 	}
 }
 
-AppbaseInputField.propTypes = {
-	inputData: React.PropTypes.string,
-	placeholder: React.PropTypes.string,
-	title: React.PropTypes.string
+TextField.propTypes = {
+	sensorId: React.PropTypes.string.isRequired,
+	appbaseField: React.PropTypes.string,
+	title: React.PropTypes.string,
+	placeholder: React.PropTypes.string
 };
 // Default props value
-AppbaseInputField.defaultProps = {
-	placeholder: "Search...",
-	size: 10
+TextField.defaultProps = {
+	placeholder: "Search..."
 };
 
 // context type
-AppbaseInputField.contextTypes = {
+TextField.contextTypes = {
 	appbaseConfig: React.PropTypes.any.isRequired
 };

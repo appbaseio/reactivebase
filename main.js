@@ -1,18 +1,22 @@
 import { default as React, Component } from 'react';
 var ReactDOM = require('react-dom');
-import { Img } from './examples/HelperComponent/Img.js';
+import { Img } from './reactive-lib/other/Img.js';
 import {
 	AppbaseReactiveMap,
-	AppbaseList,
 	AppbaseSlider,
 	AppbaseSearch,
-	AppbaseDistanceSensor,
-	AppbaseButtonGroup
-} from 'sensorjs';
+	AppbaseButtonGroup,
+	SingleList,
+	MultiList,
+	RangeSlider,
+	TextField,
+	DataSearch,
+	SingleRange
+} from './app/app.js';
 
 import {
 	AppbaseMap
-} from './app/app.js';
+} from './reactive-lib/map/app.js';
 
 const mapsAPIKey = 'AIzaSyAXev-G9ReCOI4QOjPotLsJE-vQ1EX7i-A';
 
@@ -23,29 +27,21 @@ class Main extends Component {
 		this.popoverContent = this.popoverContent.bind(this);
 		this.guestQuery = this.guestQuery.bind(this);
 		this.guestData = [{
-			text: 'Less than 2',
-			value: {
-				min: 0,
-				max: 2
-			}
+			label: 'Less than 2',
+			start: 0,
+			end: 2
 		}, {
-			text: '2 to 4',
-			value: {
-				min: 2,
-				max: 4
-			}
+			label: '2 to 4',
+			start: 2,
+			end: 4
 		}, {
-			text: '4 to 6',
-			value: {
-				min: 4,
-				max: 6
-			}
+			label: '4 to 6',
+			start: 4,
+			end: 6
 		}, {
-			text: 'more than 6',
-			value: {
-				min: 6,
-				max: 100
-			}
+			label: 'more than 6',
+			start: 6,
+			end: 100
 		}];
 	}
 	guestQuery(record) {
@@ -91,31 +87,28 @@ class Main extends Component {
 	render() {
 		return (
 			<div className="row m-0 h-100">
-				<ReactiveMap config={this.props.config}>
+				<AppbaseReactiveMap config={this.props.config}>
 					<div className="col s12 m6 col-xs-12 col-sm-6">
 						<div className="row h-100">
 							<div className="col s12 m6 col-xs-12 col-sm-6">
-								<AppbaseList
+								<SingleList
 									sensorId="CitySensor"
-									inputData={this.props.mapping.city}
+									appbaseField={this.props.mapping.city}
 									defaultSelected="London"
 									showCount={true}
 									size={1000}
-									multipleSelect={false}
-									includeGeo={false}
-									staticSearch={true}
+									showSearch={true}
 									title="Cities"
 									searchPlaceholder="Filter City"
 								/>
 							</div>
 							<div className="col s12 m6 col-xs-12 col-sm-6">
-								<AppbaseList
-									inputData={this.props.mapping.topic}
+								<MultiList
 									sensorId="TopicSensor"
+									appbaseField={this.props.mapping.topic}
+									defaultSelected={["Social"]}
 									showCount={true}
 									size={100}
-									multipleSelect={true}
-									includeGeo={true}
 									title="Topics"
 									depends={{
 										CitySensor: {
@@ -128,28 +121,29 @@ class Main extends Component {
 						</div>
 						<div className="row">
 							<div className="col s12 col-xs-12">
-								<AppbaseButtonGroup
-									inputData={this.props.mapping.guests}
+								<SingleRange
+									appbaseField={this.props.mapping.guests}
 									sensorId="GuestSensor"
 									title="Guests"
 									data={this.guestData}
-									defaultSelected={this.guestData[0]}
+									defaultSelected="Less than 2"
 								/>
 							</div>
 						</div>
 						<div className="row">
 							<div className="col s12 col-xs-12">
-								<AppbaseSlider
+								<RangeSlider
 									sensorId="RangeSensor"
-									inputData={this.props.mapping.guests}
+									appbaseField={this.props.mapping.guests}
 									depends={{
 										CitySensor: {
 											"operation": "must",
 											"defaultQuery": this.topicDepends
 										}
 									}}
+									stepValue={2}
 									title="guests"
-									maxThreshold={5} />
+									endThreshold={6} />
 							</div>
 						</div>
 					</div>
@@ -175,25 +169,19 @@ class Main extends Component {
 								TopicSensor: {"operation": "must"},
 								RangeSensor: {"operation": "must"},
 								VenueSensor: {"operation": "must"},
-								GuestSensor: {"operation": "must", defaultQuery: this.guestQuery}
+								GuestSensor: {"operation": "must"}
 							}}
 						/>
 						<div id="searchVenue">
-							<AppbaseSearch
-								inputData={this.props.mapping.venue}
+							<DataSearch
+								appbaseField={this.props.mapping.venue}
 								sensorId="VenueSensor"
-								searchRef="CityVenue"
+								searchInputId="CityVenue"
 								placeholder="Search Venue"
-								depends={{
-									'CitySensor': {
-										"operation": "must",
-										"doNotExecute": {true}
-									}
-								}}
 							/>
 						</div>
 					</div>
-				</ReactiveMap>
+				</AppbaseReactiveMap>
 			</div>
 		);
 	}

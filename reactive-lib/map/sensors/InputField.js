@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
-export class AppbaseInputField extends Component {
+export class InputField extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -68,25 +68,24 @@ export class AppbaseInputField extends Component {
 	// render
 	render() {
 		return (
-			<div className="ab-component ab-InputFieldComponent">
-				<input className="ab-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue} />
+			<div className="appbaseSearchComponent reactiveComponent">
+				<input type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue} />
 			</div>
 		);
 	}
 }
 
-AppbaseInputField.propTypes = {
+InputField.propTypes = {
 	inputData: React.PropTypes.string,
-	placeholder: React.PropTypes.string,
-	title: React.PropTypes.string
+	placeholder: React.PropTypes.string
 };
 // Default props value
-AppbaseInputField.defaultProps = {
+InputField.defaultProps = {
 	placeholder: "Search...",
 	size: 10
 };
 
 // context type
-AppbaseInputField.contextTypes = {
+InputField.contextTypes = {
 	appbaseConfig: React.PropTypes.any.isRequired
 };
