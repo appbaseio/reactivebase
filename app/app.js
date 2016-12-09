@@ -10,11 +10,11 @@ import {GoogleSearch} from './sensors/GoogleSearch';
 import {ReactiveMap} from './middleware/ReactiveMap';
 
 module.exports = {
+	AppbaseReactiveMap: ReactiveMap,
 	AppbaseList: AppbaseList,
 	AppbaseSlider: AppbaseSlider,
 	AppbaseSearch: AppbaseSearch,
 	AppbaseDistanceSensor: DistanceSensor,
-	AppbaseReactiveMap: ReactiveMap,
 	AppbaseInputField: InputField,
 	AppbaseButtonGroup: AppbaseButtonGroup,
 	AppbaseGoogleSearch: GoogleSearch

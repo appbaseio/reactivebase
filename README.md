@@ -354,13 +354,21 @@ npm run webpack-server
 ### Class namespace
 
 #### Important classname
-Component root class: `ab-component`
-Component specific class: `ab-{sensorname}Component` (i.e. `ab-ButtonGroupComponent`)
-Component Title class: `ab-componentTitle`
+
+**Component root class**: `ab-component`
+
+**Component specific class**: `ab-{sensorname}Component` (i.e. `ab-ButtonGroupComponent`)
+
+**Component Title class**: `ab-componentTitle`
 
 #### Child element classname
-Button: `ab-button`
-Radio: `ab-radio`
-Checkbox: `ab-checkbox`
-Input text: `ab-input`
-Select.Async(Used within appbasesearch): `ab-select-react`
+
+**Button**: `ab-button`
+
+**Radio**: `ab-radio`
+
+**Checkbox**: `ab-checkbox`
+
+**Input text**: `ab-input`
+
+**Select.Async(Used within appbasesearch)**: `ab-select-react`
