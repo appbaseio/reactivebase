@@ -1,0 +1,17 @@
+{
+	"name": "Sensorjs",
+	"description": "",
+	"main": "main.js",
+	"authors": [
+		"Farhan Chauhan <farhan@appbase.io>"
+	],
+	"license": "ISC",
+	"homepage": "https://github.com/appbaseio/sensorjs",
+	"private": true,
+	"dependencies": {
+		"bootstrap": "~3.3.1",
+		"font-awesome": "~4.2.0",
+		"lodash": "^4.15.0",
+		"materialize": "^0.97.7"
+	}
+}
