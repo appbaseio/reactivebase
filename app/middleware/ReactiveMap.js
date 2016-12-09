@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import {manager} from './ChannelManager.js';
 var helper = require('./helper.js');
 
-export class ReactiveMap extends Component {
+export class AppbaseReactiveMap extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {};
@@ -22,10 +22,10 @@ export class ReactiveMap extends Component {
 	}
 }
 
-ReactiveMap.defaultProps = {
+AppbaseReactiveMap.defaultProps = {
 	config: React.PropTypes.any.isRequired,
 };
 
-ReactiveMap.childContextTypes = {
+AppbaseReactiveMap.childContextTypes = {
 	appbaseConfig: React.PropTypes.any.isRequired
 };

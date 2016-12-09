@@ -1,37 +1,28 @@
 import { default as React, Component } from 'react';
 import { render } from 'react-dom';
 import { manager } from '../middleware/ChannelManager.js';
-import { AppbaseSlider } from './AppbaseSlider';
-import Slider from 'rc-slider';
 import axios from 'axios';
 import Select from 'react-select';
 var helper = require('../middleware/helper.js');
 
-export class DistanceSensor extends Component {
+export class AppbaseGoogleSearch extends Component {
 	constructor(props, context) {
 		super(props);
-		let value = this.props.value < this.props.minThreshold ? this.props.minThreshold :  this.props.value;
 		this.state = {
 			currentValue: '',
-			currentDistance: this.props.value + this.props.unit,
-			value: value
+			currentDistance: 0,
+			value: 0
 		};
-		this.type = 'geo_distance';
+		this.type = 'match';
 		this.locString = '';
 		this.result = {
 			options: []
-		};
-		this.sortInfo = {
-			type: '_geo_distance',
-			order: 'asc',
-			unit: 'mi'
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.loadOptions = this.loadOptions.bind(this);
 		this.defaultQuery = this.defaultQuery.bind(this);
 		this.handleValuesChange = this.handleValuesChange.bind(this);
 		this.handleResults = this.handleResults.bind(this);
-		this.unitFormatter = this.unitFormatter.bind(this);
 	}
 
 	componentWillMount() {
@@ -41,13 +32,14 @@ export class DistanceSensor extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		this.getUserLocation();
+		if(this.props.autoLocation) {
+			this.getUserLocation();
+		}
 	}
 
 	getUserLocation() {
 		navigator.geolocation.getCurrentPosition((location) => {
 			this.locString = location.coords.latitude + ', ' + location.coords.longitude;
-
 			axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.locString}&key=${this.props.APIkey}`)
 				.then(res => {
 					let currentValue = res.data.results[0].formatted_address;
@@ -105,26 +97,14 @@ export class DistanceSensor extends Component {
 
 	// execute query after changing location or distanc
 	executeQuery() {
-		if (this.state.currentValue != '' && this.state.currentDistance && this.locString) {
+		if (this.state.currentValue != '' && this.locString) {
 			var obj = {
 				key: this.props.sensorId,
 				value: {
 					currentValue: this.state.currentValue,
-					currentDistance: this.state.currentDistance,
 					location: this.locString
 				}
 			};
-			let sortObj = {
-				key: this.props.sensorId,
-				value: {
-					[this.sortInfo.type]: {
-						[this.props.inputData]: this.locString,
-						'order': this.sortInfo.order,
-						'unit': this.sortInfo.unit
-					}
-				}
-			};
-			helper.selectedSensor.setSortInfo(sortObj);
 			helper.selectedSensor.set(obj, true);
 		}
 	}
@@ -152,10 +132,6 @@ export class DistanceSensor extends Component {
 		}
 	}
 
-	unitFormatter(v) {
-		return v+' '+this.props.unit;
-	}
-
 	// Handle function when value slider option is changing
 	handleValuesChange(component, value) {
 		this.setState({
@@ -164,11 +140,10 @@ export class DistanceSensor extends Component {
 	}
 
 	// Handle function when slider option change is completed
-	handleResults(value) {
-		let distValue = value + this.props.unit;
+	handleResults(component, value) {
+		value = value + this.props.unit;
 		this.setState({
-			value: value,
-			currentDistance: distValue
+			currentDistance: value
 		}, this.executeQuery.bind(this));
 	}
 
@@ -205,8 +180,9 @@ export class DistanceSensor extends Component {
 		}
 
 		return (
-			<div className="ab-component ab-DistanceSensorComponent clearfix card thumbnail col s12 col-xs-12">
+			<div className="ab-component ab-GoogleSearchComponent clearfix card thumbnail col s12 col-xs-12">
 				{title}
+				<div className="row">
 				<Select.Async
 					className="ab-select-react col s12 col-xs-6 p-0"
 					name="appbase-search"
@@ -214,39 +190,24 @@ export class DistanceSensor extends Component {
 					loadOptions={this.loadOptions}
 					placeholder={this.props.placeholder}
 					onChange={this.handleChange}
-					/>
-
-				<div className="ab-DistanceSensorComponent-slider">
-					<div className="ab-DistanceSensorComponent-slider-container col s12 col-xs-6" 
-						style={{'padding': '12px 4px 16px 16px', 'marginBottom': '25px'}}
-						>
-						<Slider className="ab-slider"
-							tipFormatter={this.unitFormatter}
-							defaultValue={this.state.value}
-							min={this.props.minThreshold}
-							max={this.props.maxThreshold}
-							onAfterChange={this.handleResults}
-						/>
-					</div>
+				/>
 				</div>
 			</div>
 		);
 	}
 }
 
-DistanceSensor.propTypes = {
+AppbaseGoogleSearch.propTypes = {
 	inputData: React.PropTypes.string.isRequired,
 	placeholder: React.PropTypes.string
 };
 // Default props value
-DistanceSensor.defaultProps = {
-	value: 1,
-	unit: 'km',
+AppbaseGoogleSearch.defaultProps = {
 	placeholder: "Search...",
-	size: 10
+	autoLocation: true
 };
 
 // context type
-DistanceSensor.contextTypes = {
+AppbaseGoogleSearch.contextTypes = {
 	appbaseConfig: React.PropTypes.any.isRequired
 };

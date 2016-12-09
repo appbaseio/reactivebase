@@ -2,20 +2,20 @@
 import {AppbaseList} from './sensors/AppbaseList';
 import {AppbaseSlider} from './sensors/AppbaseSlider';
 import {AppbaseSearch} from './sensors/AppbaseSearch';
-import {DistanceSensor} from './sensors/DistanceSensor';
-import {InputField} from './sensors/InputField';
+import {AppbaseDistanceSensor} from './sensors/AppbaseDistanceSensor';
+import {AppbaseInputField} from './sensors/AppbaseInputField';
 import {AppbaseButtonGroup} from './sensors/AppbaseButtonGroup';
-import {GoogleSearch} from './sensors/GoogleSearch';
+import {AppbaseAppbaseGoogleSearch} from './sensors/AppbaseGoogleSearch';
 // middleware
-import {ReactiveMap} from './middleware/ReactiveMap';
+import {AppbaseReactiveMap} from './middleware/AppbaseReactiveMap';
 
 module.exports = {
-	AppbaseReactiveMap: ReactiveMap,
+	AppbaseReactiveMap: AppbaseReactiveMap,
 	AppbaseList: AppbaseList,
 	AppbaseSlider: AppbaseSlider,
 	AppbaseSearch: AppbaseSearch,
-	AppbaseDistanceSensor: DistanceSensor,
-	AppbaseInputField: InputField,
+	AppbaseDistanceSensor: AppbaseDistanceSensor,
+	AppbaseInputField: AppbaseInputField,
 	AppbaseButtonGroup: AppbaseButtonGroup,
-	AppbaseGoogleSearch: GoogleSearch
+	AppbaseAppbaseGoogleSearch: AppbaseGoogleSearch
 };

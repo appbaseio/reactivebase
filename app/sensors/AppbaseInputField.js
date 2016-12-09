@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
-export class InputField extends Component {
+export class AppbaseInputField extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -75,17 +75,17 @@ export class InputField extends Component {
 	}
 }
 
-InputField.propTypes = {
+AppbaseInputField.propTypes = {
 	inputData: React.PropTypes.string,
 	placeholder: React.PropTypes.string
 };
 // Default props value
-InputField.defaultProps = {
+AppbaseInputField.defaultProps = {
 	placeholder: "Search...",
 	size: 10
 };
 
 // context type
-InputField.contextTypes = {
+AppbaseInputField.contextTypes = {
 	appbaseConfig: React.PropTypes.any.isRequired
 };
