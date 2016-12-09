@@ -89,7 +89,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		AppbaseDistanceSensor: _AppbaseDistanceSensor.AppbaseDistanceSensor,
 		AppbaseInputField: _AppbaseInputField.AppbaseInputField,
 		AppbaseButtonGroup: _AppbaseButtonGroup.AppbaseButtonGroup,
-		AppbaseAppbaseGoogleSearch: AppbaseGoogleSearch
+		AppbaseGoogleSearch: _AppbaseGoogleSearch.AppbaseGoogleSearch
 	};
 	// middleware
 
