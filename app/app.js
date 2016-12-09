@@ -8,7 +8,7 @@ import {AppbaseButtonGroup} from './sensors/AppbaseButtonGroup';
 import {AppbaseGoogleSearch} from './sensors/AppbaseGoogleSearch';
 // middleware
 import {AppbaseReactiveMap} from './middleware/AppbaseReactiveMap';
-import {ChannelManager} from './middleware/ChannelManager';
+import {manager} from './middleware/ChannelManager';
 var helper = require('./middleware/helper.js');
 
 module.exports = {
@@ -20,6 +20,6 @@ module.exports = {
 	AppbaseInputField: AppbaseInputField,
 	AppbaseButtonGroup: AppbaseButtonGroup,
 	AppbaseGoogleSearch: AppbaseGoogleSearch,
-	AppbaseChannelManager: ChannelManager,
+	AppbaseChannelManager: manager,
 	AppbaseSensorHelper: helper
 };
