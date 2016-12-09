@@ -66,40 +66,32 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _AppbaseList = __webpack_require__(2);
 
-	var _AppbaseSlider = __webpack_require__(26);
+	var _AppbaseSlider = __webpack_require__(25);
 
-	var _AppbaseSearch = __webpack_require__(182);
+	var _AppbaseSearch = __webpack_require__(181);
 
-	var _DistanceSensor = __webpack_require__(194);
+	var _AppbaseDistanceSensor = __webpack_require__(193);
 
-	var _InputField = __webpack_require__(221);
+	var _AppbaseInputField = __webpack_require__(220);
 
-	var _AppbaseButtonGroup = __webpack_require__(222);
+	var _AppbaseButtonGroup = __webpack_require__(221);
 
-	var _GoogleSearch = __webpack_require__(223);
+	var _AppbaseGoogleSearch = __webpack_require__(222);
 
-	var _AppbaseMap = __webpack_require__(224);
-
-	var _ListResult = __webpack_require__(283);
-
-	var _ReactiveMap = __webpack_require__(284);
+	var _AppbaseReactiveMap = __webpack_require__(223);
 
 	// sensors
 	module.exports = {
+		AppbaseReactiveMap: _AppbaseReactiveMap.AppbaseReactiveMap,
 		AppbaseList: _AppbaseList.AppbaseList,
 		AppbaseSlider: _AppbaseSlider.AppbaseSlider,
 		AppbaseSearch: _AppbaseSearch.AppbaseSearch,
-		DistanceSensor: _DistanceSensor.DistanceSensor,
-		AppbaseMap: _AppbaseMap.AppbaseMap,
-		ReactiveMap: _ReactiveMap.ReactiveMap,
-		ListResult: _ListResult.ListResult,
-		InputField: _InputField.InputField,
+		AppbaseDistanceSensor: _AppbaseDistanceSensor.AppbaseDistanceSensor,
+		AppbaseInputField: _AppbaseInputField.AppbaseInputField,
 		AppbaseButtonGroup: _AppbaseButtonGroup.AppbaseButtonGroup,
-		GoogleSearch: _GoogleSearch.GoogleSearch
+		AppbaseAppbaseGoogleSearch: AppbaseGoogleSearch
 	};
 	// middleware
-
-	// actuators
 
 /***/ },
 /* 2 */
@@ -124,11 +116,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ItemList = __webpack_require__(7);
 
-	var _ImmutableQuery = __webpack_require__(8);
+	var _ChannelManager = __webpack_require__(8);
 
-	var _ChannelManager = __webpack_require__(24);
-
-	var _StaticSearch = __webpack_require__(25);
+	var _StaticSearch = __webpack_require__(24);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -347,12 +337,12 @@ return /******/ (function(modules) { // webpackBootstrap
 					titleExists = true;
 					title = _react2.default.createElement(
 						'h4',
-						{ className: 'componentTitle col s12 col-xs-12' },
+						{ className: 'ab-componentTitle col s12 col-xs-12' },
 						this.props.title
 					);
 				}
 
-				var listClass = 'reactiveComponent listComponent staticSearch-' + this.props.staticSearch + ' title-' + titleExists;
+				var listClass = 'ab-component ab-ListComponent staticSearch-' + this.props.staticSearch + ' title-' + titleExists;
 
 				return _react2.default.createElement(
 					'div',
@@ -612,7 +602,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				return _react2.default.createElement(
 					'div',
-					{ className: 'listContainer col s12 col-xs-12' },
+					{ className: 'ab-ListComponent-container col s12 col-xs-12' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'row' },
@@ -690,8 +680,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				return _react2.default.createElement(
 					'div',
-					{ onClick: this.handleClick.bind(this), className: 'listItem checkboxItem col s12 col-xs-12' },
-					_react2.default.createElement('input', { type: 'checkbox',
+					{ onClick: this.handleClick.bind(this), className: 'ab-ListComponent-listitem ab-checkbox-container checkboxItem col s12 col-xs-12' },
+					_react2.default.createElement('input', { type: 'checkbox', className: 'ab-checkbox',
 						checked: this.state.status,
 						onChange: this.handleCheckboxChange.bind(this) }),
 					_react2.default.createElement(
@@ -723,7 +713,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function render() {
 				return _react2.default.createElement(
 					'span',
-					{ onClick: this.props.onClick.bind(null, this.props.value), className: 'tagItem col' },
+					{ onClick: this.props.onClick.bind(null, this.props.value), className: 'ab-ListComponent-tagItem col' },
 					_react2.default.createElement(
 						'span',
 						null,
@@ -731,7 +721,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					),
 					_react2.default.createElement(
 						'a',
-						{ href: 'javascript:void(0)', className: 'close-tag' },
+						{ href: 'javascript:void(0)', className: 'ab-ListComponent-closeTag' },
 						' x '
 					)
 				);
@@ -914,7 +904,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}.bind(this));
 				return _react2.default.createElement(
 					'div',
-					{ className: 'listContainer col s12 col-xs-12' },
+					{ className: 'ab-ListComponent-container col s12 col-xs-12' },
 					itemsComponent
 				);
 			}
@@ -1002,13 +992,14 @@ return /******/ (function(modules) { // webpackBootstrap
 				// let activeClass = this.props.value === this.props.selectedItem ? 'active' : '';
 				return _react2.default.createElement(
 					'div',
-					{ className: 'listItem row', onClick: function onClick() {
+					{ className: 'ab-ListComponent-listitem row', onClick: function onClick() {
 							return _this3.props.handleClick(_this3.props.value);
 						} },
 					_react2.default.createElement(
 						'div',
-						{ className: 'col s12 col-xs-12 radioItem' },
+						{ className: 'col s12 col-xs-12 ab-radio-container' },
 						_react2.default.createElement('input', { type: 'radio',
+							className: 'ab-radio',
 							checked: this.props.value === this.props.selectedItem,
 							name: 'radioItem', id: 'radioItem',
 							value: this.props.value }),
@@ -1040,131 +1031,196 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var _require = __webpack_require__(9);
 
 	var EventEmitter = _require.EventEmitter;
-	var emitter = exports.emitter = new EventEmitter();
+
 	var helper = __webpack_require__(16);
 
-	var ImmutableQuery = function () {
-		function ImmutableQuery() {
-			_classCallCheck(this, ImmutableQuery);
+	var channelManager = function () {
+		function channelManager() {
+			_classCallCheck(this, channelManager);
 
-			this.shouldArray = [];
-			this.mustArray = [];
-			this.filterArray = [];
-			this.config = [];
-			this.aggs = {};
-			this.queryListener();
+			this.emitter = new EventEmitter();
+			this.channels = {};
+			this.streamRef = {};
+			this.queryOptions = {};
+			this.appbaseConfig = {};
+			this.receive = this.receive.bind(this);
+			this.nextPage = this.nextPage.bind(this);
 		}
 
-		_createClass(ImmutableQuery, [{
+		_createClass(channelManager, [{
 			key: 'setConfig',
 			value: function setConfig(config) {
 				this.config = config;
 			}
-		}, {
-			key: 'addShouldClause',
-			value: function addShouldClause(key, value, type) {
-				var isExecuteQuery = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
-				var includeGeo = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
-				var queryLevel = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : "must";
 
-				if (value === undefined || value === null) {
-					return;
-				}
-				var obj = eval('this.get' + type + 'Object(key, value)');
-				var arr = queryLevel === 'should' ? this.shouldArray : this.mustArray;
-				arr.push(obj);
-				return this.buildQuery(includeGeo, isExecuteQuery);
-			}
-		}, {
-			key: 'removeShouldClause',
-			value: function removeShouldClause(key, value, type) {
-				var isExecuteQuery = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-				var includeGeo = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
-				var queryLevel = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : "must";
+			// Receive: This method will be executed whenever dependency value changes
+			// It receives which dependency changes and which channeldId should be affected.
 
-				if (value === undefined || value === null) {
-					return;
-				}
-				var arr = queryLevel === 'must' ? this.mustArray : this.shouldArray;
-				var index = this.getArrayIndex(arr, key, value, type);
-				if (index >= 0) {
-					arr.splice(index, 1);
-				}
-				return this.buildQuery(includeGeo, isExecuteQuery);
-			}
 		}, {
-			key: 'updateGeoFilter',
-			value: function updateGeoFilter(key, boundingBoxCoordinates, geoFlag) {
-				if (typeof geoFlag !== 'undefined' && !geoFlag) {} else {
-					var geoObject = JSON.parse('{"' + key + '":' + JSON.stringify(boundingBoxCoordinates) + '}');
-					this.filterArray[0] = { geo_bounding_box: geoObject };
-				}
-				var geoFlag = typeof geoFlag !== 'undefined' ? geoFlag : true;
-				return this.buildQuery(geoFlag);
-			}
-		}, {
-			key: 'addAggregation',
-			value: function addAggregation(key, size, sort) {
-				var order = void 0,
-				    type = void 0;
-				if (sort == "count") {
-					order = "desc";
-					type = "_count";
-				} else if (sort == "asc") {
-					order = "asc";
-					type = "_term";
+			key: 'receive',
+			value: function receive(depend, channelId) {
+				var _this = this;
+
+				var queryOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+				var self = this;
+				var channelObj = this.channels[channelId];
+				var queryObj = void 0;
+				if (!queryOptions) {
+					queryObj = this.queryBuild(channelObj.depends, channelObj.previousSelectedSensor, channelObj.size, channelObj.from);
+					this.queryOptions[channelId] = channelObj.previousSelectedSensor['channel-options-' + channelId];
 				} else {
-					order = "desc";
-					type = "_term";
+					queryObj = this.queryBuild(channelObj.depends, queryOptions, channelObj.size, channelObj.from);
 				}
-				var orderQuery = '{\n\t\t\t"' + type + '" : "' + order + '"\n\t\t}';
-				this.aggs = JSON.parse('{\n\t\t\t"' + key + '": {\n\t\t\t\t"terms": {\n\t\t\t\t\t"field": "' + key + '",\n\t\t\t\t\t"size": ' + size + ',\n\t\t\t\t\t"order": ' + orderQuery + '\n\t\t\t\t}\n\t\t\t}\n\t\t}');
-				var mustArray = JSON.parse(JSON.stringify(this.mustArray));
-				mustArray = mustArray.filter(function (query) {
-					return !query.hasOwnProperty('terms');
-				});
-				var query = {
-					type: this.config.type,
-					body: {
-						"size": 100,
-						"aggs": this.aggs,
-						"query": {
-							"bool": {
-								"must": mustArray
+				var validQuery = true;
+				try {
+					validQuery = !queryObj.body.aggs && queryObj.body.query.bool.should.length === 0 ? false : true;
+				} catch (e) {}
+
+				if (validQuery) {
+					(function () {
+						var channelResponse = {
+							startTime: new Date().getTime(),
+							appliedQuery: queryObj
+						};
+						var appbaseRef = _this.appbaseConfig[channelId];
+						if (appbaseRef) {
+							// apply search query and emit historic queryResult
+							appbaseRef.search(queryObj).on('data', function (data) {
+								channelResponse.method = 'historic';
+								channelResponse.data = data;
+								self.emitter.emit(channelId, channelResponse);
+							}).on('error', function (error) {
+								console.log(error);
+							});
+							// apply searchStream query and emit streaming data
+							if (_this.streamRef[channelId]) {
+								_this.streamRef[channelId].stop();
+							}
+							_this.streamRef[channelId] = appbaseRef.searchStream(queryObj).on('data', function (data) {
+								var obj = {
+									method: 'stream',
+									data: data,
+									appliedQuery: queryObj
+								};
+								self.emitter.emit(channelId, obj);
+							}).on('error', function (error) {
+								console.log(error);
+							});
+						} else {
+							console.error('appbaseRef is not set for ' + channelId);
+						}
+					})();
+				} else {
+					var obj = {
+						method: 'historic',
+						data: {
+							_shards: {},
+							hits: {
+								hits: []
+							}
+						},
+						appliedQuery: queryObj
+					};
+					self.emitter.emit(channelId, obj);
+				}
+			}
+
+			// queryBuild
+			// Builds the query by using depends object and values of sensor
+
+		}, {
+			key: 'queryBuild',
+			value: function queryBuild(depends, previousSelectedSensor, size) {
+				var from = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+				var aggs = null;
+				var mustArray = [];
+				var shouldArray = [];
+				var requestOptions = {};
+				var sortObj = [];
+				for (var depend in depends) {
+					if (depend === 'aggs') {
+						aggs = aggsQuery(depend);
+					} else if (depend.indexOf('channel-options-') > -1) {
+						requestOptions = previousSelectedSensor[depend];
+					} else {
+						var queryObj = null;
+						if (depends[depend].defaultQuery) {
+							queryObj = depends[depend].defaultQuery(previousSelectedSensor[depend]);
+						} else {
+							queryObj = singleQuery(depend);
+						}
+						if (queryObj) {
+							if (depends[depend].operation === 'must') {
+								mustArray.push(queryObj);
+							} else if (depends[depend].operation === 'should') {
+								shouldArray.push(queryObj);
 							}
 						}
 					}
-				};
-				return query;
-			}
-		}, {
-			key: 'buildQuery',
-			value: function buildQuery(includeGeo, isExecuteQuery) {
-				var shouldArray = JSON.parse(JSON.stringify(this.shouldArray));
-				var mustObject = {
-					bool: {
-						must: this.mustArray
+					var sortField = sortAvailbale(depend);
+					if (sortField) {
+						sortObj.push(sortField);
 					}
-				};
-				shouldArray.push(mustObject);
-				if (includeGeo) {
-					var geoFilter = {
+				}
+
+				// check if sortinfo is availbale
+				function sortAvailbale(depend) {
+					var sortInfo = helper.selectedSensor.get(depend, 'sortInfo');
+					return sortInfo;
+				}
+
+				// build single query or if default query present in sensor itself use that
+				function singleQuery(depend) {
+					var sensorInfo = helper.selectedSensor.get(depend, 'sensorInfo');
+					var s_query = null;
+					if (sensorInfo && sensorInfo.defaultQuery) {
+						s_query = sensorInfo.defaultQuery(previousSelectedSensor[depend]);
+					} else if (previousSelectedSensor[depend]) {
+						s_query = {};
+						s_query[sensorInfo.queryType] = {};
+						s_query[sensorInfo.queryType][sensorInfo.inputData] = previousSelectedSensor[depend];
+					}
+					return s_query;
+				}
+
+				function aggsQuery(depend) {
+					var aggsObj = depends[depend];
+					var order = void 0,
+					    type = void 0;
+					if (aggsObj.sort == "count") {
+						order = "desc";
+						type = "_count";
+					} else if (aggsObj.sort == "asc") {
+						order = "asc";
+						type = "_term";
+					} else {
+						order = "desc";
+						type = "_term";
+					}
+					var orderQuery = '{ \n\t\t\t\t"' + type + '" : "' + order + '" \n\t\t\t}';
+					return JSON.parse('{\n\t\t\t\t"' + aggsObj.key + '": {\n\t\t\t\t\t"terms": {\n\t\t\t\t\t\t"field": "' + aggsObj.key + '",\n\t\t\t\t\t\t"size": ' + aggsObj.size + ',\n\t\t\t\t\t\t"order": ' + orderQuery + '\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}');
+				}
+				if (mustArray.length) {
+					var mustObject = {
 						bool: {
-							filter: this.filterArray
+							must: mustArray
 						}
 					};
-					shouldArray.unshift(geoFilter);
+					shouldArray.push(mustObject);
 				}
-				this.query = {
+
+				var query = {
 					type: this.config.type,
 					body: {
-						"size": 100,
-						"aggs": this.aggs,
 						"query": {
 							"bool": {
 								"should": shouldArray,
@@ -1173,83 +1229,100 @@ return /******/ (function(modules) { // webpackBootstrap
 						}
 					}
 				};
-				if (isExecuteQuery) {
-					emitter.emit('change', this.query);
+				if (aggs) {
+					query.body.aggs = aggs;
 				}
-				return this.query;
-			}
-		}, {
-			key: 'getTermObject',
-			value: function getTermObject(key, value) {
-				var term = JSON.parse('{"' + key + '":' + JSON.stringify(value) + '}');
-				return { term: term };
-			}
-		}, {
-			key: 'getTermsObject',
-			value: function getTermsObject(key, value) {
-				var terms = JSON.parse('{"' + key + '":' + JSON.stringify(value) + '}');
-				return { terms: terms };
-			}
-		}, {
-			key: 'getMatchObject',
-			value: function getMatchObject(key, value) {
-				value = value.toLowerCase();
-				var match = JSON.parse('{"' + key + '":' + JSON.stringify(value) + '}');
-				return { match: match };
-			}
-		}, {
-			key: 'getRangeObject',
-			value: function getRangeObject(key, value) {
-				var rangeObj = {
-					"gte": value.min,
-					"lte": value.max
-				};
-				var range = JSON.parse('{"' + key + '":' + JSON.stringify(rangeObj) + '}');
-				return { range: range };
-			}
-		}, {
-			key: 'getArrayIndex',
-			value: function getArrayIndex(array, key, value, type) {
-				var obj = eval('this.get' + type + 'Object(key, value)');
-				var encode64 = btoa(JSON.stringify(obj));
-				for (var i = 0; i < array.length; i++) {
-					if (btoa(JSON.stringify(array[i])) === encode64) {
-						return i;
+				if (sortObj && sortObj.length) {
+					query.body.sort = sortObj;
+				}
+				// apply request options
+				if (requestOptions && Object.keys(requestOptions).length) {
+					for (var reqOption in requestOptions) {
+						query.body[reqOption] = requestOptions[reqOption];
 					}
 				}
-				return -1;
+				return query;
 			}
-			// Listener for query change
+		}, {
+			key: 'nextPage',
+			value: function nextPage(channelId) {
+				var channelObj = this.channels[channelId];
+				var queryOptions = JSON.parse(JSON.stringify(this.channels[channelId].previousSelectedSensor));
+				var channelOptionsObj = channelObj.previousSelectedSensor['channel-options-' + channelId];
+				var options = {
+					size: this.queryOptions[channelId].size,
+					from: this.queryOptions[channelId].from + this.queryOptions[channelId].size
+				};
+				queryOptions['channel-options-' + channelId] = JSON.parse(JSON.stringify(options));
+				// queryOptions['channel-options-'+channelId].from += 1;
+				this.queryOptions[channelId] = options;
+				this.receive('channel-options-' + channelId, channelId, queryOptions);
+			}
+
+			// Create the channel by passing depends
+			// if depends are same it will create single channel for them
 
 		}, {
-			key: 'queryListener',
-			value: function queryListener() {
-				emitter.addListener('change', function (query) {
-					this.executeQuery(query);
-				}.bind(this));
-			}
-			// Execute query on query change
+			key: 'create',
+			value: function create(config, depends) {
+				var _this2 = this;
 
-		}, {
-			key: 'executeQuery',
-			value: function executeQuery(reqObject) {
-				// delete aggrefation query if exists
-				if (reqObject.body && reqObject.body.hasOwnProperty('aggs')) {
-					delete reqObject.body.aggs;
+				var size = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 100;
+				var from = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+				var channelId = btoa(JSON.stringify(depends));
+				var optionValues = {
+					size: size,
+					from: from
+				};
+				this.queryOptions[channelId] = optionValues;
+				this.appbaseConfig[channelId] = this.setAppbaseRef(config);
+				depends['channel-options-' + channelId] = optionValues;
+				var previousSelectedSensor = _defineProperty({}, 'channel-options-' + channelId, optionValues);
+				var obj = {
+					key: 'channel-options-' + channelId,
+					value: optionValues
+				};
+				helper.selectedSensor.set(obj);
+				if (!this.channels.hasOwnProperty(channelId)) {
+					this.channels[channelId] = {
+						depends: depends,
+						size: size,
+						from: from,
+						previousSelectedSensor: previousSelectedSensor
+					};
+					helper.watchForDependencyChange(depends, this.channels[channelId].previousSelectedSensor, this.receive, channelId);
 				}
-				// apply search query and emit queryResult
-				helper.appbaseRef.search(reqObject).on('data', function (data) {
-					emitter.emit('queryResult', data);
-				}).on('error', function (error) {
-					console.log(error);
+				setTimeout(function () {
+					if (depends.hasOwnProperty('aggs')) {
+						_this2.receive('aggs', channelId);
+					}
+				}, 100);
+				return {
+					channelId: channelId,
+					emitter: this.emitter
+				};
+			}
+
+			// set appbase ref
+
+		}, {
+			key: 'setAppbaseRef',
+			value: function setAppbaseRef(config) {
+				return new Appbase({
+					url: 'https://scalr.api.appbase.io',
+					appname: config.appbase.appname,
+					username: config.appbase.username,
+					password: config.appbase.password
 				});
 			}
 		}]);
 
-		return ImmutableQuery;
+		return channelManager;
 	}();
 
-	var queryObject = exports.queryObject = new ImmutableQuery();
+	;
+	var manager = exports.manager = new channelManager();
 
 /***/ },
 /* 9 */
@@ -2005,311 +2078,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var _require = __webpack_require__(9);
-
-	var EventEmitter = _require.EventEmitter;
-
-	var helper = __webpack_require__(16);
-
-	var channelManager = function () {
-		function channelManager() {
-			_classCallCheck(this, channelManager);
-
-			this.emitter = new EventEmitter();
-			this.channels = {};
-			this.streamRef = {};
-			this.queryOptions = {};
-			this.appbaseConfig = {};
-			this.receive = this.receive.bind(this);
-			this.nextPage = this.nextPage.bind(this);
-		}
-
-		_createClass(channelManager, [{
-			key: 'setConfig',
-			value: function setConfig(config) {
-				this.config = config;
-			}
-
-			// Receive: This method will be executed whenever dependency value changes
-			// It receives which dependency changes and which channeldId should be affected.
-
-		}, {
-			key: 'receive',
-			value: function receive(depend, channelId) {
-				var _this = this;
-
-				var queryOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
-				var self = this;
-				var channelObj = this.channels[channelId];
-				var queryObj = void 0;
-				if (!queryOptions) {
-					queryObj = this.queryBuild(channelObj.depends, channelObj.previousSelectedSensor, channelObj.size, channelObj.from);
-					this.queryOptions[channelId] = channelObj.previousSelectedSensor['channel-options-' + channelId];
-				} else {
-					queryObj = this.queryBuild(channelObj.depends, queryOptions, channelObj.size, channelObj.from);
-				}
-				var validQuery = true;
-				try {
-					validQuery = !queryObj.body.aggs && queryObj.body.query.bool.should.length === 0 ? false : true;
-				} catch (e) {}
-
-				if (validQuery) {
-					(function () {
-						var channelResponse = {
-							startTime: new Date().getTime(),
-							appliedQuery: queryObj
-						};
-						var appbaseRef = _this.appbaseConfig[channelId];
-						if (appbaseRef) {
-							// apply search query and emit historic queryResult
-							appbaseRef.search(queryObj).on('data', function (data) {
-								channelResponse.method = 'historic';
-								channelResponse.data = data;
-								self.emitter.emit(channelId, channelResponse);
-							}).on('error', function (error) {
-								console.log(error);
-							});
-							// apply searchStream query and emit streaming data
-							if (_this.streamRef[channelId]) {
-								_this.streamRef[channelId].stop();
-							}
-							_this.streamRef[channelId] = appbaseRef.searchStream(queryObj).on('data', function (data) {
-								var obj = {
-									method: 'stream',
-									data: data,
-									appliedQuery: queryObj
-								};
-								self.emitter.emit(channelId, obj);
-							}).on('error', function (error) {
-								console.log(error);
-							});
-						} else {
-							console.error('appbaseRef is not set for ' + channelId);
-						}
-					})();
-				} else {
-					var obj = {
-						method: 'historic',
-						data: {
-							_shards: {},
-							hits: {
-								hits: []
-							}
-						},
-						appliedQuery: queryObj
-					};
-					self.emitter.emit(channelId, obj);
-				}
-			}
-
-			// queryBuild
-			// Builds the query by using depends object and values of sensor
-
-		}, {
-			key: 'queryBuild',
-			value: function queryBuild(depends, previousSelectedSensor, size) {
-				var from = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
-
-				var aggs = null;
-				var mustArray = [];
-				var shouldArray = [];
-				var requestOptions = {};
-				var sortObj = [];
-				for (var depend in depends) {
-					if (depend === 'aggs') {
-						aggs = aggsQuery(depend);
-					} else if (depend.indexOf('channel-options-') > -1) {
-						requestOptions = previousSelectedSensor[depend];
-					} else {
-						var queryObj = null;
-						if (depends[depend].defaultQuery) {
-							queryObj = depends[depend].defaultQuery(previousSelectedSensor[depend]);
-						} else {
-							queryObj = singleQuery(depend);
-						}
-						if (queryObj) {
-							if (depends[depend].operation === 'must') {
-								mustArray.push(queryObj);
-							} else if (depends[depend].operation === 'should') {
-								shouldArray.push(queryObj);
-							}
-						}
-					}
-					var sortField = sortAvailbale(depend);
-					if (sortField) {
-						sortObj.push(sortField);
-					}
-				}
-
-				// check if sortinfo is availbale
-				function sortAvailbale(depend) {
-					var sortInfo = helper.selectedSensor.get(depend, 'sortInfo');
-					return sortInfo;
-				}
-
-				// build single query or if default query present in sensor itself use that
-				function singleQuery(depend) {
-					var sensorInfo = helper.selectedSensor.get(depend, 'sensorInfo');
-					var s_query = null;
-					if (sensorInfo && sensorInfo.defaultQuery) {
-						s_query = sensorInfo.defaultQuery(previousSelectedSensor[depend]);
-					} else if (previousSelectedSensor[depend]) {
-						s_query = {};
-						s_query[sensorInfo.queryType] = {};
-						s_query[sensorInfo.queryType][sensorInfo.inputData] = previousSelectedSensor[depend];
-					}
-					return s_query;
-				}
-
-				function aggsQuery(depend) {
-					var aggsObj = depends[depend];
-					var order = void 0,
-					    type = void 0;
-					if (aggsObj.sort == "count") {
-						order = "desc";
-						type = "_count";
-					} else if (aggsObj.sort == "asc") {
-						order = "asc";
-						type = "_term";
-					} else {
-						order = "desc";
-						type = "_term";
-					}
-					var orderQuery = '{ \n\t\t\t\t"' + type + '" : "' + order + '" \n\t\t\t}';
-					return JSON.parse('{\n\t\t\t\t"' + aggsObj.key + '": {\n\t\t\t\t\t"terms": {\n\t\t\t\t\t\t"field": "' + aggsObj.key + '",\n\t\t\t\t\t\t"size": ' + aggsObj.size + ',\n\t\t\t\t\t\t"order": ' + orderQuery + '\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}');
-				}
-				if (mustArray.length) {
-					var mustObject = {
-						bool: {
-							must: mustArray
-						}
-					};
-					shouldArray.push(mustObject);
-				}
-
-				var query = {
-					type: this.config.type,
-					body: {
-						"query": {
-							"bool": {
-								"should": shouldArray,
-								"minimum_should_match": 1
-							}
-						}
-					}
-				};
-				if (aggs) {
-					query.body.aggs = aggs;
-				}
-				if (sortObj && sortObj.length) {
-					query.body.sort = sortObj;
-				}
-				// apply request options
-				if (requestOptions && Object.keys(requestOptions).length) {
-					for (var reqOption in requestOptions) {
-						query.body[reqOption] = requestOptions[reqOption];
-					}
-				}
-				return query;
-			}
-		}, {
-			key: 'nextPage',
-			value: function nextPage(channelId) {
-				var channelObj = this.channels[channelId];
-				var queryOptions = JSON.parse(JSON.stringify(this.channels[channelId].previousSelectedSensor));
-				var channelOptionsObj = channelObj.previousSelectedSensor['channel-options-' + channelId];
-				var options = {
-					size: this.queryOptions[channelId].size,
-					from: this.queryOptions[channelId].from + this.queryOptions[channelId].size
-				};
-				queryOptions['channel-options-' + channelId] = JSON.parse(JSON.stringify(options));
-				// queryOptions['channel-options-'+channelId].from += 1;
-				this.queryOptions[channelId] = options;
-				this.receive('channel-options-' + channelId, channelId, queryOptions);
-			}
-
-			// Create the channel by passing depends
-			// if depends are same it will create single channel for them
-
-		}, {
-			key: 'create',
-			value: function create(config, depends) {
-				var _this2 = this;
-
-				var size = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 100;
-				var from = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
-
-				var channelId = btoa(JSON.stringify(depends));
-				var optionValues = {
-					size: size,
-					from: from
-				};
-				this.queryOptions[channelId] = optionValues;
-				this.appbaseConfig[channelId] = this.setAppbaseRef(config);
-				depends['channel-options-' + channelId] = optionValues;
-				var previousSelectedSensor = _defineProperty({}, 'channel-options-' + channelId, optionValues);
-				var obj = {
-					key: 'channel-options-' + channelId,
-					value: optionValues
-				};
-				helper.selectedSensor.set(obj);
-				if (!this.channels.hasOwnProperty(channelId)) {
-					this.channels[channelId] = {
-						depends: depends,
-						size: size,
-						from: from,
-						previousSelectedSensor: previousSelectedSensor
-					};
-					helper.watchForDependencyChange(depends, this.channels[channelId].previousSelectedSensor, this.receive, channelId);
-				}
-				setTimeout(function () {
-					if (depends.hasOwnProperty('aggs')) {
-						_this2.receive('aggs', channelId);
-					}
-				}, 100);
-				return {
-					channelId: channelId,
-					emitter: this.emitter
-				};
-			}
-
-			// set appbase ref
-
-		}, {
-			key: 'setAppbaseRef',
-			value: function setAppbaseRef(config) {
-				return new Appbase({
-					url: 'https://scalr.api.appbase.io',
-					appname: config.appbase.appname,
-					username: config.appbase.username,
-					password: config.appbase.password
-				});
-			}
-		}]);
-
-		return channelManager;
-	}();
-
-	;
-	var manager = exports.manager = new channelManager();
-
-/***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
 	exports.StaticSearch = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -2361,8 +2129,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'col s12 col-xs-12 staticSearchContainer inputBox' },
-					_react2.default.createElement('input', { type: 'text', className: 'col s12 col-xs-12 form-control',
+					{ className: 'ab-StaticSearchComponent ab-input-container col s12 col-xs-12' },
+					_react2.default.createElement('input', { type: 'text', className: 'ab-input col s12 col-xs-12 form-control',
 						value: this.state.searchValue,
 						placeholder: this.props.placeholder,
 						onChange: this.handleChange })
@@ -2374,7 +2142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_react.Component);
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2392,13 +2160,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom = __webpack_require__(4);
 
-	var _ImmutableQuery = __webpack_require__(8);
+	var _ChannelManager = __webpack_require__(8);
 
-	var _ChannelManager = __webpack_require__(24);
+	var _HistoGram = __webpack_require__(26);
 
-	var _HistoGram = __webpack_require__(27);
-
-	var _rcSlider = __webpack_require__(39);
+	var _rcSlider = __webpack_require__(38);
 
 	var _rcSlider2 = _interopRequireDefault(_rcSlider);
 
@@ -2589,7 +2355,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					titleExists = true;
 					title = _react2.default.createElement(
 						'h4',
-						{ className: 'componentTitle col s12 col-xs-12' },
+						{ className: 'ab-componentTitle col s12 col-xs-12' },
 						this.props.title
 					);
 				}
@@ -2599,13 +2365,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					'div',
-					{ className: 'reactiveComponent sliderComponent card thumbnail col s12 col-xs-12' },
+					{ className: 'ab-component ab-SliderComponent card thumbnail col s12 col-xs-12' },
 					title,
 					histogram,
 					_react2.default.createElement(
 						'div',
-						{ className: 'inputRangeContainer col s12 col-xs-12', style: { 'margin': '25px 0' } },
-						_react2.default.createElement(_rcSlider2.default, { range: true,
+						{ className: 'ab-SliderComponent-Container col s12 col-xs-12', style: { 'margin': '25px 0' } },
+						_react2.default.createElement(_rcSlider2.default, { range: true, className: 'ab-slider',
 							defaultValue: [this.state.values.min, this.state.values.max],
 							min: this.state.minThreshold,
 							max: this.state.maxThreshold,
@@ -2642,7 +2408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2660,7 +2426,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom = __webpack_require__(4);
 
-	var _reactTooltip = __webpack_require__(28);
+	var _reactTooltip = __webpack_require__(27);
 
 	var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
@@ -2777,7 +2543,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_react.Component);
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2805,37 +2571,37 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _classnames = __webpack_require__(29);
+	var _classnames = __webpack_require__(28);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _staticMethods = __webpack_require__(30);
+	var _staticMethods = __webpack_require__(29);
 
 	var _staticMethods2 = _interopRequireDefault(_staticMethods);
 
-	var _windowListener = __webpack_require__(32);
+	var _windowListener = __webpack_require__(31);
 
 	var _windowListener2 = _interopRequireDefault(_windowListener);
 
-	var _customEvent = __webpack_require__(33);
+	var _customEvent = __webpack_require__(32);
 
 	var _customEvent2 = _interopRequireDefault(_customEvent);
 
-	var _isCapture = __webpack_require__(34);
+	var _isCapture = __webpack_require__(33);
 
 	var _isCapture2 = _interopRequireDefault(_isCapture);
 
-	var _getPosition = __webpack_require__(35);
+	var _getPosition = __webpack_require__(34);
 
 	var _getPosition2 = _interopRequireDefault(_getPosition);
 
-	var _getTipContent = __webpack_require__(36);
+	var _getTipContent = __webpack_require__(35);
 
 	var _getTipContent2 = _interopRequireDefault(_getTipContent);
 
-	var _aria = __webpack_require__(37);
+	var _aria = __webpack_require__(36);
 
-	var _style = __webpack_require__(38);
+	var _style = __webpack_require__(37);
 
 	var _style2 = _interopRequireDefault(_style);
 
@@ -3342,7 +3108,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactTooltip;
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -3396,7 +3162,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3454,7 +3220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	};
 
-	var _constant = __webpack_require__(31);
+	var _constant = __webpack_require__(30);
 
 	var _constant2 = _interopRequireDefault(_constant);
 
@@ -3478,7 +3244,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    */
 
 /***/ },
-/* 31 */
+/* 30 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3496,7 +3262,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 32 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3542,14 +3308,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	};
 
-	var _constant = __webpack_require__(31);
+	var _constant = __webpack_require__(30);
 
 	var _constant2 = _interopRequireDefault(_constant);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 33 */
+/* 32 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3642,7 +3408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var customListener = void 0;
 
 /***/ },
-/* 34 */
+/* 33 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3659,7 +3425,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 35 */
+/* 34 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3977,7 +3743,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 36 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4014,7 +3780,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 37 */
+/* 36 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4043,7 +3809,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 38 */
+/* 37 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4054,15 +3820,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = '.__react_component_tooltip{border-radius:3px;display:inline-block;font-size:13px;left:-999em;opacity:0;padding:8px 21px;position:fixed;pointer-events:none;transition:opacity 0.3s ease-out;top:-999em;visibility:hidden;z-index:999}.__react_component_tooltip:before,.__react_component_tooltip:after{content:"";width:0;height:0;position:absolute}.__react_component_tooltip.show{opacity:0.9;margin-top:0px;margin-left:0px;visibility:visible}.__react_component_tooltip.type-dark{color:#fff;background-color:#222}.__react_component_tooltip.type-dark.place-top:after{border-top-color:#222;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-dark.place-bottom:after{border-bottom-color:#222;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-dark.place-left:after{border-left-color:#222;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-dark.place-right:after{border-right-color:#222;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-dark.border{border:1px solid #fff}.__react_component_tooltip.type-dark.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-dark.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-dark.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-dark.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-success{color:#fff;background-color:#8DC572}.__react_component_tooltip.type-success.place-top:after{border-top-color:#8DC572;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-success.place-bottom:after{border-bottom-color:#8DC572;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-success.place-left:after{border-left-color:#8DC572;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-success.place-right:after{border-right-color:#8DC572;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-success.border{border:1px solid #fff}.__react_component_tooltip.type-success.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-success.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-success.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-success.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-warning{color:#fff;background-color:#F0AD4E}.__react_component_tooltip.type-warning.place-top:after{border-top-color:#F0AD4E;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-warning.place-bottom:after{border-bottom-color:#F0AD4E;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-warning.place-left:after{border-left-color:#F0AD4E;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-warning.place-right:after{border-right-color:#F0AD4E;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-warning.border{border:1px solid #fff}.__react_component_tooltip.type-warning.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-warning.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-warning.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-warning.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-error{color:#fff;background-color:#BE6464}.__react_component_tooltip.type-error.place-top:after{border-top-color:#BE6464;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-error.place-bottom:after{border-bottom-color:#BE6464;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-error.place-left:after{border-left-color:#BE6464;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-error.place-right:after{border-right-color:#BE6464;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-error.border{border:1px solid #fff}.__react_component_tooltip.type-error.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-error.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-error.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-error.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-info{color:#fff;background-color:#337AB7}.__react_component_tooltip.type-info.place-top:after{border-top-color:#337AB7;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-info.place-bottom:after{border-bottom-color:#337AB7;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-info.place-left:after{border-left-color:#337AB7;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-info.place-right:after{border-right-color:#337AB7;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-info.border{border:1px solid #fff}.__react_component_tooltip.type-info.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-info.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-info.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-info.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-light{color:#222;background-color:#fff}.__react_component_tooltip.type-light.place-top:after{border-top-color:#fff;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-light.place-bottom:after{border-bottom-color:#fff;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-light.place-left:after{border-left-color:#fff;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-light.place-right:after{border-right-color:#fff;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-light.border{border:1px solid #222}.__react_component_tooltip.type-light.border.place-top:before{border-top:8px solid #222}.__react_component_tooltip.type-light.border.place-bottom:before{border-bottom:8px solid #222}.__react_component_tooltip.type-light.border.place-left:before{border-left:8px solid #222}.__react_component_tooltip.type-light.border.place-right:before{border-right:8px solid #222}.__react_component_tooltip.place-top{margin-top:-10px}.__react_component_tooltip.place-top:before{border-left:10px solid transparent;border-right:10px solid transparent;bottom:-8px;left:50%;margin-left:-10px}.__react_component_tooltip.place-top:after{border-left:8px solid transparent;border-right:8px solid transparent;bottom:-6px;left:50%;margin-left:-8px}.__react_component_tooltip.place-bottom{margin-top:10px}.__react_component_tooltip.place-bottom:before{border-left:10px solid transparent;border-right:10px solid transparent;top:-8px;left:50%;margin-left:-10px}.__react_component_tooltip.place-bottom:after{border-left:8px solid transparent;border-right:8px solid transparent;top:-6px;left:50%;margin-left:-8px}.__react_component_tooltip.place-left{margin-left:-10px}.__react_component_tooltip.place-left:before{border-top:6px solid transparent;border-bottom:6px solid transparent;right:-8px;top:50%;margin-top:-5px}.__react_component_tooltip.place-left:after{border-top:5px solid transparent;border-bottom:5px solid transparent;right:-6px;top:50%;margin-top:-4px}.__react_component_tooltip.place-right{margin-left:10px}.__react_component_tooltip.place-right:before{border-top:6px solid transparent;border-bottom:6px solid transparent;left:-8px;top:50%;margin-top:-5px}.__react_component_tooltip.place-right:after{border-top:5px solid transparent;border-bottom:5px solid transparent;left:-6px;top:50%;margin-top:-4px}.__react_component_tooltip .multi-line{display:block;padding:2px 0px;text-align:center}';
 
 /***/ },
-/* 39 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(40);
+	module.exports = __webpack_require__(39);
 
 /***/ },
-/* 40 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4071,27 +3837,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _defineProperty2 = __webpack_require__(41);
+	var _defineProperty2 = __webpack_require__(40);
 
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-	var _toConsumableArray2 = __webpack_require__(60);
+	var _toConsumableArray2 = __webpack_require__(59);
 
 	var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-	var _extends2 = __webpack_require__(99);
+	var _extends2 = __webpack_require__(98);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
-	var _classCallCheck2 = __webpack_require__(106);
+	var _classCallCheck2 = __webpack_require__(105);
 
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-	var _possibleConstructorReturn2 = __webpack_require__(107);
+	var _possibleConstructorReturn2 = __webpack_require__(106);
 
 	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-	var _inherits2 = __webpack_require__(130);
+	var _inherits2 = __webpack_require__(129);
 
 	var _inherits3 = _interopRequireDefault(_inherits2);
 
@@ -4101,31 +3867,31 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _addEventListener = __webpack_require__(138);
+	var _addEventListener = __webpack_require__(137);
 
 	var _addEventListener2 = _interopRequireDefault(_addEventListener);
 
-	var _classnames = __webpack_require__(29);
+	var _classnames = __webpack_require__(28);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Track = __webpack_require__(143);
+	var _Track = __webpack_require__(142);
 
 	var _Track2 = _interopRequireDefault(_Track);
 
-	var _Handle = __webpack_require__(144);
+	var _Handle = __webpack_require__(143);
 
 	var _Handle2 = _interopRequireDefault(_Handle);
 
-	var _Steps = __webpack_require__(179);
+	var _Steps = __webpack_require__(178);
 
 	var _Steps2 = _interopRequireDefault(_Steps);
 
-	var _Marks = __webpack_require__(181);
+	var _Marks = __webpack_require__(180);
 
 	var _Marks2 = _interopRequireDefault(_Marks);
 
-	var _warning = __webpack_require__(180);
+	var _warning = __webpack_require__(179);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -4760,14 +4526,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 41 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	exports.__esModule = true;
 
-	var _defineProperty = __webpack_require__(42);
+	var _defineProperty = __webpack_require__(41);
 
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -4789,37 +4555,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(42), __esModule: true };
+
+/***/ },
 /* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(43), __esModule: true };
-
-/***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(44);
-	var $Object = __webpack_require__(47).Object;
+	__webpack_require__(43);
+	var $Object = __webpack_require__(46).Object;
 	module.exports = function defineProperty(it, key, desc){
 	  return $Object.defineProperty(it, key, desc);
 	};
 
 /***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var $export = __webpack_require__(44);
+	// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+	$export($export.S + $export.F * !__webpack_require__(54), 'Object', {defineProperty: __webpack_require__(50).f});
+
+/***/ },
 /* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var $export = __webpack_require__(45);
-	// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-	$export($export.S + $export.F * !__webpack_require__(55), 'Object', {defineProperty: __webpack_require__(51).f});
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var global    = __webpack_require__(46)
-	  , core      = __webpack_require__(47)
-	  , ctx       = __webpack_require__(48)
-	  , hide      = __webpack_require__(50)
+	var global    = __webpack_require__(45)
+	  , core      = __webpack_require__(46)
+	  , ctx       = __webpack_require__(47)
+	  , hide      = __webpack_require__(49)
 	  , PROTOTYPE = 'prototype';
 
 	var $export = function(type, name, source){
@@ -4879,7 +4645,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = $export;
 
 /***/ },
-/* 46 */
+/* 45 */
 /***/ function(module, exports) {
 
 	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -4888,18 +4654,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
 
 /***/ },
-/* 47 */
+/* 46 */
 /***/ function(module, exports) {
 
 	var core = module.exports = {version: '2.4.0'};
 	if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 
 /***/ },
-/* 48 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// optional / simple context binding
-	var aFunction = __webpack_require__(49);
+	var aFunction = __webpack_require__(48);
 	module.exports = function(fn, that, length){
 	  aFunction(fn);
 	  if(that === undefined)return fn;
@@ -4920,7 +4686,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 49 */
+/* 48 */
 /***/ function(module, exports) {
 
 	module.exports = function(it){
@@ -4929,12 +4695,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 50 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var dP         = __webpack_require__(51)
-	  , createDesc = __webpack_require__(59);
-	module.exports = __webpack_require__(55) ? function(object, key, value){
+	var dP         = __webpack_require__(50)
+	  , createDesc = __webpack_require__(58);
+	module.exports = __webpack_require__(54) ? function(object, key, value){
 	  return dP.f(object, key, createDesc(1, value));
 	} : function(object, key, value){
 	  object[key] = value;
@@ -4942,15 +4708,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 51 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var anObject       = __webpack_require__(52)
-	  , IE8_DOM_DEFINE = __webpack_require__(54)
-	  , toPrimitive    = __webpack_require__(58)
+	var anObject       = __webpack_require__(51)
+	  , IE8_DOM_DEFINE = __webpack_require__(53)
+	  , toPrimitive    = __webpack_require__(57)
 	  , dP             = Object.defineProperty;
 
-	exports.f = __webpack_require__(55) ? Object.defineProperty : function defineProperty(O, P, Attributes){
+	exports.f = __webpack_require__(54) ? Object.defineProperty : function defineProperty(O, P, Attributes){
 	  anObject(O);
 	  P = toPrimitive(P, true);
 	  anObject(Attributes);
@@ -4963,17 +4729,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 52 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(53);
+	var isObject = __webpack_require__(52);
 	module.exports = function(it){
 	  if(!isObject(it))throw TypeError(it + ' is not an object!');
 	  return it;
 	};
 
 /***/ },
-/* 53 */
+/* 52 */
 /***/ function(module, exports) {
 
 	module.exports = function(it){
@@ -4981,24 +4747,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 54 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = !__webpack_require__(55) && !__webpack_require__(56)(function(){
-	  return Object.defineProperty(__webpack_require__(57)('div'), 'a', {get: function(){ return 7; }}).a != 7;
+	module.exports = !__webpack_require__(54) && !__webpack_require__(55)(function(){
+	  return Object.defineProperty(__webpack_require__(56)('div'), 'a', {get: function(){ return 7; }}).a != 7;
 	});
 
 /***/ },
-/* 55 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Thank's IE8 for his funny defineProperty
-	module.exports = !__webpack_require__(56)(function(){
+	module.exports = !__webpack_require__(55)(function(){
 	  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
 	});
 
 /***/ },
-/* 56 */
+/* 55 */
 /***/ function(module, exports) {
 
 	module.exports = function(exec){
@@ -5010,11 +4776,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 57 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(53)
-	  , document = __webpack_require__(46).document
+	var isObject = __webpack_require__(52)
+	  , document = __webpack_require__(45).document
 	  // in old IE typeof document.createElement is 'object'
 	  , is = isObject(document) && isObject(document.createElement);
 	module.exports = function(it){
@@ -5022,11 +4788,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 58 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.1.1 ToPrimitive(input [, PreferredType])
-	var isObject = __webpack_require__(53);
+	var isObject = __webpack_require__(52);
 	// instead of the ES6 spec version, we didn't implement @@toPrimitive case
 	// and the second argument - flag - preferred type is a string
 	module.exports = function(it, S){
@@ -5039,7 +4805,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 59 */
+/* 58 */
 /***/ function(module, exports) {
 
 	module.exports = function(bitmap, value){
@@ -5052,14 +4818,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 60 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	exports.__esModule = true;
 
-	var _from = __webpack_require__(61);
+	var _from = __webpack_require__(60);
 
 	var _from2 = _interopRequireDefault(_from);
 
@@ -5078,28 +4844,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(61), __esModule: true };
+
+/***/ },
 /* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(62), __esModule: true };
+	__webpack_require__(62);
+	__webpack_require__(91);
+	module.exports = __webpack_require__(46).Array.from;
 
 /***/ },
 /* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(63);
-	__webpack_require__(92);
-	module.exports = __webpack_require__(47).Array.from;
-
-/***/ },
-/* 63 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
-	var $at  = __webpack_require__(64)(true);
+	var $at  = __webpack_require__(63)(true);
 
 	// 21.1.3.27 String.prototype[@@iterator]()
-	__webpack_require__(67)(String, 'String', function(iterated){
+	__webpack_require__(66)(String, 'String', function(iterated){
 	  this._t = String(iterated); // target
 	  this._i = 0;                // next index
 	// 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -5114,11 +4880,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 64 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toInteger = __webpack_require__(65)
-	  , defined   = __webpack_require__(66);
+	var toInteger = __webpack_require__(64)
+	  , defined   = __webpack_require__(65);
 	// true  -> String#at
 	// false -> String#codePointAt
 	module.exports = function(TO_STRING){
@@ -5136,7 +4902,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 65 */
+/* 64 */
 /***/ function(module, exports) {
 
 	// 7.1.4 ToInteger
@@ -5147,7 +4913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 66 */
+/* 65 */
 /***/ function(module, exports) {
 
 	// 7.2.1 RequireObjectCoercible(argument)
@@ -5157,20 +4923,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 67 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var LIBRARY        = __webpack_require__(68)
-	  , $export        = __webpack_require__(45)
-	  , redefine       = __webpack_require__(69)
-	  , hide           = __webpack_require__(50)
-	  , has            = __webpack_require__(70)
-	  , Iterators      = __webpack_require__(71)
-	  , $iterCreate    = __webpack_require__(72)
-	  , setToStringTag = __webpack_require__(88)
-	  , getPrototypeOf = __webpack_require__(90)
-	  , ITERATOR       = __webpack_require__(89)('iterator')
+	var LIBRARY        = __webpack_require__(67)
+	  , $export        = __webpack_require__(44)
+	  , redefine       = __webpack_require__(68)
+	  , hide           = __webpack_require__(49)
+	  , has            = __webpack_require__(69)
+	  , Iterators      = __webpack_require__(70)
+	  , $iterCreate    = __webpack_require__(71)
+	  , setToStringTag = __webpack_require__(87)
+	  , getPrototypeOf = __webpack_require__(89)
+	  , ITERATOR       = __webpack_require__(88)('iterator')
 	  , BUGGY          = !([].keys && 'next' in [].keys()) // Safari has buggy iterators w/o `next`
 	  , FF_ITERATOR    = '@@iterator'
 	  , KEYS           = 'keys'
@@ -5232,19 +4998,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 68 */
+/* 67 */
 /***/ function(module, exports) {
 
 	module.exports = true;
 
 /***/ },
-/* 69 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(50);
+	module.exports = __webpack_require__(49);
 
 /***/ },
-/* 70 */
+/* 69 */
 /***/ function(module, exports) {
 
 	var hasOwnProperty = {}.hasOwnProperty;
@@ -5253,23 +5019,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 71 */
+/* 70 */
 /***/ function(module, exports) {
 
 	module.exports = {};
 
 /***/ },
-/* 72 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var create         = __webpack_require__(73)
-	  , descriptor     = __webpack_require__(59)
-	  , setToStringTag = __webpack_require__(88)
+	var create         = __webpack_require__(72)
+	  , descriptor     = __webpack_require__(58)
+	  , setToStringTag = __webpack_require__(87)
 	  , IteratorPrototype = {};
 
 	// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-	__webpack_require__(50)(IteratorPrototype, __webpack_require__(89)('iterator'), function(){ return this; });
+	__webpack_require__(49)(IteratorPrototype, __webpack_require__(88)('iterator'), function(){ return this; });
 
 	module.exports = function(Constructor, NAME, next){
 	  Constructor.prototype = create(IteratorPrototype, {next: descriptor(1, next)});
@@ -5277,27 +5043,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 73 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-	var anObject    = __webpack_require__(52)
-	  , dPs         = __webpack_require__(74)
-	  , enumBugKeys = __webpack_require__(86)
-	  , IE_PROTO    = __webpack_require__(83)('IE_PROTO')
+	var anObject    = __webpack_require__(51)
+	  , dPs         = __webpack_require__(73)
+	  , enumBugKeys = __webpack_require__(85)
+	  , IE_PROTO    = __webpack_require__(82)('IE_PROTO')
 	  , Empty       = function(){ /* empty */ }
 	  , PROTOTYPE   = 'prototype';
 
 	// Create object with fake `null` prototype: use iframe Object with cleared prototype
 	var createDict = function(){
 	  // Thrash, waste and sodomy: IE GC bug
-	  var iframe = __webpack_require__(57)('iframe')
+	  var iframe = __webpack_require__(56)('iframe')
 	    , i      = enumBugKeys.length
 	    , lt     = '<'
 	    , gt     = '>'
 	    , iframeDocument;
 	  iframe.style.display = 'none';
-	  __webpack_require__(87).appendChild(iframe);
+	  __webpack_require__(86).appendChild(iframe);
 	  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
 	  // createDict = iframe.contentWindow.Object;
 	  // html.removeChild(iframe);
@@ -5324,14 +5090,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 74 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var dP       = __webpack_require__(51)
-	  , anObject = __webpack_require__(52)
-	  , getKeys  = __webpack_require__(75);
+	var dP       = __webpack_require__(50)
+	  , anObject = __webpack_require__(51)
+	  , getKeys  = __webpack_require__(74);
 
-	module.exports = __webpack_require__(55) ? Object.defineProperties : function defineProperties(O, Properties){
+	module.exports = __webpack_require__(54) ? Object.defineProperties : function defineProperties(O, Properties){
 	  anObject(O);
 	  var keys   = getKeys(Properties)
 	    , length = keys.length
@@ -5342,25 +5108,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 75 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-	var $keys       = __webpack_require__(76)
-	  , enumBugKeys = __webpack_require__(86);
+	var $keys       = __webpack_require__(75)
+	  , enumBugKeys = __webpack_require__(85);
 
 	module.exports = Object.keys || function keys(O){
 	  return $keys(O, enumBugKeys);
 	};
 
 /***/ },
-/* 76 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var has          = __webpack_require__(70)
-	  , toIObject    = __webpack_require__(77)
-	  , arrayIndexOf = __webpack_require__(80)(false)
-	  , IE_PROTO     = __webpack_require__(83)('IE_PROTO');
+	var has          = __webpack_require__(69)
+	  , toIObject    = __webpack_require__(76)
+	  , arrayIndexOf = __webpack_require__(79)(false)
+	  , IE_PROTO     = __webpack_require__(82)('IE_PROTO');
 
 	module.exports = function(object, names){
 	  var O      = toIObject(object)
@@ -5376,28 +5142,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 77 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// to indexed object, toObject with fallback for non-array-like ES3 strings
-	var IObject = __webpack_require__(78)
-	  , defined = __webpack_require__(66);
+	var IObject = __webpack_require__(77)
+	  , defined = __webpack_require__(65);
 	module.exports = function(it){
 	  return IObject(defined(it));
 	};
 
 /***/ },
-/* 78 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// fallback for non-array-like ES3 and non-enumerable old V8 strings
-	var cof = __webpack_require__(79);
+	var cof = __webpack_require__(78);
 	module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
 	  return cof(it) == 'String' ? it.split('') : Object(it);
 	};
 
 /***/ },
-/* 79 */
+/* 78 */
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -5407,14 +5173,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 80 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// false -> Array#indexOf
 	// true  -> Array#includes
-	var toIObject = __webpack_require__(77)
-	  , toLength  = __webpack_require__(81)
-	  , toIndex   = __webpack_require__(82);
+	var toIObject = __webpack_require__(76)
+	  , toLength  = __webpack_require__(80)
+	  , toIndex   = __webpack_require__(81);
 	module.exports = function(IS_INCLUDES){
 	  return function($this, el, fromIndex){
 	    var O      = toIObject($this)
@@ -5433,21 +5199,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 81 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.1.15 ToLength
-	var toInteger = __webpack_require__(65)
+	var toInteger = __webpack_require__(64)
 	  , min       = Math.min;
 	module.exports = function(it){
 	  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
 	};
 
 /***/ },
-/* 82 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toInteger = __webpack_require__(65)
+	var toInteger = __webpack_require__(64)
 	  , max       = Math.max
 	  , min       = Math.min;
 	module.exports = function(index, length){
@@ -5456,20 +5222,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 83 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var shared = __webpack_require__(84)('keys')
-	  , uid    = __webpack_require__(85);
+	var shared = __webpack_require__(83)('keys')
+	  , uid    = __webpack_require__(84);
 	module.exports = function(key){
 	  return shared[key] || (shared[key] = uid(key));
 	};
 
 /***/ },
-/* 84 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var global = __webpack_require__(46)
+	var global = __webpack_require__(45)
 	  , SHARED = '__core-js_shared__'
 	  , store  = global[SHARED] || (global[SHARED] = {});
 	module.exports = function(key){
@@ -5477,7 +5243,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 85 */
+/* 84 */
 /***/ function(module, exports) {
 
 	var id = 0
@@ -5487,7 +5253,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 86 */
+/* 85 */
 /***/ function(module, exports) {
 
 	// IE 8- don't enum bug keys
@@ -5496,30 +5262,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	).split(',');
 
 /***/ },
+/* 86 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(45).document && document.documentElement;
+
+/***/ },
 /* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(46).document && document.documentElement;
-
-/***/ },
-/* 88 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var def = __webpack_require__(51).f
-	  , has = __webpack_require__(70)
-	  , TAG = __webpack_require__(89)('toStringTag');
+	var def = __webpack_require__(50).f
+	  , has = __webpack_require__(69)
+	  , TAG = __webpack_require__(88)('toStringTag');
 
 	module.exports = function(it, tag, stat){
 	  if(it && !has(it = stat ? it : it.prototype, TAG))def(it, TAG, {configurable: true, value: tag});
 	};
 
 /***/ },
-/* 89 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var store      = __webpack_require__(84)('wks')
-	  , uid        = __webpack_require__(85)
-	  , Symbol     = __webpack_require__(46).Symbol
+	var store      = __webpack_require__(83)('wks')
+	  , uid        = __webpack_require__(84)
+	  , Symbol     = __webpack_require__(45).Symbol
 	  , USE_SYMBOL = typeof Symbol == 'function';
 
 	var $exports = module.exports = function(name){
@@ -5530,13 +5296,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	$exports.store = store;
 
 /***/ },
-/* 90 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-	var has         = __webpack_require__(70)
-	  , toObject    = __webpack_require__(91)
-	  , IE_PROTO    = __webpack_require__(83)('IE_PROTO')
+	var has         = __webpack_require__(69)
+	  , toObject    = __webpack_require__(90)
+	  , IE_PROTO    = __webpack_require__(82)('IE_PROTO')
 	  , ObjectProto = Object.prototype;
 
 	module.exports = Object.getPrototypeOf || function(O){
@@ -5548,30 +5314,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 91 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.1.13 ToObject(argument)
-	var defined = __webpack_require__(66);
+	var defined = __webpack_require__(65);
 	module.exports = function(it){
 	  return Object(defined(it));
 	};
 
 /***/ },
-/* 92 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var ctx            = __webpack_require__(48)
-	  , $export        = __webpack_require__(45)
-	  , toObject       = __webpack_require__(91)
-	  , call           = __webpack_require__(93)
-	  , isArrayIter    = __webpack_require__(94)
-	  , toLength       = __webpack_require__(81)
-	  , createProperty = __webpack_require__(95)
-	  , getIterFn      = __webpack_require__(96);
+	var ctx            = __webpack_require__(47)
+	  , $export        = __webpack_require__(44)
+	  , toObject       = __webpack_require__(90)
+	  , call           = __webpack_require__(92)
+	  , isArrayIter    = __webpack_require__(93)
+	  , toLength       = __webpack_require__(80)
+	  , createProperty = __webpack_require__(94)
+	  , getIterFn      = __webpack_require__(95);
 
-	$export($export.S + $export.F * !__webpack_require__(98)(function(iter){ Array.from(iter); }), 'Array', {
+	$export($export.S + $export.F * !__webpack_require__(97)(function(iter){ Array.from(iter); }), 'Array', {
 	  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
 	  from: function from(arrayLike/*, mapfn = undefined, thisArg = undefined*/){
 	    var O       = toObject(arrayLike)
@@ -5601,11 +5367,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 93 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// call something on iterator step with safe closing on error
-	var anObject = __webpack_require__(52);
+	var anObject = __webpack_require__(51);
 	module.exports = function(iterator, fn, value, entries){
 	  try {
 	    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
@@ -5618,12 +5384,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 94 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// check on default Array iterator
-	var Iterators  = __webpack_require__(71)
-	  , ITERATOR   = __webpack_require__(89)('iterator')
+	var Iterators  = __webpack_require__(70)
+	  , ITERATOR   = __webpack_require__(88)('iterator')
 	  , ArrayProto = Array.prototype;
 
 	module.exports = function(it){
@@ -5631,12 +5397,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 95 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var $defineProperty = __webpack_require__(51)
-	  , createDesc      = __webpack_require__(59);
+	var $defineProperty = __webpack_require__(50)
+	  , createDesc      = __webpack_require__(58);
 
 	module.exports = function(object, index, value){
 	  if(index in object)$defineProperty.f(object, index, createDesc(0, value));
@@ -5644,25 +5410,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 96 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var classof   = __webpack_require__(97)
-	  , ITERATOR  = __webpack_require__(89)('iterator')
-	  , Iterators = __webpack_require__(71);
-	module.exports = __webpack_require__(47).getIteratorMethod = function(it){
+	var classof   = __webpack_require__(96)
+	  , ITERATOR  = __webpack_require__(88)('iterator')
+	  , Iterators = __webpack_require__(70);
+	module.exports = __webpack_require__(46).getIteratorMethod = function(it){
 	  if(it != undefined)return it[ITERATOR]
 	    || it['@@iterator']
 	    || Iterators[classof(it)];
 	};
 
 /***/ },
-/* 97 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// getting tag from 19.1.3.6 Object.prototype.toString()
-	var cof = __webpack_require__(79)
-	  , TAG = __webpack_require__(89)('toStringTag')
+	var cof = __webpack_require__(78)
+	  , TAG = __webpack_require__(88)('toStringTag')
 	  // ES3 wrong here
 	  , ARG = cof(function(){ return arguments; }()) == 'Arguments';
 
@@ -5685,10 +5451,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 98 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ITERATOR     = __webpack_require__(89)('iterator')
+	var ITERATOR     = __webpack_require__(88)('iterator')
 	  , SAFE_CLOSING = false;
 
 	try {
@@ -5711,14 +5477,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 99 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	exports.__esModule = true;
 
-	var _assign = __webpack_require__(100);
+	var _assign = __webpack_require__(99);
 
 	var _assign2 = _interopRequireDefault(_assign);
 
@@ -5739,42 +5505,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 99 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(100), __esModule: true };
+
+/***/ },
 /* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(101), __esModule: true };
+	__webpack_require__(101);
+	module.exports = __webpack_require__(46).Object.assign;
 
 /***/ },
 /* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(102);
-	module.exports = __webpack_require__(47).Object.assign;
+	// 19.1.3.1 Object.assign(target, source)
+	var $export = __webpack_require__(44);
+
+	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(102)});
 
 /***/ },
 /* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// 19.1.3.1 Object.assign(target, source)
-	var $export = __webpack_require__(45);
-
-	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(103)});
-
-/***/ },
-/* 103 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	// 19.1.2.1 Object.assign(target, source, ...)
-	var getKeys  = __webpack_require__(75)
-	  , gOPS     = __webpack_require__(104)
-	  , pIE      = __webpack_require__(105)
-	  , toObject = __webpack_require__(91)
-	  , IObject  = __webpack_require__(78)
+	var getKeys  = __webpack_require__(74)
+	  , gOPS     = __webpack_require__(103)
+	  , pIE      = __webpack_require__(104)
+	  , toObject = __webpack_require__(90)
+	  , IObject  = __webpack_require__(77)
 	  , $assign  = Object.assign;
 
 	// should work with symbols and should have deterministic property order (V8 bug)
-	module.exports = !$assign || __webpack_require__(56)(function(){
+	module.exports = !$assign || __webpack_require__(55)(function(){
 	  var A = {}
 	    , B = {}
 	    , S = Symbol()
@@ -5799,19 +5565,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	} : $assign;
 
 /***/ },
-/* 104 */
+/* 103 */
 /***/ function(module, exports) {
 
 	exports.f = Object.getOwnPropertySymbols;
 
 /***/ },
-/* 105 */
+/* 104 */
 /***/ function(module, exports) {
 
 	exports.f = {}.propertyIsEnumerable;
 
 /***/ },
-/* 106 */
+/* 105 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5825,14 +5591,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 107 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	exports.__esModule = true;
 
-	var _typeof2 = __webpack_require__(108);
+	var _typeof2 = __webpack_require__(107);
 
 	var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -5847,18 +5613,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 108 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	exports.__esModule = true;
 
-	var _iterator = __webpack_require__(109);
+	var _iterator = __webpack_require__(108);
 
 	var _iterator2 = _interopRequireDefault(_iterator);
 
-	var _symbol = __webpack_require__(116);
+	var _symbol = __webpack_require__(115);
 
 	var _symbol2 = _interopRequireDefault(_symbol);
 
@@ -5873,28 +5639,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 108 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(109), __esModule: true };
+
+/***/ },
 /* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(110), __esModule: true };
+	__webpack_require__(62);
+	__webpack_require__(110);
+	module.exports = __webpack_require__(114).f('iterator');
 
 /***/ },
 /* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(63);
 	__webpack_require__(111);
-	module.exports = __webpack_require__(115).f('iterator');
-
-/***/ },
-/* 111 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(112);
-	var global        = __webpack_require__(46)
-	  , hide          = __webpack_require__(50)
-	  , Iterators     = __webpack_require__(71)
-	  , TO_STRING_TAG = __webpack_require__(89)('toStringTag');
+	var global        = __webpack_require__(45)
+	  , hide          = __webpack_require__(49)
+	  , Iterators     = __webpack_require__(70)
+	  , TO_STRING_TAG = __webpack_require__(88)('toStringTag');
 
 	for(var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList', 'CSSRuleList'], i = 0; i < 5; i++){
 	  var NAME       = collections[i]
@@ -5905,20 +5671,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 112 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var addToUnscopables = __webpack_require__(113)
-	  , step             = __webpack_require__(114)
-	  , Iterators        = __webpack_require__(71)
-	  , toIObject        = __webpack_require__(77);
+	var addToUnscopables = __webpack_require__(112)
+	  , step             = __webpack_require__(113)
+	  , Iterators        = __webpack_require__(70)
+	  , toIObject        = __webpack_require__(76);
 
 	// 22.1.3.4 Array.prototype.entries()
 	// 22.1.3.13 Array.prototype.keys()
 	// 22.1.3.29 Array.prototype.values()
 	// 22.1.3.30 Array.prototype[@@iterator]()
-	module.exports = __webpack_require__(67)(Array, 'Array', function(iterated, kind){
+	module.exports = __webpack_require__(66)(Array, 'Array', function(iterated, kind){
 	  this._t = toIObject(iterated); // target
 	  this._i = 0;                   // next index
 	  this._k = kind;                // kind
@@ -5944,13 +5710,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	addToUnscopables('entries');
 
 /***/ },
-/* 113 */
+/* 112 */
 /***/ function(module, exports) {
 
 	module.exports = function(){ /* empty */ };
 
 /***/ },
-/* 114 */
+/* 113 */
 /***/ function(module, exports) {
 
 	module.exports = function(done, value){
@@ -5958,58 +5724,58 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 114 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports.f = __webpack_require__(88);
+
+/***/ },
 /* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports.f = __webpack_require__(89);
+	module.exports = { "default": __webpack_require__(116), __esModule: true };
 
 /***/ },
 /* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(117), __esModule: true };
+	__webpack_require__(117);
+	__webpack_require__(126);
+	__webpack_require__(127);
+	__webpack_require__(128);
+	module.exports = __webpack_require__(46).Symbol;
 
 /***/ },
 /* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(118);
-	__webpack_require__(127);
-	__webpack_require__(128);
-	__webpack_require__(129);
-	module.exports = __webpack_require__(47).Symbol;
-
-/***/ },
-/* 118 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	// ECMAScript 6 symbols shim
-	var global         = __webpack_require__(46)
-	  , has            = __webpack_require__(70)
-	  , DESCRIPTORS    = __webpack_require__(55)
-	  , $export        = __webpack_require__(45)
-	  , redefine       = __webpack_require__(69)
-	  , META           = __webpack_require__(119).KEY
-	  , $fails         = __webpack_require__(56)
-	  , shared         = __webpack_require__(84)
-	  , setToStringTag = __webpack_require__(88)
-	  , uid            = __webpack_require__(85)
-	  , wks            = __webpack_require__(89)
-	  , wksExt         = __webpack_require__(115)
-	  , wksDefine      = __webpack_require__(120)
-	  , keyOf          = __webpack_require__(121)
-	  , enumKeys       = __webpack_require__(122)
-	  , isArray        = __webpack_require__(123)
-	  , anObject       = __webpack_require__(52)
-	  , toIObject      = __webpack_require__(77)
-	  , toPrimitive    = __webpack_require__(58)
-	  , createDesc     = __webpack_require__(59)
-	  , _create        = __webpack_require__(73)
-	  , gOPNExt        = __webpack_require__(124)
-	  , $GOPD          = __webpack_require__(126)
-	  , $DP            = __webpack_require__(51)
-	  , $keys          = __webpack_require__(75)
+	var global         = __webpack_require__(45)
+	  , has            = __webpack_require__(69)
+	  , DESCRIPTORS    = __webpack_require__(54)
+	  , $export        = __webpack_require__(44)
+	  , redefine       = __webpack_require__(68)
+	  , META           = __webpack_require__(118).KEY
+	  , $fails         = __webpack_require__(55)
+	  , shared         = __webpack_require__(83)
+	  , setToStringTag = __webpack_require__(87)
+	  , uid            = __webpack_require__(84)
+	  , wks            = __webpack_require__(88)
+	  , wksExt         = __webpack_require__(114)
+	  , wksDefine      = __webpack_require__(119)
+	  , keyOf          = __webpack_require__(120)
+	  , enumKeys       = __webpack_require__(121)
+	  , isArray        = __webpack_require__(122)
+	  , anObject       = __webpack_require__(51)
+	  , toIObject      = __webpack_require__(76)
+	  , toPrimitive    = __webpack_require__(57)
+	  , createDesc     = __webpack_require__(58)
+	  , _create        = __webpack_require__(72)
+	  , gOPNExt        = __webpack_require__(123)
+	  , $GOPD          = __webpack_require__(125)
+	  , $DP            = __webpack_require__(50)
+	  , $keys          = __webpack_require__(74)
 	  , gOPD           = $GOPD.f
 	  , dP             = $DP.f
 	  , gOPN           = gOPNExt.f
@@ -6132,11 +5898,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  $GOPD.f = $getOwnPropertyDescriptor;
 	  $DP.f   = $defineProperty;
-	  __webpack_require__(125).f = gOPNExt.f = $getOwnPropertyNames;
-	  __webpack_require__(105).f  = $propertyIsEnumerable;
-	  __webpack_require__(104).f = $getOwnPropertySymbols;
+	  __webpack_require__(124).f = gOPNExt.f = $getOwnPropertyNames;
+	  __webpack_require__(104).f  = $propertyIsEnumerable;
+	  __webpack_require__(103).f = $getOwnPropertySymbols;
 
-	  if(DESCRIPTORS && !__webpack_require__(68)){
+	  if(DESCRIPTORS && !__webpack_require__(67)){
 	    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
 	  }
 
@@ -6211,7 +5977,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-	$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(50)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+	$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(49)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
 	// 19.4.3.5 Symbol.prototype[@@toStringTag]
 	setToStringTag($Symbol, 'Symbol');
 	// 20.2.1.9 Math[@@toStringTag]
@@ -6220,18 +5986,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	setToStringTag(global.JSON, 'JSON', true);
 
 /***/ },
-/* 119 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var META     = __webpack_require__(85)('meta')
-	  , isObject = __webpack_require__(53)
-	  , has      = __webpack_require__(70)
-	  , setDesc  = __webpack_require__(51).f
+	var META     = __webpack_require__(84)('meta')
+	  , isObject = __webpack_require__(52)
+	  , has      = __webpack_require__(69)
+	  , setDesc  = __webpack_require__(50).f
 	  , id       = 0;
 	var isExtensible = Object.isExtensible || function(){
 	  return true;
 	};
-	var FREEZE = !__webpack_require__(56)(function(){
+	var FREEZE = !__webpack_require__(55)(function(){
 	  return isExtensible(Object.preventExtensions({}));
 	});
 	var setMeta = function(it){
@@ -6278,25 +6044,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 120 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var global         = __webpack_require__(46)
-	  , core           = __webpack_require__(47)
-	  , LIBRARY        = __webpack_require__(68)
-	  , wksExt         = __webpack_require__(115)
-	  , defineProperty = __webpack_require__(51).f;
+	var global         = __webpack_require__(45)
+	  , core           = __webpack_require__(46)
+	  , LIBRARY        = __webpack_require__(67)
+	  , wksExt         = __webpack_require__(114)
+	  , defineProperty = __webpack_require__(50).f;
 	module.exports = function(name){
 	  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
 	  if(name.charAt(0) != '_' && !(name in $Symbol))defineProperty($Symbol, name, {value: wksExt.f(name)});
 	};
 
 /***/ },
-/* 121 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getKeys   = __webpack_require__(75)
-	  , toIObject = __webpack_require__(77);
+	var getKeys   = __webpack_require__(74)
+	  , toIObject = __webpack_require__(76);
 	module.exports = function(object, el){
 	  var O      = toIObject(object)
 	    , keys   = getKeys(O)
@@ -6307,13 +6073,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 122 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// all enumerable object keys, includes symbols
-	var getKeys = __webpack_require__(75)
-	  , gOPS    = __webpack_require__(104)
-	  , pIE     = __webpack_require__(105);
+	var getKeys = __webpack_require__(74)
+	  , gOPS    = __webpack_require__(103)
+	  , pIE     = __webpack_require__(104);
 	module.exports = function(it){
 	  var result     = getKeys(it)
 	    , getSymbols = gOPS.f;
@@ -6327,22 +6093,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 123 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.2.2 IsArray(argument)
-	var cof = __webpack_require__(79);
+	var cof = __webpack_require__(78);
 	module.exports = Array.isArray || function isArray(arg){
 	  return cof(arg) == 'Array';
 	};
 
 /***/ },
-/* 124 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-	var toIObject = __webpack_require__(77)
-	  , gOPN      = __webpack_require__(125).f
+	var toIObject = __webpack_require__(76)
+	  , gOPN      = __webpack_require__(124).f
 	  , toString  = {}.toString;
 
 	var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -6362,30 +6128,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 125 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-	var $keys      = __webpack_require__(76)
-	  , hiddenKeys = __webpack_require__(86).concat('length', 'prototype');
+	var $keys      = __webpack_require__(75)
+	  , hiddenKeys = __webpack_require__(85).concat('length', 'prototype');
 
 	exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O){
 	  return $keys(O, hiddenKeys);
 	};
 
 /***/ },
-/* 126 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var pIE            = __webpack_require__(105)
-	  , createDesc     = __webpack_require__(59)
-	  , toIObject      = __webpack_require__(77)
-	  , toPrimitive    = __webpack_require__(58)
-	  , has            = __webpack_require__(70)
-	  , IE8_DOM_DEFINE = __webpack_require__(54)
+	var pIE            = __webpack_require__(104)
+	  , createDesc     = __webpack_require__(58)
+	  , toIObject      = __webpack_require__(76)
+	  , toPrimitive    = __webpack_require__(57)
+	  , has            = __webpack_require__(69)
+	  , IE8_DOM_DEFINE = __webpack_require__(53)
 	  , gOPD           = Object.getOwnPropertyDescriptor;
 
-	exports.f = __webpack_require__(55) ? gOPD : function getOwnPropertyDescriptor(O, P){
+	exports.f = __webpack_require__(54) ? gOPD : function getOwnPropertyDescriptor(O, P){
 	  O = toIObject(O);
 	  P = toPrimitive(P, true);
 	  if(IE8_DOM_DEFINE)try {
@@ -6395,40 +6161,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 127 */
+/* 126 */
 /***/ function(module, exports) {
 
 	
 
 /***/ },
+/* 127 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(119)('asyncIterator');
+
+/***/ },
 /* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(120)('asyncIterator');
+	__webpack_require__(119)('observable');
 
 /***/ },
 /* 129 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(120)('observable');
-
-/***/ },
-/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	exports.__esModule = true;
 
-	var _setPrototypeOf = __webpack_require__(131);
+	var _setPrototypeOf = __webpack_require__(130);
 
 	var _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf);
 
-	var _create = __webpack_require__(135);
+	var _create = __webpack_require__(134);
 
 	var _create2 = _interopRequireDefault(_create);
 
-	var _typeof2 = __webpack_require__(108);
+	var _typeof2 = __webpack_require__(107);
 
 	var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -6451,34 +6217,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 130 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(131), __esModule: true };
+
+/***/ },
 /* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(132), __esModule: true };
+	__webpack_require__(132);
+	module.exports = __webpack_require__(46).Object.setPrototypeOf;
 
 /***/ },
 /* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(133);
-	module.exports = __webpack_require__(47).Object.setPrototypeOf;
+	// 19.1.3.19 Object.setPrototypeOf(O, proto)
+	var $export = __webpack_require__(44);
+	$export($export.S, 'Object', {setPrototypeOf: __webpack_require__(133).set});
 
 /***/ },
 /* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// 19.1.3.19 Object.setPrototypeOf(O, proto)
-	var $export = __webpack_require__(45);
-	$export($export.S, 'Object', {setPrototypeOf: __webpack_require__(134).set});
-
-/***/ },
-/* 134 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// Works with __proto__ only. Old v8 can't work with null proto objects.
 	/* eslint-disable no-proto */
-	var isObject = __webpack_require__(53)
-	  , anObject = __webpack_require__(52);
+	var isObject = __webpack_require__(52)
+	  , anObject = __webpack_require__(51);
 	var check = function(O, proto){
 	  anObject(O);
 	  if(!isObject(proto) && proto !== null)throw TypeError(proto + ": can't set as prototype!");
@@ -6487,7 +6253,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
 	    function(test, buggy, set){
 	      try {
-	        set = __webpack_require__(48)(Function.call, __webpack_require__(126).f(Object.prototype, '__proto__').set, 2);
+	        set = __webpack_require__(47)(Function.call, __webpack_require__(125).f(Object.prototype, '__proto__').set, 2);
 	        set(test, []);
 	        buggy = !(test instanceof Array);
 	      } catch(e){ buggy = true; }
@@ -6502,31 +6268,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 134 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(135), __esModule: true };
+
+/***/ },
 /* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(136), __esModule: true };
-
-/***/ },
-/* 136 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(137);
-	var $Object = __webpack_require__(47).Object;
+	__webpack_require__(136);
+	var $Object = __webpack_require__(46).Object;
 	module.exports = function create(P, D){
 	  return $Object.create(P, D);
 	};
 
 /***/ },
-/* 137 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var $export = __webpack_require__(45)
+	var $export = __webpack_require__(44)
 	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-	$export($export.S, 'Object', {create: __webpack_require__(73)});
+	$export($export.S, 'Object', {create: __webpack_require__(72)});
 
 /***/ },
-/* 138 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6536,7 +6302,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports["default"] = addEventListenerWrap;
 
-	var _addDomEventListener = __webpack_require__(139);
+	var _addDomEventListener = __webpack_require__(138);
 
 	var _addDomEventListener2 = _interopRequireDefault(_addDomEventListener);
 
@@ -6556,7 +6322,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 139 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6568,7 +6334,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _EventObject = __webpack_require__(140);
+	var _EventObject = __webpack_require__(139);
 
 	var _EventObject2 = _interopRequireDefault(_EventObject);
 
@@ -6598,7 +6364,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 140 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -6615,11 +6381,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _EventBaseObject = __webpack_require__(141);
+	var _EventBaseObject = __webpack_require__(140);
 
 	var _EventBaseObject2 = _interopRequireDefault(_EventBaseObject);
 
-	var _objectAssign = __webpack_require__(142);
+	var _objectAssign = __webpack_require__(141);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
@@ -6881,7 +6647,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 141 */
+/* 140 */
 /***/ function(module, exports) {
 
 	/**
@@ -6949,7 +6715,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports["default"];
 
 /***/ },
-/* 142 */
+/* 141 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7038,7 +6804,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 143 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7077,7 +6843,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 144 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7086,15 +6852,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _classCallCheck2 = __webpack_require__(106);
+	var _classCallCheck2 = __webpack_require__(105);
 
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-	var _possibleConstructorReturn2 = __webpack_require__(107);
+	var _possibleConstructorReturn2 = __webpack_require__(106);
 
 	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-	var _inherits2 = __webpack_require__(130);
+	var _inherits2 = __webpack_require__(129);
 
 	var _inherits3 = _interopRequireDefault(_inherits2);
 
@@ -7102,7 +6868,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _rcTooltip = __webpack_require__(145);
+	var _rcTooltip = __webpack_require__(144);
 
 	var _rcTooltip2 = _interopRequireDefault(_rcTooltip);
 
@@ -7201,15 +6967,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 145 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(146);
+	module.exports = __webpack_require__(145);
 
 /***/ },
-/* 146 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7224,9 +6990,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _placements = __webpack_require__(147);
+	var _placements = __webpack_require__(146);
 
-	var _rcTrigger = __webpack_require__(148);
+	var _rcTrigger = __webpack_require__(147);
 
 	var _rcTrigger2 = _interopRequireDefault(_rcTrigger);
 
@@ -7344,7 +7110,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 147 */
+/* 146 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7437,15 +7203,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports["default"] = placements;
 
 /***/ },
-/* 148 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(149);
+	module.exports = __webpack_require__(148);
 
 /***/ },
-/* 149 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7454,7 +7220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _extends2 = __webpack_require__(99);
+	var _extends2 = __webpack_require__(98);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
@@ -7466,21 +7232,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _contains = __webpack_require__(150);
+	var _contains = __webpack_require__(149);
 
 	var _contains2 = _interopRequireDefault(_contains);
 
-	var _addEventListener = __webpack_require__(151);
+	var _addEventListener = __webpack_require__(150);
 
 	var _addEventListener2 = _interopRequireDefault(_addEventListener);
 
-	var _Popup = __webpack_require__(152);
+	var _Popup = __webpack_require__(151);
 
 	var _Popup2 = _interopRequireDefault(_Popup);
 
-	var _utils = __webpack_require__(177);
+	var _utils = __webpack_require__(176);
 
-	var _getContainerRenderMixin = __webpack_require__(178);
+	var _getContainerRenderMixin = __webpack_require__(177);
 
 	var _getContainerRenderMixin2 = _interopRequireDefault(_getContainerRenderMixin);
 
@@ -7924,7 +7690,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 150 */
+/* 149 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7947,7 +7713,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 151 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7957,7 +7723,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports["default"] = addEventListenerWrap;
 
-	var _addDomEventListener = __webpack_require__(139);
+	var _addDomEventListener = __webpack_require__(138);
 
 	var _addDomEventListener2 = _interopRequireDefault(_addDomEventListener);
 
@@ -7977,7 +7743,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 152 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7986,7 +7752,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _extends2 = __webpack_require__(99);
+	var _extends2 = __webpack_require__(98);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
@@ -7998,19 +7764,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _rcAlign = __webpack_require__(153);
+	var _rcAlign = __webpack_require__(152);
 
 	var _rcAlign2 = _interopRequireDefault(_rcAlign);
 
-	var _rcAnimate = __webpack_require__(165);
+	var _rcAnimate = __webpack_require__(164);
 
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 
-	var _PopupInner = __webpack_require__(174);
+	var _PopupInner = __webpack_require__(173);
 
 	var _PopupInner2 = _interopRequireDefault(_PopupInner);
 
-	var _LazyRenderBox = __webpack_require__(175);
+	var _LazyRenderBox = __webpack_require__(174);
 
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 
@@ -8208,7 +7974,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 153 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8217,7 +7983,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _Align = __webpack_require__(154);
+	var _Align = __webpack_require__(153);
 
 	var _Align2 = _interopRequireDefault(_Align);
 
@@ -8228,7 +7994,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 154 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8245,15 +8011,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _domAlign = __webpack_require__(155);
+	var _domAlign = __webpack_require__(154);
 
 	var _domAlign2 = _interopRequireDefault(_domAlign);
 
-	var _addEventListener = __webpack_require__(138);
+	var _addEventListener = __webpack_require__(137);
 
 	var _addEventListener2 = _interopRequireDefault(_addEventListener);
 
-	var _isWindow = __webpack_require__(164);
+	var _isWindow = __webpack_require__(163);
 
 	var _isWindow2 = _interopRequireDefault(_isWindow);
 
@@ -8387,7 +8153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 155 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8396,27 +8162,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _utils = __webpack_require__(156);
+	var _utils = __webpack_require__(155);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
-	var _getOffsetParent = __webpack_require__(158);
+	var _getOffsetParent = __webpack_require__(157);
 
 	var _getOffsetParent2 = _interopRequireDefault(_getOffsetParent);
 
-	var _getVisibleRectForElement = __webpack_require__(159);
+	var _getVisibleRectForElement = __webpack_require__(158);
 
 	var _getVisibleRectForElement2 = _interopRequireDefault(_getVisibleRectForElement);
 
-	var _adjustForViewport = __webpack_require__(160);
+	var _adjustForViewport = __webpack_require__(159);
 
 	var _adjustForViewport2 = _interopRequireDefault(_adjustForViewport);
 
-	var _getRegion = __webpack_require__(161);
+	var _getRegion = __webpack_require__(160);
 
 	var _getRegion2 = _interopRequireDefault(_getRegion);
 
-	var _getElFuturePos = __webpack_require__(162);
+	var _getElFuturePos = __webpack_require__(161);
 
 	var _getElFuturePos2 = _interopRequireDefault(_getElFuturePos);
 
@@ -8610,7 +8376,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 156 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8621,7 +8387,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-	var _propertyUtils = __webpack_require__(157);
+	var _propertyUtils = __webpack_require__(156);
 
 	var RE_NUM = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source;
 
@@ -9173,7 +8939,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 157 */
+/* 156 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9288,7 +9054,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 158 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9297,7 +9063,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _utils = __webpack_require__(156);
+	var _utils = __webpack_require__(155);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
@@ -9346,7 +9112,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 159 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9355,11 +9121,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _utils = __webpack_require__(156);
+	var _utils = __webpack_require__(155);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
-	var _getOffsetParent = __webpack_require__(158);
+	var _getOffsetParent = __webpack_require__(157);
 
 	var _getOffsetParent2 = _interopRequireDefault(_getOffsetParent);
 
@@ -9427,7 +9193,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 160 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9436,7 +9202,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _utils = __webpack_require__(156);
+	var _utils = __webpack_require__(155);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
@@ -9487,7 +9253,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 161 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9496,7 +9262,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _utils = __webpack_require__(156);
+	var _utils = __webpack_require__(155);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
@@ -9528,7 +9294,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 162 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9537,7 +9303,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _getAlignOffset = __webpack_require__(163);
+	var _getAlignOffset = __webpack_require__(162);
 
 	var _getAlignOffset2 = _interopRequireDefault(_getAlignOffset);
 
@@ -9569,7 +9335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 163 */
+/* 162 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9614,7 +9380,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 164 */
+/* 163 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9631,16 +9397,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 165 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	// export this package's api
-	module.exports = __webpack_require__(166);
+	module.exports = __webpack_require__(165);
 
 /***/ },
-/* 166 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9653,13 +9419,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ChildrenUtils = __webpack_require__(167);
+	var _ChildrenUtils = __webpack_require__(166);
 
-	var _AnimateChild = __webpack_require__(168);
+	var _AnimateChild = __webpack_require__(167);
 
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 
-	var _util = __webpack_require__(173);
+	var _util = __webpack_require__(172);
 
 	var _util2 = _interopRequireDefault(_util);
 
@@ -9972,7 +9738,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 167 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10094,7 +9860,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 168 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10113,11 +9879,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _cssAnimation = __webpack_require__(169);
+	var _cssAnimation = __webpack_require__(168);
 
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 
-	var _util = __webpack_require__(173);
+	var _util = __webpack_require__(172);
 
 	var _util2 = _interopRequireDefault(_util);
 
@@ -10205,7 +9971,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 169 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10216,11 +9982,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-	var _Event = __webpack_require__(170);
+	var _Event = __webpack_require__(169);
 
 	var _Event2 = _interopRequireDefault(_Event);
 
-	var _componentClasses = __webpack_require__(171);
+	var _componentClasses = __webpack_require__(170);
 
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 
@@ -10400,7 +10166,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 170 */
+/* 169 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -10493,7 +10259,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 171 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -10501,9 +10267,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	try {
-	  var index = __webpack_require__(172);
+	  var index = __webpack_require__(171);
 	} catch (err) {
-	  var index = __webpack_require__(172);
+	  var index = __webpack_require__(171);
 	}
 
 	/**
@@ -10690,7 +10456,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 172 */
+/* 171 */
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -10702,7 +10468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 173 */
+/* 172 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10734,7 +10500,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 174 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10747,7 +10513,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _LazyRenderBox = __webpack_require__(175);
+	var _LazyRenderBox = __webpack_require__(174);
 
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 
@@ -10791,7 +10557,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 175 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10800,7 +10566,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _objectWithoutProperties2 = __webpack_require__(176);
+	var _objectWithoutProperties2 = __webpack_require__(175);
 
 	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
@@ -10844,7 +10610,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 176 */
+/* 175 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10864,7 +10630,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 177 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10873,7 +10639,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _extends2 = __webpack_require__(99);
+	var _extends2 = __webpack_require__(98);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
@@ -10904,7 +10670,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 178 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11009,7 +10775,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 179 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11018,7 +10784,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _defineProperty2 = __webpack_require__(41);
+	var _defineProperty2 = __webpack_require__(40);
 
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
@@ -11026,11 +10792,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _classnames = __webpack_require__(29);
+	var _classnames = __webpack_require__(28);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _warning = __webpack_require__(180);
+	var _warning = __webpack_require__(179);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -11084,7 +10850,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 180 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -11150,7 +10916,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 181 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11159,15 +10925,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _extends2 = __webpack_require__(99);
+	var _extends2 = __webpack_require__(98);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
-	var _typeof2 = __webpack_require__(108);
+	var _typeof2 = __webpack_require__(107);
 
 	var _typeof3 = _interopRequireDefault(_typeof2);
 
-	var _defineProperty2 = __webpack_require__(41);
+	var _defineProperty2 = __webpack_require__(40);
 
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
@@ -11175,7 +10941,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _classnames = __webpack_require__(29);
+	var _classnames = __webpack_require__(28);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -11241,7 +11007,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 182 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11261,13 +11027,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom = __webpack_require__(4);
 
-	var _ImmutableQuery = __webpack_require__(8);
-
-	var _reactSelect = __webpack_require__(183);
+	var _reactSelect = __webpack_require__(182);
 
 	var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-	var _ChannelManager = __webpack_require__(24);
+	var _ChannelManager = __webpack_require__(8);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11465,9 +11229,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'appbaseSearchComponent reactiveComponent' },
+					{ className: 'ab-component ab-SearchComponent' },
 					_react2.default.createElement(_reactSelect2.default.Async, _extends({
-						className: 'appbase-select',
+						className: 'ab-select-react',
 						name: 'appbase-search',
 						value: this.state.currentValue,
 						loadOptions: this.setValue,
@@ -11501,7 +11265,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 183 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -11532,43 +11296,43 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _reactInputAutosize = __webpack_require__(184);
+	var _reactInputAutosize = __webpack_require__(183);
 
 	var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
 
-	var _classnames = __webpack_require__(29);
+	var _classnames = __webpack_require__(28);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _utilsDefaultArrowRenderer = __webpack_require__(185);
+	var _utilsDefaultArrowRenderer = __webpack_require__(184);
 
 	var _utilsDefaultArrowRenderer2 = _interopRequireDefault(_utilsDefaultArrowRenderer);
 
-	var _utilsDefaultFilterOptions = __webpack_require__(186);
+	var _utilsDefaultFilterOptions = __webpack_require__(185);
 
 	var _utilsDefaultFilterOptions2 = _interopRequireDefault(_utilsDefaultFilterOptions);
 
-	var _utilsDefaultMenuRenderer = __webpack_require__(188);
+	var _utilsDefaultMenuRenderer = __webpack_require__(187);
 
 	var _utilsDefaultMenuRenderer2 = _interopRequireDefault(_utilsDefaultMenuRenderer);
 
-	var _Async = __webpack_require__(189);
+	var _Async = __webpack_require__(188);
 
 	var _Async2 = _interopRequireDefault(_Async);
 
-	var _AsyncCreatable = __webpack_require__(190);
+	var _AsyncCreatable = __webpack_require__(189);
 
 	var _AsyncCreatable2 = _interopRequireDefault(_AsyncCreatable);
 
-	var _Creatable = __webpack_require__(191);
+	var _Creatable = __webpack_require__(190);
 
 	var _Creatable2 = _interopRequireDefault(_Creatable);
 
-	var _Option = __webpack_require__(192);
+	var _Option = __webpack_require__(191);
 
 	var _Option2 = _interopRequireDefault(_Option);
 
-	var _Value = __webpack_require__(193);
+	var _Value = __webpack_require__(192);
 
 	var _Value2 = _interopRequireDefault(_Value);
 
@@ -12693,7 +12457,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 184 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12827,7 +12591,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = AutosizeInput;
 
 /***/ },
-/* 185 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12856,14 +12620,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports["default"];
 
 /***/ },
-/* 186 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _stripDiacritics = __webpack_require__(187);
+	var _stripDiacritics = __webpack_require__(186);
 
 	var _stripDiacritics2 = _interopRequireDefault(_stripDiacritics);
 
@@ -12903,7 +12667,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = filterOptions;
 
 /***/ },
-/* 187 */
+/* 186 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -12918,14 +12682,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 188 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _classnames = __webpack_require__(29);
+	var _classnames = __webpack_require__(28);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -12984,7 +12748,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = menuRenderer;
 
 /***/ },
-/* 189 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13011,11 +12775,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Select = __webpack_require__(183);
+	var _Select = __webpack_require__(182);
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _utilsStripDiacritics = __webpack_require__(187);
+	var _utilsStripDiacritics = __webpack_require__(186);
 
 	var _utilsStripDiacritics2 = _interopRequireDefault(_utilsStripDiacritics);
 
@@ -13192,7 +12956,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 190 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13205,7 +12969,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Select = __webpack_require__(183);
+	var _Select = __webpack_require__(182);
 
 	var _Select2 = _interopRequireDefault(_Select);
 
@@ -13239,7 +13003,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = AsyncCreatable;
 
 /***/ },
-/* 191 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13254,15 +13018,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Select = __webpack_require__(183);
+	var _Select = __webpack_require__(182);
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _utilsDefaultFilterOptions = __webpack_require__(186);
+	var _utilsDefaultFilterOptions = __webpack_require__(185);
 
 	var _utilsDefaultFilterOptions2 = _interopRequireDefault(_utilsDefaultFilterOptions);
 
-	var _utilsDefaultMenuRenderer = __webpack_require__(188);
+	var _utilsDefaultMenuRenderer = __webpack_require__(187);
 
 	var _utilsDefaultMenuRenderer2 = _interopRequireDefault(_utilsDefaultMenuRenderer);
 
@@ -13528,7 +13292,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Creatable;
 
 /***/ },
-/* 192 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13539,7 +13303,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _classnames = __webpack_require__(29);
+	var _classnames = __webpack_require__(28);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -13644,7 +13408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Option;
 
 /***/ },
-/* 193 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13655,7 +13419,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _classnames = __webpack_require__(29);
+	var _classnames = __webpack_require__(28);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -13755,7 +13519,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Value;
 
 /***/ },
-/* 194 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13763,7 +13527,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.DistanceSensor = undefined;
+	exports.AppbaseDistanceSensor = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -13773,19 +13537,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom = __webpack_require__(4);
 
-	var _ChannelManager = __webpack_require__(24);
+	var _ChannelManager = __webpack_require__(8);
 
-	var _AppbaseSlider = __webpack_require__(26);
+	var _AppbaseSlider = __webpack_require__(25);
 
-	var _rcSlider = __webpack_require__(39);
+	var _rcSlider = __webpack_require__(38);
 
 	var _rcSlider2 = _interopRequireDefault(_rcSlider);
 
-	var _axios = __webpack_require__(195);
+	var _axios = __webpack_require__(194);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _reactSelect = __webpack_require__(183);
+	var _reactSelect = __webpack_require__(182);
 
 	var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
@@ -13801,13 +13565,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var helper = __webpack_require__(16);
 
-	var DistanceSensor = exports.DistanceSensor = function (_Component) {
-		_inherits(DistanceSensor, _Component);
+	var AppbaseDistanceSensor = exports.AppbaseDistanceSensor = function (_Component) {
+		_inherits(AppbaseDistanceSensor, _Component);
 
-		function DistanceSensor(props, context) {
-			_classCallCheck(this, DistanceSensor);
+		function AppbaseDistanceSensor(props, context) {
+			_classCallCheck(this, AppbaseDistanceSensor);
 
-			var _this = _possibleConstructorReturn(this, (DistanceSensor.__proto__ || Object.getPrototypeOf(DistanceSensor)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (AppbaseDistanceSensor.__proto__ || Object.getPrototypeOf(AppbaseDistanceSensor)).call(this, props));
 
 			var value = _this.props.value < _this.props.minThreshold ? _this.props.minThreshold : _this.props.value;
 			_this.state = {
@@ -13834,7 +13598,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			return _this;
 		}
 
-		_createClass(DistanceSensor, [{
+		_createClass(AppbaseDistanceSensor, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				this.googleMaps = window.google.maps;
@@ -14034,17 +13798,17 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (this.props.title) {
 					title = _react2.default.createElement(
 						'h4',
-						{ className: 'componentTitle' },
+						{ className: 'ab-componentTitle' },
 						this.props.title
 					);
 				}
 
 				return _react2.default.createElement(
 					'div',
-					{ className: 'appbaseSearchComponent sliderComponent reactiveComponent clearfix card thumbnail col s12 col-xs-12' },
+					{ className: 'ab-component ab-DistanceSensorComponent clearfix card thumbnail col s12 col-xs-12' },
 					title,
 					_react2.default.createElement(_reactSelect2.default.Async, {
-						className: 'appbase-select col s12 col-xs-6 p-0',
+						className: 'ab-select-react col s12 col-xs-6 p-0',
 						name: 'appbase-search',
 						value: this.state.currentValue,
 						loadOptions: this.loadOptions,
@@ -14053,13 +13817,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					}),
 					_react2.default.createElement(
 						'div',
-						{ className: 'sliderComponent' },
+						{ className: 'ab-DistanceSensorComponent-slider' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'inputRangeContainer col s12 col-xs-6',
+							{ className: 'ab-DistanceSensorComponent-slider-container col s12 col-xs-6',
 								style: { 'padding': '12px 4px 16px 16px', 'marginBottom': '25px' }
 							},
-							_react2.default.createElement(_rcSlider2.default, {
+							_react2.default.createElement(_rcSlider2.default, { className: 'ab-slider',
 								tipFormatter: this.unitFormatter,
 								defaultValue: this.state.value,
 								min: this.props.minThreshold,
@@ -14072,15 +13836,15 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}]);
 
-		return DistanceSensor;
+		return AppbaseDistanceSensor;
 	}(_react.Component);
 
-	DistanceSensor.propTypes = {
+	AppbaseDistanceSensor.propTypes = {
 		inputData: _react2.default.PropTypes.string.isRequired,
 		placeholder: _react2.default.PropTypes.string
 	};
 	// Default props value
-	DistanceSensor.defaultProps = {
+	AppbaseDistanceSensor.defaultProps = {
 		value: 1,
 		unit: 'km',
 		placeholder: "Search...",
@@ -14088,26 +13852,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	// context type
-	DistanceSensor.contextTypes = {
+	AppbaseDistanceSensor.contextTypes = {
 		appbaseConfig: _react2.default.PropTypes.any.isRequired
 	};
+
+/***/ },
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(195);
 
 /***/ },
 /* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(196);
-
-/***/ },
-/* 196 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
-	var utils = __webpack_require__(197);
-	var bind = __webpack_require__(198);
-	var Axios = __webpack_require__(199);
-	var defaults = __webpack_require__(200);
+	var utils = __webpack_require__(196);
+	var bind = __webpack_require__(197);
+	var Axios = __webpack_require__(198);
+	var defaults = __webpack_require__(199);
 
 	/**
 	 * Create an instance of Axios
@@ -14140,15 +13904,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(218);
-	axios.CancelToken = __webpack_require__(219);
-	axios.isCancel = __webpack_require__(215);
+	axios.Cancel = __webpack_require__(217);
+	axios.CancelToken = __webpack_require__(218);
+	axios.isCancel = __webpack_require__(214);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(220);
+	axios.spread = __webpack_require__(219);
 
 	module.exports = axios;
 
@@ -14157,12 +13921,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 197 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bind = __webpack_require__(198);
+	var bind = __webpack_require__(197);
 
 	/*global toString:true*/
 
@@ -14462,7 +14226,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 198 */
+/* 197 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -14479,17 +14243,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 199 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(200);
-	var utils = __webpack_require__(197);
-	var InterceptorManager = __webpack_require__(212);
-	var dispatchRequest = __webpack_require__(213);
-	var isAbsoluteURL = __webpack_require__(216);
-	var combineURLs = __webpack_require__(217);
+	var defaults = __webpack_require__(199);
+	var utils = __webpack_require__(196);
+	var InterceptorManager = __webpack_require__(211);
+	var dispatchRequest = __webpack_require__(212);
+	var isAbsoluteURL = __webpack_require__(215);
+	var combineURLs = __webpack_require__(216);
 
 	/**
 	 * Create a new instance of Axios
@@ -14570,13 +14334,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 200 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(197);
-	var normalizeHeaderName = __webpack_require__(202);
+	var utils = __webpack_require__(196);
+	var normalizeHeaderName = __webpack_require__(201);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -14593,10 +14357,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(203);
+	    adapter = __webpack_require__(202);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(203);
+	    adapter = __webpack_require__(202);
 	  }
 	  return adapter;
 	}
@@ -14667,10 +14431,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = defaults;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(201)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(200)))
 
 /***/ },
-/* 201 */
+/* 200 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -14856,12 +14620,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 202 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(197);
+	var utils = __webpack_require__(196);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -14874,18 +14638,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 203 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(197);
-	var settle = __webpack_require__(204);
-	var buildURL = __webpack_require__(207);
-	var parseHeaders = __webpack_require__(208);
-	var isURLSameOrigin = __webpack_require__(209);
-	var createError = __webpack_require__(205);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(210);
+	var utils = __webpack_require__(196);
+	var settle = __webpack_require__(203);
+	var buildURL = __webpack_require__(206);
+	var parseHeaders = __webpack_require__(207);
+	var isURLSameOrigin = __webpack_require__(208);
+	var createError = __webpack_require__(204);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(209);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -14981,7 +14745,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(211);
+	      var cookies = __webpack_require__(210);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -15057,12 +14821,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 204 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(205);
+	var createError = __webpack_require__(204);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -15088,12 +14852,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 205 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(206);
+	var enhanceError = __webpack_require__(205);
 
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -15111,7 +14875,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 206 */
+/* 205 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -15136,12 +14900,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 207 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(197);
+	var utils = __webpack_require__(196);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -15210,12 +14974,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 208 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(197);
+	var utils = __webpack_require__(196);
 
 	/**
 	 * Parse headers into an object
@@ -15253,12 +15017,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 209 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(197);
+	var utils = __webpack_require__(196);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -15327,7 +15091,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 210 */
+/* 209 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -15369,12 +15133,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 211 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(197);
+	var utils = __webpack_require__(196);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -15428,12 +15192,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 212 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(197);
+	var utils = __webpack_require__(196);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -15486,15 +15250,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 213 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(197);
-	var transformData = __webpack_require__(214);
-	var isCancel = __webpack_require__(215);
-	var defaults = __webpack_require__(200);
+	var utils = __webpack_require__(196);
+	var transformData = __webpack_require__(213);
+	var isCancel = __webpack_require__(214);
+	var defaults = __webpack_require__(199);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -15571,12 +15335,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 214 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(197);
+	var utils = __webpack_require__(196);
 
 	/**
 	 * Transform the data for a request or a response
@@ -15597,7 +15361,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 215 */
+/* 214 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -15608,7 +15372,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 216 */
+/* 215 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -15628,7 +15392,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 217 */
+/* 216 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -15646,7 +15410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 218 */
+/* 217 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -15671,12 +15435,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 219 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(218);
+	var Cancel = __webpack_require__(217);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -15734,7 +15498,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 220 */
+/* 219 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -15767,7 +15531,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 221 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15775,7 +15539,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.InputField = undefined;
+	exports.AppbaseInputField = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -15785,7 +15549,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom = __webpack_require__(4);
 
-	var _ChannelManager = __webpack_require__(24);
+	var _ChannelManager = __webpack_require__(8);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15799,13 +15563,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var helper = __webpack_require__(16);
 
-	var InputField = exports.InputField = function (_Component) {
-		_inherits(InputField, _Component);
+	var AppbaseInputField = exports.AppbaseInputField = function (_Component) {
+		_inherits(AppbaseInputField, _Component);
 
-		function InputField(props, context) {
-			_classCallCheck(this, InputField);
+		function AppbaseInputField(props, context) {
+			_classCallCheck(this, AppbaseInputField);
 
-			var _this = _possibleConstructorReturn(this, (InputField.__proto__ || Object.getPrototypeOf(InputField)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (AppbaseInputField.__proto__ || Object.getPrototypeOf(AppbaseInputField)).call(this, props));
 
 			_this.state = {
 				currentValue: ''
@@ -15819,7 +15583,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		// Set query information
 
 
-		_createClass(InputField, [{
+		_createClass(AppbaseInputField, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				this.setQueryInfo();
@@ -15887,32 +15651,32 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'appbaseSearchComponent reactiveComponent' },
-					_react2.default.createElement('input', { type: 'text', onChange: this.handleChange, placeholder: this.props.placeholder, value: this.state.currentValue })
+					{ className: 'ab-component ab-InputFieldComponent' },
+					_react2.default.createElement('input', { className: 'ab-input', type: 'text', onChange: this.handleChange, placeholder: this.props.placeholder, value: this.state.currentValue })
 				);
 			}
 		}]);
 
-		return InputField;
+		return AppbaseInputField;
 	}(_react.Component);
 
-	InputField.propTypes = {
+	AppbaseInputField.propTypes = {
 		inputData: _react2.default.PropTypes.string,
 		placeholder: _react2.default.PropTypes.string
 	};
 	// Default props value
-	InputField.defaultProps = {
+	AppbaseInputField.defaultProps = {
 		placeholder: "Search...",
 		size: 10
 	};
 
 	// context type
-	InputField.contextTypes = {
+	AppbaseInputField.contextTypes = {
 		appbaseConfig: _react2.default.PropTypes.any.isRequired
 	};
 
 /***/ },
-/* 222 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15930,7 +15694,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom = __webpack_require__(4);
 
-	var _ChannelManager = __webpack_require__(24);
+	var _ChannelManager = __webpack_require__(8);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16036,7 +15800,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					buttons = this.props.data.map(function (record, i) {
 						return _react2.default.createElement(
 							'button',
-							{ key: i, className: "ab-buttonGroup-button btn " + (selectedText === record.text ? 'red' : ''),
+							{ key: i, className: "ab-button btn " + (selectedText === record.text ? 'red' : ''),
 								onClick: function onClick() {
 									return _this2.handleChange(record);
 								}, title: record.title ? record.title : record.text },
@@ -16057,13 +15821,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					titleExists = true;
 					title = _react2.default.createElement(
 						'h4',
-						{ className: 'componentTitle col s12 col-xs-12' },
+						{ className: 'ab-componentTitle col s12 col-xs-12' },
 						this.props.title
 					);
 				}
 				return _react2.default.createElement(
 					'div',
-					{ className: "col s12 col-xs-12 card thumbnail ab-buttonGroupComponent reactiveComponent", style: this.props.defaultStyle },
+					{ className: "ab-component ab-ButtonGroupComponent col s12 col-xs-12 card thumbnail", style: this.props.defaultStyle },
 					_react2.default.createElement(
 						'div',
 						{ className: 'row' },
@@ -16098,7 +15862,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 223 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16106,7 +15870,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.GoogleSearch = undefined;
+	exports.AppbaseGoogleSearch = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -16116,13 +15880,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom = __webpack_require__(4);
 
-	var _ChannelManager = __webpack_require__(24);
+	var _ChannelManager = __webpack_require__(8);
 
-	var _axios = __webpack_require__(195);
+	var _axios = __webpack_require__(194);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _reactSelect = __webpack_require__(183);
+	var _reactSelect = __webpack_require__(182);
 
 	var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
@@ -16138,13 +15902,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var helper = __webpack_require__(16);
 
-	var GoogleSearch = exports.GoogleSearch = function (_Component) {
-		_inherits(GoogleSearch, _Component);
+	var AppbaseGoogleSearch = exports.AppbaseGoogleSearch = function (_Component) {
+		_inherits(AppbaseGoogleSearch, _Component);
 
-		function GoogleSearch(props, context) {
-			_classCallCheck(this, GoogleSearch);
+		function AppbaseGoogleSearch(props, context) {
+			_classCallCheck(this, AppbaseGoogleSearch);
 
-			var _this = _possibleConstructorReturn(this, (GoogleSearch.__proto__ || Object.getPrototypeOf(GoogleSearch)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (AppbaseGoogleSearch.__proto__ || Object.getPrototypeOf(AppbaseGoogleSearch)).call(this, props));
 
 			_this.state = {
 				currentValue: '',
@@ -16164,7 +15928,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			return _this;
 		}
 
-		_createClass(GoogleSearch, [{
+		_createClass(AppbaseGoogleSearch, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				this.googleMaps = window.google.maps;
@@ -16351,20 +16115,20 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (this.props.title) {
 					title = _react2.default.createElement(
 						'h4',
-						{ className: 'componentTitle' },
+						{ className: 'ab-componentTitle' },
 						this.props.title
 					);
 				}
 
 				return _react2.default.createElement(
 					'div',
-					{ className: 'appbaseSearchComponent sliderComponent reactiveComponent clearfix card thumbnail col s12 col-xs-12' },
+					{ className: 'ab-component ab-GoogleSearchComponent clearfix card thumbnail col s12 col-xs-12' },
 					title,
 					_react2.default.createElement(
 						'div',
 						{ className: 'row' },
 						_react2.default.createElement(_reactSelect2.default.Async, {
-							className: 'appbase-select col s12 col-xs-6 p-0',
+							className: 'ab-select-react col s12 col-xs-6 p-0',
 							name: 'appbase-search',
 							value: this.state.currentValue,
 							loadOptions: this.loadOptions,
@@ -16376,26 +16140,26 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}]);
 
-		return GoogleSearch;
+		return AppbaseGoogleSearch;
 	}(_react.Component);
 
-	GoogleSearch.propTypes = {
+	AppbaseGoogleSearch.propTypes = {
 		inputData: _react2.default.PropTypes.string.isRequired,
 		placeholder: _react2.default.PropTypes.string
 	};
 	// Default props value
-	GoogleSearch.defaultProps = {
+	AppbaseGoogleSearch.defaultProps = {
 		placeholder: "Search...",
 		autoLocation: true
 	};
 
 	// context type
-	GoogleSearch.contextTypes = {
+	AppbaseGoogleSearch.contextTypes = {
 		appbaseConfig: _react2.default.PropTypes.any.isRequired
 	};
 
 /***/ },
-/* 224 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16403,11 +16167,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.AppbaseMap = undefined;
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	exports.AppbaseReactiveMap = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -16417,8375 +16177,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom = __webpack_require__(4);
 
-	var _reactGoogleMaps = __webpack_require__(225);
-
-	var _InfoBox = __webpack_require__(272);
-
-	var _InfoBox2 = _interopRequireDefault(_InfoBox);
-
-	var _MarkerClusterer = __webpack_require__(276);
-
-	var _MarkerClusterer2 = _interopRequireDefault(_MarkerClusterer);
-
-	var _ImmutableQuery = __webpack_require__(8);
-
-	var _ChannelManager = __webpack_require__(24);
-
-	var _AppbaseSearch = __webpack_require__(182);
-
-	var _SearchAsMove = __webpack_require__(280);
-
-	var _MapStyles = __webpack_require__(281);
-
-	var _RotateIcon = __webpack_require__(282);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var helper = __webpack_require__(16);
-	var Style = __webpack_require__(6);
-
-	var AppbaseMap = exports.AppbaseMap = function (_Component) {
-		_inherits(AppbaseMap, _Component);
-
-		function AppbaseMap(props, context) {
-			_classCallCheck(this, AppbaseMap);
-
-			var _this = _possibleConstructorReturn(this, (AppbaseMap.__proto__ || Object.getPrototypeOf(AppbaseMap)).call(this, props));
-
-			_this.state = {
-				markers: [],
-				selectedMarker: null,
-				streamingStatus: 'Intializing..',
-				center: _this.props.defaultCenter,
-				query: {},
-				rawData: {
-					hits: {
-						hits: []
-					}
-				},
-				externalData: {}
-			};
-			_this.previousSelectedSensor = {};
-			_this.handleSearch = _this.handleSearch.bind(_this);
-			_this.searchAsMoveChange = _this.searchAsMoveChange.bind(_this);
-			_this.mapStyleChange = _this.mapStyleChange.bind(_this);
-			_this.queryStartTime = 0;
-			_this.reposition = false;
-			return _this;
-		}
-
-		_createClass(AppbaseMap, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.createChannel();
-				this.setGeoQueryInfo();
-				var currentMapStyle = helper.getMapStyle(this.props.mapStyle);
-				this.setState({
-					currentMapStyle: currentMapStyle
-				});
-			}
-			// Create a channel which passes the depends and receive results whenever depends changes
-
-		}, {
-			key: 'createChannel',
-			value: function createChannel() {
-				// Set the depends - add self aggs query as well with depends
-				var depends = this.props.depends ? this.props.depends : {};
-				depends['geoQuery'] = { operation: "must" };
-				// create a channel and listen the changes
-				var channelObj = _ChannelManager.manager.create(this.context.appbaseConfig, depends, this.props.requestSize);
-				channelObj.emitter.addListener(channelObj.channelId, function (res) {
-					var data = res.data;
-					// implementation to prevent initialize query issue if old query response is late then the newer query 
-					// then we will consider the response of new query and prevent to apply changes for old query response.
-					// if queryStartTime of channel response is greater than the previous one only then apply changes
-					if (res.method === 'historic' && res.startTime > this.queryStartTime) {
-						this.afterChannelResponse(res);
-					} else if (res.method === 'stream') {
-						this.afterChannelResponse(res);
-					}
-				}.bind(this));
-			}
-		}, {
-			key: 'afterChannelResponse',
-			value: function afterChannelResponse(res) {
-				var data = res.data;
-				var rawData = void 0,
-				    markersData = void 0;
-				this.streamFlag = false;
-				if (res.method === 'stream') {
-					this.channelMethod = 'stream';
-					var modData = this.streamDataModify(this.state.rawData, res);
-					rawData = modData.rawData;
-					res = modData.res;
-					this.streamFlag = true;
-					markersData = this.setMarkersData(rawData);
-				} else if (res.method === 'historic') {
-					this.channelMethod = 'historic';
-					this.queryStartTime = res.startTime;
-					rawData = data;
-					markersData = this.setMarkersData(data);
-				}
-				this.reposition = true;
-				this.setState({
-					rawData: rawData,
-					markersData: markersData
-				}, function () {
-					// Pass the historic or streaming data in index method
-					res.allMarkers = rawData;
-					res.mapRef = this.refs.map;
-					var generatedData = this.props.markerOnIndex(res);
-					this.setState({
-						externalData: generatedData
-					});
-					if (this.streamFlag) {
-						this.streamMarkerInterval();
-					}
-				}.bind(this));
-			}
-			// append stream boolean flag and also start time of stream
-
-		}, {
-			key: 'streamDataModify',
-			value: function streamDataModify(rawData, res) {
-				if (res.data) {
-					res.data.stream = true;
-					res.data.streamStart = new Date();
-					if (res.data._deleted) {
-						var hits = rawData.hits.hits.filter(function (hit) {
-							return hit._id !== res.data._id;
-						});
-						rawData.hits.hits = hits;
-					} else {
-						var prevData = rawData.hits.hits.filter(function (hit) {
-							return hit._id === res.data._id;
-						});
-						if (prevData && prevData.length) {
-							var preCord = prevData[0]._source[this.props.inputData];
-							var newCord = res.data._source[this.props.inputData];
-							res.data.angleDeg = this.bearing(preCord.lat, preCord.lon, newCord.lat, newCord.lon);
-						}
-						var _hits = rawData.hits.hits.filter(function (hit) {
-							return hit._id !== res.data._id;
-						});
-						rawData.hits.hits = _hits;
-						rawData.hits.hits.push(res.data);
-					}
-				}
-				return {
-					rawData: rawData,
-					res: res,
-					streamFlag: true
-				};
-			}
-		}, {
-			key: 'bearing',
-			value: function bearing(lat1, lng1, lat2, lng2) {
-				var dLon = this._toRad(lng2 - lng1);
-				var y = Math.sin(dLon) * Math.cos(this._toRad(lat2));
-				var x = Math.cos(this._toRad(lat1)) * Math.sin(this._toRad(lat2)) - Math.sin(this._toRad(lat1)) * Math.cos(this._toRad(lat2)) * Math.cos(dLon);
-				var brng = this._toDeg(Math.atan2(y, x));
-				return (brng + 360) % 360;
-			}
-		}, {
-			key: '_toRad',
-			value: function _toRad(deg) {
-				return deg * Math.PI / 180;
-			}
-		}, {
-			key: '_toDeg',
-			value: function _toDeg(rad) {
-				return rad * 180 / Math.PI;
-			}
-			// tranform the raw data to marker data
-
-		}, {
-			key: 'setMarkersData',
-			value: function setMarkersData(data) {
-				var self = this;
-				if (data && data.hits && data.hits.hits) {
-					var markersData = data.hits.hits.map(function (hit, index) {
-						hit._source.mapPoint = self.identifyGeoData(hit._source[self.props.inputData]);
-						return hit;
-					});
-					markersData = markersData.filter(function (hit, index) {
-						return hit._source.mapPoint && !(hit._source.mapPoint.lat === 0 && hit._source.mapPoint.lng === 0);
-					});
-					markersData = this.sortByDistance(markersData);
-					markersData = markersData.map(function (marker) {
-						marker.showInfo = false;
-						return marker;
-					});
-					return markersData;
-				} else {
-					return [];
-				}
-			}
-			// centrialize the map
-			// calculate the distance from each marker to other marker, 
-			// summation of all the distance and sort by distance in ascending order
-
-		}, {
-			key: 'sortByDistance',
-			value: function sortByDistance(data) {
-				var _this2 = this;
-
-				var modifiedData = data.map(function (record) {
-					record.distance = _this2.findDistance(data, record);
-					return record;
-				});
-				modifiedData = _.orderBy(modifiedData, 'distance');
-				return modifiedData;
-			}
-		}, {
-			key: 'findDistance',
-			value: function findDistance(data, record) {
-				record.distance = 0;
-				var modifiednData = data.map(function (to) {
-					record.distance += getDistance(record._source.mapPoint.lat, record._source.mapPoint.lng, to._source.mapPoint.lat, to._source.mapPoint.lng);
-				});
-				function getDistance(lat1, lon1, lat2, lon2) {
-					var R = 6371; // Radius of the earth in km
-					var dLat = deg2rad(lat2 - lat1); // deg2rad below
-					var dLon = deg2rad(lon2 - lon1);
-					var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-					var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-					var d = R * c; // Distance in km
-					return d;
-				}
-				function deg2rad(deg) {
-					return deg * (Math.PI / 180);
-				}
-				return record.distance;
-			}
-			// set the query type and input data
-
-		}, {
-			key: 'setGeoQueryInfo',
-			value: function setGeoQueryInfo() {
-				var obj = {
-					key: 'geoQuery',
-					value: {
-						queryType: 'geo_bounding_box',
-						inputData: this.props.inputData
-					}
-				};
-				helper.selectedSensor.setSensorInfo(obj);
-			}
-			// Show InfoWindow and re-renders component
-
-		}, {
-			key: 'handleMarkerClick',
-			value: function handleMarkerClick(marker) {
-				marker.showInfo = true;
-				this.reposition = false;
-				this.setState({
-					rerender: true
-				});
-			}
-			// Close infowindow
-
-		}, {
-			key: 'handleMarkerClose',
-			value: function handleMarkerClose(marker) {
-				marker.showInfo = false;
-				this.reposition = false;
-				this.setState(this.state);
-			}
-			// render infowindow
-
-		}, {
-			key: 'renderInfoWindow',
-			value: function renderInfoWindow(ref, marker) {
-				var popoverContent = this.props.popoverContent ? this.props.popoverContent(marker) : 'Popver';
-				return _react2.default.createElement(
-					_reactGoogleMaps.InfoWindow,
-					{
-						zIndex: 500,
-						key: ref + '_info_window',
-						onCloseclick: this.handleMarkerClose.bind(this, marker) },
-					_react2.default.createElement(
-						'div',
-						null,
-						popoverContent
-					)
-				);
-			}
-			// Handle function which is fired when map is moved and reaches to idle position
-
-		}, {
-			key: 'handleOnIdle',
-			value: function handleOnIdle() {
-				var mapBounds = this.refs.map.getBounds();
-				var north = mapBounds.getNorthEast().lat();
-				var south = mapBounds.getSouthWest().lat();
-				var east = mapBounds.getNorthEast().lng();
-				var west = mapBounds.getSouthWest().lng();
-				var boundingBoxCoordinates = {
-					"top_left": [west, north],
-					"bottom_right": [east, south]
-				};
-				var generatedData = this.props.onIdle(this.refs.map, {
-					boundingBoxCoordinates: boundingBoxCoordinates,
-					mapBounds: mapBounds
-				});
-				this.setState({
-					externalData: generatedData
-				});
-				if (this.searchAsMove && !this.searchQueryProgress) {
-					this.setValue(boundingBoxCoordinates, this.searchAsMove);
-				}
-			}
-			// Handle function which is fired when map is dragged
-
-		}, {
-			key: 'handleOnDrage',
-			value: function handleOnDrage() {
-				this.storeCenter = null;
-			}
-			// set value
-
-		}, {
-			key: 'setValue',
-			value: function setValue(value) {
-				var isExecuteQuery = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-				var obj = {
-					key: 'geoQuery',
-					value: value
-				};
-				helper.selectedSensor.set(obj, isExecuteQuery);
-			}
-			// on change of selectiong
-
-		}, {
-			key: 'searchAsMoveChange',
-			value: function searchAsMoveChange(value) {
-				this.searchAsMove = value;
-				if (value && this.refs.map) {
-					this.handleOnIdle();
-				}
-			}
-			// mapStyle changes
-
-		}, {
-			key: 'mapStyleChange',
-			value: function mapStyleChange(style) {
-				this.setState({
-					currentMapStyle: style
-				});
-			}
-			// Handler function for bounds changed which udpates the map center
-
-		}, {
-			key: 'handleBoundsChanged',
-			value: function handleBoundsChanged() {
-				var _this3 = this;
-
-				if (!this.searchQueryProgress) {
-					// this.setState({
-					//   center: this.refs.map.getCenter()
-					// });
-				} else {
-					setTimeout(function () {
-						_this3.searchQueryProgress = false;
-					}, 1000 * 1);
-				}
-			}
-			// Handler function which is fired when an input is selected from autocomplete google places
-
-		}, {
-			key: 'handlePlacesChanged',
-			value: function handlePlacesChanged() {
-				var places = this.refs.searchBox.getPlaces();
-				// this.setState({
-				//   center: places[0].geometry.location
-				// });
-			}
-			// Handler function which is fired when an input is selected from Appbase geo search field
-
-		}, {
-			key: 'handleSearch',
-			value: function handleSearch(location) {
-				// this.setState({
-				//   center: new google.maps.LatLng(location.value.lat, location.value.lon)
-				// });
-			}
-		}, {
-			key: 'identifyGeoData',
-			value: function identifyGeoData(input) {
-				var type = Object.prototype.toString.call(input);
-				var convertedGeo = null;
-				if (type === '[object Object]' && input.hasOwnProperty('lat') && input.hasOwnProperty('lon')) {
-					convertedGeo = {
-						lat: Number(input.lat),
-						lng: Number(input.lon)
-					};
-				} else if (type === '[object Array]' && input.length === 2) {
-					convertedGeo = {
-						lat: Number(input[0]),
-						lng: Number(input[1])
-					};
-				}
-				return convertedGeo;
-			}
-			// Check if stream data exists in markersData
-			// and if exists the call streamToNormal.
-
-		}, {
-			key: 'streamMarkerInterval',
-			value: function streamMarkerInterval() {
-				var _this4 = this;
-
-				var markersData = this.state.markersData;
-				var isStreamData = markersData.filter(function (hit) {
-					return hit.stream && hit.streamStart;
-				});
-				if (isStreamData.length) {
-					this.isStreamDataExists = true;
-					setTimeout(function () {
-						return _this4.streamToNormal();
-					}, this.props.streamActiveTime * 1000);
-				} else {
-					this.isStreamDataExists = false;
-				}
-			}
-			// Check the difference between current time and attached stream time
-			// if difference is equal to streamActiveTime then delete stream and starStream property of marker
-
-		}, {
-			key: 'streamToNormal',
-			value: function streamToNormal() {
-				var _this5 = this;
-
-				var markersData = this.state.markersData;
-				var isStreamData = markersData.filter(function (hit) {
-					return hit.stream && hit.streamStart;
-				});
-				if (isStreamData.length) {
-					markersData = markersData.map(function (hit, index) {
-						if (hit.stream && hit.streamStart) {
-							var currentTime = new Date();
-							var timeDiff = (currentTime.getTime() - hit.streamStart.getTime()) / 1000;
-							if (timeDiff >= _this5.props.streamActiveTime) {
-								delete hit.stream;
-								delete hit.streamStart;
-							}
-						}
-						return hit;
-					});
-					this.setState({
-						markersData: markersData
-					});
-				} else {
-					this.isStreamDataExists = false;
-				}
-			}
-		}, {
-			key: 'chooseIcon',
-			value: function chooseIcon(hit) {
-				var icon = hit.external_icon ? hit.external_icon : hit.stream ? this.props.streamPin : this.props.historicPin;
-				var isSvg = (typeof icon === 'undefined' ? 'undefined' : _typeof(icon)) === 'object' && icon.hasOwnProperty('path') ? true : false;
-				if (isSvg) {
-					icon = JSON.parse(JSON.stringify(icon));
-					if (this.props.rotateOnUpdate) {
-						var deg = hit.angleDeg ? hit.angleDeg : 0;
-						icon.rotation = deg;
-					}
-				}
-				return icon;
-			}
-			// here we accepts marker props which we received from markerOnIndex and apply those external props in Marker component
-
-		}, {
-			key: 'combineProps',
-			value: function combineProps(hit) {
-				var externalProps = void 0,
-				    markerProp = {};
-				if (this.state.externalData && this.state.externalData.markers && this.state.externalData.markers[hit._id]) {
-					externalProps = this.state.externalData.markers[hit._id];
-					for (var external_p in externalProps) {
-						hit["external_" + external_p] = externalProps[external_p];
-						markerProp[external_p] = externalProps[external_p];
-					}
-				}
-				markerProp.icon = this.chooseIcon(hit);
-				return markerProp;
-			}
-		}, {
-			key: 'generateMarkers',
-			value: function generateMarkers() {
-				var _this6 = this;
-
-				var self = this;
-				var markersData = this.state.markersData;
-				var response = {
-					markerComponent: [],
-					defaultCenter: null,
-					convertedGeo: []
-				};
-				if (markersData && markersData.length) {
-					response.markerComponent = markersData.map(function (hit, index) {
-						var field = self.identifyGeoData(hit._source[self.props.inputData]);
-						// let icon = !this.props.rotateOnUpdate ? iconPath : RotateIcon.makeIcon(iconPath).setRotation({deg: deg}).getUrl();
-						// let icon = self.chooseIcon(hit);
-						if (field) {
-							response.convertedGeo.push(field);
-							var position = {
-								position: field
-							};
-							var ref = 'marker_ref_' + index;
-							var popoverEvent = void 0;
-							if (_this6.props.showPopoverOn) {
-								popoverEvent = {};
-								popoverEvent[_this6.props.showPopoverOn] = _this6.handleMarkerClick.bind(_this6, hit);
-							} else {
-								popoverEvent = {};
-								popoverEvent['onClick'] = _this6.handleMarkerClick.bind(_this6, hit);
-							}
-							var timenow = new Date();
-							return _react2.default.createElement(
-								_reactGoogleMaps.Marker,
-								_extends({}, position, {
-									key: hit._id,
-									zIndex: 1,
-									ref: ref
-								}, self.combineProps(hit), {
-									onClick: function onClick() {
-										return self.props.markerOnClick(hit._source);
-									},
-									onDblclick: function onDblclick() {
-										return self.props.markerOnDblclick(hit._source);
-									},
-									onMouseover: function onMouseover() {
-										return self.props.markerOnMouseover(hit._source);
-									},
-									onMouseout: function onMouseout() {
-										return self.props.markerOnMouseout(hit._source);
-									}
-								}, popoverEvent),
-								hit.showInfo ? self.renderInfoWindow(ref, hit) : null
-							);
-						}
-					});
-					if (response.convertedGeo[0]) {
-						response.defaultCenter = {
-							lat: response.convertedGeo[0].lat,
-							lng: response.convertedGeo[0].lng
-						};
-					}
-				}
-				if (!this.props.allowMarkers) {
-					response.markerComponent = [];
-				}
-				return response;
-			}
-		}, {
-			key: 'externalData',
-			value: function externalData() {
-				var recordList = [];
-				if (this.state.externalData) {
-					for (var record in this.state.externalData) {
-						if (record !== 'markers') {
-							recordList = recordList.concat(this.state.externalData[record]);
-						}
-					}
-				}
-				return recordList;
-			}
-		}, {
-			key: 'mapEvents',
-			value: function mapEvents(eventName) {
-				if (this.props[eventName]) {
-					var externalData = this.props[eventName](this.refs.map);
-					if (externalData) {
-						this.setState({
-							externalData: externalData
-						});
-					}
-				}
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var _this7 = this;
-
-				var self = this;
-				var markerComponent, searchComponent, searchAsMoveComponent, MapStylesComponent;
-				var appbaseSearch = void 0,
-				    titleExists = void 0,
-				    title = null;
-				var searchComponentProps = {};
-				var otherOptions;
-				var generatedMarkers = this.generateMarkers();
-				if (this.props.markerCluster) {
-					markerComponent = _react2.default.createElement(
-						_MarkerClusterer2.default,
-						{ averageCenter: true, enableRetinaIcons: true, gridSize: 60 },
-						generatedMarkers.markerComponent
-					);
-				} else {
-					markerComponent = generatedMarkers.markerComponent;
-				}
-				// Auto center using markers data
-				var streamCenterFlag = true;
-				if (this.channelMethod === 'stream' && !this.props.streamAutoCenter) {
-					streamCenterFlag = false;
-				}
-				if (!this.searchAsMove && this.props.autoCenter && this.reposition && streamCenterFlag) {
-					searchComponentProps.center = generatedMarkers.defaultCenter ? generatedMarkers.defaultCenter : this.storeCenter ? this.storeCenter : this.state.center;
-					this.storeCenter = searchComponentProps.center;
-					this.reposition = false;
-				} else {
-					if (this.storeCenter) {
-						searchComponentProps.center = this.storeCenter;
-					} else {
-						delete searchComponentProps.center;
-					}
-				}
-				// include searchasMove component
-				if (this.props.searchAsMoveComponent) {
-					searchAsMoveComponent = _react2.default.createElement(_SearchAsMove.SearchAsMove, { searchAsMoveDefault: this.props.searchAsMoveDefault, searchAsMoveChange: this.searchAsMoveChange });
-				}
-				// include mapStyle choose component
-				if (this.props.MapStylesComponent) {
-					MapStylesComponent = _react2.default.createElement(_MapStyles.MapStyles, { defaultSelected: this.props.mapStyle, mapStyleChange: this.mapStyleChange });
-				}
-				// include title if exists
-				if (this.props.title) {
-					titleExists = true;
-					title = _react2.default.createElement(
-						'h4',
-						{ className: 'componentTitle col s12 m8 col-xs-12 col-sm-8' },
-						this.props.title
-					);
-				}
-
-				return _react2.default.createElement(
-					'div',
-					{ className: 'map-container reactiveComponent appbaseMapComponent col s12 col-xs-12 card thumbnail' },
-					title,
-					_react2.default.createElement(
-						'span',
-						{ className: 'col s12 m4 col-xs-12 col-sm-4' },
-						MapStylesComponent
-					),
-					_react2.default.createElement(_reactGoogleMaps.GoogleMapLoader, {
-						containerElement: _react2.default.createElement('div', { className: 'containerElement col s12 col-xs-12', style: this.props.containerStyle }),
-						googleMapElement: _react2.default.createElement(
-							_reactGoogleMaps.GoogleMap,
-							_extends({ ref: 'map',
-								options: {
-									styles: this.state.currentMapStyle
-								}
-							}, searchComponentProps, this.props, {
-								onDragstart: function onDragstart() {
-									_this7.handleOnDrage();
-									_this7.mapEvents('onDragstart');
-								},
-								onIdle: function onIdle() {
-									return _this7.handleOnIdle();
-								},
-								onClick: function onClick() {
-									return _this7.mapEvents('onClick');
-								},
-								onDblclick: function onDblclick() {
-									return _this7.mapEvents('onDblclick');
-								},
-								onDrag: function onDrag() {
-									return _this7.mapEvents('onDrag');
-								},
-								onDragend: function onDragend() {
-									return _this7.mapEvents('onDragend');
-								},
-								onMousemove: function onMousemove() {
-									return _this7.mapEvents('onMousemove');
-								},
-								onMouseout: function onMouseout() {
-									return _this7.mapEvents('onMouseout');
-								},
-								onMouseover: function onMouseover() {
-									return _this7.mapEvents('onMouseover');
-								},
-								onResize: function onResize() {
-									return _this7.mapEvents('onResize');
-								},
-								onRightclick: function onRightclick() {
-									return _this7.mapEvents('onRightclick');
-								},
-								onTilesloaded: function onTilesloaded() {
-									return _this7.mapEvents('onTilesloaded');
-								},
-								onBoundsChanged: function onBoundsChanged() {
-									return _this7.mapEvents('onBoundsChanged');
-								},
-								onCenterChanged: function onCenterChanged() {
-									return _this7.mapEvents('onCenterChanged');
-								},
-								onProjectionChanged: function onProjectionChanged() {
-									return _this7.mapEvents('onProjectionChanged');
-								},
-								onTiltChanged: function onTiltChanged() {
-									return _this7.mapEvents('onTiltChanged');
-								},
-								onZoomChanged: function onZoomChanged() {
-									return _this7.mapEvents('onZoomChanged');
-								}
-							}),
-							searchComponent,
-							markerComponent,
-							this.externalData()
-						)
-					}),
-					searchAsMoveComponent,
-					_react2.default.createElement(
-						'div',
-						{ className: 'col s12 text-center center-align' },
-						_react2.default.createElement('img', { width: '200px', height: 'auto', src: 'http://opensource.appbase.io/reactive-maps/dist/images/logo.png' })
-					)
-				);
-			}
-		}]);
-
-		return AppbaseMap;
-	}(_react.Component);
-
-	AppbaseMap.propTypes = {
-		inputData: _react2.default.PropTypes.string.isRequired,
-		searchField: _react2.default.PropTypes.string,
-		searchComponent: _react2.default.PropTypes.string,
-		onIdle: _react2.default.PropTypes.func,
-		markerOnDelete: _react2.default.PropTypes.func,
-		markerOnIndex: _react2.default.PropTypes.func,
-		markerCluster: _react2.default.PropTypes.bool,
-		historicalData: _react2.default.PropTypes.bool,
-		rotateOnUpdate: _react2.default.PropTypes.bool,
-		allowMarkers: _react2.default.PropTypes.bool,
-		streamActiveTime: _react2.default.PropTypes.number,
-		requestSize: _react2.default.PropTypes.number
-	};
-	AppbaseMap.defaultProps = {
-		historicalData: true,
-		markerCluster: true,
-		searchComponent: "google",
-		autoCenter: false,
-		searchAsMoveComponent: false,
-		searchAsMoveDefault: false,
-		MapStylesComponent: false,
-		mapStyle: 'Standard',
-		title: null,
-		requestSize: 100,
-		streamActiveTime: 5,
-		streamAutoCenter: true,
-		rotateOnUpdate: false,
-		allowMarkers: true,
-		historicPin: 'http://opensource.appbase.io/reactive-maps/dist/images/historic-pin.png',
-		streamPin: 'http://opensource.appbase.io/reactive-maps/dist/images/stream-pin.png',
-		markerOnClick: function markerOnClick() {},
-		markerOnDblclick: function markerOnDblclick() {},
-		markerOnMouseover: function markerOnMouseover() {},
-		markerOnMouseout: function markerOnMouseout() {},
-		markerOnIndex: function markerOnIndex() {},
-		onIdle: function onIdle() {},
-		containerStyle: {
-			height: '700px'
-		}
-	};
-	AppbaseMap.contextTypes = {
-		appbaseConfig: _react2.default.PropTypes.any.isRequired
-	};
-
-/***/ },
-/* 225 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _interopRequire(obj) { return obj && obj.__esModule ? obj["default"] : obj; }
-
-	var _GoogleMapLoader = __webpack_require__(226);
-
-	exports.GoogleMapLoader = _interopRequire(_GoogleMapLoader);
-
-	var _GoogleMap = __webpack_require__(236);
-
-	exports.GoogleMap = _interopRequire(_GoogleMap);
-
-	var _Circle = __webpack_require__(237);
-
-	exports.Circle = _interopRequire(_Circle);
-
-	var _DirectionsRenderer = __webpack_require__(241);
-
-	exports.DirectionsRenderer = _interopRequire(_DirectionsRenderer);
-
-	var _DrawingManager = __webpack_require__(244);
-
-	exports.DrawingManager = _interopRequire(_DrawingManager);
-
-	var _InfoWindow = __webpack_require__(247);
-
-	exports.InfoWindow = _interopRequire(_InfoWindow);
-
-	var _KmlLayer = __webpack_require__(251);
-
-	exports.KmlLayer = _interopRequire(_KmlLayer);
-
-	var _Marker = __webpack_require__(254);
-
-	exports.Marker = _interopRequire(_Marker);
-
-	var _OverlayView = __webpack_require__(257);
-
-	exports.OverlayView = _interopRequire(_OverlayView);
-
-	var _Polygon = __webpack_require__(260);
-
-	exports.Polygon = _interopRequire(_Polygon);
-
-	var _Polyline = __webpack_require__(263);
-
-	exports.Polyline = _interopRequire(_Polyline);
-
-	var _Rectangle = __webpack_require__(266);
-
-	exports.Rectangle = _interopRequire(_Rectangle);
-
-	var _SearchBox = __webpack_require__(269);
-
-	exports.SearchBox = _interopRequire(_SearchBox);
-
-/***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _creatorsGoogleMapHolder = __webpack_require__(227);
-
-	var _creatorsGoogleMapHolder2 = _interopRequireDefault(_creatorsGoogleMapHolder);
-
-	var USE_NEW_BEHAVIOR_TAG_NAME = "__new_behavior__"; /* CIRCULAR_DEPENDENCY */
-
-	var GoogleMapLoader = (function (_Component) {
-	  _inherits(GoogleMapLoader, _Component);
-
-	  function GoogleMapLoader() {
-	    _classCallCheck(this, GoogleMapLoader);
-
-	    _get(Object.getPrototypeOf(GoogleMapLoader.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {
-	      map: null
-	    };
-	  }
-
-	  _createClass(GoogleMapLoader, [{
-	    key: "mountGoogleMap",
-	    value: function mountGoogleMap(domEl) {
-	      if (this.state.map || domEl === null) {
-	        return;
-	      }
-	      var _props$googleMapElement$props = this.props.googleMapElement.props;
-	      var children = _props$googleMapElement$props.children;
-
-	      var mapProps = _objectWithoutProperties(_props$googleMapElement$props, ["children"]);
-
-	      //
-	      // Create google.maps.Map instance so that dom is initialized before
-	      // React's children creators.
-	      //
-	      var map = _creatorsGoogleMapHolder2["default"]._createMap(domEl, mapProps);
-	      this.setState({ map: map });
-	    }
-	  }, {
-	    key: "renderChild",
-	    value: function renderChild() {
-	      if (this.state.map) {
-	        // Notice: implementation details
-	        //
-	        // In this state, the DOM of google.maps.Map is already initialized in
-	        // my innerHTML. Adding extra React components will not clean it
-	        // in current version*. It will use prepend to add DOM of
-	        // GoogleMapHolder and become a sibling of the DOM of google.maps.Map
-	        // Not sure this is subject to change
-	        //
-	        // *current version: 0.13.3, 0.14.2
-	        //
-	        return _react2["default"].cloneElement(this.props.googleMapElement, {
-	          map: this.state.map,
-	          // ------------ Deprecated ------------
-	          containerTagName: USE_NEW_BEHAVIOR_TAG_NAME
-	        });
-	      }
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      return _react2["default"].cloneElement(this.props.containerElement, {
-	        ref: this.mountGoogleMap.bind(this)
-	      }, this.renderChild());
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: {
-	      containerElement: _react.PropTypes.node.isRequired,
-	      googleMapElement: _react.PropTypes.element.isRequired },
-	    enumerable: true
-	  }, {
-	    key: "defaultProps",
-	    /* CIRCULAR_DEPENDENCY. Uncomment when 5.0.0 comes: propTypesElementOfType(GoogleMap).isRequired, */
-	    value: {
-	      containerElement: _react2["default"].createElement("div", null)
-	    },
-	    enumerable: true
-	  }]);
-
-	  return GoogleMapLoader;
-	})(_react.Component);
-
-	exports["default"] = GoogleMapLoader;
-	module.exports = exports["default"];
-
-/***/ },
-/* 227 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _warning = __webpack_require__(228);
-
-	var _warning2 = _interopRequireDefault(_warning);
-
-	var _eventListsGoogleMapEventList = __webpack_require__(229);
-
-	var _eventListsGoogleMapEventList2 = _interopRequireDefault(_eventListsGoogleMapEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var mapControlledPropTypes = {
-	  // NOTICE!!!!!!
-	  //
-	  // Only expose those with getters & setters in the table as controlled props.
-	  //
-	  // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^set/) && !it.match(/^setMap/); })
-	  //
-	  // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
-	  center: _react.PropTypes.object,
-	  heading: _react.PropTypes.number,
-	  mapTypeId: _react.PropTypes.any,
-	  options: _react.PropTypes.object,
-	  streetView: _react.PropTypes.any,
-	  tilt: _react.PropTypes.number,
-	  zoom: _react.PropTypes.number
-	};
-
-	exports.mapControlledPropTypes = mapControlledPropTypes;
-	var mapDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(mapControlledPropTypes);
-
-	exports.mapDefaultPropTypes = mapDefaultPropTypes;
-	var mapUpdaters = {
-	  center: function center(_center, component) {
-	    component.getMap().setCenter(_center);
-	  },
-	  heading: function heading(_heading, component) {
-	    component.getMap().setHeading(_heading);
-	  },
-	  mapTypeId: function mapTypeId(_mapTypeId, component) {
-	    component.getMap().setMapTypeId(_mapTypeId);
-	  },
-	  options: function options(_options, component) {
-	    component.getMap().setOptions(_options);
-	  },
-	  streetView: function streetView(_streetView, component) {
-	    component.getMap().setStreetView(_streetView);
-	  },
-	  tilt: function tilt(_tilt, component) {
-	    component.getMap().setTilt(_tilt);
-	  },
-	  zoom: function zoom(_zoom, component) {
-	    component.getMap().setZoom(_zoom);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2["default"])(_eventListsGoogleMapEventList2["default"]);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var mapEventPropTypes = eventPropTypes;
-
-	exports.mapEventPropTypes = mapEventPropTypes;
-
-	var GoogleMapHolder = (function (_Component) {
-	  _inherits(GoogleMapHolder, _Component);
-
-	  function GoogleMapHolder() {
-	    _classCallCheck(this, _GoogleMapHolder);
-
-	    _get(Object.getPrototypeOf(_GoogleMapHolder.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(GoogleMapHolder, [{
-	    key: "getMap",
-	    value: function getMap() {
-	      return this.props.map;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var _this = this;
-
-	      return _react2["default"].createElement(
-	        "div",
-	        null,
-	        _react.Children.map(this.props.children, function (childElement) {
-	          if (_react2["default"].isValidElement(childElement)) {
-	            return _react2["default"].cloneElement(childElement, {
-	              mapHolderRef: _this
-	            });
-	          } else {
-	            return childElement;
-	          }
-	        })
-	      );
-	    }
-	  }], [{
-	    key: "_createMap",
-	    value: function _createMap(domEl, mapProps) {
-	      (0, _warning2["default"])("undefined" !== typeof google, "Make sure you've put a <script> tag in your <head> element to load Google Maps JavaScript API v3.\n If you're looking for built-in support to load it for you, use the \"async/ScriptjsLoader\" instead.\n See https://github.com/tomchentw/react-google-maps/pull/168");
-	      // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
-	      return new google.maps.Map(domEl, (0, _utilsComposeOptions2["default"])(mapProps, mapControlledPropTypes));
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      map: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _GoogleMapHolder = GoogleMapHolder;
-	  GoogleMapHolder = (0, _utilsComponentLifecycleDecorator2["default"])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: "getMap",
-	    updaters: mapUpdaters
-	  })(GoogleMapHolder) || GoogleMapHolder;
-	  return GoogleMapHolder;
-	})(_react.Component);
-
-	exports["default"] = GoogleMapHolder;
-
-/***/ },
-/* 228 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	'use strict';
-
-	/**
-	 * Similar to invariant but only logs a warning if the condition is not met.
-	 * This can be used to log issues in development environments in critical
-	 * paths. Removing the logging code for production environments will keep the
-	 * same logic and follow the same code paths.
-	 */
-
-	var warning = function() {};
-
-	if ((undefined) !== 'production') {
-	  warning = function(condition, format, args) {
-	    var len = arguments.length;
-	    args = new Array(len > 2 ? len - 2 : 0);
-	    for (var key = 2; key < len; key++) {
-	      args[key - 2] = arguments[key];
-	    }
-	    if (format === undefined) {
-	      throw new Error(
-	        '`warning(condition, format, ...args)` requires a warning ' +
-	        'message argument'
-	      );
-	    }
-
-	    if (format.length < 10 || (/^[s\W]*$/).test(format)) {
-	      throw new Error(
-	        'The warning format should be able to uniquely identify this ' +
-	        'warning. Please, use a more descriptive format than: ' + format
-	      );
-	    }
-
-	    if (!condition) {
-	      var argIndex = 0;
-	      var message = 'Warning: ' +
-	        format.replace(/%s/g, function() {
-	          return args[argIndex++];
-	        });
-	      if (typeof console !== 'undefined') {
-	        console.error(message);
-	      }
-	      try {
-	        // This error was thrown as a convenience so that you can use this stack
-	        // to find the callsite that caused this warning to fire.
-	        throw new Error(message);
-	      } catch(x) {}
-	    }
-	  };
-	}
-
-	module.exports = warning;
-
-
-/***/ },
-/* 229 */
-/***/ function(module, exports) {
-
-	// https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
-	// [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; })
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["bounds_changed", "center_changed", "click", "dblclick", "drag", "dragend", "dragstart", "heading_changed", "idle", "maptypeid_changed", "mousemove", "mouseout", "mouseover", "projection_changed", "resize", "rightclick", "tilesloaded", "tilt_changed", "zoom_changed"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 230 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = eventHandlerCreator;
-
-	var _react = __webpack_require__(3);
-
-	function groupToUpperCase(match, group) {
-	  return group.toUpperCase();
-	}
-
-	function toOnEventName(rawName) {
-	  return "on" + rawName.replace(/^(.)/, groupToUpperCase).replace(/_(.)/g, groupToUpperCase);
-	}
-
-	function eventHandlerCreator(rawNameList) {
-	  var eventPropTypes = {};
-	  var onEventNameByRawName = {};
-
-	  rawNameList.forEach(function (rawName) {
-	    var onEventName = toOnEventName(rawName);
-	    eventPropTypes[onEventName] = _react.PropTypes.func;
-	    onEventNameByRawName[rawName] = onEventName;
-	  });
-
-	  function registerEvents(event, props, googleMapInstance) {
-	    var registered = rawNameList.reduce(function (acc, rawName) {
-	      var onEventName = onEventNameByRawName[rawName];
-
-	      if (Object.prototype.hasOwnProperty.call(props, onEventName)) {
-	        acc.push(event.addListener(googleMapInstance, rawName, props[onEventName]));
-	      }
-	      return acc;
-	    }, []);
-
-	    return registered.forEach.bind(registered, event.removeListener, event);
-	  }
-
-	  return {
-	    eventPropTypes: eventPropTypes,
-	    registerEvents: registerEvents
-	  };
-	}
-
-	module.exports = exports["default"];
-
-/***/ },
-/* 231 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = defaultPropsCreator;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	var _addDefaultPrefix = __webpack_require__(232);
-
-	var _addDefaultPrefix2 = _interopRequireDefault(_addDefaultPrefix);
-
-	function defaultPropsCreator(propTypes) {
-	  return Object.keys(propTypes).reduce(function (acc, name) {
-	    acc[(0, _addDefaultPrefix2["default"])(name)] = propTypes[name];
-	    return acc;
-	  }, {});
-	}
-
-	module.exports = exports["default"];
-
-/***/ },
-/* 232 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = addDefaultPrefix;
-
-	function addDefaultPrefix(name) {
-	  return "default" + (name[0].toUpperCase() + name.slice(1));
-	}
-
-	module.exports = exports["default"];
-
-/***/ },
-/* 233 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	exports["default"] = composeOptions;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	var _controlledOrDefault = __webpack_require__(234);
-
-	var _controlledOrDefault2 = _interopRequireDefault(_controlledOrDefault);
-
-	function composeOptions(props, controlledPropTypes) {
-	  var optionNameList = Object.keys(controlledPropTypes);
-	  var getter = (0, _controlledOrDefault2["default"])(props);
-
-	  // props from arguments may contain unknow props.
-	  // We only interested those in optionNameList
-	  return optionNameList.reduce(function (acc, optionName) {
-	    if ("options" !== optionName) {
-	      var value = getter(optionName);
-	      if ("undefined" !== typeof value) {
-	        acc[optionName] = value;
-	      }
-	    }
-	    return acc;
-	  }, _extends({}, getter("options")));
-	}
-
-	module.exports = exports["default"];
-
-/***/ },
-/* 234 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = controlledOrDefault;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	var _addDefaultPrefix = __webpack_require__(232);
-
-	var _addDefaultPrefix2 = _interopRequireDefault(_addDefaultPrefix);
-
-	function controlledOrDefault(props) {
-	  return function (name) {
-	    if (Object.prototype.hasOwnProperty.call(props, name)) {
-	      return props[name];
-	    } else {
-	      return props[(0, _addDefaultPrefix2["default"])(name)];
-	    }
-	  };
-	}
-
-	module.exports = exports["default"];
-
-/***/ },
-/* 235 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = componentLifecycleDecorator;
-
-	function componentLifecycleDecorator(_ref) {
-	  var registerEvents = _ref.registerEvents;
-	  var instanceMethodName = _ref.instanceMethodName;
-	  var updaters = _ref.updaters;
-
-	  // This modify the Component.prototype directly
-	  return function (Component) {
-	    function register() {
-	      this._unregisterEvents = registerEvents(google.maps.event, this.props, this[instanceMethodName]());
-	    }
-
-	    function unregister() {
-	      if (this._unregisterEvents) {
-	        this._unregisterEvents();
-	        this._unregisterEvents = null;
-	      }
-	    }
-
-	    function noop() {}
-
-	    // Stash component's own lifecycle methods to be invoked later
-	    var componentDidMount = Component.prototype.hasOwnProperty("componentDidMount") ? Component.prototype.componentDidMount : noop;
-	    var componentDidUpdate = Component.prototype.hasOwnProperty("componentDidUpdate") ? Component.prototype.componentDidUpdate : noop;
-	    var componentWillUnmount = Component.prototype.hasOwnProperty("componentWillUnmount") ? Component.prototype.componentWillUnmount : noop;
-
-	    Object.defineProperty(Component.prototype, "componentDidMount", {
-	      enumerable: false,
-	      configurable: true,
-	      writable: true,
-	      value: function value() {
-	        // Hook into client's implementation, if it has any
-	        componentDidMount.call(this);
-
-	        register.call(this);
-	      }
-	    });
-
-	    Object.defineProperty(Component.prototype, "componentDidUpdate", {
-	      enumerable: false,
-	      configurable: true,
-	      writable: true,
-	      value: function value(prevProps) {
-	        unregister.call(this);
-
-	        for (var _name in updaters) {
-	          if (Object.prototype.hasOwnProperty.call(this.props, _name)) {
-	            updaters[_name](this.props[_name], this);
-	          }
-	        }
-
-	        // Hook into client's implementation, if it has any
-	        componentDidUpdate.call(this, prevProps);
-
-	        register.call(this);
-	      }
-	    });
-
-	    Object.defineProperty(Component.prototype, "componentWillUnmount", {
-	      enumerable: false,
-	      configurable: true,
-	      writable: true,
-	      value: function value() {
-	        // Hook into client's implementation, if it has any
-	        componentWillUnmount.call(this);
-
-	        unregister.call(this);
-	        var instance = this[instanceMethodName]();
-	        if ("setMap" in instance) {
-	          instance.setMap(null);
-	        }
-	      }
-	    });
-
-	    return Component;
-	  };
-	}
-
-	module.exports = exports["default"];
-
-/***/ },
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _warning = __webpack_require__(228);
-
-	var _warning2 = _interopRequireDefault(_warning);
-
-	var _creatorsGoogleMapHolder = __webpack_require__(227);
-
-	var _creatorsGoogleMapHolder2 = _interopRequireDefault(_creatorsGoogleMapHolder);
-
-	var _GoogleMapLoader = __webpack_require__(226);
-
-	var _GoogleMapLoader2 = _interopRequireDefault(_GoogleMapLoader);
-
-	var USE_NEW_BEHAVIOR_TAG_NAME = "__new_behavior__";
-
-	var GoogleMap = (function (_Component) {
-	  _inherits(GoogleMap, _Component);
-
-	  function GoogleMap() {
-	    _classCallCheck(this, GoogleMap);
-
-	    _get(Object.getPrototypeOf(GoogleMap.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(GoogleMap, [{
-	    key: "getBounds",
-
-	    // Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^get/) && !it.match(/Map$/); })
-	    value: function getBounds() {
-	      return (this.props.map || this.refs.delegate).getBounds();
-	    }
-	  }, {
-	    key: "getCenter",
-	    value: function getCenter() {
-	      return (this.props.map || this.refs.delegate).getCenter();
-	    }
-	  }, {
-	    key: "getDiv",
-	    value: function getDiv() {
-	      return (this.props.map || this.refs.delegate).getDiv();
-	    }
-	  }, {
-	    key: "getHeading",
-	    value: function getHeading() {
-	      return (this.props.map || this.refs.delegate).getHeading();
-	    }
-	  }, {
-	    key: "getMapTypeId",
-	    value: function getMapTypeId() {
-	      return (this.props.map || this.refs.delegate).getMapTypeId();
-	    }
-	  }, {
-	    key: "getProjection",
-	    value: function getProjection() {
-	      return (this.props.map || this.refs.delegate).getProjection();
-	    }
-	  }, {
-	    key: "getStreetView",
-	    value: function getStreetView() {
-	      return (this.props.map || this.refs.delegate).getStreetView();
-	    }
-	  }, {
-	    key: "getTilt",
-	    value: function getTilt() {
-	      return (this.props.map || this.refs.delegate).getTilt();
-	    }
-	  }, {
-	    key: "getZoom",
-	    value: function getZoom() {
-	      return (this.props.map || this.refs.delegate).getZoom();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
-	    //
-	    // Public APIs - Use this carefully
-	    // See discussion in https://github.com/tomchentw/react-google-maps/issues/62
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return !it.match(/^get/) && !it.match(/^set/) && !it.match(/Map$/); })
-	  }, {
-	    key: "fitBounds",
-	    value: function fitBounds(bounds) {
-	      return (this.props.map || this.refs.delegate).fitBounds(bounds);
-	    }
-	  }, {
-	    key: "panBy",
-	    value: function panBy(x, y) {
-	      return (this.props.map || this.refs.delegate).panBy(x, y);
-	    }
-	  }, {
-	    key: "panTo",
-	    value: function panTo(latLng) {
-	      return (this.props.map || this.refs.delegate).panTo(latLng);
-	    }
-	  }, {
-	    key: "panToBounds",
-	    value: function panToBounds(latLngBounds) {
-	      return (this.props.map || this.refs.delegate).panToBounds(latLngBounds);
-	    }
-
-	    // END - Public APIs - Use this carefully
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      var containerTagName = this.props.containerTagName;
-
-	      var isUsingNewBehavior = USE_NEW_BEHAVIOR_TAG_NAME === containerTagName;
-
-	      (0, _warning2["default"])(isUsingNewBehavior, "\"GoogleMap\" with containerTagName is deprecated now and will be removed in next major release (5.0.0).\nUse \"GoogleMapLoader\" instead. See https://github.com/tomchentw/react-google-maps/pull/157 for more details.");
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var _props = this.props;
-	      var containerTagName = _props.containerTagName;
-	      var _props$containerProps = _props.containerProps;
-	      var containerProps = _props$containerProps === undefined ? {} : _props$containerProps;
-	      var children = _props.children;
-
-	      var mapProps = _objectWithoutProperties(_props, ["containerTagName", "containerProps", "children"]);
-
-	      var isUsingNewBehavior = USE_NEW_BEHAVIOR_TAG_NAME === containerTagName;
-
-	      if (isUsingNewBehavior) {
-	        return _react2["default"].createElement(
-	          _creatorsGoogleMapHolder2["default"],
-	          mapProps,
-	          children
-	        );
-	      } else {
-	        // ------------ Deprecated ------------
-	        var realContainerTagName = containerTagName === undefined || containerTagName === null ? "div" : containerTagName;
-
-	        return _react2["default"].createElement(_GoogleMapLoader2["default"], {
-	          ref: "loader",
-	          containerElement: _react2["default"].createElement(realContainerTagName, containerProps),
-	          googleMapElement: _react2["default"].createElement(
-	            GoogleMap,
-	            _extends({ ref: "delegate", containerTagName: USE_NEW_BEHAVIOR_TAG_NAME }, mapProps),
-	            children
-	          )
-	        });
-	      }
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: _extends({
-	      containerTagName: _react.PropTypes.string,
-	      containerProps: _react.PropTypes.object,
-	      map: _react.PropTypes.object
-	    }, _creatorsGoogleMapHolder.mapDefaultPropTypes, _creatorsGoogleMapHolder.mapControlledPropTypes, _creatorsGoogleMapHolder.mapEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return GoogleMap;
-	})(_react.Component);
-
-	exports["default"] = GoogleMap;
-	module.exports = exports["default"];
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-	// Event [onEventName]
-
-/***/ },
-/* 237 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _creatorsCircleCreator = __webpack_require__(239);
-
-	var _creatorsCircleCreator2 = _interopRequireDefault(_creatorsCircleCreator);
-
-	var Circle = (function (_Component) {
-	  _inherits(Circle, _Component);
-
-	  function Circle() {
-	    _classCallCheck(this, Circle);
-
-	    _get(Object.getPrototypeOf(Circle.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(Circle, [{
-	    key: "getBounds",
-
-	    // Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Circle
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^get/) && !it.match(/^getMap/); })
-	    value: function getBounds() {
-	      return this.state.circle.getBounds();
-	    }
-	  }, {
-	    key: "getCenter",
-	    value: function getCenter() {
-	      return this.state.circle.getCenter();
-	    }
-	  }, {
-	    key: "getDraggable",
-	    value: function getDraggable() {
-	      return this.state.circle.getDraggable();
-	    }
-	  }, {
-	    key: "getEditable",
-	    value: function getEditable() {
-	      return this.state.circle.getEditable();
-	    }
-	  }, {
-	    key: "getMap",
-	    value: function getMap() {
-	      return this.state.circle.getMap();
-	    }
-	  }, {
-	    key: "getRadius",
-	    value: function getRadius() {
-	      return this.state.circle.getRadius();
-	    }
-	  }, {
-	    key: "getVisible",
-	    value: function getVisible() {
-	      return this.state.circle.getVisible();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Circle
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-	      var circle = _creatorsCircleCreator2["default"]._createCircle(this.props);
-
-	      this.setState({ circle: circle });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      if (this.state.circle) {
-	        return _react2["default"].createElement(
-	          _creatorsCircleCreator2["default"],
-	          _extends({ circle: this.state.circle }, this.props),
-	          this.props.children
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: _extends({}, _creatorsCircleCreator.circleDefaultPropTypes, _creatorsCircleCreator.circleControlledPropTypes, _creatorsCircleCreator.circleEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return Circle;
-	})(_react.Component);
-
-	exports["default"] = Circle;
-	module.exports = exports["default"];
-
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-	// Event [onEventName]
-
-/***/ },
-/* 238 */
-/***/ function(module, exports) {
-
-	var canUseDOM = !!(
-	  typeof window !== 'undefined' &&
-	  window.document &&
-	  window.document.createElement
-	);
-
-	module.exports = canUseDOM;
-
-/***/ },
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _eventListsCircleEventList = __webpack_require__(240);
-
-	var _eventListsCircleEventList2 = _interopRequireDefault(_eventListsCircleEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var _GoogleMapHolder = __webpack_require__(227);
-
-	var _GoogleMapHolder2 = _interopRequireDefault(_GoogleMapHolder);
-
-	var circleControlledPropTypes = {
-	  // NOTICE!!!!!!
-	  //
-	  // Only expose those with getters & setters in the table as controlled props.
-	  //
-	  // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^set/) && !it.match(/^setMap/); })
-	  //
-	  // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Circle
-	  center: _react.PropTypes.any,
-	  draggable: _react.PropTypes.bool,
-	  editable: _react.PropTypes.bool,
-	  options: _react.PropTypes.object,
-	  radius: _react.PropTypes.number,
-	  visible: _react.PropTypes.bool
-	};
-
-	exports.circleControlledPropTypes = circleControlledPropTypes;
-	var circleDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(circleControlledPropTypes);
-
-	exports.circleDefaultPropTypes = circleDefaultPropTypes;
-	var circleUpdaters = {
-	  center: function center(_center, component) {
-	    component.getCircle().setCenter(_center);
-	  },
-	  draggable: function draggable(_draggable, component) {
-	    component.getCircle().setDraggable(_draggable);
-	  },
-	  editable: function editable(_editable, component) {
-	    component.getCircle().setEditable(_editable);
-	  },
-	  options: function options(_options, component) {
-	    component.getCircle().setOptions(_options);
-	  },
-	  radius: function radius(_radius, component) {
-	    component.getCircle().setRadius(_radius);
-	  },
-	  visible: function visible(_visible, component) {
-	    component.getCircle().setVisible(_visible);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2["default"])(_eventListsCircleEventList2["default"]);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var circleEventPropTypes = eventPropTypes;
-
-	exports.circleEventPropTypes = circleEventPropTypes;
-
-	var CircleCreator = (function (_Component) {
-	  _inherits(CircleCreator, _Component);
-
-	  function CircleCreator() {
-	    _classCallCheck(this, _CircleCreator);
-
-	    _get(Object.getPrototypeOf(_CircleCreator.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(CircleCreator, [{
-	    key: "getCircle",
-	    value: function getCircle() {
-	      return this.props.circle;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      return _react2["default"].createElement("noscript", null);
-	    }
-	  }], [{
-	    key: "_createCircle",
-	    value: function _createCircle(circleProps) {
-	      var mapHolderRef = circleProps.mapHolderRef;
-
-	      // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Circle
-	      var circle = new google.maps.Circle((0, _utilsComposeOptions2["default"])(circleProps, circleControlledPropTypes));
-
-	      circle.setMap(mapHolderRef.getMap());
-
-	      return circle;
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_GoogleMapHolder2["default"]).isRequired,
-	      circle: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _CircleCreator = CircleCreator;
-	  CircleCreator = (0, _utilsComponentLifecycleDecorator2["default"])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: "getCircle",
-	    updaters: circleUpdaters
-	  })(CircleCreator) || CircleCreator;
-	  return CircleCreator;
-	})(_react.Component);
-
-	exports["default"] = CircleCreator;
-
-/***/ },
-/* 240 */
-/***/ function(module, exports) {
-
-	// https://developers.google.com/maps/documentation/javascript/3.exp/reference#Circle
-	// [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; })
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["center_changed", "click", "dblclick", "drag", "dragend", "dragstart", "mousedown", "mousemove", "mouseout", "mouseover", "mouseup", "radius_changed", "rightclick"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 241 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _creatorsDirectionsRendererCreator = __webpack_require__(242);
-
-	var _creatorsDirectionsRendererCreator2 = _interopRequireDefault(_creatorsDirectionsRendererCreator);
-
-	/*
-	 * Original author: @alexishevia
-	 * Original PR: https://github.com/tomchentw/react-google-maps/pull/22
-	 */
-
-	var DirectionsRenderer = (function (_Component) {
-	  _inherits(DirectionsRenderer, _Component);
-
-	  function DirectionsRenderer() {
-	    _classCallCheck(this, DirectionsRenderer);
-
-	    _get(Object.getPrototypeOf(DirectionsRenderer.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(DirectionsRenderer, [{
-	    key: "getDirections",
-
-	    // Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#DirectionsRenderer
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^get/) && !it.match(/^getMap/); })
-	    value: function getDirections() {
-	      return this.state.directionsRenderer.getDirections();
-	    }
-	  }, {
-	    key: "getPanel",
-	    value: function getPanel() {
-	      return this.state.directionsRenderer.getPanel();
-	    }
-	  }, {
-	    key: "getRouteIndex",
-	    value: function getRouteIndex() {
-	      return this.state.directionsRenderer.getRouteIndex();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#DirectionsRenderer
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-	      var directionsRenderer = _creatorsDirectionsRendererCreator2["default"]._createDirectionsRenderer(this.props);
-
-	      this.setState({ directionsRenderer: directionsRenderer });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      if (this.state.directionsRenderer) {
-	        return _react2["default"].createElement(
-	          _creatorsDirectionsRendererCreator2["default"],
-	          _extends({ directionsRenderer: this.state.directionsRenderer }, this.props),
-	          this.props.children
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: _extends({}, _creatorsDirectionsRendererCreator.directionsRendererDefaultPropTypes, _creatorsDirectionsRendererCreator.directionsRendererControlledPropTypes, _creatorsDirectionsRendererCreator.directionsRendererEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return DirectionsRenderer;
-	})(_react.Component);
-
-	exports["default"] = DirectionsRenderer;
-	module.exports = exports["default"];
-
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-	// Event [onEventName]
-
-/***/ },
-/* 242 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _eventListsDirectionsRendererEventList = __webpack_require__(243);
-
-	var _eventListsDirectionsRendererEventList2 = _interopRequireDefault(_eventListsDirectionsRendererEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var _GoogleMapHolder = __webpack_require__(227);
-
-	var _GoogleMapHolder2 = _interopRequireDefault(_GoogleMapHolder);
-
-	var directionsRendererControlledPropTypes = {
-	  // NOTICE!!!!!!
-	  //
-	  // Only expose those with getters & setters in the table as controlled props.
-	  //
-	  // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^set/) && !it.match(/^setMap/); })
-	  //
-	  // https://developers.google.com/maps/documentation/javascript/3.exp/reference#DirectionsRenderer
-	  directions: _react.PropTypes.any,
-	  options: _react.PropTypes.object,
-	  panel: _react.PropTypes.object,
-	  routeIndex: _react.PropTypes.number
-	};
-
-	exports.directionsRendererControlledPropTypes = directionsRendererControlledPropTypes;
-	var directionsRendererDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(directionsRendererControlledPropTypes);
-
-	exports.directionsRendererDefaultPropTypes = directionsRendererDefaultPropTypes;
-	var directionsRendererUpdaters = {
-	  directions: function directions(_directions, component) {
-	    component.getDirectionsRenderer().setDirections(_directions);
-	  },
-	  options: function options(_options, component) {
-	    component.getDirectionsRenderer().setOptions(_options);
-	  },
-	  panel: function panel(_panel, component) {
-	    component.getDirectionsRenderer().setPanel(_panel);
-	  },
-	  routeIndex: function routeIndex(_routeIndex, component) {
-	    component.getDirectionsRenderer().setRouteIndex(_routeIndex);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2["default"])(_eventListsDirectionsRendererEventList2["default"]);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var directionsRendererEventPropTypes = eventPropTypes;
-
-	exports.directionsRendererEventPropTypes = directionsRendererEventPropTypes;
-
-	var DirectionsRendererCreator = (function (_Component) {
-	  _inherits(DirectionsRendererCreator, _Component);
-
-	  function DirectionsRendererCreator() {
-	    _classCallCheck(this, _DirectionsRendererCreator);
-
-	    _get(Object.getPrototypeOf(_DirectionsRendererCreator.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(DirectionsRendererCreator, [{
-	    key: "getDirectionsRenderer",
-	    value: function getDirectionsRenderer() {
-	      return this.props.directionsRenderer;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var children = this.props.children;
-
-	      if (_react.Children.count(children) > 0) {
-	        // TODO: take a look at DirectionsRendererOptions#infoWindow and DirectionsRendererOptions#markerOptions ?
-	        return _react2["default"].createElement(
-	          "div",
-	          null,
-	          children
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "_createDirectionsRenderer",
-	    value: function _createDirectionsRenderer(directionsRendererProps) {
-	      var mapHolderRef = directionsRendererProps.mapHolderRef;
-
-	      // https://developers.google.com/maps/documentation/javascript/3.exp/reference#DirectionsRenderer
-	      var directionsRenderer = new google.maps.DirectionsRenderer((0, _utilsComposeOptions2["default"])(directionsRendererProps, directionsRendererControlledPropTypes));
-
-	      directionsRenderer.setMap(mapHolderRef.getMap());
-
-	      return directionsRenderer;
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_GoogleMapHolder2["default"]).isRequired,
-	      directionsRenderer: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _DirectionsRendererCreator = DirectionsRendererCreator;
-	  DirectionsRendererCreator = (0, _utilsComponentLifecycleDecorator2["default"])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: "getDirectionsRenderer",
-	    updaters: directionsRendererUpdaters
-	  })(DirectionsRendererCreator) || DirectionsRendererCreator;
-	  return DirectionsRendererCreator;
-	})(_react.Component);
-
-	exports["default"] = DirectionsRendererCreator;
-
-/***/ },
-/* 243 */
-/***/ function(module, exports) {
-
-	// https://developers.google.com/maps/documentation/javascript/3.exp/reference#DirectionsRenderer
-	// [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; })
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["directions_changed"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 244 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _creatorsDrawingManagerCreator = __webpack_require__(245);
-
-	var _creatorsDrawingManagerCreator2 = _interopRequireDefault(_creatorsDrawingManagerCreator);
-
-	/*
-	 * Original author: @idolize
-	 * Original PR: https://github.com/tomchentw/react-google-maps/pull/46
-	 */
-
-	var DrawingManager = (function (_Component) {
-	  _inherits(DrawingManager, _Component);
-
-	  function DrawingManager() {
-	    _classCallCheck(this, DrawingManager);
-
-	    _get(Object.getPrototypeOf(DrawingManager.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(DrawingManager, [{
-	    key: "getDrawingMode",
-
-	    // Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#DrawingManager
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^get/) && !it.match(/^getMap/); })
-	    value: function getDrawingMode() {
-	      return this.state.drawingManager.getDrawingMode();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#DrawingManager
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-	      var drawingManager = _creatorsDrawingManagerCreator2["default"]._createDrawingManager(this.props);
-
-	      this.setState({ drawingManager: drawingManager });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      if (this.state.drawingManager) {
-	        return _react2["default"].createElement(
-	          _creatorsDrawingManagerCreator2["default"],
-	          _extends({ drawingManager: this.state.drawingManager }, this.props),
-	          this.props.children
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: _extends({}, _creatorsDrawingManagerCreator.drawingManagerDefaultPropTypes, _creatorsDrawingManagerCreator.drawingManagerControlledPropTypes, _creatorsDrawingManagerCreator.drawingManagerEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return DrawingManager;
-	})(_react.Component);
-
-	exports["default"] = DrawingManager;
-	module.exports = exports["default"];
-
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-	// Event [onEventName]
-
-/***/ },
-/* 245 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _eventListsDrawingManagerEventList = __webpack_require__(246);
-
-	var _eventListsDrawingManagerEventList2 = _interopRequireDefault(_eventListsDrawingManagerEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var _GoogleMapHolder = __webpack_require__(227);
-
-	var _GoogleMapHolder2 = _interopRequireDefault(_GoogleMapHolder);
-
-	var drawingManagerControlledPropTypes = {
-	  // NOTICE!!!!!!
-	  //
-	  // Only expose those with getters & setters in the table as controlled props.
-	  //
-	  // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^set/) && !it.match(/^setMap/); })
-	  //
-	  // https://developers.google.com/maps/documentation/javascript/3.exp/reference#DrawingManager
-	  drawingMode: _react.PropTypes.any,
-	  options: _react.PropTypes.object
-	};
-
-	exports.drawingManagerControlledPropTypes = drawingManagerControlledPropTypes;
-	var drawingManagerDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(drawingManagerControlledPropTypes);
-
-	exports.drawingManagerDefaultPropTypes = drawingManagerDefaultPropTypes;
-	var drawingManagerUpdaters = {
-	  drawingMode: function drawingMode(_drawingMode, component) {
-	    component.getDrawingManager().setDrawingMode(_drawingMode);
-	  },
-	  options: function options(_options, component) {
-	    component.getDrawingManager().setOptions(_options);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2["default"])(_eventListsDrawingManagerEventList2["default"]);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var drawingManagerEventPropTypes = eventPropTypes;
-
-	exports.drawingManagerEventPropTypes = drawingManagerEventPropTypes;
-
-	var DrawingManagerCreator = (function (_Component) {
-	  _inherits(DrawingManagerCreator, _Component);
-
-	  function DrawingManagerCreator() {
-	    _classCallCheck(this, _DrawingManagerCreator);
-
-	    _get(Object.getPrototypeOf(_DrawingManagerCreator.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(DrawingManagerCreator, [{
-	    key: "getDrawingManager",
-	    value: function getDrawingManager() {
-	      return this.props.drawingManager;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      return _react2["default"].createElement("noscript", null);
-	    }
-	  }], [{
-	    key: "_createDrawingManager",
-	    value: function _createDrawingManager(drawingManagerProps) {
-	      var mapHolderRef = drawingManagerProps.mapHolderRef;
-
-	      // https://developers.google.com/maps/documentation/javascript/3.exp/reference#DrawingManager
-	      var drawingManager = new google.maps.drawing.DrawingManager((0, _utilsComposeOptions2["default"])(drawingManagerProps, drawingManagerControlledPropTypes));
-
-	      drawingManager.setMap(mapHolderRef.getMap());
-
-	      return drawingManager;
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_GoogleMapHolder2["default"]).isRequired,
-	      drawingManager: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _DrawingManagerCreator = DrawingManagerCreator;
-	  DrawingManagerCreator = (0, _utilsComponentLifecycleDecorator2["default"])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: "getDrawingManager",
-	    updaters: drawingManagerUpdaters
-	  })(DrawingManagerCreator) || DrawingManagerCreator;
-	  return DrawingManagerCreator;
-	})(_react.Component);
-
-	exports["default"] = DrawingManagerCreator;
-
-/***/ },
-/* 246 */
-/***/ function(module, exports) {
-
-	// https://developers.google.com/maps/documentation/javascript/3.exp/reference#DrawingManager
-	// [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; })
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["circlecomplete", "markercomplete", "overlaycomplete", "polygoncomplete", "polylinecomplete", "rectanglecomplete"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 247 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _creatorsInfoWindowCreator = __webpack_require__(248);
-
-	var _creatorsInfoWindowCreator2 = _interopRequireDefault(_creatorsInfoWindowCreator);
-
-	var InfoWindow = (function (_Component) {
-	  _inherits(InfoWindow, _Component);
-
-	  function InfoWindow() {
-	    _classCallCheck(this, InfoWindow);
-
-	    _get(Object.getPrototypeOf(InfoWindow.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(InfoWindow, [{
-	    key: "getContent",
-
-	    // Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#InfoWindow
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^get/) && !it.match(/^getMap/); })
-	    value: function getContent() {/* TODO: children */}
-	  }, {
-	    key: "getPosition",
-	    value: function getPosition() {
-	      return this.state.infoWindow.getPosition();
-	    }
-	  }, {
-	    key: "getZIndex",
-	    value: function getZIndex() {
-	      return this.state.infoWindow.getZIndex();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#InfoWindow
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-	      var infoWindow = _creatorsInfoWindowCreator2["default"]._createInfoWindow(this.props);
-
-	      this.setState({ infoWindow: infoWindow });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      if (this.state.infoWindow) {
-	        return _react2["default"].createElement(
-	          _creatorsInfoWindowCreator2["default"],
-	          _extends({ infoWindow: this.state.infoWindow }, this.props),
-	          this.props.children
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: _extends({}, _creatorsInfoWindowCreator.infoWindowDefaultPropTypes, _creatorsInfoWindowCreator.infoWindowControlledPropTypes, _creatorsInfoWindowCreator.infoWindowEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return InfoWindow;
-	})(_react.Component);
-
-	exports["default"] = InfoWindow;
-	module.exports = exports["default"];
-
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-	// Event [onEventName]
-
-/***/ },
-/* 248 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _eventListsInfoWindowEventList = __webpack_require__(249);
-
-	var _eventListsInfoWindowEventList2 = _interopRequireDefault(_eventListsInfoWindowEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsSetContentForOptionalReactElement = __webpack_require__(250);
-
-	var _utilsSetContentForOptionalReactElement2 = _interopRequireDefault(_utilsSetContentForOptionalReactElement);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var _GoogleMapHolder = __webpack_require__(227);
-
-	var _GoogleMapHolder2 = _interopRequireDefault(_GoogleMapHolder);
-
-	var infoWindowControlledPropTypes = {
-	  // NOTICE!!!!!!
-	  //
-	  // Only expose those with getters & setters in the table as controlled props.
-	  //
-	  // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^set/) && !it.match(/^setMap/); })
-	  //
-	  // https://developers.google.com/maps/documentation/javascript/3.exp/reference#InfoWindow
-	  content: _react.PropTypes.any,
-	  options: _react.PropTypes.object,
-	  position: _react.PropTypes.any,
-	  zIndex: _react.PropTypes.number
-	};
-
-	exports.infoWindowControlledPropTypes = infoWindowControlledPropTypes;
-	var infoWindowDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(infoWindowControlledPropTypes);
-
-	exports.infoWindowDefaultPropTypes = infoWindowDefaultPropTypes;
-	var infoWindowUpdaters = {
-	  children: function children(_children, component) {
-	    (0, _utilsSetContentForOptionalReactElement2["default"])(_children, component.getInfoWindow());
-	  },
-	  content: function content(_content, component) {
-	    component.getInfoWindow().setContent(_content);
-	  },
-	  options: function options(_options, component) {
-	    component.getInfoWindow().setOptions(_options);
-	  },
-	  position: function position(_position, component) {
-	    component.getInfoWindow().setPosition(_position);
-	  },
-	  zIndex: function zIndex(_zIndex, component) {
-	    component.getInfoWindow().setZIndex(_zIndex);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2["default"])(_eventListsInfoWindowEventList2["default"]);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var infoWindowEventPropTypes = eventPropTypes;
-
-	exports.infoWindowEventPropTypes = infoWindowEventPropTypes;
-
-	var InfoWindowCreator = (function (_Component) {
-	  _inherits(InfoWindowCreator, _Component);
-
-	  function InfoWindowCreator() {
-	    _classCallCheck(this, _InfoWindowCreator);
-
-	    _get(Object.getPrototypeOf(_InfoWindowCreator.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(InfoWindowCreator, [{
-	    key: "getInfoWindow",
-	    value: function getInfoWindow() {
-	      return this.props.infoWindow;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      return _react2["default"].createElement("noscript", null);
-	    }
-	  }], [{
-	    key: "_createInfoWindow",
-	    value: function _createInfoWindow(infoWindowProps) {
-	      var mapHolderRef = infoWindowProps.mapHolderRef;
-	      var anchorHolderRef = infoWindowProps.anchorHolderRef;
-
-	      // https://developers.google.com/maps/documentation/javascript/3.exp/reference#InfoWindow
-	      var infoWindow = new google.maps.InfoWindow((0, _utilsComposeOptions2["default"])(infoWindowProps, infoWindowControlledPropTypes));
-
-	      if (infoWindowProps.children) {
-	        (0, _utilsSetContentForOptionalReactElement2["default"])(infoWindowProps.children, infoWindow);
-	      }
-
-	      if (anchorHolderRef) {
-	        infoWindow.open(mapHolderRef.getMap(), anchorHolderRef.getAnchor());
-	      } else {
-	        infoWindow.setMap(mapHolderRef.getMap());
-	      }
-
-	      return infoWindow;
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_GoogleMapHolder2["default"]).isRequired,
-	      infoWindow: _react.PropTypes.object.isRequired,
-	      anchorHolderRef: _react.PropTypes.object
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _InfoWindowCreator = InfoWindowCreator;
-	  InfoWindowCreator = (0, _utilsComponentLifecycleDecorator2["default"])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: "getInfoWindow",
-	    updaters: infoWindowUpdaters
-	  })(InfoWindowCreator) || InfoWindowCreator;
-	  return InfoWindowCreator;
-	})(_react.Component);
-
-	exports["default"] = InfoWindowCreator;
-
-/***/ },
-/* 249 */
-/***/ function(module, exports) {
-
-	// https://developers.google.com/maps/documentation/javascript/3.exp/reference#InfoWindow
-	// [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; })
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["closeclick", "content_changed", "domready", "position_changed", "zindex_changed"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 250 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = setContentForOptionalReactElement;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(4);
-
-	function renderElement(contentElement, possiblePrevContent) {
-	  var prevContent = possiblePrevContent;
-	  if ("[object HTMLDivElement]" !== Object.prototype.toString.call(prevContent)) {
-	    prevContent = document.createElement("div");
-	  }
-
-	  (0, _reactDom.render)(contentElement, prevContent);
-	  return prevContent;
-	}
-
-	function setContentForOptionalReactElement(contentOptionalReactElement, infoWindowLikeInstance) {
-	  if (_react2["default"].isValidElement(contentOptionalReactElement)) {
-	    var contentElement = _react.Children.only(contentOptionalReactElement);
-	    var prevContent = infoWindowLikeInstance.getContent();
-
-	    var domEl = renderElement(contentElement, prevContent);
-	    infoWindowLikeInstance.setContent(domEl);
-	  } else {
-	    infoWindowLikeInstance.setContent(contentOptionalReactElement);
-	  }
-	}
-
-	module.exports = exports["default"];
-
-/***/ },
-/* 251 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _creatorsKmlLayerCreator = __webpack_require__(252);
-
-	var _creatorsKmlLayerCreator2 = _interopRequireDefault(_creatorsKmlLayerCreator);
-
-	var KmlLayer = (function (_Component) {
-	  _inherits(KmlLayer, _Component);
-
-	  function KmlLayer() {
-	    _classCallCheck(this, KmlLayer);
-
-	    _get(Object.getPrototypeOf(KmlLayer.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(KmlLayer, [{
-	    key: "getDefaultViewport",
-
-	    // Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#KmlLayer
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^get/) && !it.match(/Map$/); })
-	    value: function getDefaultViewport() {
-	      return this.state.kmlLayer.getDefaultViewport();
-	    }
-	  }, {
-	    key: "getMetadata",
-	    value: function getMetadata() {
-	      return this.state.kmlLayer.getMetadata();
-	    }
-	  }, {
-	    key: "getStatus",
-	    value: function getStatus() {
-	      return this.state.kmlLayer.getStatus();
-	    }
-	  }, {
-	    key: "getUrl",
-	    value: function getUrl() {
-	      return this.state.kmlLayer.getUrl();
-	    }
-	  }, {
-	    key: "getZIndex",
-	    value: function getZIndex() {
-	      return this.state.marker.getZIndex();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#KmlLayer
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-	      var kmlLayer = _creatorsKmlLayerCreator2["default"]._createKmlLayer(this.props);
-
-	      this.setState({ kmlLayer: kmlLayer });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      if (this.state.kmlLayer) {
-	        return _react2["default"].createElement(
-	          _creatorsKmlLayerCreator2["default"],
-	          _extends({ kmlLayer: this.state.kmlLayer }, this.props),
-	          this.props.children
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: _extends({}, _creatorsKmlLayerCreator.kmlLayerDefaultPropTypes, _creatorsKmlLayerCreator.kmlLayerControlledPropTypes, _creatorsKmlLayerCreator.kmlLayerEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return KmlLayer;
-	})(_react.Component);
-
-	exports["default"] = KmlLayer;
-	module.exports = exports["default"];
-
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-	// Event [onEventName]
-
-/***/ },
-/* 252 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _eventListsKmlLayerEventList = __webpack_require__(253);
-
-	var _eventListsKmlLayerEventList2 = _interopRequireDefault(_eventListsKmlLayerEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var _GoogleMapHolder = __webpack_require__(227);
-
-	var _GoogleMapHolder2 = _interopRequireDefault(_GoogleMapHolder);
-
-	var kmlLayerControlledPropTypes = {
-	  // NOTICE!!!!!!
-	  //
-	  // Only expose those with getters & setters in the table as controlled props.
-	  //
-	  // [].map.call($0.querySelectorAll("tr>td>code", function(it){ return it.textContent; }).filter(function(it){ return it.match(/^set/) && !it.match(/^setMap/); })
-	  //
-	  // https://developers.google.com/maps/documentation/javascript/3.exp/reference#KmlLayer
-	  defaultViewport: _react.PropTypes.any,
-	  metadata: _react.PropTypes.any,
-	  status: _react.PropTypes.any,
-	  url: _react.PropTypes.string,
-	  zIndex: _react.PropTypes.number
-	};
-
-	exports.kmlLayerControlledPropTypes = kmlLayerControlledPropTypes;
-	var kmlLayerDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(kmlLayerControlledPropTypes);
-
-	exports.kmlLayerDefaultPropTypes = kmlLayerDefaultPropTypes;
-	var kmlLayerUpdaters = {
-	  defaultViewport: function defaultViewport(_defaultViewport, component) {
-	    component.getKmlLayer().setDefaultViewport(_defaultViewport);
-	  },
-	  metadata: function metadata(_metadata, component) {
-	    component.getKmlLayer().setMetadata(_metadata);
-	  },
-	  status: function status(_status, component) {
-	    component.getKmlLayer().setStatus(_status);
-	  },
-	  url: function url(_url, component) {
-	    component.getKmlLayer().setUrl(_url);
-	  },
-	  zIndex: function zIndex(_zIndex, component) {
-	    component.getKmlLayer().setZIndex(_zIndex);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2["default"])(_eventListsKmlLayerEventList2["default"]);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var kmlLayerEventPropTypes = eventPropTypes;
-
-	exports.kmlLayerEventPropTypes = kmlLayerEventPropTypes;
-
-	var KmlLayerCreator = (function (_Component) {
-	  _inherits(KmlLayerCreator, _Component);
-
-	  function KmlLayerCreator() {
-	    _classCallCheck(this, _KmlLayerCreator);
-
-	    _get(Object.getPrototypeOf(_KmlLayerCreator.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(KmlLayerCreator, [{
-	    key: "getKmlLayer",
-	    value: function getKmlLayer() {
-	      return this.props.kmlLayer;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var _props = this.props;
-	      var mapHolderRef = _props.mapHolderRef;
-	      var children = _props.children;
-
-	      if (_react.Children.count(children) > 0) {
-	        return _react2["default"].createElement(
-	          "div",
-	          null,
-	          _react.Children.map(children, function (childElement) {
-	            return childElement && _react2["default"].cloneElement(childElement, {
-	              mapHolderRef: mapHolderRef
-	            });
-	          })
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "_createKmlLayer",
-	    value: function _createKmlLayer(kmlLayerProps) {
-	      var mapHolderRef = kmlLayerProps.mapHolderRef;
-
-	      // https://developers.google.com/maps/documentation/javascript/3.exp/reference#KmlLayer
-	      var kmlLayer = new google.maps.KmlLayer((0, _utilsComposeOptions2["default"])(kmlLayerProps, kmlLayerControlledPropTypes));
-
-	      kmlLayer.setMap(mapHolderRef.getMap());
-
-	      return kmlLayer;
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_GoogleMapHolder2["default"]).isRequired,
-	      kmlLayer: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _KmlLayerCreator = KmlLayerCreator;
-	  KmlLayerCreator = (0, _utilsComponentLifecycleDecorator2["default"])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: "getKmlLayer",
-	    updaters: kmlLayerUpdaters
-	  })(KmlLayerCreator) || KmlLayerCreator;
-	  return KmlLayerCreator;
-	})(_react.Component);
-
-	exports["default"] = KmlLayerCreator;
-
-/***/ },
-/* 253 */
-/***/ function(module, exports) {
-
-	// https://developers.google.com/maps/documentation/javascript/3.exp/reference#KmlLayer
-	// [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; })
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["click", "defaultviewport_changed", "status_changed"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 254 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _creatorsMarkerCreator = __webpack_require__(255);
-
-	var _creatorsMarkerCreator2 = _interopRequireDefault(_creatorsMarkerCreator);
-
-	var Marker = (function (_Component) {
-	  _inherits(Marker, _Component);
-
-	  function Marker() {
-	    _classCallCheck(this, Marker);
-
-	    _get(Object.getPrototypeOf(Marker.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(Marker, [{
-	    key: "getAnimation",
-
-	    // Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Marker
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^get/) && !it.match(/Map$/); })
-	    value: function getAnimation() {
-	      return this.state.marker.getAnimation();
-	    }
-	  }, {
-	    key: "getAttribution",
-	    value: function getAttribution() {
-	      return this.state.marker.getAttribution();
-	    }
-	  }, {
-	    key: "getClickable",
-	    value: function getClickable() {
-	      return this.state.marker.getClickable();
-	    }
-	  }, {
-	    key: "getCursor",
-	    value: function getCursor() {
-	      return this.state.marker.getCursor();
-	    }
-	  }, {
-	    key: "getDraggable",
-	    value: function getDraggable() {
-	      return this.state.marker.getDraggable();
-	    }
-	  }, {
-	    key: "getIcon",
-	    value: function getIcon() {
-	      return this.state.marker.getIcon();
-	    }
-	  }, {
-	    key: "getLabel",
-	    value: function getLabel() {
-	      return this.state.marker.getLabel();
-	    }
-	  }, {
-	    key: "getOpacity",
-	    value: function getOpacity() {
-	      return this.state.marker.getOpacity();
-	    }
-	  }, {
-	    key: "getPlace",
-	    value: function getPlace() {
-	      return this.state.marker.getPlace();
-	    }
-	  }, {
-	    key: "getPosition",
-	    value: function getPosition() {
-	      return this.state.marker.getPosition();
-	    }
-	  }, {
-	    key: "getShape",
-	    value: function getShape() {
-	      return this.state.marker.getShape();
-	    }
-	  }, {
-	    key: "getTitle",
-	    value: function getTitle() {
-	      return this.state.marker.getTitle();
-	    }
-	  }, {
-	    key: "getVisible",
-	    value: function getVisible() {
-	      return this.state.marker.getVisible();
-	    }
-	  }, {
-	    key: "getZIndex",
-	    value: function getZIndex() {
-	      return this.state.marker.getZIndex();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Marker
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-	      var marker = _creatorsMarkerCreator2["default"]._createMarker(this.props);
-
-	      this.setState({ marker: marker });
-	    }
-	  }, {
-	    key: "componentWillUnmount",
-	    value: function componentWillUnmount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-
-	      var anchorHolderRef = this.props.anchorHolderRef;
-	      var marker = this.state.marker;
-
-	      if (anchorHolderRef) {
-	        if ("MarkerClusterer" === anchorHolderRef.getAnchorType()) {
-	          anchorHolderRef.getAnchor().removeMarker(marker);
-	        }
-	      }
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      if (this.state.marker) {
-	        return _react2["default"].createElement(
-	          _creatorsMarkerCreator2["default"],
-	          _extends({ marker: this.state.marker }, this.props),
-	          this.props.children
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: _extends({}, _creatorsMarkerCreator.markerDefaultPropTypes, _creatorsMarkerCreator.markerControlledPropTypes, _creatorsMarkerCreator.markerEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return Marker;
-	})(_react.Component);
-
-	exports["default"] = Marker;
-	module.exports = exports["default"];
-
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-	// Event [onEventName]
-
-/***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _eventListsMarkerEventList = __webpack_require__(256);
-
-	var _eventListsMarkerEventList2 = _interopRequireDefault(_eventListsMarkerEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var _GoogleMapHolder = __webpack_require__(227);
-
-	var _GoogleMapHolder2 = _interopRequireDefault(_GoogleMapHolder);
-
-	var markerControlledPropTypes = {
-	  // NOTICE!!!!!!
-	  //
-	  // Only expose those with getters & setters in the table as controlled props.
-	  //
-	  // [].map.call($0.querySelectorAll("tr>td>code", function(it){ return it.textContent; }).filter(function(it){ return it.match(/^set/) && !it.match(/^setMap/); })
-	  //
-	  // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Marker
-	  animation: _react.PropTypes.any,
-	  attribution: _react.PropTypes.any,
-	  clickable: _react.PropTypes.bool,
-	  cursor: _react.PropTypes.string,
-	  draggable: _react.PropTypes.bool,
-	  icon: _react.PropTypes.any,
-	  label: _react.PropTypes.any,
-	  opacity: _react.PropTypes.number,
-	  options: _react.PropTypes.object,
-	  place: _react.PropTypes.any,
-	  position: _react.PropTypes.any,
-	  shape: _react.PropTypes.any,
-	  title: _react.PropTypes.string,
-	  visible: _react.PropTypes.bool,
-	  zIndex: _react.PropTypes.number
-	};
-
-	exports.markerControlledPropTypes = markerControlledPropTypes;
-	var markerDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(markerControlledPropTypes);
-
-	exports.markerDefaultPropTypes = markerDefaultPropTypes;
-	var markerUpdaters = {
-	  animation: function animation(_animation, component) {
-	    component.getMarker().setAnimation(_animation);
-	  },
-	  attribution: function attribution(_attribution, component) {
-	    component.getMarker().setAttribution(_attribution);
-	  },
-	  clickable: function clickable(_clickable, component) {
-	    component.getMarker().setClickable(_clickable);
-	  },
-	  cursor: function cursor(_cursor, component) {
-	    component.getMarker().setCursor(_cursor);
-	  },
-	  draggable: function draggable(_draggable, component) {
-	    component.getMarker().setDraggable(_draggable);
-	  },
-	  icon: function icon(_icon, component) {
-	    component.getMarker().setIcon(_icon);
-	  },
-	  label: function label(_label, component) {
-	    component.getMarker().setLabel(_label);
-	  },
-	  opacity: function opacity(_opacity, component) {
-	    component.getMarker().setOpacity(_opacity);
-	  },
-	  options: function options(_options, component) {
-	    component.getMarker().setOptions(_options);
-	  },
-	  place: function place(_place, component) {
-	    component.getMarker().setPlace(_place);
-	  },
-	  position: function position(_position, component) {
-	    component.getMarker().setPosition(_position);
-	  },
-	  shape: function shape(_shape, component) {
-	    component.getMarker().setShape(_shape);
-	  },
-	  title: function title(_title, component) {
-	    component.getMarker().setTitle(_title);
-	  },
-	  visible: function visible(_visible, component) {
-	    component.getMarker().setVisible(_visible);
-	  },
-	  zIndex: function zIndex(_zIndex, component) {
-	    component.getMarker().setZIndex(_zIndex);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2["default"])(_eventListsMarkerEventList2["default"]);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var markerEventPropTypes = eventPropTypes;
-
-	exports.markerEventPropTypes = markerEventPropTypes;
-
-	var MarkerCreator = (function (_Component) {
-	  _inherits(MarkerCreator, _Component);
-
-	  function MarkerCreator() {
-	    _classCallCheck(this, _MarkerCreator);
-
-	    _get(Object.getPrototypeOf(_MarkerCreator.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(MarkerCreator, [{
-	    key: "getMarker",
-	    value: function getMarker() {
-	      return this.props.marker;
-	    }
-
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#InfoWindowOptions
-	    // In the core API, the only anchor is the Marker class.
-	  }, {
-	    key: "getAnchor",
-	    value: function getAnchor() {
-	      return this.props.marker;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var _this = this;
-
-	      var _props = this.props;
-	      var mapHolderRef = _props.mapHolderRef;
-	      var children = _props.children;
-
-	      if (_react.Children.count(children) > 0) {
-	        return _react2["default"].createElement(
-	          "div",
-	          null,
-	          _react.Children.map(children, function (childElement) {
-	            return childElement && _react2["default"].cloneElement(childElement, {
-	              mapHolderRef: mapHolderRef,
-	              anchorHolderRef: _this
-	            });
-	          })
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "_createMarker",
-	    value: function _createMarker(markerProps) {
-	      var mapHolderRef = markerProps.mapHolderRef;
-	      var anchorHolderRef = markerProps.anchorHolderRef;
-
-	      // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Marker
-	      var marker = new google.maps.Marker((0, _utilsComposeOptions2["default"])(markerProps, markerControlledPropTypes));
-
-	      if (anchorHolderRef) {
-	        if ("MarkerClusterer" === anchorHolderRef.getAnchorType()) {
-	          anchorHolderRef.getAnchor().addMarker(marker);
-	        }
-	      } else {
-	        marker.setMap(mapHolderRef.getMap());
-	      }
-
-	      return marker;
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_GoogleMapHolder2["default"]).isRequired,
-	      marker: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _MarkerCreator = MarkerCreator;
-	  MarkerCreator = (0, _utilsComponentLifecycleDecorator2["default"])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: "getMarker",
-	    updaters: markerUpdaters
-	  })(MarkerCreator) || MarkerCreator;
-	  return MarkerCreator;
-	})(_react.Component);
-
-	exports["default"] = MarkerCreator;
-
-/***/ },
-/* 256 */
-/***/ function(module, exports) {
-
-	// https://developers.google.com/maps/documentation/javascript/3.exp/reference#Marker
-	// [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; })
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["animation_changed", "click", "clickable_changed", "cursor_changed", "dblclick", "drag", "dragend", "draggable_changed", "dragstart", "flat_changed", "icon_changed", "mousedown", "mouseout", "mouseover", "mouseup", "position_changed", "rightclick", "shape_changed", "title_changed", "visible_changed", "zindex_changed"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _creatorsOverlayViewCreator = __webpack_require__(258);
-
-	var _creatorsOverlayViewCreator2 = _interopRequireDefault(_creatorsOverlayViewCreator);
-
-	/*
-	 * Original author: @petebrowne
-	 * Original PR: https://github.com/tomchentw/react-google-maps/pull/63
-	 */
-
-	var OverlayView = (function (_Component) {
-	  _inherits(OverlayView, _Component);
-
-	  function OverlayView() {
-	    _classCallCheck(this, OverlayView);
-
-	    _get(Object.getPrototypeOf(OverlayView.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(OverlayView, [{
-	    key: "getPanes",
-
-	    // Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#OverlayView
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^get/) && !it.match(/^getMap/); })
-	    value: function getPanes() {
-	      return this.state.overlayView.getPanes();
-	    }
-	  }, {
-	    key: "getProjection",
-	    value: function getProjection() {
-	      return this.state.overlayView.getProjection();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#OverlayView
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-	      var overlayView = _creatorsOverlayViewCreator2["default"]._createOverlayView(this.props);
-
-	      this.setState({ overlayView: overlayView });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      if (this.state.overlayView) {
-	        return _react2["default"].createElement(
-	          _creatorsOverlayViewCreator2["default"],
-	          _extends({ overlayView: this.state.overlayView }, this.props),
-	          this.props.children
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "FLOAT_PANE",
-	    value: "floatPane",
-	    enumerable: true
-	  }, {
-	    key: "MAP_PANE",
-	    value: "mapPane",
-	    enumerable: true
-	  }, {
-	    key: "MARKER_LAYER",
-	    value: "markerLayer",
-	    enumerable: true
-	  }, {
-	    key: "OVERLAY_LAYER",
-	    value: "overlayLayer",
-	    enumerable: true
-	  }, {
-	    key: "OVERLAY_MOUSE_TARGET",
-	    value: "overlayMouseTarget",
-	    enumerable: true
-	  }, {
-	    key: "propTypes",
-	    value: _extends({}, _creatorsOverlayViewCreator.overlayViewDefaultPropTypes, _creatorsOverlayViewCreator.overlayViewControlledPropTypes),
-	    enumerable: true
-	  }, {
-	    key: "defaultProps",
-	    value: {
-	      mapPaneName: OverlayView.OVERLAY_LAYER
-	    },
-	    enumerable: true
-	  }]);
-
-	  return OverlayView;
-	})(_react.Component);
-
-	exports["default"] = OverlayView;
-	module.exports = exports["default"];
-
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-/***/ },
-/* 258 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(4);
-
-	var _invariant = __webpack_require__(259);
-
-	var _invariant2 = _interopRequireDefault(_invariant);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _GoogleMapHolder = __webpack_require__(227);
-
-	var _GoogleMapHolder2 = _interopRequireDefault(_GoogleMapHolder);
-
-	var overlayViewControlledPropTypes = {
-	  // CustomProps
-	  mapPaneName: _react.PropTypes.string,
-	  getPixelPositionOffset: _react.PropTypes.func,
-	  position: _react.PropTypes.object,
-	  children: _react.PropTypes.node,
-	  bounds: _react.PropTypes.object
-	};
-
-	exports.overlayViewControlledPropTypes = overlayViewControlledPropTypes;
-	// NOTICE!!!!!!
-	//
-	// Only expose those with getters & setters in the table as controlled props.
-	//
-	// [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^set/) && !it.match(/^setMap/); })
-	//
-	// https://developers.google.com/maps/documentation/javascript/3.exp/reference
-	var overlayViewDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(overlayViewControlledPropTypes);
-
-	exports.overlayViewDefaultPropTypes = overlayViewDefaultPropTypes;
-
-	var OverlayViewCreator = (function (_Component) {
-	  _inherits(OverlayViewCreator, _Component);
-
-	  function OverlayViewCreator() {
-	    _classCallCheck(this, OverlayViewCreator);
-
-	    _get(Object.getPrototypeOf(OverlayViewCreator.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(OverlayViewCreator, [{
-	    key: "getOverlayView",
-	    value: function getOverlayView() {
-	      return this.props.overlayView;
-	    }
-	  }, {
-	    key: "componentDidMount",
-	    value: function componentDidMount() {
-	      this.getOverlayView().setMap(this.props.mapHolderRef.getMap());
-	    }
-	  }, {
-	    key: "componentDidUpdate",
-	    value: function componentDidUpdate(prevProps) {
-	      this.getOverlayView().setValues(this.props);
-	      this.getOverlayView()._redraw(this.props.mapPaneName !== prevProps.mapPaneName);
-	    }
-	  }, {
-	    key: "componentWillUnmount",
-	    value: function componentWillUnmount() {
-	      this.getOverlayView().setMap(null);
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      return _react2["default"].createElement("noscript", null);
-	    }
-	  }], [{
-	    key: "_createOverlayView",
-	    value: function _createOverlayView(overlayViewProps) {
-	      // https://developers.google.com/maps/documentation/javascript/3.exp/reference#OverlayView
-	      var overlayView = new google.maps.OverlayView();
-	      overlayView.setValues((0, _utilsComposeOptions2["default"])(overlayViewProps, overlayViewControlledPropTypes));
-
-	      overlayView.onAdd = function onAdd() {
-	        this._containerElement = document.createElement("div");
-	        this._containerElement.style.position = "absolute";
-	      };
-
-	      overlayView.draw = function draw() {
-	        this._mountContainerToPane();
-	        this._renderContent();
-	      };
-
-	      overlayView.onRemove = function onRemove() {
-	        (0, _reactDom.unmountComponentAtNode)(this._containerElement);
-	        this._unmountContainerFromPane();
-	        this._containerElement = null;
-	      };
-
-	      overlayView._redraw = function _redraw(mapPaneNameChanged) {
-	        if (mapPaneNameChanged) {
-	          this._unmountContainerFromPane();
-	          this._mountContainerToPane();
-	        }
-	        this._renderContent();
-	      };
-
-	      overlayView._renderContent = function _renderContent() {
-	        if (this._containerElement) {
-	          (0, _reactDom.render)(_react.Children.only(this.get("children")), this._containerElement, this._positionContainerElement.bind(this));
-	        }
-	      };
-
-	      overlayView._mountContainerToPane = function _mountContainerToPane() {
-	        var mapPaneName = this.get("mapPaneName");
-	        (0, _invariant2["default"])(!!mapPaneName, "OverlayView requires a mapPaneName/defaultMapPaneName in your props instead of %s", mapPaneName);
-
-	        this.getPanes()[mapPaneName].appendChild(this._containerElement);
-	      };
-
-	      overlayView._unmountContainerFromPane = function _unmountContainerFromPane() {
-	        this._containerElement.parentNode.removeChild(this._containerElement);
-	      };
-
-	      overlayView._positionContainerElement = function _positionContainerElement() {
-	        var left = undefined;
-	        var top = undefined;
-	        var offset = this._getOffset();
-	        if (this.get("bounds")) {
-	          var bounds = this._getPixelBounds();
-	          if (bounds) {
-	            var sw = bounds.sw;
-	            var ne = bounds.ne;
-
-	            if (offset) {
-	              sw.x += offset.x;
-	              ne.y += offset.y;
-	            }
-	            left = sw.x + "px";
-	            top = ne.y + "px";
-	            this._containerElement.style.width = ne.x - sw.x + "px";
-	            this._containerElement.style.height = sw.y - ne.y + "px";
-	          }
-	        } else {
-	          var position = this._getPixelPosition();
-	          if (position) {
-	            var x = position.x;
-	            var y = position.y;
-
-	            if (offset) {
-	              x += offset.x;
-	              y += offset.y;
-	            }
-	            left = x + "px";
-	            top = y + "px";
-	          }
-	        }
-
-	        this._containerElement.style.left = left;
-	        this._containerElement.style.top = top;
-	      };
-
-	      overlayView._getPixelPosition = function _getPixelPosition() {
-	        var projection = this.getProjection();
-	        var position = this.get("position");
-	        (0, _invariant2["default"])(!!position, "OverlayView requires a position/defaultPosition in your props instead of %s", position);
-	        if (projection && position) {
-	          if (!(position instanceof google.maps.LatLng)) {
-	            position = new google.maps.LatLng(position.lat, position.lng);
-	          }
-	          return projection.fromLatLngToDivPixel(position);
-	        }
-	      };
-
-	      overlayView._getPixelBounds = function _getPixelBounds() {
-	        var projection = this.getProjection();
-	        var bounds = this.get("bounds");
-	        (0, _invariant2["default"])(!!bounds, "OverlayView requires a bounds in your props instead of %s", bounds);
-	        if (projection && bounds) {
-	          if (!(bounds instanceof google.maps.LatLngBounds)) {
-	            bounds = new google.maps.LatLngBounds(new google.maps.LatLng(bounds.ne.lat, bounds.ne.lng), new google.maps.LatLng(bounds.sw.lat, bounds.sw.lng));
-	          }
-	          return {
-	            sw: projection.fromLatLngToDivPixel(this.bounds.getSouthWest()),
-	            ne: projection.fromLatLngToDivPixel(this.bounds.getNorthEast())
-	          };
-	        }
-	      };
-
-	      overlayView._getOffset = function _getOffset() {
-	        // Allows the component to control the visual position of the OverlayView
-	        // relative to the LatLng pixel position.
-	        var getPixelPositionOffset = this.get("getPixelPositionOffset");
-	        if (getPixelPositionOffset) {
-	          return getPixelPositionOffset(this._containerElement.offsetWidth, this._containerElement.offsetHeight);
-	        }
-	      };
-
-	      // If we're inside a MarkerClusterer, allow ourselves to be clustered
-	      if (overlayViewProps.anchorHolderRef) {
-	        if ("MarkerClusterer" === overlayViewProps.anchorHolderRef.getAnchorType()) {
-	          overlayView.getDraggable = function getDraggable() {
-	            return !!overlayViewProps.draggable;
-	          };
-
-	          overlayView.getPosition = function getPosition() {
-	            return new google.maps.LatLng(this.position);
-	          };
-
-	          overlayViewProps.anchorHolderRef.getAnchor().addMarker(overlayView);
-	        }
-	      }
-
-	      return overlayView;
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_GoogleMapHolder2["default"]).isRequired,
-	      mapPaneName: _react.PropTypes.string,
-	      overlayView: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  return OverlayViewCreator;
-	})(_react.Component);
-
-	exports["default"] = OverlayViewCreator;
-
-/***/ },
-/* 259 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	'use strict';
-
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-
-	var invariant = function(condition, format, a, b, c, d, e, f) {
-	  if ((undefined) !== 'production') {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  }
-
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error(
-	        'Minified exception occurred; use the non-minified dev environment ' +
-	        'for the full error message and additional helpful warnings.'
-	      );
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error(
-	        format.replace(/%s/g, function() { return args[argIndex++]; })
-	      );
-	      error.name = 'Invariant Violation';
-	    }
-
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	};
-
-	module.exports = invariant;
-
-
-/***/ },
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _creatorsPolygonCreator = __webpack_require__(261);
-
-	var _creatorsPolygonCreator2 = _interopRequireDefault(_creatorsPolygonCreator);
-
-	var Polygon = (function (_Component) {
-	  _inherits(Polygon, _Component);
-
-	  function Polygon() {
-	    _classCallCheck(this, Polygon);
-
-	    _get(Object.getPrototypeOf(Polygon.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(Polygon, [{
-	    key: "getDraggable",
-
-	    // Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Polygon
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^get/) && !it.match(/^getMap/); })
-	    value: function getDraggable() {
-	      return this.state.polygon.getDraggable();
-	    }
-	  }, {
-	    key: "getEditable",
-	    value: function getEditable() {
-	      return this.state.polygon.getEditable();
-	    }
-	  }, {
-	    key: "getPath",
-	    value: function getPath() {
-	      return this.state.polygon.getPath();
-	    }
-	  }, {
-	    key: "getPaths",
-	    value: function getPaths() {
-	      return this.state.polygon.getPaths();
-	    }
-	  }, {
-	    key: "getVisible",
-	    value: function getVisible() {
-	      return this.state.polygon.getVisible();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Polygon
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-	      var polygon = _creatorsPolygonCreator2["default"]._createPolygon(this.props);
-
-	      this.setState({ polygon: polygon });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      if (this.state.polygon) {
-	        return _react2["default"].createElement(
-	          _creatorsPolygonCreator2["default"],
-	          _extends({ polygon: this.state.polygon }, this.props),
-	          this.props.children
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: _extends({}, _creatorsPolygonCreator.polygonDefaultPropTypes, _creatorsPolygonCreator.polygonControlledPropTypes, _creatorsPolygonCreator.polygonEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return Polygon;
-	})(_react.Component);
-
-	exports["default"] = Polygon;
-	module.exports = exports["default"];
-
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-	// Event [onEventName]
-
-/***/ },
-/* 261 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _eventListsPolygonEventList = __webpack_require__(262);
-
-	var _eventListsPolygonEventList2 = _interopRequireDefault(_eventListsPolygonEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var _GoogleMapHolder = __webpack_require__(227);
-
-	var _GoogleMapHolder2 = _interopRequireDefault(_GoogleMapHolder);
-
-	var polygonControlledPropTypes = {
-	  // NOTICE!!!!!!
-	  //
-	  // Only expose those with getters & setters in the table as controlled props.
-	  //
-	  // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^set/) && !it.match(/^setMap/); })
-	  //
-	  // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Polygon
-	  draggable: _react.PropTypes.bool,
-	  editable: _react.PropTypes.bool,
-	  options: _react.PropTypes.object,
-	  path: _react.PropTypes.any,
-	  paths: _react.PropTypes.any,
-	  visible: _react.PropTypes.bool
-	};
-
-	exports.polygonControlledPropTypes = polygonControlledPropTypes;
-	var polygonDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(polygonControlledPropTypes);
-
-	exports.polygonDefaultPropTypes = polygonDefaultPropTypes;
-	var polygonUpdaters = {
-	  draggable: function draggable(_draggable, component) {
-	    component.getPolygon().setDraggable(_draggable);
-	  },
-	  editable: function editable(_editable, component) {
-	    component.getPolygon().setEditable(_editable);
-	  },
-	  options: function options(_options, component) {
-	    component.getPolygon().setOptions(_options);
-	  },
-	  path: function path(_path, component) {
-	    component.getPolygon().setPath(_path);
-	  },
-	  paths: function paths(_paths, component) {
-	    component.getPolygon().setPaths(_paths);
-	  },
-	  visible: function visible(_visible, component) {
-	    component.getPolygon().setVisible(_visible);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2["default"])(_eventListsPolygonEventList2["default"]);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var polygonEventPropTypes = eventPropTypes;
-
-	exports.polygonEventPropTypes = polygonEventPropTypes;
-
-	var PolygonCreator = (function (_Component) {
-	  _inherits(PolygonCreator, _Component);
-
-	  function PolygonCreator() {
-	    _classCallCheck(this, _PolygonCreator);
-
-	    _get(Object.getPrototypeOf(_PolygonCreator.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(PolygonCreator, [{
-	    key: "getPolygon",
-	    value: function getPolygon() {
-	      return this.props.polygon;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      return _react2["default"].createElement("noscript", null);
-	    }
-	  }], [{
-	    key: "_createPolygon",
-	    value: function _createPolygon(polygonProps) {
-	      var mapHolderRef = polygonProps.mapHolderRef;
-
-	      // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Polygon
-	      var polygon = new google.maps.Polygon((0, _utilsComposeOptions2["default"])(polygonProps, polygonControlledPropTypes));
-
-	      polygon.setMap(mapHolderRef.getMap());
-
-	      return polygon;
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_GoogleMapHolder2["default"]).isRequired,
-	      polygon: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _PolygonCreator = PolygonCreator;
-	  PolygonCreator = (0, _utilsComponentLifecycleDecorator2["default"])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: "getPolygon",
-	    updaters: polygonUpdaters
-	  })(PolygonCreator) || PolygonCreator;
-	  return PolygonCreator;
-	})(_react.Component);
-
-	exports["default"] = PolygonCreator;
-
-/***/ },
-/* 262 */
-/***/ function(module, exports) {
-
-	// https://developers.google.com/maps/documentation/javascript/3.exp/reference#Polygon
-	// [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; })
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["click", "dblclick", "drag", "dragend", "dragstart", "mousedown", "mousemove", "mouseout", "mouseover", "mouseup", "rightclick"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 263 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _creatorsPolylineCreator = __webpack_require__(264);
-
-	var _creatorsPolylineCreator2 = _interopRequireDefault(_creatorsPolylineCreator);
-
-	var Polyline = (function (_Component) {
-	  _inherits(Polyline, _Component);
-
-	  function Polyline() {
-	    _classCallCheck(this, Polyline);
-
-	    _get(Object.getPrototypeOf(Polyline.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(Polyline, [{
-	    key: "getDraggable",
-
-	    // Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Polyline
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^get/) && !it.match(/^getMap/); })
-	    value: function getDraggable() {
-	      return this.state.polyline.getDraggable();
-	    }
-	  }, {
-	    key: "getEditable",
-	    value: function getEditable() {
-	      return this.state.polyline.getEditable();
-	    }
-	  }, {
-	    key: "getPath",
-	    value: function getPath() {
-	      return this.state.polyline.getPath();
-	    }
-	  }, {
-	    key: "getVisible",
-	    value: function getVisible() {
-	      return this.state.polyline.getVisible();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Polyline
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-	      var polyline = _creatorsPolylineCreator2["default"]._createPolyline(this.props);
-
-	      this.setState({ polyline: polyline });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      if (this.state.polyline) {
-	        return _react2["default"].createElement(
-	          _creatorsPolylineCreator2["default"],
-	          _extends({ polyline: this.state.polyline }, this.props),
-	          this.props.children
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: _extends({}, _creatorsPolylineCreator.polylineDefaultPropTypes, _creatorsPolylineCreator.polylineControlledPropTypes, _creatorsPolylineCreator.polylineEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return Polyline;
-	})(_react.Component);
-
-	exports["default"] = Polyline;
-	module.exports = exports["default"];
-
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-	// Event [onEventName]
-
-/***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _eventListsPolylineEventList = __webpack_require__(265);
-
-	var _eventListsPolylineEventList2 = _interopRequireDefault(_eventListsPolylineEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var _GoogleMapHolder = __webpack_require__(227);
-
-	var _GoogleMapHolder2 = _interopRequireDefault(_GoogleMapHolder);
-
-	var polylineControlledPropTypes = {
-	  // NOTICE!!!!!!
-	  //
-	  // Only expose those with getters & setters in the table as controlled props.
-	  //
-	  // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^set/) && !it.match(/^setMap/); })
-	  //
-	  // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Polyline
-	  draggable: _react.PropTypes.bool,
-	  editable: _react.PropTypes.bool,
-	  options: _react.PropTypes.object,
-	  path: _react.PropTypes.any,
-	  visible: _react.PropTypes.bool
-	};
-
-	exports.polylineControlledPropTypes = polylineControlledPropTypes;
-	var polylineDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(polylineControlledPropTypes);
-
-	exports.polylineDefaultPropTypes = polylineDefaultPropTypes;
-	var polylineUpdaters = {
-	  draggable: function draggable(_draggable, component) {
-	    component.getPolyline().setDraggable(_draggable);
-	  },
-	  editable: function editable(_editable, component) {
-	    component.getPolyline().setEditable(_editable);
-	  },
-	  options: function options(_options, component) {
-	    component.getPolyline().setOptions(_options);
-	  },
-	  path: function path(_path, component) {
-	    component.getPolyline().setPath(_path);
-	  },
-	  visible: function visible(_visible, component) {
-	    component.getPolyline().setVisible(_visible);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2["default"])(_eventListsPolylineEventList2["default"]);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var polylineEventPropTypes = eventPropTypes;
-
-	exports.polylineEventPropTypes = polylineEventPropTypes;
-
-	var PolylineCreator = (function (_Component) {
-	  _inherits(PolylineCreator, _Component);
-
-	  function PolylineCreator() {
-	    _classCallCheck(this, _PolylineCreator);
-
-	    _get(Object.getPrototypeOf(_PolylineCreator.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(PolylineCreator, [{
-	    key: "getPolyline",
-	    value: function getPolyline() {
-	      return this.props.polyline;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      return _react2["default"].createElement("noscript", null);
-	    }
-	  }], [{
-	    key: "_createPolyline",
-	    value: function _createPolyline(polylineProps) {
-	      var mapHolderRef = polylineProps.mapHolderRef;
-
-	      // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Polyline
-	      var polyline = new google.maps.Polyline((0, _utilsComposeOptions2["default"])(polylineProps, polylineControlledPropTypes));
-
-	      polyline.setMap(mapHolderRef.getMap());
-
-	      return polyline;
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_GoogleMapHolder2["default"]).isRequired,
-	      polyline: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _PolylineCreator = PolylineCreator;
-	  PolylineCreator = (0, _utilsComponentLifecycleDecorator2["default"])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: "getPolyline",
-	    updaters: polylineUpdaters
-	  })(PolylineCreator) || PolylineCreator;
-	  return PolylineCreator;
-	})(_react.Component);
-
-	exports["default"] = PolylineCreator;
-
-/***/ },
-/* 265 */
-/***/ function(module, exports) {
-
-	// https://developers.google.com/maps/documentation/javascript/3.exp/reference#Polyline
-	// [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; })
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["click", "dblclick", "drag", "dragend", "dragstart", "mousedown", "mousemove", "mouseout", "mouseover", "mouseup", "rightclick"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 266 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _creatorsRectangleCreator = __webpack_require__(267);
-
-	var _creatorsRectangleCreator2 = _interopRequireDefault(_creatorsRectangleCreator);
-
-	/*
-	 * Original author: @alistairjcbrown
-	 * Original PR: https://github.com/tomchentw/react-google-maps/pull/80
-	 */
-
-	var Rectangle = (function (_Component) {
-	  _inherits(Rectangle, _Component);
-
-	  function Rectangle() {
-	    _classCallCheck(this, Rectangle);
-
-	    _get(Object.getPrototypeOf(Rectangle.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(Rectangle, [{
-	    key: "getBounds",
-
-	    // Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Rectangle
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^get/) && !it.match(/^getMap/); })
-	    value: function getBounds() {
-	      return this.state.rectangle.getBounds();
-	    }
-	  }, {
-	    key: "getDraggable",
-	    value: function getDraggable() {
-	      return this.state.rectangle.getDraggable();
-	    }
-	  }, {
-	    key: "getEditable",
-	    value: function getEditable() {
-	      return this.state.rectangle.getEditable();
-	    }
-	  }, {
-	    key: "getVisible",
-	    value: function getVisible() {
-	      return this.state.rectangle.getVisible();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Rectangle
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-	      var rectangle = _creatorsRectangleCreator2["default"]._createRectangle(this.props);
-
-	      this.setState({ rectangle: rectangle });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      if (this.state.rectangle) {
-	        return _react2["default"].createElement(
-	          _creatorsRectangleCreator2["default"],
-	          _extends({ rectangle: this.state.rectangle }, this.props),
-	          this.props.children
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: _extends({}, _creatorsRectangleCreator.rectangleDefaultPropTypes, _creatorsRectangleCreator.rectangleControlledPropTypes, _creatorsRectangleCreator.rectangleEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return Rectangle;
-	})(_react.Component);
-
-	exports["default"] = Rectangle;
-	module.exports = exports["default"];
-
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-	// Event [onEventName]
-
-/***/ },
-/* 267 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _eventListsRectangleEventList = __webpack_require__(268);
-
-	var _eventListsRectangleEventList2 = _interopRequireDefault(_eventListsRectangleEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var _GoogleMapHolder = __webpack_require__(227);
-
-	var _GoogleMapHolder2 = _interopRequireDefault(_GoogleMapHolder);
-
-	var rectangleControlledPropTypes = {
-	  // NOTICE!!!!!!
-	  //
-	  // Only expose those with getters & setters in the table as controlled props.
-	  //
-	  // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^set/) && !it.match(/^setMap/); })
-	  //
-	  // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Rectangle
-	  bounds: _react.PropTypes.any,
-	  draggable: _react.PropTypes.bool,
-	  editable: _react.PropTypes.bool,
-	  options: _react.PropTypes.object,
-	  visible: _react.PropTypes.bool
-	};
-
-	exports.rectangleControlledPropTypes = rectangleControlledPropTypes;
-	var rectangleDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(rectangleControlledPropTypes);
-
-	exports.rectangleDefaultPropTypes = rectangleDefaultPropTypes;
-	var rectangleUpdaters = {
-	  bounds: function bounds(_bounds, component) {
-	    component.getRectangle().setBounds(_bounds);
-	  },
-	  draggable: function draggable(_draggable, component) {
-	    component.getRectangle().setDraggable(_draggable);
-	  },
-	  editable: function editable(_editable, component) {
-	    component.getRectangle().setEditable(_editable);
-	  },
-	  options: function options(_options, component) {
-	    component.getRectangle().setOptions(_options);
-	  },
-	  visible: function visible(_visible, component) {
-	    component.getRectangle().setVisible(_visible);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2["default"])(_eventListsRectangleEventList2["default"]);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var rectangleEventPropTypes = eventPropTypes;
-
-	exports.rectangleEventPropTypes = rectangleEventPropTypes;
-
-	var RectangleCreator = (function (_Component) {
-	  _inherits(RectangleCreator, _Component);
-
-	  function RectangleCreator() {
-	    _classCallCheck(this, _RectangleCreator);
-
-	    _get(Object.getPrototypeOf(_RectangleCreator.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(RectangleCreator, [{
-	    key: "getRectangle",
-	    value: function getRectangle() {
-	      return this.props.rectangle;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      return _react2["default"].createElement("noscript", null);
-	    }
-	  }], [{
-	    key: "_createRectangle",
-	    value: function _createRectangle(rectangleProps) {
-	      var mapHolderRef = rectangleProps.mapHolderRef;
-
-	      // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Rectangle
-	      var rectangle = new google.maps.Rectangle((0, _utilsComposeOptions2["default"])(rectangleProps, rectangleControlledPropTypes));
-
-	      rectangle.setMap(mapHolderRef.getMap());
-
-	      return rectangle;
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_GoogleMapHolder2["default"]).isRequired,
-	      rectangle: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _RectangleCreator = RectangleCreator;
-	  RectangleCreator = (0, _utilsComponentLifecycleDecorator2["default"])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: "getRectangle",
-	    updaters: rectangleUpdaters
-	  })(RectangleCreator) || RectangleCreator;
-	  return RectangleCreator;
-	})(_react.Component);
-
-	exports["default"] = RectangleCreator;
-
-/***/ },
-/* 268 */
-/***/ function(module, exports) {
-
-	// https://developers.google.com/maps/documentation/javascript/3.exp/reference#Rectangle
-	// [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; })
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["bounds_changed", "click", "dblclick", "drag", "dragend", "dragstart", "mousedown", "mousemove", "mouseout", "mouseover", "mouseup", "rightclick"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 269 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _creatorsSearchBoxCreator = __webpack_require__(270);
-
-	var _creatorsSearchBoxCreator2 = _interopRequireDefault(_creatorsSearchBoxCreator);
-
-	/*
-	 * Original author: @eyebraus
-	 * Original PR: https://github.com/tomchentw/react-google-maps/pull/110
-	 */
-
-	var SearchBox = (function (_Component) {
-	  _inherits(SearchBox, _Component);
-
-	  function SearchBox() {
-	    _classCallCheck(this, SearchBox);
-
-	    _get(Object.getPrototypeOf(SearchBox.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(SearchBox, [{
-	    key: "getBounds",
-
-	    // Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#SearchBox
-	    //
-	    // [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; }).filter(function(it){ return it.match(/^get/) && !it.match(/Map$/); })
-	    value: function getBounds() {
-	      return this.state.searchBox.getBounds();
-	    }
-	  }, {
-	    key: "getPlaces",
-	    value: function getPlaces() {
-	      return this.state.searchBox.getPlaces();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#SearchBox
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-	      var _props = this.props;
-	      var mapHolderRef = _props.mapHolderRef;
-	      var classes = _props.classes;
-	      var style = _props.style;
-	      var placeholder = _props.placeholder;
-
-	      var searchBoxProps = _objectWithoutProperties(_props, ["mapHolderRef", "classes", "style", "placeholder"]);
-
-	      // Cannot create input via component - Google Maps will mess with React's internal state by detaching/attaching.
-	      // Allow developers to style the "hidden element" via inputClasses.
-	      var domEl = document.createElement("input");
-	      domEl.className = classes;
-	      domEl.type = "text";
-	      domEl.placeholder = placeholder;
-
-	      for (var propKey in style) {
-	        if (style.hasOwnProperty(propKey)) {
-	          domEl.style[propKey] = style[propKey];
-	        }
-	      }
-
-	      var searchBox = _creatorsSearchBoxCreator2["default"]._createSearchBox(domEl, searchBoxProps);
-
-	      this.setState({
-	        inputElement: domEl,
-	        searchBox: searchBox
-	      });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var _props2 = this.props;
-	      var mapHolderRef = _props2.mapHolderRef;
-	      var controlPosition = _props2.controlPosition;
-
-	      return this.state.searchBox ? _react2["default"].createElement(
-	        _creatorsSearchBoxCreator2["default"],
-	        _extends({ controlPosition: controlPosition, inputElement: this.state.inputElement, mapHolderRef: mapHolderRef, searchBox: this.state.searchBox }, this.props),
-	        this.props.children
-	      ) : _react2["default"].createElement("noscript", null);
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: _extends({}, _creatorsSearchBoxCreator.searchBoxDefaultPropTypes, _creatorsSearchBoxCreator.searchBoxControlledPropTypes, _creatorsSearchBoxCreator.searchBoxEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return SearchBox;
-	})(_react.Component);
-
-	exports["default"] = SearchBox;
-	module.exports = exports["default"];
-
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-	// Event [onEventName]
-
-/***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _eventListsSearchBoxEventList = __webpack_require__(271);
-
-	var _eventListsSearchBoxEventList2 = _interopRequireDefault(_eventListsSearchBoxEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var _GoogleMapHolder = __webpack_require__(227);
-
-	var _GoogleMapHolder2 = _interopRequireDefault(_GoogleMapHolder);
-
-	var searchBoxControlledPropTypes = {
-	  // NOTICE!!!!!!
-	  //
-	  // Only expose those with getters & setters in the table as controlled props.
-	  //
-	  bounds: _react.PropTypes.any
-	};
-
-	exports.searchBoxControlledPropTypes = searchBoxControlledPropTypes;
-	var searchBoxDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(searchBoxControlledPropTypes);
-
-	exports.searchBoxDefaultPropTypes = searchBoxDefaultPropTypes;
-	var searchBoxUpdaters = {
-	  bounds: function bounds(_bounds, component) {
-	    component.getSearchBox().setBounds(_bounds);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2["default"])(_eventListsSearchBoxEventList2["default"]);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var searchBoxEventPropTypes = eventPropTypes;
-
-	exports.searchBoxEventPropTypes = searchBoxEventPropTypes;
-
-	var SearchBoxCreator = (function (_Component) {
-	  _inherits(SearchBoxCreator, _Component);
-
-	  function SearchBoxCreator() {
-	    _classCallCheck(this, _SearchBoxCreator);
-
-	    _get(Object.getPrototypeOf(_SearchBoxCreator.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(SearchBoxCreator, [{
-	    key: "componentDidMount",
-	    value: function componentDidMount() {
-	      this._mountComponentToMap(this.props.controlPosition);
-	    }
-	  }, {
-	    key: "componentDidUpdate",
-	    value: function componentDidUpdate(prevProps) {
-	      if (this.props.controlPosition !== prevProps.controlPosition) {
-	        this._unmountComponentFromMap(prevProps.controlPosition);
-	        this._mountComponentToMap(this.props.controlPosition);
-	      }
-	    }
-	  }, {
-	    key: "componentWillUnmount",
-	    value: function componentWillUnmount() {
-	      this._unmountComponentFromMap(this.props.controlPosition);
-	    }
-	  }, {
-	    key: "_mountComponentToMap",
-	    value: function _mountComponentToMap(controlPosition) {
-	      var _props = this.props;
-	      var mapHolderRef = _props.mapHolderRef;
-	      var inputElement = _props.inputElement;
-
-	      mapHolderRef.getMap().controls[controlPosition].push(inputElement);
-	    }
-	  }, {
-	    key: "_unmountComponentFromMap",
-	    value: function _unmountComponentFromMap(controlPosition) {
-	      var _props2 = this.props;
-	      var mapHolderRef = _props2.mapHolderRef;
-	      var inputElement = _props2.inputElement;
-
-	      var index = mapHolderRef.getMap().controls[controlPosition].getArray().indexOf(inputElement);
-	      mapHolderRef.getMap().controls[controlPosition].removeAt(index);
-	    }
-	  }, {
-	    key: "getSearchBox",
-	    value: function getSearchBox() {
-	      return this.props.searchBox;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      return _react2["default"].createElement("noscript", null);
-	    }
-	  }], [{
-	    key: "_createSearchBox",
-	    value: function _createSearchBox(inputElement, searchBoxProps) {
-	      var searchBox = new google.maps.places.SearchBox(inputElement, (0, _utilsComposeOptions2["default"])(searchBoxProps, searchBoxControlledPropTypes));
-
-	      return searchBox;
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_GoogleMapHolder2["default"]).isRequired,
-	      searchBox: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _SearchBoxCreator = SearchBoxCreator;
-	  SearchBoxCreator = (0, _utilsComponentLifecycleDecorator2["default"])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: "getSearchBox",
-	    updaters: searchBoxUpdaters
-	  })(SearchBoxCreator) || SearchBoxCreator;
-	  return SearchBoxCreator;
-	})(_react.Component);
-
-	exports["default"] = SearchBoxCreator;
-
-/***/ },
-/* 271 */
-/***/ function(module, exports) {
-
-	// https://developers.google.com/maps/documentation/javascript/3.exp/reference#SearchBox
-	// [].map.call($0.querySelectorAll("tr>td>code"), function(it){ return it.textContent; })
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["places_changed"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _addonsCreatorsInfoBoxCreator = __webpack_require__(273);
-
-	var _addonsCreatorsInfoBoxCreator2 = _interopRequireDefault(_addonsCreatorsInfoBoxCreator);
-
-	/*
-	 * Original author: @wuct
-	 * Original PR: https://github.com/tomchentw/react-google-maps/pull/54
-	 */
-
-	var InfoBox = (function (_Component) {
-	  _inherits(InfoBox, _Component);
-
-	  function InfoBox() {
-	    _classCallCheck(this, InfoBox);
-
-	    _get(Object.getPrototypeOf(InfoBox.prototype), "constructor", this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(InfoBox, [{
-	    key: "getContent",
-
-	    // Public APIs
-	    //
-	    // http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/docs/reference.html
-	    value: function getContent() {/* TODO: children */}
-	  }, {
-	    key: "getPosition",
-	    value: function getPosition() {
-	      return this.state.infoBox.getPosition();
-	    }
-	  }, {
-	    key: "getVisible",
-	    value: function getVisible() {
-	      return this.state.infoBox.getVisible();
-	    }
-	  }, {
-	    key: "getZIndex",
-	    value: function getZIndex() {
-	      return this.state.infoBox.getZIndex();
-	    }
-
-	    // END - Public APIs
-	    //
-	    // http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/docs/reference.html
-
-	  }, {
-	    key: "componentWillMount",
-	    value: function componentWillMount() {
-	      if (!_canUseDom2["default"]) {
-	        return;
-	      }
-	      var infoBox = _addonsCreatorsInfoBoxCreator2["default"]._createInfoBox(this.props);
-
-	      this.setState({ infoBox: infoBox });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      if (this.state.infoBox) {
-	        return _react2["default"].createElement(
-	          _addonsCreatorsInfoBoxCreator2["default"],
-	          _extends({ infoBox: this.state.infoBox }, this.props),
-	          this.props.children
-	        );
-	      } else {
-	        return _react2["default"].createElement("noscript", null);
-	      }
-	    }
-	  }], [{
-	    key: "propTypes",
-	    value: _extends({}, _addonsCreatorsInfoBoxCreator.infoBoxDefaultPropTypes, _addonsCreatorsInfoBoxCreator.infoBoxControlledPropTypes, _addonsCreatorsInfoBoxCreator.infoBoxEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return InfoBox;
-	})(_react.Component);
-
-	exports["default"] = InfoBox;
-	module.exports = exports["default"];
-
-	// Uncontrolled default[props] - used only in componentDidMount
-
-	// Controlled [props] - used in componentDidMount/componentDidUpdate
-
-	// Event [onEventName]
-
-/***/ },
-/* 273 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _addonsEventListsInfoBoxEventList = __webpack_require__(274);
-
-	var _addonsEventListsInfoBoxEventList2 = _interopRequireDefault(_addonsEventListsInfoBoxEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsSetContentForOptionalReactElement = __webpack_require__(250);
-
-	var _utilsSetContentForOptionalReactElement2 = _interopRequireDefault(_utilsSetContentForOptionalReactElement);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var _creatorsGoogleMapHolder = __webpack_require__(227);
-
-	var _creatorsGoogleMapHolder2 = _interopRequireDefault(_creatorsGoogleMapHolder);
-
-	var infoBoxControlledPropTypes = {
-	  // NOTICE!!!!!!
-	  //
-	  // Only expose those with getters & setters in the table as controlled props.
-	  //
-	  // http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/docs/reference.html
-	  content: _react.PropTypes.any,
-	  options: _react.PropTypes.object,
-	  position: _react.PropTypes.any,
-	  visible: _react.PropTypes.bool,
-	  zIndex: _react.PropTypes.number
-	};
-
-	exports.infoBoxControlledPropTypes = infoBoxControlledPropTypes;
-	var infoBoxDefaultPropTypes = (0, _utilsDefaultPropsCreator2["default"])(infoBoxControlledPropTypes);
-
-	exports.infoBoxDefaultPropTypes = infoBoxDefaultPropTypes;
-	var infoBoxUpdaters = {
-	  children: function children(_children, component) {
-	    (0, _utilsSetContentForOptionalReactElement2["default"])(_children, component.getInfoBox());
-	  },
-	  content: function content(_content, component) {
-	    component.getInfoBox().setContent(_content);
-	  },
-	  options: function options(_options, component) {
-	    component.getInfoBox().setOptions(_options);
-	  },
-	  position: function position(_position, component) {
-	    component.getInfoBox().setPosition(_position);
-	  },
-	  visible: function visible(_visible, component) {
-	    component.getInfoBox().setVisible(_visible);
-	  },
-	  zIndex: function zIndex(_zIndex, component) {
-	    component.getInfoBox().setZIndex(_zIndex);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2["default"])(_addonsEventListsInfoBoxEventList2["default"]);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var infoBoxEventPropTypes = eventPropTypes;
-
-	exports.infoBoxEventPropTypes = infoBoxEventPropTypes;
-
-	var InfoBoxCreator = (function (_Component) {
-	  _inherits(InfoBoxCreator, _Component);
-
-	  function InfoBoxCreator() {
-	    _classCallCheck(this, _InfoBoxCreator);
-
-	    _get(Object.getPrototypeOf(_InfoBoxCreator.prototype), "constructor", this).apply(this, arguments);
-	  }
-
-	  _createClass(InfoBoxCreator, [{
-	    key: "getInfoBox",
-	    value: function getInfoBox() {
-	      return this.props.infoBox;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      return _react2["default"].createElement("noscript", null);
-	    }
-	  }], [{
-	    key: "_createInfoBox",
-	    value: function _createInfoBox(infoBoxProps) {
-	      var mapHolderRef = infoBoxProps.mapHolderRef;
-	      var anchorHolderRef = infoBoxProps.anchorHolderRef;
-
-	      // "google-maps-infobox" uses "google" as a global variable. Since we don't
-	      // have "google" on the server, we can not use it in server-side rendering.
-	      // As a result, we import "google-maps-infobox" here to prevent an error on
-	      // a isomorphic server.
-	      var GoogleMapsInfobox = __webpack_require__(275);
-	      // http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/docs/reference.html
-	      var infoBox = new GoogleMapsInfobox((0, _utilsComposeOptions2["default"])(infoBoxProps, infoBoxControlledPropTypes));
-
-	      if (infoBoxProps.children) {
-	        (0, _utilsSetContentForOptionalReactElement2["default"])(infoBoxProps.children, infoBox);
-	      }
-
-	      if (anchorHolderRef) {
-	        infoBox.open(mapHolderRef.getMap(), anchorHolderRef.getAnchor());
-	      } else {
-	        infoBox.open(mapHolderRef.getMap());
-	      }
-	      return infoBox;
-	    }
-	  }, {
-	    key: "propTypes",
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_creatorsGoogleMapHolder2["default"]).isRequired,
-	      infoBox: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _InfoBoxCreator = InfoBoxCreator;
-	  InfoBoxCreator = (0, _utilsComponentLifecycleDecorator2["default"])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: "getInfoBox",
-	    updaters: infoBoxUpdaters
-	  })(InfoBoxCreator) || InfoBoxCreator;
-	  return InfoBoxCreator;
-	})(_react.Component);
-
-	exports["default"] = InfoBoxCreator;
-
-/***/ },
-/* 274 */
-/***/ function(module, exports) {
-
-	// http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/docs/reference.html
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["closeclick", "content_changed", "domready", "position_changed", "zindex_changed"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 275 */
-/***/ function(module, exports) {
-
-	/**
-	 * @name InfoBox
-	 * @version 1.1.13 [March 19, 2014]
-	 * @author Gary Little (inspired by proof-of-concept code from Pamela Fox of Google)
-	 * @copyright Copyright 2010 Gary Little [gary at luxcentral.com]
-	 * @fileoverview InfoBox extends the Google Maps JavaScript API V3 <tt>OverlayView</tt> class.
-	 *  <p>
-	 *  An InfoBox behaves like a <tt>google.maps.InfoWindow</tt>, but it supports several
-	 *  additional properties for advanced styling. An InfoBox can also be used as a map label.
-	 *  <p>
-	 *  An InfoBox also fires the same events as a <tt>google.maps.InfoWindow</tt>.
-	 */
-
-	/*!
-	 *
-	 * Licensed under the Apache License, Version 2.0 (the "License");
-	 * you may not use this file except in compliance with the License.
-	 * You may obtain a copy of the License at
-	 *
-	 *       http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
-
-	/*jslint browser:true */
-	/*global google */
-
-	/**
-	 * @name InfoBoxOptions
-	 * @class This class represents the optional parameter passed to the {@link InfoBox} constructor.
-	 * @property {string|Node} content The content of the InfoBox (plain text or an HTML DOM node).
-	 * @property {boolean} [disableAutoPan=false] Disable auto-pan on <tt>open</tt>.
-	 * @property {number} maxWidth The maximum width (in pixels) of the InfoBox. Set to 0 if no maximum.
-	 * @property {Size} pixelOffset The offset (in pixels) from the top left corner of the InfoBox
-	 *  (or the bottom left corner if the <code>alignBottom</code> property is <code>true</code>)
-	 *  to the map pixel corresponding to <tt>position</tt>.
-	 * @property {LatLng} position The geographic location at which to display the InfoBox.
-	 * @property {number} zIndex The CSS z-index style value for the InfoBox.
-	 *  Note: This value overrides a zIndex setting specified in the <tt>boxStyle</tt> property.
-	 * @property {string} [boxClass="infoBox"] The name of the CSS class defining the styles for the InfoBox container.
-	 * @property {Object} [boxStyle] An object literal whose properties define specific CSS
-	 *  style values to be applied to the InfoBox. Style values defined here override those that may
-	 *  be defined in the <code>boxClass</code> style sheet. If this property is changed after the
-	 *  InfoBox has been created, all previously set styles (except those defined in the style sheet)
-	 *  are removed from the InfoBox before the new style values are applied.
-	 * @property {string} closeBoxMargin The CSS margin style value for the close box.
-	 *  The default is "2px" (a 2-pixel margin on all sides).
-	 * @property {string} closeBoxURL The URL of the image representing the close box.
-	 *  Note: The default is the URL for Google's standard close box.
-	 *  Set this property to "" if no close box is required.
-	 * @property {Size} infoBoxClearance Minimum offset (in pixels) from the InfoBox to the
-	 *  map edge after an auto-pan.
-	 * @property {boolean} [isHidden=false] Hide the InfoBox on <tt>open</tt>.
-	 *  [Deprecated in favor of the <tt>visible</tt> property.]
-	 * @property {boolean} [visible=true] Show the InfoBox on <tt>open</tt>.
-	 * @property {boolean} alignBottom Align the bottom left corner of the InfoBox to the <code>position</code>
-	 *  location (default is <tt>false</tt> which means that the top left corner of the InfoBox is aligned).
-	 * @property {string} pane The pane where the InfoBox is to appear (default is "floatPane").
-	 *  Set the pane to "mapPane" if the InfoBox is being used as a map label.
-	 *  Valid pane names are the property names for the <tt>google.maps.MapPanes</tt> object.
-	 * @property {boolean} enableEventPropagation Propagate mousedown, mousemove, mouseover, mouseout,
-	 *  mouseup, click, dblclick, touchstart, touchend, touchmove, and contextmenu events in the InfoBox
-	 *  (default is <tt>false</tt> to mimic the behavior of a <tt>google.maps.InfoWindow</tt>). Set
-	 *  this property to <tt>true</tt> if the InfoBox is being used as a map label.
-	 */
-
-	/**
-	 * Creates an InfoBox with the options specified in {@link InfoBoxOptions}.
-	 *  Call <tt>InfoBox.open</tt> to add the box to the map.
-	 * @constructor
-	 * @param {InfoBoxOptions} [opt_opts]
-	 */
-	function InfoBox(opt_opts) {
-
-	  opt_opts = opt_opts || {};
-
-	  google.maps.OverlayView.apply(this, arguments);
-
-	  // Standard options (in common with google.maps.InfoWindow):
-	  //
-	  this.content_ = opt_opts.content || "";
-	  this.disableAutoPan_ = opt_opts.disableAutoPan || false;
-	  this.maxWidth_ = opt_opts.maxWidth || 0;
-	  this.pixelOffset_ = opt_opts.pixelOffset || new google.maps.Size(0, 0);
-	  this.position_ = opt_opts.position || new google.maps.LatLng(0, 0);
-	  this.zIndex_ = opt_opts.zIndex || null;
-
-	  // Additional options (unique to InfoBox):
-	  //
-	  this.boxClass_ = opt_opts.boxClass || "infoBox";
-	  this.boxStyle_ = opt_opts.boxStyle || {};
-	  this.closeBoxMargin_ = opt_opts.closeBoxMargin || "2px";
-	  this.closeBoxURL_ = opt_opts.closeBoxURL || "http://www.google.com/intl/en_us/mapfiles/close.gif";
-	  if (opt_opts.closeBoxURL === "") {
-	    this.closeBoxURL_ = "";
-	  }
-	  this.infoBoxClearance_ = opt_opts.infoBoxClearance || new google.maps.Size(1, 1);
-
-	  if (typeof opt_opts.visible === "undefined") {
-	    if (typeof opt_opts.isHidden === "undefined") {
-	      opt_opts.visible = true;
-	    } else {
-	      opt_opts.visible = !opt_opts.isHidden;
-	    }
-	  }
-	  this.isHidden_ = !opt_opts.visible;
-
-	  this.alignBottom_ = opt_opts.alignBottom || false;
-	  this.pane_ = opt_opts.pane || "floatPane";
-	  this.enableEventPropagation_ = opt_opts.enableEventPropagation || false;
-
-	  this.div_ = null;
-	  this.closeListener_ = null;
-	  this.moveListener_ = null;
-	  this.contextListener_ = null;
-	  this.eventListeners_ = null;
-	  this.fixedWidthSet_ = null;
-	}
-
-	/* InfoBox extends OverlayView in the Google Maps API v3.
-	 */
-	InfoBox.prototype = new google.maps.OverlayView();
-
-	/**
-	 * Creates the DIV representing the InfoBox.
-	 * @private
-	 */
-	InfoBox.prototype.createInfoBoxDiv_ = function () {
-
-	  var i;
-	  var events;
-	  var bw;
-	  var me = this;
-
-	  // This handler prevents an event in the InfoBox from being passed on to the map.
-	  //
-	  var cancelHandler = function (e) {
-	    e.cancelBubble = true;
-	    if (e.stopPropagation) {
-	      e.stopPropagation();
-	    }
-	  };
-
-	  // This handler ignores the current event in the InfoBox and conditionally prevents
-	  // the event from being passed on to the map. It is used for the contextmenu event.
-	  //
-	  var ignoreHandler = function (e) {
-
-	    e.returnValue = false;
-
-	    if (e.preventDefault) {
-
-	      e.preventDefault();
-	    }
-
-	    if (!me.enableEventPropagation_) {
-
-	      cancelHandler(e);
-	    }
-	  };
-
-	  if (!this.div_) {
-
-	    this.div_ = document.createElement("div");
-
-	    this.setBoxStyle_();
-
-	    if (typeof this.content_.nodeType === "undefined") {
-	      this.div_.innerHTML = this.getCloseBoxImg_() + this.content_;
-	    } else {
-	      this.div_.innerHTML = this.getCloseBoxImg_();
-	      this.div_.appendChild(this.content_);
-	    }
-
-	    // Add the InfoBox DIV to the DOM
-	    this.getPanes()[this.pane_].appendChild(this.div_);
-
-	    this.addClickHandler_();
-
-	    if (this.div_.style.width) {
-
-	      this.fixedWidthSet_ = true;
-
-	    } else {
-
-	      if (this.maxWidth_ !== 0 && this.div_.offsetWidth > this.maxWidth_) {
-
-	        this.div_.style.width = this.maxWidth_;
-	        this.div_.style.overflow = "auto";
-	        this.fixedWidthSet_ = true;
-
-	      } else { // The following code is needed to overcome problems with MSIE
-
-	        bw = this.getBoxWidths_();
-
-	        this.div_.style.width = (this.div_.offsetWidth - bw.left - bw.right) + "px";
-	        this.fixedWidthSet_ = false;
-	      }
-	    }
-
-	    this.panBox_(this.disableAutoPan_);
-
-	    if (!this.enableEventPropagation_) {
-
-	      this.eventListeners_ = [];
-
-	      // Cancel event propagation.
-	      //
-	      // Note: mousemove not included (to resolve Issue 152)
-	      events = ["mousedown", "mouseover", "mouseout", "mouseup",
-	      "click", "dblclick", "touchstart", "touchend", "touchmove"];
-
-	      for (i = 0; i < events.length; i++) {
-
-	        this.eventListeners_.push(google.maps.event.addDomListener(this.div_, events[i], cancelHandler));
-	      }
-	      
-	      // Workaround for Google bug that causes the cursor to change to a pointer
-	      // when the mouse moves over a marker underneath InfoBox.
-	      this.eventListeners_.push(google.maps.event.addDomListener(this.div_, "mouseover", function (e) {
-	        this.style.cursor = "default";
-	      }));
-	    }
-
-	    this.contextListener_ = google.maps.event.addDomListener(this.div_, "contextmenu", ignoreHandler);
-
-	    /**
-	     * This event is fired when the DIV containing the InfoBox's content is attached to the DOM.
-	     * @name InfoBox#domready
-	     * @event
-	     */
-	    google.maps.event.trigger(this, "domready");
-	  }
-	};
-
-	/**
-	 * Returns the HTML <IMG> tag for the close box.
-	 * @private
-	 */
-	InfoBox.prototype.getCloseBoxImg_ = function () {
-
-	  var img = "";
-
-	  if (this.closeBoxURL_ !== "") {
-
-	    img  = "<img";
-	    img += " src='" + this.closeBoxURL_ + "'";
-	    img += " align=right"; // Do this because Opera chokes on style='float: right;'
-	    img += " style='";
-	    img += " position: relative;"; // Required by MSIE
-	    img += " cursor: pointer;";
-	    img += " margin: " + this.closeBoxMargin_ + ";";
-	    img += "'>";
-	  }
-
-	  return img;
-	};
-
-	/**
-	 * Adds the click handler to the InfoBox close box.
-	 * @private
-	 */
-	InfoBox.prototype.addClickHandler_ = function () {
-
-	  var closeBox;
-
-	  if (this.closeBoxURL_ !== "") {
-
-	    closeBox = this.div_.firstChild;
-	    this.closeListener_ = google.maps.event.addDomListener(closeBox, "click", this.getCloseClickHandler_());
-
-	  } else {
-
-	    this.closeListener_ = null;
-	  }
-	};
-
-	/**
-	 * Returns the function to call when the user clicks the close box of an InfoBox.
-	 * @private
-	 */
-	InfoBox.prototype.getCloseClickHandler_ = function () {
-
-	  var me = this;
-
-	  return function (e) {
-
-	    // 1.0.3 fix: Always prevent propagation of a close box click to the map:
-	    e.cancelBubble = true;
-
-	    if (e.stopPropagation) {
-
-	      e.stopPropagation();
-	    }
-
-	    /**
-	     * This event is fired when the InfoBox's close box is clicked.
-	     * @name InfoBox#closeclick
-	     * @event
-	     */
-	    google.maps.event.trigger(me, "closeclick");
-
-	    me.close();
-	  };
-	};
-
-	/**
-	 * Pans the map so that the InfoBox appears entirely within the map's visible area.
-	 * @private
-	 */
-	InfoBox.prototype.panBox_ = function (disablePan) {
-
-	  var map;
-	  var bounds;
-	  var xOffset = 0, yOffset = 0;
-
-	  if (!disablePan) {
-
-	    map = this.getMap();
-
-	    if (map instanceof google.maps.Map) { // Only pan if attached to map, not panorama
-
-	      if (!map.getBounds().contains(this.position_)) {
-	      // Marker not in visible area of map, so set center
-	      // of map to the marker position first.
-	        map.setCenter(this.position_);
-	      }
-
-	      bounds = map.getBounds();
-
-	      var mapDiv = map.getDiv();
-	      var mapWidth = mapDiv.offsetWidth;
-	      var mapHeight = mapDiv.offsetHeight;
-	      var iwOffsetX = this.pixelOffset_.width;
-	      var iwOffsetY = this.pixelOffset_.height;
-	      var iwWidth = this.div_.offsetWidth;
-	      var iwHeight = this.div_.offsetHeight;
-	      var padX = this.infoBoxClearance_.width;
-	      var padY = this.infoBoxClearance_.height;
-	      var pixPosition = this.getProjection().fromLatLngToContainerPixel(this.position_);
-
-	      if (pixPosition.x < (-iwOffsetX + padX)) {
-	        xOffset = pixPosition.x + iwOffsetX - padX;
-	      } else if ((pixPosition.x + iwWidth + iwOffsetX + padX) > mapWidth) {
-	        xOffset = pixPosition.x + iwWidth + iwOffsetX + padX - mapWidth;
-	      }
-	      if (this.alignBottom_) {
-	        if (pixPosition.y < (-iwOffsetY + padY + iwHeight)) {
-	          yOffset = pixPosition.y + iwOffsetY - padY - iwHeight;
-	        } else if ((pixPosition.y + iwOffsetY + padY) > mapHeight) {
-	          yOffset = pixPosition.y + iwOffsetY + padY - mapHeight;
-	        }
-	      } else {
-	        if (pixPosition.y < (-iwOffsetY + padY)) {
-	          yOffset = pixPosition.y + iwOffsetY - padY;
-	        } else if ((pixPosition.y + iwHeight + iwOffsetY + padY) > mapHeight) {
-	          yOffset = pixPosition.y + iwHeight + iwOffsetY + padY - mapHeight;
-	        }
-	      }
-
-	      if (!(xOffset === 0 && yOffset === 0)) {
-
-	        // Move the map to the shifted center.
-	        //
-	        var c = map.getCenter();
-	        map.panBy(xOffset, yOffset);
-	      }
-	    }
-	  }
-	};
-
-	/**
-	 * Sets the style of the InfoBox by setting the style sheet and applying
-	 * other specific styles requested.
-	 * @private
-	 */
-	InfoBox.prototype.setBoxStyle_ = function () {
-
-	  var i, boxStyle;
-
-	  if (this.div_) {
-
-	    // Apply style values from the style sheet defined in the boxClass parameter:
-	    this.div_.className = this.boxClass_;
-
-	    // Clear existing inline style values:
-	    this.div_.style.cssText = "";
-
-	    // Apply style values defined in the boxStyle parameter:
-	    boxStyle = this.boxStyle_;
-	    for (i in boxStyle) {
-
-	      if (boxStyle.hasOwnProperty(i)) {
-
-	        this.div_.style[i] = boxStyle[i];
-	      }
-	    }
-
-	    // Fix for iOS disappearing InfoBox problem.
-	    // See http://stackoverflow.com/questions/9229535/google-maps-markers-disappear-at-certain-zoom-level-only-on-iphone-ipad
-	    this.div_.style.WebkitTransform = "translateZ(0)";
-
-	    // Fix up opacity style for benefit of MSIE:
-	    //
-	    if (typeof this.div_.style.opacity !== "undefined" && this.div_.style.opacity !== "") {
-	      // See http://www.quirksmode.org/css/opacity.html
-	      this.div_.style.MsFilter = "\"progid:DXImageTransform.Microsoft.Alpha(Opacity=" + (this.div_.style.opacity * 100) + ")\"";
-	      this.div_.style.filter = "alpha(opacity=" + (this.div_.style.opacity * 100) + ")";
-	    }
-
-	    // Apply required styles:
-	    //
-	    this.div_.style.position = "absolute";
-	    this.div_.style.visibility = 'hidden';
-	    if (this.zIndex_ !== null) {
-
-	      this.div_.style.zIndex = this.zIndex_;
-	    }
-	  }
-	};
-
-	/**
-	 * Get the widths of the borders of the InfoBox.
-	 * @private
-	 * @return {Object} widths object (top, bottom left, right)
-	 */
-	InfoBox.prototype.getBoxWidths_ = function () {
-
-	  var computedStyle;
-	  var bw = {top: 0, bottom: 0, left: 0, right: 0};
-	  var box = this.div_;
-
-	  if (document.defaultView && document.defaultView.getComputedStyle) {
-
-	    computedStyle = box.ownerDocument.defaultView.getComputedStyle(box, "");
-
-	    if (computedStyle) {
-
-	      // The computed styles are always in pixel units (good!)
-	      bw.top = parseInt(computedStyle.borderTopWidth, 10) || 0;
-	      bw.bottom = parseInt(computedStyle.borderBottomWidth, 10) || 0;
-	      bw.left = parseInt(computedStyle.borderLeftWidth, 10) || 0;
-	      bw.right = parseInt(computedStyle.borderRightWidth, 10) || 0;
-	    }
-
-	  } else if (document.documentElement.currentStyle) { // MSIE
-
-	    if (box.currentStyle) {
-
-	      // The current styles may not be in pixel units, but assume they are (bad!)
-	      bw.top = parseInt(box.currentStyle.borderTopWidth, 10) || 0;
-	      bw.bottom = parseInt(box.currentStyle.borderBottomWidth, 10) || 0;
-	      bw.left = parseInt(box.currentStyle.borderLeftWidth, 10) || 0;
-	      bw.right = parseInt(box.currentStyle.borderRightWidth, 10) || 0;
-	    }
-	  }
-
-	  return bw;
-	};
-
-	/**
-	 * Invoked when <tt>close</tt> is called. Do not call it directly.
-	 */
-	InfoBox.prototype.onRemove = function () {
-
-	  if (this.div_) {
-
-	    this.div_.parentNode.removeChild(this.div_);
-	    this.div_ = null;
-	  }
-	};
-
-	/**
-	 * Draws the InfoBox based on the current map projection and zoom level.
-	 */
-	InfoBox.prototype.draw = function () {
-
-	  this.createInfoBoxDiv_();
-
-	  var pixPosition = this.getProjection().fromLatLngToDivPixel(this.position_);
-
-	  this.div_.style.left = (pixPosition.x + this.pixelOffset_.width) + "px";
-	  
-	  if (this.alignBottom_) {
-	    this.div_.style.bottom = -(pixPosition.y + this.pixelOffset_.height) + "px";
-	  } else {
-	    this.div_.style.top = (pixPosition.y + this.pixelOffset_.height) + "px";
-	  }
-
-	  if (this.isHidden_) {
-
-	    this.div_.style.visibility = "hidden";
-
-	  } else {
-
-	    this.div_.style.visibility = "visible";
-	  }
-	};
-
-	/**
-	 * Sets the options for the InfoBox. Note that changes to the <tt>maxWidth</tt>,
-	 *  <tt>closeBoxMargin</tt>, <tt>closeBoxURL</tt>, and <tt>enableEventPropagation</tt>
-	 *  properties have no affect until the current InfoBox is <tt>close</tt>d and a new one
-	 *  is <tt>open</tt>ed.
-	 * @param {InfoBoxOptions} opt_opts
-	 */
-	InfoBox.prototype.setOptions = function (opt_opts) {
-	  if (typeof opt_opts.boxClass !== "undefined") { // Must be first
-
-	    this.boxClass_ = opt_opts.boxClass;
-	    this.setBoxStyle_();
-	  }
-	  if (typeof opt_opts.boxStyle !== "undefined") { // Must be second
-
-	    this.boxStyle_ = opt_opts.boxStyle;
-	    this.setBoxStyle_();
-	  }
-	  if (typeof opt_opts.content !== "undefined") {
-
-	    this.setContent(opt_opts.content);
-	  }
-	  if (typeof opt_opts.disableAutoPan !== "undefined") {
-
-	    this.disableAutoPan_ = opt_opts.disableAutoPan;
-	  }
-	  if (typeof opt_opts.maxWidth !== "undefined") {
-
-	    this.maxWidth_ = opt_opts.maxWidth;
-	  }
-	  if (typeof opt_opts.pixelOffset !== "undefined") {
-
-	    this.pixelOffset_ = opt_opts.pixelOffset;
-	  }
-	  if (typeof opt_opts.alignBottom !== "undefined") {
-
-	    this.alignBottom_ = opt_opts.alignBottom;
-	  }
-	  if (typeof opt_opts.position !== "undefined") {
-
-	    this.setPosition(opt_opts.position);
-	  }
-	  if (typeof opt_opts.zIndex !== "undefined") {
-
-	    this.setZIndex(opt_opts.zIndex);
-	  }
-	  if (typeof opt_opts.closeBoxMargin !== "undefined") {
-
-	    this.closeBoxMargin_ = opt_opts.closeBoxMargin;
-	  }
-	  if (typeof opt_opts.closeBoxURL !== "undefined") {
-
-	    this.closeBoxURL_ = opt_opts.closeBoxURL;
-	  }
-	  if (typeof opt_opts.infoBoxClearance !== "undefined") {
-
-	    this.infoBoxClearance_ = opt_opts.infoBoxClearance;
-	  }
-	  if (typeof opt_opts.isHidden !== "undefined") {
-
-	    this.isHidden_ = opt_opts.isHidden;
-	  }
-	  if (typeof opt_opts.visible !== "undefined") {
-
-	    this.isHidden_ = !opt_opts.visible;
-	  }
-	  if (typeof opt_opts.enableEventPropagation !== "undefined") {
-
-	    this.enableEventPropagation_ = opt_opts.enableEventPropagation;
-	  }
-
-	  if (this.div_) {
-
-	    this.draw();
-	  }
-	};
-
-	/**
-	 * Sets the content of the InfoBox.
-	 *  The content can be plain text or an HTML DOM node.
-	 * @param {string|Node} content
-	 */
-	InfoBox.prototype.setContent = function (content) {
-	  this.content_ = content;
-
-	  if (this.div_) {
-
-	    if (this.closeListener_) {
-
-	      google.maps.event.removeListener(this.closeListener_);
-	      this.closeListener_ = null;
-	    }
-
-	    // Odd code required to make things work with MSIE.
-	    //
-	    if (!this.fixedWidthSet_) {
-
-	      this.div_.style.width = "";
-	    }
-
-	    if (typeof content.nodeType === "undefined") {
-	      this.div_.innerHTML = this.getCloseBoxImg_() + content;
-	    } else {
-	      this.div_.innerHTML = this.getCloseBoxImg_();
-	      this.div_.appendChild(content);
-	    }
-
-	    // Perverse code required to make things work with MSIE.
-	    // (Ensures the close box does, in fact, float to the right.)
-	    //
-	    if (!this.fixedWidthSet_) {
-	      this.div_.style.width = this.div_.offsetWidth + "px";
-	      if (typeof content.nodeType === "undefined") {
-	        this.div_.innerHTML = this.getCloseBoxImg_() + content;
-	      } else {
-	        this.div_.innerHTML = this.getCloseBoxImg_();
-	        this.div_.appendChild(content);
-	      }
-	    }
-
-	    this.addClickHandler_();
-	  }
-
-	  /**
-	   * This event is fired when the content of the InfoBox changes.
-	   * @name InfoBox#content_changed
-	   * @event
-	   */
-	  google.maps.event.trigger(this, "content_changed");
-	};
-
-	/**
-	 * Sets the geographic location of the InfoBox.
-	 * @param {LatLng} latlng
-	 */
-	InfoBox.prototype.setPosition = function (latlng) {
-
-	  this.position_ = latlng;
-
-	  if (this.div_) {
-
-	    this.draw();
-	  }
-
-	  /**
-	   * This event is fired when the position of the InfoBox changes.
-	   * @name InfoBox#position_changed
-	   * @event
-	   */
-	  google.maps.event.trigger(this, "position_changed");
-	};
-
-	/**
-	 * Sets the zIndex style for the InfoBox.
-	 * @param {number} index
-	 */
-	InfoBox.prototype.setZIndex = function (index) {
-
-	  this.zIndex_ = index;
-
-	  if (this.div_) {
-
-	    this.div_.style.zIndex = index;
-	  }
-
-	  /**
-	   * This event is fired when the zIndex of the InfoBox changes.
-	   * @name InfoBox#zindex_changed
-	   * @event
-	   */
-	  google.maps.event.trigger(this, "zindex_changed");
-	};
-
-	/**
-	 * Sets the visibility of the InfoBox.
-	 * @param {boolean} isVisible
-	 */
-	InfoBox.prototype.setVisible = function (isVisible) {
-
-	  this.isHidden_ = !isVisible;
-	  if (this.div_) {
-	    this.div_.style.visibility = (this.isHidden_ ? "hidden" : "visible");
-	  }
-	};
-
-	/**
-	 * Returns the content of the InfoBox.
-	 * @returns {string}
-	 */
-	InfoBox.prototype.getContent = function () {
-
-	  return this.content_;
-	};
-
-	/**
-	 * Returns the geographic location of the InfoBox.
-	 * @returns {LatLng}
-	 */
-	InfoBox.prototype.getPosition = function () {
-
-	  return this.position_;
-	};
-
-	/**
-	 * Returns the zIndex for the InfoBox.
-	 * @returns {number}
-	 */
-	InfoBox.prototype.getZIndex = function () {
-
-	  return this.zIndex_;
-	};
-
-	/**
-	 * Returns a flag indicating whether the InfoBox is visible.
-	 * @returns {boolean}
-	 */
-	InfoBox.prototype.getVisible = function () {
-
-	  var isVisible;
-
-	  if ((typeof this.getMap() === "undefined") || (this.getMap() === null)) {
-	    isVisible = false;
-	  } else {
-	    isVisible = !this.isHidden_;
-	  }
-	  return isVisible;
-	};
-
-	/**
-	 * Shows the InfoBox. [Deprecated; use <tt>setVisible</tt> instead.]
-	 */
-	InfoBox.prototype.show = function () {
-
-	  this.isHidden_ = false;
-	  if (this.div_) {
-	    this.div_.style.visibility = "visible";
-	  }
-	};
-
-	/**
-	 * Hides the InfoBox. [Deprecated; use <tt>setVisible</tt> instead.]
-	 */
-	InfoBox.prototype.hide = function () {
-
-	  this.isHidden_ = true;
-	  if (this.div_) {
-	    this.div_.style.visibility = "hidden";
-	  }
-	};
-
-	/**
-	 * Adds the InfoBox to the specified map or Street View panorama. If <tt>anchor</tt>
-	 *  (usually a <tt>google.maps.Marker</tt>) is specified, the position
-	 *  of the InfoBox is set to the position of the <tt>anchor</tt>. If the
-	 *  anchor is dragged to a new location, the InfoBox moves as well.
-	 * @param {Map|StreetViewPanorama} map
-	 * @param {MVCObject} [anchor]
-	 */
-	InfoBox.prototype.open = function (map, anchor) {
-
-	  var me = this;
-
-	  if (anchor) {
-
-	    this.position_ = anchor.getPosition();
-	    this.moveListener_ = google.maps.event.addListener(anchor, "position_changed", function () {
-	      me.setPosition(this.getPosition());
-	    });
-	  }
-
-	  this.setMap(map);
-
-	  if (this.div_) {
-
-	    this.panBox_();
-	  }
-	};
-
-	/**
-	 * Removes the InfoBox from the map.
-	 */
-	InfoBox.prototype.close = function () {
-
-	  var i;
-
-	  if (this.closeListener_) {
-
-	    google.maps.event.removeListener(this.closeListener_);
-	    this.closeListener_ = null;
-	  }
-
-	  if (this.eventListeners_) {
-	    
-	    for (i = 0; i < this.eventListeners_.length; i++) {
-
-	      google.maps.event.removeListener(this.eventListeners_[i]);
-	    }
-	    this.eventListeners_ = null;
-	  }
-
-	  if (this.moveListener_) {
-
-	    google.maps.event.removeListener(this.moveListener_);
-	    this.moveListener_ = null;
-	  }
-
-	  if (this.contextListener_) {
-
-	    google.maps.event.removeListener(this.contextListener_);
-	    this.contextListener_ = null;
-	  }
-
-	  this.setMap(null);
-	};
-
-
-	module.exports = InfoBox;
-
-
-/***/ },
-/* 276 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x5, _x6, _x7) { var _again = true; _function: while (_again) { var object = _x5, property = _x6, receiver = _x7; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x5 = parent; _x6 = property; _x7 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _canUseDom = __webpack_require__(238);
-
-	var _canUseDom2 = _interopRequireDefault(_canUseDom);
-
-	var _addonsCreatorsMarkerClustererCreator = __webpack_require__(277);
-
-	var _addonsCreatorsMarkerClustererCreator2 = _interopRequireDefault(_addonsCreatorsMarkerClustererCreator);
-
-	var MarkerClusterer = (function (_Component) {
-	  _inherits(MarkerClusterer, _Component);
-
-	  function MarkerClusterer() {
-	    _classCallCheck(this, MarkerClusterer);
-
-	    _get(Object.getPrototypeOf(MarkerClusterer.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.state = {};
-	  }
-
-	  _createClass(MarkerClusterer, [{
-	    key: 'getAverageCenter',
-
-	    // Public APIs
-	    // http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/docs/reference.html#events
-	    value: function getAverageCenter() {
-	      return this.state.markerClusterer.getAverageCenter();
-	    }
-	  }, {
-	    key: 'getBatchSizeIE',
-	    value: function getBatchSizeIE() {
-	      return this.state.markerClusterer.getBatchSizeIE();
-	    }
-	  }, {
-	    key: 'getCalculator',
-	    value: function getCalculator() {
-	      return this.state.markerClusterer.getCalculator();
-	    }
-	  }, {
-	    key: 'getClusterClass',
-	    value: function getClusterClass() {
-	      return this.state.markerClusterer.getClusterClass();
-	    }
-	  }, {
-	    key: 'getClusters',
-	    value: function getClusters() {
-	      return this.state.markerClusterer.getClusters();
-	    }
-	  }, {
-	    key: 'getEnableRetinaIcons',
-	    value: function getEnableRetinaIcons() {
-	      return this.state.markerClusterer.getEnableRetinaIcons();
-	    }
-	  }, {
-	    key: 'getGridSize',
-	    value: function getGridSize() {
-	      return this.state.markerClusterer.getGridSize();
-	    }
-	  }, {
-	    key: 'getIgnoreHidden',
-	    value: function getIgnoreHidden() {
-	      return this.state.markerClusterer.getIgnoreHidden();
-	    }
-	  }, {
-	    key: 'getImageExtension',
-	    value: function getImageExtension() {
-	      return this.state.markerClusterer.getImageExtension();
-	    }
-	  }, {
-	    key: 'getImagePath',
-	    value: function getImagePath() {
-	      return this.state.markerClusterer.getImagePath();
-	    }
-	  }, {
-	    key: 'getImageSize',
-	    value: function getImageSize() {
-	      return this.state.markerClusterer.getImageSize();
-	    }
-	  }, {
-	    key: 'getMarkers',
-	    value: function getMarkers() {
-	      return this.state.markerClusterer.getMarkers();
-	    }
-	  }, {
-	    key: 'getMaxZoom',
-	    value: function getMaxZoom() {
-	      return this.state.markerClusterer.getMaxZoom();
-	    }
-	  }, {
-	    key: 'getMinimumClusterSize',
-	    value: function getMinimumClusterSize() {
-	      return this.state.markerClusterer.getMinimumClusterSize();
-	    }
-	  }, {
-	    key: 'getStyles',
-	    value: function getStyles() {
-	      return this.state.markerClusterer.getStyles();
-	    }
-	  }, {
-	    key: 'getTitle',
-	    value: function getTitle() {
-	      return this.state.markerClusterer.getTitle();
-	    }
-	  }, {
-	    key: 'getTotalClusters',
-	    value: function getTotalClusters() {
-	      return this.state.markerClusterer.getTotalClusters();
-	    }
-	  }, {
-	    key: 'getZoomOnClick',
-	    value: function getZoomOnClick() {
-	      return this.state.markerClusterer.getZoomOnClick();
-	    }
-
-	    // Public APIs - Use this carefully
-	  }, {
-	    key: 'addMarker',
-	    value: function addMarker(marker) {
-	      var nodraw = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
-	      return this.state.markerClusterer.addMarker(marker, nodraw);
-	    }
-	  }, {
-	    key: 'addMarkers',
-	    value: function addMarkers(markers) {
-	      var nodraw = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
-	      return this.state.markerClusterer.addMarkers(markers, nodraw);
-	    }
-	  }, {
-	    key: 'removeMarker',
-	    value: function removeMarker(marker) {
-	      var nodraw = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
-	      return this.state.markerClusterer.removeMarker(marker, nodraw);
-	    }
-	  }, {
-	    key: 'removeMarkers',
-	    value: function removeMarkers(markers) {
-	      var nodraw = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
-	      return this.state.markerClusterer.removeMarkers(markers, nodraw);
-	    }
-	  }, {
-	    key: 'clearMarkers',
-	    value: function clearMarkers() {
-	      return this.state.markerClusterer.clearMarkers();
-	    }
-	  }, {
-	    key: 'fitMapToMarkers',
-	    value: function fitMapToMarkers() {
-	      return this.state.markerClusterer.fitMapToMarkers();
-	    }
-	  }, {
-	    key: 'repaint',
-	    value: function repaint() {
-	      return this.state.markerClusterer.repaint();
-	    }
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      if (!_canUseDom2['default']) {
-	        return;
-	      }
-
-	      var _props = this.props;
-	      var mapHolderRef = _props.mapHolderRef;
-
-	      var markerClustererProps = _objectWithoutProperties(_props, ['mapHolderRef']);
-
-	      var markerClusterer = _addonsCreatorsMarkerClustererCreator2['default']._createMarkerClusterer(mapHolderRef, markerClustererProps);
-
-	      this.setState({ markerClusterer: markerClusterer });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (this.state.markerClusterer) {
-	        return _react2['default'].createElement(
-	          _addonsCreatorsMarkerClustererCreator2['default'],
-	          _extends({ markerClusterer: this.state.markerClusterer }, this.props),
-	          this.props.children
-	        );
-	      } else {
-	        return _react2['default'].createElement('noscript', null);
-	      }
-	    }
-	  }], [{
-	    key: 'propTypes',
-	    value: _extends({}, _addonsCreatorsMarkerClustererCreator.markerClusterDefaultPropTypes, _addonsCreatorsMarkerClustererCreator.markerClusterControlledPropTypes, _addonsCreatorsMarkerClustererCreator.markerClusterEventPropTypes),
-	    enumerable: true
-	  }]);
-
-	  return MarkerClusterer;
-	})(_react.Component);
-
-	exports['default'] = MarkerClusterer;
-	module.exports = exports['default'];
-
-/***/ },
-/* 277 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _addonsEventListsMarkerClustererEventList = __webpack_require__(278);
-
-	var _addonsEventListsMarkerClustererEventList2 = _interopRequireDefault(_addonsEventListsMarkerClustererEventList);
-
-	var _utilsEventHandlerCreator = __webpack_require__(230);
-
-	var _utilsEventHandlerCreator2 = _interopRequireDefault(_utilsEventHandlerCreator);
-
-	var _utilsDefaultPropsCreator = __webpack_require__(231);
-
-	var _utilsDefaultPropsCreator2 = _interopRequireDefault(_utilsDefaultPropsCreator);
-
-	var _utilsComposeOptions = __webpack_require__(233);
-
-	var _utilsComposeOptions2 = _interopRequireDefault(_utilsComposeOptions);
-
-	var _utilsComponentLifecycleDecorator = __webpack_require__(235);
-
-	var _utilsComponentLifecycleDecorator2 = _interopRequireDefault(_utilsComponentLifecycleDecorator);
-
-	var _creatorsGoogleMapHolder = __webpack_require__(227);
-
-	var _creatorsGoogleMapHolder2 = _interopRequireDefault(_creatorsGoogleMapHolder);
-
-	var markerClustererControlledPropTypes = {
-	  // http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/docs/reference.html
-	  averageCenter: _react.PropTypes.bool,
-	  batchSizeIE: _react.PropTypes.number,
-	  calculator: _react.PropTypes.func,
-	  clusterClass: _react.PropTypes.string,
-	  enableRetinaIcons: _react.PropTypes.bool,
-	  gridSize: _react.PropTypes.number,
-	  ignoreHidden: _react.PropTypes.bool,
-	  imageExtension: _react.PropTypes.string,
-	  imagePath: _react.PropTypes.string,
-	  imageSizes: _react.PropTypes.array,
-	  maxZoom: _react.PropTypes.number,
-	  minimumClusterSize: _react.PropTypes.number,
-	  styles: _react.PropTypes.array,
-	  title: _react.PropTypes.string,
-	  zoomOnClick: _react.PropTypes.bool
-	};
-
-	exports.markerClustererControlledPropTypes = markerClustererControlledPropTypes;
-	var markerClustererDefaultPropTypes = (0, _utilsDefaultPropsCreator2['default'])(markerClustererControlledPropTypes);
-
-	exports.markerClustererDefaultPropTypes = markerClustererDefaultPropTypes;
-	var markerClustererUpdaters = {
-	  averageCenter: function averageCenter(_averageCenter, component) {
-	    component.getMarkerClusterer().setAverageCenter(_averageCenter);
-	  },
-
-	  batchSizeIE: function batchSizeIE(_batchSizeIE, component) {
-	    component.getMarkerClusterer().setBatchSizeIE(_batchSizeIE);
-	  },
-
-	  calculator: function calculator(_calculator, component) {
-	    component.getMarkerClusterer().setCalculator(_calculator);
-	  },
-
-	  enableRetinaIcons: function enableRetinaIcons(_enableRetinaIcons, component) {
-	    component.getMarkerClusterer().setEnableRetinaIcons(_enableRetinaIcons);
-	  },
-
-	  gridSize: function gridSize(_gridSize, component) {
-	    component.getMarkerClusterer().setGridSize(_gridSize);
-	  },
-
-	  ignoreHidden: function ignoreHidden(_ignoreHidden, component) {
-	    component.getMarkerClusterer().setIgnoreHidden(_ignoreHidden);
-	  },
-
-	  imageExtension: function imageExtension(_imageExtension, component) {
-	    component.getMarkerClusterer().setImageExtension(_imageExtension);
-	  },
-
-	  imagePath: function imagePath(_imagePath, component) {
-	    component.getMarkerClusterer().setImagePath(_imagePath);
-	  },
-
-	  imageSizes: function imageSizes(_imageSizes, component) {
-	    component.getMarkerClusterer().setImageSizes(_imageSizes);
-	  },
-
-	  maxZoom: function maxZoom(_maxZoom, component) {
-	    component.getMarkerClusterer().setMaxZoom(_maxZoom);
-	  },
-
-	  minimumClusterSize: function minimumClusterSize(_minimumClusterSize, component) {
-	    component.getMarkerClusterer().setMinimumClusterSize(_minimumClusterSize);
-	  },
-
-	  styles: function styles(_styles, component) {
-	    component.getMarkerClusterer().setStyles(_styles);
-	  },
-
-	  title: function title(_title, component) {
-	    component.getMarkerClusterer().setTitle(_title);
-	  },
-
-	  zoomOnClick: function zoomOnClick(_zoomOnClick, component) {
-	    component.getMarkerClusterer().setZoomOnClick(_zoomOnClick);
-	  }
-	};
-
-	var _eventHandlerCreator = (0, _utilsEventHandlerCreator2['default'])(_addonsEventListsMarkerClustererEventList2['default']);
-
-	var eventPropTypes = _eventHandlerCreator.eventPropTypes;
-	var registerEvents = _eventHandlerCreator.registerEvents;
-	var markerClustererEventPropTypes = eventPropTypes;
-
-	exports.markerClustererEventPropTypes = markerClustererEventPropTypes;
-
-	var MarkerClustererCreator = (function (_Component) {
-	  _inherits(MarkerClustererCreator, _Component);
-
-	  function MarkerClustererCreator() {
-	    _classCallCheck(this, _MarkerClustererCreator);
-
-	    _get(Object.getPrototypeOf(_MarkerClustererCreator.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(MarkerClustererCreator, [{
-	    key: 'getMarkerClusterer',
-	    value: function getMarkerClusterer() {
-	      return this.props.markerClusterer;
-	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate(prevProps) {
-	      this.props.markerClusterer.repaint();
-	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      this.props.markerClusterer.setMap(null);
-	    }
-	  }, {
-	    key: 'getAnchor',
-	    value: function getAnchor() {
-	      return this.props.markerClusterer;
-	    }
-	  }, {
-	    key: 'getAnchorType',
-	    value: function getAnchorType() {
-	      return 'MarkerClusterer';
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this = this;
-
-	      var _props = this.props;
-	      var mapHolderRef = _props.mapHolderRef;
-	      var children = _props.children;
-
-	      if (_react.Children.count(children) > 0) {
-	        return _react2['default'].createElement(
-	          'div',
-	          null,
-	          _react.Children.map(children, function (childElement) {
-	            if (_react2['default'].isValidElement(childElement)) {
-	              return _react2['default'].cloneElement(childElement, {
-	                mapHolderRef: mapHolderRef,
-	                anchorHolderRef: _this
-	              });
-	            } else {
-	              return childElement;
-	            }
-	          })
-	        );
-	      } else {
-	        return _react2['default'].createElement('noscript', null);
-	      }
-	    }
-	  }], [{
-	    key: '_createMarkerClusterer',
-	    value: function _createMarkerClusterer(mapHolderRef, markerClustererProps) {
-	      var GoogleMarkerClusterer = __webpack_require__(279);
-
-	      // http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/docs/reference.html#events
-	      var markerClusterer = new GoogleMarkerClusterer(mapHolderRef.getMap(), [], (0, _utilsComposeOptions2['default'])(markerClustererProps, markerClustererControlledPropTypes));
-
-	      return markerClusterer;
-	    }
-	  }, {
-	    key: 'PropTypes',
-	    value: {
-	      mapHolderRef: _react.PropTypes.instanceOf(_creatorsGoogleMapHolder2['default']).isRequired,
-	      markerClusterer: _react.PropTypes.object.isRequired
-	    },
-	    enumerable: true
-	  }]);
-
-	  var _MarkerClustererCreator = MarkerClustererCreator;
-	  MarkerClustererCreator = (0, _utilsComponentLifecycleDecorator2['default'])({
-	    registerEvents: registerEvents,
-	    instanceMethodName: 'getMarkerClusterer',
-	    updaters: markerClustererUpdaters
-	  })(MarkerClustererCreator) || MarkerClustererCreator;
-	  return MarkerClustererCreator;
-	})(_react.Component);
-
-	exports['default'] = MarkerClustererCreator;
-
-/***/ },
-/* 278 */
-/***/ function(module, exports) {
-
-	// http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/docs/reference.html
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = ["click", "clusteringbegin", "clusteringend", "mouseout", "mouseover"];
-	module.exports = exports["default"];
-
-/***/ },
-/* 279 */
-/***/ function(module, exports) {
-
-	/**
-	 * @name MarkerClustererPlus for Google Maps V3
-	 * @version 2.1.2 [May 28, 2014]
-	 * @author Gary Little
-	 * @fileoverview
-	 * The library creates and manages per-zoom-level clusters for large amounts of markers.
-	 * <p>
-	 * This is an enhanced V3 implementation of the
-	 * <a href="http://gmaps-utility-library-dev.googlecode.com/svn/tags/markerclusterer/"
-	 * >V2 MarkerClusterer</a> by Xiaoxi Wu. It is based on the
-	 * <a href="http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclusterer/"
-	 * >V3 MarkerClusterer</a> port by Luke Mahe. MarkerClustererPlus was created by Gary Little.
-	 * <p>
-	 * v2.0 release: MarkerClustererPlus v2.0 is backward compatible with MarkerClusterer v1.0. It
-	 *  adds support for the <code>ignoreHidden</code>, <code>title</code>, <code>batchSizeIE</code>,
-	 *  and <code>calculator</code> properties as well as support for four more events. It also allows
-	 *  greater control over the styling of the text that appears on the cluster marker. The
-	 *  documentation has been significantly improved and the overall code has been simplified and
-	 *  polished. Very large numbers of markers can now be managed without causing Javascript timeout
-	 *  errors on Internet Explorer. Note that the name of the <code>clusterclick</code> event has been
-	 *  deprecated. The new name is <code>click</code>, so please change your application code now.
-	 */
-
-	/**
-	 * Licensed under the Apache License, Version 2.0 (the "License");
-	 * you may not use this file except in compliance with the License.
-	 * You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
-
-
-	/**
-	 * @name ClusterIconStyle
-	 * @class This class represents the object for values in the <code>styles</code> array passed
-	 *  to the {@link MarkerClusterer} constructor. The element in this array that is used to
-	 *  style the cluster icon is determined by calling the <code>calculator</code> function.
-	 *
-	 * @property {string} url The URL of the cluster icon image file. Required.
-	 * @property {number} height The display height (in pixels) of the cluster icon. Required.
-	 * @property {number} width The display width (in pixels) of the cluster icon. Required.
-	 * @property {Array} [anchorText] The position (in pixels) from the center of the cluster icon to
-	 *  where the text label is to be centered and drawn. The format is <code>[yoffset, xoffset]</code>
-	 *  where <code>yoffset</code> increases as you go down from center and <code>xoffset</code>
-	 *  increases to the right of center. The default is <code>[0, 0]</code>.
-	 * @property {Array} [anchorIcon] The anchor position (in pixels) of the cluster icon. This is the
-	 *  spot on the cluster icon that is to be aligned with the cluster position. The format is
-	 *  <code>[yoffset, xoffset]</code> where <code>yoffset</code> increases as you go down and
-	 *  <code>xoffset</code> increases to the right of the top-left corner of the icon. The default
-	 *  anchor position is the center of the cluster icon.
-	 * @property {string} [textColor="black"] The color of the label text shown on the
-	 *  cluster icon.
-	 * @property {number} [textSize=11] The size (in pixels) of the label text shown on the
-	 *  cluster icon.
-	 * @property {string} [textDecoration="none"] The value of the CSS <code>text-decoration</code>
-	 *  property for the label text shown on the cluster icon.
-	 * @property {string} [fontWeight="bold"] The value of the CSS <code>font-weight</code>
-	 *  property for the label text shown on the cluster icon.
-	 * @property {string} [fontStyle="normal"] The value of the CSS <code>font-style</code>
-	 *  property for the label text shown on the cluster icon.
-	 * @property {string} [fontFamily="Arial,sans-serif"] The value of the CSS <code>font-family</code>
-	 *  property for the label text shown on the cluster icon.
-	 * @property {string} [backgroundPosition="0 0"] The position of the cluster icon image
-	 *  within the image defined by <code>url</code>. The format is <code>"xpos ypos"</code>
-	 *  (the same format as for the CSS <code>background-position</code> property). You must set
-	 *  this property appropriately when the image defined by <code>url</code> represents a sprite
-	 *  containing multiple images. Note that the position <i>must</i> be specified in px units.
-	 */
-	/**
-	 * @name ClusterIconInfo
-	 * @class This class is an object containing general information about a cluster icon. This is
-	 *  the object that a <code>calculator</code> function returns.
-	 *
-	 * @property {string} text The text of the label to be shown on the cluster icon.
-	 * @property {number} index The index plus 1 of the element in the <code>styles</code>
-	 *  array to be used to style the cluster icon.
-	 * @property {string} title The tooltip to display when the mouse moves over the cluster icon.
-	 *  If this value is <code>undefined</code> or <code>""</code>, <code>title</code> is set to the
-	 *  value of the <code>title</code> property passed to the MarkerClusterer.
-	 */
-	/**
-	 * A cluster icon.
-	 *
-	 * @constructor
-	 * @extends google.maps.OverlayView
-	 * @param {Cluster} cluster The cluster with which the icon is to be associated.
-	 * @param {Array} [styles] An array of {@link ClusterIconStyle} defining the cluster icons
-	 *  to use for various cluster sizes.
-	 * @private
-	 */
-	function ClusterIcon(cluster, styles) {
-	  cluster.getMarkerClusterer().extend(ClusterIcon, google.maps.OverlayView);
-
-	  this.cluster_ = cluster;
-	  this.className_ = cluster.getMarkerClusterer().getClusterClass();
-	  this.styles_ = styles;
-	  this.center_ = null;
-	  this.div_ = null;
-	  this.sums_ = null;
-	  this.visible_ = false;
-
-	  this.setMap(cluster.getMap()); // Note: this causes onAdd to be called
-	}
-
-
-	/**
-	 * Adds the icon to the DOM.
-	 */
-	ClusterIcon.prototype.onAdd = function () {
-	  var cClusterIcon = this;
-	  var cMouseDownInCluster;
-	  var cDraggingMapByCluster;
-
-	  this.div_ = document.createElement("div");
-	  this.div_.className = this.className_;
-	  if (this.visible_) {
-	    this.show();
-	  }
-
-	  this.getPanes().overlayMouseTarget.appendChild(this.div_);
-
-	  // Fix for Issue 157
-	  this.boundsChangedListener_ = google.maps.event.addListener(this.getMap(), "bounds_changed", function () {
-	    cDraggingMapByCluster = cMouseDownInCluster;
-	  });
-
-	  google.maps.event.addDomListener(this.div_, "mousedown", function () {
-	    cMouseDownInCluster = true;
-	    cDraggingMapByCluster = false;
-	  });
-
-	  google.maps.event.addDomListener(this.div_, "click", function (e) {
-	    cMouseDownInCluster = false;
-	    if (!cDraggingMapByCluster) {
-	      var theBounds;
-	      var mz;
-	      var mc = cClusterIcon.cluster_.getMarkerClusterer();
-	      /**
-	       * This event is fired when a cluster marker is clicked.
-	       * @name MarkerClusterer#click
-	       * @param {Cluster} c The cluster that was clicked.
-	       * @event
-	       */
-	      google.maps.event.trigger(mc, "click", cClusterIcon.cluster_);
-	      google.maps.event.trigger(mc, "clusterclick", cClusterIcon.cluster_); // deprecated name
-
-	      // The default click handler follows. Disable it by setting
-	      // the zoomOnClick property to false.
-	      if (mc.getZoomOnClick()) {
-	        // Zoom into the cluster.
-	        mz = mc.getMaxZoom();
-	        theBounds = cClusterIcon.cluster_.getBounds();
-	        mc.getMap().fitBounds(theBounds);
-	        // There is a fix for Issue 170 here:
-	        setTimeout(function () {
-	          mc.getMap().fitBounds(theBounds);
-	          // Don't zoom beyond the max zoom level
-	          if (mz !== null && (mc.getMap().getZoom() > mz)) {
-	            mc.getMap().setZoom(mz + 1);
-	          }
-	        }, 100);
-	      }
-
-	      // Prevent event propagation to the map:
-	      e.cancelBubble = true;
-	      if (e.stopPropagation) {
-	        e.stopPropagation();
-	      }
-	    }
-	  });
-
-	  google.maps.event.addDomListener(this.div_, "mouseover", function () {
-	    var mc = cClusterIcon.cluster_.getMarkerClusterer();
-	    /**
-	     * This event is fired when the mouse moves over a cluster marker.
-	     * @name MarkerClusterer#mouseover
-	     * @param {Cluster} c The cluster that the mouse moved over.
-	     * @event
-	     */
-	    google.maps.event.trigger(mc, "mouseover", cClusterIcon.cluster_);
-	  });
-
-	  google.maps.event.addDomListener(this.div_, "mouseout", function () {
-	    var mc = cClusterIcon.cluster_.getMarkerClusterer();
-	    /**
-	     * This event is fired when the mouse moves out of a cluster marker.
-	     * @name MarkerClusterer#mouseout
-	     * @param {Cluster} c The cluster that the mouse moved out of.
-	     * @event
-	     */
-	    google.maps.event.trigger(mc, "mouseout", cClusterIcon.cluster_);
-	  });
-	};
-
-
-	/**
-	 * Removes the icon from the DOM.
-	 */
-	ClusterIcon.prototype.onRemove = function () {
-	  if (this.div_ && this.div_.parentNode) {
-	    this.hide();
-	    google.maps.event.removeListener(this.boundsChangedListener_);
-	    google.maps.event.clearInstanceListeners(this.div_);
-	    this.div_.parentNode.removeChild(this.div_);
-	    this.div_ = null;
-	  }
-	};
-
-
-	/**
-	 * Draws the icon.
-	 */
-	ClusterIcon.prototype.draw = function () {
-	  if (this.visible_) {
-	    var pos = this.getPosFromLatLng_(this.center_);
-	    this.div_.style.top = pos.y + "px";
-	    this.div_.style.left = pos.x + "px";
-	  }
-	};
-
-
-	/**
-	 * Hides the icon.
-	 */
-	ClusterIcon.prototype.hide = function () {
-	  if (this.div_) {
-	    this.div_.style.display = "none";
-	  }
-	  this.visible_ = false;
-	};
-
-
-	/**
-	 * Positions and shows the icon.
-	 */
-	ClusterIcon.prototype.show = function () {
-	  if (this.div_) {
-	    var img = "";
-	    // NOTE: values must be specified in px units
-	    var bp = this.backgroundPosition_.split(" ");
-	    var spriteH = parseInt(bp[0].replace(/^\s+|\s+$/g, ""), 10);
-	    var spriteV = parseInt(bp[1].replace(/^\s+|\s+$/g, ""), 10);
-	    var pos = this.getPosFromLatLng_(this.center_);
-	    this.div_.style.cssText = this.createCss(pos);
-	    img = "<img src='" + this.url_ + "' style='position: absolute; top: " + spriteV + "px; left: " + spriteH + "px; ";
-	    if (!this.cluster_.getMarkerClusterer().enableRetinaIcons_) {
-	      img += "clip: rect(" + (-1 * spriteV) + "px, " + ((-1 * spriteH) + this.width_) + "px, " +
-	          ((-1 * spriteV) + this.height_) + "px, " + (-1 * spriteH) + "px);";
-	    }
-	    img += "'>";
-	    this.div_.innerHTML = img + "<div style='" +
-	        "position: absolute;" +
-	        "top: " + this.anchorText_[0] + "px;" +
-	        "left: " + this.anchorText_[1] + "px;" +
-	        "color: " + this.textColor_ + ";" +
-	        "font-size: " + this.textSize_ + "px;" +
-	        "font-family: " + this.fontFamily_ + ";" +
-	        "font-weight: " + this.fontWeight_ + ";" +
-	        "font-style: " + this.fontStyle_ + ";" +
-	        "text-decoration: " + this.textDecoration_ + ";" +
-	        "text-align: center;" +
-	        "width: " + this.width_ + "px;" +
-	        "line-height:" + this.height_ + "px;" +
-	        "'>" + this.sums_.text + "</div>";
-	    if (typeof this.sums_.title === "undefined" || this.sums_.title === "") {
-	      this.div_.title = this.cluster_.getMarkerClusterer().getTitle();
-	    } else {
-	      this.div_.title = this.sums_.title;
-	    }
-	    this.div_.style.display = "";
-	  }
-	  this.visible_ = true;
-	};
-
-
-	/**
-	 * Sets the icon styles to the appropriate element in the styles array.
-	 *
-	 * @param {ClusterIconInfo} sums The icon label text and styles index.
-	 */
-	ClusterIcon.prototype.useStyle = function (sums) {
-	  this.sums_ = sums;
-	  var index = Math.max(0, sums.index - 1);
-	  index = Math.min(this.styles_.length - 1, index);
-	  var style = this.styles_[index];
-	  this.url_ = style.url;
-	  this.height_ = style.height;
-	  this.width_ = style.width;
-	  this.anchorText_ = style.anchorText || [0, 0];
-	  this.anchorIcon_ = style.anchorIcon || [parseInt(this.height_ / 2, 10), parseInt(this.width_ / 2, 10)];
-	  this.textColor_ = style.textColor || "black";
-	  this.textSize_ = style.textSize || 11;
-	  this.textDecoration_ = style.textDecoration || "none";
-	  this.fontWeight_ = style.fontWeight || "bold";
-	  this.fontStyle_ = style.fontStyle || "normal";
-	  this.fontFamily_ = style.fontFamily || "Arial,sans-serif";
-	  this.backgroundPosition_ = style.backgroundPosition || "0 0";
-	};
-
-
-	/**
-	 * Sets the position at which to center the icon.
-	 *
-	 * @param {google.maps.LatLng} center The latlng to set as the center.
-	 */
-	ClusterIcon.prototype.setCenter = function (center) {
-	  this.center_ = center;
-	};
-
-
-	/**
-	 * Creates the cssText style parameter based on the position of the icon.
-	 *
-	 * @param {google.maps.Point} pos The position of the icon.
-	 * @return {string} The CSS style text.
-	 */
-	ClusterIcon.prototype.createCss = function (pos) {
-	  var style = [];
-	  style.push("cursor: pointer;");
-	  style.push("position: absolute; top: " + pos.y + "px; left: " + pos.x + "px;");
-	  style.push("width: " + this.width_ + "px; height: " + this.height_ + "px;");
-	  return style.join("");
-	};
-
-
-	/**
-	 * Returns the position at which to place the DIV depending on the latlng.
-	 *
-	 * @param {google.maps.LatLng} latlng The position in latlng.
-	 * @return {google.maps.Point} The position in pixels.
-	 */
-	ClusterIcon.prototype.getPosFromLatLng_ = function (latlng) {
-	  var pos = this.getProjection().fromLatLngToDivPixel(latlng);
-	  pos.x -= this.anchorIcon_[1];
-	  pos.y -= this.anchorIcon_[0];
-	  pos.x = parseInt(pos.x, 10);
-	  pos.y = parseInt(pos.y, 10);
-	  return pos;
-	};
-
-
-	/**
-	 * Creates a single cluster that manages a group of proximate markers.
-	 *  Used internally, do not call this constructor directly.
-	 * @constructor
-	 * @param {MarkerClusterer} mc The <code>MarkerClusterer</code> object with which this
-	 *  cluster is associated.
-	 */
-	function Cluster(mc) {
-	  this.markerClusterer_ = mc;
-	  this.map_ = mc.getMap();
-	  this.gridSize_ = mc.getGridSize();
-	  this.minClusterSize_ = mc.getMinimumClusterSize();
-	  this.averageCenter_ = mc.getAverageCenter();
-	  this.markers_ = [];
-	  this.center_ = null;
-	  this.bounds_ = null;
-	  this.clusterIcon_ = new ClusterIcon(this, mc.getStyles());
-	}
-
-
-	/**
-	 * Returns the number of markers managed by the cluster. You can call this from
-	 * a <code>click</code>, <code>mouseover</code>, or <code>mouseout</code> event handler
-	 * for the <code>MarkerClusterer</code> object.
-	 *
-	 * @return {number} The number of markers in the cluster.
-	 */
-	Cluster.prototype.getSize = function () {
-	  return this.markers_.length;
-	};
-
-
-	/**
-	 * Returns the array of markers managed by the cluster. You can call this from
-	 * a <code>click</code>, <code>mouseover</code>, or <code>mouseout</code> event handler
-	 * for the <code>MarkerClusterer</code> object.
-	 *
-	 * @return {Array} The array of markers in the cluster.
-	 */
-	Cluster.prototype.getMarkers = function () {
-	  return this.markers_;
-	};
-
-
-	/**
-	 * Returns the center of the cluster. You can call this from
-	 * a <code>click</code>, <code>mouseover</code>, or <code>mouseout</code> event handler
-	 * for the <code>MarkerClusterer</code> object.
-	 *
-	 * @return {google.maps.LatLng} The center of the cluster.
-	 */
-	Cluster.prototype.getCenter = function () {
-	  return this.center_;
-	};
-
-
-	/**
-	 * Returns the map with which the cluster is associated.
-	 *
-	 * @return {google.maps.Map} The map.
-	 * @ignore
-	 */
-	Cluster.prototype.getMap = function () {
-	  return this.map_;
-	};
-
-
-	/**
-	 * Returns the <code>MarkerClusterer</code> object with which the cluster is associated.
-	 *
-	 * @return {MarkerClusterer} The associated marker clusterer.
-	 * @ignore
-	 */
-	Cluster.prototype.getMarkerClusterer = function () {
-	  return this.markerClusterer_;
-	};
-
-
-	/**
-	 * Returns the bounds of the cluster.
-	 *
-	 * @return {google.maps.LatLngBounds} the cluster bounds.
-	 * @ignore
-	 */
-	Cluster.prototype.getBounds = function () {
-	  var i;
-	  var bounds = new google.maps.LatLngBounds(this.center_, this.center_);
-	  var markers = this.getMarkers();
-	  for (i = 0; i < markers.length; i++) {
-	    bounds.extend(markers[i].getPosition());
-	  }
-	  return bounds;
-	};
-
-
-	/**
-	 * Removes the cluster from the map.
-	 *
-	 * @ignore
-	 */
-	Cluster.prototype.remove = function () {
-	  this.clusterIcon_.setMap(null);
-	  this.markers_ = [];
-	  delete this.markers_;
-	};
-
-
-	/**
-	 * Adds a marker to the cluster.
-	 *
-	 * @param {google.maps.Marker} marker The marker to be added.
-	 * @return {boolean} True if the marker was added.
-	 * @ignore
-	 */
-	Cluster.prototype.addMarker = function (marker) {
-	  var i;
-	  var mCount;
-	  var mz;
-
-	  if (this.isMarkerAlreadyAdded_(marker)) {
-	    return false;
-	  }
-
-	  if (!this.center_) {
-	    this.center_ = marker.getPosition();
-	    this.calculateBounds_();
-	  } else {
-	    if (this.averageCenter_) {
-	      var l = this.markers_.length + 1;
-	      var lat = (this.center_.lat() * (l - 1) + marker.getPosition().lat()) / l;
-	      var lng = (this.center_.lng() * (l - 1) + marker.getPosition().lng()) / l;
-	      this.center_ = new google.maps.LatLng(lat, lng);
-	      this.calculateBounds_();
-	    }
-	  }
-
-	  marker.isAdded = true;
-	  this.markers_.push(marker);
-
-	  mCount = this.markers_.length;
-	  mz = this.markerClusterer_.getMaxZoom();
-	  if (mz !== null && this.map_.getZoom() > mz) {
-	    // Zoomed in past max zoom, so show the marker.
-	    if (marker.getMap() !== this.map_) {
-	      marker.setMap(this.map_);
-	    }
-	  } else if (mCount < this.minClusterSize_) {
-	    // Min cluster size not reached so show the marker.
-	    if (marker.getMap() !== this.map_) {
-	      marker.setMap(this.map_);
-	    }
-	  } else if (mCount === this.minClusterSize_) {
-	    // Hide the markers that were showing.
-	    for (i = 0; i < mCount; i++) {
-	      this.markers_[i].setMap(null);
-	    }
-	  } else {
-	    marker.setMap(null);
-	  }
-
-	  this.updateIcon_();
-	  return true;
-	};
-
-
-	/**
-	 * Determines if a marker lies within the cluster's bounds.
-	 *
-	 * @param {google.maps.Marker} marker The marker to check.
-	 * @return {boolean} True if the marker lies in the bounds.
-	 * @ignore
-	 */
-	Cluster.prototype.isMarkerInClusterBounds = function (marker) {
-	  return this.bounds_.contains(marker.getPosition());
-	};
-
-
-	/**
-	 * Calculates the extended bounds of the cluster with the grid.
-	 */
-	Cluster.prototype.calculateBounds_ = function () {
-	  var bounds = new google.maps.LatLngBounds(this.center_, this.center_);
-	  this.bounds_ = this.markerClusterer_.getExtendedBounds(bounds);
-	};
-
-
-	/**
-	 * Updates the cluster icon.
-	 */
-	Cluster.prototype.updateIcon_ = function () {
-	  var mCount = this.markers_.length;
-	  var mz = this.markerClusterer_.getMaxZoom();
-
-	  if (mz !== null && this.map_.getZoom() > mz) {
-	    this.clusterIcon_.hide();
-	    return;
-	  }
-
-	  if (mCount < this.minClusterSize_) {
-	    // Min cluster size not yet reached.
-	    this.clusterIcon_.hide();
-	    return;
-	  }
-
-	  var numStyles = this.markerClusterer_.getStyles().length;
-	  var sums = this.markerClusterer_.getCalculator()(this.markers_, numStyles);
-	  this.clusterIcon_.setCenter(this.center_);
-	  this.clusterIcon_.useStyle(sums);
-	  this.clusterIcon_.show();
-	};
-
-
-	/**
-	 * Determines if a marker has already been added to the cluster.
-	 *
-	 * @param {google.maps.Marker} marker The marker to check.
-	 * @return {boolean} True if the marker has already been added.
-	 */
-	Cluster.prototype.isMarkerAlreadyAdded_ = function (marker) {
-	  var i;
-	  if (this.markers_.indexOf) {
-	    return this.markers_.indexOf(marker) !== -1;
-	  } else {
-	    for (i = 0; i < this.markers_.length; i++) {
-	      if (marker === this.markers_[i]) {
-	        return true;
-	      }
-	    }
-	  }
-	  return false;
-	};
-
-
-	/**
-	 * @name MarkerClustererOptions
-	 * @class This class represents the optional parameter passed to
-	 *  the {@link MarkerClusterer} constructor.
-	 * @property {number} [gridSize=60] The grid size of a cluster in pixels. The grid is a square.
-	 * @property {number} [maxZoom=null] The maximum zoom level at which clustering is enabled or
-	 *  <code>null</code> if clustering is to be enabled at all zoom levels.
-	 * @property {boolean} [zoomOnClick=true] Whether to zoom the map when a cluster marker is
-	 *  clicked. You may want to set this to <code>false</code> if you have installed a handler
-	 *  for the <code>click</code> event and it deals with zooming on its own.
-	 * @property {boolean} [averageCenter=false] Whether the position of a cluster marker should be
-	 *  the average position of all markers in the cluster. If set to <code>false</code>, the
-	 *  cluster marker is positioned at the location of the first marker added to the cluster.
-	 * @property {number} [minimumClusterSize=2] The minimum number of markers needed in a cluster
-	 *  before the markers are hidden and a cluster marker appears.
-	 * @property {boolean} [ignoreHidden=false] Whether to ignore hidden markers in clusters. You
-	 *  may want to set this to <code>true</code> to ensure that hidden markers are not included
-	 *  in the marker count that appears on a cluster marker (this count is the value of the
-	 *  <code>text</code> property of the result returned by the default <code>calculator</code>).
-	 *  If set to <code>true</code> and you change the visibility of a marker being clustered, be
-	 *  sure to also call <code>MarkerClusterer.repaint()</code>.
-	 * @property {string} [title=""] The tooltip to display when the mouse moves over a cluster
-	 *  marker. (Alternatively, you can use a custom <code>calculator</code> function to specify a
-	 *  different tooltip for each cluster marker.)
-	 * @property {function} [calculator=MarkerClusterer.CALCULATOR] The function used to determine
-	 *  the text to be displayed on a cluster marker and the index indicating which style to use
-	 *  for the cluster marker. The input parameters for the function are (1) the array of markers
-	 *  represented by a cluster marker and (2) the number of cluster icon styles. It returns a
-	 *  {@link ClusterIconInfo} object. The default <code>calculator</code> returns a
-	 *  <code>text</code> property which is the number of markers in the cluster and an
-	 *  <code>index</code> property which is one higher than the lowest integer such that
-	 *  <code>10^i</code> exceeds the number of markers in the cluster, or the size of the styles
-	 *  array, whichever is less. The <code>styles</code> array element used has an index of
-	 *  <code>index</code> minus 1. For example, the default <code>calculator</code> returns a
-	 *  <code>text</code> value of <code>"125"</code> and an <code>index</code> of <code>3</code>
-	 *  for a cluster icon representing 125 markers so the element used in the <code>styles</code>
-	 *  array is <code>2</code>. A <code>calculator</code> may also return a <code>title</code>
-	 *  property that contains the text of the tooltip to be used for the cluster marker. If
-	 *   <code>title</code> is not defined, the tooltip is set to the value of the <code>title</code>
-	 *   property for the MarkerClusterer.
-	 * @property {string} [clusterClass="cluster"] The name of the CSS class defining general styles
-	 *  for the cluster markers. Use this class to define CSS styles that are not set up by the code
-	 *  that processes the <code>styles</code> array.
-	 * @property {Array} [styles] An array of {@link ClusterIconStyle} elements defining the styles
-	 *  of the cluster markers to be used. The element to be used to style a given cluster marker
-	 *  is determined by the function defined by the <code>calculator</code> property.
-	 *  The default is an array of {@link ClusterIconStyle} elements whose properties are derived
-	 *  from the values for <code>imagePath</code>, <code>imageExtension</code>, and
-	 *  <code>imageSizes</code>.
-	 * @property {boolean} [enableRetinaIcons=false] Whether to allow the use of cluster icons that
-	 * have sizes that are some multiple (typically double) of their actual display size. Icons such
-	 * as these look better when viewed on high-resolution monitors such as Apple's Retina displays.
-	 * Note: if this property is <code>true</code>, sprites cannot be used as cluster icons.
-	 * @property {number} [batchSize=MarkerClusterer.BATCH_SIZE] Set this property to the
-	 *  number of markers to be processed in a single batch when using a browser other than
-	 *  Internet Explorer (for Internet Explorer, use the batchSizeIE property instead).
-	 * @property {number} [batchSizeIE=MarkerClusterer.BATCH_SIZE_IE] When Internet Explorer is
-	 *  being used, markers are processed in several batches with a small delay inserted between
-	 *  each batch in an attempt to avoid Javascript timeout errors. Set this property to the
-	 *  number of markers to be processed in a single batch; select as high a number as you can
-	 *  without causing a timeout error in the browser. This number might need to be as low as 100
-	 *  if 15,000 markers are being managed, for example.
-	 * @property {string} [imagePath=MarkerClusterer.IMAGE_PATH]
-	 *  The full URL of the root name of the group of image files to use for cluster icons.
-	 *  The complete file name is of the form <code>imagePath</code>n.<code>imageExtension</code>
-	 *  where n is the image file number (1, 2, etc.).
-	 * @property {string} [imageExtension=MarkerClusterer.IMAGE_EXTENSION]
-	 *  The extension name for the cluster icon image files (e.g., <code>"png"</code> or
-	 *  <code>"jpg"</code>).
-	 * @property {Array} [imageSizes=MarkerClusterer.IMAGE_SIZES]
-	 *  An array of numbers containing the widths of the group of
-	 *  <code>imagePath</code>n.<code>imageExtension</code> image files.
-	 *  (The images are assumed to be square.)
-	 */
-	/**
-	 * Creates a MarkerClusterer object with the options specified in {@link MarkerClustererOptions}.
-	 * @constructor
-	 * @extends google.maps.OverlayView
-	 * @param {google.maps.Map} map The Google map to attach to.
-	 * @param {Array.<google.maps.Marker>} [opt_markers] The markers to be added to the cluster.
-	 * @param {MarkerClustererOptions} [opt_options] The optional parameters.
-	 */
-	function MarkerClusterer(map, opt_markers, opt_options) {
-	  // MarkerClusterer implements google.maps.OverlayView interface. We use the
-	  // extend function to extend MarkerClusterer with google.maps.OverlayView
-	  // because it might not always be available when the code is defined so we
-	  // look for it at the last possible moment. If it doesn't exist now then
-	  // there is no point going ahead :)
-	  this.extend(MarkerClusterer, google.maps.OverlayView);
-
-	  opt_markers = opt_markers || [];
-	  opt_options = opt_options || {};
-
-	  this.markers_ = [];
-	  this.clusters_ = [];
-	  this.listeners_ = [];
-	  this.activeMap_ = null;
-	  this.ready_ = false;
-
-	  this.gridSize_ = opt_options.gridSize || 60;
-	  this.minClusterSize_ = opt_options.minimumClusterSize || 2;
-	  this.maxZoom_ = opt_options.maxZoom || null;
-	  this.styles_ = opt_options.styles || [];
-	  this.title_ = opt_options.title || "";
-	  this.zoomOnClick_ = true;
-	  if (opt_options.zoomOnClick !== undefined) {
-	    this.zoomOnClick_ = opt_options.zoomOnClick;
-	  }
-	  this.averageCenter_ = false;
-	  if (opt_options.averageCenter !== undefined) {
-	    this.averageCenter_ = opt_options.averageCenter;
-	  }
-	  this.ignoreHidden_ = false;
-	  if (opt_options.ignoreHidden !== undefined) {
-	    this.ignoreHidden_ = opt_options.ignoreHidden;
-	  }
-	  this.enableRetinaIcons_ = false;
-	  if (opt_options.enableRetinaIcons !== undefined) {
-	    this.enableRetinaIcons_ = opt_options.enableRetinaIcons;
-	  }
-	  this.imagePath_ = opt_options.imagePath || MarkerClusterer.IMAGE_PATH;
-	  this.imageExtension_ = opt_options.imageExtension || MarkerClusterer.IMAGE_EXTENSION;
-	  this.imageSizes_ = opt_options.imageSizes || MarkerClusterer.IMAGE_SIZES;
-	  this.calculator_ = opt_options.calculator || MarkerClusterer.CALCULATOR;
-	  this.batchSize_ = opt_options.batchSize || MarkerClusterer.BATCH_SIZE;
-	  this.batchSizeIE_ = opt_options.batchSizeIE || MarkerClusterer.BATCH_SIZE_IE;
-	  this.clusterClass_ = opt_options.clusterClass || "cluster";
-
-	  if (navigator.userAgent.toLowerCase().indexOf("msie") !== -1) {
-	    // Try to avoid IE timeout when processing a huge number of markers:
-	    this.batchSize_ = this.batchSizeIE_;
-	  }
-
-	  this.setupStyles_();
-
-	  this.addMarkers(opt_markers, true);
-	  this.setMap(map); // Note: this causes onAdd to be called
-	}
-
-
-	/**
-	 * Implementation of the onAdd interface method.
-	 * @ignore
-	 */
-	MarkerClusterer.prototype.onAdd = function () {
-	  var cMarkerClusterer = this;
-
-	  this.activeMap_ = this.getMap();
-	  this.ready_ = true;
-
-	  this.repaint();
-
-	  // Add the map event listeners
-	  this.listeners_ = [
-	    google.maps.event.addListener(this.getMap(), "zoom_changed", function () {
-	      cMarkerClusterer.resetViewport_(false);
-	      // Workaround for this Google bug: when map is at level 0 and "-" of
-	      // zoom slider is clicked, a "zoom_changed" event is fired even though
-	      // the map doesn't zoom out any further. In this situation, no "idle"
-	      // event is triggered so the cluster markers that have been removed
-	      // do not get redrawn. Same goes for a zoom in at maxZoom.
-	      if (this.getZoom() === (this.get("minZoom") || 0) || this.getZoom() === this.get("maxZoom")) {
-	        google.maps.event.trigger(this, "idle");
-	      }
-	    }),
-	    google.maps.event.addListener(this.getMap(), "idle", function () {
-	      cMarkerClusterer.redraw_();
-	    })
-	  ];
-	};
-
-
-	/**
-	 * Implementation of the onRemove interface method.
-	 * Removes map event listeners and all cluster icons from the DOM.
-	 * All managed markers are also put back on the map.
-	 * @ignore
-	 */
-	MarkerClusterer.prototype.onRemove = function () {
-	  var i;
-
-	  // Put all the managed markers back on the map:
-	  for (i = 0; i < this.markers_.length; i++) {
-	    if (this.markers_[i].getMap() !== this.activeMap_) {
-	      this.markers_[i].setMap(this.activeMap_);
-	    }
-	  }
-
-	  // Remove all clusters:
-	  for (i = 0; i < this.clusters_.length; i++) {
-	    this.clusters_[i].remove();
-	  }
-	  this.clusters_ = [];
-
-	  // Remove map event listeners:
-	  for (i = 0; i < this.listeners_.length; i++) {
-	    google.maps.event.removeListener(this.listeners_[i]);
-	  }
-	  this.listeners_ = [];
-
-	  this.activeMap_ = null;
-	  this.ready_ = false;
-	};
-
-
-	/**
-	 * Implementation of the draw interface method.
-	 * @ignore
-	 */
-	MarkerClusterer.prototype.draw = function () {};
-
-
-	/**
-	 * Sets up the styles object.
-	 */
-	MarkerClusterer.prototype.setupStyles_ = function () {
-	  var i, size;
-	  if (this.styles_.length > 0) {
-	    return;
-	  }
-
-	  for (i = 0; i < this.imageSizes_.length; i++) {
-	    size = this.imageSizes_[i];
-	    this.styles_.push({
-	      url: this.imagePath_ + (i + 1) + "." + this.imageExtension_,
-	      height: size,
-	      width: size
-	    });
-	  }
-	};
-
-
-	/**
-	 *  Fits the map to the bounds of the markers managed by the clusterer.
-	 */
-	MarkerClusterer.prototype.fitMapToMarkers = function () {
-	  var i;
-	  var markers = this.getMarkers();
-	  var bounds = new google.maps.LatLngBounds();
-	  for (i = 0; i < markers.length; i++) {
-	    bounds.extend(markers[i].getPosition());
-	  }
-
-	  this.getMap().fitBounds(bounds);
-	};
-
-
-	/**
-	 * Returns the value of the <code>gridSize</code> property.
-	 *
-	 * @return {number} The grid size.
-	 */
-	MarkerClusterer.prototype.getGridSize = function () {
-	  return this.gridSize_;
-	};
-
-
-	/**
-	 * Sets the value of the <code>gridSize</code> property.
-	 *
-	 * @param {number} gridSize The grid size.
-	 */
-	MarkerClusterer.prototype.setGridSize = function (gridSize) {
-	  this.gridSize_ = gridSize;
-	};
-
-
-	/**
-	 * Returns the value of the <code>minimumClusterSize</code> property.
-	 *
-	 * @return {number} The minimum cluster size.
-	 */
-	MarkerClusterer.prototype.getMinimumClusterSize = function () {
-	  return this.minClusterSize_;
-	};
-
-	/**
-	 * Sets the value of the <code>minimumClusterSize</code> property.
-	 *
-	 * @param {number} minimumClusterSize The minimum cluster size.
-	 */
-	MarkerClusterer.prototype.setMinimumClusterSize = function (minimumClusterSize) {
-	  this.minClusterSize_ = minimumClusterSize;
-	};
-
-
-	/**
-	 *  Returns the value of the <code>maxZoom</code> property.
-	 *
-	 *  @return {number} The maximum zoom level.
-	 */
-	MarkerClusterer.prototype.getMaxZoom = function () {
-	  return this.maxZoom_;
-	};
-
-
-	/**
-	 *  Sets the value of the <code>maxZoom</code> property.
-	 *
-	 *  @param {number} maxZoom The maximum zoom level.
-	 */
-	MarkerClusterer.prototype.setMaxZoom = function (maxZoom) {
-	  this.maxZoom_ = maxZoom;
-	};
-
-
-	/**
-	 *  Returns the value of the <code>styles</code> property.
-	 *
-	 *  @return {Array} The array of styles defining the cluster markers to be used.
-	 */
-	MarkerClusterer.prototype.getStyles = function () {
-	  return this.styles_;
-	};
-
-
-	/**
-	 *  Sets the value of the <code>styles</code> property.
-	 *
-	 *  @param {Array.<ClusterIconStyle>} styles The array of styles to use.
-	 */
-	MarkerClusterer.prototype.setStyles = function (styles) {
-	  this.styles_ = styles;
-	};
-
-
-	/**
-	 * Returns the value of the <code>title</code> property.
-	 *
-	 * @return {string} The content of the title text.
-	 */
-	MarkerClusterer.prototype.getTitle = function () {
-	  return this.title_;
-	};
-
-
-	/**
-	 *  Sets the value of the <code>title</code> property.
-	 *
-	 *  @param {string} title The value of the title property.
-	 */
-	MarkerClusterer.prototype.setTitle = function (title) {
-	  this.title_ = title;
-	};
-
-
-	/**
-	 * Returns the value of the <code>zoomOnClick</code> property.
-	 *
-	 * @return {boolean} True if zoomOnClick property is set.
-	 */
-	MarkerClusterer.prototype.getZoomOnClick = function () {
-	  return this.zoomOnClick_;
-	};
-
-
-	/**
-	 *  Sets the value of the <code>zoomOnClick</code> property.
-	 *
-	 *  @param {boolean} zoomOnClick The value of the zoomOnClick property.
-	 */
-	MarkerClusterer.prototype.setZoomOnClick = function (zoomOnClick) {
-	  this.zoomOnClick_ = zoomOnClick;
-	};
-
-
-	/**
-	 * Returns the value of the <code>averageCenter</code> property.
-	 *
-	 * @return {boolean} True if averageCenter property is set.
-	 */
-	MarkerClusterer.prototype.getAverageCenter = function () {
-	  return this.averageCenter_;
-	};
-
-
-	/**
-	 *  Sets the value of the <code>averageCenter</code> property.
-	 *
-	 *  @param {boolean} averageCenter The value of the averageCenter property.
-	 */
-	MarkerClusterer.prototype.setAverageCenter = function (averageCenter) {
-	  this.averageCenter_ = averageCenter;
-	};
-
-
-	/**
-	 * Returns the value of the <code>ignoreHidden</code> property.
-	 *
-	 * @return {boolean} True if ignoreHidden property is set.
-	 */
-	MarkerClusterer.prototype.getIgnoreHidden = function () {
-	  return this.ignoreHidden_;
-	};
-
-
-	/**
-	 *  Sets the value of the <code>ignoreHidden</code> property.
-	 *
-	 *  @param {boolean} ignoreHidden The value of the ignoreHidden property.
-	 */
-	MarkerClusterer.prototype.setIgnoreHidden = function (ignoreHidden) {
-	  this.ignoreHidden_ = ignoreHidden;
-	};
-
-
-	/**
-	 * Returns the value of the <code>enableRetinaIcons</code> property.
-	 *
-	 * @return {boolean} True if enableRetinaIcons property is set.
-	 */
-	MarkerClusterer.prototype.getEnableRetinaIcons = function () {
-	  return this.enableRetinaIcons_;
-	};
-
-
-	/**
-	 *  Sets the value of the <code>enableRetinaIcons</code> property.
-	 *
-	 *  @param {boolean} enableRetinaIcons The value of the enableRetinaIcons property.
-	 */
-	MarkerClusterer.prototype.setEnableRetinaIcons = function (enableRetinaIcons) {
-	  this.enableRetinaIcons_ = enableRetinaIcons;
-	};
-
-
-	/**
-	 * Returns the value of the <code>imageExtension</code> property.
-	 *
-	 * @return {string} The value of the imageExtension property.
-	 */
-	MarkerClusterer.prototype.getImageExtension = function () {
-	  return this.imageExtension_;
-	};
-
-
-	/**
-	 *  Sets the value of the <code>imageExtension</code> property.
-	 *
-	 *  @param {string} imageExtension The value of the imageExtension property.
-	 */
-	MarkerClusterer.prototype.setImageExtension = function (imageExtension) {
-	  this.imageExtension_ = imageExtension;
-	};
-
-
-	/**
-	 * Returns the value of the <code>imagePath</code> property.
-	 *
-	 * @return {string} The value of the imagePath property.
-	 */
-	MarkerClusterer.prototype.getImagePath = function () {
-	  return this.imagePath_;
-	};
-
-
-	/**
-	 *  Sets the value of the <code>imagePath</code> property.
-	 *
-	 *  @param {string} imagePath The value of the imagePath property.
-	 */
-	MarkerClusterer.prototype.setImagePath = function (imagePath) {
-	  this.imagePath_ = imagePath;
-	};
-
-
-	/**
-	 * Returns the value of the <code>imageSizes</code> property.
-	 *
-	 * @return {Array} The value of the imageSizes property.
-	 */
-	MarkerClusterer.prototype.getImageSizes = function () {
-	  return this.imageSizes_;
-	};
-
-
-	/**
-	 *  Sets the value of the <code>imageSizes</code> property.
-	 *
-	 *  @param {Array} imageSizes The value of the imageSizes property.
-	 */
-	MarkerClusterer.prototype.setImageSizes = function (imageSizes) {
-	  this.imageSizes_ = imageSizes;
-	};
-
-
-	/**
-	 * Returns the value of the <code>calculator</code> property.
-	 *
-	 * @return {function} the value of the calculator property.
-	 */
-	MarkerClusterer.prototype.getCalculator = function () {
-	  return this.calculator_;
-	};
-
-
-	/**
-	 * Sets the value of the <code>calculator</code> property.
-	 *
-	 * @param {function(Array.<google.maps.Marker>, number)} calculator The value
-	 *  of the calculator property.
-	 */
-	MarkerClusterer.prototype.setCalculator = function (calculator) {
-	  this.calculator_ = calculator;
-	};
-
-
-	/**
-	 * Returns the value of the <code>batchSizeIE</code> property.
-	 *
-	 * @return {number} the value of the batchSizeIE property.
-	 */
-	MarkerClusterer.prototype.getBatchSizeIE = function () {
-	  return this.batchSizeIE_;
-	};
-
-
-	/**
-	 * Sets the value of the <code>batchSizeIE</code> property.
-	 *
-	 *  @param {number} batchSizeIE The value of the batchSizeIE property.
-	 */
-	MarkerClusterer.prototype.setBatchSizeIE = function (batchSizeIE) {
-	  this.batchSizeIE_ = batchSizeIE;
-	};
-
-
-	/**
-	 * Returns the value of the <code>clusterClass</code> property.
-	 *
-	 * @return {string} the value of the clusterClass property.
-	 */
-	MarkerClusterer.prototype.getClusterClass = function () {
-	  return this.clusterClass_;
-	};
-
-
-	/**
-	 * Sets the value of the <code>clusterClass</code> property.
-	 *
-	 *  @param {string} clusterClass The value of the clusterClass property.
-	 */
-	MarkerClusterer.prototype.setClusterClass = function (clusterClass) {
-	  this.clusterClass_ = clusterClass;
-	};
-
-
-	/**
-	 *  Returns the array of markers managed by the clusterer.
-	 *
-	 *  @return {Array} The array of markers managed by the clusterer.
-	 */
-	MarkerClusterer.prototype.getMarkers = function () {
-	  return this.markers_;
-	};
-
-
-	/**
-	 *  Returns the number of markers managed by the clusterer.
-	 *
-	 *  @return {number} The number of markers.
-	 */
-	MarkerClusterer.prototype.getTotalMarkers = function () {
-	  return this.markers_.length;
-	};
-
-
-	/**
-	 * Returns the current array of clusters formed by the clusterer.
-	 *
-	 * @return {Array} The array of clusters formed by the clusterer.
-	 */
-	MarkerClusterer.prototype.getClusters = function () {
-	  return this.clusters_;
-	};
-
-
-	/**
-	 * Returns the number of clusters formed by the clusterer.
-	 *
-	 * @return {number} The number of clusters formed by the clusterer.
-	 */
-	MarkerClusterer.prototype.getTotalClusters = function () {
-	  return this.clusters_.length;
-	};
-
-
-	/**
-	 * Adds a marker to the clusterer. The clusters are redrawn unless
-	 *  <code>opt_nodraw</code> is set to <code>true</code>.
-	 *
-	 * @param {google.maps.Marker} marker The marker to add.
-	 * @param {boolean} [opt_nodraw] Set to <code>true</code> to prevent redrawing.
-	 */
-	MarkerClusterer.prototype.addMarker = function (marker, opt_nodraw) {
-	  this.pushMarkerTo_(marker);
-	  if (!opt_nodraw) {
-	    this.redraw_();
-	  }
-	};
-
-
-	/**
-	 * Adds an array of markers to the clusterer. The clusters are redrawn unless
-	 *  <code>opt_nodraw</code> is set to <code>true</code>.
-	 *
-	 * @param {Array.<google.maps.Marker>} markers The markers to add.
-	 * @param {boolean} [opt_nodraw] Set to <code>true</code> to prevent redrawing.
-	 */
-	MarkerClusterer.prototype.addMarkers = function (markers, opt_nodraw) {
-	  var key;
-	  for (key in markers) {
-	    if (markers.hasOwnProperty(key)) {
-	      this.pushMarkerTo_(markers[key]);
-	    }
-	  }  
-	  if (!opt_nodraw) {
-	    this.redraw_();
-	  }
-	};
-
-
-	/**
-	 * Pushes a marker to the clusterer.
-	 *
-	 * @param {google.maps.Marker} marker The marker to add.
-	 */
-	MarkerClusterer.prototype.pushMarkerTo_ = function (marker) {
-	  // If the marker is draggable add a listener so we can update the clusters on the dragend:
-	  if (marker.getDraggable()) {
-	    var cMarkerClusterer = this;
-	    google.maps.event.addListener(marker, "dragend", function () {
-	      if (cMarkerClusterer.ready_) {
-	        this.isAdded = false;
-	        cMarkerClusterer.repaint();
-	      }
-	    });
-	  }
-	  marker.isAdded = false;
-	  this.markers_.push(marker);
-	};
-
-
-	/**
-	 * Removes a marker from the cluster.  The clusters are redrawn unless
-	 *  <code>opt_nodraw</code> is set to <code>true</code>. Returns <code>true</code> if the
-	 *  marker was removed from the clusterer.
-	 *
-	 * @param {google.maps.Marker} marker The marker to remove.
-	 * @param {boolean} [opt_nodraw] Set to <code>true</code> to prevent redrawing.
-	 * @return {boolean} True if the marker was removed from the clusterer.
-	 */
-	MarkerClusterer.prototype.removeMarker = function (marker, opt_nodraw) {
-	  var removed = this.removeMarker_(marker);
-
-	  if (!opt_nodraw && removed) {
-	    this.repaint();
-	  }
-
-	  return removed;
-	};
-
-
-	/**
-	 * Removes an array of markers from the cluster. The clusters are redrawn unless
-	 *  <code>opt_nodraw</code> is set to <code>true</code>. Returns <code>true</code> if markers
-	 *  were removed from the clusterer.
-	 *
-	 * @param {Array.<google.maps.Marker>} markers The markers to remove.
-	 * @param {boolean} [opt_nodraw] Set to <code>true</code> to prevent redrawing.
-	 * @return {boolean} True if markers were removed from the clusterer.
-	 */
-	MarkerClusterer.prototype.removeMarkers = function (markers, opt_nodraw) {
-	  var i, r;
-	  var removed = false;
-
-	  for (i = 0; i < markers.length; i++) {
-	    r = this.removeMarker_(markers[i]);
-	    removed = removed || r;
-	  }
-
-	  if (!opt_nodraw && removed) {
-	    this.repaint();
-	  }
-
-	  return removed;
-	};
-
-
-	/**
-	 * Removes a marker and returns true if removed, false if not.
-	 *
-	 * @param {google.maps.Marker} marker The marker to remove
-	 * @return {boolean} Whether the marker was removed or not
-	 */
-	MarkerClusterer.prototype.removeMarker_ = function (marker) {
-	  var i;
-	  var index = -1;
-	  if (this.markers_.indexOf) {
-	    index = this.markers_.indexOf(marker);
-	  } else {
-	    for (i = 0; i < this.markers_.length; i++) {
-	      if (marker === this.markers_[i]) {
-	        index = i;
-	        break;
-	      }
-	    }
-	  }
-
-	  if (index === -1) {
-	    // Marker is not in our list of markers, so do nothing:
-	    return false;
-	  }
-
-	  marker.setMap(null);
-	  this.markers_.splice(index, 1); // Remove the marker from the list of managed markers
-	  return true;
-	};
-
-
-	/**
-	 * Removes all clusters and markers from the map and also removes all markers
-	 *  managed by the clusterer.
-	 */
-	MarkerClusterer.prototype.clearMarkers = function () {
-	  this.resetViewport_(true);
-	  this.markers_ = [];
-	};
-
-
-	/**
-	 * Recalculates and redraws all the marker clusters from scratch.
-	 *  Call this after changing any properties.
-	 */
-	MarkerClusterer.prototype.repaint = function () {
-	  var oldClusters = this.clusters_.slice();
-	  this.clusters_ = [];
-	  this.resetViewport_(false);
-	  this.redraw_();
-
-	  // Remove the old clusters.
-	  // Do it in a timeout to prevent blinking effect.
-	  setTimeout(function () {
-	    var i;
-	    for (i = 0; i < oldClusters.length; i++) {
-	      oldClusters[i].remove();
-	    }
-	  }, 0);
-	};
-
-
-	/**
-	 * Returns the current bounds extended by the grid size.
-	 *
-	 * @param {google.maps.LatLngBounds} bounds The bounds to extend.
-	 * @return {google.maps.LatLngBounds} The extended bounds.
-	 * @ignore
-	 */
-	MarkerClusterer.prototype.getExtendedBounds = function (bounds) {
-	  var projection = this.getProjection();
-
-	  // Turn the bounds into latlng.
-	  var tr = new google.maps.LatLng(bounds.getNorthEast().lat(),
-	      bounds.getNorthEast().lng());
-	  var bl = new google.maps.LatLng(bounds.getSouthWest().lat(),
-	      bounds.getSouthWest().lng());
-
-	  // Convert the points to pixels and the extend out by the grid size.
-	  var trPix = projection.fromLatLngToDivPixel(tr);
-	  trPix.x += this.gridSize_;
-	  trPix.y -= this.gridSize_;
-
-	  var blPix = projection.fromLatLngToDivPixel(bl);
-	  blPix.x -= this.gridSize_;
-	  blPix.y += this.gridSize_;
-
-	  // Convert the pixel points back to LatLng
-	  var ne = projection.fromDivPixelToLatLng(trPix);
-	  var sw = projection.fromDivPixelToLatLng(blPix);
-
-	  // Extend the bounds to contain the new bounds.
-	  bounds.extend(ne);
-	  bounds.extend(sw);
-
-	  return bounds;
-	};
-
-
-	/**
-	 * Redraws all the clusters.
-	 */
-	MarkerClusterer.prototype.redraw_ = function () {
-	  this.createClusters_(0);
-	};
-
-
-	/**
-	 * Removes all clusters from the map. The markers are also removed from the map
-	 *  if <code>opt_hide</code> is set to <code>true</code>.
-	 *
-	 * @param {boolean} [opt_hide] Set to <code>true</code> to also remove the markers
-	 *  from the map.
-	 */
-	MarkerClusterer.prototype.resetViewport_ = function (opt_hide) {
-	  var i, marker;
-	  // Remove all the clusters
-	  for (i = 0; i < this.clusters_.length; i++) {
-	    this.clusters_[i].remove();
-	  }
-	  this.clusters_ = [];
-
-	  // Reset the markers to not be added and to be removed from the map.
-	  for (i = 0; i < this.markers_.length; i++) {
-	    marker = this.markers_[i];
-	    marker.isAdded = false;
-	    if (opt_hide) {
-	      marker.setMap(null);
-	    }
-	  }
-	};
-
-
-	/**
-	 * Calculates the distance between two latlng locations in km.
-	 *
-	 * @param {google.maps.LatLng} p1 The first lat lng point.
-	 * @param {google.maps.LatLng} p2 The second lat lng point.
-	 * @return {number} The distance between the two points in km.
-	 * @see http://www.movable-type.co.uk/scripts/latlong.html
-	*/
-	MarkerClusterer.prototype.distanceBetweenPoints_ = function (p1, p2) {
-	  var R = 6371; // Radius of the Earth in km
-	  var dLat = (p2.lat() - p1.lat()) * Math.PI / 180;
-	  var dLon = (p2.lng() - p1.lng()) * Math.PI / 180;
-	  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-	    Math.cos(p1.lat() * Math.PI / 180) * Math.cos(p2.lat() * Math.PI / 180) *
-	    Math.sin(dLon / 2) * Math.sin(dLon / 2);
-	  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-	  var d = R * c;
-	  return d;
-	};
-
-
-	/**
-	 * Determines if a marker is contained in a bounds.
-	 *
-	 * @param {google.maps.Marker} marker The marker to check.
-	 * @param {google.maps.LatLngBounds} bounds The bounds to check against.
-	 * @return {boolean} True if the marker is in the bounds.
-	 */
-	MarkerClusterer.prototype.isMarkerInBounds_ = function (marker, bounds) {
-	  return bounds.contains(marker.getPosition());
-	};
-
-
-	/**
-	 * Adds a marker to a cluster, or creates a new cluster.
-	 *
-	 * @param {google.maps.Marker} marker The marker to add.
-	 */
-	MarkerClusterer.prototype.addToClosestCluster_ = function (marker) {
-	  var i, d, cluster, center;
-	  var distance = 40000; // Some large number
-	  var clusterToAddTo = null;
-	  for (i = 0; i < this.clusters_.length; i++) {
-	    cluster = this.clusters_[i];
-	    center = cluster.getCenter();
-	    if (center) {
-	      d = this.distanceBetweenPoints_(center, marker.getPosition());
-	      if (d < distance) {
-	        distance = d;
-	        clusterToAddTo = cluster;
-	      }
-	    }
-	  }
-
-	  if (clusterToAddTo && clusterToAddTo.isMarkerInClusterBounds(marker)) {
-	    clusterToAddTo.addMarker(marker);
-	  } else {
-	    cluster = new Cluster(this);
-	    cluster.addMarker(marker);
-	    this.clusters_.push(cluster);
-	  }
-	};
-
-
-	/**
-	 * Creates the clusters. This is done in batches to avoid timeout errors
-	 *  in some browsers when there is a huge number of markers.
-	 *
-	 * @param {number} iFirst The index of the first marker in the batch of
-	 *  markers to be added to clusters.
-	 */
-	MarkerClusterer.prototype.createClusters_ = function (iFirst) {
-	  var i, marker;
-	  var mapBounds;
-	  var cMarkerClusterer = this;
-	  if (!this.ready_) {
-	    return;
-	  }
-
-	  // Cancel previous batch processing if we're working on the first batch:
-	  if (iFirst === 0) {
-	    /**
-	     * This event is fired when the <code>MarkerClusterer</code> begins
-	     *  clustering markers.
-	     * @name MarkerClusterer#clusteringbegin
-	     * @param {MarkerClusterer} mc The MarkerClusterer whose markers are being clustered.
-	     * @event
-	     */
-	    google.maps.event.trigger(this, "clusteringbegin", this);
-
-	    if (typeof this.timerRefStatic !== "undefined") {
-	      clearTimeout(this.timerRefStatic);
-	      delete this.timerRefStatic;
-	    }
-	  }
-
-	  // Get our current map view bounds.
-	  // Create a new bounds object so we don't affect the map.
-	  //
-	  // See Comments 9 & 11 on Issue 3651 relating to this workaround for a Google Maps bug:
-	  if (this.getMap().getZoom() > 3) {
-	    mapBounds = new google.maps.LatLngBounds(this.getMap().getBounds().getSouthWest(),
-	      this.getMap().getBounds().getNorthEast());
-	  } else {
-	    mapBounds = new google.maps.LatLngBounds(new google.maps.LatLng(85.02070771743472, -178.48388434375), new google.maps.LatLng(-85.08136444384544, 178.00048865625));
-	  }
-	  var bounds = this.getExtendedBounds(mapBounds);
-
-	  var iLast = Math.min(iFirst + this.batchSize_, this.markers_.length);
-
-	  for (i = iFirst; i < iLast; i++) {
-	    marker = this.markers_[i];
-	    if (!marker.isAdded && this.isMarkerInBounds_(marker, bounds)) {
-	      if (!this.ignoreHidden_ || (this.ignoreHidden_ && marker.getVisible())) {
-	        this.addToClosestCluster_(marker);
-	      }
-	    }
-	  }
-
-	  if (iLast < this.markers_.length) {
-	    this.timerRefStatic = setTimeout(function () {
-	      cMarkerClusterer.createClusters_(iLast);
-	    }, 0);
-	  } else {
-	    delete this.timerRefStatic;
-
-	    /**
-	     * This event is fired when the <code>MarkerClusterer</code> stops
-	     *  clustering markers.
-	     * @name MarkerClusterer#clusteringend
-	     * @param {MarkerClusterer} mc The MarkerClusterer whose markers are being clustered.
-	     * @event
-	     */
-	    google.maps.event.trigger(this, "clusteringend", this);
-	  }
-	};
-
-
-	/**
-	 * Extends an object's prototype by another's.
-	 *
-	 * @param {Object} obj1 The object to be extended.
-	 * @param {Object} obj2 The object to extend with.
-	 * @return {Object} The new extended object.
-	 * @ignore
-	 */
-	MarkerClusterer.prototype.extend = function (obj1, obj2) {
-	  return (function (object) {
-	    var property;
-	    for (property in object.prototype) {
-	      this.prototype[property] = object.prototype[property];
-	    }
-	    return this;
-	  }).apply(obj1, [obj2]);
-	};
-
-
-	/**
-	 * The default function for determining the label text and style
-	 * for a cluster icon.
-	 *
-	 * @param {Array.<google.maps.Marker>} markers The array of markers represented by the cluster.
-	 * @param {number} numStyles The number of marker styles available.
-	 * @return {ClusterIconInfo} The information resource for the cluster.
-	 * @constant
-	 * @ignore
-	 */
-	MarkerClusterer.CALCULATOR = function (markers, numStyles) {
-	  var index = 0;
-	  var title = "";
-	  var count = markers.length.toString();
-
-	  var dv = count;
-	  while (dv !== 0) {
-	    dv = parseInt(dv / 10, 10);
-	    index++;
-	  }
-
-	  index = Math.min(index, numStyles);
-	  return {
-	    text: count,
-	    index: index,
-	    title: title
-	  };
-	};
-
-
-	/**
-	 * The number of markers to process in one batch.
-	 *
-	 * @type {number}
-	 * @constant
-	 */
-	MarkerClusterer.BATCH_SIZE = 2000;
-
-
-	/**
-	 * The number of markers to process in one batch (IE only).
-	 *
-	 * @type {number}
-	 * @constant
-	 */
-	MarkerClusterer.BATCH_SIZE_IE = 500;
-
-
-	/**
-	 * The default root name for the marker cluster images.
-	 *
-	 * @type {string}
-	 * @constant
-	 */
-	MarkerClusterer.IMAGE_PATH = "https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m";
-
-
-	/**
-	 * The default extension name for the marker cluster images.
-	 *
-	 * @type {string}
-	 * @constant
-	 */
-	MarkerClusterer.IMAGE_EXTENSION = "png";
-
-
-	/**
-	 * The default array of sizes for the marker cluster images.
-	 *
-	 * @type {Array.<number>}
-	 * @constant
-	 */
-	MarkerClusterer.IMAGE_SIZES = [53, 56, 66, 78, 90];
-
-	module.exports = MarkerClusterer
-
-
-/***/ },
-/* 280 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.SearchAsMove = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(4);
-
-	var _ItemCheckboxList = __webpack_require__(5);
-
-	var _ImmutableQuery = __webpack_require__(8);
+	var _ChannelManager = __webpack_require__(8);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24797,519 +16189,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var helper = __webpack_require__(16);
 
-	var SearchAsMove = exports.SearchAsMove = function (_Component) {
-		_inherits(SearchAsMove, _Component);
+	var AppbaseReactiveMap = exports.AppbaseReactiveMap = function (_Component) {
+		_inherits(AppbaseReactiveMap, _Component);
 
-		function SearchAsMove(props, context) {
-			_classCallCheck(this, SearchAsMove);
+		function AppbaseReactiveMap(props, context) {
+			_classCallCheck(this, AppbaseReactiveMap);
 
-			var _this = _possibleConstructorReturn(this, (SearchAsMove.__proto__ || Object.getPrototypeOf(SearchAsMove)).call(this, props));
-
-			_this.state = {
-				items: []
-			};
-			_this.handleSelect = _this.handleSelect.bind(_this);
-			_this.handleRemove = _this.handleRemove.bind(_this);
-			return _this;
-		}
-
-		_createClass(SearchAsMove, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.setState({
-					items: [{
-						key: "Search as I move the map",
-						value: true,
-						status: this.props.searchAsMoveDefault
-					}]
-				});
-				if (this.props.searchAsMoveDefault && this.props.searchAsMoveDefault === true) {
-					this.handleSelect(this.props.searchAsMoveDefault);
-				}
-			}
-			// Handler function when a value is selected
-
-		}, {
-			key: 'handleSelect',
-			value: function handleSelect(value) {
-				var flag = value === true ? true : value && value.length ? true : false;
-				this.props.searchAsMoveChange(flag);
-			}
-			// Handler function when a value is deselected or removed
-
-		}, {
-			key: 'handleRemove',
-			value: function handleRemove(value) {}
-		}, {
-			key: 'render',
-			value: function render() {
-				var listComponent = void 0;
-				listComponent = _react2.default.createElement(_ItemCheckboxList.ItemCheckboxList, {
-					showTags: false,
-					items: this.state.items,
-					onSelect: this.handleSelect,
-					onRemove: this.handleRemove,
-					showCount: this.props.showCount });
-				return _react2.default.createElement(
-					'div',
-					{ className: 'searchAsMove row clearfix' },
-					listComponent
-				);
-			}
-		}]);
-
-		return SearchAsMove;
-	}(_react.Component);
-
-	SearchAsMove.propTypes = {};
-	// Default props value
-	SearchAsMove.defaultProps = {
-		fieldName: 'SearchAsMove',
-		searchAsMoveDefault: false
-	};
-
-/***/ },
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.MapStyles = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var helper = __webpack_require__(16);
-
-	var MapStyles = exports.MapStyles = function (_Component) {
-		_inherits(MapStyles, _Component);
-
-		function MapStyles(props, context) {
-			_classCallCheck(this, MapStyles);
-
-			var _this = _possibleConstructorReturn(this, (MapStyles.__proto__ || Object.getPrototypeOf(MapStyles)).call(this, props));
-
-			_this.state = {
-				items: []
-			};
-			_this.handleSelect = _this.handleSelect.bind(_this);
-			return _this;
-		}
-
-		_createClass(MapStyles, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				var _this2 = this;
-
-				var selectedValue = 0;
-				if (this.props.defaultSelected) {
-					helper.mapStyles.forEach(function (style, index) {
-						if (style.key === _this2.props.defaultSelected) {
-							selectedValue = index;
-						}
-					});
-				}
-				this.setState({
-					items: helper.mapStyles,
-					selectedValue: selectedValue
-				}, this.themeChanged);
-			}
-			// Handler function when a value is selected
-
-		}, {
-			key: 'handleSelect',
-			value: function handleSelect(event) {
-				this.setState({
-					selectedValue: event.target.value
-				}, function () {
-					this.themeChanged(true);
-				}.bind(this));
-			}
-		}, {
-			key: 'themeChanged',
-			value: function themeChanged() {
-				var isExecute = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-				var style = helper.mapStyles[this.state.selectedValue].value;
-				this.props.mapStyleChange(style);
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var options = this.state.items.map(function (item, index) {
-					return _react2.default.createElement(
-						'option',
-						{ value: index, key: index },
-						item.key
-					);
-				});
-				return _react2.default.createElement(
-					'div',
-					{ className: 'input-field col mapStyles' },
-					_react2.default.createElement(
-						'select',
-						{ className: 'browser-default form-control', onChange: this.handleSelect, value: this.state.selectedValue, name: 'mapStyles', id: 'mapStyles' },
-						options
-					)
-				);
-			}
-		}]);
-
-		return MapStyles;
-	}(_react.Component);
-
-	MapStyles.propTypes = {};
-	// Default props value
-	MapStyles.defaultProps = {
-		fieldName: 'MapStyles'
-	};
-
-/***/ },
-/* 282 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	var RotateIcon = exports.RotateIcon = function RotateIcon(options) {
-		this.options = options || {};
-		this.rImg = options.img || new Image();
-		this.rImg.src = this.rImg.src || this.options.url || '/static/groups/img/car_map_state_go.png';
-		this.options.width = this.options.width || this.rImg.width || 52;
-		this.options.height = this.options.height || this.rImg.height || 60;
-		var canvas = document.createElement("canvas");
-		var size = this.options.width > this.options.height ? this.options.width : this.options.height;
-		canvas.width = size + 10;
-		canvas.height = size + 10;
-		this.context = canvas.getContext("2d");
-		this.canvas = canvas;
-	};
-	RotateIcon.makeIcon = function (url) {
-		return new RotateIcon({ url: url });
-	};
-	RotateIcon.prototype.setRotation = function (options) {
-		var canvas = this.context,
-		    angle = options.deg ? options.deg * Math.PI / 180 : options.rad,
-		    centerX = this.options.width / 2,
-		    centerY = this.options.height / 2;
-
-		canvas.clearRect(0, 0, this.options.width, this.options.height);
-		canvas.save();
-		canvas.translate(centerX, centerY);
-		canvas.rotate(angle);
-		canvas.drawImage(this.rImg, -centerX, -centerY);
-		canvas.restore();
-		return this;
-	};
-	RotateIcon.prototype.getUrl = function () {
-		return this.canvas.toDataURL('idist/images');
-	};
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.ListResult = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(4);
-
-	var _ImmutableQuery = __webpack_require__(8);
-
-	var _ChannelManager = __webpack_require__(24);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var helper = __webpack_require__(16);
-
-	var ListResult = exports.ListResult = function (_Component) {
-		_inherits(ListResult, _Component);
-
-		function ListResult(props, context) {
-			_classCallCheck(this, ListResult);
-
-			var _this = _possibleConstructorReturn(this, (ListResult.__proto__ || Object.getPrototypeOf(ListResult)).call(this, props));
-
-			_this.state = {
-				markers: [],
-				query: {},
-				rawData: {
-					hits: {
-						hits: []
-					}
-				},
-				resultMarkup: []
-			};
-			_this.nextPage = _this.nextPage.bind(_this);
-			return _this;
-		}
-
-		_createClass(ListResult, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.createChannel();
-				this.listComponent();
-			}
-
-			// Create a channel which passes the depends and receive results whenever depends changes
-
-		}, {
-			key: 'createChannel',
-			value: function createChannel() {
-				// Set the depends - add self aggs query as well with depends
-				var depends = this.props.depends ? this.props.depends : {};
-				// create a channel and listen the changes
-				var channelObj = _ChannelManager.manager.create(this.context.appbaseConfig, depends, this.props.requestSize);
-				this.channelId = channelObj.channelId;
-				channelObj.emitter.addListener(channelObj.channelId, function (res) {
-					var data = res.data;
-					var rawData = void 0,
-					    markersData = void 0;
-					this.streamFlag = false;
-					if (res.method === 'stream') {
-						this.channelMethod = 'stream';
-						var modData = this.streamDataModify(this.state.rawData, res);
-						rawData = modData.rawData;
-						res = modData.res;
-						this.streamFlag = true;
-						markersData = this.setMarkersData(rawData);
-					} else if (res.method === 'historic') {
-						this.channelMethod = 'historic';
-						rawData = res.appliedQuery && res.appliedQuery.body && res.appliedQuery.body.from !== 0 ? this.appendData(data) : data;
-						markersData = this.setMarkersData(data);
-					}
-					this.setState({
-						rawData: rawData,
-						markersData: markersData
-					}, function () {
-						// Pass the historic or streaming data in index method
-						res.allMarkers = rawData;
-						var generatedData = this.props.markerOnIndex ? this.props.markerOnIndex(res) : this.defaultMarkerOnIndex(res);
-						this.setState({
-							resultMarkup: generatedData
-						});
-						if (this.streamFlag) {
-							this.streamMarkerInterval();
-						}
-					}.bind(this));
-				}.bind(this));
-			}
-
-			// append data if pagination is applied
-
-		}, {
-			key: 'appendData',
-			value: function appendData(data) {
-				var rawData = this.state.rawData;
-				var hits = rawData.hits.hits.concat(data.hits.hits);
-				rawData.hits.hits = _.uniqBy(hits, '_id');;
-				return rawData;
-			}
-
-			// append stream boolean flag and also start time of stream
-
-		}, {
-			key: 'streamDataModify',
-			value: function streamDataModify(rawData, res) {
-				if (res.data) {
-					res.data.stream = true;
-					res.data.streamStart = new Date();
-					if (res.data._deleted) {
-						var hits = rawData.hits.hits.filter(function (hit) {
-							return hit._id !== res.data._id;
-						});
-						rawData.hits.hits = hits;
-					} else {
-						var prevData = rawData.hits.hits.filter(function (hit) {
-							return hit._id === res.data._id;
-						});
-						var _hits = rawData.hits.hits.filter(function (hit) {
-							return hit._id !== res.data._id;
-						});
-						rawData.hits.hits = _hits;
-						rawData.hits.hits.push(res.data);
-					}
-				}
-				return {
-					rawData: rawData,
-					res: res,
-					streamFlag: true
-				};
-			}
-
-			// tranform the raw data to marker data
-
-		}, {
-			key: 'setMarkersData',
-			value: function setMarkersData(data) {
-				var self = this;
-				if (data && data.hits && data.hits.hits) {
-					return data.hits.hits;
-				} else {
-					return [];
-				}
-			}
-
-			// default markup
-
-		}, {
-			key: 'defaultMarkerOnIndex',
-			value: function defaultMarkerOnIndex(res) {
-				var result = void 0;
-				if (res.allMarkers && res.allMarkers.hits && res.allMarkers.hits.hits) {
-					result = res.allMarkers.hits.hits.map(function (marker, index) {
-						return _react2.default.createElement(
-							'div',
-							{ key: index, className: 'makerInfo' },
-							JSON.stringify(marker)
-						);
-					});
-				}
-				return result;
-			}
-		}, {
-			key: 'nextPage',
-			value: function nextPage() {
-				var channelOptionsObj = _ChannelManager.manager.channels[this.channelId].previousSelectedSensor['channel-options-' + this.channelId];
-				var obj = {
-					key: 'channel-options-' + this.channelId,
-					value: {
-						size: this.props.requestSize,
-						from: channelOptionsObj.from + this.props.requestSize
-					}
-				};
-				_ChannelManager.manager.nextPage(this.channelId);
-			}
-		}, {
-			key: 'listComponent',
-			value: function listComponent() {
-				var _this2 = this;
-
-				var node = this.refs.ListContainer;
-				if (node) {
-					node.addEventListener('scroll', function () {
-						if ($(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight) {
-							_this2.nextPage();
-						}
-					});
-				}
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					{ ref: 'ListContainer', className: 'map-container reactiveComponent appbaseMapComponent listResult', style: this.props.containerStyle },
-					this.state.resultMarkup
-				);
-			}
-		}]);
-
-		return ListResult;
-	}(_react.Component);
-
-	ListResult.propTypes = {
-		markerOnIndex: _react2.default.PropTypes.func,
-		requestSize: _react2.default.PropTypes.number,
-		requestOnScroll: _react2.default.PropTypes.bool
-	};
-	ListResult.defaultProps = {
-		requestSize: 20,
-		requestOnScroll: true,
-		containerStyle: {
-			height: '700px',
-			overflow: 'auto'
-		}
-	};
-
-	// context type
-	ListResult.contextTypes = {
-		appbaseConfig: _react2.default.PropTypes.any.isRequired
-	};
-
-/***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.ReactiveMap = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(4);
-
-	var _ImmutableQuery = __webpack_require__(8);
-
-	var _ChannelManager = __webpack_require__(24);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var helper = __webpack_require__(16);
-
-	var ReactiveMap = exports.ReactiveMap = function (_Component) {
-		_inherits(ReactiveMap, _Component);
-
-		function ReactiveMap(props, context) {
-			_classCallCheck(this, ReactiveMap);
-
-			var _this = _possibleConstructorReturn(this, (ReactiveMap.__proto__ || Object.getPrototypeOf(ReactiveMap)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (AppbaseReactiveMap.__proto__ || Object.getPrototypeOf(AppbaseReactiveMap)).call(this, props));
 
 			_this.state = {};
 			_this.appbaseRef = helper.setConfigObject(_this.props.config);
-			_ImmutableQuery.queryObject.setConfig(_this.props.config.appbase);
 			_ChannelManager.manager.setConfig(_this.props.config.appbase);
 			return _this;
 		}
 
-		_createClass(ReactiveMap, [{
+		_createClass(AppbaseReactiveMap, [{
 			key: 'getChildContext',
 			value: function getChildContext() {
 				return { appbaseConfig: this.props.config };
@@ -25325,14 +16219,14 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}]);
 
-		return ReactiveMap;
+		return AppbaseReactiveMap;
 	}(_react.Component);
 
-	ReactiveMap.defaultProps = {
+	AppbaseReactiveMap.defaultProps = {
 		config: _react2.default.PropTypes.any.isRequired
 	};
 
-	ReactiveMap.childContextTypes = {
+	AppbaseReactiveMap.childContextTypes = {
 		appbaseConfig: _react2.default.PropTypes.any.isRequired
 	};
 
