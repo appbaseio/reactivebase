@@ -80,7 +80,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _AppbaseReactiveMap = __webpack_require__(223);
 
-	// sensors
+	var _ChannelManager = __webpack_require__(8);
+
+	// middleware
+	var helper = __webpack_require__(16); // sensors
+
+
 	module.exports = {
 		AppbaseReactiveMap: _AppbaseReactiveMap.AppbaseReactiveMap,
 		AppbaseList: _AppbaseList.AppbaseList,
@@ -89,9 +94,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		AppbaseDistanceSensor: _AppbaseDistanceSensor.AppbaseDistanceSensor,
 		AppbaseInputField: _AppbaseInputField.AppbaseInputField,
 		AppbaseButtonGroup: _AppbaseButtonGroup.AppbaseButtonGroup,
-		AppbaseGoogleSearch: _AppbaseGoogleSearch.AppbaseGoogleSearch
+		AppbaseGoogleSearch: _AppbaseGoogleSearch.AppbaseGoogleSearch,
+		AppbaseChannelManager: _ChannelManager.ChannelManager,
+		AppbaseSensorHelper: helper
 	};
-	// middleware
 
 /***/ },
 /* 2 */
