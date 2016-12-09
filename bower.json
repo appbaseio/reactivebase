@@ -1,12 +1,12 @@
 {
-	"name": "Sensorjs",
+	"name": "Reactivemaps",
 	"description": "",
 	"main": "main.js",
 	"authors": [
 		"Farhan Chauhan <farhan@appbase.io>"
 	],
 	"license": "ISC",
-	"homepage": "https://github.com/appbaseio/sensorjs",
+	"homepage": "https://github.com/appbaseio/reactive-maps",
 	"private": true,
 	"dependencies": {
 		"bootstrap": "~3.3.1",

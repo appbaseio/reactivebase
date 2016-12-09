@@ -1,14 +1,17 @@
 import { default as React, Component } from 'react';
 var ReactDOM = require('react-dom');
-import { Img } from './app/sensors/component/Img.js';
+import { Img } from './examples/HelperComponent/Img.js';
 import {
-	ReactiveMap,
-	AppbaseMap,
-	AppbaseSearch,
-	DistanceSensor,
-	AppbaseSlider,
+	AppbaseReactiveMap,
 	AppbaseList,
+	AppbaseSlider,
+	AppbaseSearch,
+	AppbaseDistanceSensor,
 	AppbaseButtonGroup
+} from 'sensorjs';
+
+import {
+	AppbaseMap
 } from './app/app.js';
 
 const mapsAPIKey = 'AIzaSyAXev-G9ReCOI4QOjPotLsJE-vQ1EX7i-A';
