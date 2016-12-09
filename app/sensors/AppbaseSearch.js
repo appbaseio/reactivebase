@@ -1,6 +1,5 @@
 import { default as React, Component } from 'react';
 import { render } from 'react-dom';
-import {queryObject} from '../middleware/ImmutableQuery.js';
 import Select from 'react-select';
 import {manager} from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');

@@ -2,7 +2,6 @@ import { default as React, Component } from 'react';
 import { render } from 'react-dom';
 import {ItemCheckboxList} from './component/ItemCheckboxList.js';
 import {ItemList} from './component/ItemList.js';
-import {queryObject} from '../middleware/ImmutableQuery.js';
 import {manager} from '../middleware/ChannelManager.js';
 import {StaticSearch} from './component/StaticSearch.js';
 var helper = require('../middleware/helper.js');

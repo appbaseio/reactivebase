@@ -1,6 +1,5 @@
 import { default as React, Component } from 'react';
 import { render } from 'react-dom';
-import {queryObject} from '../middleware/ImmutableQuery.js';
 import {manager} from '../middleware/ChannelManager.js';
 import {HistoGramComponent} from './component/HistoGram.js';
 import Slider from 'rc-slider';
