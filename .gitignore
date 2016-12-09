@@ -28,9 +28,4 @@ build/Release
 node_modules
 npm-debug.log.*
 bower_components
-website/bower_components
 app/assets/css
-main2.js
-dist
-lib
-umd
