@@ -12,6 +12,8 @@ import {AppbaseDistanceSensor} from './sensors/AppbaseDistanceSensor';
 import {AppbaseInputField} from './sensors/AppbaseInputField';
 import {AppbaseButtonGroup} from './sensors/AppbaseButtonGroup';
 import {AppbaseGoogleSearch} from './sensors/AppbaseGoogleSearch';
+import {MultiRange} from './sensors/MultiRange';
+import {ToggleButton} from './sensors/ToggleButton';
 // middleware
 import {AppbaseReactiveMap} from './middleware/AppbaseReactiveMap';
 import {manager} from './middleware/ChannelManager';
@@ -25,6 +27,8 @@ module.exports = {
 	TextField: TextField,
 	DataSearch: DataSearch,
 	SingleRange: SingleRange,
+	MultiRange: MultiRange,
+	ToggleButton: ToggleButton,
 	AppbaseList: AppbaseList,
 	AppbaseSlider: AppbaseSlider,
 	AppbaseSearch: AppbaseSearch,

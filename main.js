@@ -11,7 +11,9 @@ import {
 	RangeSlider,
 	TextField,
 	DataSearch,
-	SingleRange
+	SingleRange,
+	MultiRange,
+	ToggleButton
 } from './app/app.js';
 
 import {
@@ -42,6 +44,19 @@ class Main extends Component {
 			label: 'more than 6',
 			start: 6,
 			end: 100
+		}];
+		this.toggleData = [{
+			"label": "Social",
+			"value": "Social"
+		}, {
+			"label": "New In Town",
+			"value": "New In Town"
+		}, {
+			"label": "Travel",
+			"value": "Travel"
+		}, {
+			"label": "Outdoors",
+			"value": "Outdoors"
 		}];
 	}
 	guestQuery(record) {
@@ -106,7 +121,6 @@ class Main extends Component {
 								<MultiList
 									sensorId="TopicSensor"
 									appbaseField={this.props.mapping.topic}
-									defaultSelected={["Social"]}
 									showCount={true}
 									size={100}
 									title="Topics"
@@ -121,12 +135,15 @@ class Main extends Component {
 						</div>
 						<div className="row">
 							<div className="col s12 col-xs-12">
-								<SingleRange
-									appbaseField={this.props.mapping.guests}
+								
+							</div>
+							<div className="col s12 col-xs-12">
+								<ToggleButton
+									appbaseField={this.props.mapping.topic}
 									sensorId="GuestSensor"
 									title="Guests"
-									data={this.guestData}
-									defaultSelected="Less than 2"
+									data={this.toggleData}
+									defaultSelected={["Social"]}
 								/>
 							</div>
 						</div>
