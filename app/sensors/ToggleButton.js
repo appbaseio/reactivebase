@@ -3,11 +3,11 @@ import { render } from 'react-dom';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
-export class SingleRange extends Component {
+export class ToggleButton extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
-			selected: null
+			selected: []
 		};
 		this.type = 'range';
 		this.handleChange = this.handleChange.bind(this);
@@ -19,10 +19,12 @@ export class SingleRange extends Component {
 		this.setQueryInfo();
 		if(this.props.defaultSelected) {
 			let records = this.props.data.filter((record) => {
-				return record.label === this.props.defaultSelected;
+				return this.props.defaultSelected.indexOf(record.label) > -1 ? true : false;
 			});
 			if(records && records.length) {
-				this.handleChange(records[0]);
+				records.forEach((singleRecord) => {
+					this.handleChange(singleRecord);
+				});
 			}
 		}
 	}
@@ -43,15 +45,24 @@ export class SingleRange extends Component {
 	// build query for this sensor only
 	defaultQuery(record) {
 		if(record) {
-			return {
-				range: {
-						[this.props.appbaseField]: {
-						gte: record.start,
-						lte: record.end,
-						boost: 2.0
-					}
+			let query = {
+				bool: {
+					should: generateRangeQuery(this.props.appbaseField),
+					"minimum_should_match" : 1,
+					"boost" : 1.0
 				}
 			};
+			console.log(query);
+			return query;	
+		}
+		function generateRangeQuery(appbaseField) {
+			return record.map((singleRecord, index) => {
+				return {
+					term: {
+						[appbaseField]: singleRecord.value
+					}
+				};
+			});
 		}
 	}
 
@@ -65,12 +76,23 @@ export class SingleRange extends Component {
 
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
+		let selected = this.state.selected;
+		let selectedIndex = null;
+		let isAlreadySelected = selected.forEach((selectedRecord, index) => {
+			if(record.label === selectedRecord.label) {
+				selectedIndex = index;
+				selected.splice(index, 1);
+			}
+		});
+		if(selectedIndex === null) {
+			selected.push(record);
+		}
 		this.setState({
-			'selected': record
+			'selected': selected
 		});
 		var obj = {
 			key: this.props.sensorId,
-			value: record
+			value: selected
 		};
 		// pass the selected sensor value with sensorId as key,
 		let isExecuteQuery = true;
@@ -78,20 +100,16 @@ export class SingleRange extends Component {
 	}
 	renderButtons() {
 		let buttons;
-		let selectedText = this.state.selected && this.state.selected.label ? this.state.selected.label : '';
+		let selectedText = this.state.selected.map((record) => {
+			return record.label;
+		});
 		if(this.props.data) {
 			buttons = this.props.data.map((record, i) => {
 				return (
-					<div className="ab-ListComponent-listitem row" key={i} onClick={() => this.handleChange(record)}>
-						<div className="col s12 col-xs-12 ab-radio-container">
-							<input type="radio"
-								className="ab-radio"
-								checked={selectedText === record.label}
-								name="SingleRange" id="SingleRange"
-								value={record.label} />
-							<label > {record.label} </label>
-						</div>
-					</div>
+					<button key={i} className={"ab-button btn "+ (selectedText.indexOf(record.label) > -1 ? 'red' : '')}
+						onClick={() => this.handleChange(record)} title={record.title ? record.title: record.label}>
+						{record.label}
+					</button>
 				);
 			});
 		}
@@ -117,20 +135,20 @@ export class SingleRange extends Component {
 	}
 }
 
-SingleRange.propTypes = {
+ToggleButton.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
 	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
-	defaultSelected: React.PropTypes.string
+	defaultSelected: React.PropTypes.array
 };
 // Default props value
-SingleRange.defaultProps = {
+ToggleButton.defaultProps = {
 	placeholder: "Search...",
 	size: 10
 };
 
 // context type
-SingleRange.contextTypes = {
+ToggleButton.contextTypes = {
 	appbaseConfig: React.PropTypes.any.isRequired
 };
