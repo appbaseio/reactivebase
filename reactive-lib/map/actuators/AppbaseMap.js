@@ -35,6 +35,7 @@ export class AppbaseMap extends Component {
 		this.mapStyleChange = this.mapStyleChange.bind(this);
 		this.queryStartTime = 0;
 		this.reposition = false;
+		this.appliedQuery = {};
 	}
 	componentDidMount() {
 		this.createChannel();
@@ -56,39 +57,50 @@ export class AppbaseMap extends Component {
 			// implementation to prevent initialize query issue if old query response is late then the newer query 
 			// then we will consider the response of new query and prevent to apply changes for old query response.
 			// if queryStartTime of channel response is greater than the previous one only then apply changes
-			if(res.method === 'historic' && res.startTime > this.queryStartTime) {
+			if(res.mode === 'historic' && res.startTime > this.queryStartTime) {
 				this.afterChannelResponse(res);
-			} else if(res.method === 'stream') {
+			} else if(res.mode === 'stream') {
 				this.afterChannelResponse(res);
 			}
 		}.bind(this));
 	}
 	afterChannelResponse(res) {
 		let data = res.data;
-		let rawData, markersData;
+		let rawData, markersData, newData = [], currentData = [];
 		this.streamFlag = false;
-		if(res.method === 'stream') {
+		if(res.mode === 'stream') {
 			this.channelMethod = 'stream';
 			let modData = this.streamDataModify(this.state.rawData, res);
 			rawData = modData.rawData;
 			res = modData.res;
 			this.streamFlag = true;
 			markersData = this.setMarkersData(rawData);
-		} else if(res.method === 'historic') {
+		} else if(res.mode === 'historic') {
 			this.channelMethod = 'historic';
 			this.queryStartTime = res.startTime;
 			rawData = data;
 			markersData = this.setMarkersData(data);
+			newData = res.data.hits && res.data.hits.hits ? res.data.hits.hits : [];
+			let normalizeCurrentData = this.normalizeCurrentData(res, this.state.rawData, newData);
+			newData = normalizeCurrentData.newData;
+			currentData = normalizeCurrentData.currentData;
+			rawData = currentData.concat(newData);
 		}
 		this.reposition = true;
 		this.setState({
 			rawData: rawData,
+			newData: newData,
+			currentData: currentData,
 			markersData: markersData
 		}, function() {
 			// Pass the historic or streaming data in index method
 			res.allMarkers = rawData;
 			res.mapRef = this.refs.map;
-			let generatedData = this.props.markerOnIndex(res);
+			let modifiedData = JSON.parse(JSON.stringify(res));
+			modifiedData.newData = this.state.newData;
+			modifiedData.currentData = this.state.currentData;
+			delete modifiedData.data;
+			let generatedData = this.props.onData ? this.props.onData(modifiedData) : [];
 			this.setState({
 				externalData: generatedData
 			});
@@ -96,6 +108,30 @@ export class AppbaseMap extends Component {
 				this.streamMarkerInterval();
 			}
 		}.bind(this));
+	}
+	// normalize current data
+	normalizeCurrentData(res, rawData, newData) {
+		let appliedQuery = JSON.parse(JSON.stringify(res.appliedQuery));
+		delete appliedQuery.body.from;
+		delete appliedQuery.body.size;
+		let currentData = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery) ? rawData : [];
+		if(!currentData.length) {
+			this.appliedQuery = appliedQuery;
+		} else {
+			newData = newData.filter((newRecord) => {
+				let notExits = true;
+				currentData.forEach((oldRecord) => {
+					if(newRecord._id+'-'+newRecord._type === oldRecord._id+'-'+oldRecord._type) {
+						notExits = false;
+					}
+				});
+				return notExits;
+			});
+		}
+		return {
+			currentData: currentData,
+			newData: newData
+		};
 	}
 	// append stream boolean flag and also start time of stream
 	streamDataModify(rawData, res) {
@@ -371,7 +407,7 @@ export class AppbaseMap extends Component {
 		}
 		return icon;
 	}
-	// here we accepts marker props which we received from markerOnIndex and apply those external props in Marker component
+	// here we accepts marker props which we received from onData and apply those external props in Marker component
 	combineProps(hit) {
 		let externalProps, markerProp = {};
 		if(this.state.externalData && this.state.externalData.markers && this.state.externalData.markers[hit._id]) {
@@ -565,7 +601,7 @@ AppbaseMap.propTypes = {
 	searchComponent: React.PropTypes.string,
 	onIdle: React.PropTypes.func,
 	markerOnDelete: React.PropTypes.func,
-	markerOnIndex: React.PropTypes.func,
+	onData: React.PropTypes.func,
 	markerCluster: React.PropTypes.bool,
 	historicalData: React.PropTypes.bool,
 	rotateOnUpdate: React.PropTypes.bool,
@@ -594,7 +630,7 @@ AppbaseMap.defaultProps = {
 	markerOnDblclick: function() {},
 	markerOnMouseover: function() {},
 	markerOnMouseout: function() {},
-	markerOnIndex: function() {},
+	onData: function() {},
 	onIdle: function() {},
 	containerStyle: {
 		height: '700px'
