@@ -35,14 +35,14 @@ export class ListResult extends Component {
 			let data = res.data;
 			let rawData, markersData;
 			this.streamFlag = false;
-			if (res.method === 'stream') {
+			if (res.mode === 'stream') {
 				this.channelMethod = 'stream';
 				let modData = this.streamDataModify(this.state.rawData, res);
 				rawData = modData.rawData;
 				res = modData.res;
 				this.streamFlag = true;
 				markersData = this.setMarkersData(rawData);
-			} else if (res.method === 'historic') {
+			} else if (res.mode === 'historic') {
 				this.channelMethod = 'historic';
 				rawData = res.appliedQuery && res.appliedQuery.body && res.appliedQuery.body.from !== 0 ? this.appendData(data) : data;
 				markersData = this.setMarkersData(data);
