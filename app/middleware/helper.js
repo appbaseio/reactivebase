@@ -3,14 +3,14 @@ export var sensorEmitter = new EventEmitter();
 export let appbaseRef;
 export let appbaseConfig;
 export function setConfigObject(config){
-	appbaseConfig = config.appbase;
+	// appbaseConfig = config.appbase;
 	// appbaseRef = new Appbase({
 	// 	url: 'https://scalr.api.appbase.io',
 	// 	appname: config.appbase.appname,
 	// 	username: config.appbase.username,
 	// 	password: config.appbase.password
 	// });
-	return appbaseRef;
+	// return appbaseRef;
 };
 export var mapStyles = [{
 		key: 'Standard',

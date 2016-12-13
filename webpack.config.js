@@ -130,7 +130,8 @@ var lib_config = {
 // for examples build
 var examples_config = {
 	entry: {
-		main: './main.js'
+		main: './main.js',
+		list: './examples/list/main.js'
 	},
 	output: {
 		path: path.join(__dirname, "dist"),

@@ -7,8 +7,9 @@ import {DataSearch} from './sensors/DataSearch';
 import {SingleRange} from './sensors/SingleRange';
 import {MultiRange} from './sensors/MultiRange';
 import {ToggleButton} from './sensors/ToggleButton';
+import {ResultList} from './actuators/ResultList';
 // middleware
-import {AppbaseReactiveMap} from './middleware/AppbaseReactiveMap';
+import {Sensor} from './middleware/Sensor';
 import {manager} from './middleware/ChannelManager';
 var helper = require('./middleware/helper.js');
 
@@ -21,7 +22,8 @@ module.exports = {
 	SingleRange: SingleRange,
 	MultiRange: MultiRange,
 	ToggleButton: ToggleButton,
-	AppbaseReactiveMap: AppbaseReactiveMap,
+	Sensor: Sensor,
+	ResultList: ResultList,
 	AppbaseChannelManager: manager,
 	AppbaseSensorHelper: helper
 };

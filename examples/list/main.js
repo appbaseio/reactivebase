@@ -1,27 +1,32 @@
 import { default as React, Component } from 'react';
 var ReactDOM = require('react-dom');
-import { Img } from '../../app/sensors/component/Img.js';
+import { Img } from '../../reactive-lib/other/Img.js';
 import {
-	ReactiveMap,
-	AppbaseMap,
-	AppbaseSearch,
-	AppbaseSlider,
-	AppbaseList,
-	ListResult
+	Sensor,
+	SingleList,
+	ResultList
 } from '../../app/app.js';
+
+const mapsAPIKey = 'AIzaSyAXev-G9ReCOI4QOjPotLsJE-vQ1EX7i-A';
 
 class Main extends Component {
 	constructor(props) {
 		super(props);
-		this.topicDepends = this.topicDepends.bind(this);
-		this.markerOnIndex = this.markerOnIndex.bind(this);
+		this.onData = this.onData.bind(this);
 		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
 	}
-	topicDepends(value) {
-		if (this.props.mapping.city && value) {
-			let match = JSON.parse(`{"${this.props.mapping.city}":` + JSON.stringify(value) + '}');
-			return { Match: match };
-		} else return null;
+	onData(res) {
+		let result, combineData = res.currentData;
+		if(res.mode === 'historic') {
+			combineData = res.currentData.concat(res.newData);
+		}
+		if (combineData) {
+			result = combineData.map((markerData, index) => {
+				let marker = markerData._source;
+				return this.itemMarkup(marker, markerData);
+			});
+		}
+		return result;
 	}
 	itemMarkup(marker, markerData) {
 		return (
@@ -52,100 +57,45 @@ class Main extends Component {
 			</a>
 		);
 	}
-	markerOnIndex(res) {
-		let result;
-		if (res.allMarkers && res.allMarkers.hits && res.allMarkers.hits.hits) {
-			result = res.allMarkers.hits.hits.map((markerData, index) => {
-				let marker = markerData._source;
-				return this.itemMarkup(marker, markerData);
-			});
-		}
-		return result;
-	}
 	render() {
 		return (
 			<div className="row m-0 h-100">
-				<ReactiveMap config={this.props.config}>
-					<div className="col s12 m6">
+				<Sensor
+					appname="reactivemap_demo"
+					username="y4pVxY2Ok"
+					password="c92481e2-c07f-4473-8326-082919282c18"
+				>
+					<div className="col s12 m6 col-xs-12 col-sm-6">
 						<div className="row h-100">
-							<div className="col s12 m6">
-								<AppbaseList
+							<div className="col s12 m6 col-xs-12 col-sm-6">
+								<SingleList
 									sensorId="CitySensor"
-									inputData={this.props.mapping.city}
+									appbaseField={this.props.mapping.city}
 									defaultSelected="London"
 									showCount={true}
 									size={1000}
-									multipleSelect={false}
-									includeGeo={false}
-									staticSearch={true}
+									showSearch={true}
 									title="Cities"
-									searchPlaceholder="Search City"
-								/>
-							</div>
-							<div className="col s12 m6">
-								<AppbaseList
-									inputData={this.props.mapping.topic}
-									sensorId="TopicSensor"
-									showCount={true}
-									size={100}
-									multipleSelect={true}
-									includeGeo={true}
-									title="Topics"
-									depends={{
-										CitySensor: {
-											"operation": "must",
-											"defaultQuery": this.topicDepends
-										}
-									}}
-								/>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col s12">
-								<AppbaseSlider
-									sensorId="RangeSensor"
-									inputData={this.props.mapping.guests}
-									depends={{
-										CitySensor: {
-											"operation": "must",
-											"defaultQuery": this.topicDepends
-										}
-									}}
-									title="guests"
-									maxThreshold={5} />
-							</div>
-						</div>
-						<div className="row">
-							<div className="col s12">
-								<AppbaseSearch
-									inputData={this.props.mapping.venue}
-									sensorId="VenueSensor"
-									searchRef="CityVenue"
-									placeholder="Search Venue"
-									depends={{
-										'CitySensor': {
-											"operation": "must",
-											"doNotExecute": {true}
-										}
-									}}
+									searchPlaceholder="Filter City"
 								/>
 							</div>
 						</div>
 					</div>
-					<div className="col s12 m6 h-100">
-						<ListResult
-							containerStyle={{height: '100%'}}
-							markerOnIndex={this.markerOnIndex}
-							requestSize={50}
+					<div className="col s12 m6 h-100 col-xs-12 col-sm-6">
+						<ResultList
+							sensorId="SearchResult"
+							appbaseField="group.group_topics.topic_name_raw"
+							title="Result List"
+							sortBy="asc"
+							from={0}
+							size={20}
+							onData={this.onData}
 							depends={{
-								CitySensor: {"operation": "must"},
-								TopicSensor: {"operation": "must"},
-								RangeSensor: {"operation": "must"},
-								VenueSensor: {"operation": "must"}
+								CitySensor: {"operation": "must"}
 							}}
-							/>
+						/>
 					</div>
-				</ReactiveMap>
+				</Sensor>
 			</div>
 		);
 	}
@@ -162,9 +112,9 @@ Main.defaultProps = {
 	},
 	config: {
 		"appbase": {
-			"appname": "meetup_demo",
-			"username": "LPpISlEBe",
-			"password": "2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02",
+			"appname": "reactivemap_demo",
+			"username": "y4pVxY2Ok",
+			"password": "c92481e2-c07f-4473-8326-082919282c18",
 			"type": "meetupdata1"
 		}
 	}

@@ -152,6 +152,7 @@ MultiRange.propTypes = {
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array
 };
+
 // Default props value
 MultiRange.defaultProps = {
 	placeholder: "Search...",

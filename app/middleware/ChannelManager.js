@@ -40,8 +40,10 @@ class channelManager {
 			let appbaseRef = this.appbaseConfig[channelId];
 			if(appbaseRef) {
 				// apply search query and emit historic queryResult
-				appbaseRef.search(queryObj).on('data', function(data) {
-					channelResponse.method = 'historic';
+				let searchQueryObj = queryObj;
+				searchQueryObj.type = '';
+				appbaseRef.search(searchQueryObj).on('data', function(data) {
+					channelResponse.mode = 'historic';
 					channelResponse.data = data;
 					self.emitter.emit(channelId, channelResponse);
 				}).on('error', function(error) {
@@ -51,9 +53,11 @@ class channelManager {
 				if(this.streamRef[channelId]) {
 					this.streamRef[channelId].stop();
 				} 
-				this.streamRef[channelId] = appbaseRef.searchStream(queryObj).on('data', function(data) {
+				let streamQueryObj = queryObj;
+				streamQueryObj.type = '*';
+				this.streamRef[channelId] = appbaseRef.searchStream(streamQueryObj).on('data', function(data) {
 					let obj = {
-						method: 'stream',
+						mode: 'stream',
 						data: data,
 						appliedQuery: queryObj
 					};
@@ -173,7 +177,6 @@ class channelManager {
 		}
 
 		let query = {
-			type: this.config.type,
 			body: {
 				"query": {
 					"bool": {
@@ -255,9 +258,9 @@ class channelManager {
 	setAppbaseRef(config) {
 		return new Appbase({
 			url: 'https://scalr.api.appbase.io',
-			appname: config.appbase.appname,
-			username: config.appbase.username,
-			password: config.appbase.password
+			appname: config.appname,
+			username: config.username,
+			password: config.password
 		});
 	}
 };

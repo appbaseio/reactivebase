@@ -2,10 +2,7 @@ import { default as React, Component } from 'react';
 var ReactDOM = require('react-dom');
 import { Img } from './reactive-lib/other/Img.js';
 import {
-	AppbaseReactiveMap,
-	AppbaseSlider,
-	AppbaseSearch,
-	AppbaseButtonGroup,
+	Sensor,
 	SingleList,
 	MultiList,
 	RangeSlider,
@@ -102,7 +99,11 @@ class Main extends Component {
 	render() {
 		return (
 			<div className="row m-0 h-100">
-				<AppbaseReactiveMap config={this.props.config}>
+				<Sensor
+					appname="reactivemap_demo"
+					username="y4pVxY2Ok"
+					password="c92481e2-c07f-4473-8326-082919282c18"
+				>
 					<div className="col s12 m6 col-xs-12 col-sm-6">
 						<div className="row h-100">
 							<div className="col s12 m6 col-xs-12 col-sm-6">
@@ -198,7 +199,7 @@ class Main extends Component {
 							/>
 						</div>
 					</div>
-				</AppbaseReactiveMap>
+				</Sensor>
 			</div>
 		);
 	}
