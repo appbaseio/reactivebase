@@ -7,6 +7,7 @@ import SingleListDefault from './SingleList.stories';
 import MultiListDefault from './MultiList.stories';
 import SingleRangeDefault from './SingleRange.stories';
 import MultiRangeDefault from './MultiRange.stories';
+import ToggleButtonDefault from './ToggleButton.stories';
 
 require ('../../dist/css/bootstrap.min.css');
 require ('../../dist/css/materialize.min.css');
@@ -82,4 +83,12 @@ storiesOf('MultiRange', module)
 		<MultiRangeDefault
 			title={text('Title', 'Price Range')}
 		/>
+	));
+
+storiesOf('ToggleButton', module)
+	.add('Basic', () => (
+		<ToggleButtonDefault />
+	))
+	.add('With Default Selected', () => (
+		<ToggleButtonDefault defaultSelected={["Social"]} />
 	));
