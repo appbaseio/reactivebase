@@ -1,17 +1,14 @@
 import React from 'react';
 import { storiesOf, action, linkTo } from '@kadira/storybook';
 import Button from './Button';
-import Welcome from './Welcome';
+import SingleListDemo from './SingleListDemo';
+import { Appbase } from 'appbase-js';
 
-storiesOf('Welcome', module)
-  .add('to Storybook', () => (
-    <Welcome showApp={linkTo('Button')}/>
-  ));
+require ('../../dist/css/bootstrap.min.css');
+require ('../../dist/css/materialize.min.css');
+require ('../../dist/css/style.min.css');
 
-storiesOf('Button', module)
-  .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello Button</Button>
-  ))
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>😀 😎 👍 💯</Button>
-  ));
+storiesOf('SingleList', module)
+	.add('Basic', () => (
+		<SingleListDemo />
+	));
