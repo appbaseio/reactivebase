@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppbaseReactiveMap, SingleList } from '../app.js';
 
-export default class SingleListDemo extends Component {
+export default class SingleListDefault extends Component {
 	render() {
 		return (
 			<AppbaseReactiveMap config={this.props.config}>
@@ -9,13 +9,10 @@ export default class SingleListDemo extends Component {
 					<SingleList
 						sensorId="CitySensor"
 						appbaseField={this.props.mapping.city}
-						title="Cities"
-						defaultSelected="London"
 						showCount={true}
 						size={1000}
-						sortBy="asc"
-						showSearch={true}
 						searchPlaceholder="Search City"
+						{...this.props}
 					/>
 				</div>
 			</AppbaseReactiveMap>
@@ -23,9 +20,10 @@ export default class SingleListDemo extends Component {
 	}
 }
 
-SingleListDemo.defaultProps = {
+SingleListDefault.defaultProps = {
+	title: 'Cities',
 	mapping: {
-		city: 'group.group_city'
+		city: 'group.group_city.raw'
 	},
 	config: {
 		"appbase": {
