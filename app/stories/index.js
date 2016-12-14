@@ -6,6 +6,7 @@ import { Appbase } from 'appbase-js';
 import SingleListDefault from './SingleList.stories';
 import MultiListDefault from './MultiList.stories';
 import SingleRangeDefault from './SingleRange.stories';
+import MultiRangeDefault from './MultiRange.stories';
 
 require ('../../dist/css/bootstrap.min.css');
 require ('../../dist/css/materialize.min.css');
@@ -66,5 +67,19 @@ storiesOf('SingleRange', module)
 		<SingleRangeDefault
 			title={text('Title', 'Price Range')}
 			defaultSelected={text('Default Selected', 'Cheap')}
+		/>
+	));
+
+storiesOf('MultiRange', module)
+	.addDecorator(withKnobs)
+	.add('Basic', () => (
+		<MultiRangeDefault />
+	))
+	.add('With Default Selected', () => (
+		<MultiRangeDefault defaultSelected={['Cheap', 'Moderate']} />
+	))
+	.add('Playground', () => (
+		<MultiRangeDefault
+			title={text('Title', 'Price Range')}
 		/>
 	));
