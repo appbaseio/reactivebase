@@ -5,6 +5,7 @@ import { withKnobs, text, boolean, number } from '@kadira/storybook-addon-knobs'
 import { Appbase } from 'appbase-js';
 import SingleListDefault from './SingleList.stories';
 import MultiListDefault from './MultiList.stories';
+import SingleRangeDefault from './SingleRange.stories';
 
 require ('../../dist/css/bootstrap.min.css');
 require ('../../dist/css/materialize.min.css');
@@ -50,5 +51,20 @@ storiesOf('MultiList', module)
 		<MultiListDefault
 			title={text('Title', 'My Cities')}
 			showSearch={boolean('Show Search', true)}
+		/>
+	));
+
+storiesOf('SingleRange', module)
+	.addDecorator(withKnobs)
+	.add('Basic', () => (
+		<SingleRangeDefault />
+	))
+	.add('With Default Selected', () => (
+		<SingleRangeDefault defaultSelected='Cheap' />
+	))
+	.add('Playground', () => (
+		<SingleRangeDefault
+			title={text('Title', 'Price Range')}
+			defaultSelected={text('Default Selected', 'Cheap')}
 		/>
 	));
