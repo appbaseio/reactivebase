@@ -25,7 +25,7 @@ export default class SingleListDemo extends Component {
 
 SingleListDemo.defaultProps = {
 	mapping: {
-		city: 'group.group_city.raw'
+		city: 'group.group_city'
 	},
 	config: {
 		"appbase": {
