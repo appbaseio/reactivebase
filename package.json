@@ -33,6 +33,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "fbemitter": "^2.0.2",
     "google-map-react": "^0.14.5",
+    "jquery": "^3.1.1",
     "lodash": "^4.15.0",
     "rc-slider": "^5.4.0",
     "react": "^15.1.0",

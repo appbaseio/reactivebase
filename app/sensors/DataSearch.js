@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import Select from 'react-select';
 import {manager} from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+var $ = require('jquery');
 
 export class DataSearch extends Component {
 	constructor(props, context) {
