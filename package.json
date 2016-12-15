@@ -11,7 +11,9 @@
     "build": "cross-env NODE_ENV=production && cross-env CHOOSE_CONFIG=EXAMPLES && webpack -p && gulp",
     "build:lib": "gulp && cross-env NODE_ENV=production && cross-env CHOOSE_CONFIG=LIB babel app --out-dir lib",
     "build:umd": "cross-env NODE_ENV=development && webpack --config webpack.config.umd.js app/app.js umd/sensor-js.js",
-    "build-bro": "browserify -t [ babelify --presets [ es2015 stage-0 react ] ] main.js -o dist/main.bundle.js"
+    "build-bro": "browserify -t [ babelify --presets [ es2015 stage-0 react ] ] main.js -o dist/main.bundle.js",
+    "storybook": "start-storybook -p 9009",
+    "build-storybook": "build-storybook"
   },
   "files": [
     "lib/",
@@ -70,11 +72,8 @@
     "react-scripts": "^0.7.0",
     "rimraf": "^2.5.4",
     "shebang-loader": "0.0.1",
-<<<<<<< HEAD
-=======
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
->>>>>>> 5ec66f0... setup storybook and add SingleListDemo
     "webpack": "^1.13.1"
   }
 }

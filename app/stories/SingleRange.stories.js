@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { AppbaseReactiveMap, SingleRange } from '../app.js';
+import { Sensor, SingleRange } from '../app.js';
 
 export default class SingleRangeDefault extends Component {
 	render() {
 		return (
-			<AppbaseReactiveMap config={this.props.config}>
+			<Sensor
+				appname="car-store"
+				username="cf7QByt5e"
+				password="d2d60548-82a9-43cc-8b40-93cbbe75c34c"
+			>
 				<div className="col-xs-6">
 					<SingleRange
 						sensorId="PriceSensor"
@@ -18,7 +22,7 @@ export default class SingleRangeDefault extends Component {
 						{...this.props}
 					/>
 				</div>
-			</AppbaseReactiveMap>
+			</Sensor>
 		);
 	}
 }
@@ -27,13 +31,5 @@ SingleRangeDefault.defaultProps = {
 	title: 'Price',
 	mapping: {
 		price: 'price'
-	},
-	config: {
-		"appbase": {
-			"appname": "car-store",
-			"username": "cf7QByt5e",
-			"password": "d2d60548-82a9-43cc-8b40-93cbbe75c34c",
-			"type": "cars"
-		}
 	}
 };

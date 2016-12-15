@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { AppbaseReactiveMap, MultiList } from '../app.js';
+import { Sensor, MultiList } from '../app.js';
 
 export default class MultiListDefault extends Component {
 	render() {
 		return (
-			<AppbaseReactiveMap config={this.props.config}>
+			<Sensor
+				appname="meetup_demo"
+				username="LPpISlEBe"
+				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
+			>
 				<div className="col-xs-6">
 					<MultiList
 						sensorId="CitySensor"
@@ -15,7 +19,7 @@ export default class MultiListDefault extends Component {
 						{...this.props}
 					/>
 				</div>
-			</AppbaseReactiveMap>
+			</Sensor>
 		);
 	}
 }
@@ -24,13 +28,5 @@ MultiListDefault.defaultProps = {
 	title: 'Cities',
 	mapping: {
 		city: 'group.group_city.raw'
-	},
-	config: {
-		"appbase": {
-			"appname": "meetup_demo",
-			"username": "LPpISlEBe",
-			"password": "2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02",
-			"type": "meetupdata1"
-		}
 	}
 };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppbaseReactiveMap, ToggleButton } from '../app.js';
+import { Sensor, ToggleButton } from '../app.js';
 
 export default class ToggleButtonDefault extends Component {
 	constructor(props) {
@@ -21,7 +21,11 @@ export default class ToggleButtonDefault extends Component {
 	}
 	render() {
 		return (
-			<AppbaseReactiveMap config={this.props.config}>
+			<Sensor
+				appname="meetup_demo"
+				username="LPpISlEBe"
+				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
+			>
 				<div className="col-xs-12">
 					<ToggleButton
 						appbaseField={this.props.mapping.topic}
@@ -31,7 +35,7 @@ export default class ToggleButtonDefault extends Component {
 						{...this.props}
 					/>
 				</div>
-			</AppbaseReactiveMap>
+			</Sensor>
 		);
 	}
 }
@@ -40,13 +44,5 @@ ToggleButtonDefault.defaultProps = {
 	title: 'Price',
 	mapping: {
 		topic: 'group.group_topics.topic_name_raw.raw'
-	},
-	config: {
-		"appbase": {
-			"appname": "reactivemap_demo",
-			"username": "y4pVxY2Ok",
-			"password": "c92481e2-c07f-4473-8326-082919282c18",
-			"type": "meetupdata1"
-		}
 	}
 };

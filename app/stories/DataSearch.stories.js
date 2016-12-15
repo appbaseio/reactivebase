@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppbaseReactiveMap, DataSearch } from '../app.js';
+import { Sensor, DataSearch } from '../app.js';
 
 export default class DataSearchDefault extends Component {
 	constructor(props) {
@@ -21,7 +21,11 @@ export default class DataSearchDefault extends Component {
 	}
 	render() {
 		return (
-			<AppbaseReactiveMap config={this.props.config}>
+			<Sensor
+				appname="meetup_demo"
+				username="LPpISlEBe"
+				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
+			>
 				<div className="col-xs-6">
 					<DataSearch
 						appbaseField={this.props.mapping.venue}
@@ -30,7 +34,7 @@ export default class DataSearchDefault extends Component {
 						placeholder="Search Venue"
 					/>
 				</div>
-			</AppbaseReactiveMap>
+			</Sensor>
 		);
 	}
 }
@@ -39,13 +43,5 @@ DataSearchDefault.defaultProps = {
 	title: 'Price',
 	mapping: {
 		venue: 'venue_name_ngrams'
-	},
-	config: {
-		"appbase": {
-			"appname": "reactivemap_demo",
-			"username": "y4pVxY2Ok",
-			"password": "c92481e2-c07f-4473-8326-082919282c18",
-			"type": "meetupdata1"
-		}
 	}
 };
