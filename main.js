@@ -136,7 +136,7 @@ class Main extends Component {
 						</div>
 						<div className="row">
 							<div className="col s12 col-xs-12">
-								
+
 							</div>
 							<div className="col s12 col-xs-12">
 								<ToggleButton

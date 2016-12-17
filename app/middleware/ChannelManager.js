@@ -14,7 +14,7 @@ class channelManager {
 	setConfig(config) {
 		this.config = config;
 	}
-	
+
 	// Receive: This method will be executed whenever dependency value changes
 	// It receives which dependency changes and which channeldId should be affected.
 	receive(depend, channelId, queryOptions=null) {
@@ -31,7 +31,7 @@ class channelManager {
 		try {
 			validQuery = !queryObj.body.aggs && queryObj.body.query.bool.should.length === 0 ? false : true;
 		} catch(e) { }
-		
+
 		if(validQuery) {
 			let channelResponse = {
 				startTime: (new Date()).getTime(),
@@ -52,7 +52,7 @@ class channelManager {
 				// apply searchStream query and emit streaming data
 				if(this.streamRef[channelId]) {
 					this.streamRef[channelId].stop();
-				} 
+				}
 				let streamQueryObj = queryObj;
 				streamQueryObj.type = '*';
 				this.streamRef[channelId] = appbaseRef.searchStream(streamQueryObj).on('data', function(data) {
@@ -116,8 +116,8 @@ class channelManager {
 			if(sortField) {
 				sortObj.push(sortField);
 			}
-		}  
-		
+		}
+
 		// check if sortinfo is availbale
 		function sortAvailbale(depend) {
 			let sortInfo = helper.selectedSensor.get(depend, 'sortInfo');
@@ -127,18 +127,20 @@ class channelManager {
 		// build single query or if default query present in sensor itself use that
 		function singleQuery(depend) {
 			let sensorInfo = helper.selectedSensor.get(depend, 'sensorInfo');
-			let s_query = null
+			let s_query = null;
 			if(sensorInfo && sensorInfo.defaultQuery) {
 				s_query = sensorInfo.defaultQuery(previousSelectedSensor[depend]);
 			}
 			else if(previousSelectedSensor[depend]) {
-				s_query = {}
+				s_query = {};
 				s_query[sensorInfo.queryType] = {};
-				s_query[sensorInfo.queryType][sensorInfo.inputData] = previousSelectedSensor[depend];
+				if (sensorInfo.queryType != 'match_all') {
+					s_query[sensorInfo.queryType][sensorInfo.inputData] = previousSelectedSensor[depend];
+				}
 			}
 			return s_query;
 		}
-		
+
 		function aggsQuery(depend) {
 			let aggsObj = depends[depend];
 			let order, type;
@@ -154,8 +156,8 @@ class channelManager {
 				order = "desc";
 				type = "_term";
 			}
-			let orderQuery = `{ 
-				"${type}" : "${order}" 
+			let orderQuery = `{
+				"${type}" : "${order}"
 			}`;
 			return JSON.parse(`{
 				"${aggsObj.key}": {
