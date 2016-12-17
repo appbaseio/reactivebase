@@ -1,0 +1,98 @@
+import React, { Component } from 'react';
+import { Sensor, TextField, ResultList } from '../app.js';
+
+require('./list.css');
+
+export default class TextFieldDefault extends Component {
+	constructor(props) {
+		super(props);
+		this.onData = this.onData.bind(this);
+		this.nameQuery = this.nameQuery.bind(this);
+	}
+
+	nameQuery(value) {
+		if(value) {
+			return {
+				match: {
+					'cars.name': value
+				}
+			};
+		} else return null;
+	}
+
+	onData(res) {
+		let result, combineData = res.currentData;
+		if(res.mode === 'historic') {
+			combineData = res.currentData.concat(res.newData);
+		}
+		if (combineData) {
+			result = combineData.map((markerData, index) => {
+				let marker = markerData._source;
+				return this.itemMarkup(marker, markerData);
+			});
+		}
+		return result;
+	}
+
+	itemMarkup(marker, markerData) {
+		return (
+			<a className="full_row single-record single_record_for_clone"
+				href="#"
+				key={markerData._id}>
+				<div className="text-container full_row" style={{'paddingLeft': '10px'}}>
+					<div className="text-head text-overflow full_row">
+						<span className="text-head-info text-overflow">
+							{marker.name ? marker.name : ''} - {marker.brand ? marker.brand : ''}
+						</span>
+						<span className="text-head-city">{marker.brand ? marker.brand : ''}</span>
+					</div>
+					<div className="text-description text-overflow full_row">
+						<ul className="highlight_tags">
+							{marker.price ? `Priced at $${marker.price}` : 'Free Test Drive'}
+						</ul>
+					</div>
+				</div>
+			</a>
+		);
+	}
+
+	render() {
+		return (
+			<Sensor
+				appname="car-store"
+				username="cf7QByt5e"
+				password="d2d60548-82a9-43cc-8b40-93cbbe75c34c"
+			>
+				<div className="col-xs-6">
+					<TextField
+						sensorId="NameTextSensor"
+						appbaseField={this.props.mapping.name}
+						title="Type a search string"
+						{...this.props}
+					/>
+				</div>
+
+				<div className="col-xs-6">
+					<ResultList
+						sensorId="SearchResult"
+						appbaseField={this.props.mapping.name}
+						title="Cars"
+						from={0}
+						size={20}
+						onData={this.onData}
+						depends={{
+							NameTextSensor: {"operation": "must", defaultQuery: this.NameQuery}
+						}}
+					/>
+				</div>
+			</Sensor>
+		);
+	}
+}
+
+TextFieldDefault.defaultProps = {
+	title: 'Name',
+	mapping: {
+		name: 'name'
+	}
+};

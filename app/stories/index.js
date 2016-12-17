@@ -8,6 +8,7 @@ import MultiListDefault from './MultiList.stories';
 import SingleRangeDefault from './SingleRange.stories';
 import MultiRangeDefault from './MultiRange.stories';
 import ToggleButtonDefault from './ToggleButton.stories';
+import TextFieldDefault from './TextField.stories';
 // import DataSearchDefault from './DataSearch.stories';
 
 require ('../../dist/css/bootstrap.min.css');
@@ -92,6 +93,17 @@ storiesOf('ToggleButton', module)
 	))
 	.add('With Default Selected', () => (
 		<ToggleButtonDefault defaultSelected={["Social"]} />
+	));
+
+storiesOf('TextField', module)
+	.addDecorator(withKnobs)
+	.add('Basic', () => (
+		<TextFieldDefault />
+	))
+	.add('With Title', () => (
+		<TextFieldDefault 
+			title={text('Title', "Car Search")} 
+			placeholder={text('Place Holder', "Type a car name")} />
 	));
 
 // storiesOf('DataSearch', module)
