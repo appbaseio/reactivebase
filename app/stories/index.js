@@ -9,8 +9,11 @@ import SingleRangeDefault from './SingleRange.stories';
 import MultiRangeDefault from './MultiRange.stories';
 import ToggleButtonDefault from './ToggleButton.stories';
 import TextFieldDefault from './TextField.stories';
+import SingleDropdownListDefault from './SingleDropdownList.stories';
+import MultiDropdownListDefault from './MultiDropdownList.stories';
 // import DataSearchDefault from './DataSearch.stories';
 
+require ('../../dist/css/vendor.min.css');
 require ('../../dist/css/bootstrap.min.css');
 require ('../../dist/css/materialize.min.css');
 require ('../../dist/css/style.min.css');
@@ -101,9 +104,41 @@ storiesOf('TextField', module)
 		<TextFieldDefault />
 	))
 	.add('With Title', () => (
-		<TextFieldDefault 
-			title={text('Title', "Car Search")} 
+		<TextFieldDefault
+			title={text('Title', "Car Search")}
 			placeholder={text('Place Holder', "Type a car name")} />
+	));
+
+storiesOf('SingleDropdownList', module)
+	.addDecorator(withKnobs)
+	.add('Basic', () => (
+		<SingleDropdownListDefault />
+	))
+	.add('With Select All', () => (
+		<SingleDropdownListDefault
+			selectAllLabel='All Cities'
+		/>
+	))
+	.add('Playground', () => (
+		<SingleDropdownListDefault
+			selectAllLabel={text('Label for Select All', 'All Cities')}
+		/>
+	));
+
+storiesOf('MultiDropdownList', module)
+	.addDecorator(withKnobs)
+	.add('Basic', () => (
+		<MultiDropdownListDefault />
+	))
+	.add('With Placeholder', () => (
+		<MultiDropdownListDefault
+			placeholder='Select Cities'
+		/>
+	))
+	.add('Playground', () => (
+		<MultiDropdownListDefault
+			placeholder={text('Place Holder', 'Select Cities')}
+		/>
 	));
 
 // storiesOf('DataSearch', module)
