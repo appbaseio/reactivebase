@@ -46,7 +46,6 @@ export class TextField extends Component {
 	createChannel() {
 		let depends = this.props.depends ? this.props.depends : {};
 		var channelObj = manager.create(this.context.appbaseConfig, depends);
-
 	}
 
 	// handle the input change and pass the value inside sensor info
@@ -67,9 +66,18 @@ export class TextField extends Component {
 
 	// render
 	render() {
+		let title = null,
+			titleExists = false,
+			textFieldClass = 'rbc rbc-textfield';
+		if(this.props.title) {
+			titleExists = true;
+			title = (<h4 className="rbc-title rbc-textfield-title col s12 col-xs-12">{this.props.title}</h4>);
+		}
+		textFieldClass += 'title-'+titleExists;
 		return (
-			<div className="ab-component ab-InputFieldComponent">
-				<input className="ab-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue} />
+			<div className={textFieldClass}>
+				{title}
+				<input className="rbc-input rbc-textfield-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue} />
 			</div>
 		);
 	}
@@ -83,7 +91,6 @@ TextField.propTypes = {
 };
 // Default props value
 TextField.defaultProps = {
-	placeholder: "Search..."
 };
 
 // context type
