@@ -11,7 +11,7 @@ import ToggleButtonDefault from './ToggleButton.stories';
 import TextFieldDefault from './TextField.stories';
 import SingleDropdownListDefault from './SingleDropdownList.stories';
 import MultiDropdownListDefault from './MultiDropdownList.stories';
-// import DataSearchDefault from './DataSearch.stories';
+import DataSearchDefault from './DataSearch.stories';
 
 require ('../../dist/css/vendor.min.css');
 require ('../../dist/css/bootstrap.min.css');
@@ -141,7 +141,7 @@ storiesOf('MultiDropdownList', module)
 		/>
 	));
 
-// storiesOf('DataSearch', module)
-// 	.add('Basic', () => (
-// 		<DataSearchDefault />
-// 	));;
+storiesOf('DataSearch', module)
+	.add('Basic', () => (
+		<DataSearchDefault />
+	));;

@@ -66,10 +66,10 @@ export class DataSearch extends Component {
 		channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
 			let rawData;
-			if(res.method === 'stream') {
+			if(res.mode === 'stream') {
 				rawData = this.state.rawData;
 				rawData.hits.hits.push(res.data);
-			} else if(res.method === 'historic') {
+			} else if(res.mode === 'historic') {
 				rawData = data;
 			}
 			this.setState({
