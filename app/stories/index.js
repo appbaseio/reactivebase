@@ -13,6 +13,7 @@ import SingleDropdownListDefault from './SingleDropdownList.stories';
 import MultiDropdownListDefault from './MultiDropdownList.stories';
 import DataSearchDefault from './DataSearch.stories';
 import SingleDropdownRangeDefault from './SingleDropdownRange.stories';
+import MultiDropdownRangeDefault from './MultiDropdownRange.stories';
 
 require ('../../dist/css/vendor.min.css');
 require ('../../dist/css/bootstrap.min.css');
@@ -159,5 +160,19 @@ storiesOf('SingleDropdownRange', module)
 		<SingleDropdownRangeDefault
 			title={text('Title', 'Price Range')}
 			defaultSelected={text('Default Selected', 'Cheap')}
+		/>
+	));
+
+storiesOf('MultiDropdownRange', module)
+	.addDecorator(withKnobs)
+	.add('Basic', () => (
+		<MultiDropdownRangeDefault />
+	))
+	.add('With Default Selected', () => (
+		<MultiDropdownRangeDefault defaultSelected={['Cheap', 'Moderate']} />
+	))
+	.add('Playground', () => (
+		<MultiDropdownRangeDefault
+			title={text('Title', 'Price Range')}
 		/>
 	));

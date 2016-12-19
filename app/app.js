@@ -9,6 +9,7 @@ import {DataSearch} from './sensors/DataSearch';
 import {SingleRange} from './sensors/SingleRange';
 import {MultiRange} from './sensors/MultiRange';
 import {SingleDropdownRange} from './sensors/SingleDropdownRange';
+import {MultiDropdownRange} from './sensors/MultiDropdownRange';
 import {ToggleButton} from './sensors/ToggleButton';
 import {ResultList} from './actuators/ResultList';
 // middleware
@@ -27,6 +28,7 @@ module.exports = {
 	SingleRange: SingleRange,
 	MultiRange: MultiRange,
 	SingleDropdownRange: SingleDropdownRange,
+	MultiDropdownRange: MultiDropdownRange,
 	ToggleButton: ToggleButton,
 	Sensor: Sensor,
 	ResultList: ResultList,
