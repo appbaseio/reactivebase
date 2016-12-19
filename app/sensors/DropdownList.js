@@ -1,7 +1,6 @@
 import { default as React, Component } from 'react';
 import Select from 'react-select';
-import {ItemCheckboxList} from './component/ItemCheckboxList.js';
-import {manager} from '../middleware/ChannelManager.js';
+import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
 export class DropdownList extends Component {
