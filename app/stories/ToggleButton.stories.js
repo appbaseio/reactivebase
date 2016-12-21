@@ -12,9 +12,6 @@ export default class ToggleButtonDefault extends Component {
 			"label": "Social",
 			"value": "Social"
 		}, {
-			"label": "New In Town",
-			"value": "New In Town"
-		}, {
 			"label": "Travel",
 			"value": "Travel"
 		}, {
@@ -109,7 +106,7 @@ export default class ToggleButtonDefault extends Component {
 }
 
 ToggleButtonDefault.defaultProps = {
-	title: 'Price',
+	title: 'Meetup Categories',
 	mapping: {
 		topic: 'group.group_topics.topic_name_raw.raw'
 	}
