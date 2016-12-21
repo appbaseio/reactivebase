@@ -109,14 +109,14 @@ class channelManager {
 					}
 				}
 			}
-			let sortField = sortAvailbale(depend);
+			let sortField = sortAvailable(depend);
 			if(sortField) {
 				sortObj.push(sortField);
 			}
 		}
 
 		// check if sortinfo is availbale
-		function sortAvailbale(depend) {
+		function sortAvailable(depend) {
 			let sortInfo = helper.selectedSensor.get(depend, 'sortInfo');
 			return sortInfo;
 		}
