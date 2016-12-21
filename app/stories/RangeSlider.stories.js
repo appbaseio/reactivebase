@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Sensor, RangeSlider, ResultList } from '../app.js';
+import { ReactiveBase, RangeSlider, ResultList } from '../app.js';
 import { Img } from '../../reactive-lib/other/Img.js';
 
 require('./list.css');
@@ -57,36 +57,38 @@ export default class RangeSliderDefault extends Component {
 
 	render() {
 		return (
-			<Sensor
+			<ReactiveBase
 				appname="reactivemap_demo"
 				username="y4pVxY2Ok"
 				password="c92481e2-c07f-4473-8326-082919282c18"
 			>
-				<div className="col-xs-6">
-					<RangeSlider
-						sensorId="RangeSensor"
-						appbaseField={this.props.mapping.guests}
-						stepValue={2}
-						title="guests"
-						endThreshold={6}
-						{...this.props} />
-				</div>
+				<div className="row">
+					<div className="col s6 col-xs-6">
+						<RangeSlider
+							sensorId="RangeSensor"
+							appbaseField={this.props.mapping.guests}
+							stepValue={2}
+							title="guests"
+							endThreshold={6}
+							{...this.props} />
+					</div>
 
-				<div className="col-xs-6">
-					<ResultList
-						sensorId="SearchResult"
-						appbaseField={this.props.mapping.topic}
-						title="Meetups"
-						sortBy="asc"
-						from={0}
-						size={20}
-						onData={this.onData}
-						depends={{
-							RangeSensor: {"operation": "must"}
-						}}
-					/>
+					<div className="col s6 col-xs-6">
+						<ResultList
+							sensorId="SearchResult"
+							appbaseField={this.props.mapping.topic}
+							title="Meetups"
+							sortBy="asc"
+							from={0}
+							size={20}
+							onData={this.onData}
+							depends={{
+								RangeSensor: {"operation": "must"}
+							}}
+						/>
+					</div>
 				</div>
-			</Sensor>
+			</ReactiveBase>
 		);
 	}
 }

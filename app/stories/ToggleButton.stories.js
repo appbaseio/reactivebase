@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Sensor, ToggleButton, ResultList } from '../app.js';
+import { ReactiveBase, ToggleButton, ResultList } from '../app.js';
 import { Img } from '../../reactive-lib/other/Img.js';
 
 require('./list.css');
@@ -72,7 +72,7 @@ export default class ToggleButtonDefault extends Component {
 
 	render() {
 		return (
-			<Sensor
+			<ReactiveBase
 				appname="meetup_demo"
 				username="LPpISlEBe"
 				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
@@ -103,7 +103,7 @@ export default class ToggleButtonDefault extends Component {
 						/>
 					</div>
 				</div>
-			</Sensor>
+			</ReactiveBase>
 		);
 	}
 }

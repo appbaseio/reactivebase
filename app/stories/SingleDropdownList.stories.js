@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Sensor, SingleDropdownList, ResultList } from '../app.js';
+import { ReactiveBase, SingleDropdownList, ResultList } from '../app.js';
 import { Img } from '../../reactive-lib/other/Img.js';
 
 require('./list.css');
@@ -57,35 +57,37 @@ export default class SingleDropdownListDefault extends Component {
 
 	render() {
 		return (
-			<Sensor
+			<ReactiveBase
 				appname="reactivemap_demo"
 				username="y4pVxY2Ok"
 				password="c92481e2-c07f-4473-8326-082919282c18"
 			>
-				<div className="col-xs-6">
-					<SingleDropdownList
-						sensorId="CitySensor"
-						appbaseField={this.props.mapping.city}
-						size={1000}
-						{...this.props}
-					/>
-				</div>
+				<div className="row">
+					<div className="col s6 col-xs-6">
+						<SingleDropdownList
+							sensorId="CitySensor"
+							appbaseField={this.props.mapping.city}
+							size={1000}
+							{...this.props}
+						/>
+					</div>
 
-				<div className="col-xs-6">
-					<ResultList
-						sensorId="SearchResult"
-						appbaseField={this.props.mapping.topic}
-						title="Meetups"
-						sortBy="asc"
-						from={0}
-						size={20}
-						onData={this.onData}
-						depends={{
-							CitySensor: {"operation": "must"}
-						}}
-					/>
+					<div className="col-xs-6">
+						<ResultList
+							sensorId="SearchResult"
+							appbaseField={this.props.mapping.topic}
+							title="Meetups"
+							sortBy="asc"
+							from={0}
+							size={20}
+							onData={this.onData}
+							depends={{
+								CitySensor: {"operation": "must"}
+							}}
+						/>
+					</div>
 				</div>
-			</Sensor>
+			</ReactiveBase>
 		);
 	}
 }

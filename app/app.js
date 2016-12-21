@@ -13,7 +13,7 @@ import {MultiDropdownRange} from './sensors/MultiDropdownRange';
 import {ToggleButton} from './sensors/ToggleButton';
 import {ResultList} from './actuators/ResultList';
 // middleware
-import {Sensor} from './middleware/Sensor';
+import {ReactiveBase} from './middleware/ReactiveBase';
 import {manager} from './middleware/ChannelManager';
 var helper = require('./middleware/helper.js');
 
@@ -30,7 +30,7 @@ module.exports = {
 	SingleDropdownRange: SingleDropdownRange,
 	MultiDropdownRange: MultiDropdownRange,
 	ToggleButton: ToggleButton,
-	Sensor: Sensor,
+	ReactiveBase: ReactiveBase,
 	ResultList: ResultList,
 	AppbaseChannelManager: manager,
 	AppbaseSensorHelper: helper

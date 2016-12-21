@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Sensor, DataSearch, ResultList } from '../app.js';
+import { ReactiveBase, DataSearch, ResultList } from '../app.js';
 import { Img } from '../../reactive-lib/other/Img.js';
 
 require('./list.css');
@@ -57,7 +57,7 @@ export default class DataSearchDefault extends Component {
 
 	render() {
 		return (
-			<Sensor
+			<ReactiveBase
 				appname="reactivemap_demo"
 				username="y4pVxY2Ok"
 				password="c92481e2-c07f-4473-8326-082919282c18"
@@ -87,7 +87,7 @@ export default class DataSearchDefault extends Component {
 						/>
 					</div>
 				</div>
-			</Sensor>
+			</ReactiveBase>
 		);
 	}
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Sensor, SingleList, ResultList } from '../app.js';
+import { ReactiveBase, SingleList, ResultList } from '../app.js';
 import { Img } from '../../reactive-lib/other/Img.js';
 
 require('./list.css');
@@ -57,7 +57,7 @@ export default class SingleListDefault extends Component {
 
 	render() {
 		return (
-			<Sensor
+			<ReactiveBase
 				appname="meetup_demo"
 				username="LPpISlEBe"
 				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
@@ -89,7 +89,7 @@ export default class SingleListDefault extends Component {
 						/>
 					</div>
 				</div>
-			</Sensor>
+			</ReactiveBase>
 		);
 	}
 }

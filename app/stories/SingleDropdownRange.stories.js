@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Sensor, SingleDropdownRange, ResultList } from '../app.js';
+import { ReactiveBase, SingleDropdownRange, ResultList } from '../app.js';
 
 require('./list.css');
 
@@ -47,7 +47,7 @@ export default class SingleDropdownRangeDefault extends Component {
 
 	render() {
 		return (
-			<Sensor
+			<ReactiveBase
 				appname="car-store"
 				username="cf7QByt5e"
 				password="d2d60548-82a9-43cc-8b40-93cbbe75c34c"
@@ -82,7 +82,7 @@ export default class SingleDropdownRangeDefault extends Component {
 						/>
 					</div>
 				</div>
-			</Sensor>
+			</ReactiveBase>
 		);
 	}
 }
