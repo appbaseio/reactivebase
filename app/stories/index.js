@@ -16,8 +16,7 @@ import SingleDropdownRangeDefault from './SingleDropdownRange.stories';
 import MultiDropdownRangeDefault from './MultiDropdownRange.stories';
 import RangeSliderDefault from './RangeSlider.stories';
 
-require ('../../dist-old/css/bootstrap.min.css');
-require ('../../dist-old/css/materialize.min.css');
+require ('../../dist/css/materialize.min.css');
 require ('../../dist/css/vendor.min.css');
 require ('../../dist/css/style.min.css');
 
