@@ -115,7 +115,7 @@ export class MultiDropdownRange extends Component {
 							clearable={false}
 							multi={true}
 							placeholder={this.props.placeholder}
-							searchable={false} />
+							searchable={true} />
 					</div>
 				</div>
 			</div>

@@ -95,7 +95,7 @@ export class SingleDropdownRange extends Component {
 							value={this.state.selected}
 							onChange={this.handleChange}
 							placeholder={this.props.placeholder}
-							searchable={false} />
+							searchable={true} />
 					</div>
 				</div>
 			</div>

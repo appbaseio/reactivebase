@@ -106,7 +106,7 @@ export class ToggleButton extends Component {
 		if(this.props.data) {
 			buttons = this.props.data.map((record, i) => {
 				return (
-					<button key={i} className={"btn "+ (selectedText.indexOf(record.label) > -1 ? 'red' : '')}
+					<button key={i} className={"btn "+ (selectedText.indexOf(record.label) > -1 ? 'light-blue darken-1' : 'blue-grey lighten-3')}
 						onClick={() => this.handleChange(record)} title={record.title ? record.title: record.label}>
 						{record.label}
 					</button>

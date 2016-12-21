@@ -226,8 +226,8 @@ class Tag extends Component {
 	render() {
 		return (
 			<span onClick={this.props.onClick.bind(null, this.props.value) } className="tag-item col">
-				<span>{this.props.value}</span>
 				<a href="javascript:void(0)" className="close"> x </a>
+				<span>{this.props.value}</span>
 			</span>
 		);
 	}

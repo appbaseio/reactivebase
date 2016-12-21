@@ -156,7 +156,7 @@ export class DropdownList extends Component {
 								onChange={this.handleChange}
 								multi={this.props.multipleSelect}
 								placeholder={this.props.placeholder}
-								searchable={false} /> : null }
+								searchable={true} /> : null }
 					</div>
 				</div>
 			</div>
