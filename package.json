@@ -33,7 +33,6 @@
     "babel-preset-stage-0": "^6.5.0",
     "fbemitter": "^2.0.2",
     "google-map-react": "^0.14.5",
-    "jquery": "^3.1.1",
     "lodash": "^4.15.0",
     "rc-slider": "^5.4.0",
     "react": "^15.1.0",
@@ -61,6 +60,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.1",
     "eslint-plugin-react": "^6.7.1",
+    "file-loader": "^0.9.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-jshint": "^2.0.0",
@@ -73,7 +73,6 @@
     "rimraf": "^2.5.4",
     "shebang-loader": "0.0.1",
     "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
     "webpack": "^1.13.1"
   }
 }

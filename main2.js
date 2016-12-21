@@ -2,7 +2,7 @@ import { default as React, Component } from 'react';
 var ReactDOM = require('react-dom');
 import { Img } from './reactive-lib/other/Img.js';
 import {
-	Sensor,
+	ReactiveBase,
 	SingleList,
 	MultiList,
 	RangeSlider,
@@ -99,7 +99,7 @@ class Main extends Component {
 	render() {
 		return (
 			<div className="row m-0 h-100">
-				<Sensor
+				<ReactiveBase
 					appname="reactivemap_demo"
 					username="y4pVxY2Ok"
 					password="c92481e2-c07f-4473-8326-082919282c18"
@@ -136,7 +136,7 @@ class Main extends Component {
 						</div>
 						<div className="row">
 							<div className="col s12 col-xs-12">
-								
+
 							</div>
 							<div className="col s12 col-xs-12">
 								<ToggleButton
@@ -199,7 +199,7 @@ class Main extends Component {
 							/>
 						</div>
 					</div>
-				</Sensor>
+				</ReactiveBase>
 			</div>
 		);
 	}

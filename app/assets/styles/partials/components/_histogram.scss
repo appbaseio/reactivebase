@@ -1,12 +1,15 @@
 $bg-grey: #fafafa;
+
 .barContainer {
 	position: relative;
 	height: 50px;
 	width: 100%;
+
 	.barChild {
 		display: inline-block;
 		background: darken($bg-grey, 2%);
 		position: relative;
+
 		.bar {
 			display: block;
 			width: 100%;

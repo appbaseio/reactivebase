@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Sensor, SingleList, ResultList } from '../app.js';
+import { ReactiveBase, SingleList, ResultList } from '../app.js';
 import { Img } from '../../reactive-lib/other/Img.js';
 
 require('./list.css');
@@ -57,37 +57,39 @@ export default class SingleListDefault extends Component {
 
 	render() {
 		return (
-			<Sensor
+			<ReactiveBase
 				appname="meetup_demo"
 				username="LPpISlEBe"
 				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
 			>
-				<div className="col-xs-6">
-					<SingleList
-						sensorId="CitySensor"
-						appbaseField={this.props.mapping.city}
-						showCount={true}
-						size={1000}
-						searchPlaceholder="Search City"
-						{...this.props}
-					/>
-				</div>
+				<div className="row">
+					<div className="col s6 col-xs-6">
+						<SingleList
+							sensorId="CitySensor"
+							appbaseField={this.props.mapping.city}
+							showCount={true}
+							size={1000}
+							searchPlaceholder="Search City"
+							{...this.props}
+						/>
+					</div>
 
-				<div className="col-xs-6">
-					<ResultList
-						sensorId="SearchResult"
-						appbaseField={this.props.mapping.topic}
-						title="Meetups"
-						sortBy="asc"
-						from={0}
-						size={20}
-						onData={this.onData}
-						depends={{
-							CitySensor: {"operation": "must"}
-						}}
-					/>
+					<div className="col s6 col-xs-6">
+						<ResultList
+							sensorId="SearchResult"
+							appbaseField={this.props.mapping.topic}
+							title="Meetups"
+							sortBy="asc"
+							from={0}
+							size={20}
+							onData={this.onData}
+							depends={{
+								CitySensor: {"operation": "must"}
+							}}
+						/>
+					</div>
 				</div>
-			</Sensor>
+			</ReactiveBase>
 		);
 	}
 }

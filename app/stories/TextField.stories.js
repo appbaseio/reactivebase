@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Sensor, TextField, ResultList } from '../app.js';
+import { ReactiveBase, TextField, ResultList } from '../app.js';
 
 require('./list.css');
 
@@ -58,40 +58,41 @@ export default class TextFieldDefault extends Component {
 
 	render() {
 		return (
-			<Sensor
+			<ReactiveBase
 				appname="car-store"
 				username="cf7QByt5e"
 				password="d2d60548-82a9-43cc-8b40-93cbbe75c34c"
 			>
-				<div className="col-xs-6">
-					<TextField
-						sensorId="NameTextSensor"
-						appbaseField={this.props.mapping.name}
-						title="Type a search string"
-						{...this.props}
-					/>
-				</div>
+				<div className="row">
+					<div className="col s6 col-xs-6">
+						<TextField
+							sensorId="NameTextSensor"
+							appbaseField={this.props.mapping.name}
+							title="Type a search string"
+							{...this.props}
+						/>
+					</div>
 
-				<div className="col-xs-6">
-					<ResultList
-						sensorId="SearchResult"
-						appbaseField={this.props.mapping.name}
-						title="Cars"
-						from={0}
-						size={20}
-						onData={this.onData}
-						depends={{
-							NameTextSensor: {"operation": "must", defaultQuery: this.NameQuery}
-						}}
-					/>
+					<div className="col-xs-6">
+						<ResultList
+							sensorId="SearchResult"
+							appbaseField={this.props.mapping.name}
+							title="Cars"
+							from={0}
+							size={20}
+							onData={this.onData}
+							depends={{
+								NameTextSensor: {"operation": "must", defaultQuery: this.NameQuery}
+							}}
+						/>
+					</div>
 				</div>
-			</Sensor>
+			</ReactiveBase>
 		);
 	}
 }
 
 TextFieldDefault.defaultProps = {
-	title: 'Name',
 	mapping: {
 		name: 'name'
 	}

@@ -1,6 +1,5 @@
 import { default as React, Component } from 'react';
 import { render } from 'react-dom';
-var Style = require('../../helper/Style.js');
 
 export class ItemList extends Component {
 	constructor(props) {
@@ -11,17 +10,20 @@ export class ItemList extends Component {
 		this.defaultAllowed = true;
 		this.handleClick = this.handleClick.bind(this);
 	}
+
 	componentDidUpdate() {
 		if(this.props.items.length && this.defaultAllowed) {
 			this.defaultAllowed = false;
 			this.defaultSelection();
 		}
 	}
+
 	defaultSelection() {
 		if(this.props.defaultSelected) {
 			this.handleClick(this.props.defaultSelected);
 		}
 	}
+
 	// Handler function is called when the list item is clicked
 	handleClick(value) {
 		// Pass the previously selected value to be removed from the query
@@ -32,6 +34,7 @@ export class ItemList extends Component {
 			selectedItem: value
 		});
 	}
+
 	render() {
 		let items = this.props.items;
 		let itemsComponent = [];
@@ -46,16 +49,18 @@ export class ItemList extends Component {
 				selectedItem={this.state.selectedItem}/>)
 		}.bind(this));
 		return (
-			<div className="ab-ListComponent-container col s12 col-xs-12">
+			<div className="rbc-list-container col s12 col-xs-12">
 				{itemsComponent}
 			</div>
 		);
 	}
 }
+
 class ItemRow extends Component {
 	constructor(props) {
 		super(props);
 	}
+
 	renderItem() {
 		let count;
 		// Check if user wants to show count field
@@ -75,11 +80,12 @@ class ItemRow extends Component {
 						<span> {this.props.value} </span>
 						{count}
 					</strong>
-				</a>		
+				</a>
 			);
 		}
 		return item;
 	}
+
 	renderCount() {
 		let count;
 		// Check if user wants to show count field
@@ -88,17 +94,17 @@ class ItemRow extends Component {
 		}
 		return count;
 	}
+
 	render() {
 		// let activeClass = this.props.value === this.props.selectedItem ? 'active' : '';
 		return (
-			<div className="ab-ListComponent-listitem row" onClick={() => this.props.handleClick(this.props.value)}>
-				<div className="col s12 col-xs-12 ab-radio-container">
+			<div className="rbc-list-item row" onClick={() => this.props.handleClick(this.props.value)}>
+				<div className="radio-item col s12 col-xs-12">
 					<input type="radio"
-						className="ab-radio"
 						checked={this.props.value === this.props.selectedItem}
 						name="radioItem" id="radioItem"
 						value={this.props.value} />
-					<label > {this.props.value} {this.renderCount()}</label>
+					<label> {this.props.value} {this.renderCount()}</label>
 				</div>
 			</div>
 		);

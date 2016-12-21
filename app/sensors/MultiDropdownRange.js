@@ -97,13 +97,14 @@ export class MultiDropdownRange extends Component {
 
 	// render
 	render() {
-		let title, titleExists;
+		let title = null,
+			titleExists = false;
 		if(this.props.title) {
 			titleExists = true;
-			title = (<h4 className="ab-componentTitle col s12 col-xs-12">{this.props.title}</h4>);
+			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 		return (
-			<div className={"ab-component ab-ButtonGroupComponent col s12 col-xs-12 card thumbnail"} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-dropdown col s12 col-xs-12 card thumbnail title-${titleExists}`} style={this.props.defaultStyle}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">

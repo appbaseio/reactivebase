@@ -1,37 +1,46 @@
-@import "variable.scss";
-.listComponent.reactiveComponent {
+.rbc.rbc-list {
 	overflow: hidden;
 	height: 400px;
-	margin: 5px;
 	padding: 0;
 	position: relative;
 	background: #fff;
-	.listContainer {
+
+	.rbc-list-container {
 		height: 100%;
+		padding: 0;
 		overflow: auto;
-		.listItem {
+
+		.rbc-list-item {
 			a {
 				padding: 5px 10px;
 				display: block;
 				color: $dark-grey;
+
 				&.active {
 					color: $blue;
 					font-weight: bold;
 				}
 			}
+
 			&:first-child {
 				margin-top: 10px;
 			}
-			&.checkboxItem {
+
+			&.checkbox-item {
 				padding: 5px 10px;
+
 				label {
 					font-weight: normal;
 				}
 			}
 		}
+
+		.row {
+			margin-bottom: 0;
+		}
 	}	
 
-	.tagItem {
+	.tag-item {
 		background: $blue;
 		color: #fff;
 		font-size: 12px;
@@ -40,38 +49,55 @@
 		border-radius: 6px;
 		display: inline-block;
 		margin: 5px;
+
 		span {
 			float: left;
 		}
+
 		.close {
-			padding-left: 10px;
-			line-height: 10px;
+			line-height: 16px;
 			cursor: pointer;
+			font-size: 12px;
+			color: #fff;
+			display: inline-block;
+			margin-left: 10px;
 			font-weight: 700;
+			text-shadow: none;
 		}
 	}
-	.componentTitle {
+
+	.rbc-title {
 		position: absolute;
 		top: 0;
 		left: 0;
 		margin: 0;
 	}
-	.staticSearchContainer.inputBox {
+
+	.rbc-search-component {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		padding: 0;
+
+		.rbc-input {
+			padding: 0 10px;
+			border: 0;
+		}
 	}
-	&.staticSearch-true {
+
+	&.search-true {
 		padding-top: 50px;
+
 		&.title-true {
 			padding-top: 100px;
-			.staticSearchContainer {
+
+			.rbc-search-component {
 				top: 50px;
 			}
 		}
 	}
+
 	&.title-true {
 		padding-top: 50px;
 	}

@@ -11,9 +11,6 @@ class channelManager {
 		this.receive = this.receive.bind(this);
 		this.nextPage = this.nextPage.bind(this);
 	}
-	setConfig(config) {
-		this.config = config;
-	}
 
 	// Receive: This method will be executed whenever dependency value changes
 	// It receives which dependency changes and which channeldId should be affected.

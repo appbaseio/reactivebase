@@ -1,5 +1,4 @@
 import {default as React, Component} from 'react';
-import { render } from 'react-dom';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
@@ -53,7 +52,7 @@ export class ToggleButton extends Component {
 				}
 			};
 			console.log(query);
-			return query;	
+			return query;
 		}
 		function generateRangeQuery(appbaseField) {
 			return record.map((singleRecord, index) => {
@@ -98,6 +97,7 @@ export class ToggleButton extends Component {
 		let isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
+
 	renderButtons() {
 		let buttons;
 		let selectedText = this.state.selected.map((record) => {
@@ -106,7 +106,7 @@ export class ToggleButton extends Component {
 		if(this.props.data) {
 			buttons = this.props.data.map((record, i) => {
 				return (
-					<button key={i} className={"ab-button btn "+ (selectedText.indexOf(record.label) > -1 ? 'red' : '')}
+					<button key={i} className={"btn "+ (selectedText.indexOf(record.label) > -1 ? 'red' : '')}
 						onClick={() => this.handleChange(record)} title={record.title ? record.title: record.label}>
 						{record.label}
 					</button>
@@ -115,15 +115,16 @@ export class ToggleButton extends Component {
 		}
 		return buttons;
 	}
+
 	// render
 	render() {
-		let title, titleExists;
+		let title, titleExists = false;
 		if(this.props.title) {
 			titleExists = true;
-			title = (<h4 className="ab-componentTitle col s12 col-xs-12">{this.props.title}</h4>);
+			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 		return (
-			<div className={"ab-component ab-ButtonGroupComponent col s12 col-xs-12 card thumbnail"} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail title-${titleExists}`} style={this.props.defaultStyle}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">
@@ -142,6 +143,7 @@ ToggleButton.propTypes = {
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array
 };
+
 // Default props value
 ToggleButton.defaultProps = {
 	placeholder: "Search...",

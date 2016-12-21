@@ -1,13 +1,11 @@
 import { default as React, Component } from 'react';
-import { render } from 'react-dom';
-import {ItemCheckboxList} from './component/ItemCheckboxList.js';
-import {ItemList} from './component/ItemList.js';
-import {manager} from '../middleware/ChannelManager.js';
-import {StaticSearch} from './component/StaticSearch.js';
+import { ItemCheckboxList } from './component/ItemCheckboxList.js';
+import { ItemList } from './component/ItemList.js';
+import { manager } from '../middleware/ChannelManager.js';
+import { StaticSearch } from './component/StaticSearch.js';
 var helper = require('../middleware/helper.js');
 
 export class NativeList extends Component {
-
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -27,14 +25,17 @@ export class NativeList extends Component {
 		this.selectAll = this.selectAll.bind(this);
 		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
 	}
+
 	componentWillMount() {
 		this.defaultSelected = this.props.defaultSelected;
 	}
+
 	// Get the items from Appbase when component is mounted
 	componentDidMount() {
 		this.setQueryInfo();
 		this.createChannel();
 	}
+
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
@@ -46,6 +47,7 @@ export class NativeList extends Component {
 		};
 		helper.selectedSensor.setSensorInfo(obj);
 	}
+
 	// Create a channel which passes the depends and receive results whenever depends changes
 	createChannel() {
 		// Set the depends - add self aggs query as well with depends
@@ -72,11 +74,13 @@ export class NativeList extends Component {
 			this.setData(rawData);
 		}.bind(this));
 	}
+
 	setData(data) {
 		if(data.aggregations && data.aggregations[this.props.appbaseField] && data.aggregations[this.props.appbaseField].buckets) {
 			this.addItemsToList(data.aggregations[this.props.appbaseField].buckets);
 		}
 	}
+
 	addItemsToList(newItems) {
 		newItems = newItems.map((item) => {
 			item.key = item.key.toString();
@@ -88,14 +92,17 @@ export class NativeList extends Component {
 			storedItems: newItems
 		});
 	}
+
 	// Handler function when a value is selected
 	handleSelect(value) {
 		this.setValue(value, true)
 	}
+
 	// Handler function when a value is deselected or removed
 	handleRemove(value, isExecuteQuery=false) {
 		this.setValue(value, isExecuteQuery)
 	}
+
 	// set value
 	setValue(value, isExecuteQuery=false) {
 		var obj = {
@@ -104,6 +111,7 @@ export class NativeList extends Component {
 		};
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
+
 	// selectAll
 	selectAll(value, defaultSelected, cb) {
 		let items = this.state.items.filter((item) => {item.status = value; return item; });
@@ -116,6 +124,7 @@ export class NativeList extends Component {
 			defaultSelectAll: value
 		}, cb);
 	}
+
 	// filter
 	filterBySearch(value) {
 		if(value) {
@@ -167,21 +176,21 @@ export class NativeList extends Component {
 
 		if(this.props.title) {
 			titleExists = true;
-			title = (<h4 className="ab-componentTitle col s12 col-xs-12">{this.props.title}</h4>);
+			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		let listClass = 'ab-component ab-ListComponent staticSearch-'+this.props.staticSearch+' title-'+titleExists;
+		let listClass = 'rbc rbc-list search-' + this.props.showSearch + ' title-' + titleExists;
 
 		return (
-			<div className={"col s12 col-xs-12 card thumbnail "+listClass} style={this.props.defaultStyle}>
+			<div className={"col s12 col-xs-12 card thumbnail " + listClass} style={this.props.defaultStyle}>
 				{title}
 				{searchComponent}
 				{listComponent}
 			</div>
 		);
 	}
-
 }
+
 NativeList.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
 	size: React.PropTypes.number,
@@ -190,6 +199,7 @@ NativeList.propTypes = {
 	sortBy: React.PropTypes.string,
 	includeSelectAll: React.PropTypes.bool
 };
+
 // Default props value
 NativeList.defaultProps = {
 	showCount: true,

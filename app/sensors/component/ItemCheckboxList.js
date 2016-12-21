@@ -1,6 +1,4 @@
 import { default as React, Component } from 'react';
-import { render } from 'react-dom';
-var Style = require('../../helper/Style.js');
 
 export class ItemCheckboxList extends Component {
 	constructor(props) {
@@ -12,6 +10,7 @@ export class ItemCheckboxList extends Component {
 		this.handleTagClick = this.handleTagClick.bind(this);
 		this.handleListClickAll = this.handleListClickAll.bind(this);
 	}
+
 	componentDidMount() {
 		if(this.props.defaultSelected) {
 			this.setState({
@@ -22,6 +21,7 @@ export class ItemCheckboxList extends Component {
 			}.bind(this));
 		}
 	}
+
 	// remove selected types if not in the list
 	componentDidUpdate() {
 		var updated = null;
@@ -47,11 +47,13 @@ export class ItemCheckboxList extends Component {
 			}
 		}
 	}
+
 	updateAction() {
 		if(!this.state.selectedItems.length) {
 			this.props.onSelect(null);
 		}
 	}
+
 	// handler function for select all
 	handleListClickAll(value, selectedStatus) {
 		this.props.selectAll(selectedStatus);
@@ -64,6 +66,7 @@ export class ItemCheckboxList extends Component {
 			this.props.onSelect(this.state.selectedItems);
 		}.bind(this));
 	}
+
 	// Handler function when a checkbox is clicked
 	handleListClick(value, selectedStatus) {
 		// If the checkbox selectedStatus is true, then update selectedItems array
@@ -85,6 +88,7 @@ export class ItemCheckboxList extends Component {
 			this.handleTagClick(value);
 		}
 	}
+
 	// Handler function when a cancel button on tag is clicked to remove it
 	handleTagClick(value) {
 		// Pass the older value props to parent components to remove older list in terms query
@@ -105,6 +109,7 @@ export class ItemCheckboxList extends Component {
 			this.props.onSelect(this.state.selectedItems);
 		}
 	}
+
 	render() {
 		let items = this.props.items;
 		let selectedItems = this.state.selectedItems;
@@ -149,7 +154,7 @@ export class ItemCheckboxList extends Component {
 			}.bind(this));
 		}
 		return (
-			<div className="ab-ListComponent-container col s12 col-xs-12">
+			<div className="rbc-list-container col s12 col-xs-12">
 				<div className="row">
 					{TagItemsArray}
 				</div>
@@ -173,6 +178,7 @@ class ListItem extends Component {
 			status: this.props.status || false,
 		};
 	}
+
 	componentDidUpdate() {
 		if(this.props.status !== this.state.initialStatus) {
 			this.setState({
@@ -181,17 +187,20 @@ class ListItem extends Component {
 			});
 		}
 	}
+
 	handleClick() {
 		this.setState({
 			status: !this.state.status
 		});
 		this.props.handleClick(this.props.value, !this.state.status);
 	}
+
 	handleCheckboxChange(event) {
 		this.setState({
 			status: event.target.checked
 		});
 	}
+
 	render() {
 		let count;
 		// Check if the user has set to display countField
@@ -199,11 +208,11 @@ class ListItem extends Component {
 			count = <span> ({this.props.doc_count}) </span>;
 		}
 		return (
-			<div onClick={this.handleClick.bind(this) } className="ab-ListComponent-listitem ab-checkbox-container checkboxItem col s12 col-xs-12">
-				<input type="checkbox" className="ab-checkbox"
+			<div onClick={this.handleClick.bind(this) } className="rbc-list-item checkbox-item col s12 col-xs-12">
+				<input type="checkbox"
 					checked={this.state.status}
 					onChange={this.handleCheckboxChange.bind(this) } />
-				<label > {this.props.value} {count}</label>
+				<label> {this.props.value} {count}</label>
 			</div>
 		);
 	}
@@ -213,11 +222,12 @@ class Tag extends Component {
 	constructor(props) {
 		super(props);
 	}
+
 	render() {
 		return (
-			<span onClick={this.props.onClick.bind(null, this.props.value) } className="ab-ListComponent-tagItem col">
+			<span onClick={this.props.onClick.bind(null, this.props.value) } className="tag-item col">
 				<span>{this.props.value}</span>
-				<a href="javascript:void(0)" className="ab-ListComponent-closeTag"> x </a>
+				<a href="javascript:void(0)" className="close"> x </a>
 			</span>
 		);
 	}

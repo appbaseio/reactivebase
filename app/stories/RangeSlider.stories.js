@@ -1,27 +1,12 @@
 import React, { Component } from 'react';
-import { ReactiveBase, ToggleButton, ResultList } from '../app.js';
+import { ReactiveBase, RangeSlider, ResultList } from '../app.js';
 import { Img } from '../../reactive-lib/other/Img.js';
 
 require('./list.css');
 
-export default class ToggleButtonDefault extends Component {
+export default class RangeSliderDefault extends Component {
 	constructor(props) {
 		super(props);
-
-		this.toggleData = [{
-			"label": "Social",
-			"value": "Social"
-		}, {
-			"label": "New In Town",
-			"value": "New In Town"
-		}, {
-			"label": "Travel",
-			"value": "Travel"
-		}, {
-			"label": "Outdoors",
-			"value": "Outdoors"
-		}];
-
 		this.onData = this.onData.bind(this);
 		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
 	}
@@ -73,32 +58,32 @@ export default class ToggleButtonDefault extends Component {
 	render() {
 		return (
 			<ReactiveBase
-				appname="meetup_demo"
-				username="LPpISlEBe"
-				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
+				appname="reactivemap_demo"
+				username="y4pVxY2Ok"
+				password="c92481e2-c07f-4473-8326-082919282c18"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
-						<ToggleButton
-							appbaseField={this.props.mapping.topic}
-							sensorId="GuestSensor"
-							title="Guests"
-							data={this.toggleData}
-							{...this.props}
-						/>
+						<RangeSlider
+							sensorId="RangeSensor"
+							appbaseField={this.props.mapping.guests}
+							stepValue={2}
+							title="guests"
+							endThreshold={6}
+							{...this.props} />
 					</div>
 
 					<div className="col s6 col-xs-6">
 						<ResultList
 							sensorId="SearchResult"
-							appbaseField="group.group_topics.topic_name_raw"
+							appbaseField={this.props.mapping.topic}
 							title="Meetups"
 							sortBy="asc"
 							from={0}
 							size={20}
 							onData={this.onData}
 							depends={{
-								GuestSensor: {"operation": "must"}
+								RangeSensor: {"operation": "must"}
 							}}
 						/>
 					</div>
@@ -108,9 +93,9 @@ export default class ToggleButtonDefault extends Component {
 	}
 }
 
-ToggleButtonDefault.defaultProps = {
-	title: 'Price',
+RangeSliderDefault.defaultProps = {
 	mapping: {
-		topic: 'group.group_topics.topic_name_raw.raw'
+		guests: 'guests',
+		topic: 'group.group_topics.topic_name_raw'
 	}
 };

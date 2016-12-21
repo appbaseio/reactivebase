@@ -1,5 +1,4 @@
 import {default as React, Component} from 'react';
-import { render } from 'react-dom';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
@@ -68,16 +67,18 @@ export class TextField extends Component {
 	render() {
 		let title = null,
 			titleExists = false,
-			textFieldClass = 'rbc rbc-textfield';
+			textFieldClass = 'rbc rbc-textfield col s12 col-xs-12 card thumbnail';
 		if(this.props.title) {
 			titleExists = true;
-			title = (<h4 className="rbc-title rbc-textfield-title col s12 col-xs-12">{this.props.title}</h4>);
+			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
-		textFieldClass += 'title-'+titleExists;
+		textFieldClass += ' title-' + titleExists;
 		return (
 			<div className={textFieldClass}>
 				{title}
-				<input className="rbc-input rbc-textfield-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue} />
+				<div className="rbc-search-component col s12 col-xs-12">
+					<input className="rbc-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue} />
+				</div>
 			</div>
 		);
 	}
@@ -89,6 +90,7 @@ TextField.propTypes = {
 	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string
 };
+
 // Default props value
 TextField.defaultProps = {
 };

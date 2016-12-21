@@ -1,5 +1,4 @@
 import {default as React, Component} from 'react';
-import { render } from 'react-dom';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
@@ -18,6 +17,7 @@ export class ResultList extends Component {
 		this.nextPage = this.nextPage.bind(this);
 		this.appliedQuery = {};
 	}
+
 	componentDidMount() {
 		this.createChannel();
 		this.listComponent();
@@ -170,6 +170,7 @@ export class ResultList extends Component {
 		}
 		return result;
 	}
+
 	nextPage() {
 		let channelOptionsObj = manager.channels[this.channelId].previousSelectedSensor['channel-options-' + this.channelId];
 		let obj = {
@@ -181,6 +182,7 @@ export class ResultList extends Component {
 		};
 		manager.nextPage(this.channelId);
 	}
+
 	listComponent() {
 		let node = this.refs.ListContainer;
 		if (node) {
@@ -191,20 +193,23 @@ export class ResultList extends Component {
 			});
 		}
 	}
+
 	render() {
-		let title, titleExists;
+		let title = null,
+			titleExists = false;
 		if(this.props.title) {
 			titleExists = true;
-			title = (<h4 className="ab-componentTitle col s12 col-xs-12">{this.props.title}</h4>);
+			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 		return (
-			<div ref="ListContainer" className="map-container reactiveComponent appbaseMapComponent ResultList card thumbnail" style={this.props.containerStyle}>
+			<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail title-${titleExists}`} style={this.props.containerStyle}>
 				{title}
 				{this.state.resultMarkup}
 			</div >
 		)
 	}
 }
+
 ResultList.propTypes = {
 	sensorId: React.PropTypes.string,
 	appbaseField: React.PropTypes.string,
@@ -216,6 +221,7 @@ ResultList.propTypes = {
 	requestOnScroll: React.PropTypes.bool,
 	containerStyle: React.PropTypes.any
 };
+
 ResultList.defaultProps = {
 	from: 0,
 	size: 20,

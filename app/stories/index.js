@@ -14,10 +14,10 @@ import MultiDropdownListDefault from './MultiDropdownList.stories';
 import DataSearchDefault from './DataSearch.stories';
 import SingleDropdownRangeDefault from './SingleDropdownRange.stories';
 import MultiDropdownRangeDefault from './MultiDropdownRange.stories';
+import RangeSliderDefault from './RangeSlider.stories';
 
-require ('../../dist/css/vendor.min.css');
-require ('../../dist/css/bootstrap.min.css');
 require ('../../dist/css/materialize.min.css');
+require ('../../dist/css/vendor.min.css');
 require ('../../dist/css/style.min.css');
 
 storiesOf('SingleList', module)
@@ -174,5 +174,21 @@ storiesOf('MultiDropdownRange', module)
 	.add('Playground', () => (
 		<MultiDropdownRangeDefault
 			title={text('Title', 'Price Range')}
+		/>
+	));
+
+storiesOf('RangeSlider', module)
+	.addDecorator(withKnobs)
+	.add('Basic', () => (
+		<RangeSliderDefault />
+	))
+	.add('With Default Selected', () => (
+		<RangeSliderDefault
+			defaultSelected={
+				{
+				  "start": 0,
+				  "end": 2
+				}
+			}
 		/>
 	));

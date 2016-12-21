@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Sensor, DataSearch, ResultList } from '../app.js';
+import { ReactiveBase, DataSearch, ResultList } from '../app.js';
 import { Img } from '../../reactive-lib/other/Img.js';
 
 require('./list.css');
@@ -57,35 +57,37 @@ export default class DataSearchDefault extends Component {
 
 	render() {
 		return (
-			<Sensor
+			<ReactiveBase
 				appname="reactivemap_demo"
 				username="y4pVxY2Ok"
 				password="c92481e2-c07f-4473-8326-082919282c18"
 			>
-				<div className="col-xs-6">
-					<DataSearch
-						appbaseField={this.props.mapping.venue}
-						sensorId="VenueSensor"
-						searchInputId="CityVenue"
-						placeholder="Search Venue"
-					/>
-				</div>
+				<div className="row">
+					<div className="col s6 col-xs-6">
+						<DataSearch
+							appbaseField={this.props.mapping.venue}
+							sensorId="VenueSensor"
+							searchInputId="CityVenue"
+							placeholder="Search Venue"
+						/>
+					</div>
 
-				<div className="col-xs-6">
-					<ResultList
-						sensorId="SearchResult"
-						appbaseField={this.props.mapping.topic}
-						title="Meetups"
-						sortBy="asc"
-						from={0}
-						size={20}
-						onData={this.onData}
-						depends={{
-							VenueSensor: {"operation": "must"}
-						}}
-					/>
+					<div className="col s6 col-xs-6">
+						<ResultList
+							sensorId="SearchResult"
+							appbaseField={this.props.mapping.topic}
+							title="Meetups"
+							sortBy="asc"
+							from={0}
+							size={20}
+							onData={this.onData}
+							depends={{
+								VenueSensor: {"operation": "must"}
+							}}
+						/>
+					</div>
 				</div>
-			</Sensor>
+			</ReactiveBase>
 		);
 	}
 }

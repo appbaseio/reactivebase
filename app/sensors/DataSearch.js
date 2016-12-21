@@ -1,9 +1,7 @@
 import { default as React, Component } from 'react';
-import { render } from 'react-dom';
 import Select from 'react-select';
-import {manager} from '../middleware/ChannelManager.js';
+import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
-var $ = require('jquery');
 
 export class DataSearch extends Component {
 	constructor(props, context) {
@@ -23,19 +21,13 @@ export class DataSearch extends Component {
 		this.defaultSearchQuery = this.defaultSearchQuery.bind(this);
 		this.previousSelectedSensor = {};
 	}
+
 	// Get the items from Appbase when component is mounted
 	componentDidMount() {
 		this.setQueryInfo();
 		this.createChannel();
-		$(".Select-input input").css({
-			'height': '20px',
-			'-webkit-transition': 'none',
-			'-moz-transition': 'none',
-			'-ms-transition': 'none',
-			'-o-transition': 'none',
-			'transition': 'none'
-		})
 	}
+
 	// set the query type and input data
 	setQueryInfo() {
 		let obj = {
@@ -55,6 +47,7 @@ export class DataSearch extends Component {
 		};
 		helper.selectedSensor.setSensorInfo(searchObj);
 	}
+
 	// Create a channel which passes the depends and receive results whenever depends changes
 	createChannel() {
 		let depends = this.props.depends ? this.props.depends : {};
@@ -78,6 +71,7 @@ export class DataSearch extends Component {
 			this.setData(rawData);
 		}.bind(this));
 	}
+
 	//default query
 	defaultSearchQuery(value) {
 		return {
@@ -130,12 +124,14 @@ export class DataSearch extends Component {
 			});
 		}
 	}
+
 	// Search results often contain duplicate results, so display only unique values
 	removeDuplicates(myArr, prop) {
 		return myArr.filter((obj, pos, arr) => {
 			return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
 		});
 	}
+
 	// When user has selected a search value
 	handleSearch(currentValue) {
 		let value = currentValue ? currentValue.value : null;
@@ -149,11 +145,11 @@ export class DataSearch extends Component {
 			currentValue: value
 		});
 	}
+
 	render() {
 		return (
-			<div className="ab-component ab-SearchComponent">
+			<div className="rbc rbc-datasearch">
 				<Select.Async
-					className="ab-select-react"
 					name="appbase-search"
 					value={this.state.currentValue}
 					loadOptions={this.setValue}
@@ -164,6 +160,7 @@ export class DataSearch extends Component {
 		);
 	}
 }
+
 DataSearch.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	sensorInputId: React.PropTypes.string,
@@ -172,6 +169,7 @@ DataSearch.propTypes = {
 	placeholder: React.PropTypes.string,
 	size: React.PropTypes.number,
 };
+
 // Default props value
 DataSearch.defaultProps = {
 	placeholder: "Search...",
