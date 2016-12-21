@@ -223,7 +223,7 @@ class channelManager {
 			from: from
 		};
 		this.queryOptions[channelId] = optionValues;
-		this.appbaseConfig[channelId] = this.setAppbaseRef(config);
+		this.appbaseConfig[channelId] = config;
 		depends['channel-options-'+channelId] = optionValues;
 		let previousSelectedSensor = {
 			['channel-options-'+channelId]: optionValues
@@ -251,16 +251,6 @@ class channelManager {
 			channelId: channelId,
 			emitter: this.emitter
 		};
-	}
-
-	// set appbase ref
-	setAppbaseRef(config) {
-		return new Appbase({
-			url: 'https://scalr.api.appbase.io',
-			appname: config.appname,
-			username: config.username,
-			password: config.password
-		});
 	}
 };
 export const manager = new channelManager();

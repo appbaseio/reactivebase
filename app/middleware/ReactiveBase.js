@@ -9,15 +9,18 @@ export class ReactiveBase extends Component {
 		this.state = {};
 		// this.appbaseRef = helper.setConfigObject(this.props.config);
 		// manager.setConfig(this.props.config.appbase);
+
+		this.appbaseConfig = new Appbase({
+			url: 'https://scalr.api.appbase.io',
+			appname: this.props.appname,
+			username: this.props.username,
+			password: this.props.password
+		});
 	}
 
 	getChildContext() {
 		return {
-			appbaseConfig: {
-				username: this.props.username,
-				password: this.props.password,
-				appname: this.props.appname
-			}
+			appbaseConfig: this.appbaseConfig
 		};
 	}
 
