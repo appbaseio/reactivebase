@@ -62,28 +62,30 @@ export default class DataSearchDefault extends Component {
 				username="y4pVxY2Ok"
 				password="c92481e2-c07f-4473-8326-082919282c18"
 			>
-				<div className="col-xs-6">
-					<DataSearch
-						appbaseField={this.props.mapping.venue}
-						sensorId="VenueSensor"
-						searchInputId="CityVenue"
-						placeholder="Search Venue"
-					/>
-				</div>
+				<div className="row">
+					<div className="col s6 col-xs-6">
+						<DataSearch
+							appbaseField={this.props.mapping.venue}
+							sensorId="VenueSensor"
+							searchInputId="CityVenue"
+							placeholder="Search Venue"
+						/>
+					</div>
 
-				<div className="col-xs-6">
-					<ResultList
-						sensorId="SearchResult"
-						appbaseField={this.props.mapping.topic}
-						title="Meetups"
-						sortBy="asc"
-						from={0}
-						size={20}
-						onData={this.onData}
-						depends={{
-							VenueSensor: {"operation": "must"}
-						}}
-					/>
+					<div className="col s6 col-xs-6">
+						<ResultList
+							sensorId="SearchResult"
+							appbaseField={this.props.mapping.topic}
+							title="Meetups"
+							sortBy="asc"
+							from={0}
+							size={20}
+							onData={this.onData}
+							depends={{
+								VenueSensor: {"operation": "must"}
+							}}
+						/>
+					</div>
 				</div>
 			</Sensor>
 		);

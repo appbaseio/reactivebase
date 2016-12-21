@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Sensor, SingleList, ResultList } from '../app.js';
+import { Sensor, RangeSlider, ResultList } from '../app.js';
 import { Img } from '../../reactive-lib/other/Img.js';
 
 require('./list.css');
 
-export default class SingleListDefault extends Component {
+export default class RangeSliderDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.onData = this.onData.bind(this);
@@ -58,46 +58,42 @@ export default class SingleListDefault extends Component {
 	render() {
 		return (
 			<Sensor
-				appname="meetup_demo"
-				username="LPpISlEBe"
-				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
+				appname="reactivemap_demo"
+				username="y4pVxY2Ok"
+				password="c92481e2-c07f-4473-8326-082919282c18"
 			>
-				<div className="row">
-					<div className="col s6 col-xs-6">
-						<SingleList
-							sensorId="CitySensor"
-							appbaseField={this.props.mapping.city}
-							showCount={true}
-							size={1000}
-							searchPlaceholder="Search City"
-							{...this.props}
-						/>
-					</div>
+				<div className="col-xs-6">
+					<RangeSlider
+						sensorId="RangeSensor"
+						appbaseField={this.props.mapping.guests}
+						stepValue={2}
+						title="guests"
+						endThreshold={6}
+						{...this.props} />
+				</div>
 
-					<div className="col s6 col-xs-6">
-						<ResultList
-							sensorId="SearchResult"
-							appbaseField={this.props.mapping.topic}
-							title="Meetups"
-							sortBy="asc"
-							from={0}
-							size={20}
-							onData={this.onData}
-							depends={{
-								CitySensor: {"operation": "must"}
-							}}
-						/>
-					</div>
+				<div className="col-xs-6">
+					<ResultList
+						sensorId="SearchResult"
+						appbaseField={this.props.mapping.topic}
+						title="Meetups"
+						sortBy="asc"
+						from={0}
+						size={20}
+						onData={this.onData}
+						depends={{
+							RangeSensor: {"operation": "must"}
+						}}
+					/>
 				</div>
 			</Sensor>
 		);
 	}
 }
 
-SingleListDefault.defaultProps = {
-	title: 'Cities',
+RangeSliderDefault.defaultProps = {
 	mapping: {
-		city: 'group.group_city.raw',
+		guests: 'guests',
 		topic: 'group.group_topics.topic_name_raw'
 	}
 };

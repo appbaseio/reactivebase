@@ -1,21 +1,21 @@
 import { default as React, Component } from 'react';
-import { render } from 'react-dom';
-import {NativeList} from './NativeList';
+import { NativeList } from './NativeList';
 
 export class MultiList extends Component {
 	constructor(props, context) {
 		super(props);
 	}
+
 	render() {
 		return (
-			<NativeList 
+			<NativeList
 				{...this.props}
 				multipleSelect={true}
 			/>
 		);
 	}
-
 }
+
 MultiList.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	appbaseField : React.PropTypes.string.isRequired,
@@ -27,6 +27,7 @@ MultiList.propTypes = {
 	showSearch: React.PropTypes.bool,
 	searchPlaceholder: React.PropTypes.string
 };
+
 // Default props value
 MultiList.defaultProps = {
 	showCount: true,

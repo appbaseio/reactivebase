@@ -1,0 +1,38 @@
+.rbc.rbc-range {
+	height: 200px;
+	position: relative;
+	background: #fff;
+	overflow: auto;
+	padding: 0;
+
+	.rbc-list-container {
+		height: 100%;
+		padding: 0;
+		overflow: auto;
+
+		.rbc-list-item {
+			a {
+				padding: 5px 10px;
+				display: block;
+				color: $dark-grey;
+
+				&.active {
+					color: $blue;
+					font-weight: bold;
+				}
+			}
+
+			&.checkbox-item {
+				padding: 5px 10px;
+
+				label {
+					font-weight: normal;
+				}
+			}
+		}
+
+		.row {
+			margin-bottom: 0;
+		}
+	}
+}

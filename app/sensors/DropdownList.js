@@ -138,24 +138,27 @@ export class DropdownList extends Component {
 
 		if(this.props.title) {
 			titleExists = true;
-			title = (<h4 className="ab-componentTitle col s12 col-xs-12">{this.props.title}</h4>);
+			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		let listClass = 'ab-component ab-ListComponent staticSearch-'+this.props.staticSearch+' title-'+titleExists;
+		let listClass = 'rbc rbc-dropdown search-'+this.props.staticSearch+' title-'+titleExists;
 
 		return (
 			<div className={"col s12 col-xs-12 card thumbnail "+listClass} style={this.props.defaultStyle}>
-				{title}
-
-				{this.state.items.length ?
-					<Select
-						options={this.state.items}
-						clearable={false}
-						value={this.state.value}
-						onChange={this.handleChange}
-						multi={this.props.multipleSelect}
-						placeholder={this.props.placeholder}
-						searchable={false} /> : null }
+				<div className="row">
+					{title}
+					<div className="col s12 col-xs-12">
+						{this.state.items.length ?
+							<Select
+								options={this.state.items}
+								clearable={false}
+								value={this.state.value}
+								onChange={this.handleChange}
+								multi={this.props.multipleSelect}
+								placeholder={this.props.placeholder}
+								searchable={false} /> : null }
+					</div>
+				</div>
 			</div>
 		);
 	}
@@ -176,7 +179,7 @@ DropdownList.defaultProps = {
 	title: null,
 	placeholder: 'Select...',
 	defaultStyle: {
-		height: '130px',
+		height: '110px',
 		overflow: 'visible'
 	}
 };

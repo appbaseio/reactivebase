@@ -1,20 +1,18 @@
 import { default as React, Component } from 'react';
-import { render } from 'react-dom';
-import {manager} from '../middleware/ChannelManager.js';
-import {HistoGramComponent} from './component/HistoGram.js';
+import { manager } from '../middleware/ChannelManager.js';
+import { HistoGramComponent } from './component/HistoGram.js';
 import Slider from 'rc-slider';
 var helper = require('../middleware/helper.js');
-var Style = require('../helper/Style.js');
+var _ = require('lodash');
 
 export class RangeSlider extends Component {
-
 	constructor(props, context) {
 		super(props);
 		let startThreshold = this.props.startThreshold ? this.props.startThreshold : 0;
 		let endThreshold = this.props.endThreshold ? this.props.endThreshold : 5;
 		let values = {};
 		values.min = this.props.defaultSelected.start < this.props.startThreshold ? this.props.startThreshold :  this.props.defaultSelected.start;
-		values.max = this.props.defaultSelected.end < this.props.endThreshold ? this.props.endThreshold :  this.props.defaultSelected.end;
+		values.max = this.props.defaultSelected.end < this.props.endThreshold ? this.props.defaultSelected.end :  this.props.endThreshold;
 		this.state = {
 			values: values,
 			startThreshold: startThreshold,
@@ -31,17 +29,20 @@ export class RangeSlider extends Component {
 		this.handleValuesChange = this.handleValuesChange.bind(this);
 		this.handleResults = this.handleResults.bind(this);
 	}
+
 	// Get the items from Appbase when component is mounted
 	componentDidMount() {
 		this.setQueryInfo();
 		this.createChannel();
 	}
+
 	// Handle function when value slider option is changing
 	handleValuesChange(component, values) {
 		this.setState({
-			values: values,
+			values: values
 		});
 	}
+
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
@@ -53,6 +54,7 @@ export class RangeSlider extends Component {
 		};
 		helper.selectedSensor.setSensorInfo(obj);
 	}
+
 	// Create a channel which passes the depends and receive results whenever depends changes
 	createChannel() {
 		// Set the depends - add self aggs query as well with depends
@@ -79,6 +81,7 @@ export class RangeSlider extends Component {
 			this.setData(data);
 		}.bind(this));
 	}
+
 	setData(data) {
 		try {
 			this.addItemsToList(eval(`data.aggregations["${this.props.appbaseField}"].buckets`));
@@ -86,6 +89,7 @@ export class RangeSlider extends Component {
 			console.log(e);
 		}
 	}
+
 	addItemsToList(newItems) {
 		newItems = _.orderBy(newItems, ['key'], ['asc']);
 		let itemLength = newItems.length;
@@ -106,6 +110,7 @@ export class RangeSlider extends Component {
 			}.bind(this));
 		}
 	}
+
 	countCalc(min, max, newItems) {
 		let counts = [];
 		for(let i = min; i <= max; i++) {
@@ -115,6 +120,7 @@ export class RangeSlider extends Component {
 		}
 		return counts;
 	}
+
 	// Handle function when slider option change is completed
 	handleResults(textVal, value) {
 		let values;
@@ -140,25 +146,26 @@ export class RangeSlider extends Component {
 			values: values
 		});
 	}
+
 	render() {
-		 let title =null,
+		 let title = null,
 			histogram = null,
 			titleExists = false;
 
 		if(this.props.title) {
 			titleExists = true;
-			title = (<h4 className="ab-componentTitle col s12 col-xs-12">{this.props.title}</h4>);
+			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 		if(this.state.counts && this.state.counts.length) {
 			histogram = (<HistoGramComponent data={this.state.counts} />);
 		}
 
 		return (
-			<div className="ab-component ab-SliderComponent card thumbnail col s12 col-xs-12">
+			<div className={`rbc rbc-slider card thumbnail col s12 col-xs-12 title-${titleExists}`}>
 				{title}
 				{histogram}
-				<div className="ab-SliderComponent-Container col s12 col-xs-12" style={{'margin': '25px 0'}}>
-					<Slider range className="ab-slider"
+				<div className="rbc-slider-container col s12 col-xs-12" style={{'margin': '25px 0'}}>
+					<Slider range
 						defaultValue={[this.state.values.min, this.state.values.max]}
 						min={this.state.startThreshold}
 						max={this.state.endThreshold}
@@ -169,7 +176,6 @@ export class RangeSlider extends Component {
 			</div>
 		);
 	}
-
 }
 
 RangeSlider.propTypes = {

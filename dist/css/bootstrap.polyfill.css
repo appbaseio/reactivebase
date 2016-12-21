@@ -1,24 +1,24 @@
-.reactiveComponent.thumbnail {
+.rbc.thumbnail {
   margin: 0.5rem 0 1rem 0; }
 
-.reactiveComponent .componentTitle {
+.rbc .rbc-title {
   font-size: 1.8em;
   line-height: 110%;
   margin: 0.5em 0; }
 
-.reactiveComponent.listComponent .listContainer {
+.rbc.rbc-list .rbc-list-container {
   margin-top: 15px; }
-  .reactiveComponent.listComponent .listContainer .listItem {
+  .rbc.rbc-list .rbc-list-container .rbc-list-item {
     margin-bottom: 15px; }
 
-.reactiveComponent .InputRange-label {
+.rbc .InputRange-label {
   font-size: 12px; }
 
-.reactiveComponent .checkboxItem, .reactiveComponent .radioItem {
+.rbc .checkbox-item, .rbc .radio-item {
   cursor: pointer; }
-  .reactiveComponent .checkboxItem label, .reactiveComponent .radioItem label {
+  .rbc .checkbox-item label, .rbc .radio-item label {
     padding-left: 10px;
     font-weight: normal;
     cursor: pointer; }
-  .reactiveComponent .checkboxItem input, .reactiveComponent .radioItem input {
+  .rbc .checkbox-item input, .rbc .radio-item input {
     cursor: pointer; }

@@ -14,10 +14,11 @@ var files = {
 			'node_modules/react-select/dist/react-select.min.css',
 			'node_modules/react-input-range/dist/react-input-range.min.css',
 			'node_modules/rc-slider/assets/index.css',
-			'bower_components/font-awesome/css/font-awesome.min.css'
+			'bower_components/font-awesome/css/font-awesome.min.css',
 		],
-		custom: [dir_path+'assets/css/*.css'],
-		sassFile: [dir_path+'assets/styles/*.scss']
+		custom: [dir_path+'assets/css/style.css'],
+		sassFile: [dir_path+'assets/styles/*.scss'],
+		sassPartials: [dir_path+'assets/styles/partials/**/*.scss']
 	},
 	js: {
 		vendor: [
@@ -33,6 +34,7 @@ var files = {
 
 gulp.task('vendorcss', function() {
 	return gulp.src(files.css.vendor)
+		.pipe(minifyCSS())
 		.pipe(concat('vendor.min.css'))
 		.pipe(gulp.dest('dist/css'));
 });
@@ -109,10 +111,13 @@ gulp.task('compact', [
 ]);
 
 gulp.task('watchfiles', function() {
-	// gulp.watch(files.css.custom, ['customcss']);
 	gulp.watch(files.css.sassFile, ['moveCss']);
+});
+
+gulp.task('watchSassPartials', function() {
+	gulp.watch(files.css.sassPartials, ['moveCss']);
 });
 
 gulp.task('default', ['compact']);
 
-gulp.task('watch', ['compact', 'watchfiles']);
+gulp.task('watch', ['compact', 'watchfiles', 'watchSassPartials']);

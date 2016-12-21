@@ -77,29 +77,31 @@ export default class ToggleButtonDefault extends Component {
 				username="LPpISlEBe"
 				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
 			>
-				<div className="col-xs-6">
-					<ToggleButton
-						appbaseField={this.props.mapping.topic}
-						sensorId="GuestSensor"
-						title="Guests"
-						data={this.toggleData}
-						{...this.props}
-					/>
-				</div>
+				<div className="row">
+					<div className="col s6 col-xs-6">
+						<ToggleButton
+							appbaseField={this.props.mapping.topic}
+							sensorId="GuestSensor"
+							title="Guests"
+							data={this.toggleData}
+							{...this.props}
+						/>
+					</div>
 
-				<div className="col-xs-6">
-					<ResultList
-						sensorId="SearchResult"
-						appbaseField="group.group_topics.topic_name_raw"
-						title="Meetups"
-						sortBy="asc"
-						from={0}
-						size={20}
-						onData={this.onData}
-						depends={{
-							GuestSensor: {"operation": "must"}
-						}}
-					/>
+					<div className="col s6 col-xs-6">
+						<ResultList
+							sensorId="SearchResult"
+							appbaseField="group.group_topics.topic_name_raw"
+							title="Meetups"
+							sortBy="asc"
+							from={0}
+							size={20}
+							onData={this.onData}
+							depends={{
+								GuestSensor: {"operation": "must"}
+							}}
+						/>
+					</div>
 				</div>
 			</Sensor>
 		);

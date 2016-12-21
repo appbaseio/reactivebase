@@ -52,33 +52,35 @@ export default class MultiRangeDefault extends Component {
 				username="cf7QByt5e"
 				password="d2d60548-82a9-43cc-8b40-93cbbe75c34c"
 			>
-				<div className="col-xs-6">
-					<MultiRange
-						sensorId="PriceSensor"
-						appbaseField={this.props.mapping.price}
-						data={
-							[{"start": 0, "end": 100, "label": "Cheap"},
-							{"start": 101, "end": 200, "label": "Moderate"},
-							{"start": 201, "end": 500, "label": "Pricey"},
-							{"start": 501, "end": 1000, "label": "First Date"}]
-						}
-						{...this.props}
-					/>
-				</div>
+				<div className="row">
+					<div className="col s6 col-xs-6">
+						<MultiRange
+							sensorId="PriceSensor"
+							appbaseField={this.props.mapping.price}
+							data={
+								[{"start": 0, "end": 100, "label": "Cheap"},
+								{"start": 101, "end": 200, "label": "Moderate"},
+								{"start": 201, "end": 500, "label": "Pricey"},
+								{"start": 501, "end": 1000, "label": "First Date"}]
+							}
+							{...this.props}
+						/>
+					</div>
 
-				<div className="col-xs-6">
-					<ResultList
-						sensorId="SearchResult"
-						appbaseField={this.props.mapping.name}
-						title="Cars"
-						sortBy="asc"
-						from={0}
-						size={20}
-						onData={this.onData}
-						depends={{
-							PriceSensor: {"operation": "must"}
-						}}
-					/>
+					<div className="col s6 col-xs-6">
+						<ResultList
+							sensorId="SearchResult"
+							appbaseField={this.props.mapping.name}
+							title="Cars"
+							sortBy="asc"
+							from={0}
+							size={20}
+							onData={this.onData}
+							depends={{
+								PriceSensor: {"operation": "must"}
+							}}
+						/>
+					</div>
 				</div>
 			</Sensor>
 		);

@@ -91,7 +91,6 @@ export default class TextFieldDefault extends Component {
 }
 
 TextFieldDefault.defaultProps = {
-	title: 'Name',
 	mapping: {
 		name: 'name'
 	}

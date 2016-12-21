@@ -1,5 +1,4 @@
 import {default as React, Component} from 'react';
-import { render } from 'react-dom';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
@@ -76,16 +75,16 @@ export class SingleRange extends Component {
 		let isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
+
 	renderButtons() {
 		let buttons;
 		let selectedText = this.state.selected && this.state.selected.label ? this.state.selected.label : '';
 		if(this.props.data) {
 			buttons = this.props.data.map((record, i) => {
 				return (
-					<div className="ab-ListComponent-listitem row" key={i} onClick={() => this.handleChange(record)}>
-						<div className="col s12 col-xs-12 ab-radio-container">
+					<div className="rbc-list-item row" key={i} onClick={() => this.handleChange(record)}>
+						<div className="col s12 col-xs-12">
 							<input type="radio"
-								className="ab-radio"
 								checked={selectedText === record.label}
 								name="SingleRange" id="SingleRange"
 								value={record.label} />
@@ -97,18 +96,20 @@ export class SingleRange extends Component {
 		}
 		return buttons;
 	}
+
 	// render
 	render() {
-		let title, titleExists;
+		let title = null,
+			titleExists = false;
 		if(this.props.title) {
 			titleExists = true;
-			title = (<h4 className="ab-componentTitle col s12 col-xs-12">{this.props.title}</h4>);
+			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 		return (
-			<div className={"ab-component ab-ButtonGroupComponent col s12 col-xs-12 card thumbnail"} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-range col s12 col-xs-12 card thumbnail title-${titleExists}`} style={this.props.defaultStyle}>
 				<div className="row">
 					{title}
-					<div className="col s12 col-xs-12">
+					<div className="col s12 col-xs-12 rbc-list-container">
 						{this.renderButtons()}
 					</div>
 				</div>
@@ -124,6 +125,7 @@ SingleRange.propTypes = {
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.string
 };
+
 // Default props value
 SingleRange.defaultProps = {
 	placeholder: "Search...",
