@@ -34,5 +34,6 @@ MultiDropdownList.defaultProps = {
 
 // context type
 MultiDropdownList.contextTypes = {
-	appbaseConfig: React.PropTypes.any.isRequired
+	appbaseRef: React.PropTypes.any.isRequired,
+	type: React.PropTypes.any.isRequired
 };

@@ -29,7 +29,7 @@ export class ResultList extends Component {
 		let depends = this.props.depends ? this.props.depends : {};
 		this.enableSort(depends);
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseConfig, depends, this.props.size, this.props.from);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends, this.props.size, this.props.from);
 		this.channelId = channelObj.channelId;
 		channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
@@ -234,5 +234,6 @@ ResultList.defaultProps = {
 
 // context type
 ResultList.contextTypes = {
-	appbaseConfig: React.PropTypes.any.isRequired
+	appbaseRef: React.PropTypes.any.isRequired,
+	type: React.PropTypes.any.isRequired
 };
