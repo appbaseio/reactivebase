@@ -1,7 +1,7 @@
 {
   "name": "@appbaseio/reactivebase",
   "version": "0.0.1",
-  "description": "Data Components for reactive User Interfaces",
+  "description": "Data components for building reactive UIs",
   "main": "lib/app.js",
   "scripts": {
     "test": "react-scripts test --env=jsdom",
@@ -21,11 +21,6 @@
     "umd/",
     "examples/"
   ],
-  "author": {
-    "name": "Farhan Chauhan",
-    "email": "farhan@appbase.io",
-    "url": "https://github.com/farhan687"
-  },
   "license": "Apache-2.0",
   "dependencies": {
     "appbase-js": "^0.10.8",
