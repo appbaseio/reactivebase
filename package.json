@@ -21,11 +21,6 @@
     "umd/",
     "examples/"
   ],
-  "author": {
-    "name": "Farhan Chauhan",
-    "email": "farhan@appbase.io",
-    "url": "https://github.com/farhan687"
-  },
   "license": "Apache-2.0",
   "dependencies": {
     "appbase-js": "^0.10.8",
