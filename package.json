@@ -1,7 +1,7 @@
 {
-  "name": "sensor-js",
-  "version": "0.0.7",
-  "description": "Data Components for building Reactive Maps Interfaces",
+  "name": "@appbaseio/reactivebase",
+  "version": "0.0.1",
+  "description": "Data Components for reactive User Interfaces",
   "main": "lib/app.js",
   "scripts": {
     "test": "react-scripts test --env=jsdom",
