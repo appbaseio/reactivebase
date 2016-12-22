@@ -8,7 +8,7 @@ var umd_config = {
 	entry: './app/app.js',
 
 	output: {
-		library: 'reactive-maps',
+		library: 'reactivebase',
 		libraryTarget: 'umd',
 	},
 
@@ -164,12 +164,10 @@ switch(CHOOSE_CONFIG) {
 	case 'UMD':
 		final_config = umd_config;
 	break;
-	case 'LIB':
-		final_config = lib_config;
-	break;
 	case 'EXAMPLES':
+	case 'LIB':
 	default:
-		final_config = examples_config;
+		final_config = lib_config;
 	break;
 }
 module.exports = final_config;

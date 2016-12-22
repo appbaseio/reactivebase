@@ -9,8 +9,6 @@ var dir_path = './app/';
 var files = {
 	css: {
 		vendor: [
-			// 'bower_components/bootstrap/dist/css/bootstrap.min.css',
-			// 'bower_components/materialize/dist/css/materialize.min.css',
 			'node_modules/react-select/dist/react-select.min.css',
 			'node_modules/react-input-range/dist/react-input-range.min.css',
 			'node_modules/rc-slider/assets/index.css',
@@ -22,8 +20,6 @@ var files = {
 	},
 	js: {
 		vendor: [
-			'bower_components/jquery/dist/jquery.min.js',
-			'bower_components/bootstrap/dist/js/bootstrap.min.js',
 			'bower_components/lodash/dist/lodash.min.js',
 			'node_modules/appbase-js/browser/appbase.js'
 		],
@@ -52,18 +48,6 @@ gulp.task('vendorjs', function() {
 		.pipe(gulp.dest('dist/js'));
 });
 
-// gulp.task('customjs', function() {
-//     return gulp.src(files.js.custom)
-//         .pipe(jshint())
-//         .pipe(jshint.reporter('default'))
-//         .pipe(concat('app.js'))
-//         .pipe(gulp.dest('dist/js'))
-//         .pipe(uglify())
-//         .pipe(concat('app.min.js'))
-//         .pipe(gulp.dest(dir_path+'dist/js'));
-// });
-
-
 gulp.task('sass', function() {
 	return gulp.src(files.css.sassFile)
 		.pipe(sass.sync().on('error', sass.logError))
@@ -72,26 +56,16 @@ gulp.task('sass', function() {
 
 gulp.task('moveCss', ['customcss'], function() {
 	return gulp.src([
-			'bower_components/bootstrap/dist/css/bootstrap.min.css.map',
-			'bower_components/bootstrap/dist/css/bootstrap.min.css',
-			'bower_components/materialize/dist/css/materialize.min.css',
 			'app/assets/css/bootstrap.polyfill.css',
 			'app/assets/css/material.polyfill.css'
 		])
 		.pipe(gulp.dest('dist/css'));
 });
 
-
-gulp.task('moveListCss', function() {
-	return gulp.src(['examples/list/*.css'])
-		.pipe(gulp.dest('dist/examplesCss'));
-});
-
 gulp.task('moveFonts', function() {
-	return gulp.src(['bower_components/bootstrap/dist/fonts/*',
-		'bower_components/font-awesome/fonts/*',
-		'bower_components/materialize/dist/fonts/**/*',
-		'app/assets/styles/fonts/**/*'
+	return gulp.src([
+			'node_modules/font-awesome/fonts/*',
+			'app/assets/styles/fonts/**/*'
 		])
 		.pipe(gulp.dest('dist/fonts'));
 });
@@ -106,8 +80,7 @@ gulp.task('compact', [
 	'vendorjs',
 	'moveCss',
 	'moveFonts',
-	'moveImages',
-	'moveListCss'
+	'moveImages'
 ]);
 
 gulp.task('watchfiles', function() {

@@ -1,6 +1,6 @@
 import { default as React, Component } from 'react';
 var ReactDOM = require('react-dom');
-import { Img } from '../../reactive-lib/other/Img.js';
+import { Img } from './Img.js';
 import {
 	Sensor,
 	SingleList,

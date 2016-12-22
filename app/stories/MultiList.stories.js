@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ReactiveBase, MultiList, ResultList } from '../app.js';
-import { Img } from '../../reactive-lib/other/Img.js';
+import { Img } from './Img.js';
 
 require('./list.css');
 

@@ -1,49 +1,6 @@
 var {EventEmitter} = require('fbemitter');
 export var sensorEmitter = new EventEmitter();
-export let appbaseRef;
-export let appbaseConfig;
-export function setConfigObject(config){
-	// appbaseConfig = config.appbase;
-	// appbaseRef = new Appbase({
-	// 	url: 'https://scalr.api.appbase.io',
-	// 	appname: config.appbase.appname,
-	// 	username: config.appbase.username,
-	// 	password: config.appbase.password
-	// });
-	// return appbaseRef;
-};
-export var mapStyles = [{
-		key: 'Standard',
-		value: require('../helper/map-styles/Standard.js')
-}, {
-		key: 'Blue Essence',
-		value: require('../helper/map-styles/BlueEssence.js')
-}, {
-		key: 'Blue Water',
-		value: require('../helper/map-styles/BlueWater.js')
-}, {
-		key: 'Flat Map',
-		value: require('../helper/map-styles/FlatMap.js')
-}, {
-		key: 'Light Monochrome',
-		value: require('../helper/map-styles/LightMonochrome.js')
-}, {
-		key: 'Midnight Commander',
-		value: require('../helper/map-styles/MidnightCommander.js')
-}, {
-		key: 'Unsaturated Browns',
-		value: require('../helper/map-styles/UnsaturatedBrowns.js')
-}];
-export function getMapStyle(styleName) {
-	let selectedStyle = mapStyles.filter(function(style) {
-		return style.key === styleName;
-	})
-	if(selectedStyle.length) {
-		return selectedStyle[0].value;
-	} else {
-		return null;
-	}
-}
+
 export var watchForDependencyChange = function(depends, previousSelectedSensor, cb, channelId) {
 	var self = this;
 	let selectedSensor = {};
@@ -131,6 +88,6 @@ function selectedSensorFn() {
 		setSensorInfo: setSensorInfo,
 		setSortInfo: setSortInfo
 	};
-
 };
+
 export var selectedSensor = new selectedSensorFn();
