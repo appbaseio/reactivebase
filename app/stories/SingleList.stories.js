@@ -61,6 +61,7 @@ export default class SingleListDefault extends Component {
 				appname="meetup_demo"
 				username="LPpISlEBe"
 				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
+				type="meetupdata1"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">

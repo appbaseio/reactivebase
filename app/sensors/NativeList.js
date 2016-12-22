@@ -58,7 +58,7 @@ export class NativeList extends Component {
 			size: this.props.size
 		};
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseConfig, depends);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
 		channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
 			let rawData;
@@ -218,5 +218,6 @@ NativeList.defaultProps = {
 
 // context type
 NativeList.contextTypes = {
-	appbaseConfig: React.PropTypes.any.isRequired
+	appbaseRef: React.PropTypes.any.isRequired,
+	type: React.PropTypes.any.isRequired
 };

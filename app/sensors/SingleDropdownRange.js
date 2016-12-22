@@ -59,7 +59,7 @@ export class SingleDropdownRange extends Component {
 	// Create a channel which passes the depends and receive results whenever depends changes
 	createChannel() {
 		let depends = this.props.depends ? this.props.depends : {};
-		var channelObj = manager.create(this.context.appbaseConfig, depends);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
 	}
 
 	// handle the input change and pass the value inside sensor info
@@ -119,5 +119,6 @@ SingleDropdownRange.defaultProps = {
 
 // context type
 SingleDropdownRange.contextTypes = {
-	appbaseConfig: React.PropTypes.any.isRequired
+	appbaseRef: React.PropTypes.any.isRequired,
+	type: React.PropTypes.any.isRequired
 };

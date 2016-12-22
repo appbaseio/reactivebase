@@ -55,7 +55,7 @@ export class DataSearch extends Component {
 			operation: "must",
 			defaultQuery: this.defaultSearchQuery
 		};
-		var channelObj = manager.create(this.context.appbaseConfig, depends);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
 		channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
 			let rawData;
@@ -180,5 +180,6 @@ DataSearch.defaultProps = {
 
 // context type
 DataSearch.contextTypes = {
-	appbaseConfig: React.PropTypes.any.isRequired
+	appbaseRef: React.PropTypes.any.isRequired,
+	type: React.PropTypes.any.isRequired
 };

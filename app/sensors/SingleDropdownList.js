@@ -33,5 +33,6 @@ SingleDropdownList.defaultProps = {
 
 // context type
 SingleDropdownList.contextTypes = {
-	appbaseConfig: React.PropTypes.any.isRequired
+	appbaseRef: React.PropTypes.any.isRequired,
+	type: React.PropTypes.any.isRequired
 };

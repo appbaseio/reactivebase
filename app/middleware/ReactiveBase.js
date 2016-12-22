@@ -7,10 +7,9 @@ export class ReactiveBase extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {};
-		// this.appbaseRef = helper.setConfigObject(this.props.config);
-		// manager.setConfig(this.props.config.appbase);
+		this.type = this.props.type ? this.props.type : '*';
 
-		this.appbaseConfig = new Appbase({
+		this.appbaseRef = new Appbase({
 			url: 'https://scalr.api.appbase.io',
 			appname: this.props.appname,
 			username: this.props.username,
@@ -20,7 +19,8 @@ export class ReactiveBase extends Component {
 
 	getChildContext() {
 		return {
-			appbaseConfig: this.appbaseConfig
+			appbaseRef: this.appbaseRef,
+			type: this.type
 		};
 	}
 
@@ -36,9 +36,11 @@ export class ReactiveBase extends Component {
 ReactiveBase.propTypes = {
 	appname: React.PropTypes.string.isRequired,
 	username: React.PropTypes.string.isRequired,
-	password: React.PropTypes.string.isRequired
+	password: React.PropTypes.string.isRequired,
+	type: React.PropTypes.string
 };
 
 ReactiveBase.childContextTypes = {
-	appbaseConfig: React.PropTypes.any.isRequired
+	appbaseRef: React.PropTypes.any.isRequired,
+	type: React.PropTypes.any.isRequired
 };
