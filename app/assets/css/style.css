@@ -315,6 +315,29 @@ a {
       right: 15px;
       top: 12px;
       color: #1893e7; }
+  .rbc [type="radio"]:checked + label:after,
+  .rbc [type="radio"].with-gap:checked + label:before,
+  .rbc [type="radio"].with-gap:checked + label:after {
+    border-color: #1893e7;
+    background-color: #1893e7; }
+  .rbc [type="checkbox"]:checked + label:before {
+    border-right: 2px solid #1893e7;
+    border-bottom: 2px solid #1893e7; }
+  .rbc input:not([type]):focus:not([readonly]),
+  .rbc input[type=text]:focus:not([readonly]),
+  .rbc input[type=password]:focus:not([readonly]),
+  .rbc input[type=email]:focus:not([readonly]),
+  .rbc input[type=url]:focus:not([readonly]),
+  .rbc input[type=time]:focus:not([readonly]),
+  .rbc input[type=date]:focus:not([readonly]),
+  .rbc input[type=datetime]:focus:not([readonly]),
+  .rbc input[type=datetime-local]:focus:not([readonly]),
+  .rbc input[type=tel]:focus:not([readonly]),
+  .rbc input[type=number]:focus:not([readonly]),
+  .rbc input[type=search]:focus:not([readonly]),
+  .rbc textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #1893e7;
+    box-shadow: 0 1px 0 0 #1893e7; }
 
 .rbc.rbc-datasearch {
   margin-top: 10px;
@@ -437,7 +460,7 @@ a {
     padding-top: 50px; }
 
 .rbc.rbc-range {
-  height: 200px;
+  height: 250px;
   position: relative;
   background: #fff;
   overflow: auto;
@@ -458,7 +481,7 @@ a {
       .rbc.rbc-range .rbc-list-container .rbc-list-item.checkbox-item label {
         font-weight: normal; }
     .rbc.rbc-range .rbc-list-container .row {
-      margin: 5px 0; }
+      margin: 10px 0; }
   .rbc.rbc-range .Select-control {
     height: 38px; }
   .rbc.rbc-range .Select-input input {
@@ -468,6 +491,32 @@ a {
     -ms-transition: none;
     -o-transition: none;
     transition: none; }
+  .rbc.rbc-range .tag-item {
+    background-color: rgba(0, 126, 255, 0.08);
+    border-radius: 2px;
+    border: 1px solid rgba(0, 126, 255, 0.24);
+    color: #007eff;
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 5px;
+    margin-top: 5px;
+    vertical-align: middle;
+    line-height: 18px;
+    padding: 0;
+    display: inline-block;
+    cursor: pointer; }
+    .rbc.rbc-range .tag-item span {
+      padding: 0 7px;
+      position: relative;
+      top: 1px; }
+    .rbc.rbc-range .tag-item .close {
+      font-size: 12px;
+      display: inline-block;
+      border-bottom-left-radius: 2px;
+      border-top-left-radius: 2px;
+      border-right: 1px solid #c2e0ff;
+      border-right: 1px solid rgba(0, 126, 255, 0.24);
+      padding: 1px 5px 3px; }
 
 .rbc.rbs-resultlist {
   height: 100%;
@@ -496,7 +545,9 @@ a {
 .rbc.rbc-textfield {
   padding: 0; }
   .rbc.rbc-textfield .rbc-search-component {
-    padding: 0; }
+    padding: 0;
+    font-weight: bold;
+    font-family: "Lato Bold Italic"; }
 
 .rbc.rbc-togglebutton {
   padding: 0; }

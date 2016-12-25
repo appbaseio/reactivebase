@@ -12,7 +12,7 @@ var files = {
 			'node_modules/react-select/dist/react-select.min.css',
 			'node_modules/react-input-range/dist/react-input-range.min.css',
 			'node_modules/rc-slider/assets/index.css',
-			'bower_components/font-awesome/css/font-awesome.min.css',
+			'node_modules/font-awesome/css/font-awesome.min.css',
 		],
 		custom: [dir_path+'assets/css/style.css'],
 		sassFile: [dir_path+'assets/styles/*.scss'],
@@ -20,7 +20,7 @@ var files = {
 	},
 	js: {
 		vendor: [
-			'bower_components/lodash/dist/lodash.min.js',
+			'node_modules/lodash/dist/lodash.min.js',
 			'node_modules/appbase-js/browser/appbase.js'
 		],
 		custom: [
