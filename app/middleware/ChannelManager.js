@@ -55,7 +55,7 @@ class channelManager {
 				streamQueryObj.type = this.type;
 				this.streamRef[channelId] = appbaseRef.searchStream(streamQueryObj).on('data', function(data) {
 					let obj = {
-						mode: 'stream',
+						mode: 'streaming',
 						data: data,
 						appliedQuery: queryObj
 					};

@@ -35,8 +35,8 @@ export class ResultList extends Component {
 			let data = res.data;
 			let rawData, markersData, newData = [], currentData = [];
 			this.streamFlag = false;
-			if (res.mode === 'stream') {
-				this.channelMethod = 'stream';
+			if (res.mode === 'streaming') {
+				this.channelMethod = 'streaming';
 				let modData = this.streamDataModify(this.state.rawData, res);
 				rawData = modData.rawData;
 				newData = res;

@@ -51,7 +51,7 @@ class Main extends Component {
 		return this.generatePolyColor();
 	}
 	passExistingData(res) {
-		if(res.method === 'stream') {
+		if(res.method === 'streaming') {
 			this.simulationFlag = false;
 		}
 		HeatmapWorker.heatmapExistingData(this.markers);

@@ -62,7 +62,7 @@ export class NativeList extends Component {
 		channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
 			let rawData;
-			if(res.mode === 'stream') {
+			if(res.mode === 'streaming') {
 				rawData = this.state.rawData;
 				rawData.hits.hits.push(res.data);
 			} else if(res.mode === 'historic') {
