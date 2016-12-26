@@ -1,6 +1,7 @@
 import {default as React, Component} from 'react';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+var $ = require('jquery');
 
 export class ResultList extends Component {
 	constructor(props, context) {
@@ -163,11 +164,23 @@ export class ResultList extends Component {
 	// default markup
 	defaultonData(res) {
 		let result;
-		if (res.newData) {
-			result = res.newData.map((marker, index) => {
-				return (<div key={index} className="makerInfo">{JSON.stringify(marker)}</div>);
+		if (res.allMarkers) {
+			result = res.allMarkers.map((marker, index) => {
+				return (
+					<div
+						key={index}
+						style={{'borderBottom': '1px solid #eee', 'padding': '12px'}}
+						className="makerInfo">
+						<pre>{JSON.stringify(Object.values(marker._source))}</pre>
+					</div>
+				);
 			});
 		}
+		result = (
+			<div className="row" style={{'marginTop': '60px'}}>
+				{result}
+			</div>
+		)
 		return result;
 	}
 
