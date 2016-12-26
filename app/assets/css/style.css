@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: 'Lato Regular';
   src: url("../fonts/Lato/Lato-Regular.ttf") format("truetype");
@@ -208,7 +209,7 @@ a {
     max-width: 4000px; }
 
 .primary-title {
-  color: #FF9800; }
+  color: #1893e7; }
 
 .font-0 {
   font-size: 4.5rem;
@@ -229,7 +230,7 @@ a {
 .font-3.primary {
   font-size: 1.375rem;
   line-height: 1.75rem;
-  color: #FF9800; }
+  color: #1893e7; }
 
 .font-4 {
   font-size: 1.25rem;
@@ -518,9 +519,33 @@ a {
       border-right: 1px solid rgba(0, 126, 255, 0.24);
       padding: 1px 5px 3px; }
 
-.rbc.rbs-resultlist {
+.rbc.rbc-resultlist {
   height: 100%;
   overflow: auto; }
+  .rbc.rbc-resultlist .json-print span {
+    width: 60px;
+    display: inline-block;
+    cursor: pointer;
+    float: left; }
+    .rbc.rbc-resultlist .json-print span:hover {
+      color: #1893e7; }
+    .rbc.rbc-resultlist .json-print span.head:after {
+      content: '▾';
+      display: inline-block;
+      margin-left: 5px; }
+    .rbc.rbc-resultlist .json-print span.head.collapsed:after {
+      webkit-transform: rotate(-90deg);
+      -moz-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+      transform: rotate(-90deg); }
+  .rbc.rbc-resultlist .json-print pre {
+    width: calc(100% - 60px);
+    display: inline-block;
+    background-color: #fdfdfd;
+    color: #666;
+    margin: 0;
+    padding: 0 12px;
+    float: left; }
 
 .barContainer {
   position: relative;

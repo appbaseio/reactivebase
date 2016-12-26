@@ -93,7 +93,6 @@ export default class ToggleButtonDefault extends Component {
 							sortBy="asc"
 							from={0}
 							size={20}
-							onData={this.onData}
 							depends={{
 								GuestSensor: {"operation": "must"}
 							}}

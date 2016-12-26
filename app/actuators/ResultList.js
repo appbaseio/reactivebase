@@ -1,5 +1,6 @@
 import {default as React, Component} from 'react';
 import { manager } from '../middleware/ChannelManager.js';
+import JsonPrint from './component/JsonPrint'
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 
@@ -171,7 +172,7 @@ export class ResultList extends Component {
 						key={index}
 						style={{'borderBottom': '1px solid #eee', 'padding': '12px'}}
 						className="makerInfo">
-						<pre>{JSON.stringify(Object.values(marker._source))}</pre>
+							<JsonPrint data={marker._source} />
 					</div>
 				);
 			});
