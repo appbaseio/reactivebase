@@ -8,7 +8,7 @@ export class ToggleButton extends Component {
 		this.state = {
 			selected: []
 		};
-		this.type = 'range';
+		this.type = 'term';
 		this.handleChange = this.handleChange.bind(this);
 		this.defaultQuery = this.defaultQuery.bind(this);
 	}

@@ -8,7 +8,7 @@ class channelManager {
 		this.streamRef = {};
 		this.queryOptions = {};
 		this.appbaseRef = {};
-		this.type = null;
+		this.type = {};
 		this.receive = this.receive.bind(this);
 		this.nextPage = this.nextPage.bind(this);
 	}
@@ -39,7 +39,7 @@ class channelManager {
 			if(appbaseRef) {
 				// apply search query and emit historic queryResult
 				let searchQueryObj = queryObj;
-				searchQueryObj.type = this.type == '*' ? '' : this.type;
+				searchQueryObj.type = this.type[channelId] == '*' ? '' : this.type[channelId];
 				appbaseRef.search(searchQueryObj).on('data', function(data) {
 					channelResponse.mode = 'historic';
 					channelResponse.data = data;
@@ -52,7 +52,7 @@ class channelManager {
 					this.streamRef[channelId].stop();
 				}
 				let streamQueryObj = queryObj;
-				streamQueryObj.type = this.type;
+				streamQueryObj.type = this.type[channelId];
 				this.streamRef[channelId] = appbaseRef.searchStream(streamQueryObj).on('data', function(data) {
 					let obj = {
 						mode: 'streaming',
@@ -218,13 +218,13 @@ class channelManager {
 	// Create the channel by passing depends
 	// if depends are same it will create single channel for them
 	create(appbaseRef, type, depends, size = 100, from =0) {
-		this.type = type;
 		let channelId = btoa(JSON.stringify(depends));
 		let optionValues = {
 			size: size,
 			from: from
 		};
 		this.queryOptions[channelId] = optionValues;
+		this.type[channelId] = type;
 		this.appbaseRef[channelId] = appbaseRef;
 		depends['channel-options-'+channelId] = optionValues;
 		let previousSelectedSensor = {
