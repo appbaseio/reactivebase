@@ -26,6 +26,8 @@ export class RangeSlider extends Component {
 			}
 		};
 		this.type = 'range';
+		this.channelId = null;
+		this.channelListener = null;
 		this.handleValuesChange = this.handleValuesChange.bind(this);
 		this.handleResults = this.handleResults.bind(this);
 	}
@@ -34,6 +36,16 @@ export class RangeSlider extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		this.createChannel();
+	}
+
+	// stop streaming request and remove listener when component will unmount
+	componentWillUnmount() {
+		if(this.channelId) {
+			manager.stopStream(this.channelId);
+		}
+		if(this.channelListener) {
+			this.channelListener.remove();
+		}
 	}
 
 	// Handle function when value slider option is changing
@@ -66,7 +78,8 @@ export class RangeSlider extends Component {
 		};
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
-		channelObj.emitter.addListener(channelObj.channelId, function(res) {
+		this.channelId = channelObj.channelId;
+		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
 			let rawData;
 			if(res.mode === 'streaming') {

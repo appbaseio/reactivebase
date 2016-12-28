@@ -16,6 +16,8 @@ export class ResultList extends Component {
 		this.sortInfo = {
 			order: this.props.sortBy
 		};
+		this.channelId = null;
+		this.channelListener = null;
 		this.nextPage = this.nextPage.bind(this);
 		this.appliedQuery = {};
 	}
@@ -23,6 +25,16 @@ export class ResultList extends Component {
 	componentDidMount() {
 		this.createChannel();
 		this.listComponent();
+	}
+
+	// stop streaming request and remove listener when component will unmount
+	componentWillUnmount() {
+		if(this.channelId) {
+			manager.stopStream(this.channelId);
+		}
+		if(this.channelListener) {
+			this.channelListener.remove();
+		}
 	}
 
 	// Create a channel which passes the depends and receive results whenever depends changes
@@ -33,7 +45,7 @@ export class ResultList extends Component {
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends, this.props.size, this.props.from);
 		this.channelId = channelObj.channelId;
-		channelObj.emitter.addListener(channelObj.channelId, function(res) {
+		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
 			let rawData, markersData, newData = [], currentData = [];
 			this.streamFlag = false;

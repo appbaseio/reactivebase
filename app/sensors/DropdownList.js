@@ -6,8 +6,6 @@ var helper = require('../middleware/helper.js');
 export class DropdownList extends Component {
 	constructor(props, context) {
 		super(props);
-		console.log(props);
-
 		this.state = {
 			items: [],
 			value: '',
@@ -17,6 +15,8 @@ export class DropdownList extends Component {
 				}
 			}
 		};
+		this.channelId = null;
+		this.channelListener = null;
 		this.previousSelectedSensor = {};
 		this.handleChange = this.handleChange.bind(this);
 		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
@@ -26,6 +26,16 @@ export class DropdownList extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		this.createChannel();
+	}
+
+	// stop streaming request and remove listener when component will unmount
+	componentWillUnmount() {
+		if(this.channelId) {
+			manager.stopStream(this.channelId);
+		}
+		if(this.channelListener) {
+			this.channelListener.remove();
+		}
 	}
 
 	// set the query type and input data
@@ -51,7 +61,8 @@ export class DropdownList extends Component {
 		};
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
-		channelObj.emitter.addListener(channelObj.channelId, function(res) {
+		this.channelId = channelObj.channelId;
+		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
 			let rawData;
 			if(res.mode === 'streaming') {
