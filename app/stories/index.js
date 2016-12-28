@@ -15,6 +15,7 @@ import DataSearchDefault from './DataSearch.stories';
 import SingleDropdownRangeDefault from './SingleDropdownRange.stories';
 import MultiDropdownRangeDefault from './MultiDropdownRange.stories';
 import RangeSliderDefault from './RangeSlider.stories';
+import PaginationDefault from './Pagination.stories';
 
 require ('../../node_modules/materialize-css/dist/css/materialize.min.css');
 require ('../../dist/css/vendor.min.css');
@@ -192,3 +193,8 @@ storiesOf('RangeSlider', module)
 			}
 		/>
 	));
+
+storiesOf('Pagination', module)
+	.add('Basic', () => (
+		<PaginationDefault />
+	))

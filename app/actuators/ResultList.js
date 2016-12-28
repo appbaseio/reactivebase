@@ -92,8 +92,10 @@ export class ResultList extends Component {
 	// normalize current data
 	normalizeCurrentData(res, rawData, newData) {
 		let appliedQuery = JSON.parse(JSON.stringify(res.appliedQuery));
-		delete appliedQuery.body.from;
-		delete appliedQuery.body.size;
+		if(this.props.requestOnScroll) {
+			delete appliedQuery.body.from;
+			delete appliedQuery.body.size;
+		}
 		let currentData = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery) ? rawData : [];
 		if(!currentData.length) {
 			this.appliedQuery = appliedQuery;

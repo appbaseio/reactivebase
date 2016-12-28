@@ -1,9 +1,10 @@
 var {EventEmitter} = require('fbemitter');
 export var sensorEmitter = new EventEmitter();
 
-export var watchForDependencyChange = function(depends, previousSelectedSensor, cb, channelId) {
+export var watchForDependencyChange = function(depends, previousSelectedSensor, cb, channelId, paginationCb) {
 	var self = this;
 	let selectedSensor = {};
+	let sensorListener, paginationListener;
 	// check if depend object already exists
 	let checkDependExists = function(depend) {
 		if(!previousSelectedSensor.hasOwnProperty(depend)) {
@@ -42,13 +43,25 @@ export var watchForDependencyChange = function(depends, previousSelectedSensor, 
 		selectedSensor = data;
 		init();
 	});
+
+	sensorEmitter.addListener('paginationChange', function(data) {
+		if(paginationCb) {
+			if(Object.keys(depends).indexOf(data.key) > -1) {
+				paginationCb(data.value, channelId);
+			}
+		}
+	});
+
 };
 
 function selectedSensorFn() {
 	var self = this;
-	this.selectedSensor = {};
 	this.sensorInfo = {};
+	this.selectedSensor = {};
+	this.paginationInfo = {};
+	this.selectedPagination = {};
 	this.sortInfo = {};
+	this.selectedSort = {};
 
 	// Get
 	let get = function(prop, obj) {
@@ -65,10 +78,25 @@ function selectedSensorFn() {
 	}
 
 	// Set
-	let set = function(obj, isExecuteUpdate=false) {
-		self.selectedSensor[obj.key] = obj.value;
+	let set = function(obj, isExecuteUpdate=false, setMethod="sensorChange") {
+		let methodObj;
+		switch(setMethod) {
+			case 'sortChange':
+				self.selectedSort[obj.key] = obj.value;
+				methodObj = self.selectedSort;
+			break;
+			case 'paginationChange':
+				self.selectedPagination[obj.key] = obj.value;
+				methodObj = obj;
+			break;
+			case 'sensorChange':
+			default:
+				self.selectedSensor[obj.key] = obj.value;
+				methodObj = self.selectedSensor;
+			break;
+		}
 		if(isExecuteUpdate) {
-			sensorEmitter.emit('sensorChange', self.selectedSensor);
+			sensorEmitter.emit(setMethod, methodObj);
 		}
 	}
 
@@ -82,11 +110,17 @@ function selectedSensorFn() {
 		self.sortInfo[obj.key] = obj.value;
 	}
 
+	// Set pagination info
+	let setPaginationInfo = function(obj) {
+		self.paginationInfo[obj.key] = obj.value;
+	}
+
 	return {
 		get: get,
 		set: set,
 		setSensorInfo: setSensorInfo,
-		setSortInfo: setSortInfo
+		setSortInfo: setSortInfo,
+		setPaginationInfo: setPaginationInfo
 	};
 };
 
