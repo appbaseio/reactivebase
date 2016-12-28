@@ -81,6 +81,14 @@ class channelManager {
 		}
 	}
 
+	// stopStream
+	// Clear channel streaming request
+	stopStream(channelId) {
+		if(this.streamRef[channelId]) {
+			this.streamRef[channelId].stop();
+		}
+	}
+
 	// queryBuild
 	// Builds the query by using depends object and values of sensor
 	queryBuild(depends, previousSelectedSensor, size, from=0) {
