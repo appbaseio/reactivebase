@@ -10,7 +10,6 @@ var files = {
 	css: {
 		vendor: [
 			'node_modules/react-select/dist/react-select.min.css',
-			'node_modules/react-input-range/dist/react-input-range.min.css',
 			'node_modules/rc-slider/assets/index.css',
 			'node_modules/font-awesome/css/font-awesome.min.css',
 		],

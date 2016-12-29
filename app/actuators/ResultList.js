@@ -29,7 +29,9 @@ export class ResultList extends Component {
 	createChannel() {
 		// Set the depends - add self aggs query as well with depends
 		let depends = this.props.depends ? this.props.depends : {};
-		this.enableSort(depends);
+		if (this.props.sortBy) {
+			this.enableSort(depends);
+		}
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends, this.props.size, this.props.from);
 		this.channelId = channelObj.channelId;
