@@ -11,6 +11,7 @@ class channelManager {
 		this.type = {};
 		this.receive = this.receive.bind(this);
 		this.nextPage = this.nextPage.bind(this);
+		this.paginationChanges = this.paginationChanges.bind(this);
 	}
 
 	// Receive: This method will be executed whenever dependency value changes
@@ -44,6 +45,12 @@ class channelManager {
 					channelResponse.mode = 'historic';
 					channelResponse.data = data;
 					self.emitter.emit(channelId, channelResponse);
+					let globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
+					self.emitter.emit('global', {
+						channelResponse: channelResponse,
+						depends: channelObj.depends,
+						queryOptions: globalQueryOptions
+					});
 				}).on('error', function(error) {
 					console.log(error);
 				});
@@ -78,6 +85,14 @@ class channelManager {
 				appliedQuery: queryObj
 			};
 			self.emitter.emit(channelId, obj);
+		}
+	}
+
+	// stopStream
+	// Clear channel streaming request
+	stopStream(channelId) {
+		if(this.streamRef[channelId]) {
+			this.streamRef[channelId].stop();
 		}
 	}
 
@@ -215,6 +230,20 @@ class channelManager {
 		this.receive('channel-options-'+channelId, channelId, queryOptions);
 	}
 
+	paginationChanges(pageNumber, channelId) {
+		let channelObj = this.channels[channelId];
+		let queryOptions = JSON.parse(JSON.stringify(this.channels[channelId].previousSelectedSensor));
+		let channelOptionsObj = channelObj.previousSelectedSensor['channel-options-'+channelId];
+		let options = {
+			size: this.queryOptions[channelId].size,
+			from: this.queryOptions[channelId].size*(pageNumber-1) + 1
+		};
+		queryOptions['channel-options-'+channelId] = JSON.parse(JSON.stringify(options));
+		// queryOptions['channel-options-'+channelId].from += 1;
+		this.queryOptions[channelId] = options;
+		this.receive('channel-options-'+channelId, channelId, queryOptions);
+	}
+
 	// Create the channel by passing depends
 	// if depends are same it will create single channel for them
 	create(appbaseRef, type, depends, size = 100, from =0) {
@@ -242,7 +271,7 @@ class channelManager {
 				from: from,
 				previousSelectedSensor: previousSelectedSensor
 			};
-			helper.watchForDependencyChange(depends, this.channels[channelId].previousSelectedSensor, this.receive, channelId)
+			helper.watchForDependencyChange(depends, this.channels[channelId].previousSelectedSensor, this.receive, channelId, this.paginationChanges);
 		}
 		setTimeout(() => {
 			if(depends.hasOwnProperty('aggs')) {

@@ -11,6 +11,7 @@ import {MultiRange} from './sensors/MultiRange';
 import {SingleDropdownRange} from './sensors/SingleDropdownRange';
 import {MultiDropdownRange} from './sensors/MultiDropdownRange';
 import {ToggleButton} from './sensors/ToggleButton';
+import {Pagination} from './sensors/Pagination';
 import {ResultList} from './actuators/ResultList';
 // middleware
 import {ReactiveBase} from './middleware/ReactiveBase';
@@ -30,6 +31,7 @@ module.exports = {
 	SingleDropdownRange: SingleDropdownRange,
 	MultiDropdownRange: MultiDropdownRange,
 	ToggleButton: ToggleButton,
+	Pagination: Pagination,
 	ReactiveBase: ReactiveBase,
 	ResultList: ResultList,
 	AppbaseChannelManager: manager,

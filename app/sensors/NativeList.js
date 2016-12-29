@@ -19,6 +19,8 @@ export class NativeList extends Component {
 			defaultSelectAll: false
 		};
 		this.previousSelectedSensor = {};
+		this.channelId = null;
+		this.channelListener = null;
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleRemove = this.handleRemove.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
@@ -34,6 +36,16 @@ export class NativeList extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		this.createChannel();
+	}
+
+	// stop streaming request and remove listener when component will unmount
+	componentWillUnmount() {
+		if(this.channelId) {
+			manager.stopStream(this.channelId);
+		}
+		if(this.channelListener) {
+			this.channelListener.remove();
+		}
 	}
 
 	// set the query type and input data
@@ -59,7 +71,8 @@ export class NativeList extends Component {
 		};
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
-		channelObj.emitter.addListener(channelObj.channelId, function(res) {
+		this.channelId = channelObj.channelId;
+		this.channelListener = channelObj.emitter.addListener(this.channelId, function(res) {
 			let data = res.data;
 			let rawData;
 			if(res.mode === 'streaming') {

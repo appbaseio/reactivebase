@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { ReactiveBase, SingleList, ResultList } from '../app.js';
+import { ReactiveBase, SingleList, ResultList, Pagination } from '../app.js';
 import { Img } from './Img.js';
 
 require('./list.css');
 
-export default class SingleListDefault extends Component {
+export default class PaginationDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.onData = this.onData.bind(this);
@@ -65,6 +65,9 @@ export default class SingleListDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<Pagination
+							sensorId="pagination"
+							title="Pagination" />
 						<SingleList
 							sensorId="CitySensor"
 							appbaseField={this.props.mapping.city}
@@ -84,9 +87,10 @@ export default class SingleListDefault extends Component {
 							from={0}
 							size={20}
 							onData={this.onData}
-							requestOnScroll={true}
+							requestOnScroll={false}
 							depends={{
-								CitySensor: {"operation": "must"}
+								CitySensor: {"operation": "must"},
+								pagination: {}
 							}}
 						/>
 					</div>
@@ -96,7 +100,7 @@ export default class SingleListDefault extends Component {
 	}
 }
 
-SingleListDefault.defaultProps = {
+PaginationDefault.defaultProps = {
 	title: 'Cities',
 	mapping: {
 		city: 'group.group_city.raw',
