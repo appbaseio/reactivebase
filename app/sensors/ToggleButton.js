@@ -70,7 +70,6 @@ export class ToggleButton extends Component {
 	createChannel() {
 		let depends = this.props.depends ? this.props.depends : {};
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
-
 	}
 
 	// handle the input change and pass the value inside sensor info
@@ -139,15 +138,13 @@ export class ToggleButton extends Component {
 ToggleButton.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	placeholder: React.PropTypes.string,
+	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array
 };
 
 // Default props value
 ToggleButton.defaultProps = {
-	placeholder: "Search...",
-	size: 10
 };
 
 // context type
