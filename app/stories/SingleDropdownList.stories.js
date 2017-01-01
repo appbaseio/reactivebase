@@ -67,7 +67,7 @@ export default class SingleDropdownListDefault extends Component {
 						<SingleDropdownList
 							sensorId="CitySensor"
 							appbaseField={this.props.mapping.city}
-							size={1000}
+							size={100}
 							{...this.props}
 						/>
 					</div>

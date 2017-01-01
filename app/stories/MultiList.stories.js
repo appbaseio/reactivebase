@@ -68,7 +68,7 @@ export default class MultiListDefault extends Component {
 							sensorId="CitySensor"
 							appbaseField={this.props.mapping.city}
 							showCount={true}
-							size={1000}
+							size={100}
 							searchPlaceholder="Search City"
 							{...this.props}
 						/>
