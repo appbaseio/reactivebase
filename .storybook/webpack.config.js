@@ -6,6 +6,10 @@ module.exports = {
 				loaders: ['shebang', 'babel']
 			},
 			{
+				test: /\.md$/,
+				loader: "raw"
+			},
+			{
 				test: /\.css$/,
 				loaders: ["style-loader", "css-loader"]
 			},

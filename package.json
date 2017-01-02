@@ -34,6 +34,7 @@
     "react-tooltip": "^3.1.8"
   },
   "devDependencies": {
+    "@appbaseio/reactivebase-manual": "0.0.1",
     "@kadira/storybook": "^2.34.0",
     "@kadira/storybook-addon-knobs": "^1.7.1",
     "babel-core": "^6.9.1",
@@ -56,10 +57,13 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.1",
     "gulp-uglify": "^1.5.3",
+    "json-loader": "^0.5.4",
     "lodash-webpack-plugin": "^0.10.6",
     "materialize-css": "^0.97.8",
+    "raw-loader": "^0.5.1",
     "react-scripts": "^0.7.0",
     "shebang-loader": "0.0.1",
+    "storybook-readme": "^1.2.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
   }
