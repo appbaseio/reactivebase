@@ -116,11 +116,17 @@ storiesOf('MultiRange', module)
 	)));
 
 storiesOf('ToggleButton', module)
+	.addDecorator(withKnobs)
 	.add('Basic', withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault />
 	)))
 	.add('With Default Selected', withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault defaultSelected={["Social"]} />
+	)))
+	.add('Playground', withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault
+			title={text('Title', 'Meetup Categories')}
+			defaultSelected={text('Default Selected', ["Social"])} />
 	)));
 
 storiesOf('TextField', module)
