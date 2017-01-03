@@ -1,4 +1,5 @@
 import {default as React, Component} from 'react';
+import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
@@ -113,7 +114,6 @@ export class Pagination extends Component {
 	render() {
 		let title = null;
 		if(this.props.title) {
-			titleExists = true;
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
