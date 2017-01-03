@@ -1,6 +1,8 @@
 .rbc.rbc-togglebutton {
 	padding: 0;
-
+	.rbc-btn {
+		text-transform: inherit;
+	}
 	.rbc-btn-active {
 		background-color: $primary-color;
 	}

@@ -130,7 +130,7 @@ export class ToggleButton extends Component {
 		if(this.props.data) {
 			buttons = this.props.data.map((record, i) => {
 				return (
-					<button key={i} className={"btn "+ (selectedText.indexOf(record.label) > -1 ? 'rbc-btn-active' : 'rbc-btn-inactive')}
+					<button key={i} className={"btn rbc-btn "+ (selectedText.indexOf(record.label) > -1 ? 'rbc-btn-active' : 'rbc-btn-inactive')}
 						onClick={() => this.handleChange(record)} title={record.title ? record.title: record.label}>
 						{record.label}
 					</button>
@@ -149,9 +149,10 @@ export class ToggleButton extends Component {
 
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title
+			'rbc-title-inactive': !this.props.title,
+			'rbc-multiselect-active': this.props.multiSelect,
+			'rbc-multiselect-inactive': !this.props.multiSelect
 		});
-
 		return (
 			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
 				<div className="row">
