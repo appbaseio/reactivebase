@@ -4,7 +4,7 @@ import { Img } from './Img.js';
 
 require('./list.css');
 
-export default class PaginationDefault extends Component {
+export default class PaginatedResultListDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.onData = this.onData.bind(this);
@@ -97,7 +97,7 @@ export default class PaginationDefault extends Component {
 	}
 }
 
-PaginationDefault.defaultProps = {
+PaginatedResultListDefault.defaultProps = {
 	title: 'Cities',
 	mapping: {
 		city: 'group.group_city.raw',

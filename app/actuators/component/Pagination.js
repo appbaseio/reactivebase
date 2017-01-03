@@ -94,7 +94,7 @@ export class Pagination extends Component {
 		}
 		for(let i = start; i <= start+5; i++) {
 			let singleItem = (
-				<li key={i} className={(this.state.currentValue === i ? 'active': 'waves-effect')}>
+				<li key={i} className={(this.state.currentValue === i ? 'active rbc-pagination-active': 'waves-effect')}>
 					<a onClick={() => this.handleChange(i)}>{i}</a>
 				</li>);
 			if(i <= this.state.maxPageNumber) {
