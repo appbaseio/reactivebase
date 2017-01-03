@@ -7,8 +7,16 @@ export class ItemList extends Component {
 		this.state = {
 			selectedItem: []
 		};
+		this.defaultSelected = this.props.defaultSelected;
 		this.defaultAllowed = true;
 		this.handleClick = this.handleClick.bind(this);
+	}
+
+	componentWillUpdate() {
+		if (this.defaultSelected != this.props.defaultSelected) {
+			this.defaultSelected = this.props.defaultSelected;
+			this.defaultSelection();
+		}
 	}
 
 	componentDidUpdate() {

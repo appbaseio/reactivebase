@@ -22,6 +22,7 @@ export class NativeList extends Component {
 		this.previousSelectedSensor = {};
 		this.channelId = null;
 		this.channelListener = null;
+		this.defaultSelected = this.props.defaultSelected;
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleRemove = this.handleRemove.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
@@ -29,14 +30,31 @@ export class NativeList extends Component {
 		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
 	}
 
-	componentWillMount() {
-		this.defaultSelected = this.props.defaultSelected;
-	}
-
 	// Get the items from Appbase when component is mounted
 	componentDidMount() {
 		this.setQueryInfo();
 		this.createChannel();
+	}
+
+	componentWillUpdate() {
+		setTimeout(() => {
+			if (this.defaultSelected != this.props.defaultSelected) {
+				this.defaultSelected = this.props.defaultSelected;
+				let items = this.state.items;
+
+				items = items.map((item) => {
+					item.key = item.key.toString();
+					item.status = this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1 ? true : false;
+					return item;
+				});
+
+				this.setState({
+					items: items,
+					storedItems: items
+				});
+				this.handleSelect(this.defaultSelected);
+			}
+		}, 300);
 	}
 
 	// stop streaming request and remove listener when component will unmount
@@ -120,8 +138,8 @@ export class NativeList extends Component {
 	// set value
 	setValue(value, isExecuteQuery=false) {
 		var obj = {
-				key: this.props.sensorId,
-				value: value
+			key: this.props.sensorId,
+			value: value
 		};
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
@@ -159,7 +177,9 @@ export class NativeList extends Component {
 		// Checking if component is single select or multiple select
 		let listComponent,
 			searchComponent = null,
-			title =null;
+			title = null;
+
+		console.log(this.defaultSelected, this.props.defaultSelected);
 
 		if (this.props.multipleSelect) {
 			listComponent = <ItemCheckboxList
