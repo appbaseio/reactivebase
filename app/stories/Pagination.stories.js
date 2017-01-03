@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ReactiveBase, SingleList, ResultList, Pagination } from '../app.js';
+import { ReactiveBase, SingleList, PaginatedResultList } from '../app.js';
 import { Img } from './Img.js';
 
 require('./list.css');
@@ -65,9 +65,6 @@ export default class PaginationDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
-						<Pagination
-							sensorId="pagination"
-							title="Pagination" />
 						<SingleList
 							sensorId="CitySensor"
 							appbaseField={this.props.mapping.city}
@@ -79,7 +76,7 @@ export default class PaginationDefault extends Component {
 					</div>
 
 					<div className="col s6 col-xs-6">
-						<ResultList
+						<PaginatedResultList
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="Meetups"
@@ -89,8 +86,7 @@ export default class PaginationDefault extends Component {
 							onData={this.onData}
 							requestOnScroll={false}
 							depends={{
-								CitySensor: {"operation": "must"},
-								pagination: {}
+								CitySensor: {"operation": "must"}
 							}}
 						/>
 					</div>
