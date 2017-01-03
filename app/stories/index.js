@@ -125,8 +125,7 @@ storiesOf('ToggleButton', module)
 	)))
 	.add('Playground', withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault
-			title={text('Title', 'Meetup Categories')}
-			defaultSelected={text('Default Selected', ["Social"])} />
+			title={text('Title', 'Meetup Categories')} />
 	)));
 
 storiesOf('TextField', module)

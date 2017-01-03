@@ -10,6 +10,7 @@ export class ToggleButton extends Component {
 			selected: []
 		};
 		this.type = 'term';
+		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.defaultQuery = this.defaultQuery.bind(this);
 	}
@@ -17,9 +18,23 @@ export class ToggleButton extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if(this.props.defaultSelected) {
+		if(this.defaultSelected) {
 			let records = this.props.data.filter((record) => {
-				return this.props.defaultSelected.indexOf(record.label) > -1 ? true : false;
+				return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
+			});
+			if(records && records.length) {
+				records.forEach((singleRecord) => {
+					this.handleChange(singleRecord);
+				});
+			}
+		}
+	}
+
+	componentWillUpdate() {
+		if(this.defaultSelected != this.props.defaultSelected) {
+			this.defaultSelected = this.props.defaultSelected;
+			let records = this.props.data.filter((record) => {
+				return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
 			});
 			if(records && records.length) {
 				records.forEach((singleRecord) => {

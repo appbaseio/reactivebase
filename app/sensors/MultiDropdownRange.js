@@ -14,7 +14,8 @@ export class MultiDropdownRange extends Component {
 		this.state.data = this.props.data.map(item => {
 			item.value = item.label;
 			return item;
-		})
+		});
+		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.defaultQuery = this.defaultQuery.bind(this);
 	}
@@ -22,14 +23,28 @@ export class MultiDropdownRange extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if(this.props.defaultSelected) {
+		if(this.defaultSelected) {
 			let records = this.state.data.filter((record) => {
-				return this.props.defaultSelected.indexOf(record.label) > -1 ? true : false;
+				return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
 			});
 			if(records && records.length) {
 				this.handleChange(records);
 			}
 		}
+	}
+
+	componentWillUpdate() {
+		setTimeout(() => {
+			if (this.defaultSelected != this.props.defaultSelected) {
+				this.defaultSelected = this.props.defaultSelected;
+				let records = this.state.data.filter((record) => {
+					return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
+				});
+				if(records && records.length) {
+					this.handleChange(records);
+				}
+			}
+		}, 300);
 	}
 
 	// set the query type and input data

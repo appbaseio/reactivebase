@@ -115,7 +115,6 @@ export class Pagination extends Component {
 		let title = null;
 		let titleExists = false;
 		if(this.props.title) {
-			titleExists = true;
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 

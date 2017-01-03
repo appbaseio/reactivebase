@@ -11,6 +11,7 @@ export class SingleDropdownRange extends Component {
 			selected: null
 		};
 		this.type = 'range';
+		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.defaultQuery = this.defaultQuery.bind(this);
 	}
@@ -18,14 +19,28 @@ export class SingleDropdownRange extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if(this.props.defaultSelected) {
+		if(this.defaultSelected) {
 			let records = this.props.data.filter((record) => {
-				return record.label === this.props.defaultSelected;
+				return record.label === this.defaultSelected;
 			});
 			if(records && records.length) {
 				this.handleChange(records[0]);
 			}
 		}
+	}
+
+	componentWillUpdate() {
+		setTimeout(() => {
+			if (this.defaultSelected != this.props.defaultSelected) {
+				this.defaultSelected = this.props.defaultSelected;
+				let records = this.props.data.filter((record) => {
+					return record.label === this.defaultSelected;
+				});
+				if(records && records.length) {
+					this.handleChange(records[0]);
+				}
+			}
+		}, 300);
 	}
 
 	// set the query type and input data
