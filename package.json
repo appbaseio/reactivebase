@@ -25,6 +25,7 @@
   "dependencies": {
     "appbase-js": "^0.10.8",
     "babel-preset-stage-0": "^6.5.0",
+    "classnames": "^2.2.5",
     "fbemitter": "^2.0.2",
     "lodash": "^4.15.0",
     "rc-slider": "^5.4.0",

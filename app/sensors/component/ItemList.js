@@ -99,7 +99,7 @@ class ItemRow extends Component {
 		// let activeClass = this.props.value === this.props.selectedItem ? 'active' : '';
 		return (
 			<div className="rbc-list-item row" onClick={() => this.props.handleClick(this.props.value)}>
-				<div className="radio-item col s12 col-xs-12">
+				<div className="rbc-radio-item col s12 col-xs-12">
 					<input type="radio"
 						checked={this.props.value === this.props.selectedItem}
 						name="radioItem" id="radioItem"

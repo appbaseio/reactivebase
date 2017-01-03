@@ -1,8 +1,20 @@
+.Select-control {
+	height: 38px;
+}
+
 .Select-input input {
-	height: 20px;
+	height: 16px;
 	-webkit-transition: none;
 	-moz-transition: none;
 	-ms-transition: none;
 	-o-transition: none;
 	transition: none;
+}
+
+.rbc-btn-active {
+	background-color: #1893e7;
+}
+
+.rbc-btn-inactive {
+	background-color: #b0bec5;
 }

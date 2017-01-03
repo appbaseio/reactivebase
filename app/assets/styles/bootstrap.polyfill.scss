@@ -24,7 +24,7 @@
 		font-size: 12px;
 	}
 
-	.checkbox-item , .radio-item{
+	.rbc-checkbox-item , .rbc-radio-item{
 		cursor: pointer;
 
 		label {
@@ -37,4 +37,12 @@
 			cursor: pointer;
 		}
 	}
+}
+
+.rbc-btn-active {
+	background-color: #1893e7;
+}
+
+.rbc-btn-inactive {
+	background-color: #b0bec5;
 }

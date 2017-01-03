@@ -1,4 +1,5 @@
 import {default as React, Component} from 'react';
+import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
@@ -105,7 +106,7 @@ export class ToggleButton extends Component {
 		if(this.props.data) {
 			buttons = this.props.data.map((record, i) => {
 				return (
-					<button key={i} className={"btn "+ (selectedText.indexOf(record.label) > -1 ? 'light-blue darken-1' : 'blue-grey lighten-3')}
+					<button key={i} className={"btn "+ (selectedText.indexOf(record.label) > -1 ? 'rbc-btn-active' : 'rbc-btn-inactive')}
 						onClick={() => this.handleChange(record)} title={record.title ? record.title: record.label}>
 						{record.label}
 					</button>
@@ -117,13 +118,18 @@ export class ToggleButton extends Component {
 
 	// render
 	render() {
-		let title, titleExists = false;
+		let title = null;
 		if(this.props.title) {
-			titleExists = true;
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
+
+		let cx = classNames({
+			'rbc-title-active': this.props.title,
+			'rbc-title-inactive': !this.props.title
+		});
+
 		return (
-			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail title-${titleExists}`} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">

@@ -22,7 +22,7 @@
 				}
 			}
 
-			&.checkbox-item {
+			&.rbc-checkbox-item {
 				padding: 5px 10px;
 
 				label {
@@ -88,10 +88,10 @@
 		}
 	}
 
-	&.search-true {
+	&.rbc-search-active {
 		padding-top: 50px;
 
-		&.title-true {
+		&.rbc-title-active {
 			padding-top: 100px;
 
 			.rbc-search-component {
@@ -100,7 +100,7 @@
 		}
 	}
 
-	&.title-true {
+	&.rbc-title-active {
 		padding-top: 50px;
 	}
 }

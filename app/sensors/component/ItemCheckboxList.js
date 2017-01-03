@@ -208,7 +208,7 @@ class ListItem extends Component {
 			count = <span> ({this.props.doc_count}) </span>;
 		}
 		return (
-			<div onClick={this.handleClick.bind(this) } className="rbc-list-item checkbox-item col s12 col-xs-12">
+			<div onClick={this.handleClick.bind(this) } className="rbc-list-item rbc-checkbox-item col s12 col-xs-12">
 				<input type="checkbox"
 					checked={this.state.status}
 					onChange={this.handleCheckboxChange.bind(this) } />

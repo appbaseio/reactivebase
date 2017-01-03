@@ -14,11 +14,17 @@
 .rbc .InputRange-label {
   font-size: 12px; }
 
-.rbc .checkbox-item, .rbc .radio-item {
+.rbc .rbc-checkbox-item, .rbc .rbc-radio-item {
   cursor: pointer; }
-  .rbc .checkbox-item label, .rbc .radio-item label {
+  .rbc .rbc-checkbox-item label, .rbc .rbc-radio-item label {
     padding-left: 10px;
     font-weight: normal;
     cursor: pointer; }
-  .rbc .checkbox-item input, .rbc .radio-item input {
+  .rbc .rbc-checkbox-item input, .rbc .rbc-radio-item input {
     cursor: pointer; }
+
+.rbc-btn-active {
+  background-color: #1893e7; }
+
+.rbc-btn-inactive {
+  background-color: #b0bec5; }

@@ -1,6 +1,7 @@
 import { default as React, Component } from 'react';
 import { ItemCheckboxList } from './component/ItemCheckboxList.js';
 import { ItemList } from './component/ItemList.js';
+import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import { StaticSearch } from './component/StaticSearch.js';
 var helper = require('../middleware/helper.js');
@@ -158,8 +159,8 @@ export class NativeList extends Component {
 		// Checking if component is single select or multiple select
 		let listComponent,
 			searchComponent = null,
-			title =null,
-			titleExists = false;
+			title =null;
+
 		if (this.props.multipleSelect) {
 			listComponent = <ItemCheckboxList
 				items={this.state.items}
@@ -188,14 +189,18 @@ export class NativeList extends Component {
 		}
 
 		if(this.props.title) {
-			titleExists = true;
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		let listClass = 'rbc rbc-list search-' + this.props.showSearch + ' title-' + titleExists;
+		let cx = classNames({
+			'rbc-search-active': this.props.showSearch,
+			'rbc-search-inactive': !this.props.showSearch,
+			'rbc-title-active': this.props.title,
+			'rbc-title-inactive': !this.props.title
+		});
 
 		return (
-			<div className={"col s12 col-xs-12 card thumbnail " + listClass} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-list col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
 				{title}
 				{searchComponent}
 				{listComponent}

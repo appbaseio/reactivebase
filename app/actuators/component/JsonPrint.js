@@ -16,7 +16,7 @@ export default class JsonPrint extends Component {
 			tree =  JSON.stringify(this.props.data);
 		}
 		return (
-			<div className="row json-print">
+			<div className="row rbc-json-print">
 				<span
 					className={'head ' + (this.state.open ? null : 'collapsed')}
 					onClick={() => this.setState({open: !this.state.open})}

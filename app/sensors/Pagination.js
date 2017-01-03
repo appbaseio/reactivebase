@@ -111,16 +111,19 @@ export class Pagination extends Component {
 
 	// render
 	render() {
-		let title = null,
-			titleExists = false,
-			PaginationClass = 'rbc rbc-Pagination col s12 col-xs-12 card thumbnail';
+		let title = null;
 		if(this.props.title) {
 			titleExists = true;
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
-		PaginationClass += ' title-' + titleExists;
+
+		let cx = classNames({
+			'rbc-title-active': this.props.title,
+			'rbc-title-inactive': !this.props.title
+		});
+
 		return (
-			<div className={PaginationClass}>
+			<div className={`rbc rbc-pagination col s12 col-xs-12 card thumbnail ${cx}`}>
 				{title}
 				<div className="rbc-pagination-component col s12 col-xs-12">
 					{this.renderPageNumber()}

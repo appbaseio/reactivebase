@@ -1,4 +1,5 @@
 import { default as React, Component } from 'react';
+import classNames from 'classnames';
 import Select from 'react-select';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
@@ -78,14 +79,18 @@ export class SingleDropdownRange extends Component {
 
 	// render
 	render() {
-		let title = null,
-			titleExists = false;
+		let title = null;
 		if(this.props.title) {
-			titleExists = true;
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
+
+		let cx = classNames({
+			'title-active': this.props.title,
+			'title-inactive': !this.props.title
+		});
+
 		return (
-			<div className={`rbc rbc-dropdown col s12 col-xs-12 card thumbnail title-${titleExists}`} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-dropdown col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">

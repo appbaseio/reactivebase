@@ -1,4 +1,5 @@
 import {default as React, Component} from 'react';
+import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
@@ -133,12 +134,12 @@ export class MultiRange extends Component {
 	// render
 	render() {
 		let title = null,
-			titleExists = false,
 			TagItemsArray = [];
+
 		if(this.props.title) {
-			titleExists = true;
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
+
 		if(this.props.showTags && this.state.selected) {
 			this.state.selected.forEach(function (item) {
 				TagItemsArray.push(<Tag
@@ -147,8 +148,14 @@ export class MultiRange extends Component {
 					onClick={this.handleTagClick} />);
 			}.bind(this));
 		}
+
+		let cx = classNames({
+			'rbc-title-active': this.props.title,
+			'rbc-title-inactive': !this.props.title
+		});
+
 		return (
-			<div className={`rbc rbc-range col s12 col-xs-12 card thumbnail title-${titleExists}`} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-range col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12 rbc-list-container">

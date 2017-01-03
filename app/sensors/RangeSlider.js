@@ -1,4 +1,5 @@
 import { default as React, Component } from 'react';
+import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import { HistoGramComponent } from './component/HistoGram.js';
 import Slider from 'rc-slider';
@@ -161,20 +162,23 @@ export class RangeSlider extends Component {
 	}
 
 	render() {
-		 let title = null,
-			histogram = null,
-			titleExists = false;
+		let title = null,
+			histogram = null;
 
 		if(this.props.title) {
-			titleExists = true;
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 		if(this.state.counts && this.state.counts.length) {
 			histogram = (<HistoGramComponent data={this.state.counts} />);
 		}
 
+		let cx = classNames({
+			'title-active': this.props.title,
+			'title-inactive': !this.props.title
+		});
+
 		return (
-			<div className={`rbc rbc-slider card thumbnail col s12 col-xs-12 title-${titleExists}`}>
+			<div className={`rbc rbc-slider card thumbnail col s12 col-xs-12 ${cx}`}>
 				{title}
 				{histogram}
 				<div className="rbc-slider-container col s12 col-xs-12" style={{'margin': '25px 0'}}>
