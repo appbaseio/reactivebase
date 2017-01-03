@@ -59,8 +59,9 @@ export class ToggleButton extends Component {
 
 	// build query for this sensor only
 	defaultQuery(record) {
-		if(record) {
-			let query = {
+		let query = null;
+		if(record && record.length) {
+			query = {
 				bool: {
 					should: generateRangeQuery(this.props.appbaseField),
 					"minimum_should_match" : 1,
@@ -68,6 +69,8 @@ export class ToggleButton extends Component {
 				}
 			};
 			console.log(query);
+			return query;
+		} else {
 			return query;
 		}
 		function generateRangeQuery(appbaseField) {
