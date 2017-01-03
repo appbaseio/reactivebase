@@ -33,7 +33,7 @@ import SingleDropdownListDefault from './SingleDropdownList.stories';
 import MultiDropdownListDefault from './MultiDropdownList.stories';
 import SingleDropdownRangeDefault from './SingleDropdownRange.stories';
 import MultiDropdownRangeDefault from './MultiDropdownRange.stories';
-import PaginationDefault from './Pagination.stories';
+import PaginatedResultListDefault from './PaginatedResultListDefault.stories';
 
 require ('../../node_modules/materialize-css/dist/css/materialize.min.css');
 require ('../../dist/css/vendor.min.css');
@@ -221,7 +221,7 @@ storiesOf('RangeSlider', module)
 		/>
 	)));
 
-storiesOf('Pagination', module)
+storiesOf('PaginatedResultList', module)
 	.add('Basic', () => (
-		<PaginationDefault />
+		<PaginatedResultListDefault />
 	));

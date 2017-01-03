@@ -78,6 +78,7 @@ export default class PaginationDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<PaginatedResultList
 							sensorId="SearchResult"
+							paginationAt="both"
 							appbaseField={this.props.mapping.topic}
 							title="Meetups"
 							sortBy="asc"
