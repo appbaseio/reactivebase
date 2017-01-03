@@ -94,6 +94,7 @@ export class ToggleButton extends Component {
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
 		let selected = this.state.selected;
+		let newSelection = [];
 		let selectedIndex = null;
 		let isAlreadySelected = selected.forEach((selectedRecord, index) => {
 			if(record.label === selectedRecord.label) {
@@ -102,14 +103,19 @@ export class ToggleButton extends Component {
 			}
 		});
 		if(selectedIndex === null) {
-			selected.push(record);
+			if(this.props.multiSelect) {
+				selected.push(record);
+				newSelection = selected;
+			} else {
+				newSelection.push(record);
+			}
 		}
 		this.setState({
-			'selected': selected
+			'selected': newSelection
 		});
 		var obj = {
 			key: this.props.sensorId,
-			value: selected
+			value: newSelection
 		};
 		// pass the selected sensor value with sensorId as key,
 		let isExecuteQuery = true;
@@ -164,11 +170,13 @@ ToggleButton.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
-	defaultSelected: React.PropTypes.array
+	defaultSelected: React.PropTypes.array,
+	multiSelect: React.PropTypes.bool
 };
 
 // Default props value
 ToggleButton.defaultProps = {
+	multiSelect: true
 };
 
 // context type
