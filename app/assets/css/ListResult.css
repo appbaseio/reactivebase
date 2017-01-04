@@ -1,0 +1,131 @@
+@font-face {
+  font-family: 'Lato Regular';
+  src: url("../fonts/Lato/Lato-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Lato Italic';
+  src: url("../fonts/Lato/Lato-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Lato Black';
+  src: url("../fonts/Lato/Lato-Black.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Lato Black Italic';
+  src: url("../fonts/Lato/Lato-BlackItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Lato Bold';
+  src: url("../fonts/Lato/Lato-Bold.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Lato Bold Italic';
+  src: url("../fonts/Lato/Lato-BoldItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Lato Semibold';
+  src: url("../fonts/Lato/Lato-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Lato Semibold Italic';
+  src: url("../fonts/Lato/Lato-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Lato Light';
+  src: url("../fonts/Lato/Lato-Light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Lato Light Italic';
+  src: url("../fonts/Lato/Lato-LightItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Lato Hairline';
+  src: url("../fonts/Lato/Lato-Hairline.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Lato Hairline Italic';
+  src: url("../fonts/Lato/Lato-HairlineItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+.listResult {
+  height: 100%;
+  overflow: auto; }
+  .listResult .makerInfo {
+    margin-bottom: 15px;
+    font-size: 12px; }
+  .listResult .full_row {
+    display: block;
+    width: 100%;
+    position: relative;
+    float: left; }
+  .listResult .single-record {
+    background: #fff;
+    border: 1px solid #ccc;
+    height: 70px; }
+  .listResult .single-record .img-container {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 8px; }
+  .listResult .img-container img {
+    width: 100%; }
+  .listResult .single-record .text-container {
+    padding-left: 70px;
+    padding-top: 10px;
+    font-size: 16px;
+    line-height: 25px; }
+  .listResult .single-record .text-description {
+    color: #aaa; }
+  .listResult .text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  .listResult .highlight_tags {
+    display: block;
+    float: left;
+    padding-left: 0;
+    list-style-position: inside;
+    overflow: hidden;
+    max-height: 24px; }
+  .listResult .highlight_tags li {
+    float: left;
+    padding-right: 10px; }
+  .listResult .text-head-city {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    font-size: 12px;
+    line-height: 25px;
+    color: #aaa;
+    font-weight: bold; }
+  .listResult .text-head-info {
+    display: block;
+    width: 100%;
+    padding-right: 100px;
+    position: relative; }

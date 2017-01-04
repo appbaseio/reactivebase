@@ -1,7 +1,7 @@
 import {default as React, Component} from 'react';
 import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
-var helper = require('../middleware/helper.js');
+import { manager } from '../../middleware/ChannelManager.js';
+var helper = require('../../middleware/helper.js');
 
 export class Pagination extends Component {
 	constructor(props, context) {
@@ -94,7 +94,7 @@ export class Pagination extends Component {
 		}
 		for(let i = start; i <= start+5; i++) {
 			let singleItem = (
-				<li key={i} className={(this.state.currentValue === i ? 'active': 'waves-effect')}>
+				<li key={i} className={(this.state.currentValue === i ? 'active rbc-pagination-active': 'waves-effect')}>
 					<a onClick={() => this.handleChange(i)}>{i}</a>
 				</li>);
 			if(i <= this.state.maxPageNumber) {
@@ -113,6 +113,7 @@ export class Pagination extends Component {
 	// render
 	render() {
 		let title = null;
+		let titleExists = false;
 		if(this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}

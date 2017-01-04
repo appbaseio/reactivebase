@@ -582,7 +582,12 @@ a {
 
 .rbc.rbc-togglebutton {
   padding: 0; }
+  .rbc.rbc-togglebutton .rbc-btn {
+    text-transform: inherit; }
   .rbc.rbc-togglebutton .rbc-btn-active {
     background-color: #1893e7; }
   .rbc.rbc-togglebutton .rbc-btn-inactive {
     background-color: #b0bec5; }
+
+.rbc.rbc-pagination .rbc-pagination-active {
+  background-color: #1893e7; }

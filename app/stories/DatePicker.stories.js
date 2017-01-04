@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { ReactiveBase, SingleList, ResultList, Pagination } from '../app.js';
+var moment = require('moment');
+import { ReactiveBase, DatePicker, ResultList } from '../app.js';
 import { Img } from './Img.js';
 
 require('./list.css');
 
-export default class PaginationDefault extends Component {
+export default class SingleListDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.onData = this.onData.bind(this);
@@ -39,7 +40,9 @@ export default class PaginationDefault extends Component {
 						<span className="text-head-info text-overflow">
 							{marker.member ? marker.member.member_name : ''} is going to {marker.event ? marker.event.event_name : ''}
 						</span>
-						<span className="text-head-city">{marker.group ? marker.group.group_city : ''}</span>
+						<span className="text-head-city">
+							{marker.group ? marker.group.group_city : ''} ({moment(marker.mtime).format('MM-DD')})
+						</span>
 					</div>
 					<div className="text-description text-overflow full_row">
 						<ul className="highlight_tags">
@@ -58,22 +61,16 @@ export default class PaginationDefault extends Component {
 	render() {
 		return (
 			<ReactiveBase
-				appname="meetup_demo"
-				username="LPpISlEBe"
-				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
+				appname="meetup_demo1"
+				username="yafYCRWns"
+				password="c9c9b34e-185c-42e5-bdfe-b7c32d543f2e"
 				type="meetupdata1"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
-						<Pagination
-							sensorId="pagination"
-							title="Pagination" />
-						<SingleList
-							sensorId="CitySensor"
-							appbaseField={this.props.mapping.city}
-							showCount={true}
-							size={1000}
-							searchPlaceholder="Search City"
+						<DatePicker
+							sensorId="DateSensor"
+							appbaseField={this.props.mapping.date}
 							{...this.props}
 						/>
 					</div>
@@ -83,14 +80,12 @@ export default class PaginationDefault extends Component {
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="Meetups"
-							sortBy="asc"
 							from={0}
 							size={20}
 							onData={this.onData}
-							requestOnScroll={false}
+							requestOnScroll={true}
 							depends={{
-								CitySensor: {"operation": "must"},
-								pagination: {}
+								DateSensor: {"operation": "must"}
 							}}
 						/>
 					</div>
@@ -100,10 +95,9 @@ export default class PaginationDefault extends Component {
 	}
 }
 
-PaginationDefault.defaultProps = {
-	title: 'Cities',
+SingleListDefault.defaultProps = {
+	title: 'DatePicker',
 	mapping: {
-		city: 'group.group_city.raw',
-		topic: 'group.group_topics.topic_name_raw'
+		date: 'mtime'
 	}
 };

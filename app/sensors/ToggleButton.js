@@ -59,8 +59,9 @@ export class ToggleButton extends Component {
 
 	// build query for this sensor only
 	defaultQuery(record) {
-		if(record) {
-			let query = {
+		let query = null;
+		if(record && record.length) {
+			query = {
 				bool: {
 					should: generateRangeQuery(this.props.appbaseField),
 					"minimum_should_match" : 1,
@@ -68,6 +69,8 @@ export class ToggleButton extends Component {
 				}
 			};
 			console.log(query);
+			return query;
+		} else {
 			return query;
 		}
 		function generateRangeQuery(appbaseField) {
@@ -91,6 +94,7 @@ export class ToggleButton extends Component {
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
 		let selected = this.state.selected;
+		let newSelection = [];
 		let selectedIndex = null;
 		let isAlreadySelected = selected.forEach((selectedRecord, index) => {
 			if(record.label === selectedRecord.label) {
@@ -99,14 +103,19 @@ export class ToggleButton extends Component {
 			}
 		});
 		if(selectedIndex === null) {
-			selected.push(record);
+			if(this.props.multiSelect) {
+				selected.push(record);
+				newSelection = selected;
+			} else {
+				newSelection.push(record);
+			}
 		}
 		this.setState({
-			'selected': selected
+			'selected': newSelection
 		});
 		var obj = {
 			key: this.props.sensorId,
-			value: selected
+			value: newSelection
 		};
 		// pass the selected sensor value with sensorId as key,
 		let isExecuteQuery = true;
@@ -121,7 +130,7 @@ export class ToggleButton extends Component {
 		if(this.props.data) {
 			buttons = this.props.data.map((record, i) => {
 				return (
-					<button key={i} className={"btn "+ (selectedText.indexOf(record.label) > -1 ? 'rbc-btn-active' : 'rbc-btn-inactive')}
+					<button key={i} className={"btn rbc-btn "+ (selectedText.indexOf(record.label) > -1 ? 'rbc-btn-active' : 'rbc-btn-inactive')}
 						onClick={() => this.handleChange(record)} title={record.title ? record.title: record.label}>
 						{record.label}
 					</button>
@@ -140,9 +149,10 @@ export class ToggleButton extends Component {
 
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title
+			'rbc-title-inactive': !this.props.title,
+			'rbc-multiselect-active': this.props.multiSelect,
+			'rbc-multiselect-inactive': !this.props.multiSelect
 		});
-
 		return (
 			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
 				<div className="row">
@@ -161,11 +171,13 @@ ToggleButton.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
-	defaultSelected: React.PropTypes.array
+	defaultSelected: React.PropTypes.array,
+	multiSelect: React.PropTypes.bool
 };
 
 // Default props value
 ToggleButton.defaultProps = {
+	multiSelect: true
 };
 
 // context type

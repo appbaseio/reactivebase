@@ -11,8 +11,9 @@ import {MultiRange} from './sensors/MultiRange';
 import {SingleDropdownRange} from './sensors/SingleDropdownRange';
 import {MultiDropdownRange} from './sensors/MultiDropdownRange';
 import {ToggleButton} from './sensors/ToggleButton';
-import {Pagination} from './sensors/Pagination';
+import {DatePicker} from './sensors/DatePicker';
 import {ResultList} from './actuators/ResultList';
+import {PaginatedResultList} from './actuators/PaginatedResultList';
 // middleware
 import {ReactiveBase} from './middleware/ReactiveBase';
 import {manager} from './middleware/ChannelManager';
@@ -31,9 +32,10 @@ module.exports = {
 	SingleDropdownRange: SingleDropdownRange,
 	MultiDropdownRange: MultiDropdownRange,
 	ToggleButton: ToggleButton,
-	Pagination: Pagination,
+	DatePicker: DatePicker,
 	ReactiveBase: ReactiveBase,
 	ResultList: ResultList,
+	PaginatedResultList: PaginatedResultList,
 	AppbaseChannelManager: manager,
 	AppbaseSensorHelper: helper
 };

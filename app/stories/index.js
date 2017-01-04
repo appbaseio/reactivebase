@@ -1,4 +1,5 @@
 import React from 'react';
+var moment = require('moment');
 import { storiesOf, addDecorator } from '@kadira/storybook';
 import { withKnobs, text, boolean, number } from '@kadira/storybook-addon-knobs';
 import withReadme from 'storybook-readme/with-readme';
@@ -33,7 +34,8 @@ import SingleDropdownListDefault from './SingleDropdownList.stories';
 import MultiDropdownListDefault from './MultiDropdownList.stories';
 import SingleDropdownRangeDefault from './SingleDropdownRange.stories';
 import MultiDropdownRangeDefault from './MultiDropdownRange.stories';
-import PaginationDefault from './Pagination.stories';
+import PaginatedResultListDefault from './PaginatedResultListDefault.stories';
+import DatePickerDefault from './DatePicker.stories';
 
 require ('../../node_modules/materialize-css/dist/css/materialize.min.css');
 require ('../../dist/css/vendor.min.css');
@@ -221,7 +223,36 @@ storiesOf('RangeSlider', module)
 		/>
 	)));
 
-storiesOf('Pagination', module)
+storiesOf('PaginatedResultList', module)
 	.add('Basic', () => (
-		<PaginationDefault />
+		<PaginatedResultListDefault />
 	));
+
+storiesOf('DatePicker', module)
+	.addDecorator(withKnobs)
+	.add('Basic', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<DatePickerDefault />
+	)))
+	.add('Show more than 1 month', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<DatePickerDefault
+			numberOfMonths={2}
+		/>
+	)))
+	.add('Default date', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<DatePickerDefault
+			date={moment()}
+		/>
+	)))
+	.add('Initial Focus', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<DatePickerDefault
+			focused={false}
+		/>
+	)))
+	.add('React-dates props', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<DatePickerDefault
+			extra = {{
+				'withFullScreenPortal': true,
+				'showClearDate': true
+			}}
+		/>
+	)))
