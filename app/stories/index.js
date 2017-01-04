@@ -36,6 +36,7 @@ import SingleDropdownRangeDefault from './SingleDropdownRange.stories';
 import MultiDropdownRangeDefault from './MultiDropdownRange.stories';
 import PaginatedResultListDefault from './PaginatedResultListDefault.stories';
 import DatePickerDefault from './DatePicker.stories';
+import DateRangeDefault from './DateRange.stories';
 
 require ('../../node_modules/materialize-css/dist/css/materialize.min.css');
 require ('../../dist/css/vendor.min.css');
@@ -248,6 +249,11 @@ storiesOf('DatePicker', module)
 			focused={false}
 		/>
 	)))
+	.add('Enable days from today only', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<DatePickerDefault
+			allowAllDates={false}
+		/>
+	)))
 	.add('React-dates props', withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DatePickerDefault
 			extra = {{
@@ -256,3 +262,48 @@ storiesOf('DatePicker', module)
 			}}
 		/>
 	)))
+	.add('Playground', () => (
+		<DatePickerDefault
+			title={text('Title', 'Date Picker')}
+			numberOfMonths={number('Number of months', 1)}
+			focused={boolean('focused', true)}
+			allowAllDates={boolean('allowAllDates: Enable days from today only', true)}
+		/>
+	));
+
+storiesOf('DateRange', module)
+	.addDecorator(withKnobs)
+	.add('Basic', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<DateRangeDefault />
+	)))
+	.add('Show more than 1 month', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<DateRangeDefault
+			numberOfMonths={3}
+		/>
+	)))
+	.add('Default date', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<DateRangeDefault
+			startDate={moment()}
+			endDate={moment().add(5, 'days')}
+		/>
+	)))
+	.add('Enable days from today only', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<DateRangeDefault
+			allowAllDates={false}
+		/>
+	)))
+	.add('React-dates props', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<DateRangeDefault
+			extra = {{
+				'withFullScreenPortal': true,
+				'showClearDate': true
+			}}
+		/>
+	)))
+	.add('Playground', () => (
+		<DateRangeDefault
+			title={text('Title', 'Date Range')}
+			numberOfMonths={number('Number of months', 2)}
+			allowAllDates={boolean('allowAllDates: Enable days from today only', true)}
+		/>
+	));
