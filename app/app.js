@@ -11,6 +11,7 @@ import {MultiRange} from './sensors/MultiRange';
 import {SingleDropdownRange} from './sensors/SingleDropdownRange';
 import {MultiDropdownRange} from './sensors/MultiDropdownRange';
 import {ToggleButton} from './sensors/ToggleButton';
+import {DatePicker} from './sensors/DatePicker';
 import {ResultList} from './actuators/ResultList';
 import {PaginatedResultList} from './actuators/PaginatedResultList';
 // middleware
@@ -31,6 +32,7 @@ module.exports = {
 	SingleDropdownRange: SingleDropdownRange,
 	MultiDropdownRange: MultiDropdownRange,
 	ToggleButton: ToggleButton,
+	DatePicker: DatePicker,
 	ReactiveBase: ReactiveBase,
 	ResultList: ResultList,
 	PaginatedResultList: PaginatedResultList,
