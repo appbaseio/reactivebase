@@ -21,7 +21,7 @@ export class ResultList extends Component {
 					order: obj.sortBy
 				}
 			}
-		} else if (this.props.sort) {
+		} else if (this.props.sortBy) {
 			this.sortObj = {
 				[this.props.appbaseField] : {
 					order: this.props.sortBy
