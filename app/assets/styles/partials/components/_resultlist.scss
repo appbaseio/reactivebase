@@ -36,6 +36,17 @@
 			padding: 0 12px;
 			float: left;
 		}
+	}
 
+	&.rbc-sort-active {
+		.rbc-sortoptions {
+			position: absolute;
+			right: 0;
+			margin: 10px 0;
+
+			select {
+				height: 32px;
+			}
+		}
 	}
 }

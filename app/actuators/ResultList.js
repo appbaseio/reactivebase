@@ -1,4 +1,5 @@
 import {default as React, Component} from 'react';
+import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import JsonPrint from './component/JsonPrint'
 var helper = require('../middleware/helper.js');
@@ -13,11 +14,23 @@ export class ResultList extends Component {
 			rawData:  [],
 			resultMarkup: []
 		};
-		this.sortInfo = {
-			order: this.props.sortBy
-		};
+		if (this.props.sortOptions) {
+			let obj = this.props.sortOptions[0];
+			this.sortObj = {
+				[obj.appbaseField]: {
+					order: obj.sortBy
+				}
+			}
+		} else if (this.props.sort) {
+			this.sortObj = {
+				[this.props.appbaseField] : {
+					order: this.props.sortBy
+				}
+			};
+		}
 		this.channelId = null;
 		this.channelListener = null;
+		this.handleSortSelect = this.handleSortSelect.bind(this);
 		this.nextPage = this.nextPage.bind(this);
 		this.appliedQuery = {};
 	}
@@ -41,7 +54,7 @@ export class ResultList extends Component {
 	createChannel() {
 		// Set the depends - add self aggs query as well with depends
 		let depends = this.props.depends ? this.props.depends : {};
-		if (this.props.sortBy) {
+		if (this.sortObj) {
 			this.enableSort(depends);
 		}
 		// create a channel and listen the changes
@@ -123,11 +136,7 @@ export class ResultList extends Component {
 		depends['ResultSort'] = { operation: "must" };
 		let sortObj = {
 			key: "ResultSort",
-			value: {
-				[this.props.appbaseField]: {
-					'order': this.props.sortBy
-				}
-			}
+			value: this.sortObj
 		};
 		helper.selectedSensor.setSortInfo(sortObj);
 	}
@@ -224,16 +233,48 @@ export class ResultList extends Component {
 		}
 	}
 
+	handleSortSelect(event) {
+		let index = event.target.value;
+		this.sortObj = {
+			[this.props.sortOptions[index]['appbaseField']]: {
+				order: this.props.sortOptions[index]['sortBy']
+			}
+		};
+		let depends = this.props.depends ? this.props.depends : {};
+		this.enableSort(depends);
+	}
+
 	render() {
-		let title = null,
-			titleExists = false;
+		let title = null, sortOptions = null;
+		let cx = classNames({
+			'rbc-title-active': this.props.title,
+			'rbc-title-inactive': !this.props.title,
+			'rbc-sort-active': this.props.sortOptions,
+			'rbc-sort-inactive': !this.props.sortOptions
+		});
+
 		if(this.props.title) {
-			titleExists = true;
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
+
+		if (this.props.sortOptions) {
+			let options = this.props.sortOptions.map((item, index) => {
+				return <option value={index} key={index}>{item.label}</option>;
+			});
+
+			sortOptions = (
+				<div className="rbc-sortoptions input-field col">
+					<select className="browser-default form-control" onChange={this.handleSortSelect}>
+						{options}
+					</select>
+				</div>
+			)
+		}
+
 		return (
-			<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail title-${titleExists}`} style={this.props.containerStyle}>
+			<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail ${cx}`} style={this.props.containerStyle}>
 				{title}
+				{sortOptions}
 				{this.state.resultMarkup}
 			</div >
 		)
@@ -245,6 +286,13 @@ ResultList.propTypes = {
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
 	sortBy: React.PropTypes.string,
+	sortOptions: React.PropTypes.arrayOf(
+		React.PropTypes.shape({
+			label: React.PropTypes.string,
+			field: React.PropTypes.string,
+			order: React.PropTypes.string,
+		})
+	),
 	from: React.PropTypes.number,
 	onData: React.PropTypes.func,
 	size: React.PropTypes.number,
