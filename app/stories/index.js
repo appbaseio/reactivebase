@@ -1,7 +1,7 @@
 import React from 'react';
 var moment = require('moment');
 import { storiesOf, addDecorator } from '@kadira/storybook';
-import { withKnobs, text, boolean, number } from '@kadira/storybook-addon-knobs';
+import { withKnobs, text, boolean, number, array } from '@kadira/storybook-addon-knobs';
 import withReadme from 'storybook-readme/with-readme';
 
 import { Appbase } from 'appbase-js';
@@ -37,6 +37,7 @@ import MultiDropdownRangeDefault from './MultiDropdownRange.stories';
 import PaginatedResultListDefault from './PaginatedResultListDefault.stories';
 import DatePickerDefault from './DatePicker.stories';
 import DateRangeDefault from './DateRange.stories';
+import NestedListDefault from './NestedList.stories';
 
 require ('../../node_modules/materialize-css/dist/css/materialize.min.css');
 require ('../../dist/css/vendor.min.css');
@@ -305,5 +306,25 @@ storiesOf('DateRange', module)
 			title={text('Title', 'Date Range')}
 			numberOfMonths={number('Number of months', 2)}
 			allowAllDates={boolean('allowAllDates: Enable days from today only', true)}
+		/>
+	));
+
+
+storiesOf('NestedList', module)
+	.addDecorator(withKnobs)
+	.add('Basic', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<NestedListDefault />
+	)))
+	.add('With Title', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<NestedListDefault
+			title={text('Title', "Car Category")} />
+	)))
+	.add('Default selection', withReadme(removeFirstLine(TextFieldReadme), () => (
+		<NestedListDefault
+			defaultSelected={["bmw", "x series"]} />
+	))).add('Playground', () => (
+		<NestedListDefault
+			title={text('Title', 'Car Category')}
+			defaultSelected={array('Default selection', ['bmw', 'x series'])}
 		/>
 	));

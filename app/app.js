@@ -13,6 +13,7 @@ import {MultiDropdownRange} from './sensors/MultiDropdownRange';
 import {ToggleButton} from './sensors/ToggleButton';
 import {DatePicker} from './sensors/DatePicker';
 import {DateRange} from './sensors/DateRange';
+import {NestedList} from './sensors/NestedList';
 import {ResultList} from './actuators/ResultList';
 import {PaginatedResultList} from './actuators/PaginatedResultList';
 // middleware
@@ -35,6 +36,7 @@ module.exports = {
 	ToggleButton: ToggleButton,
 	DatePicker: DatePicker,
 	DateRange: DateRange,
+	NestedList: NestedList,
 	ReactiveBase: ReactiveBase,
 	ResultList: ResultList,
 	PaginatedResultList: PaginatedResultList,

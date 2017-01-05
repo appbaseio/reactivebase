@@ -592,6 +592,21 @@ a {
 .rbc.rbc-pagination .rbc-pagination-active {
   background-color: #1893e7; }
 
+.rbc.rbc-nestedlist .rbc-indent {
+  padding-left: 2em; }
+
+.rbc.rbc-nestedlist .rbc-item {
+  padding: 0; }
+  .rbc.rbc-nestedlist .rbc-item .rbc-item-link {
+    padding: 5px; }
+    .rbc.rbc-nestedlist .rbc-item .rbc-item-link .rbc-badge {
+      border-radius: 20%;
+      margin: 0 15px;
+      padding: 2px 5px;
+      background: #a3d4f5; }
+    .rbc.rbc-nestedlist .rbc-item .rbc-item-link.rbc-item-active {
+      font-weight: bold; }
+
 .rbc.rbc-datepicker {
   font-family: "Lato Regular"; }
   .rbc.rbc-datepicker .CalendarMonth__day--selected,
