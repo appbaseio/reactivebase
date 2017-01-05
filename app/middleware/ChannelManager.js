@@ -12,6 +12,7 @@ class channelManager {
 		this.receive = this.receive.bind(this);
 		this.nextPage = this.nextPage.bind(this);
 		this.paginationChanges = this.paginationChanges.bind(this);
+		this.sortChanges = this.sortChanges.bind(this);
 	}
 
 	// Receive: This method will be executed whenever dependency value changes
@@ -230,6 +231,7 @@ class channelManager {
 		this.receive('channel-options-'+channelId, channelId, queryOptions);
 	}
 
+	// callback on page number changes
 	paginationChanges(pageNumber, channelId) {
 		let channelObj = this.channels[channelId];
 		let queryOptions = JSON.parse(JSON.stringify(this.channels[channelId].previousSelectedSensor));
@@ -242,6 +244,11 @@ class channelManager {
 		// queryOptions['channel-options-'+channelId].from += 1;
 		this.queryOptions[channelId] = options;
 		this.receive('channel-options-'+channelId, channelId, queryOptions);
+	}
+
+	// sort changes
+	sortChanges(channelId) {
+		this.receive('channel-options-'+channelId, channelId);
 	}
 
 	// Create the channel by passing depends
@@ -271,7 +278,7 @@ class channelManager {
 				from: from,
 				previousSelectedSensor: previousSelectedSensor
 			};
-			helper.watchForDependencyChange(depends, this.channels[channelId].previousSelectedSensor, this.receive, channelId, this.paginationChanges);
+			helper.watchForDependencyChange(depends, this.channels[channelId].previousSelectedSensor, this.receive, channelId, this.paginationChanges, this.sortChanges);
 		}
 		setTimeout(() => {
 			if(depends.hasOwnProperty('aggs')) {

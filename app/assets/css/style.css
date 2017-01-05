@@ -591,3 +591,18 @@ a {
 
 .rbc.rbc-pagination .rbc-pagination-active {
   background-color: #1893e7; }
+
+.rbc.rbc-datepicker {
+  font-family: "Lato Regular"; }
+  .rbc.rbc-datepicker .CalendarMonth__day--selected,
+  .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
+  .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
+    background: #1893e7;
+    border-color: #1893e7; }
+  .rbc.rbc-datepicker .DateInput__display-text--focused {
+    background: #74bef1;
+    border-color: #74bef1;
+    color: #1893e7;
+    font-family: "Lato Regular"; }
+  .rbc.rbc-datepicker .CalendarDay__day {
+    text-align: center; }
