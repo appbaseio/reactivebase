@@ -3,6 +3,7 @@ import Select from 'react-select';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+var _ = require('lodash');
 
 export class MultiDropdownRange extends Component {
 	constructor(props, context) {
@@ -35,7 +36,7 @@ export class MultiDropdownRange extends Component {
 
 	componentWillUpdate() {
 		setTimeout(() => {
-			if (this.defaultSelected != this.props.defaultSelected) {
+			if (!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
 				this.defaultSelected = this.props.defaultSelected;
 				let records = this.state.data.filter((record) => {
 					return this.defaultSelected.indexOf(record.label) > -1 ? true : false;

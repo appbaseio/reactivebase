@@ -546,6 +546,12 @@ a {
     margin: 0;
     padding: 0 12px;
     float: left; }
+  .rbc.rbc-resultlist.rbc-sort-active .rbc-sortoptions {
+    position: absolute;
+    right: 0;
+    margin: 10px 0; }
+    .rbc.rbc-resultlist.rbc-sort-active .rbc-sortoptions select {
+      height: 32px; }
 
 .barContainer {
   position: relative;

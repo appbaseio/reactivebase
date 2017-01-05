@@ -72,7 +72,23 @@ export default class SingleRangeDefault extends Component {
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.name}
 							title="Cars"
-							sortBy="asc"
+							sortOptions={[
+								{
+									label: 'Lowest Price First',
+									appbaseField: 'price',
+									sortBy: 'asc'
+								},
+								{
+									label: 'Highest Price First',
+									appbaseField: 'price',
+									sortBy: 'desc'
+								},
+								{
+									label: 'Most rated',
+									appbaseField: 'rating',
+									sortBy: 'desc'
+								}
+							]}
 							from={0}
 							size={20}
 							onData={this.onData}
