@@ -98,7 +98,6 @@ export class DataSearch extends Component {
 
 	// set value to search
 	setValue(value) {
-		console.log("called");
 		var obj = {
 			key: this.props.searchInputId,
 			value: value
