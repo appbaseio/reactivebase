@@ -28,6 +28,7 @@ export class ResultList extends Component {
 				}
 			};
 		}
+		this.resultSortKey = 'ResultSort';
 		this.channelId = null;
 		this.channelListener = null;
 		this.handleSortSelect = this.handleSortSelect.bind(this);
@@ -133,9 +134,9 @@ export class ResultList extends Component {
 
 	// enable sort
 	enableSort(depends) {
-		depends['ResultSort'] = { operation: "must" };
+		depends[this.resultSortKey] = { operation: "must" };
 		let sortObj = {
-			key: "ResultSort",
+			key: this.resultSortKey,
 			value: this.sortObj
 		};
 		helper.selectedSensor.setSortInfo(sortObj);
@@ -240,8 +241,11 @@ export class ResultList extends Component {
 				order: this.props.sortOptions[index]['sortBy']
 			}
 		};
-		let depends = this.props.depends ? this.props.depends : {};
-		this.enableSort(depends);
+		let obj = {
+			key: this.resultSortKey,
+			value: this.sortObj
+		};
+		helper.selectedSensor.set(obj, true, 'sortChange');
 	}
 
 	render() {

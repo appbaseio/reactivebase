@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 var moment = require('moment');
-import { ReactiveBase, DatePicker, ResultList } from '../app.js';
+import { ReactiveBase, DateRange, ResultList } from '../app.js';
 import { Img } from './Img.js';
 
 require('./list.css');
 
-export default class DatePickerDefault extends Component {
+export default class DateRangeDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.onData = this.onData.bind(this);
@@ -68,8 +68,8 @@ export default class DatePickerDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
-						<DatePicker
-							sensorId="DateSensor"
+						<DateRange
+							sensorId="DateRangeSensor"
 							appbaseField={this.props.mapping.date}
 							{...this.props}
 						/>
@@ -85,7 +85,7 @@ export default class DatePickerDefault extends Component {
 							onData={this.onData}
 							requestOnScroll={true}
 							depends={{
-								DateSensor: {"operation": "must"}
+								DateRangeSensor: {"operation": "must"}
 							}}
 						/>
 					</div>
@@ -95,8 +95,8 @@ export default class DatePickerDefault extends Component {
 	}
 }
 
-DatePickerDefault.defaultProps = {
-	title: 'DatePicker',
+DateRangeDefault.defaultProps = {
+	title: 'DateRange',
 	mapping: {
 		date: 'mtime'
 	}

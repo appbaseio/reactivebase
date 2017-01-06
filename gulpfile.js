@@ -12,6 +12,7 @@ var files = {
 			'node_modules/react-select/dist/react-select.min.css',
 			'node_modules/rc-slider/assets/index.css',
 			'node_modules/font-awesome/css/font-awesome.min.css',
+			'node_modules/react-dates/lib/css/_datepicker.css'
 		],
 		custom: [dir_path+'assets/css/style.css'],
 		sassFile: [dir_path+'assets/styles/*.scss'],

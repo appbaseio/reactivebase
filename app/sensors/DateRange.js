@@ -1,21 +1,25 @@
 import {default as React, Component} from 'react';
-import { SingleDatePicker } from 'react-dates';
+import { DateRangePicker } from 'react-dates';
 import classNames from 'classnames';
 var moment = require('moment');
 var momentPropTypes = require('react-moment-proptypes');
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
-export class DatePicker extends Component {
+export class DateRange extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
-			currentValue: this.props.date,
-			focused: this.props.focused
+			currentValue: {
+				startDate: this.props.startDate,
+				endDate: this.props.endDate
+			},
+			focusedInput: this.props.focused
 		};
 		this.type = 'range';
 		this.handleChange = this.handleChange.bind(this);
 		this.defaultQuery = this.defaultQuery.bind(this);
+		this.onFocusChange = this.onFocusChange.bind(this);
 	}
 
 	// Set query information
@@ -43,8 +47,8 @@ export class DatePicker extends Component {
 			query = {
 				'range': {
 					[this.props.appbaseField]: {
-						gte: value,
-						lt: moment(value).add(1, 'days')
+						gte: value.startDate,
+						lte: value.endDate
 					}
 				}
 			};
@@ -74,10 +78,8 @@ export class DatePicker extends Component {
 	}
 
 	// handle focus
-	handleFocus(focus) {
-		this.setState({
-			focused: focus
-		});
+	onFocusChange(focusedInput) {
+		this.setState({ focusedInput });
 	}
 
 	// allow all dates
@@ -107,19 +109,19 @@ export class DatePicker extends Component {
 			'rbc-title-inactive': !this.props.title
 		});
 		return (
-			<div className={`rbc rbc-datepicker col s12 col-xs-12 card thumbnail ${cx}`}>
+			<div className={`rbc rbc-datepicker rbc-daterange col s12 col-xs-12 card thumbnail ${cx}`}>
 				{title}
-				<div className="rbc-datepicker-component col s12 col-xs-12">
-					<SingleDatePicker
+				<div className="rbc-daterange-component col s12 col-xs-12">
+					<DateRangePicker
 						id={this.props.sensorId}
-						date={this.state.currentValue}
-						placeholder={this.props.placeholder}
-						focused={this.state.focused}
+						startDate={this.state.currentValue.startDate}
+						endDate={this.state.currentValue.endDate}
+						focusedInput={this.state.focusedInput}
 						numberOfMonths={this.props.numberOfMonths}
 						{...this.props.extra}
 						{...this.allowAllDates()}
-						onDateChange={(date) => { this.handleChange(date) }}
-						onFocusChange={({ focused }) => { this.handleFocus(focused) }}
+						onDatesChange={(date) => { this.handleChange(date) }}
+						onFocusChange={this.onFocusChange}
 					/>
 				</div>
 			</div>
@@ -127,12 +129,13 @@ export class DatePicker extends Component {
 	}
 }
 
-DatePicker.propTypes = {
+DateRange.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
-	date: momentPropTypes.momentObj,
+	startDate: momentPropTypes.momentObj,
+	endDate: momentPropTypes.momentObj,
 	focused: React.PropTypes.bool,
 	numberOfMonths: React.PropTypes.number,
 	allowAllDates: React.PropTypes.bool,
@@ -140,16 +143,17 @@ DatePicker.propTypes = {
 };
 
 // Default props value
-DatePicker.defaultProps = {
+DateRange.defaultProps = {
 	placeholder: 'Select Date',
-	numberOfMonths: 1,
+	numberOfMonths: 2,
 	focused: true,
 	allowAllDates: true,
-	date: null
+	startDate: null,
+	endDate: null
 };
 
 // context type
-DatePicker.contextTypes = {
+DateRange.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
 };

@@ -1,0 +1,18 @@
+.rbc.rbc-datepicker {
+	font-family: $font-regular;
+	.CalendarMonth__day--selected,
+	.CalendarMonth__day--selected-end,
+	.CalendarMonth__day--selected-start {
+		background: $primary-color;
+		border-color: $primary-color;
+	}
+	.DateInput__display-text--focused {
+		background: lighten($primary-color, 20%);
+		border-color: lighten($primary-color, 20%);
+		color: $primary-color;
+		font-family: $font-regular;
+	}
+	.CalendarDay__day {
+		text-align: center;
+	}
+}

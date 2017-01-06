@@ -1,7 +1,7 @@
 var {EventEmitter} = require('fbemitter');
 export var sensorEmitter = new EventEmitter();
 
-export var watchForDependencyChange = function(depends, previousSelectedSensor, cb, channelId, paginationCb) {
+export var watchForDependencyChange = function(depends, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
 	var self = this;
 	let selectedSensor = {};
 	let sensorListener, paginationListener;
@@ -52,6 +52,12 @@ export var watchForDependencyChange = function(depends, previousSelectedSensor, 
 		}
 	});
 
+	sensorEmitter.addListener('sortChange', function(data) {
+		if(sortCb) {
+			sortCb(channelId);
+		}
+	});
+
 };
 
 function selectedSensorFn() {
@@ -82,8 +88,8 @@ function selectedSensorFn() {
 		let methodObj;
 		switch(setMethod) {
 			case 'sortChange':
-				self.selectedSort[obj.key] = obj.value;
-				methodObj = self.selectedSort;
+				self.sortInfo[obj.key] = obj.value;
+				methodObj = self.sortInfo;
 			break;
 			case 'paginationChange':
 				self.selectedPagination[obj.key] = obj.value;
