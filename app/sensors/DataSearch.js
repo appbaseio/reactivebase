@@ -124,7 +124,7 @@ export class DataSearch extends Component {
 	// set data after get the result
 	setData(data) {
 		let options = [];
-		let searchField = `hit._source.${this.props.appbaseField}`;
+		let searchField = `hit._source.${this.props.appbaseField}.trim()`;
 		// Check if this is Geo search or field tag search
 		if (this.props.isGeoSearch) {
 			// If it is Geo, we return the location field
@@ -142,11 +142,11 @@ export class DataSearch extends Component {
 				options.push({ value: eval(searchField), label: eval(searchField) });
 			});
 		}
-		options = this.removeDuplicates(options, "label");
 		options.unshift({
 			label: this.state.currentValue,
 			value: this.state.currentValue
 		});
+		options = this.removeDuplicates(options, "label");
 		this.setState({
 			options: options,
 			isLoadingOptions: false
