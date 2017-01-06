@@ -96,7 +96,7 @@ export class ToggleButton extends Component {
 		let selected = this.state.selected;
 		let newSelection = [];
 		let selectedIndex = null;
-		let isAlreadySelected = selected.forEach((selectedRecord, index) => {
+		selected.forEach((selectedRecord, index) => {
 			if(record.label === selectedRecord.label) {
 				selectedIndex = index;
 				selected.splice(index, 1);
@@ -109,6 +109,8 @@ export class ToggleButton extends Component {
 			} else {
 				newSelection.push(record);
 			}
+		} else {
+			newSelection = selected;
 		}
 		this.setState({
 			'selected': newSelection
