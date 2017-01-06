@@ -31,6 +31,7 @@ export class ResultList extends Component {
 		this.resultSortKey = 'ResultSort';
 		this.channelId = null;
 		this.channelListener = null;
+		this.queryStartTime = 0;
 		this.handleSortSelect = this.handleSortSelect.bind(this);
 		this.nextPage = this.nextPage.bind(this);
 		this.appliedQuery = {};
@@ -62,46 +63,58 @@ export class ResultList extends Component {
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends, this.props.size, this.props.from);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
-			let data = res.data;
-			let rawData, markersData, newData = [], currentData = [];
-			this.streamFlag = false;
-			if (res.mode === 'streaming') {
-				this.channelMethod = 'streaming';
-				let modData = this.streamDataModify(this.state.rawData, res);
-				rawData = modData.rawData;
-				newData = res;
-				currentData = this.state.rawData;
-				res = modData.res;
-				this.streamFlag = true;
-				markersData = this.setMarkersData(rawData);
-			} else if (res.mode === 'historic') {
-				this.channelMethod = 'historic';
-				newData = res.data.hits && res.data.hits.hits ? res.data.hits.hits : [];
-				let normalizeCurrentData = this.normalizeCurrentData(res, this.state.rawData, newData);
-				newData = normalizeCurrentData.newData;
-				currentData = normalizeCurrentData.currentData;
-				rawData = currentData.concat(newData);
+			// implementation to prevent initialize query issue if old query response is late then the newer query
+			// then we will consider the response of new query and prevent to apply changes for old query response.
+			// if queryStartTime of channel response is greater than the previous one only then apply changes
+			if(res.mode === 'historic' && res.startTime > this.queryStartTime) {
+				this.afterChannelResponse(res);
+			} else if(res.mode === 'stream') {
+				this.afterChannelResponse(res);
 			}
+		}.bind(this));
+	}
+
+	afterChannelResponse(res) {
+		let data = res.data;
+		let rawData, markersData, newData = [], currentData = [];
+		this.streamFlag = false;
+		if (res.mode === 'streaming') {
+			this.channelMethod = 'streaming';
+			let modData = this.streamDataModify(this.state.rawData, res);
+			rawData = modData.rawData;
+			newData = res;
+			currentData = this.state.rawData;
+			res = modData.res;
+			this.streamFlag = true;
+			markersData = this.setMarkersData(rawData);
+		} else if (res.mode === 'historic') {
+			this.queryStartTime = res.startTime;
+			this.channelMethod = 'historic';
+			newData = res.data.hits && res.data.hits.hits ? res.data.hits.hits : [];
+			let normalizeCurrentData = this.normalizeCurrentData(res, this.state.rawData, newData);
+			newData = normalizeCurrentData.newData;
+			currentData = normalizeCurrentData.currentData;
+			rawData = currentData.concat(newData);
+		}
+		this.setState({
+			rawData: rawData,
+			newData: newData,
+			currentData: currentData,
+			markersData: markersData
+		}, function() {
+			// Pass the historic or streaming data in index method
+			res.allMarkers = rawData;
+			let modifiedData = JSON.parse(JSON.stringify(res));
+			modifiedData.newData = this.state.newData;
+			modifiedData.currentData = this.state.currentData;
+			delete modifiedData.data;
+			let generatedData = this.props.onData ? this.props.onData(modifiedData) : this.defaultonData(res);
 			this.setState({
-				rawData: rawData,
-				newData: newData,
-				currentData: currentData,
-				markersData: markersData
-			}, function() {
-				// Pass the historic or streaming data in index method
-				res.allMarkers = rawData;
-				let modifiedData = JSON.parse(JSON.stringify(res));
-				modifiedData.newData = this.state.newData;
-				modifiedData.currentData = this.state.currentData;
-				delete modifiedData.data;
-				let generatedData = this.props.onData ? this.props.onData(modifiedData) : this.defaultonData(res);
-				this.setState({
-					resultMarkup: generatedData
-				});
-				if (this.streamFlag) {
-					this.streamMarkerInterval();
-				}
-			}.bind(this));
+				resultMarkup: generatedData
+			});
+			if (this.streamFlag) {
+				this.streamMarkerInterval();
+			}
 		}.bind(this));
 	}
 
