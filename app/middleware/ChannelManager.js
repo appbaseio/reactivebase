@@ -77,6 +77,8 @@ class channelManager {
 		} else {
 			let obj = {
 				mode: 'historic',
+				startTime: (new Date()).getTime(),
+				appliedQuery: queryObj,
 				data: {
 					_shards: {},
 					hits: {
