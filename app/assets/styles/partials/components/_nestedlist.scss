@@ -2,22 +2,23 @@
 	.rbc-indent {
 		padding-left: 2em;
 	}
+
 	.rbc-item {
 		padding: 0;
+
 		.rbc-item-link {
 			padding: 5px;
+			
 			.rbc-badge {
 				border-radius: 20%;
 				margin:0 15px;
 				padding: 2px 5px;
 				background: lighten($primary-color, 30%);
 			}
+
 			&.rbc-item-active {
 				font-weight: bold;
 			}
 		}
-	}
-	.rbc-sub-nestedlist {
-		
 	}
 }

@@ -14,6 +14,7 @@ export class PaginatedResultList extends Component {
 		this.depends = this.props.depends ? this.props.depends : {};
 		this.depends['pagination'] = {};
 	}
+
 	paginationAt(method) {
 		let pageinationComp;
 
@@ -28,6 +29,7 @@ export class PaginatedResultList extends Component {
 		}
 		return pageinationComp;
 	}
+
 	render() {
 		return (
 			<div className="row">
