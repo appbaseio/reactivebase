@@ -9,6 +9,8 @@ export class DataSearch extends Component {
 		this.state = {
 			items: [],
 			currentValue: null,
+			isLoading: false,
+			options: [],
 			rawData: {
 				hits: {
 					hits: []
@@ -95,16 +97,27 @@ export class DataSearch extends Component {
 	}
 
 	// set value to search
-	setValue(value, callback) {
+	setValue(value) {
+		console.log("called");
 		var obj = {
 			key: this.props.searchInputId,
 			value: value
 		};
 		helper.selectedSensor.set(obj, true);
-		this.callback = callback;
-		if(!value) {
-			this.callback(null, {
-				options: []
+		if(value) {
+			this.setState({
+				options: [{
+					label: value,
+					value: value
+				}],
+				isLoadingOptions: true,
+				currentValue: value
+			});
+		} else {
+			this.setState({
+				options: [],
+				isLoadingOptions: false,
+				currentValue: value
 			});
 		}
 	}
@@ -131,11 +144,14 @@ export class DataSearch extends Component {
 			});
 		}
 		options = this.removeDuplicates(options, "label");
-		if(this.callback) {
-			this.callback(null, {
-				options: options
-			});
-		}
+		options.unshift({
+			label: this.state.currentValue,
+			value: this.state.currentValue
+		});
+		this.setState({
+			options: options,
+			isLoadingOptions: false
+		});
 	}
 
 	// Search results often contain duplicate results, so display only unique values
@@ -150,8 +166,8 @@ export class DataSearch extends Component {
 		let value = currentValue ? currentValue.value : null;
 		value = value === 'null' ? null : value;
 		var obj = {
-				key: this.props.sensorId,
-				value: value
+			key: this.props.sensorId,
+			value: value
 		};
 		helper.selectedSensor.set(obj, true);
 		this.setState({
@@ -162,10 +178,12 @@ export class DataSearch extends Component {
 	render() {
 		return (
 			<div className="rbc rbc-datasearch">
-				<Select.Async
+				<Select
+					isLoading={this.state.isLoadingOptions}
 					name="appbase-search"
 					value={this.state.currentValue}
-					loadOptions={this.setValue}
+					options={this.state.options}
+					onInputChange={this.setValue}
 					onChange={this.handleSearch}
 					{...this.props}
 				/>
