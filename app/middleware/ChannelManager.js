@@ -76,7 +76,7 @@ class channelManager {
 			}
 		} else {
 			let obj = {
-				method: 'historic',
+				mode: 'historic',
 				data: {
 					_shards: {},
 					hits: {
