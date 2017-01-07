@@ -592,6 +592,9 @@ a {
 .rbc.rbc-pagination .rbc-pagination-active {
   background-color: #1893e7; }
 
+.rbc.rbc-pagination li i {
+  font-size: 1rem; }
+
 .rbc.rbc-nestedlist .rbc-indent {
   padding-left: 2em; }
 
