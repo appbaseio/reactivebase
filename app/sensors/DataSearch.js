@@ -103,7 +103,7 @@ export class DataSearch extends Component {
 			value: value
 		};
 		helper.selectedSensor.set(obj, true);
-		if(value) {
+		if(value && value.trim() !== '') {
 			this.setState({
 				options: [{
 					label: value,
@@ -142,10 +142,12 @@ export class DataSearch extends Component {
 				options.push({ value: eval(searchField), label: eval(searchField) });
 			});
 		}
-		options.unshift({
-			label: this.state.currentValue,
-			value: this.state.currentValue
-		});
+		if (this.state.currentValue && this.state.currentValue.trim() !== '') {
+			options.unshift({
+				label: this.state.currentValue,
+				value: this.state.currentValue
+			});
+		}
 		options = this.removeDuplicates(options, "label");
 		this.setState({
 			options: options,
@@ -184,6 +186,7 @@ export class DataSearch extends Component {
 					options={this.state.options}
 					onInputChange={this.setValue}
 					onChange={this.handleSearch}
+					onBlurResetsInput={false}
 					{...this.props}
 				/>
 			</div>
