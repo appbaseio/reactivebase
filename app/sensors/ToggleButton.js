@@ -159,7 +159,7 @@ export class ToggleButton extends Component {
 			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
 				<div className="row">
 					{title}
-					<div className="col s12 col-xs-12">
+					<div className="rbc-buttongroup col s12 col-xs-12">
 						{this.renderButtons()}
 					</div>
 				</div>

@@ -155,9 +155,13 @@ export class ItemCheckboxList extends Component {
 		}
 		return (
 			<div className="rbc-list-container col s12 col-xs-12">
-				<div className="row">
-					{TagItemsArray}
-				</div>
+				{
+					TagItemsArray.length ?
+					<div className="row">
+						{TagItemsArray}
+					</div> :
+					null
+				}
 				<div className="row">
 					{ListItemsArray}
 				</div>
@@ -205,14 +209,15 @@ class ListItem extends Component {
 		let count;
 		// Check if the user has set to display countField
 		if (this.props.countField) {
-			count = <span> ({this.props.doc_count}) </span>;
+			count = <span className="rbc-count"> ({this.props.doc_count}) </span>;
 		}
 		return (
-			<div onClick={this.handleClick.bind(this) } className="rbc-list-item rbc-checkbox-item col s12 col-xs-12">
+			<div onClick={this.handleClick.bind(this) } className="rbc-list-item row">
 				<input type="checkbox"
+					className="rbc-checkbox-item"
 					checked={this.state.status}
 					onChange={this.handleCheckboxChange.bind(this) } />
-				<label> {this.props.value} {count}</label>
+				<label className="rbc-label">{this.props.value} {count}</label>
 			</div>
 		);
 	}
@@ -225,7 +230,7 @@ class Tag extends Component {
 
 	render() {
 		return (
-			<span onClick={this.props.onClick.bind(null, this.props.value) } className="tag-item col">
+			<span onClick={this.props.onClick.bind(null, this.props.value) } className="rbc-tag-item col">
 				<a href="javascript:void(0)" className="close"> x </a>
 				<span>{this.props.value}</span>
 			</span>

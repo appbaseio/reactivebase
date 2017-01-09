@@ -121,11 +121,13 @@ export class MultiDropdownRange extends Component {
 
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title
+			'rbc-title-inactive': !this.props.title,
+			'rbc-placeholder-active': this.props.placeholder,
+			'rbc-placeholder-inactive': !this.props.placeholder
 		});
 
 		return (
-			<div className={`rbc rbc-dropdown col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-multidropdownrange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">

@@ -39,7 +39,9 @@ export class ResultList extends Component {
 
 	componentDidMount() {
 		this.createChannel();
-		this.listComponent();
+		if (this.props.requestOnScroll) {
+			this.listComponent();
+		}
 	}
 
 	// stop streaming request and remove listener when component will unmount

@@ -117,13 +117,10 @@ export class MultiRange extends Component {
 			buttons = this.props.data.map((record, i) => {
 				return (
 					<div className="rbc-list-item row" key={i} onClick={() => this.handleChange(record)}>
-						<div className="col s12 col-xs-12">
-							<input type="checkbox"
-								checked={selectedText.indexOf(record.label) > -1 ? true : false}
-								name="MultiRange" id="MultiRange"
-								value={record.label} />
-							<label > {record.label} </label>
-						</div>
+						<input type="checkbox"
+							checked={selectedText.indexOf(record.label) > -1 ? true : false}
+							value={record.label} />
+						<label className="rbc-label">{record.label}</label>
 					</div>
 				);
 			});
@@ -151,20 +148,24 @@ export class MultiRange extends Component {
 
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title
+			'rbc-title-inactive': !this.props.title,
+			'rbc-placeholder-active': this.props.placeholder,
+			'rbc-placeholder-inactive': !this.props.placeholder
 		});
 
 		return (
-			<div className={`rbc rbc-range col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-multirange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12 rbc-list-container">
-						<div className="row">
-							{TagItemsArray}
-						</div>
-						<div className="row">
-							{this.renderButtons()}
-						</div>
+						{
+							TagItemsArray.length ?
+							<div className="row" style={{'marginTop': '0'}}>
+								{TagItemsArray}
+							</div> :
+							null
+						}
+						{this.renderButtons()}
 					</div>
 				</div>
 			</div>
@@ -179,7 +180,7 @@ class Tag extends Component {
 
 	render() {
 		return (
-			<span onClick={this.props.onClick.bind(null, this.props.value) } className="tag-item col">
+			<span onClick={this.props.onClick.bind(null, this.props.value) } className="rbc-tag-item col">
 				<a href="javascript:void(0)" className="close"> x </a>
 				<span>{this.props.value}</span>
 			</span>

@@ -178,10 +178,10 @@ export class RangeSlider extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-slider card thumbnail col s12 col-xs-12 ${cx}`}>
+			<div className={`rbc rbc-rangeslider card thumbnail col s12 col-xs-12 ${cx}`}>
 				{title}
 				{histogram}
-				<div className="rbc-slider-container col s12 col-xs-12" style={{'margin': '25px 0'}}>
+				<div className="rbc-rangeslider-container col s12 col-xs-12" style={{'margin': '25px 0'}}>
 					<Slider range
 						defaultValue={[this.state.values.min, this.state.values.max]}
 						min={this.state.startThreshold}

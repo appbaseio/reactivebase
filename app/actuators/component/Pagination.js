@@ -94,7 +94,7 @@ export class Pagination extends Component {
 		}
 		for(let i = start; i <= start+5; i++) {
 			let singleItem = (
-				<li key={i} className={(this.state.currentValue === i ? 'active rbc-pagination-active': 'waves-effect')}>
+				<li key={i} className={'rbc-page-number ' + (this.state.currentValue === i ? 'active rbc-pagination-active': 'waves-effect')}>
 					<a onClick={() => this.handleChange(i)}>{i}</a>
 				</li>);
 			if(i <= this.state.maxPageNumber) {
@@ -103,9 +103,9 @@ export class Pagination extends Component {
 		}
 		return (
 			<ul className="pagination">
-				<li className={(this.state.currentValue === 1 ? 'disabled' : 'waves-effect')}><a onClick={this.prePage}><i className="fa fa-chevron-left"></i></a></li>
+				<li className={(this.state.currentValue === 1 ? 'disabled' : 'waves-effect')}><a className="rbc-page-previous" onClick={this.prePage}><i className="fa fa-chevron-left"></i></a></li>
 				{numbers}
-				<li className={(this.state.currentValue === this.state.maxPageNumber ? 'disabled' : 'waves-effect')}><a onClick={this.nextPage}><i className="fa fa-chevron-right"></i></a></li>
+				<li className={(this.state.currentValue === this.state.maxPageNumber ? 'disabled' : 'waves-effect')}><a className="rbc-page-next" onClick={this.nextPage}><i className="fa fa-chevron-right"></i></a></li>
 			</ul>
 		);
 	}
@@ -124,9 +124,9 @@ export class Pagination extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-pagination col s12 col-xs-12 card thumbnail ${cx}`}>
+			<div className={`rbc rbc-pagination col s12 col-xs-12 card thumbnail ${cx} ${this.props.className}`}>
 				{title}
-				<div className="rbc-pagination-component col s12 col-xs-12">
+				<div className="col s12 col-xs-12">
 					{this.renderPageNumber()}
 				</div>
 			</div>

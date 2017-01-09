@@ -1,24 +1,38 @@
 .rbc.rbc-nestedlist {
 	.rbc-indent {
-		padding-left: 2em;
+		padding-left: 1em;
 	}
 
-	.rbc-item {
-		padding: 0;
+	.rbc-list-container {
+		padding: 3px 0;
 
-		.rbc-item-link {
+		.rbc-list-item {
 			padding: 5px;
 			
-			.rbc-badge {
-				border-radius: 20%;
-				margin:0 15px;
-				padding: 2px 5px;
-				background: lighten($primary-color, 30%);
+			.rbc-count {
+				border-radius: 999em;
+				margin: 0 10px 0 2px;
+				position: relative;
+				top: -1px;
+				padding: 2px 8px;
+				font-size: 10px;
+				background: lighten($grey, 35%);
+			}
+
+			i.fa-chevron-right {
+				color: lighten($grey, 15%);
+				font-size: 12px;
 			}
 
 			&.rbc-item-active {
-				font-weight: bold;
+				font-family: $font-bold;
+				color: darken($primary-color, 5%);
+
+				i.fa-chevron-right {
+					transform: rotate(90deg);
+				}
 			}
+
 		}
 	}
 }

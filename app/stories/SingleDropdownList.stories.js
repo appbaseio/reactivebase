@@ -72,7 +72,7 @@ export default class SingleDropdownListDefault extends Component {
 						/>
 					</div>
 
-					<div className="col-xs-6">
+					<div className="col s6 col-xs-6">
 						<ResultList
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.topic}

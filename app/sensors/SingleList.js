@@ -35,11 +35,7 @@ SingleList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	searchPlaceholder: 'Search',
-	defaultStyle: {
-		height: '500px',
-		overflow: 'auto'
-	}
+	searchPlaceholder: 'Search'
 };
 
 // context type

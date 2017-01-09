@@ -73,7 +73,7 @@ class ItemRow extends Component {
 		let count;
 		// Check if user wants to show count field
 		if (this.props.countField) {
-			count = <span> ({this.props.doc_count}) </span>;
+			count = <span className="rbc-count"> ({this.props.doc_count}) </span>;
 		}
 		let item = (
 			<a href="javascript:void(0)" className={"col s12 col-xs-12"}>
@@ -107,13 +107,11 @@ class ItemRow extends Component {
 		// let activeClass = this.props.value === this.props.selectedItem ? 'active' : '';
 		return (
 			<div className="rbc-list-item row" onClick={() => this.props.handleClick(this.props.value)}>
-				<div className="rbc-radio-item col s12 col-xs-12">
-					<input type="radio"
-						checked={this.props.value === this.props.selectedItem}
-						name="radioItem" id="radioItem"
-						value={this.props.value} />
-					<label> {this.props.value} {this.renderCount()}</label>
-				</div>
+				<input type="radio"
+					className="rbc-radio-item"
+					checked={this.props.value === this.props.selectedItem}
+					value={this.props.value} />
+				<label className="rbc-label">{this.props.value} {this.renderCount()}</label>
 			</div>
 		);
 	}

@@ -1,5 +1,6 @@
 import { default as React, Component } from 'react';
 import Select from 'react-select';
+import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
@@ -177,11 +178,15 @@ export class DataSearch extends Component {
 	}
 
 	render() {
+		let cx = classNames({
+			'rbc-placeholder-active': this.props.placeholder,
+			'rbc-placeholder-inactive': !this.props.placeholder
+		});
+
 		return (
-			<div className="rbc rbc-datasearch">
+			<div className={`rbc rbc-datasearch ${cx}`}>
 				<Select
 					isLoading={this.state.isLoadingOptions}
-					name="appbase-search"
 					value={this.state.currentValue}
 					options={this.state.options}
 					onInputChange={this.setValue}
@@ -198,7 +203,6 @@ DataSearch.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	sensorInputId: React.PropTypes.string,
 	appbaseField : React.PropTypes.string,
-	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
 	size: React.PropTypes.number,
 };
