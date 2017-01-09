@@ -119,9 +119,7 @@ export class SingleRange extends Component {
 
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder
+			'rbc-title-inactive': !this.props.title
 		});
 
 		return (
@@ -140,14 +138,12 @@ export class SingleRange extends Component {
 SingleRange.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.string
 };
 
 // Default props value
 SingleRange.defaultProps = {
-	placeholder: "Search...",
 	size: 10
 };
 

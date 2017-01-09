@@ -98,7 +98,7 @@ class ItemRow extends Component {
 		let count;
 		// Check if user wants to show count field
 		if (this.props.countField) {
-			count = <span> ({this.props.doc_count}) </span>;
+			count = <span className="rbc-count"> ({this.props.doc_count}) </span>;
 		}
 		return count;
 	}

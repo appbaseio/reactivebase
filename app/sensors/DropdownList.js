@@ -152,6 +152,8 @@ export class DropdownList extends Component {
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
 			'rbc-title-inactive': !this.props.title,
+			'rbc-placeholder-active': this.props.placeholder,
+			'rbc-placeholder-inactive': !this.props.placeholder,
 			'rbc-multidropdownlist': this.props.multipleSelect,
 			'rbc-singledropdownlist': !this.props.multipleSelect
 		});

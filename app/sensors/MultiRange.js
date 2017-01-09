@@ -148,9 +148,7 @@ export class MultiRange extends Component {
 
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder
+			'rbc-title-inactive': !this.props.title
 		});
 
 		return (
@@ -191,7 +189,6 @@ class Tag extends Component {
 MultiRange.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
 	showTags: React.PropTypes.bool
@@ -199,7 +196,6 @@ MultiRange.propTypes = {
 
 // Default props value
 MultiRange.defaultProps = {
-	placeholder: "Search...",
 	size: 10,
 	showTags: true
 };
