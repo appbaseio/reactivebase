@@ -100,8 +100,8 @@ export class SingleDropdownRange extends Component {
 		}
 
 		let cx = classNames({
-			'title-active': this.props.title,
-			'title-inactive': !this.props.title,
+			'rbc-title-active': this.props.title,
+			'rbc-title-inactive': !this.props.title,
 			'rbc-placeholder-active': this.props.placeholder,
 			'rbc-placeholder-inactive': !this.props.placeholder
 		});

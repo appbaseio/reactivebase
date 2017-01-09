@@ -173,8 +173,8 @@ export class RangeSlider extends Component {
 		}
 
 		let cx = classNames({
-			'title-active': this.props.title,
-			'title-inactive': !this.props.title
+			'rbc-title-active': this.props.title,
+			'rbc-title-inactive': !this.props.title
 		});
 
 		return (
