@@ -3,7 +3,7 @@
 ## Installation
 
 ```js
-npm install --save @appbaseio/reactivebase@0.0.1
+npm install --save @appbaseio/reactivebase@latest
 ```
 
 ## Using It
