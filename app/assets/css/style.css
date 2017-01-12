@@ -6,24 +6,6 @@
   font-style: normal; }
 
 @font-face {
-  font-family: 'Lato Italic';
-  src: url("../fonts/Lato/Lato-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: italic; }
-
-@font-face {
-  font-family: 'Lato Black';
-  src: url("../fonts/Lato/Lato-Black.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'Lato Black Italic';
-  src: url("../fonts/Lato/Lato-BlackItalic.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal; }
-
-@font-face {
   font-family: 'Lato Bold';
   src: url("../fonts/Lato/Lato-Bold.ttf") format("truetype");
   font-weight: 900;
@@ -33,42 +15,6 @@
   font-family: 'Lato Bold Italic';
   src: url("../fonts/Lato/Lato-BoldItalic.ttf") format("truetype");
   font-weight: 900;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'Lato Semibold';
-  src: url("../fonts/Lato/Lato-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'Lato Semibold Italic';
-  src: url("../fonts/Lato/Lato-BoldItalic.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'Lato Light';
-  src: url("../fonts/Lato/Lato-Light.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'Lato Light Italic';
-  src: url("../fonts/Lato/Lato-LightItalic.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'Lato Hairline';
-  src: url("../fonts/Lato/Lato-Hairline.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'Lato Hairline Italic';
-  src: url("../fonts/Lato/Lato-HairlineItalic.ttf") format("truetype");
-  font-weight: normal;
   font-style: normal; }
 
 html,
@@ -210,80 +156,6 @@ a {
 
 .primary-title {
   color: #1893e7; }
-
-.font-0 {
-  font-size: 4.5rem;
-  line-height: 5.375rem; }
-
-.font-1 {
-  font-size: 2.25rem;
-  line-height: 2.875rem; }
-
-.font-2 {
-  font-size: 2rem;
-  line-height: 2.5rem; }
-
-.font-3 {
-  font-size: 1.375rem;
-  line-height: 1.75rem; }
-
-.font-3.primary {
-  font-size: 1.375rem;
-  line-height: 1.75rem;
-  color: #1893e7; }
-
-.font-4 {
-  font-size: 1.25rem;
-  line-height: 1.625rem; }
-
-.font-5 {
-  font-size: 1.125rem;
-  line-height: 1.5rem; }
-
-.font-6 {
-  font-size: 1rem;
-  line-height: 1.375rem; }
-
-.font-7 {
-  font-size: 0.9rem;
-  line-height: 1.25rem; }
-
-.font-8 {
-  font-size: 0.8rem;
-  line-height: 1.125rem; }
-
-.font-bold {
-  font-family: "Lato Bold"; }
-
-.font-semi-bold {
-  font-family: "Lato Semibold"; }
-
-.font-italic {
-  font-family: "Lato Italic"; }
-
-.font-light {
-  font-family: "Lato Light"; }
-
-.font-grey {
-  color: #999; }
-
-.font-dark-grey {
-  color: #777; }
-
-.l-s-1 {
-  letter-spacing: 1px; }
-
-.l-s-2 {
-  letter-spacing: 2px; }
-
-.l-s-3 {
-  letter-spacing: 3px; }
-
-.l-s-4 {
-  letter-spacing: 4px; }
-
-.l-s-5 {
-  letter-spacing: 5px; }
 
 .i-b {
   display: inline-block; }
