@@ -339,6 +339,8 @@ a {
   .rbc textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid #1893e7;
     box-shadow: 0 1px 0 0 #1893e7; }
+  .rbc Select {
+    line-height: 22px; }
 
 .rbc.rbc-datasearch {
   margin-top: 10px;

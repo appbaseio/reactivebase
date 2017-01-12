@@ -194,7 +194,6 @@ DropdownList.defaultProps = {
 	title: null,
 	placeholder: 'Select...',
 	defaultStyle: {
-		height: '110px',
 		overflow: 'visible'
 	}
 };
