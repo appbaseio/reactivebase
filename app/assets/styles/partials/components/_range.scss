@@ -38,26 +38,8 @@
 		}
 	}
 
-<<<<<<< HEAD
-	.Select-control {
-		height: 38px;
-	}
-
-	.Select-input input {
-		height: 16px;
-		-webkit-transition: none;
-		-moz-transition: none;
-		-ms-transition: none;
-		-o-transition: none;
-		transition: none;
-	}
-
-	.tag-item {
-		background-color: rgba($primary-color,.08);
-=======
 	.rbc-tag-item {
-		background-color: rgba(0,126,255,.08);
->>>>>>> c89698895b958fd1c3b45680197c290fb4d0f904
+		background-color: rgba($primary-color,.08);
 		border-radius: 2px;
 		border: 1px solid rgba($primary-color,.24);
 		color: $primary-color;

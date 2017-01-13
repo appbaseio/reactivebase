@@ -22,15 +22,9 @@
 	}
 
 	.DateInput__display-text--focused {
-<<<<<<< HEAD
 		background: rgba($primary-color, 0.24);
 		border-color: darken($primary-color, 20%);
 		color: $primary-color;
-=======
-		background: lighten($primary-color, 20%);
-		border-color: lighten($primary-color, 20%);
-		color: #fff;
->>>>>>> c89698895b958fd1c3b45680197c290fb4d0f904
 		font-family: $font-regular;
 	}
 
