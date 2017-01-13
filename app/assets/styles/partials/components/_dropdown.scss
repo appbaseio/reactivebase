@@ -13,4 +13,15 @@
 		-o-transition: none;
 		transition: none;
 	}
+
+	.Select--multi {
+		.Select-value {
+			color: $primary-color;
+			border-color: rgba($primary-color,.24);
+			background-color: rgba($primary-color,.08);
+		}
+		.Select-value-icon {
+			border-color: rgba($primary-color,.24);
+		}
+	}
 }

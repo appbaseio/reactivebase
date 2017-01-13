@@ -7,8 +7,8 @@
 		border-color: $primary-color;
 	}
 	.DateInput__display-text--focused {
-		background: lighten($primary-color, 20%);
-		border-color: lighten($primary-color, 20%);
+		background: rgba($primary-color, 0.24);
+		border-color: darken($primary-color, 20%);
 		color: $primary-color;
 		font-family: $font-regular;
 	}

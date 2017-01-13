@@ -6,9 +6,14 @@
 			padding: 0;
 			padding-bottom: 15px;
 		}
-		
 		.inputRangeContainer {
 			padding: 15px 6px;
 		}
+	}
+	.rc-slider-track {
+		background: $primary-color;
+	}
+	.rc-slider-handle {
+		border-color: $primary-color;
 	}
 }
