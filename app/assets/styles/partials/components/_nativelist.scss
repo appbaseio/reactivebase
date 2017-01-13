@@ -1,4 +1,4 @@
-.rbc.rbc-list {
+.rbc.rbc-singlelist, .rbc.rbc-multilist{
 	overflow: hidden;
 	height: 400px;
 	padding: 0;
@@ -7,10 +7,16 @@
 
 	.rbc-list-container {
 		height: 100%;
-		padding: 0;
+		padding: 5px 0;
 		overflow: auto;
 
 		.rbc-list-item {
+			padding: 5px 8px;
+			
+			&.row {
+				margin: 0;
+			}
+
 			a {
 				padding: 5px 10px;
 				display: block;
@@ -21,12 +27,8 @@
 				}
 			}
 
-			&.rbc-checkbox-item {
-				padding: 5px 10px;
-
-				label {
-					font-weight: normal;
-				}
+			.rbc-label {
+				font-weight: normal;
 			}
 		}
 
@@ -35,8 +37,13 @@
 		}
 	}	
 
+<<<<<<< HEAD
 	.tag-item {
 		background-color: rgba($primary-color,.08);
+=======
+	.rbc-tag-item {
+		background-color: rgba(0,126,255,.08);
+>>>>>>> c89698895b958fd1c3b45680197c290fb4d0f904
 		border-radius: 2px;
 		border: 1px solid rgba($primary-color,.24);
 		color: $primary-color;
@@ -75,7 +82,7 @@
 		margin: 0;
 	}
 
-	.rbc-search-component {
+	.rbc-search-container {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -94,7 +101,7 @@
 		&.rbc-title-active {
 			padding-top: 100px;
 
-			.rbc-search-component {
+			.rbc-search-container {
 				top: 50px;
 			}
 		}
@@ -102,5 +109,15 @@
 
 	&.rbc-title-active {
 		padding-top: 50px;
+	}
+}
+
+.rbc.rbc-multilist {
+	.rbc-list-container {
+		padding: 0;
+
+		.rbc-list-item {
+			padding: 5px 12px;
+		}
 	}
 }

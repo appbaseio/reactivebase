@@ -21,7 +21,7 @@ export class StaticSearch extends Component {
 
 	render() {
 		return (
-			<div className="rbc-search-component col s12 col-xs-12">
+			<div className="rbc-search-container col s12 col-xs-12">
 				<input type="text" className="rbc-input col s12 col-xs-12 form-control"
 					value={this.state.searchValue}
 					placeholder={this.props.placeholder}

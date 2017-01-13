@@ -109,7 +109,7 @@ export class DatePicker extends Component {
 		return (
 			<div className={`rbc rbc-datepicker col s12 col-xs-12 card thumbnail ${cx}`}>
 				{title}
-				<div className="rbc-datepicker-component col s12 col-xs-12">
+				<div className="col s12 col-xs-12">
 					<SingleDatePicker
 						id={this.props.sensorId}
 						date={this.state.currentValue}

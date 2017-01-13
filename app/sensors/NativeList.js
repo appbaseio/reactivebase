@@ -214,11 +214,15 @@ export class NativeList extends Component {
 			'rbc-search-active': this.props.showSearch,
 			'rbc-search-inactive': !this.props.showSearch,
 			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title
+			'rbc-title-inactive': !this.props.title,
+			'rbc-placeholder-active': this.props.searchPlaceholder,
+			'rbc-placeholder-inactive': !this.props.searchPlaceholder,
+			'rbc-singlelist': !this.props.multipleSelect,
+			'rbc-multilist': this.props.multipleSelect
 		});
 
 		return (
-			<div className={`rbc rbc-list col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
+			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
 				{title}
 				{searchComponent}
 				{listComponent}
@@ -247,8 +251,7 @@ NativeList.defaultProps = {
 	searchPlaceholder: 'Search',
 	includeSelectAll: false,
 	defaultStyle: {
-		height: '500px',
-		overflow: 'auto'
+		height: '500px'
 	}
 };
 

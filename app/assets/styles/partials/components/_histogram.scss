@@ -1,13 +1,11 @@
-$bg-grey: #fafafa;
-
-.barContainer {
+.rbc-bar-container {
 	position: relative;
 	height: 50px;
 	width: 100%;
 
-	.barChild {
+	.rbc-bar-item {
 		display: inline-block;
-		background: darken($bg-grey, 2%);
+		background: darken($light-grey, 2%);
 		position: relative;
 
 		.bar {

@@ -42,7 +42,7 @@ export class HistoGramComponent extends Component {
 	render() {
 		let bars = this.createBars();
 		return (
-			<div className="barContainer col s12 col-xs-12" style={this.style.barContainer}>
+			<div className="rbc-bar-container col s12 col-xs-12" style={this.style.barContainer}>
 				{bars}
 			 </div>
 		);
@@ -70,7 +70,7 @@ export class Bar extends Component {
 			position: 'relative'
 		};
 		return (
-			<span className="barChild" style={barStyle} >
+			<span className="rbc-bar-item" style={barStyle} >
 				<span className="bar" style={this.style.bar}
 					data-tip={element.count}
 					title={element.count} />

@@ -14,6 +14,7 @@ export class PaginatedResultList extends Component {
 		this.depends = this.props.depends ? this.props.depends : {};
 		this.depends['pagination'] = {};
 	}
+
 	paginationAt(method) {
 		let pageinationComp;
 
@@ -21,6 +22,7 @@ export class PaginatedResultList extends Component {
 			pageinationComp = (
 				<div className="col s12 col-xs-12" style={this.colStyle}>
 					<Pagination
+						className={`rbc-pagination-${method}`}
 						sensorId="pagination"
 						title={this.props.paginationTitle} />
 				</div>
@@ -28,6 +30,7 @@ export class PaginatedResultList extends Component {
 		}
 		return pageinationComp;
 	}
+
 	render() {
 		return (
 			<div className="row">
@@ -61,7 +64,7 @@ PaginatedResultList.propTypes = {
 PaginatedResultList.defaultProps = {
 	from: 0,
 	size: 20,
-	requestOnScroll: true,
+	requestOnScroll: false,
 	paginationAt: 'bottom',
 	containerStyle: {
 		height: '700px',

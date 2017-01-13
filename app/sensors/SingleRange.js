@@ -75,7 +75,6 @@ export class SingleRange extends Component {
 	createChannel() {
 		let depends = this.props.depends ? this.props.depends : {};
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
-
 	}
 
 	// handle the input change and pass the value inside sensor info
@@ -99,13 +98,11 @@ export class SingleRange extends Component {
 			buttons = this.props.data.map((record, i) => {
 				return (
 					<div className="rbc-list-item row" key={i} onClick={() => this.handleChange(record)}>
-						<div className="col s12 col-xs-12">
-							<input type="radio"
-								checked={selectedText === record.label}
-								name="SingleRange" id="SingleRange"
-								value={record.label} />
-							<label > {record.label} </label>
-						</div>
+						<input type="radio"
+							className="rbc-radio-item"
+							checked={selectedText === record.label}
+							value={record.label} />
+						<label className="rbc-label">{record.label}</label>
 					</div>
 				);
 			});
@@ -126,7 +123,7 @@ export class SingleRange extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-range col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-singlerange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12 rbc-list-container">
@@ -141,14 +138,12 @@ export class SingleRange extends Component {
 SingleRange.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.string
 };
 
 // Default props value
 SingleRange.defaultProps = {
-	placeholder: "Search...",
 	size: 10
 };
 

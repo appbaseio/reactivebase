@@ -280,10 +280,10 @@ export class NestedList extends Component {
 			return (
 				<li
 					key={index}
-					className="rbc-item col s12 col-xs-12">
-					<a href="javascript:void(0);" className={`rbc-item-link col s12 col-xs-12 ${cx}`} onClick={() => this.onItemSelect(item.key, level)}>
+					className="rbc-list-container col s12 col-xs-12">
+					<a href="javascript:void(0);" className={`rbc-list-item ${cx}`} onClick={() => this.onItemSelect(item.key, level)}>
 						<span> {item.key} </span>
-						<span className="rbc-badge"> {item.doc_count}</span>
+						<span className="rbc-count"> {item.doc_count}</span>
 						{this.renderChevron(level)}
 					</a>
 					{this.renderList(item.key, level)}

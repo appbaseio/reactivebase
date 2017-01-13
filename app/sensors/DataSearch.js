@@ -1,5 +1,6 @@
 import { default as React, Component } from 'react';
 import Select from 'react-select';
+import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 
@@ -103,7 +104,7 @@ export class DataSearch extends Component {
 			value: value
 		};
 		helper.selectedSensor.set(obj, true);
-		if(value) {
+		if(value && value.trim() !== '') {
 			this.setState({
 				options: [{
 					label: value,
@@ -142,10 +143,12 @@ export class DataSearch extends Component {
 				options.push({ value: eval(searchField), label: eval(searchField) });
 			});
 		}
-		options.unshift({
-			label: this.state.currentValue,
-			value: this.state.currentValue
-		});
+		if (this.state.currentValue && this.state.currentValue.trim() !== '') {
+			options.unshift({
+				label: this.state.currentValue,
+				value: this.state.currentValue
+			});
+		}
 		options = this.removeDuplicates(options, "label");
 		this.setState({
 			options: options,
@@ -175,15 +178,20 @@ export class DataSearch extends Component {
 	}
 
 	render() {
+		let cx = classNames({
+			'rbc-placeholder-active': this.props.placeholder,
+			'rbc-placeholder-inactive': !this.props.placeholder
+		});
+
 		return (
-			<div className="rbc rbc-datasearch">
+			<div className={`rbc rbc-datasearch ${cx}`}>
 				<Select
 					isLoading={this.state.isLoadingOptions}
-					name="appbase-search"
 					value={this.state.currentValue}
 					options={this.state.options}
 					onInputChange={this.setValue}
 					onChange={this.handleSearch}
+					onBlurResetsInput={false}
 					{...this.props}
 				/>
 			</div>
@@ -195,7 +203,6 @@ DataSearch.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	sensorInputId: React.PropTypes.string,
 	appbaseField : React.PropTypes.string,
-	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
 	size: React.PropTypes.number,
 };

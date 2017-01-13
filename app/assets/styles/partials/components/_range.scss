@@ -1,4 +1,4 @@
-.rbc.rbc-range {
+.rbc.rbc-singlerange, .rbc.rbc-multirange {
 	height: 250px;
 	position: relative;
 	background: #fff;
@@ -11,23 +11,25 @@
 		overflow: auto;
 
 		.rbc-list-item {
+			padding: 4px 10px;
+
+			&.row {
+				margin: 0;
+			}
+
 			a {
 				padding: 5px 10px;
 				display: block;
 				color: $dark-grey;
 
 				&.active {
-					color: $blue;
+					color: $primary-color;
 					font-weight: bold;
 				}
 			}
 
-			&.rbc-checkbox-item {
-				padding: 5px 10px;
-
-				label {
-					font-weight: normal;
-				}
+			.rbc-label {
+				font-weight: normal;
 			}
 		}
 
@@ -36,6 +38,7 @@
 		}
 	}
 
+<<<<<<< HEAD
 	.Select-control {
 		height: 38px;
 	}
@@ -51,6 +54,10 @@
 
 	.tag-item {
 		background-color: rgba($primary-color,.08);
+=======
+	.rbc-tag-item {
+		background-color: rgba(0,126,255,.08);
+>>>>>>> c89698895b958fd1c3b45680197c290fb4d0f904
 		border-radius: 2px;
 		border: 1px solid rgba($primary-color,.24);
 		color: $primary-color;
@@ -79,6 +86,14 @@
 			border-right: 1px solid darken($primary-color, 10%);
 			border-right: 1px solid rgba($primary-color,.24);
 			padding: 1px 5px 3px;
+		}
+	}
+}
+
+.rbc.rbc-multirange {
+	.rbc-list-container {
+		.rbc-list-item {
+			padding: 4px 12px;
 		}
 	}
 }
