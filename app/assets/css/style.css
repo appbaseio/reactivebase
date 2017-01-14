@@ -291,7 +291,7 @@ a {
 
 .rbc-red .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: red;
-  color: #777; }
+  color: #fff; }
 
 .rbc-red .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
@@ -427,7 +427,7 @@ a {
 
 .rbc-orange .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: orange;
-  color: #777; }
+  color: #fff; }
 
 .rbc-orange .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
@@ -563,7 +563,7 @@ a {
 
 .rbc-yellow .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: yellow;
-  color: #777; }
+  color: #fff; }
 
 .rbc-yellow .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
@@ -699,7 +699,7 @@ a {
 
 .rbc-green .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: green;
-  color: #777; }
+  color: #fff; }
 
 .rbc-green .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
@@ -835,7 +835,7 @@ a {
 
 .rbc-blue .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: #1893e7;
-  color: #777; }
+  color: #fff; }
 
 .rbc-blue .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
@@ -971,7 +971,7 @@ a {
 
 .rbc-dark .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: #ccc;
-  color: #eee; }
+  color: #555; }
 
 .rbc-dark .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #eee;
