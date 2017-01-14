@@ -28,7 +28,7 @@ $themes: (
 				border-color: map-get($map, color);
 			}
 			.CalendarMonth__day--selected-span {
-				background-color: map-get($map, input-bg);
+				background-color: lighten($secondary-color, 5%);
 				border-color: darken($secondary-color, 10%);
 			}
 			.CalendarMonth__day--after-hovered-start,
