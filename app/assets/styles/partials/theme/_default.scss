@@ -1,10 +1,10 @@
 $themes: (
-	rbc-red: (color: red, background: #fff, font-color: #777),
-	rbc-orange: (color: orange, background: #fff, font-color: #777),
-	rbc-yellow: (color: yellow, background: #fff, font-color: #777),
-	rbc-green: (color: green, background: #fff, font-color: #777),
-	rbc-blue: (color: blue, background: #fff, font-color: #777),
-	rbc-dark: (color: #fff, background: #555, font-color: #eee)
+	rbc-red: (color: red, background: #fff, font-color: #777, input-bg: #f1f1f1),
+	rbc-orange: (color: orange, background: #fff, font-color: #777, input-bg: #f1f1f1),
+	rbc-yellow: (color: yellow, background: #fff, font-color: #777, input-bg: #f1f1f1),
+	rbc-green: (color: green, background: #fff, font-color: #777, input-bg: #f1f1f1),
+	rbc-blue: (color: #1893e7, background: #fff, font-color: #777, input-bg: #f1f1f1),
+	rbc-dark: (color: #ccc, background: #555, font-color: #eee, input-bg: #aaa)
 );
 
 @each $theme, $map in $themes {
@@ -28,7 +28,7 @@ $themes: (
 				border-color: map-get($map, color);
 			}
 			.CalendarMonth__day--selected-span {
-				background: $secondary-color;
+				background-color: map-get($map, input-bg);
 				border-color: darken($secondary-color, 10%);
 			}
 			.CalendarMonth__day--after-hovered-start,
@@ -84,8 +84,17 @@ $themes: (
 		.rbc.rbc-nestedlist {
 			.rbc-list-container {
 				.rbc-list-item {
+					color: map-get($map, font-color);
 					&.rbc-item-active {
-						color: darken(map-get($map, color), 5%);
+						color: map-get($map, color);
+						.rbc-count {
+							background: map-get($map, color);
+							color: map-get($map, background);
+						}
+					}
+					.rbc-count {
+						background: map-get($map, font-color);
+						color: map-get($map, background);
 					}
 				}
 			}
@@ -140,6 +149,11 @@ $themes: (
 		.rbc.rbc-togglebutton {
 			.rbc-btn-active {
 				background-color: map-get($map, color);
+				color: map-get($map, font-color);
+			}
+			.rbc-btn-inactive {
+				color: map-get($map, font-color);
+				background-color: map-get($map, input-bg);
 			}
 		}
 		
@@ -157,10 +171,20 @@ $themes: (
 			}
 
 			.rbc-input {
-				background: lighten(map-get($map, font-color), 2%);
+				background-color: map-get($map, input-bg);
 				.add-on {
 					color: map-get($map, color);
 				}
+			}
+			.primary-title {
+				color: map-get($map, color);
+			}
+
+			label,
+			[type="checkbox"]+label:before, [type="checkbox"]:not(.filled-in)+label:after,
+			[type="radio"]:not(:checked)+label:before, [type="radio"]:not(:checked)+label:after {
+				color: map-get($map, font-color);
+				border-color: map-get($map, font-color);
 			}
 
 			input:not([type]):focus:not([readonly]),
@@ -179,16 +203,6 @@ $themes: (
 				border-color:  map-get($map, color);
 				box-shadow: 0 1px 0 0 map-get($map, color);
 			}
-		}
-
-		.primary-title {
-			color: map-get($map, color);
-		}
-
-		label,
-		[type="checkbox"]+label:before, [type="checkbox"]:not(.filled-in)+label:after {
-			color: map-get($map, font-color);
-			border-color: map-get($map, font-color);
 		}
 
 		[type="checkbox"]:checked+label:before {

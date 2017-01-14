@@ -43,7 +43,7 @@ ReactiveBase.propTypes = {
 
 // Default props value
 ReactiveBase.defaultProps = {
-	theme: "rbc-dark"
+	theme: "rbc-blue"
 }
 
 ReactiveBase.childContextTypes = {
