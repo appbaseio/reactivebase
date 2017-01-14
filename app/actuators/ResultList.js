@@ -291,7 +291,7 @@ export class ResultList extends Component {
 		}
 
 		return (
-			<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail ${cx}`} style={this.props.containerStyle}>
+			<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail ${cx}`}>
 				{title}
 				{sortOptions}
 				{this.state.resultMarkup}
@@ -315,18 +315,13 @@ ResultList.propTypes = {
 	from: React.PropTypes.number,
 	onData: React.PropTypes.func,
 	size: React.PropTypes.number,
-	requestOnScroll: React.PropTypes.bool,
-	containerStyle: React.PropTypes.any
+	requestOnScroll: React.PropTypes.bool
 };
 
 ResultList.defaultProps = {
 	from: 0,
 	size: 20,
-	requestOnScroll: true,
-	containerStyle: {
-		height: '700px',
-		overflow: 'auto'
-	}
+	requestOnScroll: true
 };
 
 // context type

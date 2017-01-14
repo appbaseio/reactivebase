@@ -136,7 +136,6 @@ export var selectedSensor = new selectedSensorFn();
 export var ResponsiveStory = function () {
 	function handleResponsive() {
 		var height = $(window).height();
-		$('.rbc.rbc-resultlist').height(height - 15);
 		$('.rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist').height(height - 100 - 15);
 		$('.rbc-base > .row').css({
 			'margin-bottom': 0

@@ -56,8 +56,7 @@ PaginatedResultList.propTypes = {
 	from: React.PropTypes.number,
 	onData: React.PropTypes.func,
 	size: React.PropTypes.number,
-	requestOnScroll: React.PropTypes.bool,
-	containerStyle: React.PropTypes.any
+	requestOnScroll: React.PropTypes.bool
 };
 
 // Default props value
@@ -65,11 +64,7 @@ PaginatedResultList.defaultProps = {
 	from: 0,
 	size: 20,
 	requestOnScroll: false,
-	paginationAt: 'bottom',
-	containerStyle: {
-		height: '700px',
-		overflow: 'auto'
-	}
+	paginationAt: 'bottom'
 };
 
 // context type

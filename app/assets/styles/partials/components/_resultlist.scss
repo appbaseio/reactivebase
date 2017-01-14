@@ -1,5 +1,6 @@
 .rbc.rbc-resultlist {
-	height: 100%;
+	height: auto;
+	max-height: 700px;
 	overflow: auto;
 	
 	.rbc-json-print {
