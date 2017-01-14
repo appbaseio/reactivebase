@@ -1,4 +1,5 @@
 var {EventEmitter} = require('fbemitter');
+var $ = require('jquery');
 export var sensorEmitter = new EventEmitter();
 
 export var watchForDependencyChange = function(depends, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
@@ -131,3 +132,18 @@ function selectedSensorFn() {
 };
 
 export var selectedSensor = new selectedSensorFn();
+
+export var ResponsiveStory = function () {
+	function handleResponsive() {
+		var height = $(window).height();
+		$('.rbc.rbc-resultlist').height(height - 15);
+		$('.rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist').height(height - 100 - 15);
+		$('.rbc-base > .row').css({
+			'margin-bottom': 0
+		});
+	}
+	handleResponsive();
+	$(window).resize(function() {
+		handleResponsive();
+	})
+}

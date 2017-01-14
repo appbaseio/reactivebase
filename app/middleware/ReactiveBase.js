@@ -26,7 +26,7 @@ export class ReactiveBase extends Component {
 
 	render() {
 		return (
-			<section className={"col s12 col-xs-12 "+this.props.theme} style={{'padding': 0}}>
+			<section className={"rbc-base col s12 col-xs-12 "+this.props.theme} style={{'padding': 0}}>
 				{this.props.children}
 			</section>
 		);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ReactiveBase, TextField, ResultList } from '../app.js';
-
+import { ResponsiveStory } from '../middleware/helper.js';
 require('./list.css');
 
 export default class TextFieldDefault extends Component {
@@ -8,6 +8,10 @@ export default class TextFieldDefault extends Component {
 		super(props);
 		this.onData = this.onData.bind(this);
 		this.nameQuery = this.nameQuery.bind(this);
+	}
+
+	componentDidMount() {
+		ResponsiveStory();
 	}
 
 	nameQuery(value) {

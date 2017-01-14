@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 var moment = require('moment');
 import { ReactiveBase, DateRange, ResultList } from '../app.js';
+import { ResponsiveStory } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
 require('./list.css');
@@ -12,6 +13,10 @@ export default class DateRangeDefault extends Component {
 		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
 	}
 
+	componentDidMount() {
+		ResponsiveStory();
+	}
+	
 	onData(res) {
 		let result, combineData = res.currentData;
 		if(res.mode === 'historic') {

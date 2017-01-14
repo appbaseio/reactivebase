@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { ReactiveBase, SingleRange, ResultList } from '../app.js';
-
+import { ResponsiveStory } from '../middleware/helper.js';
 require('./list.css');
 
 export default class SingleRangeDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.onData = this.onData.bind(this);
+	}
+
+	componentDidMount() {
+		ResponsiveStory();
 	}
 
 	onData(res) {
