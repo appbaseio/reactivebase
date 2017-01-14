@@ -26,7 +26,7 @@ export class ReactiveBase extends Component {
 
 	render() {
 		return (
-			<section className="col s12 col-xs-12" style={{'padding': 0}}>
+			<section className={"col s12 col-xs-12 "+this.props.theme} style={{'padding': 0}}>
 				{this.props.children}
 			</section>
 		);
@@ -37,8 +37,14 @@ ReactiveBase.propTypes = {
 	appname: React.PropTypes.string.isRequired,
 	username: React.PropTypes.string.isRequired,
 	password: React.PropTypes.string.isRequired,
-	type: React.PropTypes.string
+	type: React.PropTypes.string,
+	theme: React.PropTypes.string
 };
+
+// Default props value
+ReactiveBase.defaultProps = {
+	theme: "rbc-blue"
+}
 
 ReactiveBase.childContextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,

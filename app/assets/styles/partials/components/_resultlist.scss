@@ -8,10 +8,6 @@
 			display: inline-block;
 			cursor: pointer;
 			float: left;
-
-			&:hover {
-				color: $primary-color;
-			}
 			
 			&.head:after {
 				content: '▾';

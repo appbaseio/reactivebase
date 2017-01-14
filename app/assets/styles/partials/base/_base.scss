@@ -172,10 +172,6 @@ a {
 	}
 }
 
-.primary-title {
-	color: $primary-color;
-}
-
 // Others
 .i-b {
 	display: inline-block;
@@ -212,20 +208,12 @@ a {
 			position: absolute;
 			right: 15px;
 			top: 12px;
-			color: $primary-color;
 		}
 	}
 
-	[type="radio"]:checked+label:after,
-	[type="radio"].with-gap:checked+label:before,
-	[type="radio"].with-gap:checked+label:after {
-		border-color: $primary-color;
-		background-color: $primary-color;
-	}
-
 	[type="checkbox"]:checked+label:before {
-		border-right: 2px solid $primary-color;
-		border-bottom: 2px solid $primary-color;
+		border-right: 2px solid;
+		border-bottom: 2px solid;
 	}
 
 	input:not([type]):focus:not([readonly]),
@@ -241,8 +229,7 @@ a {
 	input[type=number]:focus:not([readonly]),
 	input[type=search]:focus:not([readonly]),
 	textarea.materialize-textarea:focus:not([readonly]) {
-		border-bottom: 1px solid $primary-color;
-		box-shadow: 0 1px 0 0 $primary-color;
+		border-bottom: 1px solid;
 	}
 
 	Select {

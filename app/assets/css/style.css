@@ -154,9 +154,6 @@ a {
   .wrapper.stretch {
     max-width: 4000px; }
 
-.primary-title {
-  color: red; }
-
 .i-b {
   display: inline-block; }
 
@@ -186,16 +183,10 @@ a {
     .rbc .rbc-input .add-on {
       position: absolute;
       right: 15px;
-      top: 12px;
-      color: red; }
-  .rbc [type="radio"]:checked + label:after,
-  .rbc [type="radio"].with-gap:checked + label:before,
-  .rbc [type="radio"].with-gap:checked + label:after {
-    border-color: red;
-    background-color: red; }
+      top: 12px; }
   .rbc [type="checkbox"]:checked + label:before {
-    border-right: 2px solid red;
-    border-bottom: 2px solid red; }
+    border-right: 2px solid;
+    border-bottom: 2px solid; }
   .rbc input:not([type]):focus:not([readonly]),
   .rbc input[type=text]:focus:not([readonly]),
   .rbc input[type=password]:focus:not([readonly]),
@@ -209,10 +200,579 @@ a {
   .rbc input[type=number]:focus:not([readonly]),
   .rbc input[type=search]:focus:not([readonly]),
   .rbc textarea.materialize-textarea:focus:not([readonly]) {
-    border-bottom: 1px solid red;
-    box-shadow: 0 1px 0 0 red; }
+    border-bottom: 1px solid; }
   .rbc Select {
     line-height: 22px; }
+
+.rbc-red .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
+  color: red; }
+
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected,
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
+  background: red;
+  border-color: red; }
+
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-span {
+  background: #8ccbf7;
+  border-color: #5cb5f4; }
+
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--hovered-span {
+  background: #bce1fa;
+  border-color: #8ccbf7;
+  color: red; }
+
+.rbc-red .rbc.rbc-datepicker .DateInput__display-text--focused {
+  background: rgba(255, 0, 0, 0.24);
+  border-color: #990000;
+  color: red;
+  font-family: "Lato Regular"; }
+
+.rbc-red .rbc.rbc-singledropdownlist .Select--multi .Select-value,
+.rbc-red .rbc.rbc-multidropdownlist .Select--multi .Select-value,
+.rbc-red .rbc.rbc-singledropdownrange .Select--multi .Select-value,
+.rbc-red .rbc.rbc-multidropdownrange .Select--multi .Select-value {
+  color: red;
+  border-color: rgba(255, 0, 0, 0.24);
+  background-color: rgba(255, 0, 0, 0.08); }
+
+.rbc-red .rbc.rbc-singledropdownlist .Select--multi .Select-value-icon,
+.rbc-red .rbc.rbc-multidropdownlist .Select--multi .Select-value-icon,
+.rbc-red .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon,
+.rbc-red .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon {
+  border-color: rgba(255, 0, 0, 0.24); }
+
+.rbc-red .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
+.rbc-red .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active {
+  color: red; }
+
+.rbc-red .rbc.rbc-singlelist .rbc-tag-item,
+.rbc-red .rbc.rbc-multilist .rbc-tag-item {
+  background-color: rgba(255, 0, 0, 0.08);
+  border-color: rgba(255, 0, 0, 0.24);
+  color: red; }
+  .rbc-red .rbc.rbc-singlelist .rbc-tag-item .close,
+  .rbc-red .rbc.rbc-multilist .rbc-tag-item .close {
+    color: red;
+    border-color: rgba(255, 0, 0, 0.24); }
+
+.rbc-red .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
+  color: #e60000; }
+
+.rbc-red .rbc.rbc-pagination .rbc-pagination-active {
+  background-color: red; }
+
+.rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+  color: #e60000; }
+
+.rbc-red .rbc.rbc-singlerange .rbc-tag-item, .rbc-red .rbc.rbc-multirange .rbc-tag-item {
+  background-color: rgba(255, 0, 0, 0.08);
+  border-color: rgba(255, 0, 0, 0.24);
+  color: red; }
+  .rbc-red .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-red .rbc.rbc-multirange .rbc-tag-item .close {
+    color: red;
+    border-color: rgba(255, 0, 0, 0.24); }
+
+.rbc-red .rbc.rbc-rangeslider .rc-slider-track {
+  background: red; }
+
+.rbc-red .rbc.rbc-rangeslider .rc-slider-handle {
+  border-color: red; }
+
+.rbc-red .rbc.rbc-resultlist .rbc-json-print span:hover {
+  color: red; }
+
+.rbc-red .rbc.rbc-togglebutton .rbc-btn-active {
+  background-color: red; }
+
+.rbc-red .rbc [type="radio"]:checked + label:after,
+.rbc-red .rbc [type="radio"].with-gap:checked + label:before,
+.rbc-red .rbc [type="radio"].with-gap:checked + label:after {
+  border-color: red;
+  background-color: red; }
+
+.rbc-red .rbc [type="checkbox"]:checked + label:before {
+  border-right-color: red;
+  border-bottom-color: red; }
+
+.rbc-red .rbc .rbc-input .add-on {
+  color: red; }
+
+.rbc-red .rbc input:not([type]):focus:not([readonly]),
+.rbc-red .rbc input[type=text]:focus:not([readonly]),
+.rbc-red .rbc input[type=password]:focus:not([readonly]),
+.rbc-red .rbc input[type=email]:focus:not([readonly]),
+.rbc-red .rbc input[type=url]:focus:not([readonly]),
+.rbc-red .rbc input[type=time]:focus:not([readonly]),
+.rbc-red .rbc input[type=date]:focus:not([readonly]),
+.rbc-red .rbc input[type=datetime]:focus:not([readonly]),
+.rbc-red .rbc input[type=datetime-local]:focus:not([readonly]),
+.rbc-red .rbc input[type=tel]:focus:not([readonly]),
+.rbc-red .rbc input[type=number]:focus:not([readonly]),
+.rbc-red .rbc input[type=search]:focus:not([readonly]),
+.rbc-red .rbc textarea.materialize-textarea:focus:not([readonly]) {
+  border-color: red;
+  box-shadow: 0 1px 0 0 red; }
+
+.rbc-red .primary-title {
+  color: red; }
+
+.rbc-orange .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
+  color: orange; }
+
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected,
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
+  background: orange;
+  border-color: orange; }
+
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-span {
+  background: #8ccbf7;
+  border-color: #5cb5f4; }
+
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--hovered-span {
+  background: #bce1fa;
+  border-color: #8ccbf7;
+  color: orange; }
+
+.rbc-orange .rbc.rbc-datepicker .DateInput__display-text--focused {
+  background: rgba(255, 165, 0, 0.24);
+  border-color: #996300;
+  color: orange;
+  font-family: "Lato Regular"; }
+
+.rbc-orange .rbc.rbc-singledropdownlist .Select--multi .Select-value,
+.rbc-orange .rbc.rbc-multidropdownlist .Select--multi .Select-value,
+.rbc-orange .rbc.rbc-singledropdownrange .Select--multi .Select-value,
+.rbc-orange .rbc.rbc-multidropdownrange .Select--multi .Select-value {
+  color: orange;
+  border-color: rgba(255, 165, 0, 0.24);
+  background-color: rgba(255, 165, 0, 0.08); }
+
+.rbc-orange .rbc.rbc-singledropdownlist .Select--multi .Select-value-icon,
+.rbc-orange .rbc.rbc-multidropdownlist .Select--multi .Select-value-icon,
+.rbc-orange .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon,
+.rbc-orange .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon {
+  border-color: rgba(255, 165, 0, 0.24); }
+
+.rbc-orange .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
+.rbc-orange .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active {
+  color: orange; }
+
+.rbc-orange .rbc.rbc-singlelist .rbc-tag-item,
+.rbc-orange .rbc.rbc-multilist .rbc-tag-item {
+  background-color: rgba(255, 165, 0, 0.08);
+  border-color: rgba(255, 165, 0, 0.24);
+  color: orange; }
+  .rbc-orange .rbc.rbc-singlelist .rbc-tag-item .close,
+  .rbc-orange .rbc.rbc-multilist .rbc-tag-item .close {
+    color: orange;
+    border-color: rgba(255, 165, 0, 0.24); }
+
+.rbc-orange .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
+  color: #e69500; }
+
+.rbc-orange .rbc.rbc-pagination .rbc-pagination-active {
+  background-color: orange; }
+
+.rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+  color: #e69500; }
+
+.rbc-orange .rbc.rbc-singlerange .rbc-tag-item, .rbc-orange .rbc.rbc-multirange .rbc-tag-item {
+  background-color: rgba(255, 165, 0, 0.08);
+  border-color: rgba(255, 165, 0, 0.24);
+  color: orange; }
+  .rbc-orange .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-orange .rbc.rbc-multirange .rbc-tag-item .close {
+    color: orange;
+    border-color: rgba(255, 165, 0, 0.24); }
+
+.rbc-orange .rbc.rbc-rangeslider .rc-slider-track {
+  background: orange; }
+
+.rbc-orange .rbc.rbc-rangeslider .rc-slider-handle {
+  border-color: orange; }
+
+.rbc-orange .rbc.rbc-resultlist .rbc-json-print span:hover {
+  color: orange; }
+
+.rbc-orange .rbc.rbc-togglebutton .rbc-btn-active {
+  background-color: orange; }
+
+.rbc-orange .rbc [type="radio"]:checked + label:after,
+.rbc-orange .rbc [type="radio"].with-gap:checked + label:before,
+.rbc-orange .rbc [type="radio"].with-gap:checked + label:after {
+  border-color: orange;
+  background-color: orange; }
+
+.rbc-orange .rbc [type="checkbox"]:checked + label:before {
+  border-right-color: orange;
+  border-bottom-color: orange; }
+
+.rbc-orange .rbc .rbc-input .add-on {
+  color: orange; }
+
+.rbc-orange .rbc input:not([type]):focus:not([readonly]),
+.rbc-orange .rbc input[type=text]:focus:not([readonly]),
+.rbc-orange .rbc input[type=password]:focus:not([readonly]),
+.rbc-orange .rbc input[type=email]:focus:not([readonly]),
+.rbc-orange .rbc input[type=url]:focus:not([readonly]),
+.rbc-orange .rbc input[type=time]:focus:not([readonly]),
+.rbc-orange .rbc input[type=date]:focus:not([readonly]),
+.rbc-orange .rbc input[type=datetime]:focus:not([readonly]),
+.rbc-orange .rbc input[type=datetime-local]:focus:not([readonly]),
+.rbc-orange .rbc input[type=tel]:focus:not([readonly]),
+.rbc-orange .rbc input[type=number]:focus:not([readonly]),
+.rbc-orange .rbc input[type=search]:focus:not([readonly]),
+.rbc-orange .rbc textarea.materialize-textarea:focus:not([readonly]) {
+  border-color: orange;
+  box-shadow: 0 1px 0 0 orange; }
+
+.rbc-orange .primary-title {
+  color: orange; }
+
+.rbc-yellow .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
+  color: yellow; }
+
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected,
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
+  background: yellow;
+  border-color: yellow; }
+
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-span {
+  background: #8ccbf7;
+  border-color: #5cb5f4; }
+
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--hovered-span {
+  background: #bce1fa;
+  border-color: #8ccbf7;
+  color: yellow; }
+
+.rbc-yellow .rbc.rbc-datepicker .DateInput__display-text--focused {
+  background: rgba(255, 255, 0, 0.24);
+  border-color: #999900;
+  color: yellow;
+  font-family: "Lato Regular"; }
+
+.rbc-yellow .rbc.rbc-singledropdownlist .Select--multi .Select-value,
+.rbc-yellow .rbc.rbc-multidropdownlist .Select--multi .Select-value,
+.rbc-yellow .rbc.rbc-singledropdownrange .Select--multi .Select-value,
+.rbc-yellow .rbc.rbc-multidropdownrange .Select--multi .Select-value {
+  color: yellow;
+  border-color: rgba(255, 255, 0, 0.24);
+  background-color: rgba(255, 255, 0, 0.08); }
+
+.rbc-yellow .rbc.rbc-singledropdownlist .Select--multi .Select-value-icon,
+.rbc-yellow .rbc.rbc-multidropdownlist .Select--multi .Select-value-icon,
+.rbc-yellow .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon,
+.rbc-yellow .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon {
+  border-color: rgba(255, 255, 0, 0.24); }
+
+.rbc-yellow .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
+.rbc-yellow .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active {
+  color: yellow; }
+
+.rbc-yellow .rbc.rbc-singlelist .rbc-tag-item,
+.rbc-yellow .rbc.rbc-multilist .rbc-tag-item {
+  background-color: rgba(255, 255, 0, 0.08);
+  border-color: rgba(255, 255, 0, 0.24);
+  color: yellow; }
+  .rbc-yellow .rbc.rbc-singlelist .rbc-tag-item .close,
+  .rbc-yellow .rbc.rbc-multilist .rbc-tag-item .close {
+    color: yellow;
+    border-color: rgba(255, 255, 0, 0.24); }
+
+.rbc-yellow .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
+  color: #e6e600; }
+
+.rbc-yellow .rbc.rbc-pagination .rbc-pagination-active {
+  background-color: yellow; }
+
+.rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+  color: #e6e600; }
+
+.rbc-yellow .rbc.rbc-singlerange .rbc-tag-item, .rbc-yellow .rbc.rbc-multirange .rbc-tag-item {
+  background-color: rgba(255, 255, 0, 0.08);
+  border-color: rgba(255, 255, 0, 0.24);
+  color: yellow; }
+  .rbc-yellow .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-yellow .rbc.rbc-multirange .rbc-tag-item .close {
+    color: yellow;
+    border-color: rgba(255, 255, 0, 0.24); }
+
+.rbc-yellow .rbc.rbc-rangeslider .rc-slider-track {
+  background: yellow; }
+
+.rbc-yellow .rbc.rbc-rangeslider .rc-slider-handle {
+  border-color: yellow; }
+
+.rbc-yellow .rbc.rbc-resultlist .rbc-json-print span:hover {
+  color: yellow; }
+
+.rbc-yellow .rbc.rbc-togglebutton .rbc-btn-active {
+  background-color: yellow; }
+
+.rbc-yellow .rbc [type="radio"]:checked + label:after,
+.rbc-yellow .rbc [type="radio"].with-gap:checked + label:before,
+.rbc-yellow .rbc [type="radio"].with-gap:checked + label:after {
+  border-color: yellow;
+  background-color: yellow; }
+
+.rbc-yellow .rbc [type="checkbox"]:checked + label:before {
+  border-right-color: yellow;
+  border-bottom-color: yellow; }
+
+.rbc-yellow .rbc .rbc-input .add-on {
+  color: yellow; }
+
+.rbc-yellow .rbc input:not([type]):focus:not([readonly]),
+.rbc-yellow .rbc input[type=text]:focus:not([readonly]),
+.rbc-yellow .rbc input[type=password]:focus:not([readonly]),
+.rbc-yellow .rbc input[type=email]:focus:not([readonly]),
+.rbc-yellow .rbc input[type=url]:focus:not([readonly]),
+.rbc-yellow .rbc input[type=time]:focus:not([readonly]),
+.rbc-yellow .rbc input[type=date]:focus:not([readonly]),
+.rbc-yellow .rbc input[type=datetime]:focus:not([readonly]),
+.rbc-yellow .rbc input[type=datetime-local]:focus:not([readonly]),
+.rbc-yellow .rbc input[type=tel]:focus:not([readonly]),
+.rbc-yellow .rbc input[type=number]:focus:not([readonly]),
+.rbc-yellow .rbc input[type=search]:focus:not([readonly]),
+.rbc-yellow .rbc textarea.materialize-textarea:focus:not([readonly]) {
+  border-color: yellow;
+  box-shadow: 0 1px 0 0 yellow; }
+
+.rbc-yellow .primary-title {
+  color: yellow; }
+
+.rbc-green .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
+  color: green; }
+
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected,
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
+  background: green;
+  border-color: green; }
+
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-span {
+  background: #8ccbf7;
+  border-color: #5cb5f4; }
+
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--hovered-span {
+  background: #bce1fa;
+  border-color: #8ccbf7;
+  color: green; }
+
+.rbc-green .rbc.rbc-datepicker .DateInput__display-text--focused {
+  background: rgba(0, 128, 0, 0.24);
+  border-color: #001a00;
+  color: green;
+  font-family: "Lato Regular"; }
+
+.rbc-green .rbc.rbc-singledropdownlist .Select--multi .Select-value,
+.rbc-green .rbc.rbc-multidropdownlist .Select--multi .Select-value,
+.rbc-green .rbc.rbc-singledropdownrange .Select--multi .Select-value,
+.rbc-green .rbc.rbc-multidropdownrange .Select--multi .Select-value {
+  color: green;
+  border-color: rgba(0, 128, 0, 0.24);
+  background-color: rgba(0, 128, 0, 0.08); }
+
+.rbc-green .rbc.rbc-singledropdownlist .Select--multi .Select-value-icon,
+.rbc-green .rbc.rbc-multidropdownlist .Select--multi .Select-value-icon,
+.rbc-green .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon,
+.rbc-green .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon {
+  border-color: rgba(0, 128, 0, 0.24); }
+
+.rbc-green .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
+.rbc-green .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active {
+  color: green; }
+
+.rbc-green .rbc.rbc-singlelist .rbc-tag-item,
+.rbc-green .rbc.rbc-multilist .rbc-tag-item {
+  background-color: rgba(0, 128, 0, 0.08);
+  border-color: rgba(0, 128, 0, 0.24);
+  color: green; }
+  .rbc-green .rbc.rbc-singlelist .rbc-tag-item .close,
+  .rbc-green .rbc.rbc-multilist .rbc-tag-item .close {
+    color: green;
+    border-color: rgba(0, 128, 0, 0.24); }
+
+.rbc-green .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
+  color: #006700; }
+
+.rbc-green .rbc.rbc-pagination .rbc-pagination-active {
+  background-color: green; }
+
+.rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+  color: #006700; }
+
+.rbc-green .rbc.rbc-singlerange .rbc-tag-item, .rbc-green .rbc.rbc-multirange .rbc-tag-item {
+  background-color: rgba(0, 128, 0, 0.08);
+  border-color: rgba(0, 128, 0, 0.24);
+  color: green; }
+  .rbc-green .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-green .rbc.rbc-multirange .rbc-tag-item .close {
+    color: green;
+    border-color: rgba(0, 128, 0, 0.24); }
+
+.rbc-green .rbc.rbc-rangeslider .rc-slider-track {
+  background: green; }
+
+.rbc-green .rbc.rbc-rangeslider .rc-slider-handle {
+  border-color: green; }
+
+.rbc-green .rbc.rbc-resultlist .rbc-json-print span:hover {
+  color: green; }
+
+.rbc-green .rbc.rbc-togglebutton .rbc-btn-active {
+  background-color: green; }
+
+.rbc-green .rbc [type="radio"]:checked + label:after,
+.rbc-green .rbc [type="radio"].with-gap:checked + label:before,
+.rbc-green .rbc [type="radio"].with-gap:checked + label:after {
+  border-color: green;
+  background-color: green; }
+
+.rbc-green .rbc [type="checkbox"]:checked + label:before {
+  border-right-color: green;
+  border-bottom-color: green; }
+
+.rbc-green .rbc .rbc-input .add-on {
+  color: green; }
+
+.rbc-green .rbc input:not([type]):focus:not([readonly]),
+.rbc-green .rbc input[type=text]:focus:not([readonly]),
+.rbc-green .rbc input[type=password]:focus:not([readonly]),
+.rbc-green .rbc input[type=email]:focus:not([readonly]),
+.rbc-green .rbc input[type=url]:focus:not([readonly]),
+.rbc-green .rbc input[type=time]:focus:not([readonly]),
+.rbc-green .rbc input[type=date]:focus:not([readonly]),
+.rbc-green .rbc input[type=datetime]:focus:not([readonly]),
+.rbc-green .rbc input[type=datetime-local]:focus:not([readonly]),
+.rbc-green .rbc input[type=tel]:focus:not([readonly]),
+.rbc-green .rbc input[type=number]:focus:not([readonly]),
+.rbc-green .rbc input[type=search]:focus:not([readonly]),
+.rbc-green .rbc textarea.materialize-textarea:focus:not([readonly]) {
+  border-color: green;
+  box-shadow: 0 1px 0 0 green; }
+
+.rbc-green .primary-title {
+  color: green; }
+
+.rbc-blue .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
+  color: blue; }
+
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected,
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
+  background: blue;
+  border-color: blue; }
+
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-span {
+  background: #8ccbf7;
+  border-color: #5cb5f4; }
+
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--hovered-span {
+  background: #bce1fa;
+  border-color: #8ccbf7;
+  color: blue; }
+
+.rbc-blue .rbc.rbc-datepicker .DateInput__display-text--focused {
+  background: rgba(0, 0, 255, 0.24);
+  border-color: #000099;
+  color: blue;
+  font-family: "Lato Regular"; }
+
+.rbc-blue .rbc.rbc-singledropdownlist .Select--multi .Select-value,
+.rbc-blue .rbc.rbc-multidropdownlist .Select--multi .Select-value,
+.rbc-blue .rbc.rbc-singledropdownrange .Select--multi .Select-value,
+.rbc-blue .rbc.rbc-multidropdownrange .Select--multi .Select-value {
+  color: blue;
+  border-color: rgba(0, 0, 255, 0.24);
+  background-color: rgba(0, 0, 255, 0.08); }
+
+.rbc-blue .rbc.rbc-singledropdownlist .Select--multi .Select-value-icon,
+.rbc-blue .rbc.rbc-multidropdownlist .Select--multi .Select-value-icon,
+.rbc-blue .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon,
+.rbc-blue .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon {
+  border-color: rgba(0, 0, 255, 0.24); }
+
+.rbc-blue .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
+.rbc-blue .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active {
+  color: blue; }
+
+.rbc-blue .rbc.rbc-singlelist .rbc-tag-item,
+.rbc-blue .rbc.rbc-multilist .rbc-tag-item {
+  background-color: rgba(0, 0, 255, 0.08);
+  border-color: rgba(0, 0, 255, 0.24);
+  color: blue; }
+  .rbc-blue .rbc.rbc-singlelist .rbc-tag-item .close,
+  .rbc-blue .rbc.rbc-multilist .rbc-tag-item .close {
+    color: blue;
+    border-color: rgba(0, 0, 255, 0.24); }
+
+.rbc-blue .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
+  color: #0000e6; }
+
+.rbc-blue .rbc.rbc-pagination .rbc-pagination-active {
+  background-color: blue; }
+
+.rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+  color: #0000e6; }
+
+.rbc-blue .rbc.rbc-singlerange .rbc-tag-item, .rbc-blue .rbc.rbc-multirange .rbc-tag-item {
+  background-color: rgba(0, 0, 255, 0.08);
+  border-color: rgba(0, 0, 255, 0.24);
+  color: blue; }
+  .rbc-blue .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-blue .rbc.rbc-multirange .rbc-tag-item .close {
+    color: blue;
+    border-color: rgba(0, 0, 255, 0.24); }
+
+.rbc-blue .rbc.rbc-rangeslider .rc-slider-track {
+  background: blue; }
+
+.rbc-blue .rbc.rbc-rangeslider .rc-slider-handle {
+  border-color: blue; }
+
+.rbc-blue .rbc.rbc-resultlist .rbc-json-print span:hover {
+  color: blue; }
+
+.rbc-blue .rbc.rbc-togglebutton .rbc-btn-active {
+  background-color: blue; }
+
+.rbc-blue .rbc [type="radio"]:checked + label:after,
+.rbc-blue .rbc [type="radio"].with-gap:checked + label:before,
+.rbc-blue .rbc [type="radio"].with-gap:checked + label:after {
+  border-color: blue;
+  background-color: blue; }
+
+.rbc-blue .rbc [type="checkbox"]:checked + label:before {
+  border-right-color: blue;
+  border-bottom-color: blue; }
+
+.rbc-blue .rbc .rbc-input .add-on {
+  color: blue; }
+
+.rbc-blue .rbc input:not([type]):focus:not([readonly]),
+.rbc-blue .rbc input[type=text]:focus:not([readonly]),
+.rbc-blue .rbc input[type=password]:focus:not([readonly]),
+.rbc-blue .rbc input[type=email]:focus:not([readonly]),
+.rbc-blue .rbc input[type=url]:focus:not([readonly]),
+.rbc-blue .rbc input[type=time]:focus:not([readonly]),
+.rbc-blue .rbc input[type=date]:focus:not([readonly]),
+.rbc-blue .rbc input[type=datetime]:focus:not([readonly]),
+.rbc-blue .rbc input[type=datetime-local]:focus:not([readonly]),
+.rbc-blue .rbc input[type=tel]:focus:not([readonly]),
+.rbc-blue .rbc input[type=number]:focus:not([readonly]),
+.rbc-blue .rbc input[type=search]:focus:not([readonly]),
+.rbc-blue .rbc textarea.materialize-textarea:focus:not([readonly]) {
+  border-color: blue;
+  box-shadow: 0 1px 0 0 blue; }
+
+.rbc-blue .primary-title {
+  color: blue; }
 
 .rbc.rbc-datasearch {
   margin-top: 10px;
@@ -230,7 +790,6 @@ a {
         border: 0;
         width: 30px;
         height: 30px;
-        color: red;
         display: inline-block;
         font: normal normal normal 14px/1 FontAwesome;
         font-size: inherit;
@@ -264,14 +823,6 @@ a {
     -ms-transition: none;
     -o-transition: none;
     transition: none; }
-  .rbc.rbc-singledropdownlist .Select--multi .Select-value, .rbc.rbc-multidropdownlist .Select--multi .Select-value,
-  .rbc.rbc-singledropdownrange .Select--multi .Select-value, .rbc.rbc-multidropdownrange .Select--multi .Select-value {
-    color: red;
-    border-color: rgba(255, 0, 0, 0.24);
-    background-color: rgba(255, 0, 0, 0.08); }
-  .rbc.rbc-singledropdownlist .Select--multi .Select-value-icon, .rbc.rbc-multidropdownlist .Select--multi .Select-value-icon,
-  .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon, .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon {
-    border-color: rgba(255, 0, 0, 0.24); }
 
 .rbc.rbc-singlelist, .rbc.rbc-multilist {
   overflow: hidden;
@@ -291,17 +842,14 @@ a {
         padding: 5px 10px;
         display: block; }
         .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active, .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active {
-          color: red;
           font-weight: bold; }
       .rbc.rbc-singlelist .rbc-list-container .rbc-list-item .rbc-label, .rbc.rbc-multilist .rbc-list-container .rbc-list-item .rbc-label {
         font-weight: normal; }
     .rbc.rbc-singlelist .rbc-list-container .row, .rbc.rbc-multilist .rbc-list-container .row {
       margin: 10px 0; }
   .rbc.rbc-singlelist .rbc-tag-item, .rbc.rbc-multilist .rbc-tag-item {
-    background-color: rgba(255, 0, 0, 0.08);
     border-radius: 2px;
-    border: 1px solid rgba(255, 0, 0, 0.24);
-    color: red;
+    border: 1px solid;
     display: inline-block;
     font-size: 14px;
     margin-left: 5px;
@@ -316,13 +864,11 @@ a {
       position: relative;
       top: 1px; }
     .rbc.rbc-singlelist .rbc-tag-item .close, .rbc.rbc-multilist .rbc-tag-item .close {
-      color: red;
       font-size: 12px;
       display: inline-block;
       border-bottom-left-radius: 2px;
       border-top-left-radius: 2px;
-      border-right: 1px solid #cc0000;
-      border-right: 1px solid rgba(255, 0, 0, 0.24);
+      border-right: 1px solid;
       padding: 1px 5px 3px; }
   .rbc.rbc-singlelist .rbc-title, .rbc.rbc-multilist .rbc-title {
     position: absolute;
@@ -371,17 +917,14 @@ a {
         display: block;
         color: #777; }
         .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-          color: red;
           font-weight: bold; }
       .rbc.rbc-singlerange .rbc-list-container .rbc-list-item .rbc-label, .rbc.rbc-multirange .rbc-list-container .rbc-list-item .rbc-label {
         font-weight: normal; }
     .rbc.rbc-singlerange .rbc-list-container .row, .rbc.rbc-multirange .rbc-list-container .row {
       margin: 10px 0; }
   .rbc.rbc-singlerange .rbc-tag-item, .rbc.rbc-multirange .rbc-tag-item {
-    background-color: rgba(255, 0, 0, 0.08);
     border-radius: 2px;
-    border: 1px solid rgba(255, 0, 0, 0.24);
-    color: red;
+    border: 1px solid;
     display: inline-block;
     font-size: 14px;
     margin-left: 5px;
@@ -396,13 +939,11 @@ a {
       position: relative;
       top: 1px; }
     .rbc.rbc-singlerange .rbc-tag-item .close, .rbc.rbc-multirange .rbc-tag-item .close {
-      color: red;
       font-size: 12px;
       display: inline-block;
       border-bottom-left-radius: 2px;
       border-top-left-radius: 2px;
-      border-right: 1px solid #cc0000;
-      border-right: 1px solid rgba(255, 0, 0, 0.24);
+      border-right: 1px solid;
       padding: 1px 5px 3px; }
 
 .rbc.rbc-multirange .rbc-list-container .rbc-list-item {
@@ -416,8 +957,6 @@ a {
     display: inline-block;
     cursor: pointer;
     float: left; }
-    .rbc.rbc-resultlist .rbc-json-print span:hover {
-      color: red; }
     .rbc.rbc-resultlist .rbc-json-print span.head:after {
       content: '▾';
       display: inline-block;
@@ -462,12 +1001,6 @@ a {
 .rbc.rbc-rangeslider .rbc-rangeslider-container .inputRangeContainer {
   padding: 15px 6px; }
 
-.rbc.rbc-rangeslider .rc-slider-track {
-  background: red; }
-
-.rbc.rbc-rangeslider .rc-slider-handle {
-  border-color: red; }
-
 .rbc.rbc-textfield {
   padding: 0; }
   .rbc.rbc-textfield .rbc-search-container {
@@ -479,13 +1012,8 @@ a {
   padding: 0; }
   .rbc.rbc-togglebutton .rbc-btn {
     text-transform: inherit; }
-  .rbc.rbc-togglebutton .rbc-btn-active {
-    background-color: red; }
   .rbc.rbc-togglebutton .rbc-btn-inactive {
     background-color: #b0bec5; }
-
-.rbc.rbc-pagination .rbc-pagination-active {
-  background-color: red; }
 
 .rbc.rbc-pagination li i {
   font-size: 1rem; }
@@ -509,32 +1037,13 @@ a {
       color: #bfbfbf;
       font-size: 12px; }
     .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
-      font-family: "Lato Bold";
-      color: #e60000; }
+      font-family: "Lato Bold"; }
       .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active i.fa-chevron-right {
         transform: rotate(90deg); }
 
 .rbc.rbc-datepicker {
   font-family: "Lato Regular";
   padding: 0 0 14px 0; }
-  .rbc.rbc-datepicker .CalendarMonth__day--selected,
-  .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-  .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
-    background: red;
-    border-color: red; }
-  .rbc.rbc-datepicker .CalendarMonth__day--selected-span {
-    background: #8ccbf7;
-    border-color: #5cb5f4; }
-  .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-  .rbc.rbc-datepicker .CalendarMonth__day--hovered-span {
-    background: #bce1fa;
-    border-color: #8ccbf7;
-    color: red; }
-  .rbc.rbc-datepicker .DateInput__display-text--focused {
-    background: rgba(255, 0, 0, 0.24);
-    border-color: #990000;
-    color: red;
-    font-family: "Lato Regular"; }
   .rbc.rbc-datepicker .CalendarDay__day {
     text-align: center; }
   .rbc.rbc-datepicker .DayPicker__week-header {

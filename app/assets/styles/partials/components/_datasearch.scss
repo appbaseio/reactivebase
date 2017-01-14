@@ -5,7 +5,7 @@
 	.Select-control {
 		border: 0;
 		font-weight: bold;
-		font-family: $font-bold-i;	
+		font-family: $font-bold-i;
 		background: darken($light-grey, 2%);
 
 		.Select-arrow-zone {
@@ -17,7 +17,6 @@
 				border: 0;
 				width: 30px;
 				height: 30px;
-				color: $primary-color;
 				display: inline-block;
 				font: normal normal normal 14px/1 FontAwesome;
 				font-size: inherit;

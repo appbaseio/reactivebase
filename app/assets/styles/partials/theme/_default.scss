@@ -1,0 +1,187 @@
+$themes: (
+	rbc-red: (color: red),
+	rbc-orange: (color: orange),
+	rbc-yellow: (color: yellow),
+	rbc-green: (color: green),
+	rbc-blue: (color: blue)
+);
+
+@each $theme, $map in $themes {
+	.#{$theme} {
+
+		.rbc.rbc-datasearch {
+			.Select-control {
+				.Select-arrow-zone {
+					.Select-arrow {
+						color: map-get($map, color);
+					}
+				}
+			}
+		}
+
+		.rbc.rbc-datepicker {
+			.CalendarMonth__day--selected,
+			.CalendarMonth__day--selected-end,
+			.CalendarMonth__day--selected-start {
+				background: map-get($map, color);
+				border-color: map-get($map, color);
+			}
+			.CalendarMonth__day--selected-span {
+				background: $secondary-color;
+				border-color: darken($secondary-color, 10%);
+			}
+			.CalendarMonth__day--after-hovered-start,
+			.CalendarMonth__day--hovered-span {
+				background: lighten($secondary-color, 10%);
+				border-color: $secondary-color;
+				color: map-get($map, color);
+			}
+			.DateInput__display-text--focused {
+				background: rgba(map-get($map, color), 0.24);
+				border-color: darken(map-get($map, color), 20%);
+				color: map-get($map, color);
+				font-family: $font-regular;
+			}
+		}
+
+		.rbc.rbc-singledropdownlist,
+		.rbc.rbc-multidropdownlist,
+		.rbc.rbc-singledropdownrange,
+		.rbc.rbc-multidropdownrange {
+			.Select--multi {
+				.Select-value {
+					color: map-get($map, color);
+					border-color: rgba(map-get($map, color), .24);
+					background-color: rgba(map-get($map, color), .08);
+				}
+				.Select-value-icon {
+					border-color: rgba(map-get($map, color), .24);
+				}
+			}
+		}
+
+		.rbc.rbc-singlelist,
+		.rbc.rbc-multilist {
+			.rbc-list-container {
+				.rbc-list-item {
+					a.active {
+						color: map-get($map, color);
+					}
+				}
+			}
+			.rbc-tag-item {
+				background-color: rgba(map-get($map, color),.08); 
+				border-color: rgba(map-get($map, color),.24);
+				color: map-get($map, color);
+				.close {
+					color: map-get($map, color);
+					border-color: rgba(map-get($map, color),.24);
+				}
+			}
+		}
+
+		.rbc.rbc-nestedlist {
+			.rbc-list-container {
+				.rbc-list-item {
+					&.rbc-item-active {
+						color: darken(map-get($map, color), 5%);
+					}
+				}
+			}
+		}
+
+		.rbc.rbc-pagination {
+			.rbc-pagination-active {
+				background-color: map-get($map, color);
+			}
+		}
+
+		.rbc.rbc-singlerange, .rbc.rbc-multirange {
+			.rbc-list-container {
+				.rbc-list-item {
+					a{
+						&.active {
+							color: darken(map-get($map, color), 5%);
+						}
+					}
+				}
+			}
+			.rbc-tag-item {
+				background-color: rgba(map-get($map, color),.08); 
+				border-color: rgba(map-get($map, color),.24);
+				color: map-get($map, color);
+				.close {
+					color: map-get($map, color);
+					border-color: rgba(map-get($map, color),.24);
+				}
+			}
+		}
+
+		.rbc.rbc-rangeslider {
+			.rc-slider-track {
+				background: map-get($map, color);
+			}
+			.rc-slider-handle {
+				border-color: map-get($map, color);
+			}
+		}
+
+		.rbc.rbc-resultlist {
+			.rbc-json-print {
+				span {
+					&:hover {
+						color: map-get($map, color);
+					}
+				}
+			}
+		}
+		
+		.rbc.rbc-togglebutton {
+			.rbc-btn-active {
+				background-color: map-get($map, color);
+			}
+		}
+		
+		.rbc {
+			[type="radio"]:checked+label:after,
+			[type="radio"].with-gap:checked+label:before,
+			[type="radio"].with-gap:checked+label:after {
+				border-color: map-get($map, color);
+				background-color: map-get($map, color);
+			}
+
+			[type="checkbox"]:checked+label:before {
+				border-right-color: map-get($map, color);
+				border-bottom-color: map-get($map, color);
+			}
+
+			.rbc-input {
+				.add-on {
+					color: map-get($map, color);
+				}
+			}
+
+			input:not([type]):focus:not([readonly]),
+			input[type=text]:focus:not([readonly]),
+			input[type=password]:focus:not([readonly]),
+			input[type=email]:focus:not([readonly]),
+			input[type=url]:focus:not([readonly]),
+			input[type=time]:focus:not([readonly]),
+			input[type=date]:focus:not([readonly]),
+			input[type=datetime]:focus:not([readonly]),
+			input[type=datetime-local]:focus:not([readonly]),
+			input[type=tel]:focus:not([readonly]),
+			input[type=number]:focus:not([readonly]),
+			input[type=search]:focus:not([readonly]),
+			textarea.materialize-textarea:focus:not([readonly]) {
+				border-color:  map-get($map, color);
+				box-shadow: 0 1px 0 0 map-get($map, color);
+			}
+		}
+
+		.primary-title {
+			color: map-get($map, color);
+		}
+
+	}
+}
