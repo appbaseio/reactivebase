@@ -188,7 +188,6 @@ a {
 		line-height: 30px;
 		font-weight: bold;
 		font-family: $font-bold;
-		color: $dark-grey;
 		letter-spacing: 1px;
 		text-transform: uppercase;
 		margin: 0;
@@ -196,7 +195,6 @@ a {
 
 	.rbc-input {
 		position: relative;
-		background: darken($light-grey, 2%);
 		border: 0;
 		margin: 0;
 		font-weight: bold;
