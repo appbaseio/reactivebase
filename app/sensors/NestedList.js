@@ -335,7 +335,7 @@ export class NestedList extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-nestedlist col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-nestedlist col s12 col-xs-12 card thumbnail ${cx}`}>
 				{title}
 				{searchComponent}
 				{listComponent}
@@ -363,11 +363,7 @@ NestedList.defaultProps = {
 	showSearch: false,
 	title: null,
 	searchPlaceholder: 'Search',
-	includeSelectAll: false,
-	defaultStyle: {
-		height: '500px',
-		overflow: 'auto'
-	}
+	includeSelectAll: false
 };
 
 // context type

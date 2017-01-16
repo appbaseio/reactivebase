@@ -1,6 +1,7 @@
 .rbc.rbc-singledropdownlist, .rbc.rbc-multidropdownlist,
 .rbc.rbc-singledropdownrange, .rbc.rbc-multidropdownrange {
 	padding: 0;
+	overflow: visible;
 
 	.Select-control {
 		height: 38px;

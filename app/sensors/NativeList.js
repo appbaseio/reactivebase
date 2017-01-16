@@ -222,7 +222,7 @@ export class NativeList extends Component {
 		});
 
 		return (
-			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
+			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`}>
 				{title}
 				{searchComponent}
 				{listComponent}
@@ -249,10 +249,7 @@ NativeList.defaultProps = {
 	showSearch: false,
 	title: null,
 	searchPlaceholder: 'Search',
-	includeSelectAll: false,
-	defaultStyle: {
-		height: '500px'
-	}
+	includeSelectAll: false
 };
 
 // context type

@@ -159,7 +159,7 @@ export class DropdownList extends Component {
 		});
 
 		return (
-			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
+			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">
@@ -192,10 +192,7 @@ DropdownList.defaultProps = {
 	sortBy: 'count',
 	size: 100,
 	title: null,
-	placeholder: 'Select...',
-	defaultStyle: {
-		overflow: 'visible'
-	}
+	placeholder: 'Select...'
 };
 
 // context type

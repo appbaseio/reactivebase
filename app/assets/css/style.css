@@ -1055,7 +1055,8 @@ a {
 
 .rbc.rbc-singledropdownlist, .rbc.rbc-multidropdownlist,
 .rbc.rbc-singledropdownrange, .rbc.rbc-multidropdownrange {
-  padding: 0; }
+  padding: 0;
+  overflow: visible; }
   .rbc.rbc-singledropdownlist .Select-control, .rbc.rbc-multidropdownlist .Select-control,
   .rbc.rbc-singledropdownrange .Select-control, .rbc.rbc-multidropdownrange .Select-control {
     height: 38px; }
@@ -1259,28 +1260,30 @@ a {
 .rbc.rbc-pagination li i {
   font-size: 1rem; }
 
-.rbc.rbc-nestedlist .rbc-indent {
-  padding-left: 1em; }
-
-.rbc.rbc-nestedlist .rbc-list-container {
-  padding: 3px 0; }
-  .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item {
-    padding: 5px; }
-    .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item .rbc-count {
-      border-radius: 999em;
-      margin: 0 10px 0 2px;
-      position: relative;
-      top: -1px;
-      padding: 2px 8px;
-      font-size: 10px;
-      background: #f2f2f2; }
-    .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item i.fa-chevron-right {
-      color: #bfbfbf;
-      font-size: 12px; }
-    .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
-      font-family: "Lato Bold"; }
-      .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active i.fa-chevron-right {
-        transform: rotate(90deg); }
+.rbc.rbc-nestedlist {
+  height: 500px;
+  overflow: auto; }
+  .rbc.rbc-nestedlist .rbc-indent {
+    padding-left: 1em; }
+  .rbc.rbc-nestedlist .rbc-list-container {
+    padding: 3px 0; }
+    .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item {
+      padding: 5px; }
+      .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item .rbc-count {
+        border-radius: 999em;
+        margin: 0 10px 0 2px;
+        position: relative;
+        top: -1px;
+        padding: 2px 8px;
+        font-size: 10px;
+        background: #f2f2f2; }
+      .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item i.fa-chevron-right {
+        color: #bfbfbf;
+        font-size: 12px; }
+      .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
+        font-family: "Lato Bold"; }
+        .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active i.fa-chevron-right {
+          transform: rotate(90deg); }
 
 .rbc.rbc-datepicker {
   font-family: "Lato Regular";

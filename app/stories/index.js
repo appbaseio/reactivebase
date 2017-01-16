@@ -246,9 +246,7 @@ storiesOf('DatePicker', module)
 		/>
 	)))
 	.add('Initial Focus', withReadme(removeFirstLine(TextFieldReadme), () => (
-		<DatePickerDefault
-			focused={false}
-		/>
+		<DatePickerDefault />
 	)))
 	.add('Enable days from today only', withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DatePickerDefault
@@ -267,7 +265,6 @@ storiesOf('DatePicker', module)
 		<DatePickerDefault
 			title={text('Title', 'Date Picker')}
 			numberOfMonths={number('Number of months', 1)}
-			focused={boolean('focused', true)}
 			allowAllDates={boolean('allowAllDates: Enable days from today only', true)}
 		/>
 	));

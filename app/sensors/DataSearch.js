@@ -201,18 +201,13 @@ export class DataSearch extends Component {
 
 DataSearch.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
-	sensorInputId: React.PropTypes.string,
 	appbaseField : React.PropTypes.string,
-	placeholder: React.PropTypes.string,
-	size: React.PropTypes.number,
+	placeholder: React.PropTypes.string
 };
 
 // Default props value
 DataSearch.defaultProps = {
-	placeholder: "Search...",
-	size: 10,
-	executeDepends: true,
-	sensorInputId: "searchLetter"
+	placeholder: "Search..."
 };
 
 // context type

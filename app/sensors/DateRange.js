@@ -14,7 +14,7 @@ export class DateRange extends Component {
 				startDate: this.props.startDate,
 				endDate: this.props.endDate
 			},
-			focusedInput: this.props.focused
+			focusedInput: null
 		};
 		this.type = 'range';
 		this.handleChange = this.handleChange.bind(this);
@@ -136,7 +136,6 @@ DateRange.propTypes = {
 	placeholder: React.PropTypes.string,
 	startDate: momentPropTypes.momentObj,
 	endDate: momentPropTypes.momentObj,
-	focused: React.PropTypes.bool,
 	numberOfMonths: React.PropTypes.number,
 	allowAllDates: React.PropTypes.bool,
 	extra: React.PropTypes.any
@@ -146,7 +145,6 @@ DateRange.propTypes = {
 DateRange.defaultProps = {
 	placeholder: 'Select Date',
 	numberOfMonths: 2,
-	focused: true,
 	allowAllDates: true,
 	startDate: null,
 	endDate: null
