@@ -75,7 +75,6 @@ export default class DataSearchDefault extends Component {
 							sensorId="VenueSensor"
 							searchInputId="CityVenue"
 							placeholder="Search Venue"
-							autocomplete={false}
 						/>
 					</div>
 

@@ -265,7 +265,7 @@ export class DataSearch extends Component {
 						onBlurResetsInput={false}
 						{...this.props}
 					/> :
-					<div className="rbc-input-container col s12 col-xs-12">
+					<div className="rbc-search-container col s12 col-xs-12">
 						<input
 							type="text"
 							className="rbc-input"
@@ -273,7 +273,7 @@ export class DataSearch extends Component {
 							value={this.state.currentValue ? this.state.currentValue : ''}
 							onChange={this.handleInputChange}
 						/>
-						<span className="rbc-input-icon"><i></i></span>
+						<span className="rbc-search-icon"></span>
 					</div>
 				}
 			</div>

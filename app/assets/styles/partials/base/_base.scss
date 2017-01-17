@@ -193,55 +193,18 @@ a {
 		margin: 0;
 	}
 
+	.rbc-search-container {
+		height: 48px;
+	}
+
 	.rbc-input {
 		position: relative;
 		border: 0;
 		margin: 0;
+		height: 48px;
 		font-family: $font-regular;
 		width: calc(100% - 20px);
 		padding: 0 10px;
-		height: 36px;
-		background-color: #f5f5f5;
-		border: 0;
-		border-radius: 4px;
-	}
-
-	.rbc-input-container {
-		position: relative;
-		padding-top: 15px;
-		padding-bottom: 15px;
-		
-		.rbc-input-icon {
-			position: absolute;
-			right: 5px;
-			top: 20px;
-
-			i {
-				border: 0;
-				width: 30px;
-				height: 30px;
-				display: inline-block;
-				font: normal normal normal 14px/1 FontAwesome;
-				font-size: inherit;
-				text-rendering: auto;
-				-webkit-font-smoothing: antialiased;
-
-				&:before {
-				  content: "\f002";
-				}
-			}
-		}
-
-	}
-	
-	&.rbc-title-active {
-		.rbc-input-container {
-			padding-top: 0;
-
-			.rbc-input-icon {
-				top: 5px;
-			}
-		}
 	}
 
 	[type="checkbox"]:checked+label:before {
@@ -262,10 +225,8 @@ a {
 	input[type=number]:focus:not([readonly]),
 	input[type=search]:focus:not([readonly]),
 	textarea.materialize-textarea:focus:not([readonly]) {
-		border:  0;
-		box-shadow: none;
+		border-bottom: 1px solid;
 	}
-
 
 	Select {
 		line-height: 22px;
