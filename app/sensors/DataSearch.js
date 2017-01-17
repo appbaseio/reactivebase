@@ -201,7 +201,10 @@ export class DataSearch extends Component {
 
 DataSearch.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
-	appbaseField : React.PropTypes.string,
+	appbaseField : React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.arrayOf(React.PropTypes.string)
+	]),
 	placeholder: React.PropTypes.string
 };
 
