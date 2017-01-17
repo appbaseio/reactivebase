@@ -1225,7 +1225,8 @@ a {
 .rbc.rbc-resultlist {
   height: auto;
   max-height: 700px;
-  overflow: auto; }
+  overflow: auto;
+  margin: 5px 0; }
   .rbc.rbc-resultlist .rbc-json-print span {
     width: 60px;
     display: inline-block;
@@ -1280,20 +1281,6 @@ a {
   .rbc.rbc-textfield .rbc-search-container {
     padding: 0;
     position: relative; }
-    .rbc.rbc-textfield .rbc-search-container .rbc-search-icon {
-      position: absolute;
-      top: 15px;
-      right: 0;
-      border: 0;
-      width: 30px;
-      height: 30px;
-      display: inline-block;
-      font: normal normal normal 14px/1 FontAwesome;
-      font-size: inherit;
-      text-rendering: auto;
-      -webkit-font-smoothing: antialiased; }
-      .rbc.rbc-textfield .rbc-search-container .rbc-search-icon:before {
-        content: "\f002"; }
 
 .rbc.rbc-togglebutton {
   padding: 0; }
