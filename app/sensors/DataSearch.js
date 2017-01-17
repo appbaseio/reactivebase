@@ -283,8 +283,12 @@ export class DataSearch extends Component {
 
 DataSearch.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
-	autocomplete: React.PropTypes.bool.isRequired,
+	appbaseField : React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.arrayOf(React.PropTypes.string)
+	]),
 	placeholder: React.PropTypes.string,
+	autocomplete: React.PropTypes.bool.isRequired,
 	sensorInputId: React.PropTypes.string
 };
 
