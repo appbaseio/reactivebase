@@ -11,7 +11,7 @@ export default class DataSearchDefault extends Component {
 		this.onData = this.onData.bind(this);
 		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
 	}
-	
+
 	componentDidMount() {
 		ResponsiveStory();
 	}
@@ -66,11 +66,12 @@ export default class DataSearchDefault extends Component {
 				appname="reactivemap_demo"
 				username="y4pVxY2Ok"
 				password="c92481e2-c07f-4473-8326-082919282c18"
+				type="meetupdata1"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<DataSearch
-							appbaseField={this.props.mapping.venue}
+							appbaseField={[this.props.mapping.venue, this.props.mapping.topic]}
 							sensorId="VenueSensor"
 							searchInputId="CityVenue"
 							placeholder="Search Venue"

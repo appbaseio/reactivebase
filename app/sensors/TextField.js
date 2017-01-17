@@ -83,6 +83,7 @@ export class TextField extends Component {
 				{title}
 				<div className="rbc-search-container col s12 col-xs-12">
 					<input className="rbc-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue} />
+					<span className="rbc-search-icon"></span>
 				</div>
 			</div>
 		);

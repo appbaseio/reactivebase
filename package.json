@@ -39,6 +39,7 @@
     "react-tooltip": "^3.1.8"
   },
   "devDependencies": {
+    "private": "git+ssh://git@github.com:appbaseio/reactivebase.git#dev",
     "@appbaseio/reactivebase-manual": "0.0.1",
     "@kadira/storybook": "^2.34.0",
     "@kadira/storybook-addon-knobs": "^1.7.1",

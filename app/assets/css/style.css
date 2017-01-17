@@ -170,18 +170,16 @@ a {
     letter-spacing: 1px;
     text-transform: uppercase;
     margin: 0; }
+  .rbc .rbc-search-container {
+    height: 48px; }
   .rbc .rbc-input {
     position: relative;
     border: 0;
     margin: 0;
-    font-weight: bold;
-    font-family: "Lato Bold Italic";
+    height: 48px;
+    font-family: "Lato Regular";
     width: calc(100% - 20px);
     padding: 0 10px; }
-    .rbc .rbc-input .add-on {
-      position: absolute;
-      right: 15px;
-      top: 12px; }
   .rbc [type="checkbox"]:checked + label:before {
     border-right: 2px solid;
     border-bottom: 2px solid; }
@@ -308,8 +306,8 @@ a {
     background-color: red; }
   .rbc-red .rbc .rbc-input {
     background-color: #f1f1f1; }
-    .rbc-red .rbc .rbc-input .add-on {
-      color: red; }
+  .rbc-red .rbc .rbc-search-icon {
+    color: red; }
   .rbc-red .rbc .primary-title {
     color: red; }
   .rbc-red .rbc label,
@@ -444,8 +442,8 @@ a {
     background-color: orange; }
   .rbc-orange .rbc .rbc-input {
     background-color: #f1f1f1; }
-    .rbc-orange .rbc .rbc-input .add-on {
-      color: orange; }
+  .rbc-orange .rbc .rbc-search-icon {
+    color: orange; }
   .rbc-orange .rbc .primary-title {
     color: orange; }
   .rbc-orange .rbc label,
@@ -580,8 +578,8 @@ a {
     background-color: yellow; }
   .rbc-yellow .rbc .rbc-input {
     background-color: #f1f1f1; }
-    .rbc-yellow .rbc .rbc-input .add-on {
-      color: yellow; }
+  .rbc-yellow .rbc .rbc-search-icon {
+    color: yellow; }
   .rbc-yellow .rbc .primary-title {
     color: yellow; }
   .rbc-yellow .rbc label,
@@ -716,8 +714,8 @@ a {
     background-color: green; }
   .rbc-green .rbc .rbc-input {
     background-color: #f1f1f1; }
-    .rbc-green .rbc .rbc-input .add-on {
-      color: green; }
+  .rbc-green .rbc .rbc-search-icon {
+    color: green; }
   .rbc-green .rbc .primary-title {
     color: green; }
   .rbc-green .rbc label,
@@ -852,8 +850,8 @@ a {
     background-color: #1893e7; }
   .rbc-blue .rbc .rbc-input {
     background-color: #f1f1f1; }
-    .rbc-blue .rbc .rbc-input .add-on {
-      color: #1893e7; }
+  .rbc-blue .rbc .rbc-search-icon {
+    color: #1893e7; }
   .rbc-blue .rbc .primary-title {
     color: #1893e7; }
   .rbc-blue .rbc label,
@@ -988,8 +986,8 @@ a {
     background-color: #ccc; }
   .rbc-dark .rbc .rbc-input {
     background-color: #aaa; }
-    .rbc-dark .rbc .rbc-input .add-on {
-      color: #ccc; }
+  .rbc-dark .rbc .rbc-search-icon {
+    color: #ccc; }
   .rbc-dark .rbc .primary-title {
     color: #ccc; }
   .rbc-dark .rbc label,
@@ -1020,16 +1018,23 @@ a {
 
 .rbc.rbc-datasearch {
   margin-top: 10px;
-  padding: 10px; }
+  padding: 0; }
+  .rbc.rbc-datasearch .is-focused:not(.is-open) > .Select-control {
+    box-shadow: none;
+    border: 0; }
   .rbc.rbc-datasearch .Select-control {
     border: 0;
-    font-weight: bold;
-    font-family: "Lato Bold Italic";
-    background: whitesmoke; }
+    height: 48px;
+    border-radius: 0;
+    font-family: "Lato Regular";
+    background: whitesmoke;
+    outline: none; }
+    .rbc.rbc-datasearch .Select-control:hover, .rbc.rbc-datasearch .Select-control:focus {
+      outline: none; }
     .rbc.rbc-datasearch .Select-control .Select-arrow-zone {
       position: absolute;
-      right: 5px;
-      top: 5px; }
+      right: 6px;
+      top: 12px; }
       .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
         border: 0;
         width: 30px;
@@ -1041,17 +1046,42 @@ a {
         -webkit-font-smoothing: antialiased; }
         .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow:before {
           content: "\f002"; }
+  .rbc.rbc-datasearch .Select--single > .Select-control .Select-value, .rbc.rbc-datasearch .Select-placeholder {
+    line-height: 46px; }
   .rbc.rbc-datasearch .Select-placeholder,
   .rbc.rbc-datasearch .Select-control,
   .rbc.rbc-datasearch .Select--single > .Select-control .Select-value {
     padding-right: 30px; }
-  .rbc.rbc-datasearch .Select-input input {
-    height: 16px;
-    -webkit-transition: none;
-    -moz-transition: none;
-    -ms-transition: none;
-    -o-transition: none;
-    transition: none; }
+  .rbc.rbc-datasearch .Select-input {
+    height: 48px; }
+    .rbc.rbc-datasearch .Select-input input {
+      height: 48px;
+      line-height: 36px;
+      padding: 0;
+      -webkit-transition: none;
+      -moz-transition: none;
+      -ms-transition: none;
+      -o-transition: none;
+      transition: none; }
+    .rbc.rbc-datasearch .Select-input:hover, .rbc.rbc-datasearch .Select-input:focus {
+      outline: none; }
+  .rbc.rbc-datasearch .rbc-search-container {
+    padding: 0;
+    position: relative; }
+    .rbc.rbc-datasearch .rbc-search-container .rbc-search-icon {
+      position: absolute;
+      top: 15px;
+      right: 0;
+      border: 0;
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased; }
+      .rbc.rbc-datasearch .rbc-search-container .rbc-search-icon:before {
+        content: "\f002"; }
 
 .rbc.rbc-singledropdownlist, .rbc.rbc-multidropdownlist,
 .rbc.rbc-singledropdownrange, .rbc.rbc-multidropdownrange {
@@ -1249,8 +1279,21 @@ a {
   padding: 0; }
   .rbc.rbc-textfield .rbc-search-container {
     padding: 0;
-    font-weight: bold;
-    font-family: "Lato Bold Italic"; }
+    position: relative; }
+    .rbc.rbc-textfield .rbc-search-container .rbc-search-icon {
+      position: absolute;
+      top: 15px;
+      right: 0;
+      border: 0;
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased; }
+      .rbc.rbc-textfield .rbc-search-container .rbc-search-icon:before {
+        content: "\f002"; }
 
 .rbc.rbc-togglebutton {
   padding: 0; }

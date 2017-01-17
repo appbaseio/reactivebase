@@ -172,10 +172,12 @@ $themes: (
 
 			.rbc-input {
 				background-color: map-get($map, input-bg);
-				.add-on {
-					color: map-get($map, color);
-				}
 			}
+
+			.rbc-search-icon {
+				color: map-get($map, color);
+			}
+
 			.primary-title {
 				color: map-get($map, color);
 			}

@@ -21,7 +21,9 @@ export class DataSearch extends Component {
 		this.type = 'match_phrase';
 		this.channelId = null;
 		this.channelListener = null;
+		this.fieldType = typeof this.props.appbaseField;
 		this.handleSearch = this.handleSearch.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 		this.setValue = this.setValue.bind(this);
 		this.defaultSearchQuery = this.defaultSearchQuery.bind(this);
 		this.previousSelectedSensor = {};
@@ -49,7 +51,8 @@ export class DataSearch extends Component {
 				key: this.props.sensorId,
 				value: {
 					queryType: this.type,
-					inputData: this.props.appbaseField
+					inputData: this.props.appbaseField,
+					defaultQuery: this.defaultSearchQuery
 				}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -65,7 +68,7 @@ export class DataSearch extends Component {
 
 	// Create a channel which passes the depends and receive results whenever depends changes
 	createChannel() {
-		let depends = this.props.depends ? this.props.depends : {};
+		let depends = {};
 		depends[this.props.searchInputId] = {
 			operation: "must",
 			defaultQuery: this.defaultSearchQuery
@@ -84,17 +87,36 @@ export class DataSearch extends Component {
 			this.setState({
 				rawData: rawData
 			});
-			this.setData(rawData);
+			if (this.props.autocomplete) {
+				this.setData(rawData);
+			}
 		}.bind(this));
 	}
 
 	//default query
 	defaultSearchQuery(value) {
-		return {
-			"match_phrase_prefix": {
-				[this.props.appbaseField]: value
-			}
-		};
+		if (this.fieldType == 'string') {
+			return {
+				"match_phrase_prefix": {
+					[this.props.appbaseField]: value
+				}
+			};
+		} else {
+			let query = [];
+			this.props.appbaseField.map(field => {
+				query.push({
+					"match_phrase_prefix": {
+						[field]: value
+					}
+				})
+			});
+			return {
+				bool: {
+					should: query,
+					minimum_should_match: 1
+				}
+			};
+		}
 	}
 
 	// set value to search
@@ -125,22 +147,47 @@ export class DataSearch extends Component {
 	// set data after get the result
 	setData(data) {
 		let options = [];
-		let searchField = `hit._source.${this.props.appbaseField}.trim()`;
+		let searchField = null;
+		if (this.fieldType == 'string') {
+			searchField = `hit._source.${this.props.appbaseField}.trim()`;
+		}
 		// Check if this is Geo search or field tag search
 		if (this.props.isGeoSearch) {
 			// If it is Geo, we return the location field
 			let latField = `hit._source.${this.props.latField}`;
 			let lonField = `hit._source.${this.props.lonField}`;
-			data.hits.hits.map(function (hit) {
+			data.hits.hits.map((hit) => {
 				let location = {
 					lat: eval(latField),
 					lon: eval(lonField)
 				};
-				options.push({ value: location, label: eval(searchField) });
+				if (searchField) {
+					options.push({ value: location, label: eval(searchField) });
+				} else {
+					if (this.fieldType == 'object') {
+						this.props.appbaseField.map(field => {
+							let tempField = `hit._source.${field}`
+							if (eval(tempField)) {
+								options.push({ value: location, label: eval(tempField) });
+							}
+						})
+					}
+				}
 			});
 		} else {
-			data.hits.hits.map(function (hit) {
-				options.push({ value: eval(searchField), label: eval(searchField) });
+			data.hits.hits.map((hit) => {
+				if (searchField) {
+					options.push({ value: eval(searchField), label: eval(searchField) });
+				} else {
+					if (this.fieldType == 'object') {
+						this.props.appbaseField.map(field => {
+							let tempField = `hit._source.${field}`
+							if (eval(tempField)) {
+								options.push({ value: eval(tempField), label: eval(tempField) });
+							}
+						});
+					}
+				}
 			});
 		}
 		if (this.state.currentValue && this.state.currentValue.trim() !== '') {
@@ -177,23 +224,58 @@ export class DataSearch extends Component {
 		});
 	}
 
+	handleInputChange(event) {
+		let inputVal = event.target.value;
+		this.setState({
+			'currentValue': inputVal
+		});
+		var obj = {
+			key: this.props.sensorId,
+			value: inputVal
+		};
+
+		// pass the selected sensor value with sensorId as key,
+		let isExecuteQuery = true;
+		helper.selectedSensor.set(obj, isExecuteQuery);
+	}
+
 	render() {
+		let title = null;
+		if(this.props.title) {
+			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
+		}
 		let cx = classNames({
+			'rbc-title-active': this.props.title,
+			'rbc-title-inactive': !this.props.title,
 			'rbc-placeholder-active': this.props.placeholder,
 			'rbc-placeholder-inactive': !this.props.placeholder
 		});
 
 		return (
-			<div className={`rbc rbc-datasearch ${cx}`}>
-				<Select
-					isLoading={this.state.isLoadingOptions}
-					value={this.state.currentValue}
-					options={this.state.options}
-					onInputChange={this.setValue}
-					onChange={this.handleSearch}
-					onBlurResetsInput={false}
-					{...this.props}
-				/>
+			<div className={`rbc rbc-datasearch col s12 col-xs-12 card thumbnail ${cx}`}>
+				{title}
+				{
+					this.props.autocomplete ?
+					<Select
+						isLoading={this.state.isLoadingOptions}
+						value={this.state.currentValue}
+						options={this.state.options}
+						onInputChange={this.setValue}
+						onChange={this.handleSearch}
+						onBlurResetsInput={false}
+						{...this.props}
+					/> :
+					<div className="rbc-search-container col s12 col-xs-12">
+						<input
+							type="text"
+							className="rbc-input"
+							placeholder={this.props.placeholder}
+							value={this.state.currentValue ? this.state.currentValue : ''}
+							onChange={this.handleInputChange}
+						/>
+						<span className="rbc-search-icon"></span>
+					</div>
+				}
 			</div>
 		);
 	}
@@ -205,12 +287,16 @@ DataSearch.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
-	placeholder: React.PropTypes.string
+	placeholder: React.PropTypes.string,
+	autocomplete: React.PropTypes.bool.isRequired,
+	sensorInputId: React.PropTypes.string
 };
 
 // Default props value
 DataSearch.defaultProps = {
-	placeholder: "Search..."
+	placeholder: "Search...",
+	autocomplete: true,
+	sensorInputId: "searchLetter"
 };
 
 // context type
