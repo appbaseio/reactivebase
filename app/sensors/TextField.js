@@ -81,8 +81,9 @@ export class TextField extends Component {
 		return (
 			<div className={`rbc rbc-textfield col s12 col-xs-12 card thumbnail ${cx}`}>
 				{title}
-				<div className="rbc-search-container col s12 col-xs-12">
+				<div className="rbc-input-container col s12 col-xs-12">
 					<input className="rbc-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue} />
+					<span className="rbc-input-icon"><i></i></span>
 				</div>
 			</div>
 		);

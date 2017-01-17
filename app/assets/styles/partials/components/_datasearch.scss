@@ -1,11 +1,10 @@
 .rbc.rbc-datasearch {
 	margin-top: 10px;
-	padding: 10px;
+	padding: 0;
 	
 	.Select-control {
 		border: 0;
-		font-weight: bold;
-		font-family: $font-bold-i;
+		font-family: $font-regular;
 		background: darken($light-grey, 2%);
 
 		.Select-arrow-zone {

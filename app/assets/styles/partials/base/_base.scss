@@ -197,15 +197,50 @@ a {
 		position: relative;
 		border: 0;
 		margin: 0;
-		font-weight: bold;
-		font-family: $font-bold-i;
+		font-family: $font-regular;
 		width: calc(100% - 20px);
 		padding: 0 10px;
+		height: 36px;
+		background-color: #f5f5f5;
+		border: 0;
+		border-radius: 4px;
+	}
 
-		.add-on {
+	.rbc-input-container {
+		position: relative;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		
+		.rbc-input-icon {
 			position: absolute;
-			right: 15px;
-			top: 12px;
+			right: 5px;
+			top: 20px;
+
+			i {
+				border: 0;
+				width: 30px;
+				height: 30px;
+				display: inline-block;
+				font: normal normal normal 14px/1 FontAwesome;
+				font-size: inherit;
+				text-rendering: auto;
+				-webkit-font-smoothing: antialiased;
+
+				&:before {
+				  content: "\f002";
+				}
+			}
+		}
+
+	}
+	
+	&.rbc-title-active {
+		.rbc-input-container {
+			padding-top: 0;
+
+			.rbc-input-icon {
+				top: 5px;
+			}
 		}
 	}
 
@@ -227,8 +262,10 @@ a {
 	input[type=number]:focus:not([readonly]),
 	input[type=search]:focus:not([readonly]),
 	textarea.materialize-textarea:focus:not([readonly]) {
-		border-bottom: 1px solid;
+		border:  0;
+		box-shadow: none;
 	}
+
 
 	Select {
 		line-height: 22px;
