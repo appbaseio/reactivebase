@@ -205,21 +205,24 @@ a {
 
 .rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-end,
+.rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: red;
   border-color: red; }
 
-.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-span {
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-red .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--hovered-span {
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-red .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-red .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: red; }
 
-.rbc-red .rbc.rbc-datepicker .DateInput__display-text--focused {
+.rbc-red .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-red .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(255, 0, 0, 0.24);
   border-color: #990000;
   color: red;
@@ -341,21 +344,24 @@ a {
 
 .rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-end,
+.rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: orange;
   border-color: orange; }
 
-.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-span {
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--hovered-span {
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-orange .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: orange; }
 
-.rbc-orange .rbc.rbc-datepicker .DateInput__display-text--focused {
+.rbc-orange .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-orange .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(255, 165, 0, 0.24);
   border-color: #996300;
   color: orange;
@@ -477,21 +483,24 @@ a {
 
 .rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-end,
+.rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: yellow;
   border-color: yellow; }
 
-.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-span {
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--hovered-span {
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: yellow; }
 
-.rbc-yellow .rbc.rbc-datepicker .DateInput__display-text--focused {
+.rbc-yellow .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-yellow .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(255, 255, 0, 0.24);
   border-color: #999900;
   color: yellow;
@@ -613,21 +622,24 @@ a {
 
 .rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-end,
+.rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: green;
   border-color: green; }
 
-.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-span {
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-green .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--hovered-span {
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-green .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-green .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: green; }
 
-.rbc-green .rbc.rbc-datepicker .DateInput__display-text--focused {
+.rbc-green .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-green .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(0, 128, 0, 0.24);
   border-color: #001a00;
   color: green;
@@ -749,21 +761,24 @@ a {
 
 .rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-end,
+.rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: #1893e7;
   border-color: #1893e7; }
 
-.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-span {
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--hovered-span {
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-blue .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: #1893e7; }
 
-.rbc-blue .rbc.rbc-datepicker .DateInput__display-text--focused {
+.rbc-blue .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-blue .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(24, 147, 231, 0.24);
   border-color: #0e588b;
   color: #1893e7;
@@ -885,21 +900,24 @@ a {
 
 .rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-start {
+.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-end,
+.rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: #ccc;
   border-color: #ccc; }
 
-.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-span {
+.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--hovered-span {
+.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-dark .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: #ccc; }
 
-.rbc-dark .rbc.rbc-datepicker .DateInput__display-text--focused {
+.rbc-dark .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-dark .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(204, 204, 204, 0.24);
   border-color: #999999;
   color: #ccc;
@@ -1315,10 +1333,10 @@ a {
         .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active i.fa-chevron-right {
           transform: rotate(90deg); }
 
-.rbc.rbc-datepicker {
+.rbc.rbc-datepicker, .rbc.rbc-daterange {
   font-family: "Lato Regular";
   padding: 0 0 14px 0; }
-  .rbc.rbc-datepicker .CalendarDay__day {
+  .rbc.rbc-datepicker .CalendarDay__day, .rbc.rbc-daterange .CalendarDay__day {
     text-align: center; }
-  .rbc.rbc-datepicker .DayPicker__week-header {
+  .rbc.rbc-datepicker .DayPicker__week-header, .rbc.rbc-daterange .DayPicker__week-header {
     top: 57px; }

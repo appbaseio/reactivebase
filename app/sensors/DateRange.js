@@ -109,7 +109,7 @@ export class DateRange extends Component {
 			'rbc-title-inactive': !this.props.title
 		});
 		return (
-			<div className={`rbc rbc-datepicker rbc-daterange col s12 col-xs-12 card thumbnail ${cx}`}>
+			<div className={`rbc rbc-daterange col s12 col-xs-12 card thumbnail ${cx}`}>
 				{title}
 				<div className="rbc-daterange-component col s12 col-xs-12">
 					<DateRangePicker
