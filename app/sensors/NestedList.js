@@ -97,7 +97,6 @@ export class NestedList extends Component {
 					must: generateRangeQuery(this.props.appbaseField)
 				}
 			};
-			console.log(query);
 			return query;
 		}
 		function generateRangeQuery(appbaseField) {
@@ -248,20 +247,28 @@ export class NestedList extends Component {
 
 	onItemSelect(key, level) {
 		let selectedValues = this.state.selectedValues;
-		selectedValues[level] = key;
-		let stateItems = {
-			selectedValues: selectedValues
-		};
-		if(level === 0) {
-			selectedValues.splice(1, 1);
-			if(key !== selectedValues[0]) {
-				stateItems.subItems = [];
-			}
-			var obj = {
-				key: 'subCategory',
-				value: key
+		let stateItems = {};
+		if (selectedValues[level] == key) {
+			delete selectedValues[level];
+			stateItems = {
+				selectedValues: selectedValues
 			};
-			helper.selectedSensor.set(obj, true);
+		} else {
+			selectedValues[level] = key;
+			stateItems = {
+				selectedValues: selectedValues
+			};
+			if(level === 0) {
+				selectedValues.splice(1, 1);
+				if(key !== selectedValues[0]) {
+					stateItems.subItems = [];
+				}
+				var obj = {
+					key: 'subCategory',
+					value: key
+				};
+				helper.selectedSensor.set(obj, true);
+			}
 		}
 		this.setValue(selectedValues, true);
 		this.setState(stateItems);
@@ -310,7 +317,7 @@ export class NestedList extends Component {
 			title = null;
 
 		listComponent = (
-			<ul className="row">
+			<ul className="row rbc-list-container">
 				{this.renderItems(this.state.items, 0)}
 			</ul>
 		);

@@ -1310,11 +1310,25 @@ a {
 
 .rbc.rbc-nestedlist {
   height: 500px;
-  overflow: auto; }
+  padding: 0;
+  overflow: hidden; }
   .rbc.rbc-nestedlist .rbc-indent {
     padding-left: 1em; }
+  .rbc.rbc-nestedlist.rbc-title-active.rbc-search-inactive .row.rbc-list-container {
+    height: calc(100% - 50px); }
+  .rbc.rbc-nestedlist.rbc-title-active.rbc-search-active .row.rbc-list-container {
+    height: calc(100% - 98px); }
+  .rbc.rbc-nestedlist.rbc-title-inactive.rbc-search-inactive .row.rbc-list-container {
+    height: 100%; }
+  .rbc.rbc-nestedlist.rbc-title-inactive.rbc-search-active .row.rbc-list-container {
+    height: calc(100% - 48px); }
   .rbc.rbc-nestedlist .rbc-list-container {
-    padding: 3px 0; }
+    padding: 3px 0;
+    width: 100%;
+    overflow: auto; }
+    .rbc.rbc-nestedlist .rbc-list-container.row {
+      padding: 6px;
+      margin: 0; }
     .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item {
       padding: 5px; }
       .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item .rbc-count {
@@ -1332,6 +1346,8 @@ a {
         font-family: "Lato Bold"; }
         .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active i.fa-chevron-right {
           transform: rotate(90deg); }
+  .rbc.rbc-nestedlist .rbc-search-container {
+    padding: 0; }
 
 .rbc.rbc-datepicker, .rbc.rbc-daterange {
   font-family: "Lato Regular";

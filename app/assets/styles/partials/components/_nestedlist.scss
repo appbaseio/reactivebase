@@ -1,13 +1,49 @@
 .rbc.rbc-nestedlist {
 	height: 500px;
-	overflow: auto;
+	padding: 0;
+	overflow: hidden;
 
 	.rbc-indent {
 		padding-left: 1em;
 	}
 
+	&.rbc-title-active {
+		&.rbc-search-inactive {
+			.row.rbc-list-container {
+				height: calc(100% - 50px);
+			}
+		}
+
+		&.rbc-search-active {
+			.row.rbc-list-container {
+				height: calc(100% - 98px);
+			}
+		}
+	}
+
+	&.rbc-title-inactive {
+		&.rbc-search-inactive {
+			.row.rbc-list-container {
+				height: 100%;
+			}
+		}
+
+		&.rbc-search-active {
+			.row.rbc-list-container {
+				height: calc(100% - 48px);
+			}
+		}
+	}
+
 	.rbc-list-container {
 		padding: 3px 0;
+		width: 100%;
+		overflow: auto;
+
+		&.row {
+			padding: 6px;
+			margin: 0;
+		}
 
 		.rbc-list-item {
 			padding: 5px;
@@ -34,7 +70,10 @@
 					transform: rotate(90deg);
 				}
 			}
-
 		}
+	}
+
+	.rbc-search-container {
+		padding: 0;
 	}
 }
