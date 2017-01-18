@@ -341,5 +341,6 @@ storiesOf('NestedList', module)
 		<NestedListDefault
 			title={text('Title', 'Car Category')}
 			defaultSelected={array('Default selection', ['bmw', 'x series'])}
+			sortBy={text('Sort By', 'count')}
 		/>
 	));
