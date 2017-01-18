@@ -74,7 +74,7 @@ export default class DataSearchDefault extends Component {
 							appbaseField={[this.props.mapping.venue, this.props.mapping.topic]}
 							sensorId="VenueSensor"
 							searchInputId="CityVenue"
-							placeholder="Search Venue"
+							{...this.props}
 						/>
 					</div>
 

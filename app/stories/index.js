@@ -50,43 +50,47 @@ function removeFirstLine(str) {
 storiesOf('SingleList', module)
 	.addDecorator(withKnobs)
 	.add('Basic', withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={true} />
+		<SingleListDefault showSearch={true} searchPlaceholder="Search City" />
 	)))
 	.add('Without Search', withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={false} />
+		<SingleListDefault showSearch={false} searchPlaceholder="Search City" />
 	)))
 	.add('Default Selected', withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={true} defaultSelected='London' />
+		<SingleListDefault showSearch={true} defaultSelected="London" searchPlaceholder="Search City" />
 	)))
 	.add('Custom Sort', withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={true} defaultSelected='London' sortBy='asc' />
+		<SingleListDefault showSearch={true} defaultSelected="London" sortBy="asc" searchPlaceholder="Search City" />
 	)))
 	.add('Playground', withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault
 			title={text('Title', 'My Cities')}
-			showSearch={boolean('Show Search', true)}
 			defaultSelected={text('Default Selected', 'London')}
+			searchPlaceholder={text('Search Placeholder', 'Search City')}
+			showSearch={boolean('Show Search', true)}
+			showCount={boolean('Show Count', true)}
 		/>
 	)));
 
 storiesOf('MultiList', module)
 	.addDecorator(withKnobs)
 	.add('Basic', withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} />
+		<MultiListDefault showSearch={true} searchPlaceholder="Search City" />
 	)))
 	.add('Without Search', withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={false} />
+		<MultiListDefault showSearch={false} searchPlaceholder="Search City" />
 	)))
 	.add('Default Selected', withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} defaultSelected={["London", "Sydney"]} />
+		<MultiListDefault showSearch={true} defaultSelected={["London", "Sydney"]} searchPlaceholder="Search City" />
 	)))
 	.add('Custom Sort', withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} defaultSelected={["London"]} sortBy='asc' />
+		<MultiListDefault showSearch={true} defaultSelected={["London"]} sortBy="asc" searchPlaceholder="Search City" />
 	)))
 	.add('Playground', withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
 			title={text('Title', 'My Cities')}
+			searchPlaceholder={text('Search Placeholder', 'Search City')}
 			showSearch={boolean('Show Search', true)}
+			showCount={boolean('Show Count', true)}
 		/>
 	)));
 
@@ -129,7 +133,8 @@ storiesOf('ToggleButton', module)
 	)))
 	.add('Playground', withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault
-			title={text('Title', 'Meetup Categories')} />
+			title={text('Title', 'Meetup Categories')}
+			multiSelect={boolean('Multi Select', true)} />
 	)));
 
 storiesOf('TextField', module)
@@ -176,9 +181,16 @@ storiesOf('MultiDropdownList', module)
 	));
 
 storiesOf('DataSearch', module)
+	.addDecorator(withKnobs)
 	.add('Basic', withReadme(removeFirstLine(DataSearchReadme), () => (
-		<DataSearchDefault />
-	)));;
+		<DataSearchDefault placeholder="Search Venue" />
+	)))
+	.add('Playground', withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title={text('Title', 'DataSearch')}
+			placeholder={text('placeholder', 'Search Venue')}
+			autocomplete={boolean('autocomplete', true)} />
+	)));
 
 storiesOf('SingleDropdownRange', module)
 	.addDecorator(withKnobs)
@@ -226,8 +238,14 @@ storiesOf('RangeSlider', module)
 	)));
 
 storiesOf('PaginatedResultList', module)
+	.addDecorator(withKnobs)
 	.add('Basic', () => (
-		<PaginatedResultListDefault />
+		<PaginatedResultListDefault  paginationAt="both" />
+	))
+	.add('Playground', () => (
+		<PaginatedResultListDefault
+			paginationAt={text('paginationAt', 'bottom')}
+		/>
 	));
 
 storiesOf('DatePicker', module)

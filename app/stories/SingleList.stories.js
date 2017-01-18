@@ -74,9 +74,7 @@ export default class SingleListDefault extends Component {
 						<SingleList
 							sensorId="CitySensor"
 							appbaseField={this.props.mapping.city}
-							showCount={true}
 							size={100}
-							searchPlaceholder="Search City"
 							{...this.props}
 						/>
 					</div>
