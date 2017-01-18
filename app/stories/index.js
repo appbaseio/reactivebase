@@ -88,6 +88,7 @@ storiesOf('MultiList', module)
 	.add('Playground', withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
 			title={text('Title', 'My Cities')}
+			defaultSelected={array('Default selected', ['London', 'Sydney'])}
 			searchPlaceholder={text('Search Placeholder', 'Search City')}
 			showSearch={boolean('Show Search', true)}
 			showCount={boolean('Show Count', true)}
@@ -120,6 +121,7 @@ storiesOf('MultiRange', module)
 	.add('Playground', withReadme(removeFirstLine(MultiRangeReadme), () => (
 		<MultiRangeDefault
 			title={text('Title', 'Price Range')}
+			defaultSelected={array('Default selected', ['Cheap', 'Moderate'])}
 		/>
 	)));
 
@@ -134,7 +136,9 @@ storiesOf('ToggleButton', module)
 	.add('Playground', withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault
 			title={text('Title', 'Meetup Categories')}
-			multiSelect={boolean('Multi Select', true)} />
+			multiSelect={boolean('Multi Select', true)}
+			defaultSelected={array('Default selected', ['Social', 'Travel'])}
+		/>
 	)));
 
 storiesOf('TextField', module)
@@ -218,6 +222,7 @@ storiesOf('MultiDropdownRange', module)
 	.add('Playground', () => (
 		<MultiDropdownRangeDefault
 			title={text('Title', 'Price Range')}
+			defaultSelected={array('Default selected', ['Cheap', 'Moderate'])}
 		/>
 	));
 
