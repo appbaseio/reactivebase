@@ -95,27 +95,29 @@ export class DataSearch extends Component {
 
 	//default query
 	defaultSearchQuery(value) {
-		if (this.fieldType == 'string') {
-			return {
-				"match_phrase_prefix": {
-					[this.props.appbaseField]: value
-				}
-			};
-		} else {
-			let query = [];
-			this.props.appbaseField.map(field => {
-				query.push({
+		if (value) {
+			if (this.fieldType == 'string') {
+				return {
 					"match_phrase_prefix": {
-						[field]: value
+						[this.props.appbaseField]: value
 					}
-				})
-			});
-			return {
-				bool: {
-					should: query,
-					minimum_should_match: 1
-				}
-			};
+				};
+			} else {
+				let query = [];
+				this.props.appbaseField.map(field => {
+					query.push({
+						"match_phrase_prefix": {
+							[field]: value
+						}
+					})
+				});
+				return {
+					bool: {
+						should: query,
+						minimum_should_match: 1
+					}
+				};
+			}
 		}
 	}
 
