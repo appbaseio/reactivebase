@@ -44,10 +44,12 @@ export class Pagination extends Component {
 				let totalHits = res.channelResponse.data.hits.total;
 				let maxPageNumber = Math.ceil(totalHits/res.queryOptions.size) < 1 ? 1 : Math.ceil(totalHits/res.queryOptions.size);
 				let size = res.queryOptions.size ? res.queryOptions.size : 20;
+				let currentPage = Math.round(res.queryOptions.from/size) + 1;
 				this.setState({
 					totalHits: totalHits,
 					size: size,
-					maxPageNumber: maxPageNumber
+					maxPageNumber: maxPageNumber,
+					currentValue: currentPage
 				});
 			}
 		}.bind(this));

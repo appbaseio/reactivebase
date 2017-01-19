@@ -21,6 +21,13 @@ export class NestedList extends Component {
 			subItems: [],
 			selectedValues: []
 		};
+		this.nested = [
+			'nestedParentaggs',
+			'nestedChildaggs'
+		];
+		this.sortObj = {
+			aggSort: this.props.sortBy
+		};
 		this.channelId = null;
 		this.channelListener = null;
 		this.defaultSelected = this.props.defaultSelected;
@@ -70,6 +77,10 @@ export class NestedList extends Component {
 					storedItems: items
 				});
 				this.handleSelect(this.defaultSelected);
+			}
+			if (!_.isEqual(this.sortBy, this.props.sortBy)) {
+				this.sortBy = this.props.sortBy;
+				this.handleSortSelect();
 			}
 		}, 300);
 	}
@@ -124,15 +135,45 @@ export class NestedList extends Component {
 		helper.selectedSensor.setSensorInfo(obj);
 	}
 
+	includeAggQuery() {
+		this.nested.forEach((name) => {
+			var obj = {
+				key: name,
+				value: this.sortObj
+			};
+			helper.selectedSensor.setSortInfo(obj);
+		});
+	}
+
+	handleSortSelect() {
+		this.sortObj = {
+			aggSort: this.props.sortBy
+		};
+		this.nested.forEach((name) => {
+			let obj = {
+				key: name,
+				value: this.sortObj
+			};
+			helper.selectedSensor.set(obj, true, 'sortChange');
+		});
+	}
+
 	// Create a channel which passes the depends and receive results whenever depends changes
 	createChannel() {
 		// Set the depends - add self aggs query as well with depends
 		let depends = this.props.depends ? this.props.depends : {};
+		console.log(this.nested[0]);
 		depends['aggs'] = {
 			key: this.props.appbaseField[0],
 			sort: this.props.sortBy,
-			size: this.props.size
+			size: this.props.size,
+			sortRef: this.nested[0]
 		};
+		depends[this.nested[0]] = {
+			'operation': 'must'
+		};
+		this.includeAggQuery();
+
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
 		this.channelId = channelObj.channelId;
@@ -159,9 +200,11 @@ export class NestedList extends Component {
 			'aggs': {
 				key: this.props.appbaseField[1],
 				sort: this.props.sortBy,
-				size: this.props.size
+				size: this.props.size,
+				sortRef: this.nested[1]
 			},
-			'subCategory': { operation: "must" }
+			'subCategory': { operation: "must" },
+			[this.nested[1]]: { operation: "must" }
 		};
 		// create a channel and listen the changes
 		var subChannelObj = manager.create(this.context.appbaseRef, this.context.type, depends);

@@ -137,12 +137,15 @@ export var ResponsiveStory = function () {
 	function handleResponsive() {
 		var height = $(window).height();
 		$('.rbc.rbc-resultlist').css({
-			maxHeight: height - 15
+			maxHeight: height - 15 - paginationHeight()
 		});
 		$('.rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist').height(height - 100 - 15);
 		$('.rbc-base > .row').css({
 			'margin-bottom': 0
 		});
+	}
+	function paginationHeight() {
+		return $('.rbc-pagination').length*85;
 	}
 	handleResponsive();
 	$(window).resize(function() {
