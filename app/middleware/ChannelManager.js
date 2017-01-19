@@ -129,7 +129,7 @@ class channelManager {
 				}
 			}
 			let sortField = sortAvailable(depend);
-			if(sortField) {
+			if(sortField && !sortField.hasOwnProperty('aggSort')) {
 				sortObj.push(sortField);
 			}
 		}
@@ -160,6 +160,12 @@ class channelManager {
 		function aggsQuery(depend) {
 			let aggsObj = depends[depend];
 			let order, type;
+			if(aggsObj.sortRef) {
+				let sortField = sortAvailable(aggsObj.sortRef);
+				if(sortField && sortField.aggSort) {
+					aggsObj.sort = sortField.aggSort;
+				}
+			}
 			if(aggsObj.sort=="count"){
 				order = "desc";
 				type = "_count";
