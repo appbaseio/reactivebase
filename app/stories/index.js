@@ -1,7 +1,7 @@
 import React from "react";
 var moment = require("moment");
 import { storiesOf, addDecorator } from "@kadira/storybook";
-import { withKnobs, text, boolean, number, array, select } from "@kadira/storybook-addon-knobs";
+import { withKnobs, text, boolean, number, array, select, object } from "@kadira/storybook-addon-knobs";
 import withReadme from "storybook-readme/with-readme";
 
 import { Appbase } from "appbase-js";
@@ -249,10 +249,19 @@ storiesOf("RangeSlider", module)
 		<RangeSliderDefault
 			defaultSelected={
 				{
-				  "start": 0,
-				  "end": 2
+					"start": 0,
+					"end": 2
 				}
 			}
+		/>
+	)))
+	.add("Playground", withReadme(removeFirstLine(RangeSliderReadme), () => (
+		<RangeSliderDefault
+			title={text("paginationAt", "Guests")}
+			defaultSelected={object("Default Selected", {
+				"start": 0,
+				"end": 2
+			})}
 		/>
 	)));
 

@@ -49,6 +49,29 @@ export class RangeSlider extends Component {
 		}
 	}
 
+	componentWillUpdate() {
+		setTimeout(() => {
+			if (this.state.values.min != this.props.defaultSelected.start ||
+				this.state.values.max != this.props.defaultSelected.end) {
+				let values = {};
+				values.min = this.props.defaultSelected.start;
+				values.max = this.props.defaultSelected.end;
+				this.setState({
+					values: values,
+					currentValues: values
+				});
+				var obj = {
+					key: this.props.sensorId,
+					value: {
+						from: values.min,
+						to: values.max
+					}
+				};
+				helper.selectedSensor.set(obj, true);
+			}
+		}, 300);
+	}
+
 	// Handle function when value slider option is changing
 	handleValuesChange(component, values) {
 		this.setState({
@@ -183,7 +206,7 @@ export class RangeSlider extends Component {
 				{histogram}
 				<div className="rbc-rangeslider-container col s12 col-xs-12" style={{'margin': '25px 0'}}>
 					<Slider range
-						defaultValue={[this.state.values.min, this.state.values.max]}
+						value={[this.state.values.min, this.state.values.max]}
 						min={this.state.startThreshold}
 						max={this.state.endThreshold}
 						onAfterChange={this.handleResults}
