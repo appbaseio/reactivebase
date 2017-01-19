@@ -33,6 +33,7 @@ export class NativeList extends Component {
 	// Get the items from Appbase when component is mounted
 	componentDidMount() {
 		this.setQueryInfo();
+		this.handleSelect('');
 		this.createChannel();
 	}
 
