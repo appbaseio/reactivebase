@@ -2,6 +2,7 @@ import {default as React, Component} from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+var _ = require('lodash');
 
 export class MultiRange extends Component {
 	constructor(props, context) {
@@ -10,7 +11,9 @@ export class MultiRange extends Component {
 			selected: []
 		};
 		this.type = 'range';
+		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
+		this.resetState = this.resetState.bind(this);
 		this.handleTagClick = this.handleTagClick.bind(this);
 		this.defaultQuery = this.defaultQuery.bind(this);
 	}
@@ -28,6 +31,23 @@ export class MultiRange extends Component {
 				});
 			}
 		}
+	}
+
+	componentWillUpdate() {
+		setTimeout(() => {
+			if(!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
+				this.defaultSelected = this.props.defaultSelected;
+				this.resetState();
+				let records = this.props.data.filter((record) => {
+					return this.props.defaultSelected.indexOf(record.label) > -1 ? true : false;
+				});
+				if(records && records.length) {
+					records.forEach((singleRecord) => {
+						this.handleChange(singleRecord);
+					});
+				}
+			}
+		}, 300);
 	}
 
 	// set the query type and input data
@@ -97,6 +117,19 @@ export class MultiRange extends Component {
 		var obj = {
 			key: this.props.sensorId,
 			value: selected
+		};
+		// pass the selected sensor value with sensorId as key,
+		let isExecuteQuery = true;
+		helper.selectedSensor.set(obj, isExecuteQuery);
+	}
+
+	resetState() {
+		this.setState({
+			selected: []
+		});
+		var obj = {
+			key: this.props.sensorId,
+			value: []
 		};
 		// pass the selected sensor value with sensorId as key,
 		let isExecuteQuery = true;

@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import { StaticSearch } from './component/StaticSearch.js';
 var helper = require('../middleware/helper.js');
+var _ = require('lodash');
 
 export class NestedList extends Component {
 	constructor(props, context) {
@@ -49,6 +50,7 @@ export class NestedList extends Component {
 	handleSelect() {
 		if(this.props.defaultSelected) {
 			this.props.defaultSelected.forEach((value, index) => {
+				console.log(value, index);
 				this.onItemSelect(value, index);
 			})
 		}
@@ -56,12 +58,12 @@ export class NestedList extends Component {
 
 	componentWillUpdate() {
 		setTimeout(() => {
-			if (this.defaultSelected != this.props.defaultSelected) {
+			if (!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
 				this.defaultSelected = this.props.defaultSelected;
 				let items = this.state.items;
 				items = items.map((item) => {
 					item.key = item.key.toString();
-					item.status = this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1 ? true : false;
+					item.status = this.defaultSelected.length && this.defaultSelected.indexOf(item.key) > -1 ? true : false;
 					return item;
 				});
 				this.setState({
@@ -248,7 +250,7 @@ export class NestedList extends Component {
 	onItemSelect(key, level) {
 		let selectedValues = this.state.selectedValues;
 		let stateItems = {};
-		if (selectedValues[level] == key) {
+		if (selectedValues[level] == key && this.defaultSelected.length == 1) {
 			delete selectedValues[level];
 			stateItems = {
 				selectedValues: selectedValues
