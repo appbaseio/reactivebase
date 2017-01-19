@@ -50,7 +50,6 @@ export class NestedList extends Component {
 	handleSelect() {
 		if(this.props.defaultSelected) {
 			this.props.defaultSelected.forEach((value, index) => {
-				console.log(value, index);
 				this.onItemSelect(value, index);
 			})
 		}
