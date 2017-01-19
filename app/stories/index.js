@@ -34,7 +34,8 @@ import SingleDropdownListDefault from "./SingleDropdownList.stories";
 import MultiDropdownListDefault from "./MultiDropdownList.stories";
 import SingleDropdownRangeDefault from "./SingleDropdownRange.stories";
 import MultiDropdownRangeDefault from "./MultiDropdownRange.stories";
-import PaginatedResultListDefault from "./PaginatedResultListDefault.stories";
+import ResultListDefault from "./ResultList.stories";
+import PaginatedResultListDefault from "./PaginatedResultList.stories";
 import DatePickerDefault from "./DatePicker.stories";
 import DateRangeDefault from "./DateRange.stories";
 import NestedListDefault from "./NestedList.stories";
@@ -264,6 +265,24 @@ storiesOf("RangeSlider", module)
 			})}
 		/>
 	)));
+
+storiesOf("ResultList", module)
+	.addDecorator(withKnobs)
+	.add("Basic", () => (
+		<ResultListDefault requestOnScroll={false} />
+	))
+	.add("With Title", () => (
+		<ResultListDefault title="Meetups" requestOnScroll={false} />
+	))
+	.add("Streaming update", () => (
+		<ResultListDefault title="Meetups" requestOnScroll={true} />
+	))
+	.add("Playground", () => (
+		<ResultListDefault
+			title={text("title", "Meetups")}
+			requestOnScroll={boolean("requestOnScroll", true)}
+		/>
+	));
 
 storiesOf("PaginatedResultList", module)
 	.addDecorator(withKnobs)
