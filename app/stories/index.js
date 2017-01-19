@@ -1,7 +1,7 @@
 import React from "react";
 var moment = require("moment");
 import { storiesOf, addDecorator } from "@kadira/storybook";
-import { withKnobs, text, boolean, number, array } from "@kadira/storybook-addon-knobs";
+import { withKnobs, text, boolean, number, array, select } from "@kadira/storybook-addon-knobs";
 import withReadme from "storybook-readme/with-readme";
 
 import { Appbase } from "appbase-js";
@@ -360,6 +360,6 @@ storiesOf("NestedList", module)
 		<NestedListDefault
 			title={text("Title", "Car Category")}
 			defaultSelected={array("Default selection", ["bmw", "x series"])}
-			sortBy={text("Sort By", "count")}
+			sortBy={select("Sort By", {asc: 'asc', desc: 'desc', count: 'count'}, 'count')}
 		/>
 	));
