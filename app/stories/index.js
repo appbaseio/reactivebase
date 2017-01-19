@@ -1,237 +1,251 @@
-import React from 'react';
-var moment = require('moment');
-import { storiesOf, addDecorator } from '@kadira/storybook';
-import { withKnobs, text, boolean, number, array } from '@kadira/storybook-addon-knobs';
-import withReadme from 'storybook-readme/with-readme';
+import React from "react";
+var moment = require("moment");
+import { storiesOf, addDecorator } from "@kadira/storybook";
+import { withKnobs, text, boolean, number, array } from "@kadira/storybook-addon-knobs";
+import withReadme from "storybook-readme/with-readme";
 
-import { Appbase } from 'appbase-js';
+import { Appbase } from "appbase-js";
 
-import SingleListDefault from './SingleList.stories';
-import SingleListReadme from '@appbaseio/reactivebase-manual/docs/v1/components/SingleList.md';
+import SingleListDefault from "./SingleList.stories";
+import SingleListReadme from "@appbaseio/reactivebase-manual/docs/v1/components/SingleList.md";
 
-import MultiListDefault from './MultiList.stories';
-import MultiListReadme from '@appbaseio/reactivebase-manual/docs/v1/components/MultiList.md';
+import MultiListDefault from "./MultiList.stories";
+import MultiListReadme from "@appbaseio/reactivebase-manual/docs/v1/components/MultiList.md";
 
-import SingleRangeDefault from './SingleRange.stories';
-import SingleRangeReadme from '@appbaseio/reactivebase-manual/docs/v1/components/SingleRange.md';
+import SingleRangeDefault from "./SingleRange.stories";
+import SingleRangeReadme from "@appbaseio/reactivebase-manual/docs/v1/components/SingleRange.md";
 
-import MultiRangeDefault from './MultiRange.stories';
-import MultiRangeReadme from '@appbaseio/reactivebase-manual/docs/v1/components/MultiRange.md';
+import MultiRangeDefault from "./MultiRange.stories";
+import MultiRangeReadme from "@appbaseio/reactivebase-manual/docs/v1/components/MultiRange.md";
 
-import ToggleButtonDefault from './ToggleButton.stories';
-import ToggleButtonReadme from '@appbaseio/reactivebase-manual/docs/v1/components/ToggleButton.md';
+import ToggleButtonDefault from "./ToggleButton.stories";
+import ToggleButtonReadme from "@appbaseio/reactivebase-manual/docs/v1/components/ToggleButton.md";
 
-import TextFieldDefault from './TextField.stories';
-import TextFieldReadme from '@appbaseio/reactivebase-manual/docs/v1/components/TextField.md';
+import TextFieldDefault from "./TextField.stories";
+import TextFieldReadme from "@appbaseio/reactivebase-manual/docs/v1/components/TextField.md";
 
-import DataSearchDefault from './DataSearch.stories';
-import DataSearchReadme from '@appbaseio/reactivebase-manual/docs/v1/components/DataSearch.md';
+import DataSearchDefault from "./DataSearch.stories";
+import DataSearchReadme from "@appbaseio/reactivebase-manual/docs/v1/components/DataSearch.md";
 
-import RangeSliderDefault from './RangeSlider.stories';
-import RangeSliderReadme from '@appbaseio/reactivebase-manual/docs/v1/components/RangeSlider.md';
+import RangeSliderDefault from "./RangeSlider.stories";
+import RangeSliderReadme from "@appbaseio/reactivebase-manual/docs/v1/components/RangeSlider.md";
 
-import SingleDropdownListDefault from './SingleDropdownList.stories';
-import MultiDropdownListDefault from './MultiDropdownList.stories';
-import SingleDropdownRangeDefault from './SingleDropdownRange.stories';
-import MultiDropdownRangeDefault from './MultiDropdownRange.stories';
-import PaginatedResultListDefault from './PaginatedResultListDefault.stories';
-import DatePickerDefault from './DatePicker.stories';
-import DateRangeDefault from './DateRange.stories';
-import NestedListDefault from './NestedList.stories';
+import SingleDropdownListDefault from "./SingleDropdownList.stories";
+import MultiDropdownListDefault from "./MultiDropdownList.stories";
+import SingleDropdownRangeDefault from "./SingleDropdownRange.stories";
+import MultiDropdownRangeDefault from "./MultiDropdownRange.stories";
+import PaginatedResultListDefault from "./PaginatedResultListDefault.stories";
+import DatePickerDefault from "./DatePicker.stories";
+import DateRangeDefault from "./DateRange.stories";
+import NestedListDefault from "./NestedList.stories";
 
-require ('../../node_modules/materialize-css/dist/css/materialize.min.css');
-require ('../../dist/css/vendor.min.css');
-require ('../../dist/css/style.min.css');
+require ("../../node_modules/materialize-css/dist/css/materialize.min.css");
+require ("../../dist/css/vendor.min.css");
+require ("../../dist/css/style.min.css");
 
 function removeFirstLine(str) {
 	return str.substring(str.indexOf("\n") + 1);
 }
 
-storiesOf('SingleList', module)
+storiesOf("SingleList", module)
 	.addDecorator(withKnobs)
-	.add('Basic', withReadme(removeFirstLine(SingleListReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault showSearch={true} searchPlaceholder="Search City" />
 	)))
-	.add('Without Search', withReadme(removeFirstLine(SingleListReadme), () => (
+	.add("Without Search", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault showSearch={false} searchPlaceholder="Search City" />
 	)))
-	.add('Default Selected', withReadme(removeFirstLine(SingleListReadme), () => (
+	.add("Default Selected", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault showSearch={true} defaultSelected="London" searchPlaceholder="Search City" />
 	)))
-	.add('Custom Sort', withReadme(removeFirstLine(SingleListReadme), () => (
+	.add("Custom Sort", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault showSearch={true} defaultSelected="London" sortBy="asc" searchPlaceholder="Search City" />
 	)))
-	.add('Playground', withReadme(removeFirstLine(SingleListReadme), () => (
+	.add("Playground", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault
-			title={text('Title', 'My Cities')}
-			defaultSelected={text('Default Selected', 'London')}
-			searchPlaceholder={text('Search Placeholder', 'Search City')}
-			showSearch={boolean('Show Search', true)}
-			showCount={boolean('Show Count', true)}
+			title={text("Title", "My Cities")}
+			defaultSelected={text("Default Selected", "London")}
+			searchPlaceholder={text("Search Placeholder", "Search City")}
+			showSearch={boolean("Show Search", true)}
+			showCount={boolean("Show Count", true)}
 		/>
 	)));
 
-storiesOf('MultiList', module)
+storiesOf("MultiList", module)
 	.addDecorator(withKnobs)
-	.add('Basic', withReadme(removeFirstLine(MultiListReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault showSearch={true} searchPlaceholder="Search City" />
 	)))
-	.add('Without Search', withReadme(removeFirstLine(MultiListReadme), () => (
+	.add("Without Search", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault showSearch={false} searchPlaceholder="Search City" />
 	)))
-	.add('Default Selected', withReadme(removeFirstLine(MultiListReadme), () => (
+	.add("Default Selected", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault showSearch={true} defaultSelected={["London", "Sydney"]} searchPlaceholder="Search City" />
 	)))
-	.add('Custom Sort', withReadme(removeFirstLine(MultiListReadme), () => (
+	.add("Custom Sort", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault showSearch={true} defaultSelected={["London"]} sortBy="asc" searchPlaceholder="Search City" />
 	)))
-	.add('Playground', withReadme(removeFirstLine(MultiListReadme), () => (
+	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
-			title={text('Title', 'My Cities')}
-			defaultSelected={array('Default selected', ['London', 'Sydney'])}
-			searchPlaceholder={text('Search Placeholder', 'Search City')}
-			showSearch={boolean('Show Search', true)}
-			showCount={boolean('Show Count', true)}
+			title={text("Title", "My Cities")}
+			defaultSelected={array("Default selected", ["London", "Sydney"])}
+			searchPlaceholder={text("Search Placeholder", "Search City")}
+			showSearch={boolean("Show Search", true)}
+			showCount={boolean("Show Count", true)}
 		/>
 	)));
 
-storiesOf('SingleRange', module)
+storiesOf("SingleRange", module)
 	.addDecorator(withKnobs)
-	.add('Basic', withReadme(removeFirstLine(SingleRangeReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(SingleRangeReadme), () => (
 		<SingleRangeDefault />
 	)))
-	.add('With Default Selected', withReadme(removeFirstLine(SingleRangeReadme), () => (
-		<SingleRangeDefault defaultSelected='Cheap' />
+	.add("With Default Selected", withReadme(removeFirstLine(SingleRangeReadme), () => (
+		<SingleRangeDefault defaultSelected="Cheap" />
 	)))
-	.add('Playground', withReadme(removeFirstLine(SingleRangeReadme), () => (
+	.add("Playground", withReadme(removeFirstLine(SingleRangeReadme), () => (
 		<SingleRangeDefault
-			title={text('Title', 'Price Range')}
-			defaultSelected={text('Default Selected', 'Cheap')}
+			title={text("Title", "Price Range")}
+			defaultSelected={text("Default Selected", "Cheap")}
 		/>
 	)));
 
-storiesOf('MultiRange', module)
+storiesOf("MultiRange", module)
 	.addDecorator(withKnobs)
-	.add('Basic', withReadme(removeFirstLine(MultiRangeReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(MultiRangeReadme), () => (
 		<MultiRangeDefault />
 	)))
-	.add('With Default Selected', withReadme(removeFirstLine(MultiRangeReadme), () => (
-		<MultiRangeDefault defaultSelected={['Cheap', 'Moderate']} />
+	.add("With Default Selected", withReadme(removeFirstLine(MultiRangeReadme), () => (
+		<MultiRangeDefault defaultSelected={["Cheap", "Moderate"]} />
 	)))
-	.add('Playground', withReadme(removeFirstLine(MultiRangeReadme), () => (
+	.add("Playground", withReadme(removeFirstLine(MultiRangeReadme), () => (
 		<MultiRangeDefault
-			title={text('Title', 'Price Range')}
-			defaultSelected={array('Default selected', ['Cheap', 'Moderate'])}
+			title={text("Title", "Price Range")}
+			defaultSelected={array("Default selected", ["Cheap", "Moderate"])}
 		/>
 	)));
 
-storiesOf('ToggleButton', module)
+storiesOf("ToggleButton", module)
 	.addDecorator(withKnobs)
-	.add('Basic', withReadme(removeFirstLine(ToggleButtonReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault />
 	)))
-	.add('With Default Selected', withReadme(removeFirstLine(ToggleButtonReadme), () => (
+	.add("With Default Selected", withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault defaultSelected={["Social"]} />
 	)))
-	.add('Playground', withReadme(removeFirstLine(ToggleButtonReadme), () => (
+	.add("Playground", withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault
-			title={text('Title', 'Meetup Categories')}
-			multiSelect={boolean('Multi Select', true)}
-			defaultSelected={array('Default selected', ['Social', 'Travel'])}
+			title={text("Title", "Meetup Categories")}
+			multiSelect={boolean("Multi Select", true)}
+			defaultSelected={array("Default selected", ["Social", "Travel"])}
 		/>
 	)));
 
-storiesOf('TextField', module)
+storiesOf("TextField", module)
 	.addDecorator(withKnobs)
-	.add('Basic', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault />
 	)))
-	.add('With Title', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("With Title", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault
-			title={text('Title', "Car Search")}
-			placeholder={text('Place Holder', "Type a car name")} />
+			title={text("Title", "Car Search")}
+			placeholder={text("Place Holder", "Type a car name")} />
 	)));
 
-storiesOf('SingleDropdownList', module)
+storiesOf("SingleDropdownList", module)
 	.addDecorator(withKnobs)
-	.add('Basic', () => (
+	.add("Basic", () => (
 		<SingleDropdownListDefault />
 	))
-	.add('With Select All', () => (
+	.add("With Select All", () => (
 		<SingleDropdownListDefault
-			selectAllLabel='All Cities'
+			selectAllLabel="All Cities"
 		/>
 	))
-	.add('Playground', () => (
+	.add("With Default Selected", () => (
 		<SingleDropdownListDefault
-			selectAllLabel={text('Label for Select All', 'All Cities')}
+			selectAllLabel="All Cities"
+			defaultSelected="London"
+		/>
+	))
+	.add("Playground", () => (
+		<SingleDropdownListDefault
+			selectAllLabel={text("Label for Select All", "All Cities")}
+			defaultSelected={text("Default Selected", "London")}
 		/>
 	));
 
-storiesOf('MultiDropdownList', module)
+storiesOf("MultiDropdownList", module)
 	.addDecorator(withKnobs)
-	.add('Basic', () => (
+	.add("Basic", () => (
 		<MultiDropdownListDefault />
 	))
-	.add('With Placeholder', () => (
+	.add("With Placeholder", () => (
 		<MultiDropdownListDefault
-			placeholder='Select Cities'
+			placeholder="Select Cities"
 		/>
 	))
-	.add('Playground', () => (
+	.add("With Default Selected", () => (
 		<MultiDropdownListDefault
-			placeholder={text('Place Holder', 'Select Cities')}
+			placeholder="Select Cities"
+			defaultSelected={["London", "Melbourne"]}
+		/>
+	))
+	.add("Playground", () => (
+		<MultiDropdownListDefault
+			placeholder={text("Place Holder", "Select Cities")}
+			defaultSelected={array("Default selected", ["London", "Melbourne"])}
 		/>
 	));
 
-storiesOf('DataSearch', module)
+storiesOf("DataSearch", module)
 	.addDecorator(withKnobs)
-	.add('Basic', withReadme(removeFirstLine(DataSearchReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault placeholder="Search Venue" />
 	)))
-	.add('Playground', withReadme(removeFirstLine(DataSearchReadme), () => (
+	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
-			title={text('Title', 'DataSearch')}
-			placeholder={text('placeholder', 'Search Venue')}
-			autocomplete={boolean('autocomplete', true)} />
+			title={text("Title", "DataSearch")}
+			placeholder={text("placeholder", "Search Venue")}
+			autocomplete={boolean("autocomplete", true)} />
 	)));
 
-storiesOf('SingleDropdownRange', module)
+storiesOf("SingleDropdownRange", module)
 	.addDecorator(withKnobs)
-	.add('Basic', () => (
+	.add("Basic", () => (
 		<SingleDropdownRangeDefault />
 	))
-	.add('With Default Selected', () => (
-		<SingleDropdownRangeDefault defaultSelected='Cheap' />
+	.add("With Default Selected", () => (
+		<SingleDropdownRangeDefault defaultSelected="Cheap" />
 	))
-	.add('Playground', () => (
+	.add("Playground", () => (
 		<SingleDropdownRangeDefault
-			title={text('Title', 'Price Range')}
-			defaultSelected={text('Default Selected', 'Cheap')}
+			title={text("Title", "Price Range")}
+			defaultSelected={text("Default Selected", "Cheap")}
 		/>
 	));
 
-storiesOf('MultiDropdownRange', module)
+storiesOf("MultiDropdownRange", module)
 	.addDecorator(withKnobs)
-	.add('Basic', () => (
+	.add("Basic", () => (
 		<MultiDropdownRangeDefault />
 	))
-	.add('With Default Selected', () => (
-		<MultiDropdownRangeDefault defaultSelected={['Cheap', 'Moderate']} />
+	.add("With Default Selected", () => (
+		<MultiDropdownRangeDefault defaultSelected={["Cheap", "Moderate"]} />
 	))
-	.add('Playground', () => (
+	.add("Playground", () => (
 		<MultiDropdownRangeDefault
-			title={text('Title', 'Price Range')}
-			defaultSelected={array('Default selected', ['Cheap', 'Moderate'])}
+			title={text("Title", "Price Range")}
+			defaultSelected={array("Default selected", ["Cheap", "Moderate"])}
 		/>
 	));
 
-storiesOf('RangeSlider', module)
+storiesOf("RangeSlider", module)
 	.addDecorator(withKnobs)
-	.add('Basic', withReadme(removeFirstLine(RangeSliderReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault />
 	)))
-	.add('With Default Selected', withReadme(removeFirstLine(RangeSliderReadme), () => (
+	.add("With Default Selected", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
 			defaultSelected={
 				{
@@ -242,110 +256,110 @@ storiesOf('RangeSlider', module)
 		/>
 	)));
 
-storiesOf('PaginatedResultList', module)
+storiesOf("PaginatedResultList", module)
 	.addDecorator(withKnobs)
-	.add('Basic', () => (
+	.add("Basic", () => (
 		<PaginatedResultListDefault  paginationAt="both" />
 	))
-	.add('Playground', () => (
+	.add("Playground", () => (
 		<PaginatedResultListDefault
-			paginationAt={text('paginationAt', 'bottom')}
+			paginationAt={text("paginationAt", "bottom")}
 		/>
 	));
 
-storiesOf('DatePicker', module)
+storiesOf("DatePicker", module)
 	.addDecorator(withKnobs)
-	.add('Basic', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DatePickerDefault />
 	)))
-	.add('Show more than 1 month', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Show more than 1 month", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DatePickerDefault
 			numberOfMonths={2}
 		/>
 	)))
-	.add('Default date', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Default date", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DatePickerDefault
 			date={moment()}
 		/>
 	)))
-	.add('Initial Focus', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Initial Focus", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DatePickerDefault />
 	)))
-	.add('Enable days from today only', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Enable days from today only", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DatePickerDefault
 			allowAllDates={false}
 		/>
 	)))
-	.add('React-dates props', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("React-dates props", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DatePickerDefault
 			extra = {{
-				'withFullScreenPortal': true,
-				'showClearDate': true
+				"withFullScreenPortal": true,
+				"showClearDate": true
 			}}
 		/>
 	)))
-	.add('Playground', () => (
+	.add("Playground", () => (
 		<DatePickerDefault
-			title={text('Title', 'Date Picker')}
-			numberOfMonths={number('Number of months', 1)}
-			allowAllDates={boolean('allowAllDates: Enable days from today only', true)}
+			title={text("Title", "Date Picker")}
+			numberOfMonths={number("Number of months", 1)}
+			allowAllDates={boolean("allowAllDates: Enable days from today only", true)}
 		/>
 	));
 
-storiesOf('DateRange', module)
+storiesOf("DateRange", module)
 	.addDecorator(withKnobs)
-	.add('Basic', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DateRangeDefault />
 	)))
-	.add('Show more than 1 month', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Show more than 1 month", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DateRangeDefault
 			numberOfMonths={3}
 		/>
 	)))
-	.add('Default date', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Default date", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DateRangeDefault
 			startDate={moment()}
-			endDate={moment().add(5, 'days')}
+			endDate={moment().add(5, "days")}
 		/>
 	)))
-	.add('Enable days from today only', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Enable days from today only", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DateRangeDefault
 			allowAllDates={false}
 		/>
 	)))
-	.add('React-dates props', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("React-dates props", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<DateRangeDefault
 			extra = {{
-				'withFullScreenPortal': true,
-				'showClearDate': true
+				"withFullScreenPortal": true,
+				"showClearDate": true
 			}}
 		/>
 	)))
-	.add('Playground', () => (
+	.add("Playground", () => (
 		<DateRangeDefault
-			title={text('Title', 'Date Range')}
-			numberOfMonths={number('Number of months', 2)}
-			allowAllDates={boolean('allowAllDates: Enable days from today only', true)}
+			title={text("Title", "Date Range")}
+			numberOfMonths={number("Number of months", 2)}
+			allowAllDates={boolean("allowAllDates: Enable days from today only", true)}
 		/>
 	));
 
 
-storiesOf('NestedList', module)
+storiesOf("NestedList", module)
 	.addDecorator(withKnobs)
-	.add('Basic', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<NestedListDefault />
 	)))
-	.add('With Title', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("With Title", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<NestedListDefault
-			title={text('Title', "Car Category")} />
+			title={text("Title", "Car Category")} />
 	)))
-	.add('Default selection', withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Default selection", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<NestedListDefault
 			defaultSelected={["bmw", "x series"]} />
-	))).add('Playground', () => (
+	))).add("Playground", () => (
 		<NestedListDefault
-			title={text('Title', 'Car Category')}
-			defaultSelected={array('Default selection', ['bmw', 'x series'])}
-			sortBy={text('Sort By', 'count')}
+			title={text("Title", "Car Category")}
+			defaultSelected={array("Default selection", ["bmw", "x series"])}
+			sortBy={text("Sort By", "count")}
 		/>
 	));

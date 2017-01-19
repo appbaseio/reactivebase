@@ -3,6 +3,7 @@ import Select from 'react-select';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+var _ = require('lodash');
 
 export class DropdownList extends Component {
 	constructor(props, context) {
@@ -19,6 +20,7 @@ export class DropdownList extends Component {
 		this.channelId = null;
 		this.channelListener = null;
 		this.previousSelectedSensor = {};
+		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
 	}
@@ -27,6 +29,32 @@ export class DropdownList extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		this.createChannel();
+	}
+
+	componentWillUpdate() {
+		setTimeout(() => {
+			if (this.props.multipleSelect) {
+				if (!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
+					this.defaultSelected = this.props.defaultSelected;
+					let records = this.state.items.filter((record) => {
+						return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
+					});
+					if (records.length) {
+						this.handleChange(records);
+					}
+				}
+			} else {
+				if (this.defaultSelected != this.props.defaultSelected) {
+					this.defaultSelected = this.props.defaultSelected;
+					let records = this.state.items.filter((record) => {
+						return record.label === this.defaultSelected;
+					});
+					if (records.length) {
+						this.handleChange(records[0]);
+					}
+				}
+			}
+		}, 300);
 	}
 
 	// stop streaming request and remove listener when component will unmount
@@ -99,6 +127,23 @@ export class DropdownList extends Component {
 			value: newItems[0].label
 		});
 		this.setValue(newItems[0].label, true);
+		if (this.defaultSelected) {
+			if (this.props.multipleSelect) {
+				let records = this.state.items.filter((record) => {
+					return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
+				});
+				if (records.length) {
+					this.handleChange(records);
+				}
+			} else {
+				let records = this.state.items.filter((record) => {
+					return record.label === this.defaultSelected;
+				});
+				if (records.length) {
+					this.handleChange(records[0]);
+				}
+			}
+		}
 	}
 
 	// Handler function when a value is selected
