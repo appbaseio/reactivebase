@@ -305,6 +305,7 @@ storiesOf("ResultList", module)
 		<ResultListDefault
 			title={text("title", "Meetups")}
 			requestOnScroll={boolean("requestOnScroll", true)}
+			stream={boolean("stream", false)}
 		/>
 	));
 
