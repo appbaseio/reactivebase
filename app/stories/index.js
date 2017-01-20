@@ -272,10 +272,29 @@ storiesOf("ResultList", module)
 		<ResultListDefault requestOnScroll={false} />
 	))
 	.add("With Title", () => (
-		<ResultListDefault title="Meetups" requestOnScroll={false} />
+		<ResultListDefault title="Meetups" />
 	))
-	.add("Streaming update", () => (
-		<ResultListDefault title="Meetups" requestOnScroll={true} />
+	.add("With Sort Options", () => (
+		<ResultListDefault
+			title="Meetups"
+			sortOptions={[
+				{
+					label: "Most Recent RSVP",
+					appbaseField: "mtime",
+					sortBy: "desc"
+				},
+				{
+					label: "Guests - High to Low",
+					appbaseField: "guests",
+					sortBy: "desc"
+				},
+				{
+					label: "Guests - Low to High",
+					appbaseField: "guests",
+					sortBy: "asc"
+				}
+			]}
+		/>
 	))
 	.add("Playground", () => (
 		<ResultListDefault
@@ -388,6 +407,6 @@ storiesOf("NestedList", module)
 		<NestedListDefault
 			title={text("Title", "Car Category")}
 			defaultSelected={array("Default selection", ["bmw", "x series"])}
-			sortBy={select("Sort By", {asc: 'asc', desc: 'desc', count: 'count'}, 'count')}
+			sortBy={select("Sort By", {asc: "asc", desc: "desc", count: "count"}, "count")}
 		/>
 	));

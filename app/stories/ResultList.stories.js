@@ -9,11 +9,20 @@ export default class ResultListDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.onData = this.onData.bind(this);
+		this.cityQuery = this.cityQuery.bind(this);
 		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
 	}
 
 	componentDidMount() {
 		ResponsiveStory();
+	}
+
+	cityQuery(value) {
+		if(value) {
+			let field = 'group.group_city.group_city_simple';
+			let match = JSON.parse(`{"${field}":` + JSON.stringify(value) + '}');
+			return { match: match };
+		} else return null;
 	}
 
 	onData(res) {
@@ -63,10 +72,10 @@ export default class ResultListDefault extends Component {
 	render() {
 		return (
 			<ReactiveBase
-				appname="meetup_demo"
-				username="LPpISlEBe"
-				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
-				type="meetupdata1"
+				appname="meetup2"
+				username="qz4ZD8xq1"
+				password="a0edfc7f-5611-46f6-8fe1-d4db234631f3"
+				type="meetup"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
@@ -88,9 +97,10 @@ export default class ResultListDefault extends Component {
 							from={0}
 							size={20}
 							onData={this.onData}
+							requestOnScroll={true}
 							{...this.props}
 							depends={{
-								CitySensor: {"operation": "must"}
+								CitySensor: {"operation": "must", defaultQuery: this.cityQuery}
 							}}
 						/>
 					</div>
@@ -102,7 +112,7 @@ export default class ResultListDefault extends Component {
 
 ResultListDefault.defaultProps = {
 	mapping: {
-		city: 'group.group_city.raw',
-		topic: 'group.group_topics.topic_name_raw'
+		city: 'group.group_city.group_city_simple',
+		topic: 'group.group_topics.topic_name.topic_name_simple',
 	}
 };

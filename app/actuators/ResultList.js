@@ -70,7 +70,7 @@ export class ResultList extends Component {
 			// if queryStartTime of channel response is greater than the previous one only then apply changes
 			if(res.mode === 'historic' && res.startTime > this.queryStartTime) {
 				this.afterChannelResponse(res);
-			} else if(res.mode === 'stream') {
+			} else if(res.mode === 'streaming') {
 				this.afterChannelResponse(res);
 			}
 		}.bind(this));
@@ -118,6 +118,44 @@ export class ResultList extends Component {
 				this.streamMarkerInterval();
 			}
 		}.bind(this));
+	}
+
+	// Check if stream data exists in markersData
+	// and if exists the call streamToNormal.
+	streamMarkerInterval() {
+		let markersData = this.state.markersData;
+		let isStreamData = markersData.filter((hit) => hit.stream && hit.streamStart);
+		if(isStreamData.length) {
+			this.isStreamDataExists = true;
+			setTimeout(() => this.streamToNormal(), this.props.streamActiveTime*1000);
+		} else {
+			this.isStreamDataExists = false;
+		}
+	}
+
+	// Check the difference between current time and attached stream time
+	// if difference is equal to streamActiveTime then delete stream and starStream property of marker
+	streamToNormal() {
+		let markersData = this.state.markersData;
+		let isStreamData = markersData.filter((hit) => hit.stream && hit.streamStart);
+		if(isStreamData.length) {
+			markersData = markersData.map((hit, index) => {
+				if(hit.stream && hit.streamStart) {
+					let currentTime = new Date();
+					let timeDiff = (currentTime.getTime() - hit.streamStart.getTime())/1000;
+					if(timeDiff >= this.props.streamActiveTime) {
+						delete hit.stream;
+						delete hit.streamStart;
+					}
+				}
+				return hit;
+			});
+			this.setState({
+				markersData: markersData
+			});
+		} else {
+			this.isStreamDataExists = false;
+		}
 	}
 
 	// normalize current data
@@ -171,19 +209,19 @@ export class ResultList extends Component {
 			res.data.stream = true;
 			res.data.streamStart = new Date();
 			if (res.data._deleted) {
-				let hits = rawData.hits.hits.filter((hit) => {
+				let hits = rawData.filter((hit) => {
 					return hit._id !== res.data._id;
 				});
-				rawData.hits.hits = hits;
+				rawData = hits;
 			} else {
-				let prevData = rawData.hits.hits.filter((hit) => {
+				let prevData = rawData.filter((hit) => {
 					return hit._id === res.data._id;
 				});
-				let hits = rawData.hits.hits.filter((hit) => {
+				let hits = rawData.filter((hit) => {
 					return hit._id !== res.data._id;
 				});
-				rawData.hits.hits = hits;
-				rawData.hits.hits.push(res.data);
+				rawData = hits;
+				rawData.unshift(res.data);
 			}
 		}
 		return {
