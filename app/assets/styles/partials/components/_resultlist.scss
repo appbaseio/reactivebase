@@ -64,23 +64,15 @@
 		margin: 0 auto;
 		width: 24px;
 		height: 24px;
-		border: .25rem solid rgba($font-color, 0.2);
-		border-top-color: $font-color;
 		animation: spin 1s infinite;
 	}
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes pulse {	
-  50% { 
-    background: $font-color;
-  } 
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }

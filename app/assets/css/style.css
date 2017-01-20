@@ -302,6 +302,9 @@ a {
   background: #fff; }
   .rbc-red .rbc .rbc-title {
     color: #777; }
+  .rbc-red .rbc .rbc-loader::after {
+    border: 0.25rem solid rgba(119, 119, 119, 0.2);
+    border-top-color: #777; }
   .rbc-red .rbc [type="radio"]:checked + label:after,
   .rbc-red .rbc [type="radio"].with-gap:checked + label:before,
   .rbc-red .rbc [type="radio"].with-gap:checked + label:after {
@@ -441,6 +444,9 @@ a {
   background: #fff; }
   .rbc-orange .rbc .rbc-title {
     color: #777; }
+  .rbc-orange .rbc .rbc-loader::after {
+    border: 0.25rem solid rgba(119, 119, 119, 0.2);
+    border-top-color: #777; }
   .rbc-orange .rbc [type="radio"]:checked + label:after,
   .rbc-orange .rbc [type="radio"].with-gap:checked + label:before,
   .rbc-orange .rbc [type="radio"].with-gap:checked + label:after {
@@ -580,6 +586,9 @@ a {
   background: #fff; }
   .rbc-yellow .rbc .rbc-title {
     color: #777; }
+  .rbc-yellow .rbc .rbc-loader::after {
+    border: 0.25rem solid rgba(119, 119, 119, 0.2);
+    border-top-color: #777; }
   .rbc-yellow .rbc [type="radio"]:checked + label:after,
   .rbc-yellow .rbc [type="radio"].with-gap:checked + label:before,
   .rbc-yellow .rbc [type="radio"].with-gap:checked + label:after {
@@ -719,6 +728,9 @@ a {
   background: #fff; }
   .rbc-green .rbc .rbc-title {
     color: #777; }
+  .rbc-green .rbc .rbc-loader::after {
+    border: 0.25rem solid rgba(119, 119, 119, 0.2);
+    border-top-color: #777; }
   .rbc-green .rbc [type="radio"]:checked + label:after,
   .rbc-green .rbc [type="radio"].with-gap:checked + label:before,
   .rbc-green .rbc [type="radio"].with-gap:checked + label:after {
@@ -858,6 +870,9 @@ a {
   background: #fff; }
   .rbc-blue .rbc .rbc-title {
     color: #777; }
+  .rbc-blue .rbc .rbc-loader::after {
+    border: 0.25rem solid rgba(119, 119, 119, 0.2);
+    border-top-color: #777; }
   .rbc-blue .rbc [type="radio"]:checked + label:after,
   .rbc-blue .rbc [type="radio"].with-gap:checked + label:before,
   .rbc-blue .rbc [type="radio"].with-gap:checked + label:after {
@@ -997,6 +1012,9 @@ a {
   background: #555; }
   .rbc-dark .rbc .rbc-title {
     color: #eee; }
+  .rbc-dark .rbc .rbc-loader::after {
+    border: 0.25rem solid rgba(238, 238, 238, 0.2);
+    border-top-color: #eee; }
   .rbc-dark .rbc [type="radio"]:checked + label:after,
   .rbc-dark .rbc [type="radio"].with-gap:checked + label:before,
   .rbc-dark .rbc [type="radio"].with-gap:checked + label:after {
@@ -1288,8 +1306,6 @@ a {
     margin: 0 auto;
     width: 24px;
     height: 24px;
-    border: 0.25rem solid rgba(136, 136, 136, 0.2);
-    border-top-color: #888;
     animation: spin 1s infinite; }
 
 @keyframes spin {
@@ -1297,10 +1313,6 @@ a {
     transform: rotate(0deg); }
   100% {
     transform: rotate(360deg); } }
-
-@keyframes pulse {
-  50% {
-    background: #888; } }
 
 .rbc-bar-container {
   position: relative;
