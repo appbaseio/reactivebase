@@ -62,7 +62,7 @@ export class ResultList extends Component {
 			this.enableSort(depends);
 		}
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends, this.props.size, this.props.from);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends, this.props.size, this.props.from, this.props.stream);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			// implementation to prevent initialize query issue if old query response is late then the newer query
@@ -353,13 +353,15 @@ ResultList.propTypes = {
 	from: React.PropTypes.number,
 	onData: React.PropTypes.func,
 	size: React.PropTypes.number,
-	requestOnScroll: React.PropTypes.bool
+	requestOnScroll: React.PropTypes.bool,
+	stream: React.PropTypes.bool
 };
 
 ResultList.defaultProps = {
 	from: 0,
 	size: 20,
-	requestOnScroll: true
+	requestOnScroll: true,
+	stream: false
 };
 
 // context type

@@ -56,21 +56,10 @@ class channelManager {
 					console.log(error);
 				});
 				// apply searchStream query and emit streaming data
-				if(this.streamRef[channelId]) {
-					this.streamRef[channelId].stop();
+				if(channelObj.stream) {
+					activateStream.call(this, channelId, queryObj, appbaseRef);
 				}
-				let streamQueryObj = queryObj;
-				streamQueryObj.type = this.type[channelId];
-				this.streamRef[channelId] = appbaseRef.searchStream(streamQueryObj).on('data', function(data) {
-					let obj = {
-						mode: 'streaming',
-						data: data,
-						appliedQuery: queryObj
-					};
-					self.emitter.emit(channelId, obj);
-				}).on('error', function(error) {
-					console.log(error);
-				});
+
 			} else {
 				console.error('appbaseRef is not set for '+channelId);
 			}
@@ -88,6 +77,24 @@ class channelManager {
 				appliedQuery: queryObj
 			};
 			self.emitter.emit(channelId, obj);
+		}
+
+		function activateStream(channelId, queryObj, appbaseRef) {
+			if(this.streamRef[channelId]) {
+				this.streamRef[channelId].stop();
+			}
+			let streamQueryObj = queryObj;
+			streamQueryObj.type = this.type[channelId];
+			this.streamRef[channelId] = appbaseRef.searchStream(streamQueryObj).on('data', function(data) {
+				let obj = {
+					mode: 'streaming',
+					data: data,
+					appliedQuery: queryObj
+				};
+				self.emitter.emit(channelId, obj);
+			}).on('error', function(error) {
+				console.log(error);
+			});
 		}
 	}
 
@@ -261,7 +268,7 @@ class channelManager {
 
 	// Create the channel by passing depends
 	// if depends are same it will create single channel for them
-	create(appbaseRef, type, depends, size = 100, from =0) {
+	create(appbaseRef, type, depends, size = 100, from =0, stream=false) {
 		let channelId = btoa(JSON.stringify(depends));
 		let optionValues = {
 			size: size,
@@ -284,6 +291,7 @@ class channelManager {
 				depends: depends,
 				size: size,
 				from: from,
+				stream: stream,
 				previousSelectedSensor: previousSelectedSensor
 			};
 			helper.watchForDependencyChange(depends, this.channels[channelId].previousSelectedSensor, this.receive, channelId, this.paginationChanges, this.sortChanges);
