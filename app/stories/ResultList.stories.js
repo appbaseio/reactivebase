@@ -43,8 +43,9 @@ export default class ResultListDefault extends Component {
 	}
 
 	itemMarkup(marker, markerData) {
+		console.log(markerData.stream);
 		return (
-			<a className={"full_row single-record single_record_for_clone "+(marker.stream ? 'animate' : '')}
+			<a className={"full_row single-record single_record_for_clone "+(markerData.stream ? 'animate' : '')}
 				href={marker.event ? marker.event.event_url : ''}
 				target="_blank"
 				key={markerData._id}>
@@ -61,7 +62,7 @@ export default class ResultListDefault extends Component {
 					<div className="text-description text-overflow full_row">
 						<ul className="highlight_tags">
 							{
-								marker.group.group_topics.map(function(tag,i){
+								marker.group.group_topics.map(function(tag,i) {
 									return (<li key={i}>{tag.topic_name}</li>)
 								})
 							}
