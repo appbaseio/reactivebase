@@ -64,11 +64,11 @@ storiesOf("SingleList", module)
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault
-			title={text("Title", "My Cities")}
-			defaultSelected={text("Default Selected", "London")}
-			searchPlaceholder={text("Search Placeholder", "Search City")}
-			showSearch={boolean("Show Search", true)}
-			showCount={boolean("Show Count", true)}
+			title={text("title", "My Cities")}
+			defaultSelected={text("defaultSelected", "London")}
+			searchPlaceholder={text("searchPlaceholder", "Search City")}
+			showSearch={boolean("showSearch", true)}
+			showCount={boolean("showCount", true)}
 		/>
 	)));
 
@@ -86,13 +86,17 @@ storiesOf("MultiList", module)
 	.add("Custom Sort", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault showSearch={true} defaultSelected={["London"]} sortBy="asc" searchPlaceholder="Search City" />
 	)))
+	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch={true} includeSelectAll={true} defaultSelected={["London"]} searchPlaceholder="Search City" />
+	)))
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
-			title={text("Title", "My Cities")}
-			defaultSelected={array("Default selected", ["London", "Sydney"])}
-			searchPlaceholder={text("Search Placeholder", "Search City")}
-			showSearch={boolean("Show Search", true)}
-			showCount={boolean("Show Count", true)}
+			title={text("title", "My Cities")}
+			defaultSelected={array("defaultSelected", ["London", "Sydney"])}
+			searchPlaceholder={text("searchPlaceholder", "Search City")}
+			showSearch={boolean("showSearch", true)}
+			includeSelectAll={boolean("includeSelectAll", true)}
+			showCount={boolean("showCount", true)}
 		/>
 	)));
 
@@ -106,8 +110,8 @@ storiesOf("SingleRange", module)
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleRangeReadme), () => (
 		<SingleRangeDefault
-			title={text("Title", "Price Range")}
-			defaultSelected={text("Default Selected", "Cheap")}
+			title={text("title", "Price Range")}
+			defaultSelected={text("defaultSelected", "Cheap")}
 		/>
 	)));
 
@@ -121,8 +125,8 @@ storiesOf("MultiRange", module)
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiRangeReadme), () => (
 		<MultiRangeDefault
-			title={text("Title", "Price Range")}
-			defaultSelected={array("Default selected", ["Cheap", "Moderate"])}
+			title={text("title", "Price Range")}
+			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
 		/>
 	)));
 
@@ -136,9 +140,9 @@ storiesOf("ToggleButton", module)
 	)))
 	.add("Playground", withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault
-			title={text("Title", "Meetup Categories")}
-			multiSelect={boolean("Multi Select", true)}
-			defaultSelected={array("Default selected", ["Social", "Travel"])}
+			title={text("title", "Meetup Categories")}
+			multiSelect={boolean("multiSelect", true)}
+			defaultSelected={array("defaultSelected", ["Social", "Travel"])}
 		/>
 	)));
 
@@ -149,8 +153,8 @@ storiesOf("TextField", module)
 	)))
 	.add("With Title", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault
-			title={text("Title", "Car Search")}
-			placeholder={text("Place Holder", "Type a car name")} />
+			title={text("title", "Car Search")}
+			placeholder={text("placeholder", "Type a car name")} />
 	)));
 
 storiesOf("SingleDropdownList", module)
@@ -171,8 +175,8 @@ storiesOf("SingleDropdownList", module)
 	))
 	.add("Playground", () => (
 		<SingleDropdownListDefault
-			selectAllLabel={text("Label for Select All", "All Cities")}
-			defaultSelected={text("Default Selected", "London")}
+			selectAllLabel={text("selectAllLabel", "All Cities")}
+			defaultSelected={text("defaultSelected", "London")}
 		/>
 	));
 
@@ -194,8 +198,8 @@ storiesOf("MultiDropdownList", module)
 	))
 	.add("Playground", () => (
 		<MultiDropdownListDefault
-			placeholder={text("Place Holder", "Select Cities")}
-			defaultSelected={array("Default selected", ["London", "Melbourne"])}
+			placeholder={text("placeholder", "Select Cities")}
+			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
 		/>
 	));
 
@@ -206,7 +210,7 @@ storiesOf("DataSearch", module)
 	)))
 	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
-			title={text("Title", "DataSearch")}
+			title={text("title", "DataSearch")}
 			placeholder={text("placeholder", "Search Venue")}
 			autocomplete={boolean("autocomplete", true)} />
 	)));
@@ -221,8 +225,8 @@ storiesOf("SingleDropdownRange", module)
 	))
 	.add("Playground", () => (
 		<SingleDropdownRangeDefault
-			title={text("Title", "Price Range")}
-			defaultSelected={text("Default Selected", "Cheap")}
+			title={text("title", "Price Range")}
+			defaultSelected={text("defaultSelected", "Cheap")}
 		/>
 	));
 
@@ -236,8 +240,8 @@ storiesOf("MultiDropdownRange", module)
 	))
 	.add("Playground", () => (
 		<MultiDropdownRangeDefault
-			title={text("Title", "Price Range")}
-			defaultSelected={array("Default selected", ["Cheap", "Moderate"])}
+			title={text("title", "Price Range")}
+			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
 		/>
 	));
 
@@ -259,7 +263,7 @@ storiesOf("RangeSlider", module)
 	.add("Playground", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
 			title={text("paginationAt", "Guests")}
-			defaultSelected={object("Default Selected", {
+			defaultSelected={object("defaultSelected", {
 				"start": 0,
 				"end": 2
 			})}
@@ -352,7 +356,7 @@ storiesOf("DatePicker", module)
 	)))
 	.add("Playground", () => (
 		<DatePickerDefault
-			title={text("Title", "Date Picker")}
+			title={text("title", "Date Picker")}
 			numberOfMonths={number("Number of months", 1)}
 			allowAllDates={boolean("allowAllDates: Enable days from today only", true)}
 		/>
@@ -389,7 +393,7 @@ storiesOf("DateRange", module)
 	)))
 	.add("Playground", () => (
 		<DateRangeDefault
-			title={text("Title", "Date Range")}
+			title={text("title", "Date Range")}
 			numberOfMonths={number("Number of months", 2)}
 			allowAllDates={boolean("allowAllDates: Enable days from today only", true)}
 		/>
@@ -403,15 +407,15 @@ storiesOf("NestedList", module)
 	)))
 	.add("With Title", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<NestedListDefault
-			title={text("Title", "Car Category")} />
+			title={text("title", "Car Category")} />
 	)))
 	.add("Default selection", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<NestedListDefault
 			defaultSelected={["bmw", "x series"]} />
 	))).add("Playground", () => (
 		<NestedListDefault
-			title={text("Title", "Car Category")}
-			defaultSelected={array("Default selection", ["bmw", "x series"])}
-			sortBy={select("Sort By", {asc: "asc", desc: "desc", count: "count"}, "count")}
+			title={text("title", "Car Category")}
+			defaultSelected={array("defaultSelected", ["bmw", "x series"])}
+			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 		/>
 	));
