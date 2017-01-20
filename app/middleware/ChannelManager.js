@@ -294,7 +294,6 @@ class channelManager {
 				stream: stream,
 				previousSelectedSensor: previousSelectedSensor
 			};
-			debugger
 			helper.watchForDependencyChange(depends, this.channels[channelId].previousSelectedSensor, this.receive, channelId, this.paginationChanges, this.sortChanges);
 		}
 		setTimeout(() => {
