@@ -159,8 +159,14 @@ $themes: (
 		
 		.rbc {
 			background: map-get($map, background);
+			
 			.rbc-title {
 				color: map-get($map, font-color);
+			}
+
+			.rbc-loader::after {
+				border: .25rem solid rgba(map-get($map, font-color), 0.2);
+				border-top-color: map-get($map, font-color);
 			}
 
 			[type="radio"]:checked+label:after,
