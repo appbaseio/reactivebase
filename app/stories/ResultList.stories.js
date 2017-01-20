@@ -8,13 +8,9 @@ require('./list.css');
 export default class ResultListDefault extends Component {
 	constructor(props) {
 		super(props);
-		this.onData = this.onData.bind(this);
 		this.cityQuery = this.cityQuery.bind(this);
+		this.onData = this.onData.bind(this);
 		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
-	}
-
-	componentDidMount() {
-		ResponsiveStory();
 	}
 
 	cityQuery(value) {
@@ -25,10 +21,17 @@ export default class ResultListDefault extends Component {
 		} else return null;
 	}
 
+	componentDidMount() {
+		ResponsiveStory();
+	}
+
 	onData(res) {
 		let result, combineData = res.currentData;
 		if(res.mode === 'historic') {
 			combineData = res.currentData.concat(res.newData);
+		}
+		else if(res.mode === 'streaming') {
+			combineData = res.newData.allMarkers;
 		}
 		if (combineData) {
 			result = combineData.map((markerData, index) => {
@@ -41,7 +44,7 @@ export default class ResultListDefault extends Component {
 
 	itemMarkup(marker, markerData) {
 		return (
-			<a className="full_row single-record single_record_for_clone"
+			<a className={"full_row single-record single_record_for_clone "+(marker.stream ? 'animate' : '')}
 				href={marker.event ? marker.event.event_url : ''}
 				target="_blank"
 				key={markerData._id}>
@@ -96,8 +99,8 @@ export default class ResultListDefault extends Component {
 							sortBy="asc"
 							from={0}
 							size={20}
+							stream={true}
 							onData={this.onData}
-							requestOnScroll={true}
 							{...this.props}
 							depends={{
 								CitySensor: {"operation": "must", defaultQuery: this.cityQuery}
@@ -113,6 +116,6 @@ export default class ResultListDefault extends Component {
 ResultListDefault.defaultProps = {
 	mapping: {
 		city: 'group.group_city.group_city_simple',
-		topic: 'group.group_topics.topic_name.topic_name_simple',
+		topic: 'group.group_topics.topic_name.topic_name_simple'
 	}
 };
