@@ -39,14 +39,32 @@ export class ResultList extends Component {
 	}
 
 	componentDidMount() {
+
+	}
+
+	initialize() {
 		this.createChannel();
 		if (this.props.requestOnScroll) {
 			this.listComponent();
 		}
 	}
 
+	componentWillUpdate() {
+		setTimeout(() => {
+			if (this.streamProp != this.props.stream) {
+				this.streamProp = this.props.stream;
+				this.removeChannel();
+				this.initialize();
+			}
+		}, 300);
+	}
+
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
+		this.removeChannel();
+	}
+
+	removeChannel() {
 		if(this.channelId) {
 			manager.stopStream(this.channelId);
 		}
@@ -59,10 +77,12 @@ export class ResultList extends Component {
 	createChannel() {
 		// Set the depends - add self aggs query as well with depends
 		let depends = this.props.depends ? this.props.depends : {};
+		depends.streamChanges = {operation: 'must'};
 		if (this.sortObj) {
 			this.enableSort(depends);
 		}
 		// create a channel and listen the changes
+		console.log(this.props.stream);
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends, this.props.size, this.props.from, this.props.stream);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
@@ -75,6 +95,11 @@ export class ResultList extends Component {
 				this.afterChannelResponse(res);
 			}
 		}.bind(this));
+		var obj = {
+			key: 'streamChanges',
+			value: ''
+		};
+		helper.selectedSensor.set(obj, true);
 	}
 
 	afterChannelResponse(res) {

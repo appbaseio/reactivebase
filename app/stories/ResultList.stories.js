@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ReactiveBase, SingleList, ResultList } from '../app.js';
+import { ReactiveBase, MultiList, ResultList } from '../app.js';
 import { ResponsiveStory } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
@@ -16,8 +16,8 @@ export default class ResultListDefault extends Component {
 	cityQuery(value) {
 		if(value) {
 			let field = 'group.group_city.group_city_simple';
-			let match = JSON.parse(`{"${field}":` + JSON.stringify(value) + '}');
-			return { match: match };
+			let query = JSON.parse(`{"${field}":` + JSON.stringify(value) + '}');
+			return { terms: query };
 		} else return null;
 	}
 
@@ -82,11 +82,11 @@ export default class ResultListDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
-						<SingleList
+						<MultiList
 							sensorId="CitySensor"
 							appbaseField={this.props.mapping.city}
 							showCount={true}
-							size={100}
+							size={10}
 							title="Input"
 							searchPlaceholder="Search City"
 						/>

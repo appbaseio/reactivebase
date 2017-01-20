@@ -286,7 +286,7 @@ class channelManager {
 			value: optionValues
 		};
 		helper.selectedSensor.set(obj);
-		if(!this.channels.hasOwnProperty(channelId)) {
+		if(!(this.channels.hasOwnProperty(channelId) && stream === this.channels[channelId].stream)) {
 			this.channels[channelId] = {
 				depends: depends,
 				size: size,
