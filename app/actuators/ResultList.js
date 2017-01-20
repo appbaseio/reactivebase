@@ -12,7 +12,8 @@ export class ResultList extends Component {
 			markers: [],
 			query: {},
 			rawData:  [],
-			resultMarkup: []
+			resultMarkup: [],
+			isLoading: false
 		};
 		if (this.props.sortOptions) {
 			let obj = this.props.sortOptions[0];
@@ -102,7 +103,8 @@ export class ResultList extends Component {
 			rawData: rawData,
 			newData: newData,
 			currentData: currentData,
-			markersData: markersData
+			markersData: markersData,
+			isLoading: false
 		}, function() {
 			// Pass the historic or streaming data in index method
 			res.allMarkers = rawData;
@@ -265,6 +267,9 @@ export class ResultList extends Component {
 	}
 
 	nextPage() {
+		this.setState({
+			isLoading: true
+		});
 		let channelOptionsObj = manager.channels[this.channelId].previousSelectedSensor['channel-options-' + this.channelId];
 		let obj = {
 			key: 'channel-options-' + this.channelId,
@@ -333,6 +338,11 @@ export class ResultList extends Component {
 				{title}
 				{sortOptions}
 				{this.state.resultMarkup}
+				{
+					this.state.isLoading ?
+					<div className="rbc-loader"></div> :
+					null
+				}
 			</div >
 		)
 	}
