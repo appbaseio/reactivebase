@@ -269,14 +269,19 @@ storiesOf("RangeSlider", module)
 storiesOf("ResultList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", () => (
-		<ResultListDefault requestOnScroll={false} />
+		<ResultListDefault requestOnScroll={true} stream={false} />
 	))
 	.add("With Title", () => (
-		<ResultListDefault title="Meetups" />
+		<ResultListDefault title="Meetups" requestOnScroll={true} stream={false} />
+	))
+	.add("With Streaming", () => (
+		<ResultListDefault title="Meetups" stream={true} />
 	))
 	.add("With Sort Options", () => (
 		<ResultListDefault
 			title="Meetups"
+			requestOnScroll={true}
+			stream={false}
 			sortOptions={[
 				{
 					label: "Most Recent RSVP",

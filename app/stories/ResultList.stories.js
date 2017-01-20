@@ -43,7 +43,6 @@ export default class ResultListDefault extends Component {
 	}
 
 	itemMarkup(marker, markerData) {
-		console.log(markerData.stream);
 		return (
 			<a className={"full_row single-record single_record_for_clone "+(markerData.stream ? 'animate' : '')}
 				href={marker.event ? marker.event.event_url : ''}
@@ -100,7 +99,6 @@ export default class ResultListDefault extends Component {
 							sortBy="asc"
 							from={0}
 							size={20}
-							stream={true}
 							onData={this.onData}
 							{...this.props}
 							depends={{
