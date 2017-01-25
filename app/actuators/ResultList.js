@@ -40,6 +40,7 @@ export class ResultList extends Component {
 
 	componentDidMount() {
 		this.streamProp = this.props.stream;
+		this.requestOnScroll = this.props.requestOnScroll;
 		this.initialize();
 	}
 
@@ -56,6 +57,10 @@ export class ResultList extends Component {
 				this.streamProp = this.props.stream;
 				this.removeChannel();
 				this.initialize();
+			}
+			if (this.requestOnScroll != this.props.requestOnScroll) {
+				this.requestOnScroll = this.props.requestOnScroll;
+				this.listComponent();
 			}
 		}, 300);
 	}
@@ -84,10 +89,9 @@ export class ResultList extends Component {
 			this.enableSort(depends);
 		}
 		// create a channel and listen the changes
-		console.log(this.props.stream);
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends, this.props.size, this.props.from, this.props.stream);
 		this.channelId = channelObj.channelId;
-		
+
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			// implementation to prevent initialize query issue if old query response is late then the newer query
 			// then we will consider the response of new query and prevent to apply changes for old query response.
@@ -313,7 +317,7 @@ export class ResultList extends Component {
 		let node = this.refs.ListContainer;
 		if (node) {
 			node.addEventListener('scroll', () => {
-				if ($(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight) {
+				if (this.props.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight) {
 					this.nextPage();
 				}
 			});
