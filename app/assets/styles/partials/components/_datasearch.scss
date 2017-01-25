@@ -42,7 +42,7 @@
 	}
 
 	.Select--single>.Select-control .Select-value, .Select-placeholder {
-		line-height: 46px;
+		line-height: 50px;
 	}
 
 	.Select-placeholder, 
@@ -75,10 +75,26 @@
 		padding: 0;
 		position: relative;
 
+		input::-webkit-input-placeholder {
+			color: #aaa !important;
+		}
+		 
+		input:-moz-placeholder { /* Firefox 18- */
+			color: #aaa !important;  
+		}
+		 
+		input::-moz-placeholder {  /* Firefox 19+ */
+			color: #aaa !important;  
+		}
+		 
+		input:-ms-input-placeholder {  
+			color: #aaa !important;  
+		}
+
 		.rbc-search-icon {
 			position: absolute;
 			top: 15px;
-			right: 0;
+			right: -6px;
 			border: 0;
 			width: 30px;
 			height: 30px;

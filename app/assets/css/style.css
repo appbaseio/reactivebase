@@ -296,7 +296,7 @@ a {
 
 .rbc-red .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
-  background-color: #f1f1f1; }
+  background-color: #f5f5f5; }
 
 .rbc-red .rbc {
   background: #fff; }
@@ -311,7 +311,7 @@ a {
     border-color: red;
     background-color: red; }
   .rbc-red .rbc .rbc-input {
-    background-color: #f1f1f1; }
+    background-color: #f5f5f5; }
   .rbc-red .rbc .rbc-search-icon {
     color: red; }
   .rbc-red .rbc .primary-title {
@@ -438,7 +438,7 @@ a {
 
 .rbc-orange .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
-  background-color: #f1f1f1; }
+  background-color: #f5f5f5; }
 
 .rbc-orange .rbc {
   background: #fff; }
@@ -453,7 +453,7 @@ a {
     border-color: orange;
     background-color: orange; }
   .rbc-orange .rbc .rbc-input {
-    background-color: #f1f1f1; }
+    background-color: #f5f5f5; }
   .rbc-orange .rbc .rbc-search-icon {
     color: orange; }
   .rbc-orange .rbc .primary-title {
@@ -580,7 +580,7 @@ a {
 
 .rbc-yellow .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
-  background-color: #f1f1f1; }
+  background-color: #f5f5f5; }
 
 .rbc-yellow .rbc {
   background: #fff; }
@@ -595,7 +595,7 @@ a {
     border-color: yellow;
     background-color: yellow; }
   .rbc-yellow .rbc .rbc-input {
-    background-color: #f1f1f1; }
+    background-color: #f5f5f5; }
   .rbc-yellow .rbc .rbc-search-icon {
     color: yellow; }
   .rbc-yellow .rbc .primary-title {
@@ -722,7 +722,7 @@ a {
 
 .rbc-green .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
-  background-color: #f1f1f1; }
+  background-color: #f5f5f5; }
 
 .rbc-green .rbc {
   background: #fff; }
@@ -737,7 +737,7 @@ a {
     border-color: green;
     background-color: green; }
   .rbc-green .rbc .rbc-input {
-    background-color: #f1f1f1; }
+    background-color: #f5f5f5; }
   .rbc-green .rbc .rbc-search-icon {
     color: green; }
   .rbc-green .rbc .primary-title {
@@ -864,7 +864,7 @@ a {
 
 .rbc-blue .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
-  background-color: #f1f1f1; }
+  background-color: #f5f5f5; }
 
 .rbc-blue .rbc {
   background: #fff; }
@@ -879,7 +879,7 @@ a {
     border-color: #1893e7;
     background-color: #1893e7; }
   .rbc-blue .rbc .rbc-input {
-    background-color: #f1f1f1; }
+    background-color: #f5f5f5; }
   .rbc-blue .rbc .rbc-search-icon {
     color: #1893e7; }
   .rbc-blue .rbc .primary-title {
@@ -1083,7 +1083,7 @@ a {
         .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow:before {
           content: "\f002"; }
   .rbc.rbc-datasearch .Select--single > .Select-control .Select-value, .rbc.rbc-datasearch .Select-placeholder {
-    line-height: 46px; }
+    line-height: 50px; }
   .rbc.rbc-datasearch .Select-placeholder,
   .rbc.rbc-datasearch .Select-control,
   .rbc.rbc-datasearch .Select--single > .Select-control .Select-value {
@@ -1104,10 +1104,20 @@ a {
   .rbc.rbc-datasearch .rbc-search-container {
     padding: 0;
     position: relative; }
+    .rbc.rbc-datasearch .rbc-search-container input::-webkit-input-placeholder {
+      color: #aaa !important; }
+    .rbc.rbc-datasearch .rbc-search-container input:-moz-placeholder {
+      /* Firefox 18- */
+      color: #aaa !important; }
+    .rbc.rbc-datasearch .rbc-search-container input::-moz-placeholder {
+      /* Firefox 19+ */
+      color: #aaa !important; }
+    .rbc.rbc-datasearch .rbc-search-container input:-ms-input-placeholder {
+      color: #aaa !important; }
     .rbc.rbc-datasearch .rbc-search-container .rbc-search-icon {
       position: absolute;
       top: 15px;
-      right: 0;
+      right: -6px;
       border: 0;
       width: 30px;
       height: 30px;
