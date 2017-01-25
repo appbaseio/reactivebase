@@ -206,7 +206,15 @@ storiesOf("MultiDropdownList", module)
 storiesOf("DataSearch", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
-		<DataSearchDefault placeholder="Search Venue" />
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venue" />
+	)))
+	.add("Without Autocomplete", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venue"
+			autocomplete={false} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
