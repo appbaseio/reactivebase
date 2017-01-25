@@ -83,8 +83,13 @@ class channelManager {
 			if(this.streamRef[channelId]) {
 				this.streamRef[channelId].stop();
 			}
-			let streamQueryObj = queryObj;
+			let streamQueryObj = JSON.parse(JSON.stringify(queryObj));
 			streamQueryObj.type = this.type[channelId];
+			if(streamQueryObj.body) {
+				delete streamQueryObj.body.from;
+				delete streamQueryObj.body.size;
+				delete streamQueryObj.body.sort;
+			}
 			this.streamRef[channelId] = appbaseRef.searchStream(streamQueryObj).on('data', function(data) {
 				let obj = {
 					mode: 'streaming',
@@ -101,8 +106,13 @@ class channelManager {
 	// stopStream
 	// Clear channel streaming request
 	stopStream(channelId) {
+		// debugger
 		if(this.streamRef[channelId]) {
 			this.streamRef[channelId].stop();
+		}
+		if(this.channels[channelId] && this.channels[channelId].watchDependency) {
+			this.channels[channelId].watchDependency.stop();
+			delete this.channels[channelId];
 		}
 	}
 
@@ -292,9 +302,10 @@ class channelManager {
 				size: size,
 				from: from,
 				stream: stream,
-				previousSelectedSensor: previousSelectedSensor
+				previousSelectedSensor: previousSelectedSensor,
+				watchDependency: new helper.watchForDependencyChange(depends, previousSelectedSensor, this.receive, channelId, this.paginationChanges, this.sortChanges)
 			};
-			helper.watchForDependencyChange(depends, this.channels[channelId].previousSelectedSensor, this.receive, channelId, this.paginationChanges, this.sortChanges);
+			this.channels[channelId].watchDependency.start();
 		}
 		setTimeout(() => {
 			if(depends.hasOwnProperty('aggs')) {

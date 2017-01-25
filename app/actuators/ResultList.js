@@ -39,7 +39,8 @@ export class ResultList extends Component {
 	}
 
 	componentDidMount() {
-
+		this.streamProp = this.props.stream;
+		this.initialize();
 	}
 
 	initialize() {
@@ -67,6 +68,7 @@ export class ResultList extends Component {
 	removeChannel() {
 		if(this.channelId) {
 			manager.stopStream(this.channelId);
+			this.channelId = null;
 		}
 		if(this.channelListener) {
 			this.channelListener.remove();
@@ -85,6 +87,7 @@ export class ResultList extends Component {
 		console.log(this.props.stream);
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends, this.props.size, this.props.from, this.props.stream);
 		this.channelId = channelObj.channelId;
+		
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			// implementation to prevent initialize query issue if old query response is late then the newer query
 			// then we will consider the response of new query and prevent to apply changes for old query response.

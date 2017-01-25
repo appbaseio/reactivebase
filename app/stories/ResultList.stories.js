@@ -89,6 +89,7 @@ export default class ResultListDefault extends Component {
 							size={10}
 							title="Input"
 							searchPlaceholder="Search City"
+							includeSelectAll={true}
 						/>
 					</div>
 

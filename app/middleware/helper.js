@@ -1,9 +1,13 @@
 var {EventEmitter} = require('fbemitter');
 var $ = require('jquery');
+var globalI = 0;
 export var sensorEmitter = new EventEmitter();
 
-export var watchForDependencyChange = function(depends, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
+export var watchForDependencyChange  = function (depends, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
 	var self = this;
+	globalI += 1;
+	this.random = globalI;
+	console.log('Created - ',self.random);
 	let selectedSensor = {};
 	let sensorListener, paginationListener;
 	// check if depend object already exists
@@ -25,7 +29,7 @@ export var watchForDependencyChange = function(depends, previousSelectedSensor, 
 	}
 
 	// initialize the process
-	let init = function() {
+	this.init = function() {
 		for(let depend in depends) {
 			checkDependExists(depend);
 			if(typeof selectedSensor[depend] === 'object') {
@@ -40,24 +44,41 @@ export var watchForDependencyChange = function(depends, previousSelectedSensor, 
 		}
 	}
 
-	sensorEmitter.addListener('sensorChange', function(data) {
-		selectedSensor = data;
-		init();
-	});
+	this.start = function () {
+		var self = this;
+		this.sensorListener = sensorEmitter.addListener('sensorChange', function(data) {
+			selectedSensor = data;
+			console.log('Listening - ',self.random);
+			self.init();
+		});
 
-	sensorEmitter.addListener('paginationChange', function(data) {
-		if(paginationCb) {
-			if(Object.keys(depends).indexOf(data.key) > -1) {
-				paginationCb(data.value, channelId);
+		this.paginationListener = sensorEmitter.addListener('paginationChange', function(data) {
+			if(paginationCb) {
+				if(Object.keys(depends).indexOf(data.key) > -1) {
+					paginationCb(data.value, channelId);
+				}
 			}
-		}
-	});
+		});
 
-	sensorEmitter.addListener('sortChange', function(data) {
-		if(sortCb) {
-			sortCb(channelId);
+		this.sortListener = sensorEmitter.addListener('sortChange', function(data) {
+			if(sortCb) {
+				sortCb(channelId);
+			}
+		});
+	}
+
+	this.stop = function() {
+		if(this.sensorListener) {
+			this.sensorListener.remove();
 		}
-	});
+		if(this.paginationListener) {
+			this.paginationListener.remove();
+		}
+		if(this.sortListener) {
+			this.sortListener.remove();
+		}
+		console.log('Stopped - ',this.random);
+	}
 
 };
 
