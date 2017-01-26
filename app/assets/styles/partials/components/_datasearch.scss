@@ -75,22 +75,6 @@
 		padding: 0;
 		position: relative;
 
-		input::-webkit-input-placeholder {
-			color: #aaa !important;
-		}
-		 
-		input:-moz-placeholder { /* Firefox 18- */
-			color: #aaa !important;  
-		}
-		 
-		input::-moz-placeholder {  /* Firefox 19+ */
-			color: #aaa !important;  
-		}
-		 
-		input:-ms-input-placeholder {  
-			color: #aaa !important;  
-		}
-
 		.rbc-search-icon {
 			position: absolute;
 			top: 15px;

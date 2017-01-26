@@ -290,15 +290,13 @@ DataSearch.propTypes = {
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
 	placeholder: React.PropTypes.string,
-	autocomplete: React.PropTypes.bool.isRequired,
-	sensorInputId: React.PropTypes.string
+	autocomplete: React.PropTypes.bool.isRequired
 };
 
 // Default props value
 DataSearch.defaultProps = {
 	placeholder: "Search...",
-	autocomplete: true,
-	sensorInputId: "searchLetter"
+	autocomplete: true
 };
 
 // context type

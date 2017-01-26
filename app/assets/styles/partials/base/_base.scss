@@ -207,6 +207,22 @@ a {
 		padding: 0 10px;
 	}
 
+	input::-webkit-input-placeholder {
+		color: #aaa !important;
+	}
+	 
+	input:-moz-placeholder { /* Firefox 18- */
+		color: #aaa !important;  
+	}
+	 
+	input::-moz-placeholder {  /* Firefox 19+ */
+		color: #aaa !important;  
+	}
+	 
+	input:-ms-input-placeholder {  
+		color: #aaa !important;  
+	}
+
 	[type="checkbox"]:checked+label:before {
 		border-right: 2px solid;
 		border-bottom: 2px solid;
