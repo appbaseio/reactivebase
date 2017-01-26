@@ -72,6 +72,7 @@ export default class MultiListDefault extends Component {
 						<MultiList
 							sensorId="CitySensor"
 							appbaseField={this.props.mapping.city}
+							title="MultiList"
 							size={100}
 							{...this.props}
 						/>
@@ -98,7 +99,6 @@ export default class MultiListDefault extends Component {
 }
 
 MultiListDefault.defaultProps = {
-	title: 'Cities',
 	mapping: {
 		city: 'group.group_city.raw',
 		topic: 'group.group_topics.topic_name_raw'

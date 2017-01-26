@@ -67,13 +67,13 @@ export default class SingleListDefault extends Component {
 				username="LPpISlEBe"
 				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
 				type="meetupdata1"
-				theme="rbc-orange"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<SingleList
 							sensorId="CitySensor"
 							appbaseField={this.props.mapping.city}
+							title="SingleList"
 							size={100}
 							{...this.props}
 						/>
@@ -101,7 +101,6 @@ export default class SingleListDefault extends Component {
 }
 
 SingleListDefault.defaultProps = {
-	title: 'Cities',
 	mapping: {
 		city: 'group.group_city.raw',
 		topic: 'group.group_topics.topic_name_raw'
