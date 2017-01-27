@@ -74,17 +74,19 @@ export class MultiDropdownRange extends Component {
 			return query;
 		}
 		function generateRangeQuery(appbaseField) {
-			return record.map((singleRecord, index) => {
-				return {
-					range: {
-							[appbaseField]: {
-							gte: singleRecord.start,
-							lte: singleRecord.end,
-							boost: 2.0
+			if (record.length > 0) {
+				return record.map((singleRecord, index) => {
+					return {
+						range: {
+								[appbaseField]: {
+								gte: singleRecord.start,
+								lte: singleRecord.end,
+								boost: 2.0
+							}
 						}
-					}
-				};
-			});
+					};
+				});
+			}
 		}
 	}
 
