@@ -21,7 +21,9 @@ import {
 	appname="reactivemap_demo"
 	username="y4pVxY2Ok"
 	password="c92481e2-c07f-4473-8326-082919282c18"
-	type="car">
+	type="car"
+	theme="rbc-dark">
+
 	<div className="row">
 		<div className="col s6 col-xs-6">
 			<DataSearch
