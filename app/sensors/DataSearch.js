@@ -250,7 +250,9 @@ export class DataSearch extends Component {
 			'rbc-title-active': this.props.title,
 			'rbc-title-inactive': !this.props.title,
 			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder
+			'rbc-placeholder-inactive': !this.props.placeholder,
+			'rbc-autocomplete-active': this.props.autocomplete,
+			'rbc-autocomplete-inactive': !this.props.autocomplete
 		});
 
 		return (
