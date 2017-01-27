@@ -26,7 +26,7 @@ SingleDropdownList.propTypes = {
 
 // Default props value
 SingleDropdownList.defaultProps = {
-	sort: 'count',
+	sortBy: 'count',
 	size: 100,
 	title: null
 };
