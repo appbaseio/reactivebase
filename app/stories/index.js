@@ -194,8 +194,7 @@ storiesOf("SingleRange", module)
 	.add("Playground", withReadme(removeFirstLine(SingleRangeReadme), () => (
 		<SingleRangeDefault
 			title={text("title", "SingleRange: Price Filter")}
-			defaultSelected={text("defaultSelected", "Cheap")}
-		/>
+			defaultSelected={text("defaultSelected", "Cheap")} />
 	)));
 
 storiesOf("MultiRange", module)
@@ -210,8 +209,7 @@ storiesOf("MultiRange", module)
 		<MultiRangeDefault
 			title={text("title", "MultiRange: Price Filter")}
 			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
-			showTags={boolean("showTags", "false")}
-			/>
+			showTags={boolean("showTags", "false")} />
 	)));
 
 storiesOf("SingleDropdownRange", module)
@@ -225,9 +223,7 @@ storiesOf("SingleDropdownRange", module)
 	.add("Playground", () => (
 		<SingleDropdownRangeDefault
 			title={text("title", "SingleDropdownRange: Price Filter")}
-			size
-			defaultSelected={text("defaultSelected", "Cheap")}
-		/>
+			defaultSelected={text("defaultSelected", "Cheap")} />
 	));
 
 storiesOf("MultiDropdownRange", module)
@@ -241,8 +237,7 @@ storiesOf("MultiDropdownRange", module)
 	.add("Playground", () => (
 		<MultiDropdownRangeDefault
 			title={text("title", "MultiDropdownRange: Price Filter")}
-			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
-		/>
+			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])} />
 	));
 
 storiesOf("ToggleButton", module)
