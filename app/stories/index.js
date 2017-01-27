@@ -425,10 +425,11 @@ storiesOf("ResultList", module)
 	))
 	.add("Playground", () => (
 		<ResultListDefault
-			title={text("title", "Meetups")}
+			title={text("title", "ResultList: Results")}
+			from={number("from", 0)}
+			size={number("size", 5)}
 			requestOnScroll={boolean("requestOnScroll", true)}
-			stream={boolean("stream", false)}
-		/>
+			stream={boolean("stream", false)} />
 	));
 
 storiesOf("PaginatedResultList", module)
