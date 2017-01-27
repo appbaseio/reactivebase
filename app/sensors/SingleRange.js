@@ -138,13 +138,14 @@ export class SingleRange extends Component {
 SingleRange.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
+	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.string
 };
 
 // Default props value
 SingleRange.defaultProps = {
-	size: 10
+	title: null
 };
 
 // context type

@@ -173,7 +173,7 @@ storiesOf("NestedList", module)
 			defaultSelected={["bmw", "x series"]} />
 	))).add("Playground", () => (
 		<NestedListDefault
-			title={text("title", "Car Category")}
+			title={text("title", "NestedList: Car Filter")}
 			size={number("size", 100)}
 			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			defaultSelected={array("defaultSelected", ["bmw", "x series"])}
@@ -193,7 +193,7 @@ storiesOf("SingleRange", module)
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleRangeReadme), () => (
 		<SingleRangeDefault
-			title={text("title", "Price Range")}
+			title={text("title", "SingleRange: Price Filter")}
 			defaultSelected={text("defaultSelected", "Cheap")}
 		/>
 	)));
@@ -208,9 +208,10 @@ storiesOf("MultiRange", module)
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiRangeReadme), () => (
 		<MultiRangeDefault
-			title={text("title", "Price Range")}
+			title={text("title", "MultiRange: Price Filter")}
 			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
-		/>
+			showTags={boolean("showTags", "false")}
+			/>
 	)));
 
 storiesOf("SingleDropdownRange", module)
@@ -223,7 +224,8 @@ storiesOf("SingleDropdownRange", module)
 	))
 	.add("Playground", () => (
 		<SingleDropdownRangeDefault
-			title={text("title", "Price Range")}
+			title={text("title", "SingleDropdownRange: Price Filter")}
+			size
 			defaultSelected={text("defaultSelected", "Cheap")}
 		/>
 	));
@@ -238,7 +240,7 @@ storiesOf("MultiDropdownRange", module)
 	))
 	.add("Playground", () => (
 		<MultiDropdownRangeDefault
-			title={text("title", "Price Range")}
+			title={text("title", "MultiDropdownRange: Price Filter")}
 			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
 		/>
 	));

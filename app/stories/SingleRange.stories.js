@@ -61,6 +61,7 @@ export default class SingleRangeDefault extends Component {
 						<SingleRange
 							sensorId="PriceSensor"
 							appbaseField={this.props.mapping.price}
+							title="SingleRange"
 							data={
 								[{"start": 0, "end": 100, "label": "Cheap"},
 								{"start": 101, "end": 200, "label": "Moderate"},
@@ -75,7 +76,7 @@ export default class SingleRangeDefault extends Component {
 						<ResultList
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.name}
-							title="Cars"
+							title="Results"
 							sortOptions={[
 								{
 									label: 'Lowest Price First',
@@ -108,7 +109,6 @@ export default class SingleRangeDefault extends Component {
 }
 
 SingleRangeDefault.defaultProps = {
-	title: 'Price',
 	mapping: {
 		price: 'price',
 		name: 'name'

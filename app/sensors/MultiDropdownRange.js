@@ -151,6 +151,7 @@ export class MultiDropdownRange extends Component {
 MultiDropdownRange.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
+	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array
@@ -158,8 +159,7 @@ MultiDropdownRange.propTypes = {
 
 // Default props value
 MultiDropdownRange.defaultProps = {
-	placeholder: "Search...",
-	size: 10
+	placeholder: "Search",
 };
 
 // context type

@@ -224,6 +224,7 @@ class Tag extends Component {
 MultiRange.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
+	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
 	showTags: React.PropTypes.bool
@@ -231,7 +232,6 @@ MultiRange.propTypes = {
 
 // Default props value
 MultiRange.defaultProps = {
-	size: 10,
 	showTags: true
 };
 

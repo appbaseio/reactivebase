@@ -62,6 +62,7 @@ export default class MultiRangeDefault extends Component {
 						<MultiRange
 							sensorId="PriceSensor"
 							appbaseField={this.props.mapping.price}
+							title="MultiRange"
 							data={
 								[{"start": 0, "end": 100, "label": "Cheap"},
 								{"start": 101, "end": 200, "label": "Moderate"},
@@ -76,7 +77,7 @@ export default class MultiRangeDefault extends Component {
 						<ResultList
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.name}
-							title="Cars"
+							title="Results"
 							sortBy="asc"
 							from={0}
 							size={20}
@@ -93,7 +94,6 @@ export default class MultiRangeDefault extends Component {
 }
 
 MultiRangeDefault.defaultProps = {
-	title: 'Price',
 	mapping: {
 		price: 'price',
 		name: 'name'
