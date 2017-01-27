@@ -65,10 +65,12 @@ storiesOf("SingleList", module)
 	.add("Playground", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault
 			title={text("title", "SingleList: City Filter")}
+			size={number("size", 100)}
+			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			defaultSelected={text("defaultSelected", "San Francisco")}
-			searchPlaceholder={text("searchPlaceholder", "Search City")}
-			showSearch={boolean("showSearch", true)}
 			showCount={boolean("showCount", true)}
+			showSearch={boolean("showSearch", true)}
+			searchPlaceholder={text("searchPlaceholder", "Search City")}
 		/>
 	)));
 
@@ -92,69 +94,14 @@ storiesOf("MultiList", module)
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
 			title={text("title", "My Cities")}
+			size={number("size", "100")}
+			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			defaultSelected={array("defaultSelected", ["London", "Sydney"])}
-			searchPlaceholder={text("searchPlaceholder", "Search City")}
-			showSearch={boolean("showSearch", true)}
-			includeSelectAll={boolean("includeSelectAll", true)}
 			showCount={boolean("showCount", true)}
+			showSearch={boolean("showSearch", true)}
+			searchPlaceholder={text("searchPlaceholder", "Search City")}
+			includeSelectAll={boolean("includeSelectAll", true)}
 		/>
-	)));
-
-storiesOf("SingleRange", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(SingleRangeReadme), () => (
-		<SingleRangeDefault />
-	)))
-	.add("With Default Selected", withReadme(removeFirstLine(SingleRangeReadme), () => (
-		<SingleRangeDefault defaultSelected="Cheap" />
-	)))
-	.add("Playground", withReadme(removeFirstLine(SingleRangeReadme), () => (
-		<SingleRangeDefault
-			title={text("title", "Price Range")}
-			defaultSelected={text("defaultSelected", "Cheap")}
-		/>
-	)));
-
-storiesOf("MultiRange", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(MultiRangeReadme), () => (
-		<MultiRangeDefault />
-	)))
-	.add("With Default Selected", withReadme(removeFirstLine(MultiRangeReadme), () => (
-		<MultiRangeDefault defaultSelected={["Cheap", "Moderate"]} />
-	)))
-	.add("Playground", withReadme(removeFirstLine(MultiRangeReadme), () => (
-		<MultiRangeDefault
-			title={text("title", "Price Range")}
-			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
-		/>
-	)));
-
-storiesOf("ToggleButton", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(ToggleButtonReadme), () => (
-		<ToggleButtonDefault />
-	)))
-	.add("With Default Selected", withReadme(removeFirstLine(ToggleButtonReadme), () => (
-		<ToggleButtonDefault defaultSelected={["Social"]} />
-	)))
-	.add("Playground", withReadme(removeFirstLine(ToggleButtonReadme), () => (
-		<ToggleButtonDefault
-			title={text("title", "Meetup Categories")}
-			multiSelect={boolean("multiSelect", true)}
-			defaultSelected={array("defaultSelected", ["Social", "Travel"])}
-		/>
-	)));
-
-storiesOf("TextField", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
-		<TextFieldDefault />
-	)))
-	.add("With Title", withReadme(removeFirstLine(TextFieldReadme), () => (
-		<TextFieldDefault
-			title={text("title", "Car Search")}
-			placeholder={text("placeholder", "Type a car name")} />
 	)));
 
 storiesOf("SingleDropdownList", module)
@@ -203,24 +150,58 @@ storiesOf("MultiDropdownList", module)
 		/>
 	));
 
-storiesOf("DataSearch", module)
+storiesOf("NestedList", module)
 	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
-		<DataSearchDefault
-			title="DataSearch"
-			placeholder="Search Venue" />
+	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
+		<NestedListDefault />
 	)))
-	.add("Without Autocomplete", withReadme(removeFirstLine(DataSearchReadme), () => (
-		<DataSearchDefault
-			title="DataSearch"
-			placeholder="Search Venue"
-			autocomplete={false} />
+	.add("With Title", withReadme(removeFirstLine(TextFieldReadme), () => (
+		<NestedListDefault
+			title={text("title", "Car Category")} />
 	)))
-	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
-		<DataSearchDefault
-			title={text("title", "DataSearch")}
-			placeholder={text("placeholder", "Search Venue")}
-			autocomplete={boolean("autocomplete", true)} />
+	.add("Default selection", withReadme(removeFirstLine(TextFieldReadme), () => (
+		<NestedListDefault
+			defaultSelected={["bmw", "x series"]} />
+	))).add("Playground", () => (
+		<NestedListDefault
+			title={text("title", "Car Category")}
+			size={number("size", 100)}
+			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
+			defaultSelected={array("defaultSelected", ["bmw", "x series"])}
+			showCount={boolean("showCount", true)}
+			showSearch={boolean("showSearch", true)}
+			searchPlaceholder={text("searchPlaceholder", "Search Cars")}
+		/>
+	));
+
+storiesOf("SingleRange", module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(SingleRangeReadme), () => (
+		<SingleRangeDefault />
+	)))
+	.add("With Default Selected", withReadme(removeFirstLine(SingleRangeReadme), () => (
+		<SingleRangeDefault defaultSelected="Cheap" />
+	)))
+	.add("Playground", withReadme(removeFirstLine(SingleRangeReadme), () => (
+		<SingleRangeDefault
+			title={text("title", "Price Range")}
+			defaultSelected={text("defaultSelected", "Cheap")}
+		/>
+	)));
+
+storiesOf("MultiRange", module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(MultiRangeReadme), () => (
+		<MultiRangeDefault />
+	)))
+	.add("With Default Selected", withReadme(removeFirstLine(MultiRangeReadme), () => (
+		<MultiRangeDefault defaultSelected={["Cheap", "Moderate"]} />
+	)))
+	.add("Playground", withReadme(removeFirstLine(MultiRangeReadme), () => (
+		<MultiRangeDefault
+			title={text("title", "Price Range")}
+			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
+		/>
 	)));
 
 storiesOf("SingleDropdownRange", module)
@@ -253,6 +234,22 @@ storiesOf("MultiDropdownRange", module)
 		/>
 	));
 
+storiesOf("ToggleButton", module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault />
+	)))
+	.add("With Default Selected", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault defaultSelected={["Social"]} />
+	)))
+	.add("Playground", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault
+			title={text("title", "Meetup Categories")}
+			multiSelect={boolean("multiSelect", true)}
+			defaultSelected={array("defaultSelected", ["Social", "Travel"])}
+		/>
+	)));
+
 storiesOf("RangeSlider", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(RangeSliderReadme), () => (
@@ -278,59 +275,36 @@ storiesOf("RangeSlider", module)
 		/>
 	)));
 
-storiesOf("ResultList", module)
+storiesOf("TextField", module)
 	.addDecorator(withKnobs)
-	.add("Basic", () => (
-		<ResultListDefault requestOnScroll={true} stream={false} />
-	))
-	.add("With Title", () => (
-		<ResultListDefault title="Meetups" requestOnScroll={true} stream={false} />
-	))
-	.add("With Streaming", () => (
-		<ResultListDefault title="Meetups" stream={true} />
-	))
-	.add("With Sort Options", () => (
-		<ResultListDefault
-			title="Meetups"
-			requestOnScroll={true}
-			stream={false}
-			sortOptions={[
-				{
-					label: "Most Recent RSVP",
-					appbaseField: "mtime",
-					sortBy: "desc"
-				},
-				{
-					label: "Guests - High to Low",
-					appbaseField: "guests",
-					sortBy: "desc"
-				},
-				{
-					label: "Guests - Low to High",
-					appbaseField: "guests",
-					sortBy: "asc"
-				}
-			]}
-		/>
-	))
-	.add("Playground", () => (
-		<ResultListDefault
-			title={text("title", "Meetups")}
-			requestOnScroll={boolean("requestOnScroll", true)}
-			stream={boolean("stream", false)}
-		/>
-	));
+	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
+		<TextFieldDefault />
+	)))
+	.add("With Title", withReadme(removeFirstLine(TextFieldReadme), () => (
+		<TextFieldDefault
+			title={text("title", "Car Search")}
+			placeholder={text("placeholder", "Type a car name")} />
+	)));
 
-storiesOf("PaginatedResultList", module)
+storiesOf("DataSearch", module)
 	.addDecorator(withKnobs)
-	.add("Basic", () => (
-		<PaginatedResultListDefault  paginationAt="both" />
-	))
-	.add("Playground", () => (
-		<PaginatedResultListDefault
-			paginationAt={text("paginationAt", "bottom")}
-		/>
-	));
+	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venue" />
+	)))
+	.add("Without Autocomplete", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venue"
+			autocomplete={false} />
+	)))
+	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title={text("title", "DataSearch")}
+			placeholder={text("placeholder", "Search Venue")}
+			autocomplete={boolean("autocomplete", true)} />
+	)));
 
 storiesOf("DatePicker", module)
 	.addDecorator(withKnobs)
@@ -408,23 +382,56 @@ storiesOf("DateRange", module)
 		/>
 	));
 
-
-storiesOf("NestedList", module)
+storiesOf("ResultList", module)
 	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
-		<NestedListDefault />
-	)))
-	.add("With Title", withReadme(removeFirstLine(TextFieldReadme), () => (
-		<NestedListDefault
-			title={text("title", "Car Category")} />
-	)))
-	.add("Default selection", withReadme(removeFirstLine(TextFieldReadme), () => (
-		<NestedListDefault
-			defaultSelected={["bmw", "x series"]} />
-	))).add("Playground", () => (
-		<NestedListDefault
-			title={text("title", "Car Category")}
-			defaultSelected={array("defaultSelected", ["bmw", "x series"])}
-			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
+	.add("Basic", () => (
+		<ResultListDefault requestOnScroll={true} stream={false} />
+	))
+	.add("With Title", () => (
+		<ResultListDefault title="Meetups" requestOnScroll={true} stream={false} />
+	))
+	.add("With Streaming", () => (
+		<ResultListDefault title="Meetups" stream={true} />
+	))
+	.add("With Sort Options", () => (
+		<ResultListDefault
+			title="Meetups"
+			requestOnScroll={true}
+			stream={false}
+			sortOptions={[
+				{
+					label: "Most Recent RSVP",
+					appbaseField: "mtime",
+					sortBy: "desc"
+				},
+				{
+					label: "Guests - High to Low",
+					appbaseField: "guests",
+					sortBy: "desc"
+				},
+				{
+					label: "Guests - Low to High",
+					appbaseField: "guests",
+					sortBy: "asc"
+				}
+			]}
+		/>
+	))
+	.add("Playground", () => (
+		<ResultListDefault
+			title={text("title", "Meetups")}
+			requestOnScroll={boolean("requestOnScroll", true)}
+			stream={boolean("stream", false)}
+		/>
+	));
+
+storiesOf("PaginatedResultList", module)
+	.addDecorator(withKnobs)
+	.add("Basic", () => (
+		<PaginatedResultListDefault  paginationAt="both" />
+	))
+	.add("Playground", () => (
+		<PaginatedResultListDefault
+			paginationAt={text("paginationAt", "bottom")}
 		/>
 	));
