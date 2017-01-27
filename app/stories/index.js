@@ -93,7 +93,7 @@ storiesOf("MultiList", module)
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
-			title={text("title", "My Cities")}
+			title={text("title", "MultiList: City Filter")}
 			size={number("size", "100")}
 			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			defaultSelected={array("defaultSelected", ["London", "Sydney"])}
@@ -122,9 +122,13 @@ storiesOf("SingleDropdownList", module)
 	))
 	.add("Playground", () => (
 		<SingleDropdownListDefault
+			title={text("title", "SingleDropdownList")}
+			size={number("size", "100")}
+			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={text("defaultSelected", "London")}
-		/>
+			placeholder={text("placeholder", "Select a City")}
+			/>
 	));
 
 storiesOf("MultiDropdownList", module)
@@ -140,13 +144,18 @@ storiesOf("MultiDropdownList", module)
 	.add("With Default Selected", () => (
 		<MultiDropdownListDefault
 			placeholder="Select Cities"
+			size="100"
+			sortBy="count"
 			defaultSelected={["London", "Melbourne"]}
 		/>
 	))
 	.add("Playground", () => (
 		<MultiDropdownListDefault
-			placeholder={text("placeholder", "Select Cities")}
+			title={text("title", "MultiDropdownList")}
+			size={number("size", "100")}
+			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
+			placeholder={text("placeholder", "Select Cities")}
 		/>
 	));
 

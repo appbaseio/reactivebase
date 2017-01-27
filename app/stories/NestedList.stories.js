@@ -62,7 +62,7 @@ export default class NestedListDefault extends Component {
 						<NestedList
 							sensorId="CategorySensor"
 							appbaseField={[this.props.mapping.brand, this.props.mapping.model]}
-							title="List of Brand > Model"
+							title="NestedList"
 							{...this.props}
 						/>
 					</div>
@@ -71,7 +71,7 @@ export default class NestedListDefault extends Component {
 						<ResultList
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.name}
-							title="Cars"
+							title="Results"
 							from={0}
 							size={20}
 							onData={this.onData}

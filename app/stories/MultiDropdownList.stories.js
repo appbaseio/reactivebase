@@ -72,6 +72,7 @@ export default class MultiDropdownListDefault extends Component {
 						<MultiDropdownList
 							sensorId="CitySensor"
 							appbaseField={this.props.mapping.city}
+							title="MultiDropdownList"
 							size={100}
 							{...this.props}
 						/>
@@ -81,7 +82,7 @@ export default class MultiDropdownListDefault extends Component {
 						<ResultList
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.topic}
-							title="Meetups"
+							title="Results"
 							sortBy="asc"
 							from={0}
 							size={20}
@@ -98,7 +99,6 @@ export default class MultiDropdownListDefault extends Component {
 }
 
 MultiDropdownListDefault.defaultProps = {
-	title: 'Cities',
 	mapping: {
 		city: 'group.group_city.raw',
 		topic: 'group.group_topics.topic_name_raw'
