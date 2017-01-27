@@ -1,5 +1,7 @@
 # Data components for building reactive UIs
 
+{% raw %}
+
 ## Installation
 
 ```js
@@ -58,3 +60,5 @@ this.onData = function(res) {
 	console.log(res);
 }
 ```
+
+{% endraw %}
