@@ -70,21 +70,10 @@ export default class PaginatedResultListDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
-						<SingleList
-							sensorId="CitySensor"
-							appbaseField={this.props.mapping.city}
-							showCount={true}
-							size={100}
-							searchPlaceholder="Search City"
-							{...this.props}
-						/>
-					</div>
-
-					<div className="col s6 col-xs-6">
 						<PaginatedResultList
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.topic}
-							title="Meetups"
+							title="PaginatedResultList"
 							sortBy="asc"
 							from={0}
 							size={20}
@@ -96,6 +85,18 @@ export default class PaginatedResultListDefault extends Component {
 							}}
 						/>
 					</div>
+
+					<div className="col s6 col-xs-6">
+						<SingleList
+							sensorId="CitySensor"
+							appbaseField={this.props.mapping.city}
+							title="Input Filter"
+							showCount={true}
+							size={100}
+							defaultSelected="New York"
+							searchPlaceholder="Search City"
+						/>
+					</div>
 				</div>
 			</ReactiveBase>
 		);
@@ -103,7 +104,6 @@ export default class PaginatedResultListDefault extends Component {
 }
 
 PaginatedResultListDefault.defaultProps = {
-	title: 'Cities',
 	mapping: {
 		city: 'group.group_city.raw',
 		topic: 'group.group_topics.topic_name_raw'

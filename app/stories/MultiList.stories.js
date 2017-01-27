@@ -82,7 +82,7 @@ export default class MultiListDefault extends Component {
 						<ResultList
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.topic}
-							title="Meetups"
+							title="Results"
 							sortBy="asc"
 							from={0}
 							size={20}

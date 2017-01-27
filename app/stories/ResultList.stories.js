@@ -82,21 +82,10 @@ export default class ResultListDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
-						<MultiList
-							sensorId="CitySensor"
-							appbaseField={this.props.mapping.city}
-							showCount={true}
-							size={10}
-							title="Input"
-							searchPlaceholder="Search City"
-							includeSelectAll={true}
-						/>
-					</div>
-
-					<div className="col s6 col-xs-6">
 						<ResultList
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.topic}
+							title="ResultList"
 							sortBy="asc"
 							from={0}
 							size={20}
@@ -105,6 +94,18 @@ export default class ResultListDefault extends Component {
 							depends={{
 								CitySensor: {"operation": "must", defaultQuery: this.cityQuery}
 							}}
+						/>
+					</div>
+
+					<div className="col s6 col-xs-6">
+						<MultiList
+							sensorId="CitySensor"
+							appbaseField={this.props.mapping.city}
+							showCount={true}
+							size={10}
+							title="Input Filter"
+							searchPlaceholder="Search City"
+							includeSelectAll={true}
 						/>
 					</div>
 				</div>

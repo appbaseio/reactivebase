@@ -250,7 +250,7 @@ storiesOf("ToggleButton", module)
 	)))
 	.add("Playground", withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault
-			title={text("title", "Meetup Categories")}
+			title={text("title", "ToggleButton: Meetup Categories")}
 			multiSelect={boolean("multiSelect", true)}
 			defaultSelected={array("defaultSelected", ["Social", "Travel"])}
 		/>
@@ -273,7 +273,7 @@ storiesOf("RangeSlider", module)
 	)))
 	.add("Playground", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
-			title={text("paginationAt", "Guests")}
+			title={text("paginationAt", "RangeSlider: Guest RSVPs")}
 			defaultSelected={object("defaultSelected", {
 				"start": 0,
 				"end": 2
@@ -286,9 +286,9 @@ storiesOf("TextField", module)
 	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault />
 	)))
-	.add("With Title", withReadme(removeFirstLine(TextFieldReadme), () => (
+	.add("Playground", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault
-			title={text("title", "Car Search")}
+			title={text("title", "TextField: Car Search")}
 			placeholder={text("placeholder", "Type a car name")} />
 	)));
 
@@ -434,10 +434,14 @@ storiesOf("ResultList", module)
 storiesOf("PaginatedResultList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", () => (
-		<PaginatedResultListDefault  paginationAt="both" />
+		<PaginatedResultListDefault/>
 	))
 	.add("Playground", () => (
 		<PaginatedResultListDefault
-			paginationAt={text("paginationAt", "bottom")}
+			title={text("title", "PaginatedResultList: Playground")}
+			from={number("from", 0)}
+			size={number("size", 5)}
+			sortBy={select("sortBy", {"asc": "asc", "desc": "desc", "default": "default"}, "default")}
+			paginationAt={select("paginationAt", {"bottom": "bottom", "top": "top", "both": "both"}, "bottom")}
 		/>
 	));

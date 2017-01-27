@@ -73,7 +73,7 @@ export default class RangeSliderDefault extends Component {
 							sensorId="RangeSensor"
 							appbaseField={this.props.mapping.guests}
 							stepValue={2}
-							title="guests"
+							title="RangeSlider"
 							endThreshold={6}
 							{...this.props} />
 					</div>
@@ -82,7 +82,7 @@ export default class RangeSliderDefault extends Component {
 						<ResultList
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.topic}
-							title="Meetups"
+							title="Results"
 							sortBy="asc"
 							from={0}
 							size={20}

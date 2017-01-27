@@ -84,7 +84,7 @@ export default class DateRangeDefault extends Component {
 						<ResultList
 							sensorId="SearchResult"
 							appbaseField={this.props.mapping.topic}
-							title="Meetups"
+							title="Results"
 							from={0}
 							size={20}
 							onData={this.onData}

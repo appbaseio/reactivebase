@@ -291,13 +291,14 @@ DataSearch.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
+	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
-	autocomplete: React.PropTypes.bool.isRequired
+	autocomplete: React.PropTypes.bool
 };
 
 // Default props value
 DataSearch.defaultProps = {
-	placeholder: "Search...",
+	placeholder: "Search",
 	autocomplete: true
 };
 

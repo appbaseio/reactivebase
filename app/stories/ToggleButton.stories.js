@@ -84,7 +84,7 @@ export default class ToggleButtonDefault extends Component {
 						<ToggleButton
 							appbaseField={this.props.mapping.topic}
 							sensorId="MeetupTops"
-							title="Meetup Topics"
+							title="ToggleButton"
 							data={this.toggleData}
 							{...this.props}
 						/>
@@ -94,7 +94,7 @@ export default class ToggleButtonDefault extends Component {
 						<ResultList
 							sensorId="SearchResult"
 							appbaseField="group.group_topics.topic_name_raw"
-							title="Meetups"
+							title="Results"
 							sortBy="asc"
 							from={0}
 							size={20}
@@ -111,7 +111,6 @@ export default class ToggleButtonDefault extends Component {
 }
 
 ToggleButtonDefault.defaultProps = {
-	title: 'Meetup Categories',
 	mapping: {
 		topic: 'group.group_topics.topic_name_raw.raw'
 	}

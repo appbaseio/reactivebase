@@ -72,7 +72,7 @@ export default class TextFieldDefault extends Component {
 						<TextField
 							sensorId="NameTextSensor"
 							appbaseField={this.props.mapping.name}
-							title="Type a search string"
+							title="TextField"
 							{...this.props}
 						/>
 					</div>
