@@ -57,15 +57,15 @@ storiesOf("SingleList", module)
 		<SingleListDefault showSearch={false} searchPlaceholder="Search City" />
 	)))
 	.add("Default Selected", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={true} defaultSelected="London" searchPlaceholder="Search City" />
+		<SingleListDefault showSearch={true} defaultSelected="San Francisco" searchPlaceholder="Search City" />
 	)))
 	.add("Custom Sort", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={true} defaultSelected="London" sortBy="asc" searchPlaceholder="Search City" />
+		<SingleListDefault title="SingleList: Ascending Sort" showSearch={true} defaultSelected="London" sortBy="asc" searchPlaceholder="Search City" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault
-			title={text("title", "My Cities")}
-			defaultSelected={text("defaultSelected", "London")}
+			title={text("title", "SingleList: City Filter")}
+			defaultSelected={text("defaultSelected", "San Francisco")}
 			searchPlaceholder={text("searchPlaceholder", "Search City")}
 			showSearch={boolean("showSearch", true)}
 			showCount={boolean("showCount", true)}
@@ -84,10 +84,10 @@ storiesOf("MultiList", module)
 		<MultiListDefault showSearch={true} defaultSelected={["London", "Sydney"]} searchPlaceholder="Search City" />
 	)))
 	.add("Custom Sort", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} defaultSelected={["London"]} sortBy="asc" searchPlaceholder="Search City" />
+		<MultiListDefault title="MultiList: Ascending Sort" showSearch={true} defaultSelected={["London"]} sortBy="asc" searchPlaceholder="Search City" />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} includeSelectAll={true} defaultSelected={["London"]} searchPlaceholder="Search City" />
+		<MultiListDefault showSearch={true} includeSelectAll={true} defaultSelected={["Select All"]} searchPlaceholder="Search City" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
