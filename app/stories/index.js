@@ -274,6 +274,11 @@ storiesOf("RangeSlider", module)
 	.add("Playground", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
 			title={text("paginationAt", "RangeSlider: Guest RSVPs")}
+			threshold={object("threshold", {
+				"start": 0,
+				"end": 5
+			})}
+			stepValue={number("stepValue", 1)}
 			defaultSelected={object("defaultSelected", {
 				"start": 0,
 				"end": 2
