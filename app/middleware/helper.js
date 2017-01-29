@@ -179,3 +179,9 @@ export var sizeValidation = function(props, propName, componentName) {
 		return new Error('Size value is invalid, it should be between 0 and 1000.');
 	}
 }
+
+export var validateThreshold = function(props, propName, componentName) {
+	if(!(!isNaN(props[propName]) && props['end'] > props['start'])) {
+		return new Error('Threshold value validation is failed, end value should be greater than start value.');
+	}
+}

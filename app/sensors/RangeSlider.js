@@ -9,11 +9,11 @@ var _ = require('lodash');
 export class RangeSlider extends Component {
 	constructor(props, context) {
 		super(props);
-		let startThreshold = this.props.startThreshold ? this.props.startThreshold : 0;
-		let endThreshold = this.props.endThreshold ? this.props.endThreshold : 5;
+		let startThreshold = this.props.threshold.start ? this.props.threshold.start : 0;
+		let endThreshold = this.props.threshold.end ? this.props.threshold.end : 5;
 		let values = {};
-		values.min = this.props.defaultSelected.start < this.props.startThreshold ? this.props.startThreshold :  this.props.defaultSelected.start;
-		values.max = this.props.defaultSelected.end < this.props.endThreshold ? this.props.defaultSelected.end :  this.props.endThreshold;
+		values.min = this.props.defaultSelected.start < this.props.threshold.start ? this.props.threshold.start :  this.props.defaultSelected.start;
+		values.max = this.props.defaultSelected.end < this.props.threshold.end ? this.props.defaultSelected.end :  this.props.threshold.end;
 		this.state = {
 			values: values,
 			startThreshold: startThreshold,
@@ -130,8 +130,8 @@ export class RangeSlider extends Component {
 	addItemsToList(newItems) {
 		newItems = _.orderBy(newItems, ['key'], ['asc']);
 		let itemLength = newItems.length;
-		let min = this.props.startThreshold ? this.props.startThreshold : newItems[0].key;
-		let max = this.props.endThreshold ? this.props.endThreshold : newItems[itemLength-1].key;
+		let min = this.props.threshold.start ? this.props.threshold.start : newItems[0].key;
+		let max = this.props.threshold.end ? this.props.threshold.end : newItems[itemLength-1].key;
 		if(itemLength > 1) {
 			let rangeValue = {
 				counts: this.countCalc(min, max, newItems),
@@ -221,14 +221,20 @@ export class RangeSlider extends Component {
 RangeSlider.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	startThreshold: React.PropTypes.number,
-	endThreshold: React.PropTypes.number,
+	threshold: React.PropTypes.shape({
+		start: helper.validateThreshold,
+		end: helper.validateThreshold
+	}),
 	defaultSelected: React.PropTypes.object,
 	stepValue: React.PropTypes.number
 };
 
 RangeSlider.defaultProps = {
 	defaultSelected: {
+		start: 0,
+		end: 10
+	},
+	threshold: {
 		start: 0,
 		end: 10
 	},
