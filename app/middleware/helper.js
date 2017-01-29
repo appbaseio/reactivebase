@@ -1,83 +1,83 @@
-var {EventEmitter} = require('fbemitter');
+var { EventEmitter } = require('fbemitter');
 var $ = require('jquery');
 var globalI = 0;
 export var sensorEmitter = new EventEmitter();
 
-export var watchForDependencyChange  = function (depends, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
+export var watchForDependencyChange = function(depends, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
 	var self = this;
 	globalI += 1;
 	this.random = globalI;
-	console.log('Created - ',self.random);
+	console.log('Created - ', self.random);
 	let selectedSensor = {};
 	let sensorListener, paginationListener;
 	// check if depend object already exists
 	let checkDependExists = function(depend) {
-		if(!previousSelectedSensor.hasOwnProperty(depend)) {
-			previousSelectedSensor[depend] = '';
+			if (!previousSelectedSensor.hasOwnProperty(depend)) {
+				previousSelectedSensor[depend] = '';
+			}
 		}
-	}
-	// apply depend changes when new value received
+		// apply depend changes when new value received
 	let applyDependChange = function(depends, depend) {
-		if(selectedSensor[depend] && typeof selectedSensor[depend] === 'object') {
+		if (selectedSensor[depend] && typeof selectedSensor[depend] === 'object') {
 			previousSelectedSensor[depend] = JSON.parse(JSON.stringify(selectedSensor[depend]));
 		} else {
 			previousSelectedSensor[depend] = selectedSensor[depend];
 		}
-		if(!depends[depend].doNotExecute) {
+		if (!depends[depend].doNotExecute) {
 			cb(depend, channelId);
 		}
 	}
 
 	// initialize the process
 	this.init = function() {
-		for(let depend in depends) {
+		for (let depend in depends) {
 			checkDependExists(depend);
-			if(typeof selectedSensor[depend] === 'object') {
-				if(JSON.stringify(selectedSensor[depend]) !== JSON.stringify(previousSelectedSensor[depend])) {
+			if (typeof selectedSensor[depend] === 'object') {
+				if (JSON.stringify(selectedSensor[depend]) !== JSON.stringify(previousSelectedSensor[depend])) {
 					applyDependChange(depends, depend);
 				}
 			} else {
-				if(selectedSensor[depend] !== previousSelectedSensor[depend]) {
+				if (selectedSensor[depend] !== previousSelectedSensor[depend]) {
 					applyDependChange(depends, depend);
 				}
 			}
 		}
 	}
 
-	this.start = function () {
+	this.start = function() {
 		var self = this;
 		this.sensorListener = sensorEmitter.addListener('sensorChange', function(data) {
 			selectedSensor = data;
-			console.log('Listening - ',self.random);
+			console.log('Listening - ', self.random);
 			self.init();
 		});
 
 		this.paginationListener = sensorEmitter.addListener('paginationChange', function(data) {
-			if(paginationCb) {
-				if(Object.keys(depends).indexOf(data.key) > -1) {
+			if (paginationCb) {
+				if (Object.keys(depends).indexOf(data.key) > -1) {
 					paginationCb(data.value, channelId);
 				}
 			}
 		});
 
 		this.sortListener = sensorEmitter.addListener('sortChange', function(data) {
-			if(sortCb) {
+			if (sortCb) {
 				sortCb(channelId);
 			}
 		});
 	}
 
 	this.stop = function() {
-		if(this.sensorListener) {
+		if (this.sensorListener) {
 			this.sensorListener.remove();
 		}
-		if(this.paginationListener) {
+		if (this.paginationListener) {
 			this.paginationListener.remove();
 		}
-		if(this.sortListener) {
+		if (this.sortListener) {
 			this.sortListener.remove();
 		}
-		console.log('Stopped - ',this.random);
+		console.log('Stopped - ', this.random);
 	}
 
 };
@@ -93,11 +93,10 @@ function selectedSensorFn() {
 
 	// Get
 	let get = function(prop, obj) {
-		if(obj) {
+		if (obj) {
 			return self[obj][prop];
-		}
-		else {
-			if(prop) {
+		} else {
+			if (prop) {
 				return self.selectedSensor[prop];
 			} else {
 				return self.selectedSensor;
@@ -106,24 +105,24 @@ function selectedSensorFn() {
 	}
 
 	// Set
-	let set = function(obj, isExecuteUpdate=false, setMethod="sensorChange") {
+	let set = function(obj, isExecuteUpdate = false, setMethod = "sensorChange") {
 		let methodObj;
-		switch(setMethod) {
+		switch (setMethod) {
 			case 'sortChange':
 				self.sortInfo[obj.key] = obj.value;
 				methodObj = self.sortInfo;
-			break;
+				break;
 			case 'paginationChange':
 				self.selectedPagination[obj.key] = obj.value;
 				methodObj = obj;
-			break;
+				break;
 			case 'sensorChange':
 			default:
 				self.selectedSensor[obj.key] = obj.value;
 				methodObj = self.selectedSensor;
-			break;
+				break;
 		}
-		if(isExecuteUpdate) {
+		if (isExecuteUpdate) {
 			sensorEmitter.emit(setMethod, methodObj);
 		}
 	}
@@ -154,7 +153,7 @@ function selectedSensorFn() {
 
 export var selectedSensor = new selectedSensorFn();
 
-export var ResponsiveStory = function () {
+export var ResponsiveStory = function() {
 	function handleResponsive() {
 		var height = $(window).height();
 		$('.rbc.rbc-resultlist').css({
@@ -165,11 +164,18 @@ export var ResponsiveStory = function () {
 			'margin-bottom': 0
 		});
 	}
+
 	function paginationHeight() {
-		return $('.rbc-pagination').length*85;
+		return $('.rbc-pagination').length * 85;
 	}
 	handleResponsive();
 	$(window).resize(function() {
 		handleResponsive();
 	})
+}
+
+export var sizeValidation = function(props, propName, componentName) {
+	if (props[propName] <= 0 || props[propName] >= 1000) {
+		return new Error('Size value is invalid, it should be between 0 and 1000.');
+	}
 }

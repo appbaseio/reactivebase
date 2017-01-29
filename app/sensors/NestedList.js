@@ -322,6 +322,14 @@ export class NestedList extends Component {
 		return level === 0 ? (<i className="fa fa-chevron-right"></i>) : '' ;
 	}
 
+	countRender(doc_count) {
+		var count;
+		if(this.props.showCount) {
+			count = (<span className="rbc-count"> {doc_count}</span>);
+		}
+		return count;
+	}
+
 	renderItems(items, level) {
 		return items.map((item, index) => {
 			let cx = classNames({
@@ -334,7 +342,7 @@ export class NestedList extends Component {
 					className="rbc-list-container col s12 col-xs-12">
 					<a href="javascript:void(0);" className={`rbc-list-item ${cx}`} onClick={() => this.onItemSelect(item.key, level)}>
 						<span> {item.key} </span>
-						<span className="rbc-count"> {item.doc_count}</span>
+						{this.countRender(item.doc_count)}
 						{this.renderChevron(level)}
 					</a>
 					{this.renderList(item.key, level)}
@@ -399,7 +407,9 @@ NestedList.propTypes = {
 	appbaseField: React.PropTypes.array.isRequired,
 	size: React.PropTypes.number,
 	showCount: React.PropTypes.bool,
-	sortBy: React.PropTypes.oneOf(['count', 'asc', 'desc'])
+	sortBy: React.PropTypes.oneOf(['count', 'asc', 'desc']),
+	size: helper.sizeValidation,
+	defaultSelected: React.PropTypes.array
 };
 
 // Default props value
