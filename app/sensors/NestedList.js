@@ -399,7 +399,7 @@ NestedList.propTypes = {
 	appbaseField: React.PropTypes.array.isRequired,
 	size: React.PropTypes.number,
 	showCount: React.PropTypes.bool,
-	sortBy: React.PropTypes.string
+	sortBy: React.PropTypes.oneOf(['count', 'asc', 'desc'])
 };
 
 // Default props value
