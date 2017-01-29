@@ -35,7 +35,7 @@ export class NestedList extends Component {
 		this.onItemSelect = this.onItemSelect.bind(this);
 		this.defaultQuery = this.defaultQuery.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
-		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
+		this.type = 'Term';
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -397,24 +397,19 @@ export class NestedList extends Component {
 
 NestedList.propTypes = {
 	appbaseField: React.PropTypes.array.isRequired,
-	defaultQuery: React.PropTypes.func,
 	size: React.PropTypes.number,
 	showCount: React.PropTypes.bool,
-	multipleSelect: React.PropTypes.bool,
-	sortBy: React.PropTypes.string,
-	includeSelectAll: React.PropTypes.bool
+	sortBy: React.PropTypes.string
 };
 
 // Default props value
 NestedList.defaultProps = {
 	showCount: true,
-	multipleSelect: false,
 	sortBy: 'count',
 	size: 100,
 	showSearch: false,
 	title: null,
-	searchPlaceholder: 'Search',
-	includeSelectAll: false
+	searchPlaceholder: 'Search'
 };
 
 // context type
