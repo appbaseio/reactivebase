@@ -117,16 +117,17 @@ export class DropdownList extends Component {
 		newItems = newItems.map((item) => {
 			item.label = item.key.toString();
 			item.value = item.key.toString();
+			if (this.props.showCount) {
+				item.label = item.label + " (" + item.doc_count + ")"
+			}
 			return item
 		});
 		if (this.props.selectAllLabel) {
 			newItems.unshift({label: this.props.selectAllLabel, value: this.props.selectAllLabel});
 		}
 		this.setState({
-			items: newItems,
-			value: newItems[0].label
+			items: newItems
 		});
-		this.setValue(newItems[0].label, true);
 		if (this.defaultSelected) {
 			if (this.props.multipleSelect) {
 				let records = this.state.items.filter((record) => {
@@ -228,12 +229,14 @@ DropdownList.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
 	size: React.PropTypes.number,
 	multipleSelect: React.PropTypes.bool,
+	showCount: React.PropTypes.bool,
 	sortBy: React.PropTypes.string,
 	placeholder: React.PropTypes.string
 };
 
 // Default props value
 DropdownList.defaultProps = {
+	showCount: true,
 	sortBy: 'count',
 	size: 100,
 	title: null,

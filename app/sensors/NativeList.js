@@ -237,7 +237,7 @@ NativeList.propTypes = {
 	size: React.PropTypes.number,
 	showCount: React.PropTypes.bool,
 	multipleSelect: React.PropTypes.bool,
-	sortBy: React.PropTypes.string,
+	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
 	includeSelectAll: React.PropTypes.bool
 };
 
