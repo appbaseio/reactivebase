@@ -16,6 +16,10 @@ export default class PaginatedResultListDefault extends Component {
 		ResponsiveStory();
 	}
 
+	componentDidUpdate() {
+		ResponsiveStory();
+	}
+
 	onData(res) {
 		let result, combineData = res.currentData;
 		if(res.mode === 'historic') {
