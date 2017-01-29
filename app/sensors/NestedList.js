@@ -390,7 +390,9 @@ export class NestedList extends Component {
 			'rbc-search-active': this.props.showSearch,
 			'rbc-search-inactive': !this.props.showSearch,
 			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title
+			'rbc-title-inactive': !this.props.title,
+			'rbc-placeholder-active': this.props.searchPlaceholder,
+			'rbc-placeholder-inactive': !this.props.searchPlaceholder
 		});
 
 		return (
