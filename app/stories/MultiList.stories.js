@@ -73,7 +73,8 @@ export default class MultiListDefault extends Component {
 							sensorId="CitySensor"
 							appbaseField={this.props.mapping.city}
 							title="MultiList"
-							size={100}
+							size={12}
+							selectAllLabel="Select city"
 							{...this.props}
 						/>
 					</div>
