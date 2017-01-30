@@ -78,7 +78,7 @@ export class NestedList extends Component {
 				});
 				this.handleSelect(this.defaultSelected);
 			}
-			if (!_.isEqual(this.sortBy, this.props.sortBy)) {
+			if (this.sortBy != this.props.sortBy) {
 				this.sortBy = this.props.sortBy;
 				this.handleSortSelect();
 			}

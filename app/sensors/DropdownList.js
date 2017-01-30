@@ -201,7 +201,9 @@ export class DropdownList extends Component {
 			'rbc-placeholder-active': this.props.placeholder,
 			'rbc-placeholder-inactive': !this.props.placeholder,
 			'rbc-multidropdownlist': this.props.multipleSelect,
-			'rbc-singledropdownlist': !this.props.multipleSelect
+			'rbc-singledropdownlist': !this.props.multipleSelect,
+			'rbc-count-active': this.props.showCount,
+			'rbc-count-inactive': !this.props.showCount
 		});
 
 		return (
@@ -227,7 +229,7 @@ export class DropdownList extends Component {
 
 DropdownList.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
-	size: React.PropTypes.number,
+	size: helper.sizeValidation,
 	multipleSelect: React.PropTypes.bool,
 	showCount: React.PropTypes.bool,
 	sortBy: React.PropTypes.string,

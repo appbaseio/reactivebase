@@ -202,7 +202,7 @@ export class NativeList extends Component {
 		// set static search
 		if(this.props.showSearch) {
 			searchComponent = <StaticSearch
-				placeholder={this.props.searchPlaceholder}
+				placeholder={this.props.placeholder}
 				changeCallback={this.filterBySearch}
 			/>
 		}
@@ -216,8 +216,8 @@ export class NativeList extends Component {
 			'rbc-search-inactive': !this.props.showSearch,
 			'rbc-title-active': this.props.title,
 			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.searchPlaceholder,
-			'rbc-placeholder-inactive': !this.props.searchPlaceholder,
+			'rbc-placeholder-active': this.props.placeholder,
+			'rbc-placeholder-inactive': !this.props.placeholder,
 			'rbc-singlelist': !this.props.multipleSelect,
 			'rbc-multilist': this.props.multipleSelect
 		});
@@ -234,7 +234,7 @@ export class NativeList extends Component {
 
 NativeList.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
-	size: React.PropTypes.number,
+	size: helper.sizeValidation,
 	showCount: React.PropTypes.bool,
 	multipleSelect: React.PropTypes.bool,
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
@@ -249,7 +249,7 @@ NativeList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	searchPlaceholder: 'Search',
+	placeholder: 'Search',
 	includeSelectAll: false
 };
 
