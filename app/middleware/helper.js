@@ -185,3 +185,11 @@ export var validateThreshold = function(props, propName, componentName) {
 		return new Error('Threshold value validation is failed, end value should be greater than start value.');
 	}
 }
+
+export var validation = {
+	resultListFrom: function(props, propName, componentName) {
+		if (props[propName] < 0) {
+			return new Error('From value is invalid, it should be greater than or equal to 0.');
+		}
+	}
+}

@@ -350,7 +350,9 @@ export class ResultList extends Component {
 			'rbc-title-active': this.props.title,
 			'rbc-title-inactive': !this.props.title,
 			'rbc-sort-active': this.props.sortOptions,
-			'rbc-sort-inactive': !this.props.sortOptions
+			'rbc-sort-inactive': !this.props.sortOptions,
+			'rbc-stream-active': this.props.stream,
+			'rbc-stream-inactive': !this.props.stream
 		});
 
 		if(this.props.title) {
@@ -390,7 +392,7 @@ ResultList.propTypes = {
 	sensorId: React.PropTypes.string,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
-	sortBy: React.PropTypes.string,
+	sortBy: React.PropTypes.oneOf(['asc', 'desc']),
 	sortOptions: React.PropTypes.arrayOf(
 		React.PropTypes.shape({
 			label: React.PropTypes.string,
@@ -398,9 +400,9 @@ ResultList.propTypes = {
 			order: React.PropTypes.string,
 		})
 	),
-	from: React.PropTypes.number,
+	from: helper.validation.resultListFrom,
 	onData: React.PropTypes.func,
-	size: React.PropTypes.number,
+	size: helper.sizeValidation,
 	requestOnScroll: React.PropTypes.bool,
 	stream: React.PropTypes.bool
 };
