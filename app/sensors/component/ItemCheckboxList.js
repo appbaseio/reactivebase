@@ -163,8 +163,8 @@ export class ItemCheckboxList extends Component {
 			}.bind(this));
 			if(TagItemsArray.length > 5) {
 				TagItemsArray.unshift(<Tag
-					key={'Clear all'}
-					value={'Clear all'}
+					key={'Clear All'}
+					value={'Clear All'}
 					onClick={this.clearAll} />);
 			}
 		}
