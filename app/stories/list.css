@@ -58,12 +58,9 @@ html {
 	display: block;
 	width: 100%;
 	position: relative;
-	float: left;
 }
 
 .single-record {
-	background: #fff;
-	border: 1px solid #ccc;
 	height: 70px;
 }
 

@@ -36,6 +36,12 @@
 		}
 	}
 
+	.rbc-list-item { 
+		border-bottom: 1px solid;
+		float: left;
+		width: 100%;
+	}
+
 	&.rbc-sort-active {
 		.rbc-sortoptions {
 			position: absolute;

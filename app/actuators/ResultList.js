@@ -146,12 +146,18 @@ export class ResultList extends Component {
 			delete modifiedData.data;
 			let generatedData = this.props.onData ? this.props.onData(modifiedData) : this.defaultonData(res);
 			this.setState({
-				resultMarkup: generatedData
+				resultMarkup: this.wrapMarkup(generatedData)
 			});
 			if (this.streamFlag) {
 				this.streamMarkerInterval();
 			}
 		}.bind(this));
+	}
+
+	wrapMarkup(generatedData) {
+		return generatedData.map((item) => {
+			return (<div className="rbc-list-item">{item}</div>);
+		});
 	}
 
 	// Check if stream data exists in markersData
