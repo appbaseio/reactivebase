@@ -133,11 +133,11 @@ export class ItemCheckboxList extends Component {
 				ref={"ref" + item.keyRef} />);
 		}.bind(this));
 		// include select all if set from parent
-		if(this.props.includeSelectAll && items && items.length) {
+		if(this.props.selectAllLabel && items && items.length) {
 			ListItemsArray.unshift(
 				<ListItem
 					key='selectall'
-					value='Select All'
+					value={this.props.selectAllLabel}
 					countField={false}
 					handleClick={this.handleListClickAll}
 					status={this.props.defaultSelectall || false}

@@ -89,7 +89,7 @@ storiesOf("MultiList", module)
 		<MultiListDefault title="MultiList: Ascending Sort" showSearch={true} defaultSelected={["London"]} sortBy="asc" searchPlaceholder="Search City" />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} includeSelectAll={true} defaultSelected={["Select All"]} searchPlaceholder="Search City" />
+		<MultiListDefault showSearch={true} selectAllLabel="All Cities" searchPlaceholder="Search City" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
