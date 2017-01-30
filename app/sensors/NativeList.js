@@ -188,7 +188,7 @@ export class NativeList extends Component {
 				showCount={this.props.showCount}
 				selectAll={this.selectAll}
 				defaultSelected={this.props.defaultSelected}
-				includeSelectAll={this.props.includeSelectAll}/>
+				selectAllLabel={this.props.selectAllLabel}/>
 		}
 		else {
 			listComponent = <ItemList
@@ -238,7 +238,7 @@ NativeList.propTypes = {
 	showCount: React.PropTypes.bool,
 	multipleSelect: React.PropTypes.bool,
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
-	includeSelectAll: React.PropTypes.bool
+	selectAllLabel: React.PropTypes.string
 };
 
 // Default props value
@@ -250,7 +250,7 @@ NativeList.defaultProps = {
 	showSearch: false,
 	title: null,
 	placeholder: 'Search',
-	includeSelectAll: false
+	selectAllLabel: null
 };
 
 // context type

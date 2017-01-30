@@ -87,7 +87,7 @@ storiesOf("SingleList", module)
 			defaultSelected={text("defaultSelected", "San Francisco")}
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
-			searchPlaceholder={text("searchPlaceholder", "Search City")}
+			placeholder={text("placeholder", "Search City")}
 		/>
 	)));
 
@@ -106,17 +106,17 @@ storiesOf("MultiList", module)
 		<MultiListDefault title="MultiList: Ascending Sort" showSearch={true} defaultSelected={["London"]} sortBy="asc" searchPlaceholder="Search City" />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} includeSelectAll={true} defaultSelected={["Select All"]} searchPlaceholder="Search City" />
+		<MultiListDefault showSearch={true} selectAllLabel="All Cities" searchPlaceholder="Search City" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
 			title={text("title", "MultiList: City Filter")}
-			size={number("size", "100")}
+			size={number("size", 100)}
 			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			defaultSelected={array("defaultSelected", ["London", "Sydney"])}
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
-			searchPlaceholder={text("searchPlaceholder", "Search City")}
+			placeholder={text("placeholder", "Search City")}
 			includeSelectAll={boolean("includeSelectAll", true)}
 		/>
 	)));
