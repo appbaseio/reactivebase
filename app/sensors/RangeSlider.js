@@ -9,8 +9,8 @@ var _ = require('lodash');
 export class RangeSlider extends Component {
 	constructor(props, context) {
 		super(props);
-		let startThreshold = this.props.threshold.start ? this.props.threshold.start : 0;
-		let endThreshold = this.props.threshold.end ? this.props.threshold.end : 5;
+		let startThreshold = this.props.range.start ? this.props.range.start : 0;
+		let endThreshold = this.props.range.end ? this.props.range.end : 5;
 		let values = {};
 		values.min = this.props.defaultSelected.start < startThreshold ? startThreshold : this.props.defaultSelected.start;
 		values.max = this.props.defaultSelected.end < endThreshold ? this.props.defaultSelected.end :  endThreshold;
@@ -69,15 +69,57 @@ export class RangeSlider extends Component {
 				};
 				helper.selectedSensor.set(obj, true);
 			}
-			else if (nextProps.threshold.start !== this.state.startThreshold ||
-					 nextProps.threshold.end !== this.state.endThreshold ) {
-				if (nextProps.threshold.start <= this.state.values.min &&
-					nextProps.threshold.end >= this.state.values.max) {
+			else if (nextProps.range.start !== this.state.startThreshold ||
+					 nextProps.range.end !== this.state.endThreshold ) {
+				if (nextProps.range.start <= this.state.values.min &&
+					nextProps.range.end >= this.state.values.max) {
 					this.setState({
-						startThreshold: nextProps.threshold.start,
-						endThreshold: nextProps.threshold.end
+						startThreshold: nextProps.range.start,
+						endThreshold: nextProps.range.end
 					});
+				} else {
+					let values = {
+						min: this.state.values.min,
+						max: this.state.values.max
+					};
+					if (this.state.values.min < nextProps.range.start) {
+						values.min = nextProps.range.start;
+					}
+					if (this.state.values.max > nextProps.range.end) {
+						values.max = nextProps.range.end;
+					}
+					this.setState({
+						startThreshold: nextProps.range.start,
+						endThreshold: nextProps.range.end,
+						values: values
+					});
+					var obj = {
+						key: this.props.sensorId,
+						value: {
+							from: values.min,
+							to: values.max
+						}
+					};
+					helper.selectedSensor.set(obj, true);
 				}
+			}
+
+			let rem = (nextProps.defaultSelected.end -  nextProps.defaultSelected.start) % nextProps.stepValue;
+			if (rem) {
+				this.setState({
+					values: {
+						min: this.state.values.min,
+						max: nextProps.defaultSelected.end - rem,
+					}
+				});
+				var obj = {
+					key: this.props.sensorId,
+					value: {
+						from: this.state.values.min,
+						to: nextProps.defaultSelected.end - rem
+					}
+				};
+				helper.selectedSensor.set(obj, true);
 			}
 		}, 300);
 	}
@@ -231,12 +273,12 @@ export class RangeSlider extends Component {
 RangeSlider.propTypes = {
 	sensorId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	threshold: React.PropTypes.shape({
+	range: React.PropTypes.shape({
 		start: helper.validateThreshold,
 		end: helper.validateThreshold
 	}),
 	defaultSelected: React.PropTypes.object,
-	stepValue: React.PropTypes.number
+	stepValue: helper.stepValidation
 };
 
 RangeSlider.defaultProps = {
@@ -244,7 +286,7 @@ RangeSlider.defaultProps = {
 		start: 0,
 		end: 10
 	},
-	threshold: {
+	range: {
 		start: 0,
 		end: 10
 	},

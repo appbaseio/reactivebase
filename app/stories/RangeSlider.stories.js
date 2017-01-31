@@ -74,7 +74,7 @@ export default class RangeSliderDefault extends Component {
 							appbaseField={this.props.mapping.guests}
 							stepValue={2}
 							title="RangeSlider"
-							threshold={{
+							range={{
 								start: 0,
 								end: 8
 							}}

@@ -180,6 +180,14 @@ export var sizeValidation = function(props, propName, componentName) {
 	}
 }
 
+export var stepValidation = function(props, propName) {
+	if (props[propName] <= Math.floor((props['range']['end'] - props['range']['start'])/2)) {
+		return new Error(`Step value is invalid, it should be less than or equal to ${Math.floor((props['range']['end'] - props['range']['start'])/2)}.`);
+	} else if (props[propName] <= 0) {
+		return new Error('Step value is invalid, it should be greater than 0.');
+	}
+}
+
 export var validateThreshold = function(props, propName, componentName) {
 	if(!(!isNaN(props[propName]) && props['end'] > props['start'])) {
 		return new Error('Threshold value validation is failed, end value should be greater than start value.');

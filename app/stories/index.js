@@ -291,7 +291,7 @@ storiesOf("RangeSlider", module)
 	.add("Playground", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
 			title={text("paginationAt", "RangeSlider: Guest RSVPs")}
-			threshold={object("threshold", {
+			range={object("range", {
 				"start": 0,
 				"end": 5
 			})}
