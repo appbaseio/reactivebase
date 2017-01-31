@@ -25,7 +25,6 @@ export class PaginatedResultList extends Component {
 					<Pagination
 						className={`rbc-pagination-${method}`}
 						sensorId="pagination"
-						requestOnScroll={false}
 						title={this.props.paginationTitle} />
 				</div>
 			);
@@ -40,6 +39,7 @@ export class PaginatedResultList extends Component {
 				<div className="col s12 col-xs-12" style={this.colStyle}>
 					<ResultList
 						{...this.props}
+						requestOnScroll={false}
 						depends={this.depends}
 					/>
 				</div>
