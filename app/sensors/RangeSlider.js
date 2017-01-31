@@ -153,6 +153,8 @@ export class RangeSlider extends Component {
 			(nextProps.stepValue > Math.floor((nextProps['range']['end'] - nextProps['range']['start'])/2))) {
 			console.error(`Step value is invalid, it should be less than or equal to ${Math.floor((nextProps['range']['end'] - nextProps['range']['start'])/2)}.`);
 			return false;
+		} else if (nextState.values.max > nextState.endThreshold) {
+			return false;
 		} else {
 			return true;
 		}
