@@ -3,7 +3,7 @@ var $ = require('jquery');
 var globalI = 0;
 export var sensorEmitter = new EventEmitter();
 
-export var watchForDependencyChange = function(depends, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
+export var watchForDependencyChange = function(actuate, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
 	var self = this;
 	globalI += 1;
 	this.random = globalI;
@@ -17,28 +17,28 @@ export var watchForDependencyChange = function(depends, previousSelectedSensor, 
 			}
 		}
 		// apply depend changes when new value received
-	let applyDependChange = function(depends, depend) {
+	let applyDependChange = function(actuate, depend) {
 		if (selectedSensor[depend] && typeof selectedSensor[depend] === 'object') {
 			previousSelectedSensor[depend] = JSON.parse(JSON.stringify(selectedSensor[depend]));
 		} else {
 			previousSelectedSensor[depend] = selectedSensor[depend];
 		}
-		if (!depends[depend].doNotExecute) {
+		if (!actuate[depend].doNotExecute) {
 			cb(depend, channelId);
 		}
 	}
 
 	// initialize the process
 	this.init = function() {
-		for (let depend in depends) {
+		for (let depend in actuate) {
 			checkDependExists(depend);
 			if (typeof selectedSensor[depend] === 'object') {
 				if (JSON.stringify(selectedSensor[depend]) !== JSON.stringify(previousSelectedSensor[depend])) {
-					applyDependChange(depends, depend);
+					applyDependChange(actuate, depend);
 				}
 			} else {
 				if (selectedSensor[depend] !== previousSelectedSensor[depend]) {
-					applyDependChange(depends, depend);
+					applyDependChange(actuate, depend);
 				}
 			}
 		}
@@ -54,7 +54,7 @@ export var watchForDependencyChange = function(depends, previousSelectedSensor, 
 
 		this.paginationListener = sensorEmitter.addListener('paginationChange', function(data) {
 			if (paginationCb) {
-				if (Object.keys(depends).indexOf(data.key) > -1) {
+				if (Object.keys(actuate).indexOf(data.key) > -1) {
 					paginationCb(data.value, channelId);
 				}
 			}

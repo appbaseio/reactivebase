@@ -63,7 +63,7 @@ export class RangeSlider extends Component {
 					currentValues: values
 				});
 				var obj = {
-					key: this.props.sensorId,
+					key: this.props.componentId,
 					value: {
 						from: values.min,
 						to: values.max
@@ -96,7 +96,7 @@ export class RangeSlider extends Component {
 						values: values
 					});
 					var obj = {
-						key: this.props.sensorId,
+						key: this.props.componentId,
 						value: {
 							from: values.min,
 							to: values.max
@@ -115,7 +115,7 @@ export class RangeSlider extends Component {
 						}
 					});
 					var obj = {
-						key: this.props.sensorId,
+						key: this.props.componentId,
 						value: {
 							from: this.state.values.min,
 							to: nextProps.defaultSelected.end - rem
@@ -137,7 +137,7 @@ export class RangeSlider extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
-				key: this.props.sensorId,
+				key: this.props.componentId,
 				value: {
 					queryType: this.type,
 					inputData: this.props.appbaseField
@@ -146,17 +146,17 @@ export class RangeSlider extends Component {
 		helper.selectedSensor.setSensorInfo(obj);
 	}
 
-	// Create a channel which passes the depends and receive results whenever depends changes
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		// Set the depends - add self aggs query as well with depends
-		let depends = this.props.depends ? this.props.depends : {};
-		depends['aggs'] = {
+		// Set the actuate - add self aggs query as well with actuate
+		let actuate = this.props.actuate ? this.props.actuate : {};
+		actuate['aggs'] = {
 			key: this.props.appbaseField,
 			sort: this.props.sort,
 			size: this.props.size
 		};
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
@@ -229,7 +229,7 @@ export class RangeSlider extends Component {
 			to: values.max
 		}
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: real_values
 		};
 		helper.selectedSensor.set(obj, true);
@@ -274,7 +274,7 @@ export class RangeSlider extends Component {
 }
 
 RangeSlider.propTypes = {
-	sensorId: React.PropTypes.string.isRequired,
+	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
 	range: React.PropTypes.shape({
 		start: helper.validateThreshold,

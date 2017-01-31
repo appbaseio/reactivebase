@@ -74,7 +74,7 @@ export default class DateRangeDefault extends Component {
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<DateRange
-							sensorId="DateRangeSensor"
+							componentId="DateRangeSensor"
 							appbaseField={this.props.mapping.date}
 							{...this.props}
 						/>
@@ -82,14 +82,14 @@ export default class DateRangeDefault extends Component {
 
 					<div className="col s6 col-xs-6">
 						<ResultList
-							sensorId="SearchResult"
+							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="Results"
 							from={0}
 							size={20}
 							onData={this.onData}
 							requestOnScroll={true}
-							depends={{
+							actuate={{
 								DateRangeSensor: {"operation": "must"}
 							}}
 						/>

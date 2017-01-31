@@ -12,8 +12,8 @@ export class PaginatedResultList extends Component {
 	}
 
 	componentWillMount() {
-		this.depends = this.props.depends ? this.props.depends : {};
-		this.depends['pagination'] = {};
+		this.actuate = this.props.actuate ? this.props.actuate : {};
+		this.actuate['pagination'] = {};
 	}
 
 	paginationAt(method) {
@@ -24,7 +24,7 @@ export class PaginatedResultList extends Component {
 				<div className="col s12 col-xs-12" style={this.colStyle}>
 					<Pagination
 						className={`rbc-pagination-${method}`}
-						sensorId="pagination"
+						componentId="pagination"
 						title={this.props.paginationTitle} />
 				</div>
 			);
@@ -40,7 +40,7 @@ export class PaginatedResultList extends Component {
 					<ResultList
 						{...this.props}
 						requestOnScroll={false}
-						depends={this.depends}
+						actuate={this.actuate}
 					/>
 				</div>
 				{this.paginationAt('bottom')}
@@ -50,7 +50,7 @@ export class PaginatedResultList extends Component {
 }
 
 PaginatedResultList.propTypes = {
-	sensorId: React.PropTypes.string,
+	componentId: React.PropTypes.string,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
 	paginationAt: React.PropTypes.string,

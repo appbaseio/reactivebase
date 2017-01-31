@@ -70,7 +70,7 @@ export default class RangeSliderDefault extends Component {
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<RangeSlider
-							sensorId="RangeSensor"
+							componentId="RangeSensor"
 							appbaseField={this.props.mapping.guests}
 							stepValue={2}
 							title="RangeSlider"
@@ -83,14 +83,14 @@ export default class RangeSliderDefault extends Component {
 
 					<div className="col s6 col-xs-6">
 						<ResultList
-							sensorId="SearchResult"
+							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="Results"
 							sortBy="asc"
 							from={0}
 							size={20}
 							onData={this.onData}
-							depends={{
+							actuate={{
 								RangeSensor: {"operation": "must"}
 							}}
 						/>

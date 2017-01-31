@@ -75,7 +75,7 @@ export default class PaginatedResultListDefault extends Component {
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<PaginatedResultList
-							sensorId="SearchResult"
+							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="PaginatedResultList"
 							sortBy="asc"
@@ -83,7 +83,7 @@ export default class PaginatedResultListDefault extends Component {
 							size={20}
 							onData={this.onData}
 							{...this.props}
-							depends={{
+							actuate={{
 								CitySensor: {"operation": "must"}
 							}}
 						/>
@@ -91,7 +91,7 @@ export default class PaginatedResultListDefault extends Component {
 
 					<div className="col s6 col-xs-6">
 						<SingleList
-							sensorId="CitySensor"
+							componentId="CitySensor"
 							appbaseField={this.props.mapping.city}
 							title="Input Filter"
 							showCount={true}

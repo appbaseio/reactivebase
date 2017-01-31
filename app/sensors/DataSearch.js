@@ -48,7 +48,7 @@ export class DataSearch extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		let obj = {
-				key: this.props.sensorId,
+				key: this.props.componentId,
 				value: {
 					queryType: this.type,
 					inputData: this.props.appbaseField,
@@ -66,14 +66,14 @@ export class DataSearch extends Component {
 		helper.selectedSensor.setSensorInfo(searchObj);
 	}
 
-	// Create a channel which passes the depends and receive results whenever depends changes
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		let depends = {};
-		depends[this.props.searchInputId] = {
+		let actuate = {};
+		actuate[this.props.searchInputId] = {
 			operation: "must",
 			defaultQuery: this.defaultSearchQuery
 		};
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
@@ -217,7 +217,7 @@ export class DataSearch extends Component {
 		let value = currentValue ? currentValue.value : null;
 		value = value === 'null' ? null : value;
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: value
 		};
 		helper.selectedSensor.set(obj, true);
@@ -232,11 +232,11 @@ export class DataSearch extends Component {
 			'currentValue': inputVal
 		});
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: inputVal
 		};
 
-		// pass the selected sensor value with sensorId as key,
+		// pass the selected sensor value with componentId as key,
 		let isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
@@ -286,7 +286,7 @@ export class DataSearch extends Component {
 }
 
 DataSearch.propTypes = {
-	sensorId: React.PropTypes.string.isRequired,
+	componentId: React.PropTypes.string.isRequired,
 	appbaseField : React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)

@@ -60,7 +60,7 @@ export default class NestedListDefault extends Component {
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<NestedList
-							sensorId="CategorySensor"
+							componentId="CategorySensor"
 							appbaseField={[this.props.mapping.brand, this.props.mapping.model]}
 							title="NestedList"
 							{...this.props}
@@ -69,13 +69,13 @@ export default class NestedListDefault extends Component {
 
 					<div className="col s6 col-xs-6">
 						<ResultList
-							sensorId="SearchResult"
+							componentId="SearchResult"
 							appbaseField={this.props.mapping.name}
 							title="Results"
 							from={0}
 							size={20}
 							onData={this.onData}
-							depends={{
+							actuate={{
 								CategorySensor: {"operation": "must"}
 							}}
 						/>

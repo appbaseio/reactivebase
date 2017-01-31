@@ -83,7 +83,7 @@ export default class ToggleButtonDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<ToggleButton
 							appbaseField={this.props.mapping.topic}
-							sensorId="MeetupTops"
+							componentId="MeetupTops"
 							title="ToggleButton"
 							data={this.toggleData}
 							{...this.props}
@@ -92,14 +92,14 @@ export default class ToggleButtonDefault extends Component {
 
 					<div className="col s6 col-xs-6">
 						<ResultList
-							sensorId="SearchResult"
+							componentId="SearchResult"
 							appbaseField="group.group_topics.topic_name_raw"
 							title="Results"
 							sortBy="asc"
 							from={0}
 							size={20}
 							onData={this.onData}
-							depends={{
+							actuate={{
 								MeetupTops: {"operation": "must"}
 							}}
 						/>

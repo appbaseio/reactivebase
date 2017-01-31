@@ -100,7 +100,7 @@ export class NativeList extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
-				key: this.props.sensorId,
+				key: this.props.componentId,
 				value: {
 					queryType: this.type,
 					inputData: this.props.appbaseField,
@@ -112,7 +112,7 @@ export class NativeList extends Component {
 
 	includeAggQuery() {
 		var obj = {
-			key: this.props.sensorId+'-sort',
+			key: this.props.componentId+'-sort',
 			value: this.sortObj
 		};
 		helper.selectedSensor.setSortInfo(obj);
@@ -123,28 +123,28 @@ export class NativeList extends Component {
 			aggSort: this.props.sortBy
 		};
 		let obj = {
-			key: this.props.sensorId+'-sort',
+			key: this.props.componentId+'-sort',
 			value: this.sortObj
 		};
 		helper.selectedSensor.set(obj, true, 'sortChange');
 	}
 
-	// Create a channel which passes the depends and receive results whenever depends changes
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		// Set the depends - add self aggs query as well with depends
-		let depends = this.props.depends ? this.props.depends : {};
-		depends['aggs'] = {
+		// Set the actuate - add self aggs query as well with actuate
+		let actuate = this.props.actuate ? this.props.actuate : {};
+		actuate['aggs'] = {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
 			size: this.props.size,
-			sortRef: this.props.sensorId+'-sort'
+			sortRef: this.props.componentId+'-sort'
 		};
-		depends[this.props.sensorId+'-sort'] = {
+		actuate[this.props.componentId+'-sort'] = {
 			'operation': 'must'
 		};
 		this.includeAggQuery();
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(this.channelId, function(res) {
 			let data = res.data;
@@ -193,7 +193,7 @@ export class NativeList extends Component {
 	// set value
 	setValue(value, isExecuteQuery=false) {
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: value
 		};
 		helper.selectedSensor.set(obj, isExecuteQuery);

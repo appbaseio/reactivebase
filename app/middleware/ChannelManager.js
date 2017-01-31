@@ -22,10 +22,10 @@ class channelManager {
 		let channelObj = this.channels[channelId];
 		let queryObj;
 		if(!queryOptions) {
-			queryObj = this.queryBuild(channelObj.depends, channelObj.previousSelectedSensor, channelObj.size, channelObj.from);
+			queryObj = this.queryBuild(channelObj.actuate, channelObj.previousSelectedSensor, channelObj.size, channelObj.from);
 			this.queryOptions[channelId] = channelObj.previousSelectedSensor['channel-options-'+channelId];
 		} else {
-			queryObj = this.queryBuild(channelObj.depends, queryOptions, channelObj.size, channelObj.from);
+			queryObj = this.queryBuild(channelObj.actuate, queryOptions, channelObj.size, channelObj.from);
 		}
 		let validQuery = true;
 		try {
@@ -49,7 +49,7 @@ class channelManager {
 					let globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
 					self.emitter.emit('global', {
 						channelResponse: channelResponse,
-						depends: channelObj.depends,
+						actuate: channelObj.actuate,
 						queryOptions: globalQueryOptions
 					});
 				}).on('error', function(error) {
@@ -117,30 +117,30 @@ class channelManager {
 	}
 
 	// queryBuild
-	// Builds the query by using depends object and values of sensor
-	queryBuild(depends, previousSelectedSensor, size, from=0) {
+	// Builds the query by using actuate object and values of sensor
+	queryBuild(actuate, previousSelectedSensor, size, from=0) {
 		let aggs = null;
 		let mustArray = [];
 		let shouldArray = [];
 		let requestOptions = {};
 		let sortObj = [];
-		for(let depend in depends) {
+		for(let depend in actuate) {
 			if(depend === 'aggs') {
 				aggs = aggsQuery(depend);
 			} else if(depend.indexOf('channel-options-') > -1) {
 				requestOptions = previousSelectedSensor[depend];
 			} else {
 				let queryObj = null;
-				if(depends[depend].defaultQuery) {
-					queryObj = depends[depend].defaultQuery(previousSelectedSensor[depend]);
+				if(actuate[depend].defaultQuery) {
+					queryObj = actuate[depend].defaultQuery(previousSelectedSensor[depend]);
 				} else {
 					queryObj = singleQuery(depend);
 				}
 				if(queryObj) {
-					if(depends[depend].operation === 'must') {
+					if(actuate[depend].operation === 'must') {
 						mustArray.push(queryObj);
 					}
-					else if(depends[depend].operation === 'should') {
+					else if(actuate[depend].operation === 'should') {
 						shouldArray.push(queryObj);
 					}
 				}
@@ -175,7 +175,7 @@ class channelManager {
 		}
 
 		function aggsQuery(depend) {
-			let aggsObj = depends[depend];
+			let aggsObj = actuate[depend];
 			let order, type;
 			if(aggsObj.sortRef) {
 				let sortField = sortAvailable(aggsObj.sortRef);
@@ -276,10 +276,10 @@ class channelManager {
 		this.receive('channel-options-'+channelId, channelId);
 	}
 
-	// Create the channel by passing depends
-	// if depends are same it will create single channel for them
-	create(appbaseRef, type, depends, size = 100, from =0, stream=false) {
-		let channelId = btoa(JSON.stringify(depends));
+	// Create the channel by passing actuate
+	// if actuate are same it will create single channel for them
+	create(appbaseRef, type, actuate, size = 100, from =0, stream=false) {
+		let channelId = btoa(JSON.stringify(actuate));
 		let optionValues = {
 			size: size,
 			from: from
@@ -287,7 +287,7 @@ class channelManager {
 		this.queryOptions[channelId] = optionValues;
 		this.type[channelId] = type;
 		this.appbaseRef[channelId] = appbaseRef;
-		depends['channel-options-'+channelId] = optionValues;
+		actuate['channel-options-'+channelId] = optionValues;
 		let previousSelectedSensor = {
 			['channel-options-'+channelId]: optionValues
 		};
@@ -298,17 +298,17 @@ class channelManager {
 		helper.selectedSensor.set(obj);
 		if(!(this.channels.hasOwnProperty(channelId) && stream === this.channels[channelId].stream)) {
 			this.channels[channelId] = {
-				depends: depends,
+				actuate: actuate,
 				size: size,
 				from: from,
 				stream: stream,
 				previousSelectedSensor: previousSelectedSensor,
-				watchDependency: new helper.watchForDependencyChange(depends, previousSelectedSensor, this.receive, channelId, this.paginationChanges, this.sortChanges)
+				watchDependency: new helper.watchForDependencyChange(actuate, previousSelectedSensor, this.receive, channelId, this.paginationChanges, this.sortChanges)
 			};
 			this.channels[channelId].watchDependency.start();
 		}
 		setTimeout(() => {
-			if(depends.hasOwnProperty('aggs')) {
+			if(actuate.hasOwnProperty('aggs')) {
 				this.receive('aggs', channelId)
 			}
 		}, 100);

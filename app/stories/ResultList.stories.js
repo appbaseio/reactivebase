@@ -83,7 +83,7 @@ export default class ResultListDefault extends Component {
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<ResultList
-							sensorId="SearchResult"
+							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="ResultList"
 							sortBy="asc"
@@ -91,7 +91,7 @@ export default class ResultListDefault extends Component {
 							size={20}
 							onData={this.onData}
 							{...this.props}
-							depends={{
+							actuate={{
 								CitySensor: {"operation": "must", defaultQuery: this.cityQuery}
 							}}
 						/>
@@ -99,7 +99,7 @@ export default class ResultListDefault extends Component {
 
 					<div className="col s6 col-xs-6">
 						<MultiList
-							sensorId="CitySensor"
+							componentId="CitySensor"
 							appbaseField={this.props.mapping.city}
 							showCount={true}
 							size={10}

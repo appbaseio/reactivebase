@@ -70,7 +70,7 @@ export class DropdownList extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField
@@ -79,17 +79,17 @@ export class DropdownList extends Component {
 		helper.selectedSensor.setSensorInfo(obj);
 	}
 
-	// Create a channel which passes the depends and receive results whenever depends changes
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		// Set the depends - add self aggs query as well with depends
-		let depends = this.props.depends ? this.props.depends : {};
-		depends['aggs'] = {
+		// Set the actuate - add self aggs query as well with actuate
+		let actuate = this.props.actuate ? this.props.actuate : {};
+		actuate['aggs'] = {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
 			size: this.props.size
 		};
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
@@ -171,12 +171,12 @@ export class DropdownList extends Component {
 			value = value.split(',');
 		}
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: value
 		};
 		if (value == this.props.selectAllLabel) {
 			obj = {
-				key: this.props.sensorId,
+				key: this.props.componentId,
 				value: {
 					queryType: "match_all"
 				}

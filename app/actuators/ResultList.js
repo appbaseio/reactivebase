@@ -80,16 +80,16 @@ export class ResultList extends Component {
 		}
 	}
 
-	// Create a channel which passes the depends and receive results whenever depends changes
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		// Set the depends - add self aggs query as well with depends
-		let depends = this.props.depends ? this.props.depends : {};
-		depends.streamChanges = {operation: 'must'};
+		// Set the actuate - add self aggs query as well with actuate
+		let actuate = this.props.actuate ? this.props.actuate : {};
+		actuate.streamChanges = {operation: 'must'};
 		if (this.sortObj) {
-			this.enableSort(depends);
+			this.enableSort(actuate);
 		}
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends, this.props.size, this.props.from, this.props.stream);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate, this.props.size, this.props.from, this.props.stream);
 		this.channelId = channelObj.channelId;
 
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
@@ -230,8 +230,8 @@ export class ResultList extends Component {
 	}
 
 	// enable sort
-	enableSort(depends) {
-		depends[this.resultSortKey] = { operation: "must" };
+	enableSort(actuate) {
+		actuate[this.resultSortKey] = { operation: "must" };
 		let sortObj = {
 			key: this.resultSortKey,
 			value: this.sortObj
@@ -393,7 +393,7 @@ export class ResultList extends Component {
 }
 
 ResultList.propTypes = {
-	sensorId: React.PropTypes.string,
+	componentId: React.PropTypes.string,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
 	sortBy: React.PropTypes.oneOf(['asc', 'desc']),

@@ -74,7 +74,7 @@ export default class DatePickerDefault extends Component {
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<DatePicker
-							sensorId="DateSensor"
+							componentId="DateSensor"
 							appbaseField={this.props.mapping.date}
 							{...this.props}
 						/>
@@ -82,14 +82,14 @@ export default class DatePickerDefault extends Component {
 
 					<div className="col s6 col-xs-6">
 						<ResultList
-							sensorId="SearchResult"
+							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="Results"
 							from={0}
 							size={20}
 							onData={this.onData}
 							requestOnScroll={true}
-							depends={{
+							actuate={{
 								DateSensor: {"operation": "must"}
 							}}
 						/>

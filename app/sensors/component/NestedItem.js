@@ -110,9 +110,9 @@ class ItemRow extends Component {
 			if(this.props.value === this.props.selectedItem && this.props.appbaseField[1]) {
 				list = (
 					<NestedList
-						sensorId={"nested-"+this.props.value}
+						componentId={"nested-"+this.props.value}
 						appbaseField={[this.props.appbaseField[1]]}
-						depends={this.props.depends}
+						actuate={this.props.actuate}
 					></NestedList>
 				)
 			}

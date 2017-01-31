@@ -70,7 +70,7 @@ export default class MultiListDefault extends Component {
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<MultiList
-							sensorId="CitySensor"
+							componentId="CitySensor"
 							appbaseField={this.props.mapping.city}
 							title="MultiList"
 							size={100}
@@ -80,14 +80,14 @@ export default class MultiListDefault extends Component {
 
 					<div className="col s6 col-xs-6">
 						<ResultList
-							sensorId="SearchResult"
+							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="Results"
 							sortBy="asc"
 							from={0}
 							size={20}
 							onData={this.onData}
-							depends={{
+							actuate={{
 								CitySensor: {"operation": "must"}
 							}}
 						/>

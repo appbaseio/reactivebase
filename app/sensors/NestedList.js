@@ -125,7 +125,7 @@ export class NestedList extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
-				key: this.props.sensorId,
+				key: this.props.componentId,
 				value: {
 					queryType: this.type,
 					inputData: this.props.appbaseField[0],
@@ -158,24 +158,24 @@ export class NestedList extends Component {
 		});
 	}
 
-	// Create a channel which passes the depends and receive results whenever depends changes
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		// Set the depends - add self aggs query as well with depends
-		let depends = this.props.depends ? this.props.depends : {};
+		// Set the actuate - add self aggs query as well with actuate
+		let actuate = this.props.actuate ? this.props.actuate : {};
 		console.log(this.nested[0]);
-		depends['aggs'] = {
+		actuate['aggs'] = {
 			key: this.props.appbaseField[0],
 			sort: this.props.sortBy,
 			size: this.props.size,
 			sortRef: this.nested[0]
 		};
-		depends[this.nested[0]] = {
+		actuate[this.nested[0]] = {
 			'operation': 'must'
 		};
 		this.includeAggQuery();
 
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(this.channelId, function(res) {
 			let data = res.data;
@@ -196,7 +196,7 @@ export class NestedList extends Component {
 	// Create a channel for sub category
 	createSubChannel() {
 		this.setSubCategory();
-		let depends = {
+		let actuate = {
 			'aggs': {
 				key: this.props.appbaseField[1],
 				sort: this.props.sortBy,
@@ -207,7 +207,7 @@ export class NestedList extends Component {
 			[this.nested[1]]: { operation: "must" }
 		};
 		// create a channel and listen the changes
-		var subChannelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		var subChannelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.subChannelId = subChannelObj.channelId;
 		this.subChannelListener = subChannelObj.emitter.addListener(this.subChannelId, function(res) {
 			let data = res.data;
@@ -267,7 +267,7 @@ export class NestedList extends Component {
 	// set value
 	setValue(value, isExecuteQuery=false) {
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: value
 		};
 		helper.selectedSensor.set(obj, isExecuteQuery);

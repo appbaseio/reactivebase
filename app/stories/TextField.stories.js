@@ -70,7 +70,7 @@ export default class TextFieldDefault extends Component {
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<TextField
-							sensorId="NameTextSensor"
+							componentId="NameTextSensor"
 							appbaseField={this.props.mapping.name}
 							title="TextField"
 							{...this.props}
@@ -79,13 +79,13 @@ export default class TextFieldDefault extends Component {
 
 					<div className="col-xs-6">
 						<ResultList
-							sensorId="SearchResult"
+							componentId="SearchResult"
 							appbaseField={this.props.mapping.name}
 							title="Cars"
 							from={0}
 							size={20}
 							onData={this.onData}
-							depends={{
+							actuate={{
 								NameTextSensor: {"operation": "must", defaultQuery: this.NameQuery}
 							}}
 						/>

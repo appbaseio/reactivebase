@@ -17,7 +17,7 @@ export class SingleDropdownList extends Component {
 }
 
 SingleDropdownList.propTypes = {
-	sensorId: React.PropTypes.string.isRequired,
+	componentId: React.PropTypes.string.isRequired,
 	appbaseField : React.PropTypes.string.isRequired,
 	title : React.PropTypes.string,
 	showCount: React.PropTypes.bool,

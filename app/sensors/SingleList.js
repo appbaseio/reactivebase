@@ -17,7 +17,7 @@ export class SingleList extends Component {
 }
 
 SingleList.propTypes = {
-	sensorId: React.PropTypes.string.isRequired,
+	componentId: React.PropTypes.string.isRequired,
 	appbaseField : React.PropTypes.string.isRequired,
 	title : React.PropTypes.string,
 	defaultSelected: React.PropTypes.string,

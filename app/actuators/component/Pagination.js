@@ -31,7 +31,7 @@ export class Pagination extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		let obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: this.state.currentValue
 		};
 		helper.selectedSensor.setPaginationInfo(obj);
@@ -40,7 +40,7 @@ export class Pagination extends Component {
 	// listen all results
 	listenGlobal() {
 		this.globalListener = manager.emitter.addListener('global', function(res) {
-			if(res.depends && Object.keys(res.depends).indexOf(this.props.sensorId) > -1) {
+			if(res.actuate && Object.keys(res.actuate).indexOf(this.props.componentId) > -1) {
 				let totalHits = res.channelResponse.data.hits.total;
 				let maxPageNumber = Math.ceil(totalHits/res.queryOptions.size) < 1 ? 1 : Math.ceil(totalHits/res.queryOptions.size);
 				let size = res.queryOptions.size ? res.queryOptions.size : 20;
@@ -61,11 +61,11 @@ export class Pagination extends Component {
 			'currentValue': inputVal
 		});
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: inputVal
 		};
 
-		// pass the selected sensor value with sensorId as key,
+		// pass the selected sensor value with componentId as key,
 		let isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery, 'paginationChange');
 	}
@@ -137,7 +137,7 @@ export class Pagination extends Component {
 }
 
 Pagination.propTypes = {
-	sensorId: React.PropTypes.string.isRequired,
+	componentId: React.PropTypes.string.isRequired,
 	title: React.PropTypes.string
 };
 
