@@ -127,6 +127,15 @@ export class RangeSlider extends Component {
 		}, 300);
 	}
 
+	shouldComponentUpdate(nextProps, nextState) {
+		if ((nextProps.stepValue <= 0) ||
+			(nextProps.stepValue > Math.floor((nextProps['range']['end'] - nextProps['range']['start'])/2))) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	// Handle function when value slider option is changing
 	handleValuesChange(component, values) {
 		this.setState({
