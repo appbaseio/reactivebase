@@ -51,30 +51,50 @@ export class RangeSlider extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		setTimeout(() => {
+			// check defaultSelected
 			if (nextProps.defaultSelected.start !== this.state.values.min ||
 				nextProps.defaultSelected.end !== this.state.values.max &&
 				nextProps.range.start <= nextProps.defaultSelected.start &&
 				nextProps.range.end >= nextProps.defaultSelected.end) {
-				let values = {};
-				values.min = nextProps.defaultSelected.start;
-				values.max = nextProps.defaultSelected.end;
-				this.setState({
-					values: values,
-					currentValues: values
-				});
-				var obj = {
-					key: this.props.componentId,
-					value: {
-						from: values.min,
-						to: values.max
-					}
-				};
-				helper.selectedSensor.set(obj, true);
+				let rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
+				if (rem) {
+					this.setState({
+						values: {
+							min: this.state.values.min,
+							max: nextProps.defaultSelected.end - rem
+						}
+					});
+					var obj = {
+						key: this.props.componentId,
+						value: {
+							from: this.state.values.min,
+							to: nextProps.defaultSelected.end - rem
+						}
+					};
+					helper.selectedSensor.set(obj, true);
+				} else {
+					let values = {};
+					values.min = nextProps.defaultSelected.start;
+					values.max = nextProps.defaultSelected.end;
+					this.setState({
+						values: values,
+						currentValues: values
+					});
+					var obj = {
+						key: this.props.componentId,
+						value: {
+							from: values.min,
+							to: values.max
+						}
+					};
+					helper.selectedSensor.set(obj, true);
+				}
 			}
+			// check range
 			else if (nextProps.range.start !== this.state.startThreshold ||
 					 nextProps.range.end !== this.state.endThreshold ) {
-				if (nextProps.range.start <= this.state.values.min &&
-					nextProps.range.end >= this.state.values.max) {
+				if (nextProps.range.start <= nextProps.defaultSelected.start &&
+					nextProps.range.end >= nextProps.defaultSelected.end) {
 					this.setState({
 						startThreshold: nextProps.range.start,
 						endThreshold: nextProps.range.end
@@ -105,6 +125,7 @@ export class RangeSlider extends Component {
 					helper.selectedSensor.set(obj, true);
 				}
 			}
+			// drop value if it exceeds the threshold (based on step value)
 			else {
 				let rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
 				if (rem) {
@@ -130,6 +151,7 @@ export class RangeSlider extends Component {
 	shouldComponentUpdate(nextProps, nextState) {
 		if ((nextProps.stepValue <= 0) ||
 			(nextProps.stepValue > Math.floor((nextProps['range']['end'] - nextProps['range']['start'])/2))) {
+			console.error(`Step value is invalid, it should be less than or equal to ${Math.floor((nextProps['range']['end'] - nextProps['range']['start'])/2)}.`);
 			return false;
 		} else {
 			return true;
