@@ -19,6 +19,9 @@ export class NativeList extends Component {
 			},
 			defaultSelectAll: false
 		};
+		this.sortObj = {
+			aggSort: this.props.sortBy
+		};
 		this.previousSelectedSensor = {};
 		this.channelId = null;
 		this.channelListener = null;
@@ -28,6 +31,7 @@ export class NativeList extends Component {
 		this.filterBySearch = this.filterBySearch.bind(this);
 		this.selectAll = this.selectAll.bind(this);
 		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
+		this.defaultQuery = this.defaultQuery.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -35,6 +39,18 @@ export class NativeList extends Component {
 		this.setQueryInfo();
 		this.handleSelect('');
 		this.createChannel();
+	}
+
+	// build query for this sensor only
+	defaultQuery(value) {
+		if(value) {
+			let type = typeof value === 'object' ? 'terms' : 'term';
+			return {
+				[type]: {
+					[this.props.appbaseField]: value
+				}
+			};
+		}
 	}
 
 	componentWillUpdate() {
@@ -55,11 +71,24 @@ export class NativeList extends Component {
 				});
 				this.handleSelect(this.defaultSelected);
 			}
+			if (this.sortBy !== this.props.sortBy) {
+				this.sortBy = this.props.sortBy;
+				this.handleSortSelect();
+			}
+			if (this.size !== this.props.size) {
+				this.size = this.props.size;
+				this.removeChannel();
+				this.createChannel();
+			}
 		}, 300);
 	}
 
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
+		this.removeChannel();
+	}
+
+	removeChannel() {
 		if(this.channelId) {
 			manager.stopStream(this.channelId);
 		}
@@ -74,10 +103,30 @@ export class NativeList extends Component {
 				key: this.props.sensorId,
 				value: {
 					queryType: this.type,
-					inputData: this.props.appbaseField
+					inputData: this.props.appbaseField,
+					defaultQuery: this.defaultQuery
 				}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
+	}
+
+	includeAggQuery() {
+		var obj = {
+			key: this.props.sensorId+'-sort',
+			value: this.sortObj
+		};
+		helper.selectedSensor.setSortInfo(obj);
+	}
+
+	handleSortSelect() {
+		this.sortObj = {
+			aggSort: this.props.sortBy
+		};
+		let obj = {
+			key: this.props.sensorId+'-sort',
+			value: this.sortObj
+		};
+		helper.selectedSensor.set(obj, true, 'sortChange');
 	}
 
 	// Create a channel which passes the depends and receive results whenever depends changes
@@ -87,8 +136,13 @@ export class NativeList extends Component {
 		depends['aggs'] = {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
-			size: this.props.size
+			size: this.props.size,
+			sortRef: this.props.sensorId+'-sort'
 		};
+		depends[this.props.sensorId+'-sort'] = {
+			'operation': 'must'
+		};
+		this.includeAggQuery();
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
 		this.channelId = channelObj.channelId;
@@ -188,7 +242,7 @@ export class NativeList extends Component {
 				showCount={this.props.showCount}
 				selectAll={this.selectAll}
 				defaultSelected={this.props.defaultSelected}
-				selectAllLabel={this.props.selectAllLabel}/>
+				selectAllLabel={this.props.selectAllLabel} />
 		}
 		else {
 			listComponent = <ItemList
@@ -196,7 +250,8 @@ export class NativeList extends Component {
 				onSelect={this.handleSelect}
 				onRemove={this.handleRemove}
 				showCount={this.props.showCount}
-				defaultSelected={this.props.defaultSelected}/>
+				defaultSelected={this.props.defaultSelected}
+				selectAllLabel={this.props.selectAllLabel} />
 		}
 
 		// set static search

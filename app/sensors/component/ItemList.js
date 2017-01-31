@@ -1,4 +1,5 @@
 import { default as React, Component } from 'react';
+import classNames from 'classnames';
 import { render } from 'react-dom';
 
 export class ItemList extends Component {
@@ -10,6 +11,7 @@ export class ItemList extends Component {
 		this.defaultSelected = this.props.defaultSelected;
 		this.defaultAllowed = true;
 		this.handleClick = this.handleClick.bind(this);
+		this.handleListClickAll = this.handleListClickAll.bind(this);
 	}
 
 	componentWillUpdate() {
@@ -32,6 +34,16 @@ export class ItemList extends Component {
 		}
 	}
 
+	handleListClickAll(value) {
+		let selectedItems = this.props.items.map((item) => item.key );
+		this.setState({
+			selectedItem: value
+		}, function() {
+			// this.updateAction.bind(this);
+			this.props.onSelect(selectedItems);
+		}.bind(this));
+	}
+
 	// Handler function is called when the list item is clicked
 	handleClick(value) {
 		// Pass the previously selected value to be removed from the query
@@ -43,7 +55,7 @@ export class ItemList extends Component {
 		});
 	}
 
-	render() {
+	renderItemsComponent() {
 		let items = this.props.items;
 		let itemsComponent = [];
 		// Build the array of components for each item
@@ -56,9 +68,27 @@ export class ItemList extends Component {
 				handleClick={this.handleClick}
 				selectedItem={this.state.selectedItem}/>)
 		}.bind(this));
+
+		// include select all if set from parent
+		if(this.props.selectAllLabel && items && items.length) {
+			itemsComponent.unshift(
+				<ItemRow
+					key='selectall'
+					value={this.props.selectAllLabel}
+					countField={false}
+					handleClick={this.handleListClickAll}
+					selectedItem={this.state.selectedItem}
+					ref={"refselectall"} />
+			);
+		}
+
+		return itemsComponent;
+	}
+
+	render() {
 		return (
 			<div className="rbc-list-container col s12 col-xs-12">
-				{itemsComponent}
+				{this.renderItemsComponent()}
 			</div>
 		);
 	}
@@ -104,9 +134,13 @@ class ItemRow extends Component {
 	}
 
 	render() {
+		let cx = classNames({
+			'rbc-count-active': this.props.countField,
+			'rbc-count-inactive': !this.props.countField
+		});
 		// let activeClass = this.props.value === this.props.selectedItem ? 'active' : '';
 		return (
-			<div className="rbc-list-item row" onClick={() => this.props.handleClick(this.props.value)}>
+			<div className={`rbc-list-item row ${cx}`} onClick={() => this.props.handleClick(this.props.value)}>
 				<input type="radio"
 					className="rbc-radio-item"
 					checked={this.props.value === this.props.selectedItem}

@@ -144,6 +144,9 @@ $themes: (
 					}
 				}
 			}
+			.rbc-list-item {
+				border-bottom-color: map-get($map, color);
+			}
 		}
 		
 		.rbc.rbc-togglebutton {
@@ -217,6 +220,10 @@ $themes: (
 			border-color: transparent;
 			border-right-color: map-get($map, color);
 			border-bottom-color: map-get($map, color);
+		}
+
+		a {
+			color: map-get($map, font-color);
 		}
 
 	}

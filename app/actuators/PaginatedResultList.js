@@ -1,6 +1,7 @@
 import { default as React, Component } from 'react';
 import { ResultList } from './ResultList';
 import { Pagination } from './component/Pagination';
+var helper = require('../middleware/helper.js');
 
 export class PaginatedResultList extends Component {
 	constructor(props, context) {
@@ -38,6 +39,7 @@ export class PaginatedResultList extends Component {
 				<div className="col s12 col-xs-12" style={this.colStyle}>
 					<ResultList
 						{...this.props}
+						requestOnScroll={false}
 						depends={this.depends}
 					/>
 				</div>
@@ -52,18 +54,24 @@ PaginatedResultList.propTypes = {
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
 	paginationAt: React.PropTypes.string,
-	sortBy: React.PropTypes.string,
-	from: React.PropTypes.number,
+	sortBy: React.PropTypes.oneOf(['asc', 'desc']),
+	sortOptions: React.PropTypes.arrayOf(
+		React.PropTypes.shape({
+			label: React.PropTypes.string,
+			field: React.PropTypes.string,
+			order: React.PropTypes.string,
+		})
+	),
+	from: helper.validation.resultListFrom,
 	onData: React.PropTypes.func,
-	size: React.PropTypes.number,
-	requestOnScroll: React.PropTypes.bool
+	size: helper.sizeValidation,
+	stream: React.PropTypes.bool
 };
 
 // Default props value
 PaginatedResultList.defaultProps = {
 	from: 0,
 	size: 20,
-	requestOnScroll: false,
 	paginationAt: 'bottom'
 };
 

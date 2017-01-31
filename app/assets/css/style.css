@@ -300,6 +300,9 @@ a {
 .rbc-red .rbc.rbc-resultlist .rbc-json-print span:hover {
   color: red; }
 
+.rbc-red .rbc.rbc-resultlist .rbc-list-item {
+  border-bottom-color: red; }
+
 .rbc-red .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: red;
   color: #fff; }
@@ -351,6 +354,9 @@ a {
   border-color: transparent;
   border-right-color: red;
   border-bottom-color: red; }
+
+.rbc-red a {
+  color: #777; }
 
 .rbc-orange .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
   color: orange; }
@@ -442,6 +448,9 @@ a {
 .rbc-orange .rbc.rbc-resultlist .rbc-json-print span:hover {
   color: orange; }
 
+.rbc-orange .rbc.rbc-resultlist .rbc-list-item {
+  border-bottom-color: orange; }
+
 .rbc-orange .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: orange;
   color: #fff; }
@@ -493,6 +502,9 @@ a {
   border-color: transparent;
   border-right-color: orange;
   border-bottom-color: orange; }
+
+.rbc-orange a {
+  color: #777; }
 
 .rbc-yellow .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
   color: yellow; }
@@ -584,6 +596,9 @@ a {
 .rbc-yellow .rbc.rbc-resultlist .rbc-json-print span:hover {
   color: yellow; }
 
+.rbc-yellow .rbc.rbc-resultlist .rbc-list-item {
+  border-bottom-color: yellow; }
+
 .rbc-yellow .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: yellow;
   color: #fff; }
@@ -635,6 +650,9 @@ a {
   border-color: transparent;
   border-right-color: yellow;
   border-bottom-color: yellow; }
+
+.rbc-yellow a {
+  color: #777; }
 
 .rbc-green .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
   color: green; }
@@ -726,6 +744,9 @@ a {
 .rbc-green .rbc.rbc-resultlist .rbc-json-print span:hover {
   color: green; }
 
+.rbc-green .rbc.rbc-resultlist .rbc-list-item {
+  border-bottom-color: green; }
+
 .rbc-green .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: green;
   color: #fff; }
@@ -777,6 +798,9 @@ a {
   border-color: transparent;
   border-right-color: green;
   border-bottom-color: green; }
+
+.rbc-green a {
+  color: #777; }
 
 .rbc-blue .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
   color: #1893e7; }
@@ -868,6 +892,9 @@ a {
 .rbc-blue .rbc.rbc-resultlist .rbc-json-print span:hover {
   color: #1893e7; }
 
+.rbc-blue .rbc.rbc-resultlist .rbc-list-item {
+  border-bottom-color: #1893e7; }
+
 .rbc-blue .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: #1893e7;
   color: #fff; }
@@ -919,6 +946,9 @@ a {
   border-color: transparent;
   border-right-color: #1893e7;
   border-bottom-color: #1893e7; }
+
+.rbc-blue a {
+  color: #777; }
 
 .rbc-dark .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
   color: #ccc; }
@@ -1010,6 +1040,9 @@ a {
 .rbc-dark .rbc.rbc-resultlist .rbc-json-print span:hover {
   color: #ccc; }
 
+.rbc-dark .rbc.rbc-resultlist .rbc-list-item {
+  border-bottom-color: #ccc; }
+
 .rbc-dark .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: #ccc;
   color: #555; }
@@ -1061,6 +1094,9 @@ a {
   border-color: transparent;
   border-right-color: #ccc;
   border-bottom-color: #ccc; }
+
+.rbc-dark a {
+  color: #eee; }
 
 .rbc.rbc-datasearch {
   margin-top: 10px;
@@ -1295,6 +1331,10 @@ a {
     margin: 0;
     padding: 0 12px;
     float: left; }
+  .rbc.rbc-resultlist .rbc-list-item {
+    border-bottom: 1px solid;
+    float: left;
+    width: 100%; }
   .rbc.rbc-resultlist.rbc-sort-active .rbc-sortoptions {
     position: absolute;
     right: 0;

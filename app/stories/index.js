@@ -68,16 +68,19 @@ function removeFirstLine(str) {
 storiesOf("SingleList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={true} searchPlaceholder="Search City" />
+		<SingleListDefault showSearch={true} placeholder="Search City" />
 	)))
 	.add("Without Search", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={false} searchPlaceholder="Search City" />
+		<SingleListDefault showSearch={false} placeholder="Search City" />
 	)))
 	.add("Default Selected", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={true} defaultSelected="San Francisco" searchPlaceholder="Search City" />
+		<SingleListDefault showSearch={true} defaultSelected="San Francisco" placeholder="Search City" />
 	)))
 	.add("Custom Sort", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault title="SingleList: Ascending Sort" showSearch={true} defaultSelected="London" sortBy="asc" searchPlaceholder="Search City" />
+		<SingleListDefault title="SingleList: Ascending Sort" showSearch={true} defaultSelected="London" sortBy="asc" placeholder="Search City" />
+	)))
+	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
+		<SingleListDefault showSearch={true} selectAllLabel="All Cities" placeholder="Search City" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault
@@ -88,25 +91,26 @@ storiesOf("SingleList", module)
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
 			placeholder={text("placeholder", "Search City")}
+			selectAllLabel={text("selectAllLabel", "All cities")}
 		/>
 	)));
 
 storiesOf("MultiList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} searchPlaceholder="Search City" />
+		<MultiListDefault showSearch={true} placeholder="Search City" />
 	)))
 	.add("Without Search", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={false} searchPlaceholder="Search City" />
+		<MultiListDefault showSearch={false} placeholder="Search City" />
 	)))
 	.add("Default Selected", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} defaultSelected={["London", "Sydney"]} searchPlaceholder="Search City" />
+		<MultiListDefault showSearch={true} defaultSelected={["London", "Sydney"]} placeholder="Search City" />
 	)))
 	.add("Custom Sort", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault title="MultiList: Ascending Sort" showSearch={true} defaultSelected={["London"]} sortBy="asc" searchPlaceholder="Search City" />
+		<MultiListDefault title="MultiList: Ascending Sort" showSearch={true} defaultSelected={["London"]} sortBy="asc" placeholder="Search City" />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} selectAllLabel="All Cities" searchPlaceholder="Search City" />
+		<MultiListDefault showSearch={true} selectAllLabel="All Cities" placeholder="Search City" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
@@ -117,7 +121,7 @@ storiesOf("MultiList", module)
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
 			placeholder={text("placeholder", "Search City")}
-			includeSelectAll={boolean("includeSelectAll", true)}
+			selectAllLabel={text("selectAllLabel", "All cities")}
 		/>
 	)));
 
@@ -196,7 +200,7 @@ storiesOf("NestedList", module)
 			defaultSelected={array("defaultSelected", ["bmw", "x series"])}
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
-			searchPlaceholder={text("searchPlaceholder", "Search Cars")}
+			placeholder={text("placeholder", "Search Cars")}
 		/>
 	)));
 
@@ -458,6 +462,32 @@ storiesOf("PaginatedResultList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
 		<PaginatedResultListDefault/>
+	)))
+	.add("Without on data", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
+		<PaginatedResultListDefault
+			onData={null}
+		/>
+	)))
+	.add("With Sort Options", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
+		<PaginatedResultListDefault
+			sortOptions={[
+				{
+					label: "Most Recent RSVP",
+					appbaseField: "mtime",
+					sortBy: "desc"
+				},
+				{
+					label: "Guests - High to Low",
+					appbaseField: "guests",
+					sortBy: "desc"
+				},
+				{
+					label: "Guests - Low to High",
+					appbaseField: "guests",
+					sortBy: "asc"
+				}
+			]}
+		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
 		<PaginatedResultListDefault

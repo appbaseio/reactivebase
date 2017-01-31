@@ -82,7 +82,6 @@ export default class PaginatedResultListDefault extends Component {
 							from={0}
 							size={20}
 							onData={this.onData}
-							requestOnScroll={false}
 							{...this.props}
 							depends={{
 								CitySensor: {"operation": "must"}
@@ -97,7 +96,7 @@ export default class PaginatedResultListDefault extends Component {
 							title="Input Filter"
 							showCount={true}
 							size={100}
-							defaultSelected="New York"
+							defaultSelected="London"
 							searchPlaceholder="Search City"
 						/>
 					</div>
