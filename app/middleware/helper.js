@@ -181,7 +181,7 @@ export var sizeValidation = function(props, propName, componentName) {
 }
 
 export var stepValidation = function(props, propName) {
-	if (props[propName] <= Math.floor((props['range']['end'] - props['range']['start'])/2)) {
+	if (props[propName] > Math.floor((props['range']['end'] - props['range']['start'])/2)) {
 		return new Error(`Step value is invalid, it should be less than or equal to ${Math.floor((props['range']['end'] - props['range']['start'])/2)}.`);
 	} else if (props[propName] <= 0) {
 		return new Error('Step value is invalid, it should be greater than 0.');

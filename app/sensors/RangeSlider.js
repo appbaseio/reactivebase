@@ -52,7 +52,9 @@ export class RangeSlider extends Component {
 	componentWillReceiveProps(nextProps) {
 		setTimeout(() => {
 			if (nextProps.defaultSelected.start !== this.state.values.min ||
-				nextProps.defaultSelected.end !== this.state.values.max) {
+				nextProps.defaultSelected.end !== this.state.values.max &&
+				nextProps.range.start <= nextProps.defaultSelected.start &&
+				nextProps.range.end >= nextProps.defaultSelected.end) {
 				let values = {};
 				values.min = nextProps.defaultSelected.start;
 				values.max = nextProps.defaultSelected.end;
@@ -103,23 +105,24 @@ export class RangeSlider extends Component {
 					helper.selectedSensor.set(obj, true);
 				}
 			}
-
-			let rem = (nextProps.defaultSelected.end -  nextProps.defaultSelected.start) % nextProps.stepValue;
-			if (rem) {
-				this.setState({
-					values: {
-						min: this.state.values.min,
-						max: nextProps.defaultSelected.end - rem,
-					}
-				});
-				var obj = {
-					key: this.props.sensorId,
-					value: {
-						from: this.state.values.min,
-						to: nextProps.defaultSelected.end - rem
-					}
-				};
-				helper.selectedSensor.set(obj, true);
+			else {
+				let rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
+				if (rem) {
+					this.setState({
+						values: {
+							min: this.state.values.min,
+							max: nextProps.defaultSelected.end - rem
+						}
+					});
+					var obj = {
+						key: this.props.sensorId,
+						value: {
+							from: this.state.values.min,
+							to: nextProps.defaultSelected.end - rem
+						}
+					};
+					helper.selectedSensor.set(obj, true);
+				}
 			}
 		}, 300);
 	}
