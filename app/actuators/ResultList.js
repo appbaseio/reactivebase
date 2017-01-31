@@ -155,9 +155,13 @@ export class ResultList extends Component {
 	}
 
 	wrapMarkup(generatedData) {
-		return generatedData.map((item) => {
-			return (<div className="rbc-list-item">{item}</div>);
-		});
+		if(Object.prototype.toString.call(generatedData) === '[object Array]' ) {
+			return generatedData.map((item, index) => {
+				return (<div key={index} className="rbc-list-item">{item}</div>);
+			});
+		} else {
+			return generatedData;
+		}
 	}
 
 	// Check if stream data exists in markersData

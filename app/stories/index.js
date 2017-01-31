@@ -463,6 +463,32 @@ storiesOf("PaginatedResultList", module)
 	.add("Basic", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
 		<PaginatedResultListDefault/>
 	)))
+	.add("Without on data", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
+		<PaginatedResultListDefault
+			onData={null}
+		/>
+	)))
+	.add("With Sort Options", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
+		<PaginatedResultListDefault
+			sortOptions={[
+				{
+					label: "Most Recent RSVP",
+					appbaseField: "mtime",
+					sortBy: "desc"
+				},
+				{
+					label: "Guests - High to Low",
+					appbaseField: "guests",
+					sortBy: "desc"
+				},
+				{
+					label: "Guests - Low to High",
+					appbaseField: "guests",
+					sortBy: "asc"
+				}
+			]}
+		/>
+	)))
 	.add("Playground", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
 		<PaginatedResultListDefault
 			title={text("title", "PaginatedResultList: Playground")}
