@@ -91,8 +91,8 @@ export class RangeSlider extends Component {
 				}
 			}
 			// check range
-			else if (nextProps.range.start !== this.state.startThreshold ||
-					 nextProps.range.end !== this.state.endThreshold ) {
+			if (nextProps.range.start !== this.state.startThreshold ||
+				nextProps.range.end !== this.state.endThreshold ) {
 				if (nextProps.range.start <= nextProps.defaultSelected.start &&
 					nextProps.range.end >= nextProps.defaultSelected.end) {
 					this.setState({
@@ -126,7 +126,7 @@ export class RangeSlider extends Component {
 				}
 			}
 			// drop value if it exceeds the threshold (based on step value)
-			else {
+			if (nextProps.stepValue !== this.props.stepValue) {
 				let rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
 				if (rem) {
 					this.setState({
