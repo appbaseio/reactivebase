@@ -292,6 +292,22 @@ storiesOf("RangeSlider", module)
 			}
 		/>
 	)))
+	.add("With Range Labels", withReadme(removeFirstLine(RangeSliderReadme), () => (
+		<RangeSliderDefault
+			defaultSelected={
+				{
+					"start": 0,
+					"end": 2
+				}
+			}
+			rangeLabels={
+				{
+					"start": "Start",
+					"end": "End"
+				}
+			}
+		/>
+	)))
 	.add("Playground", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
 			title={text("paginationAt", "RangeSlider: Guest RSVPs")}
@@ -303,6 +319,10 @@ storiesOf("RangeSlider", module)
 			defaultSelected={object("defaultSelected", {
 				"start": 0,
 				"end": 2
+			})}
+			rangeLabels={object("rangeLabels", {
+				"start": 'Start',
+				"end": 'End'
 			})}
 		/>
 	)));

@@ -12,11 +12,11 @@ export var watchForDependencyChange = function(actuate, previousSelectedSensor, 
 	let sensorListener, paginationListener;
 	// check if depend object already exists
 	let checkDependExists = function(depend) {
-			if (!previousSelectedSensor.hasOwnProperty(depend)) {
-				previousSelectedSensor[depend] = '';
-			}
+		if (!previousSelectedSensor.hasOwnProperty(depend)) {
+			previousSelectedSensor[depend] = '';
 		}
-		// apply depend changes when new value received
+	}
+	// apply depend changes when new value received
 	let applyDependChange = function(actuate, depend) {
 		if (selectedSensor[depend] && typeof selectedSensor[depend] === 'object') {
 			previousSelectedSensor[depend] = JSON.parse(JSON.stringify(selectedSensor[depend]));

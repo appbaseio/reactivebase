@@ -292,7 +292,7 @@ export class NestedList extends Component {
 	onItemSelect(key, level) {
 		let selectedValues = this.state.selectedValues;
 		let stateItems = {};
-		if (selectedValues[level] == key && this.defaultSelected.length == 1) {
+		if (selectedValues[level] == key || (this.defaultSelected && this.defaultSelected.length == 1)) {
 			delete selectedValues[level];
 			stateItems = {
 				selectedValues: selectedValues
@@ -341,8 +341,7 @@ export class NestedList extends Component {
 					key={index}
 					className="rbc-list-container col s12 col-xs-12">
 					<a href="javascript:void(0);" className={`rbc-list-item ${cx}`} onClick={() => this.onItemSelect(item.key, level)}>
-						<span> {item.key} </span>
-						{this.countRender(item.doc_count)}
+						<span className="rbc-label">{item.key} {this.countRender(item.doc_count)}</span>
 						{this.renderChevron(level)}
 					</a>
 					{this.renderList(item.key, level)}
@@ -355,7 +354,7 @@ export class NestedList extends Component {
 		let list;
 		if(key === this.state.selectedValues[level] && level === 0) {
 			list = (
-				<ul className="rbc-sub-nestedlist rbc-indent col s12 col-xs-12">
+				<ul className="rbc-sublist-container rbc-indent col s12 col-xs-12">
 					{this.renderItems(this.state.subItems, 1)}
 				</ul>
 			)
@@ -377,7 +376,7 @@ export class NestedList extends Component {
 		// set static search
 		if(this.props.showSearch) {
 			searchComponent = <StaticSearch
-				placeholder={this.props.searchPlaceholder}
+				placeholder={this.props.placeholder}
 				changeCallback={this.filterBySearch}
 			/>
 		}
@@ -391,8 +390,10 @@ export class NestedList extends Component {
 			'rbc-search-inactive': !this.props.showSearch,
 			'rbc-title-active': this.props.title,
 			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.searchPlaceholder,
-			'rbc-placeholder-inactive': !this.props.searchPlaceholder
+			'rbc-placeholder-active': this.props.placeholder,
+			'rbc-placeholder-inactive': !this.props.placeholder,
+			'rbc-count-active': this.props.showCount,
+			'rbc-count-inactive': !this.props.showCount
 		});
 
 		return (
@@ -421,7 +422,7 @@ NestedList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	searchPlaceholder: 'Search'
+	placeholder: 'Search'
 };
 
 // context type
