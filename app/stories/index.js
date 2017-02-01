@@ -144,7 +144,7 @@ storiesOf("SingleDropdownList", module)
 	.add("Playground", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
 		<SingleDropdownListDefault
 			title={text("title", "SingleDropdownList")}
-			size={number("size", "100")}
+			size={number("size", 100)}
 			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={text("defaultSelected", "London")}

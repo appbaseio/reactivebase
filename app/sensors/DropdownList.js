@@ -54,11 +54,24 @@ export class DropdownList extends Component {
 					}
 				}
 			}
+			// if (this.sortBy !== this.props.sortBy) {
+			// 	this.sortBy = this.props.sortBy;
+			// 	this.handleSortSelect();
+			// }
+			if (this.size !== this.props.size) {
+				this.size = this.props.size;
+				this.removeChannel();
+				this.createChannel();
+			}
 		}, 300);
 	}
 
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
+		this.removeChannel();
+	}
+
+	removeChannel() {
 		if(this.channelId) {
 			manager.stopStream(this.channelId);
 		}

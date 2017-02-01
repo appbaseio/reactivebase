@@ -342,7 +342,7 @@ RangeSlider.defaultProps = {
 		end: null
 	},
 	stepValue: 1,
-	size: 100,
+	size: 5,
 	title: null
 };
 

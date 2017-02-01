@@ -175,8 +175,8 @@ export var ResponsiveStory = function() {
 }
 
 export var sizeValidation = function(props, propName, componentName) {
-	if (props[propName] <= 0 || props[propName] >= 1000) {
-		return new Error('Size value is invalid, it should be between 0 and 1000.');
+	if (props[propName] < 1 || props[propName] > 1000) {
+		return new Error('Size value is invalid, it should be between 1 and 1000.');
 	}
 }
 
