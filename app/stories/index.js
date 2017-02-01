@@ -173,7 +173,7 @@ storiesOf("MultiDropdownList", module)
 	.add("Playground", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
 		<MultiDropdownListDefault
 			title={text("title", "MultiDropdownList")}
-			size={number("size", "100")}
+			size={number("size", 100)}
 			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
 			placeholder={text("placeholder", "Select Cities")}
