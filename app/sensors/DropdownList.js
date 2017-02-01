@@ -17,6 +17,9 @@ export class DropdownList extends Component {
 				}
 			}
 		};
+		this.sortObj = {
+			aggSort: this.props.sortBy
+		};
 		this.channelId = null;
 		this.channelListener = null;
 		this.previousSelectedSensor = {};
@@ -54,10 +57,10 @@ export class DropdownList extends Component {
 					}
 				}
 			}
-			// if (this.sortBy !== this.props.sortBy) {
-			// 	this.sortBy = this.props.sortBy;
-			// 	this.handleSortSelect();
-			// }
+			if (this.sortBy !== this.props.sortBy) {
+				this.sortBy = this.props.sortBy;
+				this.handleSortSelect();
+			}
 			if (this.size !== this.props.size) {
 				this.size = this.props.size;
 				this.removeChannel();
@@ -92,6 +95,25 @@ export class DropdownList extends Component {
 		helper.selectedSensor.setSensorInfo(obj);
 	}
 
+	includeAggQuery() {
+		var obj = {
+			key: this.props.componentId+'-sort',
+			value: this.sortObj
+		};
+		helper.selectedSensor.setSortInfo(obj);
+	}
+
+	handleSortSelect() {
+		this.sortObj = {
+			aggSort: this.props.sortBy
+		};
+		let obj = {
+			key: this.props.componentId+'-sort',
+			value: this.sortObj
+		};
+		helper.selectedSensor.set(obj, true, 'sortChange');
+	}
+
 	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
 		// Set the actuate - add self aggs query as well with actuate
@@ -99,8 +121,13 @@ export class DropdownList extends Component {
 		actuate['aggs'] = {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
-			size: this.props.size
+			size: this.props.size,
+			sortRef: this.props.componentId+'-sort'
 		};
+		actuate[this.props.componentId+'-sort'] = {
+			'operation': 'must'
+		};
+		this.includeAggQuery();
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.channelId = channelObj.channelId;
