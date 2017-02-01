@@ -274,7 +274,8 @@ export class RangeSlider extends Component {
 
 	render() {
 		let title = null,
-			histogram = null;
+			histogram = null,
+			marks = {};
 
 		if(this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
@@ -282,23 +283,32 @@ export class RangeSlider extends Component {
 		if(this.state.counts && this.state.counts.length) {
 			histogram = (<HistoGramComponent data={this.state.counts} />);
 		}
+		if (this.props.rangeLabels.start || this.props.rangeLabels.end) {
+			marks = {
+				[this.state.startThreshold]: this.props.rangeLabels.start,
+				[this.state.endThreshold]: this.props.rangeLabels.end
+			}
+		}
 
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title
+			'rbc-title-inactive': !this.props.title,
+			'rbc-labels-active': this.props.rangeLabels.start || this.props.rangeLabels.end,
+			'rbc-labels-inactive': !this.props.rangeLabels.start && !this.props.rangeLabels.end
 		});
 
 		return (
 			<div className={`rbc rbc-rangeslider card thumbnail col s12 col-xs-12 ${cx}`}>
 				{title}
 				{histogram}
-				<div className="rbc-rangeslider-container col s12 col-xs-12" style={{'margin': '25px 0'}}>
+				<div className="rbc-rangeslider-container col s12 col-xs-12">
 					<Slider range
 						value={[this.state.values.min, this.state.values.max]}
 						min={this.state.startThreshold}
 						max={this.state.endThreshold}
 						onChange={this.handleResults}
 						step={this.props.stepValue}
+						marks={marks}
 					/>
 				</div>
 			</div>
@@ -314,7 +324,8 @@ RangeSlider.propTypes = {
 		end: helper.validateThreshold
 	}),
 	defaultSelected: React.PropTypes.object,
-	stepValue: helper.stepValidation
+	stepValue: helper.stepValidation,
+	rangeLabels: React.PropTypes.object
 };
 
 RangeSlider.defaultProps = {
@@ -325,6 +336,10 @@ RangeSlider.defaultProps = {
 	range: {
 		start: 0,
 		end: 10
+	},
+	rangeLabels: {
+		start: null,
+		end: null
 	},
 	stepValue: 1,
 	size: 100,
