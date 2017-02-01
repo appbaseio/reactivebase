@@ -59,7 +59,6 @@ export class ItemCheckboxList extends Component {
 
 	// handler function for select all
 	handleListClickAll(value, selectedStatus) {
-		// debugger
 		this.props.selectAll(selectedStatus);
 		let selectedItems = this.props.items.map((item) => item.key );
 		selectedItems = selectedStatus ? selectedItems : [];
@@ -132,14 +131,16 @@ export class ItemCheckboxList extends Component {
 				item.keyRef = index;
 				console.log(item, e);
 			}
-			ListItemsArray.push(<ListItem
-				key={item.keyRef}
-				value={item.key}
-				doc_count={item.doc_count}
-				countField={this.props.showCount}
-				handleClick={this.handleListClick}
-				status={item.status || false}
-				ref={"ref" + item.keyRef} />);
+			ListItemsArray.push(
+				<ListItem
+					key={item.keyRef}
+					value={item.key}
+					doc_count={item.doc_count}
+					countField={this.props.showCount}
+					handleClick={this.handleListClick}
+					status={item.status || false}
+					ref={"ref" + item.keyRef} />
+			);
 		}.bind(this));
 		// include select all if set from parent
 		if(this.props.selectAllLabel && items && items.length) {
@@ -155,13 +156,14 @@ export class ItemCheckboxList extends Component {
 		}
 		// Build the array of Tags for selected items
 		if(this.props.showTags && selectedItems) {
-			selectedItems.forEach(function (item) {
-				TagItemsArray.push(<Tag
-					key={item}
-					value={item}
-					onClick={this.handleTagClick} />);
-			}.bind(this));
-			if(TagItemsArray.length > 5) {
+			if(selectedItems.length <= 5){
+				selectedItems.forEach(function (item) {
+					TagItemsArray.push(<Tag
+						key={item}
+						value={item}
+						onClick={this.handleTagClick} />);
+				}.bind(this));
+			} else {
 				TagItemsArray.unshift(<Tag
 					key={'Clear All'}
 					value={'Clear All'}

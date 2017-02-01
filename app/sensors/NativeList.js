@@ -171,7 +171,7 @@ export class NativeList extends Component {
 	addItemsToList(newItems) {
 		newItems = newItems.map((item) => {
 			item.key = item.key.toString();
-			item.status = this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1 ? true : false;
+			item.status = (this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1) || (this.selectedValue && this.selectedValue.indexOf(item.key) > -1) ? true : false;
 			return item
 		});
 		this.setState({
@@ -187,7 +187,7 @@ export class NativeList extends Component {
 
 	// Handler function when a value is deselected or removed
 	handleRemove(value, isExecuteQuery=false) {
-		this.setValue(value, isExecuteQuery)
+		this.setValue(value, isExecuteQuery);
 	}
 
 	// set value
@@ -196,6 +196,17 @@ export class NativeList extends Component {
 			key: this.props.componentId,
 			value: value
 		};
+		this.selectedValue = value;
+		if(this.props.multipleSelect && value && value.length) {
+			let items = this.state.items.map((item) => {
+				console.log(value.indexOf(item.key), item.key, value);
+				if(value.indexOf(item.key) > -1) {
+					item.status = true;
+				}
+				return item; 
+			});
+			this.setState({items: items});
+		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
