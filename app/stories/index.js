@@ -115,7 +115,7 @@ storiesOf("MultiList", module)
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
 			title={text("title", "MultiList: City Filter")}
-			size={number("size", 100)}
+			size={number("size", 10)}
 			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			defaultSelected={array("defaultSelected", ["London", "Sydney"])}
 			showCount={boolean("showCount", true)}

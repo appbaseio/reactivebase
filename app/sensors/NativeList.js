@@ -58,13 +58,11 @@ export class NativeList extends Component {
 			if (this.defaultSelected != this.props.defaultSelected) {
 				this.defaultSelected = this.props.defaultSelected;
 				let items = this.state.items;
-
 				items = items.map((item) => {
 					item.key = item.key.toString();
-					item.status = this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1 ? true : false;
+					item.status = (this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1) || (this.selectedValue && this.selectedValue.indexOf(item.key) > -1)  ? true : false;
 					return item;
 				});
-
 				this.setState({
 					items: items,
 					storedItems: items
@@ -171,7 +169,7 @@ export class NativeList extends Component {
 	addItemsToList(newItems) {
 		newItems = newItems.map((item) => {
 			item.key = item.key.toString();
-			item.status = (this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1) || (this.selectedValue && this.selectedValue.indexOf(item.key) > -1) ? true : false;
+			item.status = (this.selectedValue && this.selectedValue.indexOf(item.key) > -1) ? true : false;
 			return item
 		});
 		this.setState({
@@ -211,10 +209,10 @@ export class NativeList extends Component {
 	}
 
 	// selectAll
-	selectAll(value, defaultSelected, cb) {
-		let items = this.state.items.filter((item) => {item.status = value; return item; });
+	selectAll(value, selectedValue, cb) {
+		let items = this.state.items.map((item) => {item.status = value; return item; });
 		if(value) {
-			this.defaultSelected = defaultSelected;
+			this.selectedValue = selectedValue;
 		}
 		this.setState({
 			items: items,
