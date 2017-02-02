@@ -118,9 +118,19 @@ export class ItemCheckboxList extends Component {
 		this.handleListClickAll(this.props.selectAllLabel, false);
 	}
 
+	getSelectedItems() {
+		let selectedItems = this.state.selectedItems ? this.state.selectedItems : [];
+		this.props.items.forEach((item) => {
+			if(item.status && selectedItems.indexOf(item.key) < 0) {
+				selectedItems.push(item.key);
+			}
+		});
+		return selectedItems;
+	}
+
 	render() {
 		let items = this.props.items;
-		let selectedItems = this.state.selectedItems;
+		let selectedItems = this.getSelectedItems();
 		var ListItemsArray = [];
 		var TagItemsArray = [];
 		// Build the array for the checkboxList items
