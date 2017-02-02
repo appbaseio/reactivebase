@@ -226,7 +226,7 @@ class ListItem extends Component {
 		let count;
 		// Check if the user has set to display countField
 		if (this.props.countField) {
-			count = <span className="rbc-count"> ({this.props.doc_count}) </span>;
+			count = <span className="rbc-count"> {this.props.doc_count} </span>;
 		}
 		let cx = classNames({
 			'rbc-count-active': this.props.countField,
