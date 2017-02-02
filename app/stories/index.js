@@ -145,6 +145,7 @@ storiesOf("SingleDropdownList", module)
 		<SingleDropdownListDefault
 			title={text("title", "SingleDropdownList")}
 			size={number("size", 100)}
+			showCount={boolean("showCount", true)}
 			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={text("defaultSelected", "London")}
@@ -180,6 +181,7 @@ storiesOf("MultiDropdownList", module)
 		<MultiDropdownListDefault
 			title={text("title", "MultiDropdownList")}
 			size={number("size", 100)}
+			showCount={boolean("showCount", true)}
 			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
@@ -317,7 +319,7 @@ storiesOf("RangeSlider", module)
 	)))
 	.add("Playground", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
-			title={text("paginationAt", "RangeSlider: Guest RSVPs")}
+			title={text("title", "RangeSlider: Guest RSVPs")}
 			range={object("range", {
 				"start": 0,
 				"end": 5
