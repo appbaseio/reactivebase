@@ -109,9 +109,9 @@ export class ItemCheckboxList extends Component {
 			selectedItems: updated
 		}, this.updateAction.bind(this));
 		// Pass the removed value props to parent components to add updated list in terms query
-		if(this.state.selectedItems.length) {
-			this.props.onSelect(this.state.selectedItems);
-		}
+		// if(updated.length) {
+			this.props.onSelect(updated);
+		// }
 	}
 
 	clearAll() {

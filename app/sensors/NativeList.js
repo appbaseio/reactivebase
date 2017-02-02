@@ -185,16 +185,19 @@ export class NativeList extends Component {
 	}
 
 	// Handler function when a value is selected
-	handleSelect(value, selectAll=false) {
-		if(!selectAll) {
-			this.setState({
-				selectAll: false
-			}, cb.bind(this));
+	handleSelect(handleValue, selectAll=false) {
+		if(this.state.selectAll) {
+			if(!selectAll) {
+				this.setState({
+					selectAll: false
+				}, function() {
+					this.setValue(handleValue, true);
+				}.bind(this));
+			} else {
+				this.setValue(handleValue, true);
+			}
 		} else {
-			cb.call(this);
-		}
-		function cb() {
-			this.setValue(value, true)
+			this.setValue(handleValue, true);
 		}
 	}
 
@@ -210,11 +213,12 @@ export class NativeList extends Component {
 			value: value
 		};
 		this.selectedValue = value;
-		if(this.props.multipleSelect && value && value.length) {
+		if(this.props.multipleSelect) {
 			let items = this.state.items.map((item) => {
-				console.log(value.indexOf(item.key), item.key, value);
 				if(value.indexOf(item.key) > -1) {
 					item.status = true;
+				} else {
+					item.status = false;
 				}
 				return item; 
 			});
@@ -225,7 +229,10 @@ export class NativeList extends Component {
 
 	// selectAll
 	selectAll(value, selectedValue, cb) {
-		let items = this.state.items.map((item) => {item.status = value; return item; });
+		let items = this.state.items.map((item) => {
+			item.status = value;
+			return item;
+		});
 		if(value) {
 			this.selectedValue = selectedValue;
 		}
