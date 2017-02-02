@@ -40,7 +40,7 @@ export class DropdownList extends Component {
 				if (!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
 					this.defaultSelected = this.props.defaultSelected;
 					let records = this.state.items.filter((record) => {
-						return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
+						return this.defaultSelected.indexOf(record.value) > -1 ? true : false;
 					});
 					if (records.length) {
 						this.handleChange(records);
@@ -50,7 +50,7 @@ export class DropdownList extends Component {
 				if (this.defaultSelected != this.props.defaultSelected) {
 					this.defaultSelected = this.props.defaultSelected;
 					let records = this.state.items.filter((record) => {
-						return record.label === this.defaultSelected;
+						return record.value === this.defaultSelected;
 					});
 					if (records.length) {
 						this.handleChange(records[0]);
@@ -171,14 +171,14 @@ export class DropdownList extends Component {
 		if (this.defaultSelected) {
 			if (this.props.multipleSelect) {
 				let records = this.state.items.filter((record) => {
-					return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
+					return this.defaultSelected.indexOf(record.value) > -1 ? true : false;
 				});
 				if (records.length) {
 					this.handleChange(records);
 				}
 			} else {
 				let records = this.state.items.filter((record) => {
-					return record.label === this.defaultSelected;
+					return record.value === this.defaultSelected;
 				});
 				if (records.length) {
 					this.handleChange(records[0]);
@@ -193,11 +193,15 @@ export class DropdownList extends Component {
 		if (this.props.multipleSelect) {
 			result = [];
 			value.map(item => {
-				result.push(item.key);
+				result.push(item.value);
 			});
-			result = result.join();
+			if (this.props.selectAllLabel && (result.indexOf(this.props.selectAllLabel) > -1)) {
+				result = this.props.selectAllLabel;
+			} else {
+				result = result.join();
+			}
 		} else {
-			result = value.key
+			result = value.value
 		}
 		this.setState({
 			value: result

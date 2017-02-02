@@ -162,6 +162,12 @@ storiesOf("MultiDropdownList", module)
 			placeholder="Select Cities"
 		/>
 	)))
+	.add("With Select All", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
+		<MultiDropdownListDefault
+			placeholder="Select Cities"
+			selectAllLabel="All Cities"
+		/>
+	)))
 	.add("With Default Selected", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
 		<MultiDropdownListDefault
 			placeholder="Select Cities"
