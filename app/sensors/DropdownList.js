@@ -193,11 +193,11 @@ export class DropdownList extends Component {
 		if (this.props.multipleSelect) {
 			result = [];
 			value.map(item => {
-				result.push(item.label);
+				result.push(item.key);
 			});
 			result = result.join();
 		} else {
-			result = value.label
+			result = value.key
 		}
 		this.setState({
 			value: result
