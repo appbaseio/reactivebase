@@ -87,14 +87,6 @@ $themes: (
 					color: map-get($map, font-color);
 					&.rbc-item-active {
 						color: map-get($map, color);
-						.rbc-count {
-							background: map-get($map, color);
-							color: map-get($map, background);
-						}
-					}
-					.rbc-count {
-						background: map-get($map, font-color);
-						color: map-get($map, background);
 					}
 				}
 			}

@@ -43,10 +43,16 @@ export class NativeList extends Component {
 
 	// build query for this sensor only
 	defaultQuery(value) {
-		if(value) {
-			let type = typeof value === 'object' ? 'terms' : 'term';
+		if(this.state.selectAll) {
 			return {
-				[type]: {
+				"exists": {
+					'field': [this.props.appbaseField]
+				}
+			};
+		}
+		else if(value) {
+			return {
+				[this.type]: {
 					[this.props.appbaseField]: value
 				}
 			};
@@ -179,8 +185,17 @@ export class NativeList extends Component {
 	}
 
 	// Handler function when a value is selected
-	handleSelect(value) {
-		this.setValue(value, true)
+	handleSelect(value, selectAll=false) {
+		if(!selectAll) {
+			this.setState({
+				selectAll: false
+			}, cb.bind(this));
+		} else {
+			cb.call(this);
+		}
+		function cb() {
+			this.setValue(value, true)
+		}
 	}
 
 	// Handler function when a value is deselected or removed
@@ -217,15 +232,17 @@ export class NativeList extends Component {
 		this.setState({
 			items: items,
 			storedItems: items,
-			defaultSelectAll: value
+			defaultSelectAll: value,
+			selectAll: value
 		}, cb);
 	}
 
 	// filter
 	filterBySearch(value) {
 		if(value) {
-			let items = this.state.storedItems.filter(function(item) {
-				return item.key && item.key.toLowerCase().indexOf(value.toLowerCase()) > -1;
+			let items = this.state.storedItems.map(function(item) {
+				item.visible = item.key && item.key.toLowerCase().indexOf(value.toLowerCase()) > -1 ? true : false;
+				return item;
 			});
 			this.setState({
 				items: items
@@ -251,7 +268,8 @@ export class NativeList extends Component {
 				showCount={this.props.showCount}
 				selectAll={this.selectAll}
 				defaultSelected={this.props.defaultSelected}
-				selectAllLabel={this.props.selectAllLabel} />
+				selectAllLabel={this.props.selectAllLabel}
+				selectAllValue={this.state.selectAll} />
 		}
 		else {
 			listComponent = <ItemList
@@ -260,7 +278,8 @@ export class NativeList extends Component {
 				onRemove={this.handleRemove}
 				showCount={this.props.showCount}
 				defaultSelected={this.props.defaultSelected}
-				selectAllLabel={this.props.selectAllLabel} />
+				selectAllLabel={this.props.selectAllLabel}
+				selectAll={this.selectAll} />
 		}
 
 		// set static search

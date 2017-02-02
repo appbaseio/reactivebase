@@ -36,11 +36,11 @@ export class ItemList extends Component {
 
 	handleListClickAll(value) {
 		let selectedItems = this.props.items.map((item) => item.key );
+		this.props.selectAll(value, selectedItems);
 		this.setState({
 			selectedItem: value
 		}, function() {
-			// this.updateAction.bind(this);
-			this.props.onSelect(selectedItems);
+			this.props.onSelect(selectedItems, value);
 		}.bind(this));
 	}
 
@@ -60,12 +60,14 @@ export class ItemList extends Component {
 		let itemsComponent = [];
 		// Build the array of components for each item
 		items.forEach(function (item) {
+			let visibleFlag = !item.hasOwnProperty('visible') ? true : (item.visible ? true : false);
 			itemsComponent.push(<ItemRow
 				key={item.key}
 				value={item.key}
 				doc_count={item.doc_count}
 				countField={this.props.showCount}
 				handleClick={this.handleClick}
+				visible={visibleFlag}
 				selectedItem={this.state.selectedItem}/>)
 		}.bind(this));
 
@@ -74,6 +76,7 @@ export class ItemList extends Component {
 			itemsComponent.unshift(
 				<ItemRow
 					key='selectall'
+					visible={true}
 					value={this.props.selectAllLabel}
 					countField={false}
 					handleClick={this.handleListClickAll}
@@ -128,7 +131,7 @@ class ItemRow extends Component {
 		let count;
 		// Check if user wants to show count field
 		if (this.props.countField) {
-			count = <span className="rbc-count"> ({this.props.doc_count}) </span>;
+			count = <span className="rbc-count"> {this.props.doc_count} </span>;
 		}
 		return count;
 	}
@@ -136,7 +139,9 @@ class ItemRow extends Component {
 	render() {
 		let cx = classNames({
 			'rbc-count-active': this.props.countField,
-			'rbc-count-inactive': !this.props.countField
+			'rbc-count-inactive': !this.props.countField,
+			'rbc-item-show': this.props.visible,
+			'rbc-item-hide': !this.props.visible
 		});
 		// let activeClass = this.props.value === this.props.selectedItem ? 'active' : '';
 		return (

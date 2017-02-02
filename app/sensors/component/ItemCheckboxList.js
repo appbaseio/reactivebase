@@ -67,7 +67,7 @@ export class ItemCheckboxList extends Component {
 			selectedItems: selectedItems
 		}, function() {
 			this.updateAction.bind(this);
-			this.props.onSelect(this.state.selectedItems);
+			this.props.onSelect(this.state.selectedItems, selectedItems);
 		}.bind(this));
 	}
 
@@ -131,16 +131,20 @@ export class ItemCheckboxList extends Component {
 				item.keyRef = index;
 				console.log(item, e);
 			}
-			ListItemsArray.push(
-				<ListItem
-					key={item.keyRef}
-					value={item.key}
-					doc_count={item.doc_count}
-					countField={this.props.showCount}
-					handleClick={this.handleListClick}
-					status={item.status || false}
-					ref={"ref" + item.keyRef} />
-			);
+			let visibleFlag = !item.hasOwnProperty('visible') ? true : (item.visible ? true : false);
+			// if(flag) {
+				ListItemsArray.push(
+					<ListItem
+						key={item.keyRef}
+						value={item.key}
+						doc_count={item.doc_count}
+						countField={this.props.showCount}
+						handleClick={this.handleListClick}
+						visible={visibleFlag}
+						status={item.status || false}
+						ref={"ref" + item.keyRef} />
+				);
+			// }
 		}.bind(this));
 		// include select all if set from parent
 		if(this.props.selectAllLabel && items && items.length) {
@@ -149,8 +153,9 @@ export class ItemCheckboxList extends Component {
 					key='selectall'
 					value={this.props.selectAllLabel}
 					countField={false}
+					visible={true}
 					handleClick={this.handleListClickAll}
-					status={this.state.defaultSelectall}
+					status={this.props.selectAllValue}
 					ref={"refselectall"} />
 			);
 		}
@@ -226,11 +231,13 @@ class ListItem extends Component {
 		let count;
 		// Check if the user has set to display countField
 		if (this.props.countField) {
-			count = <span className="rbc-count"> ({this.props.doc_count}) </span>;
+			count = <span className="rbc-count"> {this.props.doc_count} </span>;
 		}
 		let cx = classNames({
 			'rbc-count-active': this.props.countField,
-			'rbc-count-inactive': !this.props.countField
+			'rbc-count-inactive': !this.props.countField,
+			'rbc-item-show': this.props.visible,
+			'rbc-item-hide': !this.props.visible
 		});
 		return (
 			<div onClick={this.handleClick.bind(this) } className={`rbc-list-item row ${cx}`}>
