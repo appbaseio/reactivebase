@@ -248,8 +248,12 @@ export class NativeList extends Component {
 				items: items
 			});
 		} else {
+			let items = this.state.storedItems.map(function(item) {
+				item.visible = true;
+				return item;
+			});
 			this.setState({
-				items: this.state.storedItems
+				items: items
 			});
 		}
 	}
