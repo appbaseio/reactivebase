@@ -1,7 +1,8 @@
 import {default as React, Component} from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
-import JsonPrint from './component/JsonPrint'
+import JsonPrint from './component/JsonPrint';
+import { PoweredBy } from '../sensors/PoweredBy';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 
@@ -378,16 +379,19 @@ export class ResultList extends Component {
 		}
 
 		return (
-			<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail ${cx}`}>
-				{title}
-				{sortOptions}
-				{this.state.resultMarkup}
-				{
-					this.state.isLoading ?
-					<div className="rbc-loader"></div> :
-					null
-				}
-			</div >
+			<div className="rbc-resultlist-container">
+				<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail ${cx}`}>
+					{title}
+					{sortOptions}
+					{this.state.resultMarkup}
+					{
+						this.state.isLoading ?
+						<div className="rbc-loader"></div> :
+						null
+					}
+				</div >
+				<PoweredBy></PoweredBy>
+			</div>
 		)
 	}
 }
