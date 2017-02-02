@@ -67,7 +67,7 @@ export class ItemCheckboxList extends Component {
 			selectedItems: selectedItems
 		}, function() {
 			this.updateAction.bind(this);
-			this.props.onSelect(this.state.selectedItems);
+			this.props.onSelect(this.state.selectedItems, selectedItems);
 		}.bind(this));
 	}
 
