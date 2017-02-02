@@ -75,7 +75,6 @@ export var watchForDependencyChange = function(actuate, previousSelectedSensor, 
 		if (this.sortListener) {
 			this.sortListener.remove();
 		}
-		console.log('Stopped - ', this.random);
 	}
 
 };

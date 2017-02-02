@@ -220,7 +220,7 @@ export class NativeList extends Component {
 				} else {
 					item.status = false;
 				}
-				return item; 
+				return item;
 			});
 			this.setState({items: items});
 		}

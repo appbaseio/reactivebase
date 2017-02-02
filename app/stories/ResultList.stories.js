@@ -80,7 +80,7 @@ export default class ResultListDefault extends Component {
 				password="a0edfc7f-5611-46f6-8fe1-d4db234631f3"
 				type="meetup"
 			>
-				<div className="row">
+				<div className="row reverse-labels">
 					<div className="col s6 col-xs-6">
 						<ResultList
 							componentId="SearchResult"

@@ -216,9 +216,9 @@ storiesOf("NestedList", module)
 	)));
 
 storiesOf("PoweredBy", module)
-	.add("Basic", withReadme(removeFirstLine(NestedListReadme), () => (
+	.add("Basic", () => (
 		<PoweredByDefault />
-	)));
+	));
 
 storiesOf("SingleRange", module)
 	.addDecorator(withKnobs)

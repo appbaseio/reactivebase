@@ -214,7 +214,7 @@ class Tag extends Component {
 	render() {
 		return (
 			<span onClick={this.props.onClick.bind(null, this.props.value) } className="rbc-tag-item col">
-				<a href="javascript:void(0)" className="close"> x </a>
+				<a href="javascript:void(0)" className="close">×</a>
 				<span>{this.props.value}</span>
 			</span>
 		);
