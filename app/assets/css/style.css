@@ -1378,6 +1378,9 @@ a {
     .rbc.rbc-resultlist.rbc-sort-active .rbc-sortoptions select {
       height: 32px; }
 
+.rbc-resultlist-container {
+  position: relative; }
+
 .rbc-loader {
   width: 100%;
   height: 74px;
@@ -1483,8 +1486,10 @@ a {
     top: 57px; }
 
 .rbc-poweredby {
-  padding: 10px;
-  display: inline-block; }
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  right: 12px; }
   .rbc-poweredby .rbc-img-responsive {
-    max-width: 200px;
+    max-width: 100px;
     width: 100%; }

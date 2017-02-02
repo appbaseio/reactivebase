@@ -1,8 +1,10 @@
 .rbc-poweredby {
-	padding: 10px;
 	display: inline-block;
+	position: absolute;
+	bottom: 0;
+	right: 12px;
 	.rbc-img-responsive {
-		max-width: 200px;
+		max-width: 100px;
 		width: 100%;
 	}
 }
