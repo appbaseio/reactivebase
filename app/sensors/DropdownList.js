@@ -190,7 +190,7 @@ export class DropdownList extends Component {
 
 	renderOption(option) {
 		return (
-			<span>{option.label} {this.props.showCount && option.count ? (<span className="rbc-count">{option.count}</span>) : null}</span>
+			<span key={option.value}>{option.value} {this.props.showCount && option.count ? (<span className="rbc-count">{option.count}</span>) : null}</span>
 		)
 	}
 
