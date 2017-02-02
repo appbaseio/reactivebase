@@ -43,7 +43,14 @@ export class NativeList extends Component {
 
 	// build query for this sensor only
 	defaultQuery(value) {
-		if(value) {
+		if(this.state.selectAll) {
+			return {
+				"exists": {
+					'field': [this.props.appbaseField]
+				}
+			};
+		}
+		else if(value) {
 			let type = typeof value === 'object' ? 'terms' : 'term';
 			return {
 				[type]: {
@@ -217,7 +224,8 @@ export class NativeList extends Component {
 		this.setState({
 			items: items,
 			storedItems: items,
-			defaultSelectAll: value
+			defaultSelectAll: value,
+			selectAll: value
 		}, cb);
 	}
 
