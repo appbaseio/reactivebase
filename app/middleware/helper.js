@@ -7,7 +7,6 @@ export var watchForDependencyChange = function(actuate, previousSelectedSensor, 
 	var self = this;
 	globalI += 1;
 	this.random = globalI;
-	console.log('Created - ', self.random);
 	let selectedSensor = {};
 	let sensorListener, paginationListener;
 	// check if depend object already exists
@@ -48,7 +47,6 @@ export var watchForDependencyChange = function(actuate, previousSelectedSensor, 
 		var self = this;
 		this.sensorListener = sensorEmitter.addListener('sensorChange', function(data) {
 			selectedSensor = data;
-			console.log('Listening - ', self.random);
 			self.init();
 		});
 
