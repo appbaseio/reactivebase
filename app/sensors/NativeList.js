@@ -51,9 +51,8 @@ export class NativeList extends Component {
 			};
 		}
 		else if(value) {
-			let type = typeof value === 'object' ? 'terms' : 'term';
 			return {
-				[type]: {
+				[this.type]: {
 					[this.props.appbaseField]: value
 				}
 			};
@@ -186,15 +185,21 @@ export class NativeList extends Component {
 	}
 
 	// Handler function when a value is selected
-	handleSelect(value) {
-		this.setValue(value, true)
+	handleSelect(value, selectAll=false) {
+		if(!selectAll) {
+			this.setState({
+				selectAll: false
+			}, cb.bind(this));
+		} else {
+			cb.call(this);
+		}
+		function cb() {
+			this.setValue(value, true)
+		}
 	}
 
 	// Handler function when a value is deselected or removed
 	handleRemove(value, isExecuteQuery=false) {
-		this.setState({
-			selectAll: false
-		});
 		this.setValue(value, isExecuteQuery);
 	}
 
@@ -273,7 +278,8 @@ export class NativeList extends Component {
 				onRemove={this.handleRemove}
 				showCount={this.props.showCount}
 				defaultSelected={this.props.defaultSelected}
-				selectAllLabel={this.props.selectAllLabel} />
+				selectAllLabel={this.props.selectAllLabel}
+				selectAll={this.selectAll} />
 		}
 
 		// set static search
