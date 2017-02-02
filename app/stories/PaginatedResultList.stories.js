@@ -72,7 +72,7 @@ export default class PaginatedResultListDefault extends Component {
 				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
 				type="meetupdata1"
 			>
-				<div className="row">
+				<div className="row reverse-labels">
 					<div className="col s6 col-xs-6">
 						<PaginatedResultList
 							componentId="SearchResult"

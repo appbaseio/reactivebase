@@ -212,11 +212,10 @@ export class NativeList extends Component {
 		this.selectedValue = value;
 		if(this.props.multipleSelect && value && value.length) {
 			let items = this.state.items.map((item) => {
-				console.log(value.indexOf(item.key), item.key, value);
 				if(value.indexOf(item.key) > -1) {
 					item.status = true;
 				}
-				return item; 
+				return item;
 			});
 			this.setState({items: items});
 		}
