@@ -186,19 +186,12 @@ export class NativeList extends Component {
 
 	// Handler function when a value is selected
 	handleSelect(handleValue, selectAll=false) {
-		if(this.state.selectAll) {
-			if(!selectAll) {
-				this.setState({
-					selectAll: false
-				}, function() {
-					this.setValue(handleValue, true);
-				}.bind(this));
-			} else {
-				this.setValue(handleValue, true);
-			}
-		} else {
-			this.setValue(handleValue, true);
+		if(this.state.selectAll && !selectAll) {
+			this.setState({
+				selectAll: false
+			});
 		}
+		this.setValue(handleValue, true);
 	}
 
 	// Handler function when a value is deselected or removed
