@@ -28,6 +28,7 @@ export class DropdownList extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
 		this.defaultQuery = this.defaultQuery.bind(this);
+		this.renderOption = this.renderOption.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -187,12 +188,19 @@ export class DropdownList extends Component {
 		}
 	}
 
+	renderOption(option) {
+		return (
+			<span>{option.label} {this.props.showCount && option.count ? (<span className="rbc-count">{option.count}</span>) : null}</span>
+		)
+	}
+
 	addItemsToList(newItems) {
 		newItems = newItems.map((item) => {
 			item.label = item.key.toString();
 			item.value = item.key.toString();
+			item.count = null;
 			if (this.props.showCount) {
-				item.label = item.label + " (" + item.doc_count + ")"
+				item.count = item.doc_count
 			}
 			return item
 		});
@@ -290,7 +298,9 @@ export class DropdownList extends Component {
 								value={this.state.value}
 								onChange={this.handleChange}
 								multi={this.props.multipleSelect}
+								cache={false}
 								placeholder={this.props.placeholder}
+								optionRenderer={this.renderOption}
 								searchable={true} /> : null }
 					</div>
 				</div>

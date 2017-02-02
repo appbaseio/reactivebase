@@ -1216,22 +1216,21 @@ a {
     border-radius: 2px;
     border: 1px solid;
     display: inline-block;
-    font-size: 14px;
     margin-left: 5px;
     margin-top: 5px;
     vertical-align: middle;
-    line-height: 18px;
+    font-size: .9em;
+    line-height: 1.4;
     padding: 0;
     display: inline-block;
     cursor: pointer; }
     .rbc.rbc-singlelist .rbc-tag-item span,
     .rbc.rbc-multilist .rbc-tag-item span {
-      padding: 0 7px;
+      padding: 0 5px;
       position: relative;
       top: 1px; }
     .rbc.rbc-singlelist .rbc-tag-item .close,
     .rbc.rbc-multilist .rbc-tag-item .close {
-      font-size: 12px;
       display: inline-block;
       border-bottom-left-radius: 2px;
       border-top-left-radius: 2px;
@@ -1317,20 +1316,19 @@ a {
     border-radius: 2px;
     border: 1px solid;
     display: inline-block;
-    font-size: 14px;
     margin-left: 5px;
     margin-top: 5px;
     vertical-align: middle;
-    line-height: 18px;
+    font-size: .9em;
+    line-height: 1.4;
     padding: 0;
     display: inline-block;
     cursor: pointer; }
     .rbc.rbc-singlerange .rbc-tag-item span, .rbc.rbc-multirange .rbc-tag-item span {
-      padding: 0 7px;
+      padding: 0 5px;
       position: relative;
       top: 1px; }
     .rbc.rbc-singlerange .rbc-tag-item .close, .rbc.rbc-multirange .rbc-tag-item .close {
-      font-size: 12px;
       display: inline-block;
       border-bottom-left-radius: 2px;
       border-top-left-radius: 2px;
