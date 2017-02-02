@@ -26,11 +26,13 @@ export class RangeSlider extends Component {
 				}
 			}
 		};
+		this.maxSize = 100;
 		this.type = 'range';
 		this.channelId = null;
 		this.channelListener = null;
 		this.handleValuesChange = this.handleValuesChange.bind(this);
 		this.handleResults = this.handleResults.bind(this);
+		this.defaultQuery = this.defaultQuery.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -115,15 +117,17 @@ export class RangeSlider extends Component {
 						endThreshold: nextProps.range.end,
 						values: values
 					});
+					var currentRange = {
+						from: values.min,
+						to: values.max
+					};
 					var obj = {
 						key: this.props.componentId,
-						value: {
-							from: values.min,
-							to: values.max
-						}
+						value: currentRange
 					};
 					helper.selectedSensor.set(obj, true);
 				}
+				this.setRangeValue();
 			}
 			// drop value if it exceeds the threshold (based on step value)
 			if (nextProps.stepValue !== this.props.stepValue) {
@@ -176,7 +180,39 @@ export class RangeSlider extends Component {
 					inputData: this.props.appbaseField
 				}
 		};
+		var obj1 = {
+				key: this.props.componentId+'-internal',
+				value: {
+					queryType: 'range',
+					inputData: this.props.appbaseField,
+					defaultQuery: this.defaultQuery
+				}
+		};
 		helper.selectedSensor.setSensorInfo(obj);
+		helper.selectedSensor.setSensorInfo(obj1);
+		this.setRangeValue();
+	}
+
+	setRangeValue() {
+		var objValue = {
+			key: this.props.componentId+'-internal',
+			value: this.props.range
+		};
+		helper.selectedSensor.set(objValue, true);
+	}
+
+	defaultQuery(record) {
+		if(record) {
+			return {
+				range: {
+						[this.props.appbaseField]: {
+							gte: record.start,
+							lte: record.end,
+							boost: 2.0
+					}
+				}
+			};
+		}
 	}
 
 	// Create a channel which passes the actuate and receive results whenever actuate changes
@@ -185,8 +221,11 @@ export class RangeSlider extends Component {
 		let actuate = this.props.actuate ? this.props.actuate : {};
 		actuate['aggs'] = {
 			key: this.props.appbaseField,
-			sort: this.props.sort,
-			size: this.props.size
+			sort: 'asc',
+			size: this.getSize()
+		};
+		actuate[this.props.componentId+'-internal'] = {
+			operation: 'must'
 		};
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
@@ -205,6 +244,10 @@ export class RangeSlider extends Component {
 			});
 			this.setData(data);
 		}.bind(this));
+	}
+
+	getSize() {
+		return Math.min(this.props.range.end - this.props.range.start, this.maxSize);
 	}
 
 	setData(data) {
@@ -342,7 +385,6 @@ RangeSlider.defaultProps = {
 		end: null
 	},
 	stepValue: 1,
-	size: 5,
 	title: null
 };
 
