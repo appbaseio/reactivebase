@@ -96,13 +96,21 @@
 }
 
 .rbc-count {
-	border-left: 1px solid;
-	border-right: 1px solid;
-	display: inline-block;
-	border-radius: 1rem;
+	position: relative;
 	padding: 0 4px;
-	line-height: 1rem;
-	margin-left: 2px;
+	display: inline-block;
+	&:before {
+		content: '(';
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	&:after {
+		content: ')';
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
 }
 
 .rbc-item-hide {
