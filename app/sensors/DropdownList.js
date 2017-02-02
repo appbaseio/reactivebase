@@ -20,12 +20,14 @@ export class DropdownList extends Component {
 		this.sortObj = {
 			aggSort: this.props.sortBy
 		};
+		this.selectAll = false;
 		this.channelId = null;
 		this.channelListener = null;
 		this.previousSelectedSensor = {};
 		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
+		this.defaultQuery = this.defaultQuery.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -69,6 +71,19 @@ export class DropdownList extends Component {
 		}, 300);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		let items = this.state.items;
+		if (nextProps.selectAllLabel != this.props.selectAllLabel) {
+			if (this.props.selectAllLabel) {
+				items.shift();
+			}
+			items.unshift({label: nextProps.selectAllLabel, value: nextProps.selectAllLabel});
+			this.setState({
+				items: items
+			});
+		}
+	}
+
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
 		this.removeChannel();
@@ -83,13 +98,32 @@ export class DropdownList extends Component {
 		}
 	}
 
+	// build query for this sensor only
+	defaultQuery(value) {
+		if(this.selectAll) {
+			return {
+				"exists": {
+					'field': [this.props.appbaseField]
+				}
+			};
+		}
+		else if(value) {
+			return {
+				[this.type]: {
+					[this.props.appbaseField]: value
+				}
+			};
+		}
+	}
+
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
 			key: this.props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: this.props.appbaseField
+				inputData: this.props.appbaseField,
+				defaultQuery: this.defaultQuery
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -190,6 +224,7 @@ export class DropdownList extends Component {
 	// Handler function when a value is selected
 	handleChange(value) {
 		let result;
+		this.selectAll = false;
 		if (this.props.multipleSelect) {
 			result = [];
 			value.map(item => {
@@ -197,11 +232,15 @@ export class DropdownList extends Component {
 			});
 			if (this.props.selectAllLabel && (result.indexOf(this.props.selectAllLabel) > -1)) {
 				result = this.props.selectAllLabel;
+				this.selectAll = true;
 			} else {
 				result = result.join();
 			}
 		} else {
-			result = value.value
+			result = value.value;
+			if (this.props.selectAllLabel && result == this.props.selectAllLabel) {
+				this.selectAll = true;
+			}
 		}
 		this.setState({
 			value: result
@@ -218,17 +257,6 @@ export class DropdownList extends Component {
 			key: this.props.componentId,
 			value: value
 		};
-		if (value == this.props.selectAllLabel) {
-			obj = {
-				key: this.props.componentId,
-				value: {
-					queryType: "match_all"
-				}
-			};
-			helper.selectedSensor.setSensorInfo(obj);
-		} else {
-			this.setQueryInfo();
-		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -286,7 +314,8 @@ DropdownList.defaultProps = {
 	sortBy: 'count',
 	size: 100,
 	title: null,
-	placeholder: 'Select...'
+	placeholder: 'Select...',
+	selectAllLabel: null
 };
 
 // context type
