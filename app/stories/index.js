@@ -18,6 +18,8 @@ import SingleRangeReadme from "@appbaseio/reactivebase-manual/docs/v1/components
 import MultiRangeDefault from "./MultiRange.stories";
 import MultiRangeReadme from "@appbaseio/reactivebase-manual/docs/v1/components/MultiRange.md";
 
+import PoweredByDefault from "./PoweredBy.stories";
+
 import ToggleButtonDefault from "./ToggleButton.stories";
 import ToggleButtonReadme from "@appbaseio/reactivebase-manual/docs/v1/components/ToggleButton.md";
 
@@ -209,6 +211,11 @@ storiesOf("NestedList", module)
 			showSearch={boolean("showSearch", true)}
 			placeholder={text("placeholder", "Search Cars")}
 		/>
+	)));
+
+storiesOf("PoweredBy", module)
+	.add("Basic", withReadme(removeFirstLine(NestedListReadme), () => (
+		<PoweredByDefault />
 	)));
 
 storiesOf("SingleRange", module)
