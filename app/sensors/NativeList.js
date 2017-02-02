@@ -192,6 +192,9 @@ export class NativeList extends Component {
 
 	// Handler function when a value is deselected or removed
 	handleRemove(value, isExecuteQuery=false) {
+		this.setState({
+			selectAll: false
+		});
 		this.setValue(value, isExecuteQuery);
 	}
 
@@ -232,8 +235,9 @@ export class NativeList extends Component {
 	// filter
 	filterBySearch(value) {
 		if(value) {
-			let items = this.state.storedItems.filter(function(item) {
-				return item.key && item.key.toLowerCase().indexOf(value.toLowerCase()) > -1;
+			let items = this.state.storedItems.map(function(item) {
+				item.visible = item.key && item.key.toLowerCase().indexOf(value.toLowerCase()) > -1 ? true : false;
+				return item;
 			});
 			this.setState({
 				items: items
@@ -259,7 +263,8 @@ export class NativeList extends Component {
 				showCount={this.props.showCount}
 				selectAll={this.selectAll}
 				defaultSelected={this.props.defaultSelected}
-				selectAllLabel={this.props.selectAllLabel} />
+				selectAllLabel={this.props.selectAllLabel}
+				selectAllValue={this.state.selectAll} />
 		}
 		else {
 			listComponent = <ItemList

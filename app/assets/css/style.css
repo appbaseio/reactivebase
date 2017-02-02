@@ -1245,6 +1245,9 @@ a {
   line-height: 1rem;
   margin-left: 2px; }
 
+.rbc-item-hide {
+  display: none; }
+
 .rbc.rbc-singlerange, .rbc.rbc-multirange {
   height: 250px;
   position: relative;
