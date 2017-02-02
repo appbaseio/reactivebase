@@ -1,6 +1,6 @@
 {
   "name": "@appbaseio/reactivebase",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Data components for building reactive UIs",
   "main": "lib/app.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "build:umd": "cross-env NODE_ENV=development && webpack --config webpack.config.umd.js app/app.js umd/reactivebase.js",
     "build-bro": "browserify -t [ babelify --presets [ es2015 stage-0 react ] ] main.js -o dist/main.bundle.js",
     "storybook": "start-storybook -p 9009",
-    "build-storybook": "build-storybook -o demo"
+    "build-storybook": "build-storybook -o playground"
   },
   "files": [
     "lib/",
