@@ -337,8 +337,8 @@ storiesOf("RangeSlider", module)
 				"end": 2
 			})}
 			rangeLabels={object("rangeLabels", {
-				"start": 'Start',
-				"end": 'End'
+				"start": "Start",
+				"end": "End"
 			})}
 		/>
 	)));

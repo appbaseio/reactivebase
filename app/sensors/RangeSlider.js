@@ -368,7 +368,10 @@ RangeSlider.propTypes = {
 	}),
 	defaultSelected: React.PropTypes.object,
 	stepValue: helper.stepValidation,
-	rangeLabels: React.PropTypes.object
+	rangeLabels: React.PropTypes.shape({
+		start: React.PropTypes.string,
+		end: React.PropTypes.string
+	})
 };
 
 RangeSlider.defaultProps = {
