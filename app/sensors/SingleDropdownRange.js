@@ -136,7 +136,6 @@ SingleDropdownRange.propTypes = {
 
 // Default props value
 SingleDropdownRange.defaultProps = {
-	placeholder: "Search",
 };
 
 // context type
