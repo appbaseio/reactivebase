@@ -159,7 +159,6 @@ MultiDropdownRange.propTypes = {
 
 // Default props value
 MultiDropdownRange.defaultProps = {
-	placeholder: "Search",
 };
 
 // context type
