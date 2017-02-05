@@ -40,7 +40,7 @@ const NumberComponent = (props) => {
 		? labelPosition
 		: 'left';
 	return (
-		<div className={`rbc rbc-numberbox-container bc-numberbox-container-${position} col s12 col-xs-12`}>
+		<div className={`rbc rbc-numberbox-container rbc-numberbox-container-${position} col s12 col-xs-12`}>
 			<div className={`rbc-label rbc-numberbox-label`}>{label}</div>
 			<div className={"rbc-numberbox-btn-container"}>
 				<NumberBoxButtonComponent isActive={isMinusActive} handleChange={handleChange} type={'minus'}/>
@@ -150,14 +150,14 @@ NumberBox.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
-	defaultSelected: React.PropTypes.array,
-	labelPosition: React.PropTypes.string
+	defaultSelected: React.PropTypes.number,
+	labelPosition: React.PropTypes.string,
 };
 
 // context type
 NumberBox.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
 };
 
 export {NumberBox};

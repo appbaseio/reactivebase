@@ -21,9 +21,10 @@ export default class NumberBoxDefault extends Component {
 					'cars.name': value
 				}
 			};
-		} else
+		} else {
 			return null;
 		}
+	}
 
 	onData(res) {
 		let result,
