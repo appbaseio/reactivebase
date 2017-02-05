@@ -160,6 +160,9 @@ export var ResponsiveStory = function() {
 		$('.rbc-base > .row').css({
 			'margin-bottom': 0
 		});
+		$('.rbc-reactivemap .rbc-container').css({
+			maxHeight: height - 15
+		});
 	}
 
 	function paginationHeight() {
