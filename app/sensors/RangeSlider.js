@@ -9,8 +9,8 @@ var _ = require('lodash');
 export class RangeSlider extends Component {
 	constructor(props, context) {
 		super(props);
-		let startThreshold = this.props.threshold.start ? this.props.threshold.start : 0;
-		let endThreshold = this.props.threshold.end ? this.props.threshold.end : 5;
+		let startThreshold = this.props.range.start ? this.props.range.start : 0;
+		let endThreshold = this.props.range.end ? this.props.range.end : 5;
 		let values = {};
 		values.min = this.props.defaultSelected.start < startThreshold ? startThreshold : this.props.defaultSelected.start;
 		values.max = this.props.defaultSelected.end < endThreshold ? this.props.defaultSelected.end :  endThreshold;
@@ -26,11 +26,13 @@ export class RangeSlider extends Component {
 				}
 			}
 		};
+		this.maxSize = 100;
 		this.type = 'range';
 		this.channelId = null;
 		this.channelListener = null;
 		this.handleValuesChange = this.handleValuesChange.bind(this);
 		this.handleResults = this.handleResults.bind(this);
+		this.defaultQuery = this.defaultQuery.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -51,35 +53,115 @@ export class RangeSlider extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		setTimeout(() => {
+			// check defaultSelected
 			if (nextProps.defaultSelected.start !== this.state.values.min ||
-				nextProps.defaultSelected.end !== this.state.values.max) {
-				let values = {};
-				values.min = nextProps.defaultSelected.start;
-				values.max = nextProps.defaultSelected.end;
-				this.setState({
-					values: values,
-					currentValues: values
-				});
-				var obj = {
-					key: this.props.sensorId,
-					value: {
+				nextProps.defaultSelected.end !== this.state.values.max &&
+				nextProps.range.start <= nextProps.defaultSelected.start &&
+				nextProps.range.end >= nextProps.defaultSelected.end) {
+				let rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
+				if (rem) {
+					this.setState({
+						values: {
+							min: this.state.values.min,
+							max: nextProps.defaultSelected.end - rem
+						}
+					});
+					var obj = {
+						key: this.props.componentId,
+						value: {
+							from: this.state.values.min,
+							to: nextProps.defaultSelected.end - rem
+						}
+					};
+					helper.selectedSensor.set(obj, true);
+				} else {
+					let values = {};
+					values.min = nextProps.defaultSelected.start;
+					values.max = nextProps.defaultSelected.end;
+					this.setState({
+						values: values,
+						currentValues: values
+					});
+					var obj = {
+						key: this.props.componentId,
+						value: {
+							from: values.min,
+							to: values.max
+						}
+					};
+					helper.selectedSensor.set(obj, true);
+				}
+			}
+			// check range
+			if (nextProps.range.start !== this.state.startThreshold ||
+				nextProps.range.end !== this.state.endThreshold ) {
+				if (nextProps.range.start <= nextProps.defaultSelected.start &&
+					nextProps.range.end >= nextProps.defaultSelected.end) {
+					this.setState({
+						startThreshold: nextProps.range.start,
+						endThreshold: nextProps.range.end
+					});
+				} else {
+					let values = {
+						min: this.state.values.min,
+						max: this.state.values.max
+					};
+					if (this.state.values.min < nextProps.range.start) {
+						values.min = nextProps.range.start;
+					}
+					if (this.state.values.max > nextProps.range.end) {
+						values.max = nextProps.range.end;
+					}
+					this.setState({
+						startThreshold: nextProps.range.start,
+						endThreshold: nextProps.range.end,
+						values: values
+					});
+					var currentRange = {
 						from: values.min,
 						to: values.max
-					}
-				};
-				helper.selectedSensor.set(obj, true);
+					};
+					var obj = {
+						key: this.props.componentId,
+						value: currentRange
+					};
+					helper.selectedSensor.set(obj, true);
+				}
+				this.setRangeValue();
 			}
-			else if (nextProps.threshold.start !== this.state.startThreshold ||
-					 nextProps.threshold.end !== this.state.endThreshold ) {
-				if (nextProps.threshold.start <= this.state.values.min &&
-					nextProps.threshold.end >= this.state.values.max) {
+			// drop value if it exceeds the threshold (based on step value)
+			if (nextProps.stepValue !== this.props.stepValue) {
+				let rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
+				if (rem) {
 					this.setState({
-						startThreshold: nextProps.threshold.start,
-						endThreshold: nextProps.threshold.end
+						values: {
+							min: this.state.values.min,
+							max: nextProps.defaultSelected.end - rem
+						}
 					});
+					var obj = {
+						key: this.props.componentId,
+						value: {
+							from: this.state.values.min,
+							to: nextProps.defaultSelected.end - rem
+						}
+					};
+					helper.selectedSensor.set(obj, true);
 				}
 			}
 		}, 300);
+	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+		if ((nextProps.stepValue <= 0) ||
+			(nextProps.stepValue > Math.floor((nextProps['range']['end'] - nextProps['range']['start'])/2))) {
+			console.error(`Step value is invalid, it should be less than or equal to ${Math.floor((nextProps['range']['end'] - nextProps['range']['start'])/2)}.`);
+			return false;
+		} else if (nextState.values.max > nextState.endThreshold) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	// Handle function when value slider option is changing
@@ -92,26 +174,61 @@ export class RangeSlider extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
-				key: this.props.sensorId,
+				key: this.props.componentId,
 				value: {
 					queryType: this.type,
 					inputData: this.props.appbaseField
 				}
 		};
+		var obj1 = {
+				key: this.props.componentId+'-internal',
+				value: {
+					queryType: 'range',
+					inputData: this.props.appbaseField,
+					defaultQuery: this.defaultQuery
+				}
+		};
 		helper.selectedSensor.setSensorInfo(obj);
+		helper.selectedSensor.setSensorInfo(obj1);
+		this.setRangeValue();
 	}
 
-	// Create a channel which passes the depends and receive results whenever depends changes
+	setRangeValue() {
+		var objValue = {
+			key: this.props.componentId+'-internal',
+			value: this.props.range
+		};
+		helper.selectedSensor.set(objValue, true);
+	}
+
+	defaultQuery(record) {
+		if(record) {
+			return {
+				range: {
+						[this.props.appbaseField]: {
+							gte: record.start,
+							lte: record.end,
+							boost: 2.0
+					}
+				}
+			};
+		}
+	}
+
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		// Set the depends - add self aggs query as well with depends
-		let depends = this.props.depends ? this.props.depends : {};
-		depends['aggs'] = {
+		// Set the actuate - add self aggs query as well with actuate
+		let actuate = this.props.actuate ? this.props.actuate : {};
+		actuate['aggs'] = {
 			key: this.props.appbaseField,
-			sort: this.props.sort,
-			size: this.props.size
+			sort: 'asc',
+			size: this.getSize()
+		};
+		actuate[this.props.componentId+'-internal'] = {
+			operation: 'must'
 		};
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
@@ -127,6 +244,10 @@ export class RangeSlider extends Component {
 			});
 			this.setData(data);
 		}.bind(this));
+	}
+
+	getSize() {
+		return Math.min(this.props.range.end - this.props.range.start, this.maxSize);
 	}
 
 	setData(data) {
@@ -184,7 +305,7 @@ export class RangeSlider extends Component {
 			to: values.max
 		}
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: real_values
 		};
 		helper.selectedSensor.set(obj, true);
@@ -196,7 +317,8 @@ export class RangeSlider extends Component {
 
 	render() {
 		let title = null,
-			histogram = null;
+			histogram = null,
+			marks = {};
 
 		if(this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
@@ -204,23 +326,32 @@ export class RangeSlider extends Component {
 		if(this.state.counts && this.state.counts.length) {
 			histogram = (<HistoGramComponent data={this.state.counts} />);
 		}
+		if (this.props.rangeLabels.start || this.props.rangeLabels.end) {
+			marks = {
+				[this.state.startThreshold]: this.props.rangeLabels.start,
+				[this.state.endThreshold]: this.props.rangeLabels.end
+			}
+		}
 
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title
+			'rbc-title-inactive': !this.props.title,
+			'rbc-labels-active': this.props.rangeLabels.start || this.props.rangeLabels.end,
+			'rbc-labels-inactive': !this.props.rangeLabels.start && !this.props.rangeLabels.end
 		});
 
 		return (
 			<div className={`rbc rbc-rangeslider card thumbnail col s12 col-xs-12 ${cx}`}>
 				{title}
 				{histogram}
-				<div className="rbc-rangeslider-container col s12 col-xs-12" style={{'margin': '25px 0'}}>
+				<div className="rbc-rangeslider-container col s12 col-xs-12">
 					<Slider range
 						value={[this.state.values.min, this.state.values.max]}
 						min={this.state.startThreshold}
 						max={this.state.endThreshold}
 						onChange={this.handleResults}
 						step={this.props.stepValue}
+						marks={marks}
 					/>
 				</div>
 			</div>
@@ -229,14 +360,18 @@ export class RangeSlider extends Component {
 }
 
 RangeSlider.propTypes = {
-	sensorId: React.PropTypes.string.isRequired,
+	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	threshold: React.PropTypes.shape({
+	range: React.PropTypes.shape({
 		start: helper.validateThreshold,
 		end: helper.validateThreshold
 	}),
 	defaultSelected: React.PropTypes.object,
-	stepValue: React.PropTypes.number
+	stepValue: helper.stepValidation,
+	rangeLabels: React.PropTypes.shape({
+		start: React.PropTypes.string,
+		end: React.PropTypes.string
+	})
 };
 
 RangeSlider.defaultProps = {
@@ -244,12 +379,15 @@ RangeSlider.defaultProps = {
 		start: 0,
 		end: 10
 	},
-	threshold: {
+	range: {
 		start: 0,
 		end: 10
 	},
+	rangeLabels: {
+		start: null,
+		end: null
+	},
 	stepValue: 1,
-	size: 100,
 	title: null
 };
 

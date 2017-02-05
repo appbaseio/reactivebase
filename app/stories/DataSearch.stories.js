@@ -72,7 +72,7 @@ export default class DataSearchDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<DataSearch
 							appbaseField={[this.props.mapping.venue, this.props.mapping.topic]}
-							sensorId="VenueSensor"
+							componentId="VenueSensor"
 							title="DataSearch"
 							searchInputId="CityVenue"
 							{...this.props}
@@ -81,14 +81,14 @@ export default class DataSearchDefault extends Component {
 
 					<div className="col s6 col-xs-6">
 						<ResultList
-							sensorId="SearchResult"
+							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="Results"
 							sortBy="asc"
 							from={0}
 							size={20}
 							onData={this.onData}
-							depends={{
+							actuate={{
 								VenueSensor: {"operation": "must"}
 							}}
 						/>

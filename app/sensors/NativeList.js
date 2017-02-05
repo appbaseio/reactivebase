@@ -43,10 +43,16 @@ export class NativeList extends Component {
 
 	// build query for this sensor only
 	defaultQuery(value) {
-		if(value) {
-			let type = typeof value === 'object' ? 'terms' : 'term';
+		if(this.state.selectAll) {
 			return {
-				[type]: {
+				"exists": {
+					'field': [this.props.appbaseField]
+				}
+			};
+		}
+		else if(value) {
+			return {
+				[this.type]: {
 					[this.props.appbaseField]: value
 				}
 			};
@@ -58,13 +64,11 @@ export class NativeList extends Component {
 			if (this.defaultSelected != this.props.defaultSelected) {
 				this.defaultSelected = this.props.defaultSelected;
 				let items = this.state.items;
-
 				items = items.map((item) => {
 					item.key = item.key.toString();
-					item.status = this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1 ? true : false;
+					item.status = (this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1) || (this.selectedValue && this.selectedValue.indexOf(item.key) > -1)  ? true : false;
 					return item;
 				});
-
 				this.setState({
 					items: items,
 					storedItems: items
@@ -100,7 +104,7 @@ export class NativeList extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
-				key: this.props.sensorId,
+				key: this.props.componentId,
 				value: {
 					queryType: this.type,
 					inputData: this.props.appbaseField,
@@ -112,7 +116,7 @@ export class NativeList extends Component {
 
 	includeAggQuery() {
 		var obj = {
-			key: this.props.sensorId+'-sort',
+			key: this.props.componentId+'-sort',
 			value: this.sortObj
 		};
 		helper.selectedSensor.setSortInfo(obj);
@@ -123,28 +127,28 @@ export class NativeList extends Component {
 			aggSort: this.props.sortBy
 		};
 		let obj = {
-			key: this.props.sensorId+'-sort',
+			key: this.props.componentId+'-sort',
 			value: this.sortObj
 		};
 		helper.selectedSensor.set(obj, true, 'sortChange');
 	}
 
-	// Create a channel which passes the depends and receive results whenever depends changes
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		// Set the depends - add self aggs query as well with depends
-		let depends = this.props.depends ? this.props.depends : {};
-		depends['aggs'] = {
+		// Set the actuate - add self aggs query as well with actuate
+		let actuate = this.props.actuate ? this.props.actuate : {};
+		actuate['aggs'] = {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
 			size: this.props.size,
-			sortRef: this.props.sensorId+'-sort'
+			sortRef: this.props.componentId+'-sort'
 		};
-		depends[this.props.sensorId+'-sort'] = {
+		actuate[this.props.componentId+'-sort'] = {
 			'operation': 'must'
 		};
 		this.includeAggQuery();
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(this.channelId, function(res) {
 			let data = res.data;
@@ -171,7 +175,7 @@ export class NativeList extends Component {
 	addItemsToList(newItems) {
 		newItems = newItems.map((item) => {
 			item.key = item.key.toString();
-			item.status = this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1 ? true : false;
+			item.status = (this.selectedValue && this.selectedValue.indexOf(item.key) > -1) ? true : false;
 			return item
 		});
 		this.setState({
@@ -181,49 +185,75 @@ export class NativeList extends Component {
 	}
 
 	// Handler function when a value is selected
-	handleSelect(value) {
-		this.setValue(value, true)
+	handleSelect(handleValue, selectAll=false) {
+		if(this.state.selectAll && !selectAll) {
+			this.setState({
+				selectAll: false
+			});
+		}
+		this.setValue(handleValue, true);
 	}
 
 	// Handler function when a value is deselected or removed
 	handleRemove(value, isExecuteQuery=false) {
-		this.setValue(value, isExecuteQuery)
+		this.setValue(value, isExecuteQuery);
 	}
 
 	// set value
 	setValue(value, isExecuteQuery=false) {
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: value
 		};
+		this.selectedValue = value;
+		if(this.props.multipleSelect) {
+			let items = this.state.items.map((item) => {
+				if(value.indexOf(item.key) > -1) {
+					item.status = true;
+				} else {
+					item.status = false;
+				}
+				return item;
+			});
+			this.setState({items: items});
+		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	// selectAll
-	selectAll(value, defaultSelected, cb) {
-		let items = this.state.items.filter((item) => {item.status = value; return item; });
+	selectAll(value, selectedValue, cb) {
+		let items = this.state.items.map((item) => {
+			item.status = value;
+			return item;
+		});
 		if(value) {
-			this.defaultSelected = defaultSelected;
+			this.selectedValue = selectedValue;
 		}
 		this.setState({
 			items: items,
 			storedItems: items,
-			defaultSelectAll: value
+			defaultSelectAll: value,
+			selectAll: value
 		}, cb);
 	}
 
 	// filter
 	filterBySearch(value) {
 		if(value) {
-			let items = this.state.storedItems.filter(function(item) {
-				return item.key && item.key.toLowerCase().indexOf(value.toLowerCase()) > -1;
+			let items = this.state.storedItems.map(function(item) {
+				item.visible = item.key && item.key.toLowerCase().indexOf(value.toLowerCase()) > -1 ? true : false;
+				return item;
 			});
 			this.setState({
 				items: items
 			});
 		} else {
+			let items = this.state.storedItems.map(function(item) {
+				item.visible = true;
+				return item;
+			});
 			this.setState({
-				items: this.state.storedItems
+				items: items
 			});
 		}
 	}
@@ -242,7 +272,8 @@ export class NativeList extends Component {
 				showCount={this.props.showCount}
 				selectAll={this.selectAll}
 				defaultSelected={this.props.defaultSelected}
-				selectAllLabel={this.props.selectAllLabel} />
+				selectAllLabel={this.props.selectAllLabel}
+				selectAllValue={this.state.selectAll} />
 		}
 		else {
 			listComponent = <ItemList
@@ -251,7 +282,8 @@ export class NativeList extends Component {
 				onRemove={this.handleRemove}
 				showCount={this.props.showCount}
 				defaultSelected={this.props.defaultSelected}
-				selectAllLabel={this.props.selectAllLabel} />
+				selectAllLabel={this.props.selectAllLabel}
+				selectAll={this.selectAll} />
 		}
 
 		// set static search

@@ -1,7 +1,8 @@
 import {default as React, Component} from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
-import JsonPrint from './component/JsonPrint'
+import JsonPrint from './component/JsonPrint';
+import { PoweredBy } from '../sensors/PoweredBy';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 
@@ -80,16 +81,16 @@ export class ResultList extends Component {
 		}
 	}
 
-	// Create a channel which passes the depends and receive results whenever depends changes
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		// Set the depends - add self aggs query as well with depends
-		let depends = this.props.depends ? this.props.depends : {};
-		depends.streamChanges = {operation: 'must'};
+		// Set the actuate - add self aggs query as well with actuate
+		let actuate = this.props.actuate ? this.props.actuate : {};
+		actuate.streamChanges = {operation: 'must'};
 		if (this.sortObj) {
-			this.enableSort(depends);
+			this.enableSort(actuate);
 		}
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends, this.props.size, this.props.from, this.props.stream);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate, this.props.size, this.props.from, this.props.stream);
 		this.channelId = channelObj.channelId;
 
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
@@ -155,9 +156,13 @@ export class ResultList extends Component {
 	}
 
 	wrapMarkup(generatedData) {
-		return generatedData.map((item) => {
-			return (<div className="rbc-list-item">{item}</div>);
-		});
+		if(Object.prototype.toString.call(generatedData) === '[object Array]' ) {
+			return generatedData.map((item, index) => {
+				return (<div key={index} className="rbc-list-item">{item}</div>);
+			});
+		} else {
+			return generatedData;
+		}
 	}
 
 	// Check if stream data exists in markersData
@@ -226,8 +231,8 @@ export class ResultList extends Component {
 	}
 
 	// enable sort
-	enableSort(depends) {
-		depends[this.resultSortKey] = { operation: "must" };
+	enableSort(actuate) {
+		actuate[this.resultSortKey] = { operation: "must" };
 		let sortObj = {
 			key: this.resultSortKey,
 			value: this.sortObj
@@ -374,22 +379,25 @@ export class ResultList extends Component {
 		}
 
 		return (
-			<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail ${cx}`}>
-				{title}
-				{sortOptions}
-				{this.state.resultMarkup}
-				{
-					this.state.isLoading ?
-					<div className="rbc-loader"></div> :
-					null
-				}
-			</div >
+			<div className="rbc-resultlist-container">
+				<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail ${cx}`} style={this.props.componentStyle}>
+					{title}
+					{sortOptions}
+					{this.state.resultMarkup}
+					{
+						this.state.isLoading ?
+						<div className="rbc-loader"></div> :
+						null
+					}
+				</div >
+				<PoweredBy></PoweredBy>
+			</div>
 		)
 	}
 }
 
 ResultList.propTypes = {
-	sensorId: React.PropTypes.string,
+	componentId: React.PropTypes.string,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
 	sortBy: React.PropTypes.oneOf(['asc', 'desc']),
@@ -404,14 +412,16 @@ ResultList.propTypes = {
 	onData: React.PropTypes.func,
 	size: helper.sizeValidation,
 	requestOnScroll: React.PropTypes.bool,
-	stream: React.PropTypes.bool
+	stream: React.PropTypes.bool,
+	componentStyle: React.PropTypes.object
 };
 
 ResultList.defaultProps = {
 	from: 0,
 	size: 20,
 	requestOnScroll: true,
-	stream: false
+	stream: false,
+	componentStyle: {}
 };
 
 // context type

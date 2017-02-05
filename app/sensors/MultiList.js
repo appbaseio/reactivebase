@@ -17,7 +17,7 @@ export class MultiList extends Component {
 }
 
 MultiList.propTypes = {
-	sensorId: React.PropTypes.string.isRequired,
+	componentId: React.PropTypes.string.isRequired,
 	appbaseField : React.PropTypes.string.isRequired,
 	title : React.PropTypes.string,
 	defaultSelected: React.PropTypes.array,

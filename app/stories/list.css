@@ -41,6 +41,15 @@ html {
 	content: 'Actuator';
 }
 
+.rbc-base > .row.reverse-labels > .col.s6:last-child::after {
+	content: 'Sensor';
+}
+
+.rbc-base > .row.reverse-labels > .col.s6:first-child::after {
+	content: 'Actuator';
+}
+
+
 .listResult {
 	height: 100%;
 	position: relative;

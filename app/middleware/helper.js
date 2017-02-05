@@ -3,42 +3,41 @@ var $ = require('jquery');
 var globalI = 0;
 export var sensorEmitter = new EventEmitter();
 
-export var watchForDependencyChange = function(depends, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
+export var watchForDependencyChange = function(actuate, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
 	var self = this;
 	globalI += 1;
 	this.random = globalI;
-	console.log('Created - ', self.random);
 	let selectedSensor = {};
 	let sensorListener, paginationListener;
 	// check if depend object already exists
 	let checkDependExists = function(depend) {
-			if (!previousSelectedSensor.hasOwnProperty(depend)) {
-				previousSelectedSensor[depend] = '';
-			}
+		if (!previousSelectedSensor.hasOwnProperty(depend)) {
+			previousSelectedSensor[depend] = '';
 		}
-		// apply depend changes when new value received
-	let applyDependChange = function(depends, depend) {
+	}
+	// apply depend changes when new value received
+	let applyDependChange = function(actuate, depend) {
 		if (selectedSensor[depend] && typeof selectedSensor[depend] === 'object') {
 			previousSelectedSensor[depend] = JSON.parse(JSON.stringify(selectedSensor[depend]));
 		} else {
 			previousSelectedSensor[depend] = selectedSensor[depend];
 		}
-		if (!depends[depend].doNotExecute) {
+		if (!actuate[depend].doNotExecute) {
 			cb(depend, channelId);
 		}
 	}
 
 	// initialize the process
 	this.init = function() {
-		for (let depend in depends) {
+		for (let depend in actuate) {
 			checkDependExists(depend);
 			if (typeof selectedSensor[depend] === 'object') {
 				if (JSON.stringify(selectedSensor[depend]) !== JSON.stringify(previousSelectedSensor[depend])) {
-					applyDependChange(depends, depend);
+					applyDependChange(actuate, depend);
 				}
 			} else {
 				if (selectedSensor[depend] !== previousSelectedSensor[depend]) {
-					applyDependChange(depends, depend);
+					applyDependChange(actuate, depend);
 				}
 			}
 		}
@@ -48,13 +47,12 @@ export var watchForDependencyChange = function(depends, previousSelectedSensor, 
 		var self = this;
 		this.sensorListener = sensorEmitter.addListener('sensorChange', function(data) {
 			selectedSensor = data;
-			console.log('Listening - ', self.random);
 			self.init();
 		});
 
 		this.paginationListener = sensorEmitter.addListener('paginationChange', function(data) {
 			if (paginationCb) {
-				if (Object.keys(depends).indexOf(data.key) > -1) {
+				if (Object.keys(actuate).indexOf(data.key) > -1) {
 					paginationCb(data.value, channelId);
 				}
 			}
@@ -77,7 +75,6 @@ export var watchForDependencyChange = function(depends, previousSelectedSensor, 
 		if (this.sortListener) {
 			this.sortListener.remove();
 		}
-		console.log('Stopped - ', this.random);
 	}
 
 };
@@ -163,6 +160,9 @@ export var ResponsiveStory = function() {
 		$('.rbc-base > .row').css({
 			'margin-bottom': 0
 		});
+		$('.rbc-reactivemap .rbc-container').css({
+			maxHeight: height - 15
+		});
 	}
 
 	function paginationHeight() {
@@ -175,8 +175,16 @@ export var ResponsiveStory = function() {
 }
 
 export var sizeValidation = function(props, propName, componentName) {
-	if (props[propName] <= 0 || props[propName] >= 1000) {
-		return new Error('Size value is invalid, it should be between 0 and 1000.');
+	if (props[propName] < 1 || props[propName] > 1000) {
+		return new Error('Size value is invalid, it should be between 1 and 1000.');
+	}
+}
+
+export var stepValidation = function(props, propName) {
+	if (props[propName] > Math.floor((props['range']['end'] - props['range']['start'])/2)) {
+		return new Error(`Step value is invalid, it should be less than or equal to ${Math.floor((props['range']['end'] - props['range']['start'])/2)}.`);
+	} else if (props[propName] <= 0) {
+		return new Error('Step value is invalid, it should be greater than 0.');
 	}
 }
 

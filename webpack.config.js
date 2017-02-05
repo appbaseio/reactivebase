@@ -13,9 +13,6 @@ var umd_config = {
 	},
 
 	module: {
-		preLoaders: [
-				{ test: /\.json$/, exclude: /node_modules/, loader: 'json'},
-		],
 		loaders: [
 			{
 				test: /.jsx?$/,
@@ -136,9 +133,6 @@ var examples_config = {
 		filename: '[name].bundle.js'
 	},
 	module: {
-		preLoaders: [
-				{ test: /\.json$/, exclude: /node_modules/, loader: 'json'},
-		],
 		loaders: [
 			{
 				test: /.jsx?$/,

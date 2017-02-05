@@ -53,7 +53,7 @@ export class MultiRange extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		let obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
@@ -94,10 +94,10 @@ export class MultiRange extends Component {
 	}
 
 	// use this only if want to create actuators
-	// Create a channel which passes the depends and receive results whenever depends changes
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		let depends = this.props.depends ? this.props.depends : {};
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		let actuate = this.props.actuate ? this.props.actuate : {};
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 	}
 
 	// handle the input change and pass the value inside sensor info
@@ -117,10 +117,10 @@ export class MultiRange extends Component {
 			'selected': selected
 		});
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: selected
 		};
-		// pass the selected sensor value with sensorId as key,
+		// pass the selected sensor value with componentId as key,
 		let isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
@@ -130,10 +130,10 @@ export class MultiRange extends Component {
 			selected: []
 		});
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: []
 		};
-		// pass the selected sensor value with sensorId as key,
+		// pass the selected sensor value with componentId as key,
 		let isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
@@ -214,7 +214,7 @@ class Tag extends Component {
 	render() {
 		return (
 			<span onClick={this.props.onClick.bind(null, this.props.value) } className="rbc-tag-item col">
-				<a href="javascript:void(0)" className="close"> x </a>
+				<a href="javascript:void(0)" className="close">×</a>
 				<span>{this.props.value}</span>
 			</span>
 		);
@@ -222,7 +222,7 @@ class Tag extends Component {
 }
 
 MultiRange.propTypes = {
-	sensorId: React.PropTypes.string.isRequired,
+	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,

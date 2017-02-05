@@ -18,6 +18,8 @@ import SingleRangeReadme from "@appbaseio/reactivebase-manual/docs/v1/components
 import MultiRangeDefault from "./MultiRange.stories";
 import MultiRangeReadme from "@appbaseio/reactivebase-manual/docs/v1/components/MultiRange.md";
 
+import PoweredByDefault from "./PoweredBy.stories";
+
 import ToggleButtonDefault from "./ToggleButton.stories";
 import ToggleButtonReadme from "@appbaseio/reactivebase-manual/docs/v1/components/ToggleButton.md";
 
@@ -117,7 +119,7 @@ storiesOf("MultiList", module)
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
 			title={text("title", "MultiList: City Filter")}
-			size={number("size", 100)}
+			size={number("size", 10)}
 			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			defaultSelected={array("defaultSelected", ["London", "Sydney"])}
 			showCount={boolean("showCount", true)}
@@ -146,7 +148,8 @@ storiesOf("SingleDropdownList", module)
 	.add("Playground", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
 		<SingleDropdownListDefault
 			title={text("title", "SingleDropdownList")}
-			size={number("size", "100")}
+			size={number("size", 100)}
+			showCount={boolean("showCount", true)}
 			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={text("defaultSelected", "London")}
@@ -164,10 +167,16 @@ storiesOf("MultiDropdownList", module)
 			placeholder="Select Cities"
 		/>
 	)))
+	.add("With Select All", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
+		<MultiDropdownListDefault
+			placeholder="Select Cities"
+			selectAllLabel="All Cities"
+		/>
+	)))
 	.add("With Default Selected", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
 		<MultiDropdownListDefault
 			placeholder="Select Cities"
-			size="100"
+			size={100}
 			sortBy="count"
 			defaultSelected={["London", "Melbourne"]}
 		/>
@@ -175,8 +184,10 @@ storiesOf("MultiDropdownList", module)
 	.add("Playground", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
 		<MultiDropdownListDefault
 			title={text("title", "MultiDropdownList")}
-			size={number("size", "100")}
+			size={number("size", 100)}
+			showCount={boolean("showCount", true)}
 			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
+			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
 			placeholder={text("placeholder", "Select Cities")}
 		/>
@@ -205,6 +216,11 @@ storiesOf("NestedList", module)
 			placeholder={text("placeholder", "Search Cars")}
 		/>
 	)));
+
+storiesOf("PoweredBy", module)
+	.add("Basic", () => (
+		<PoweredByDefault />
+	));
 
 storiesOf("SingleRange", module)
 	.addDecorator(withKnobs)
@@ -294,10 +310,26 @@ storiesOf("RangeSlider", module)
 			}
 		/>
 	)))
+	.add("With Range Labels", withReadme(removeFirstLine(RangeSliderReadme), () => (
+		<RangeSliderDefault
+			defaultSelected={
+				{
+					"start": 0,
+					"end": 2
+				}
+			}
+			rangeLabels={
+				{
+					"start": "Start",
+					"end": "End"
+				}
+			}
+		/>
+	)))
 	.add("Playground", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
-			title={text("paginationAt", "RangeSlider: Guest RSVPs")}
-			threshold={object("threshold", {
+			title={text("title", "RangeSlider: Guest RSVPs")}
+			range={object("range", {
 				"start": 0,
 				"end": 5
 			})}
@@ -305,6 +337,10 @@ storiesOf("RangeSlider", module)
 			defaultSelected={object("defaultSelected", {
 				"start": 0,
 				"end": 2
+			})}
+			rangeLabels={object("rangeLabels", {
+				"start": "Start",
+				"end": "End"
 			})}
 		/>
 	)));
@@ -464,6 +500,32 @@ storiesOf("PaginatedResultList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
 		<PaginatedResultListDefault/>
+	)))
+	.add("Without on data", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
+		<PaginatedResultListDefault
+			onData={null}
+		/>
+	)))
+	.add("With Sort Options", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
+		<PaginatedResultListDefault
+			sortOptions={[
+				{
+					label: "Most Recent RSVP",
+					appbaseField: "mtime",
+					sortBy: "desc"
+				},
+				{
+					label: "Guests - High to Low",
+					appbaseField: "guests",
+					sortBy: "desc"
+				},
+				{
+					label: "Guests - Low to High",
+					appbaseField: "guests",
+					sortBy: "asc"
+				}
+			]}
+		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
 		<PaginatedResultListDefault

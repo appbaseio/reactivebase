@@ -72,19 +72,18 @@ export default class PaginatedResultListDefault extends Component {
 				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
 				type="meetupdata1"
 			>
-				<div className="row">
+				<div className="row reverse-labels">
 					<div className="col s6 col-xs-6">
 						<PaginatedResultList
-							sensorId="SearchResult"
+							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="PaginatedResultList"
 							sortBy="asc"
 							from={0}
 							size={20}
 							onData={this.onData}
-							requestOnScroll={false}
 							{...this.props}
-							depends={{
+							actuate={{
 								CitySensor: {"operation": "must"}
 							}}
 						/>
@@ -92,12 +91,12 @@ export default class PaginatedResultListDefault extends Component {
 
 					<div className="col s6 col-xs-6">
 						<SingleList
-							sensorId="CitySensor"
+							componentId="CitySensor"
 							appbaseField={this.props.mapping.city}
 							title="Input Filter"
 							showCount={true}
 							size={100}
-							defaultSelected="New York"
+							defaultSelected="London"
 							searchPlaceholder="Search City"
 						/>
 					</div>

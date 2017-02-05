@@ -59,7 +59,6 @@ export class ItemCheckboxList extends Component {
 
 	// handler function for select all
 	handleListClickAll(value, selectedStatus) {
-		// debugger
 		this.props.selectAll(selectedStatus);
 		let selectedItems = this.props.items.map((item) => item.key );
 		selectedItems = selectedStatus ? selectedItems : [];
@@ -68,7 +67,7 @@ export class ItemCheckboxList extends Component {
 			selectedItems: selectedItems
 		}, function() {
 			this.updateAction.bind(this);
-			this.props.onSelect(this.state.selectedItems);
+			this.props.onSelect(this.state.selectedItems, selectedItems);
 		}.bind(this));
 	}
 
@@ -110,18 +109,28 @@ export class ItemCheckboxList extends Component {
 			selectedItems: updated
 		}, this.updateAction.bind(this));
 		// Pass the removed value props to parent components to add updated list in terms query
-		if(this.state.selectedItems.length) {
-			this.props.onSelect(this.state.selectedItems);
-		}
+		// if(updated.length) {
+			this.props.onSelect(updated);
+		// }
 	}
 
 	clearAll() {
 		this.handleListClickAll(this.props.selectAllLabel, false);
 	}
 
+	getSelectedItems() {
+		let selectedItems = this.state.selectedItems ? this.state.selectedItems : [];
+		this.props.items.forEach((item) => {
+			if(item.status && selectedItems.indexOf(item.key) < 0) {
+				selectedItems.push(item.key);
+			}
+		});
+		return selectedItems;
+	}
+
 	render() {
 		let items = this.props.items;
-		let selectedItems = this.state.selectedItems;
+		let selectedItems = this.getSelectedItems();
 		var ListItemsArray = [];
 		var TagItemsArray = [];
 		// Build the array for the checkboxList items
@@ -132,14 +141,20 @@ export class ItemCheckboxList extends Component {
 				item.keyRef = index;
 				console.log(item, e);
 			}
-			ListItemsArray.push(<ListItem
-				key={item.keyRef}
-				value={item.key}
-				doc_count={item.doc_count}
-				countField={this.props.showCount}
-				handleClick={this.handleListClick}
-				status={item.status || false}
-				ref={"ref" + item.keyRef} />);
+			let visibleFlag = !item.hasOwnProperty('visible') ? true : (item.visible ? true : false);
+			// if(flag) {
+				ListItemsArray.push(
+					<ListItem
+						key={item.keyRef}
+						value={item.key}
+						doc_count={item.doc_count}
+						countField={this.props.showCount}
+						handleClick={this.handleListClick}
+						visible={visibleFlag}
+						status={item.status || false}
+						ref={"ref" + item.keyRef} />
+				);
+			// }
 		}.bind(this));
 		// include select all if set from parent
 		if(this.props.selectAllLabel && items && items.length) {
@@ -148,20 +163,22 @@ export class ItemCheckboxList extends Component {
 					key='selectall'
 					value={this.props.selectAllLabel}
 					countField={false}
+					visible={true}
 					handleClick={this.handleListClickAll}
-					status={this.state.defaultSelectall}
+					status={this.props.selectAllValue}
 					ref={"refselectall"} />
 			);
 		}
 		// Build the array of Tags for selected items
 		if(this.props.showTags && selectedItems) {
-			selectedItems.forEach(function (item) {
-				TagItemsArray.push(<Tag
-					key={item}
-					value={item}
-					onClick={this.handleTagClick} />);
-			}.bind(this));
-			if(TagItemsArray.length > 5) {
+			if(selectedItems.length <= 5){
+				selectedItems.forEach(function (item) {
+					TagItemsArray.push(<Tag
+						key={item}
+						value={item}
+						onClick={this.handleTagClick} />);
+				}.bind(this));
+			} else {
 				TagItemsArray.unshift(<Tag
 					key={'Clear All'}
 					value={'Clear All'}
@@ -224,11 +241,13 @@ class ListItem extends Component {
 		let count;
 		// Check if the user has set to display countField
 		if (this.props.countField) {
-			count = <span className="rbc-count"> ({this.props.doc_count}) </span>;
+			count = <span className="rbc-count"> {this.props.doc_count} </span>;
 		}
 		let cx = classNames({
 			'rbc-count-active': this.props.countField,
-			'rbc-count-inactive': !this.props.countField
+			'rbc-count-inactive': !this.props.countField,
+			'rbc-item-show': this.props.visible,
+			'rbc-item-hide': !this.props.visible
 		});
 		return (
 			<div onClick={this.handleClick.bind(this) } className={`rbc-list-item row ${cx}`}>
@@ -250,7 +269,7 @@ class Tag extends Component {
 	render() {
 		return (
 			<span onClick={this.props.onClick.bind(null, this.props.value) } className="rbc-tag-item col">
-				<a href="javascript:void(0)" className="close"> x </a>
+				<a href="javascript:void(0)" className="close">×</a>
 				<span>{this.props.value}</span>
 			</span>
 		);

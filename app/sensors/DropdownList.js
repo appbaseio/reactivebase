@@ -17,12 +17,18 @@ export class DropdownList extends Component {
 				}
 			}
 		};
+		this.sortObj = {
+			aggSort: this.props.sortBy
+		};
+		this.selectAll = false;
 		this.channelId = null;
 		this.channelListener = null;
 		this.previousSelectedSensor = {};
 		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
+		this.defaultQuery = this.defaultQuery.bind(this);
+		this.renderOption = this.renderOption.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -37,7 +43,7 @@ export class DropdownList extends Component {
 				if (!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
 					this.defaultSelected = this.props.defaultSelected;
 					let records = this.state.items.filter((record) => {
-						return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
+						return this.defaultSelected.indexOf(record.value) > -1 ? true : false;
 					});
 					if (records.length) {
 						this.handleChange(records);
@@ -47,18 +53,44 @@ export class DropdownList extends Component {
 				if (this.defaultSelected != this.props.defaultSelected) {
 					this.defaultSelected = this.props.defaultSelected;
 					let records = this.state.items.filter((record) => {
-						return record.label === this.defaultSelected;
+						return record.value === this.defaultSelected;
 					});
 					if (records.length) {
 						this.handleChange(records[0]);
 					}
 				}
 			}
+			if (this.sortBy !== this.props.sortBy) {
+				this.sortBy = this.props.sortBy;
+				this.handleSortSelect();
+			}
+			if (this.size !== this.props.size) {
+				this.size = this.props.size;
+				this.removeChannel();
+				this.createChannel();
+			}
 		}, 300);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		let items = this.state.items;
+		if (nextProps.selectAllLabel != this.props.selectAllLabel) {
+			if (this.props.selectAllLabel) {
+				items.shift();
+			}
+			items.unshift({label: nextProps.selectAllLabel, value: nextProps.selectAllLabel});
+			this.setState({
+				items: items
+			});
+		}
 	}
 
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
+		this.removeChannel();
+	}
+
+	removeChannel() {
 		if(this.channelId) {
 			manager.stopStream(this.channelId);
 		}
@@ -67,29 +99,72 @@ export class DropdownList extends Component {
 		}
 	}
 
+	// build query for this sensor only
+	defaultQuery(value) {
+		if(this.selectAll) {
+			return {
+				"exists": {
+					'field': [this.props.appbaseField]
+				}
+			};
+		}
+		else if(value) {
+			return {
+				[this.type]: {
+					[this.props.appbaseField]: value
+				}
+			};
+		}
+	}
+
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: this.props.appbaseField
+				inputData: this.props.appbaseField,
+				defaultQuery: this.defaultQuery
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
 	}
 
-	// Create a channel which passes the depends and receive results whenever depends changes
+	includeAggQuery() {
+		var obj = {
+			key: this.props.componentId+'-sort',
+			value: this.sortObj
+		};
+		helper.selectedSensor.setSortInfo(obj);
+	}
+
+	handleSortSelect() {
+		this.sortObj = {
+			aggSort: this.props.sortBy
+		};
+		let obj = {
+			key: this.props.componentId+'-sort',
+			value: this.sortObj
+		};
+		helper.selectedSensor.set(obj, true, 'sortChange');
+	}
+
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		// Set the depends - add self aggs query as well with depends
-		let depends = this.props.depends ? this.props.depends : {};
-		depends['aggs'] = {
+		// Set the actuate - add self aggs query as well with actuate
+		let actuate = this.props.actuate ? this.props.actuate : {};
+		actuate['aggs'] = {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
-			size: this.props.size
+			size: this.props.size,
+			sortRef: this.props.componentId+'-sort'
 		};
+		actuate[this.props.componentId+'-sort'] = {
+			'operation': 'must'
+		};
+		this.includeAggQuery();
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
@@ -113,12 +188,19 @@ export class DropdownList extends Component {
 		}
 	}
 
+	renderOption(option) {
+		return (
+			<span key={option.value}>{option.value} {this.props.showCount && option.count ? (<span className="rbc-count">{option.count}</span>) : null}</span>
+		)
+	}
+
 	addItemsToList(newItems) {
 		newItems = newItems.map((item) => {
 			item.label = item.key.toString();
 			item.value = item.key.toString();
+			item.count = null;
 			if (this.props.showCount) {
-				item.label = item.label + " (" + item.doc_count + ")"
+				item.count = item.doc_count
 			}
 			return item
 		});
@@ -131,14 +213,14 @@ export class DropdownList extends Component {
 		if (this.defaultSelected) {
 			if (this.props.multipleSelect) {
 				let records = this.state.items.filter((record) => {
-					return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
+					return this.defaultSelected.indexOf(record.value) > -1 ? true : false;
 				});
 				if (records.length) {
 					this.handleChange(records);
 				}
 			} else {
 				let records = this.state.items.filter((record) => {
-					return record.label === this.defaultSelected;
+					return record.value === this.defaultSelected;
 				});
 				if (records.length) {
 					this.handleChange(records[0]);
@@ -150,14 +232,23 @@ export class DropdownList extends Component {
 	// Handler function when a value is selected
 	handleChange(value) {
 		let result;
+		this.selectAll = false;
 		if (this.props.multipleSelect) {
 			result = [];
 			value.map(item => {
-				result.push(item.label);
+				result.push(item.value);
 			});
-			result = result.join();
+			if (this.props.selectAllLabel && (result.indexOf(this.props.selectAllLabel) > -1)) {
+				result = this.props.selectAllLabel;
+				this.selectAll = true;
+			} else {
+				result = result.join();
+			}
 		} else {
-			result = value.label
+			result = value.value;
+			if (this.props.selectAllLabel && result == this.props.selectAllLabel) {
+				this.selectAll = true;
+			}
 		}
 		this.setState({
 			value: result
@@ -171,20 +262,9 @@ export class DropdownList extends Component {
 			value = value.split(',');
 		}
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: value
 		};
-		if (value == this.props.selectAllLabel) {
-			obj = {
-				key: this.props.sensorId,
-				value: {
-					queryType: "match_all"
-				}
-			};
-			helper.selectedSensor.setSensorInfo(obj);
-		} else {
-			this.setQueryInfo();
-		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -218,7 +298,9 @@ export class DropdownList extends Component {
 								value={this.state.value}
 								onChange={this.handleChange}
 								multi={this.props.multipleSelect}
+								cache={false}
 								placeholder={this.props.placeholder}
+								optionRenderer={this.renderOption}
 								searchable={true} /> : null }
 					</div>
 				</div>
@@ -242,7 +324,8 @@ DropdownList.defaultProps = {
 	sortBy: 'count',
 	size: 100,
 	title: null,
-	placeholder: 'Select...'
+	placeholder: 'Select...',
+	selectAllLabel: null
 };
 
 // context type

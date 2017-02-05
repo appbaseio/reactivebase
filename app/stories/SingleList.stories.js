@@ -71,7 +71,7 @@ export default class SingleListDefault extends Component {
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<SingleList
-							sensorId="CitySensor"
+							componentId="CitySensor"
 							appbaseField={this.props.mapping.city}
 							title="SingleList"
 							size={100}
@@ -81,7 +81,7 @@ export default class SingleListDefault extends Component {
 
 					<div className="col s6 col-xs-6">
 						<ResultList
-							sensorId="SearchResult"
+							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="Results"
 							sortBy="asc"
@@ -89,7 +89,7 @@ export default class SingleListDefault extends Component {
 							size={20}
 							onData={this.onData}
 							requestOnScroll={true}
-							depends={{
+							actuate={{
 								CitySensor: {"operation": "must"}
 							}}
 						/>

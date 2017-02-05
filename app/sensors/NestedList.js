@@ -125,7 +125,7 @@ export class NestedList extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
-				key: this.props.sensorId,
+				key: this.props.componentId,
 				value: {
 					queryType: this.type,
 					inputData: this.props.appbaseField[0],
@@ -158,24 +158,24 @@ export class NestedList extends Component {
 		});
 	}
 
-	// Create a channel which passes the depends and receive results whenever depends changes
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		// Set the depends - add self aggs query as well with depends
-		let depends = this.props.depends ? this.props.depends : {};
+		// Set the actuate - add self aggs query as well with actuate
+		let actuate = this.props.actuate ? this.props.actuate : {};
 		console.log(this.nested[0]);
-		depends['aggs'] = {
+		actuate['aggs'] = {
 			key: this.props.appbaseField[0],
 			sort: this.props.sortBy,
 			size: this.props.size,
 			sortRef: this.nested[0]
 		};
-		depends[this.nested[0]] = {
+		actuate[this.nested[0]] = {
 			'operation': 'must'
 		};
 		this.includeAggQuery();
 
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(this.channelId, function(res) {
 			let data = res.data;
@@ -196,7 +196,7 @@ export class NestedList extends Component {
 	// Create a channel for sub category
 	createSubChannel() {
 		this.setSubCategory();
-		let depends = {
+		let actuate = {
 			'aggs': {
 				key: this.props.appbaseField[1],
 				sort: this.props.sortBy,
@@ -207,7 +207,7 @@ export class NestedList extends Component {
 			[this.nested[1]]: { operation: "must" }
 		};
 		// create a channel and listen the changes
-		var subChannelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		var subChannelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.subChannelId = subChannelObj.channelId;
 		this.subChannelListener = subChannelObj.emitter.addListener(this.subChannelId, function(res) {
 			let data = res.data;
@@ -267,7 +267,7 @@ export class NestedList extends Component {
 	// set value
 	setValue(value, isExecuteQuery=false) {
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: value
 		};
 		helper.selectedSensor.set(obj, isExecuteQuery);
@@ -292,7 +292,7 @@ export class NestedList extends Component {
 	onItemSelect(key, level) {
 		let selectedValues = this.state.selectedValues;
 		let stateItems = {};
-		if (selectedValues[level] == key && this.defaultSelected.length == 1) {
+		if (selectedValues[level] == key || (this.defaultSelected && this.defaultSelected.length == 1)) {
 			delete selectedValues[level];
 			stateItems = {
 				selectedValues: selectedValues
@@ -341,8 +341,7 @@ export class NestedList extends Component {
 					key={index}
 					className="rbc-list-container col s12 col-xs-12">
 					<a href="javascript:void(0);" className={`rbc-list-item ${cx}`} onClick={() => this.onItemSelect(item.key, level)}>
-						<span> {item.key} </span>
-						{this.countRender(item.doc_count)}
+						<span className="rbc-label">{item.key} {this.countRender(item.doc_count)}</span>
 						{this.renderChevron(level)}
 					</a>
 					{this.renderList(item.key, level)}
@@ -355,7 +354,7 @@ export class NestedList extends Component {
 		let list;
 		if(key === this.state.selectedValues[level] && level === 0) {
 			list = (
-				<ul className="rbc-sub-nestedlist rbc-indent col s12 col-xs-12">
+				<ul className="rbc-sublist-container rbc-indent col s12 col-xs-12">
 					{this.renderItems(this.state.subItems, 1)}
 				</ul>
 			)
@@ -377,7 +376,7 @@ export class NestedList extends Component {
 		// set static search
 		if(this.props.showSearch) {
 			searchComponent = <StaticSearch
-				placeholder={this.props.searchPlaceholder}
+				placeholder={this.props.placeholder}
 				changeCallback={this.filterBySearch}
 			/>
 		}
@@ -391,8 +390,10 @@ export class NestedList extends Component {
 			'rbc-search-inactive': !this.props.showSearch,
 			'rbc-title-active': this.props.title,
 			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.searchPlaceholder,
-			'rbc-placeholder-inactive': !this.props.searchPlaceholder
+			'rbc-placeholder-active': this.props.placeholder,
+			'rbc-placeholder-inactive': !this.props.placeholder,
+			'rbc-count-active': this.props.showCount,
+			'rbc-count-inactive': !this.props.showCount
 		});
 
 		return (
@@ -421,7 +422,7 @@ NestedList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	searchPlaceholder: 'Search'
+	placeholder: 'Search'
 };
 
 // context type

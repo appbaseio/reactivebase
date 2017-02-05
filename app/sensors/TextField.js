@@ -22,7 +22,7 @@ export class TextField extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		let obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
@@ -42,10 +42,10 @@ export class TextField extends Component {
 	}
 
 	// use this only if want to create actuators
-	// Create a channel which passes the depends and receive results whenever depends changes
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		let depends = this.props.depends ? this.props.depends : {};
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		let actuate = this.props.actuate ? this.props.actuate : {};
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 	}
 
 	// handle the input change and pass the value inside sensor info
@@ -55,11 +55,11 @@ export class TextField extends Component {
 			'currentValue': inputVal
 		});
 		var obj = {
-			key: this.props.sensorId,
+			key: this.props.componentId,
 			value: inputVal
 		};
 
-		// pass the selected sensor value with sensorId as key,
+		// pass the selected sensor value with componentId as key,
 		let isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
@@ -90,7 +90,7 @@ export class TextField extends Component {
 }
 
 TextField.propTypes = {
-	sensorId: React.PropTypes.string.isRequired,
+	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string
