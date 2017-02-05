@@ -61,7 +61,7 @@ export class SingleDropdownRange extends Component {
 		if(record) {
 			return {
 				range: {
-						[this.props.appbaseField]: {
+					[this.props.appbaseField]: {
 						gte: record.start,
 						lte: record.end,
 						boost: 2.0

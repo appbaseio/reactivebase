@@ -130,15 +130,6 @@ $themes: (
 			}
 		}
 
-		.rbc.rbc-rangeslider {
-			.rc-slider-track {
-				background: map-get($map, color);
-			}
-			.rc-slider-handle {
-				border-color: map-get($map, color);
-			}
-		}
-
 		.rbc.rbc-resultlist {
 			.rbc-json-print {
 				span {
@@ -190,9 +181,26 @@ $themes: (
 				color: map-get($map, color);
 			}
 
-			.primary-title {
-				color: map-get($map, color);
+			.rc-slider {
+				.rc-slider-track {
+					background: map-get($map, color);
+				}
+
+				.rc-slider-handle {
+					border-color: map-get($map, color);
+				}
+
+				.rc-slider-dot {
+					background-color: #e9e9e9;
+					border-color: #e9e9e9;
+				}
+
+				.rc-slider-dot-active {
+					border-color: map-get($map, color);
+					background-color: map-get($map, color);
+				}
 			}
+
 
 			label,
 			[type="checkbox"]+label:before, [type="checkbox"]:not(.filled-in)+label:after,
