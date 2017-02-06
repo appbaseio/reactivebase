@@ -59,6 +59,8 @@ import DateRangeReadme from "@appbaseio/reactivebase-manual/docs/v1/components/D
 import NestedListDefault from "./NestedList.stories";
 import NestedListReadme from "@appbaseio/reactivebase-manual/docs/v1/components/NestedList.md";
 
+import NumberBoxDefault from './NumberBox.stories';
+
 require ("../../node_modules/materialize-css/dist/css/materialize.min.css");
 require ("../../dist/css/vendor.min.css");
 require ("../../dist/css/style.min.css");
@@ -534,3 +536,22 @@ storiesOf("PaginatedResultList", module)
 			paginationAt={select("paginationAt", {"bottom": "bottom", "top": "top", "both": "both"}, "bottom")}
 		/>
 	)));
+
+storiesOf("NumberBox", module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => {
+		const data = {
+			label: 'Car Model',
+		}
+		const labelPosition = 'left';
+		return <NumberBoxDefault defaultSelected={3} data={data} labelPosition={labelPosition}/>;
+	}))
+	.add("Playground", withReadme(removeFirstLine(TextFieldReadme), () => {
+		const data = {
+			label: 'Car Model',
+			min: 2,
+			max: 6,
+		}
+		const labelPosition = 'right';
+		return <NumberBoxDefault defaultSelected={3} data={data} labelPosition={labelPosition}/>;
+	}));

@@ -1,0 +1,64 @@
+.rbc.rbc-numberbox {
+    padding: 0;
+
+    .rbc-numberbox-btn {
+        display: inline-block;
+        width: 2em;
+        height: 2em;
+        font-size: 1em !important;
+        background: #ebebed;
+        line-height: 30px;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .rbc-numberbox-btn-icon {
+        line-height: inherit;
+    }
+
+    .rbc-numberbox-btn-active {
+        color: #545456;
+    }
+
+    .rbc-numberbox-btn-inactive {
+        color: #acacaf;
+    }
+
+    .rbc-numberbox-btn-container {
+        width: 9em;
+        padding: 10px;
+    }
+
+    .rbc-numberbox-container {
+        display: flex;
+    }
+
+    .rbc-numberbox-container-top {
+        flex-direction: column;
+    }
+
+    .rbc-numberbox-container-bottom {
+        flex-direction: column-reverse;
+    }
+
+    .rbc-numberbox-container-right {
+        flex-direction: row-reverse;
+    }
+
+    .rbc-numberbox-container-left {
+        flex-direction: row;
+    }
+
+    .rbc-numberbox-number {
+        padding: 1em;
+    }
+
+    .rbc-numberbox-label {
+        display: inline-block;
+        line-height: 50px;
+        text-align: center;
+        vertical-align: middle;
+        width: 8em;
+    }
+}

@@ -14,6 +14,7 @@ import {ToggleButton} from './sensors/ToggleButton';
 import {DatePicker} from './sensors/DatePicker';
 import {DateRange} from './sensors/DateRange';
 import {NestedList} from './sensors/NestedList';
+import {NumberBox} from './sensors/NumberBox';
 import {ResultList} from './actuators/ResultList';
 import {PaginatedResultList} from './actuators/PaginatedResultList';
 import {PoweredBy} from './sensors/PoweredBy';
@@ -38,6 +39,7 @@ module.exports = {
 	DatePicker: DatePicker,
 	DateRange: DateRange,
 	NestedList: NestedList,
+	NumberBox: NumberBox,
 	ReactiveBase: ReactiveBase,
 	ResultList: ResultList,
 	PaginatedResultList: PaginatedResultList,
