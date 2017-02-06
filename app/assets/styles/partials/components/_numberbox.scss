@@ -1,64 +1,73 @@
 .rbc.rbc-numberbox {
-    padding: 0;
+	padding: 0;
 
-    .rbc-numberbox-btn {
-        display: inline-block;
-        width: 2em;
-        height: 2em;
-        font-size: 1em !important;
-        background: #ebebed;
-        line-height: 30px;
-        padding: 0 !important;
-        text-align: center;
-        vertical-align: middle;
-    }
+	.rbc-numberbox-btn {
+		display: inline-block;
+		width: 2em;
+		height: 2em;
+		font-size: 1em;
+		background: #ebebed;
+		line-height: 30px;
+		padding: 0;
+		text-align: center;
+		vertical-align: middle;
+		box-shadow: none;
+	}
 
-    .rbc-numberbox-btn-icon {
-        line-height: inherit;
-    }
+	.rbc-numberbox-btn-icon {
+		line-height: inherit;
+	}
 
-    .rbc-numberbox-btn-active {
-        color: #545456;
-    }
+	.rbc-numberbox-btn-container {
+		padding: 10px 0;
+	}
 
-    .rbc-numberbox-btn-inactive {
-        color: #acacaf;
-    }
+	.rbc-numberbox-container {
+		display: flex;
+		justify-content: flex-start;
+	}
 
-    .rbc-numberbox-btn-container {
-        width: 9em;
-        padding: 10px;
-    }
+	.rbc-numberbox-container-right,
+	.rbc-numberbox-container-bottom {
+		.rbc-numberbox-label {
+			order: 2;
+		}
+	}
 
-    .rbc-numberbox-container {
-        display: flex;
-    }
+	.rbc-numberbox-container-right {
+		.rbc-numberbox-label {
+			padding-left: 15px;
+		}
+	}
 
-    .rbc-numberbox-container-top {
-        flex-direction: column;
-    }
+	.rbc-numberbox-container-left {
+		.rbc-numberbox-label {
+			padding-right: 15px;
+		}
+	}
 
-    .rbc-numberbox-container-bottom {
-        flex-direction: column-reverse;
-    }
+	.rbc-numberbox-container-left,
+	.rbc-numberbox-container-right {
+		flex-direction: row;
+	}
 
-    .rbc-numberbox-container-right {
-        flex-direction: row-reverse;
-    }
+	.rbc-numberbox-container-top,
+	.rbc-numberbox-container-bottom {
+		flex-direction: column;
 
-    .rbc-numberbox-container-left {
-        flex-direction: row;
-    }
+		.rbc-numberbox-btn-container {
+			text-align: center;
+		}
+	}
 
-    .rbc-numberbox-number {
-        padding: 1em;
-    }
+	.rbc-numberbox-number {
+		padding: 1em;
+	}
 
-    .rbc-numberbox-label {
-        display: inline-block;
-        line-height: 50px;
-        text-align: center;
-        vertical-align: middle;
-        width: 8em;
-    }
+	.rbc-numberbox-label {
+		display: inline-block;
+		line-height: 50px;
+		text-align: center;
+		vertical-align: middle;
+	}
 }

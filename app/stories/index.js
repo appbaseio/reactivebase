@@ -539,19 +539,27 @@ storiesOf("PaginatedResultList", module)
 
 storiesOf("NumberBox", module)
 	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => {
-		const data = {
-			label: 'Car Model',
-		}
-		const labelPosition = 'left';
-		return <NumberBoxDefault defaultSelected={3} data={data} labelPosition={labelPosition}/>;
-	}))
-	.add("Playground", withReadme(removeFirstLine(TextFieldReadme), () => {
-		const data = {
-			label: 'Car Model',
-			min: 2,
-			max: 6,
-		}
-		const labelPosition = 'right';
-		return <NumberBoxDefault defaultSelected={3} data={data} labelPosition={labelPosition}/>;
-	}));
+	.add("Basic", () => {
+		return (
+			<NumberBoxDefault
+				defaultSelected={3}
+				data={{
+					label: "Car Ratings"
+				}}
+				labelPosition="left"
+			/>
+		);
+	})
+	.add("Playground", () => {
+		return (
+			<NumberBoxDefault
+				defaultSelected={number("defaultSelected", 3)}
+				data={object("data", {
+					"min": 0,
+					"max": 5,
+					"label": "Car Ratings"
+				})}
+				labelPosition={select("labelPosition", {"bottom": "bottom", "top": "top", "left": "left", "right": "right"}, "right")}
+			/>
+		);
+	});

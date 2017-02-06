@@ -4,22 +4,20 @@ import classNames from 'classnames';
 import {manager} from '../middleware/ChannelManager.js';
 const helper = require('../middleware/helper.js');
 
-const COMPONENT_QUERY_TYPE = 'term';
-
 const TitleComponent = (props) => (
 	<h4 className="rbc-title col s12 col-xs-12">{props.title}</h4>
 );
 
 const NumberBoxButtonComponent = (props) => {
-	const componentState = props.isActive
-		? 'active'
-		: 'inactive';
+	const cx = classNames({
+		'rbc-numberbox-btn-active': props.isActive,
+		'rbc-numberbox-btn-inactive': !props.isActive
+	})
 	const {type} = props;
-	const increment = type == 'plus'
-		? 1
-		: -1;
+	const increment = type == 'plus' ? 1 : -1;
+
 	return (
-		<button className={`btn rbc-btn rbc-numberbox-btn rbc-numberbox-btn-${componentState}`} onClick={() => props.handleChange(increment)}>
+		<button className={`btn rbc-btn rbc-numberbox-btn ${cx}`} onClick={props.isActive && (() => props.handleChange(increment))}>
 			<span className={`fa fa-${type} rbc-numberbox-btn-icon`}></span>
 		</button>
 	);
@@ -27,18 +25,11 @@ const NumberBoxButtonComponent = (props) => {
 
 const NumberComponent = (props) => {
 	const {label, max, min, labelPosition, handleChange} = props;
-	const value = props.value
-		? props.value
-		: this.state.currentValue;
-	const isPlusActive = max
-		? value < max
-		: true;
-	const isMinusActive = min
-		? value > min
-		: true;
-	const position = labelPosition
-		? labelPosition
-		: 'left';
+	const value = props.value != undefined ? props.value : min;
+	const isPlusActive = max != undefined ? value < max : true;
+	const isMinusActive = min != undefined ? value > min : true;
+	const position = labelPosition ? labelPosition : 'left';
+
 	return (
 		<div className={`rbc rbc-numberbox-container rbc-numberbox-container-${position} col s12 col-xs-12`}>
 			<div className={`rbc-label rbc-numberbox-label`}>{label}</div>
@@ -59,30 +50,41 @@ class NumberBox extends Component {
 			currentValue: defaultSelected,
 			focused: focused
 		}
-		this.type = COMPONENT_QUERY_TYPE;
+		this.type = 'term';
 		this.handleChange = this.handleChange.bind(this);
 		this.defaultQuery = this.defaultQuery.bind(this);
 	}
 
 	componentDidMount() {
 		this.setQueryInfo();
+		this.handleChange();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		setTimeout(() => {
+			if (nextProps.defaultSelected !== this.state.currentValue) {
+				this.setState({
+					currentValue: nextProps.defaultSelected
+				});
+			}
+		}, 300);
 	}
 
 	// build query for this sensor only
 	defaultQuery(value) {
 		return {
-			'term': {
+			[this.type]: {
 				[this.props.appbaseField]: value
 			}
 		};
 	}
 
 	setQueryInfo() {
-		const {sensorId, appbaseField} = this.props;
+		const {componentId, appbaseField} = this.props;
 		const obj = {
-			key: sensorId,
+			key: componentId,
 			value: {
-				queryType: COMPONENT_QUERY_TYPE,
+				queryType: this.type,
 				inputData: appbaseField,
 				defaultQuery: this.defaultQuery
 			}
@@ -91,54 +93,58 @@ class NumberBox extends Component {
 	}
 
 	// use this only if want to create actuators
-	// Create a channel which passes the depends and receive results whenever depends changes
+	// Create a channel which passes the actuate and receive results whenever actuate changes
 	createChannel() {
-		const depends = this.props.depends
-			? this.props.depends
-			: {};
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, depends);
+		const actuate = this.props.actuate ? this.props.actuate : {};
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 	}
 
 	// handle the input change and pass the value inside sensor info
-	handleChange(increment) {
-		const {sensorId, data} = this.props;
-		const {min, max} = data;
-		const {currentValue} = this.state;
-		let inputVal = currentValue;
-		if (increment > 0) {
-			if ((max && currentValue < max) || (!max)) {
-				inputVal += 1;
-			}
-		} else {
-			if ((min && currentValue > min) || (!min)) {
-				inputVal -= 1;
-			}
+	handleChange(increment=0) {
+		const {componentId, data} = this.props;
+		let {min, max} = data;
+		let inputVal = this.state.currentValue;
+
+		min = min != undefined ? min : inputVal-1;
+		max = max != undefined ? max : inputVal+1;
+
+		if (increment > 0 && inputVal < max) {
+			inputVal += 1;
+		} else if (increment < 0 && inputVal > min) {
+			inputVal -= 1;
 		}
-		this.setState({'currentValue': inputVal});
+
+		this.setState({
+			currentValue: inputVal
+		});
+
 		const obj = {
-			key: sensorId,
+			key: componentId,
 			value: inputVal
 		};
-		// pass the selected sensor value with sensorId as key,
-		const isExecuteQuery = true;
-		helper.selectedSensor.set(obj, isExecuteQuery);
+		helper.selectedSensor.set(obj, true);
 	}
 
 	render() {
-		const {title, data, labelPosition, defaultStyle} = this.props;
+		const {title, data, labelPosition} = this.props;
 		const {currentValue} = this.state;
-		const ComponentTitle = title
-			? <TitleComponent title={title}/>
-			: null;
+		const ComponentTitle = title ? <TitleComponent title={title}/> : null;
 		const cx = classNames({
 			'rbc-title-active': title,
 			'rbc-title-inactive': !title
 		});
 		return (
-			<div className={`rbc rbc-numberbox col s12 col-xs-12 card thumbnail ${cx}`} style={defaultStyle}>
+			<div className={`rbc rbc-numberbox col s12 col-xs-12 card thumbnail ${cx} rbc-label-${labelPosition}`}>
 				<div className="row">
 					{ComponentTitle}
-					<NumberComponent handleChange={this.handleChange} value={currentValue} label={data.label} min={data.min} max={data.max} labelPosition={labelPosition}/>
+					<NumberComponent
+						handleChange={this.handleChange}
+						value={currentValue}
+						label={data.label}
+						min={data.min}
+						max={data.max}
+						labelPosition={labelPosition}
+					/>
 				</div>
 			</div>
 		);
@@ -146,18 +152,22 @@ class NumberBox extends Component {
 };
 
 NumberBox.propTypes = {
-	sensorId: React.PropTypes.string.isRequired,
+	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.string,
-	data: React.PropTypes.any.isRequired,
-	defaultSelected: React.PropTypes.number,
-	labelPosition: React.PropTypes.string,
+	data: React.PropTypes.shape({
+		min: helper.validateThreshold,
+		max: helper.validateThreshold,
+		label: React.PropTypes.string
+	}),
+	defaultSelected:  helper.valueValidation,
+	labelPosition: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right'])
 };
 
 // context type
 NumberBox.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
+	type: React.PropTypes.any.isRequired
 };
 
 export {NumberBox};

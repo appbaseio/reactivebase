@@ -18,7 +18,7 @@ export default class NumberBoxDefault extends Component {
 		if (value) {
 			return {
 				match: {
-					'cars.name': value
+					[this.props.mapping.rating]: value
 				}
 			};
 		} else {
@@ -49,22 +49,14 @@ export default class NumberBoxDefault extends Component {
 				}}>
 					<div className="text-head text-overflow full_row">
 						<span className="text-head-info text-overflow">
-							{marker.name
-								? marker.name
-								: ''}
-							- {marker.brand
-								? marker.brand
-								: ''}
+							{ marker.name ? marker.name : '' } - { marker.brand ? marker.brand: '' }
 						</span>
-						<span className="text-head-city">{marker.brand
-								? marker.brand
-								: ''}</span>
+						<span className="text-head-city">
+							{ marker.brand ? marker.brand : '' }</span>
 					</div>
 					<div className="text-description text-overflow full_row">
 						<ul className="highlight_tags">
-							{marker.price
-								? `Priced at $${marker.price}`
-								: 'Free Test Drive'}
+							{ marker.price ? `Priced at $${marker.price}` : 'Free Test Drive' }
 						</ul>
 					</div>
 				</div>
@@ -74,19 +66,32 @@ export default class NumberBoxDefault extends Component {
 
 	render() {
 		return (
-			<ReactiveBase appname="car-store" username="cf7QByt5e" password="d2d60548-82a9-43cc-8b40-93cbbe75c34c">
+			<ReactiveBase
+				appname="car-store"
+				username="cf7QByt5e"
+				password="d2d60548-82a9-43cc-8b40-93cbbe75c34c"
+			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
-						<NumberBox sensorId="CarModelSensor" appbaseField={this.props.mapping.name} title="NumberBox" {...this.props}/>
+						<NumberBox
+							componentId="CarRatingSensor"
+							appbaseField={this.props.mapping.rating}
+							title="NumberBox"
+							{...this.props}
+						/>
 					</div>
 
-					<div className="col-xs-6">
-						<ResultList sensorId="SearchResult" appbaseField={this.props.mapping.name} title="Cars" from={0} size={20} onData={this.onData} depends={{
-							CarModelSensor: {
-								"operation": "must",
-								defaultQuery: this.NameQuery
-							}
-						}}/>
+					<div className="col s6 col-xs-6">
+						<ResultList componentId="SearchResult"
+							appbaseField={this.props.mapping.rating}
+							title="Cars"
+							from={0}
+							size={20}
+							onData={this.onData}
+							actuate={{
+								CarRatingSensor: {"operation": "must"}
+							}}
+						/>
 					</div>
 				</div>
 			</ReactiveBase>
@@ -96,6 +101,6 @@ export default class NumberBoxDefault extends Component {
 
 NumberBoxDefault.defaultProps = {
 	mapping: {
-		name: 'name'
+		rating: 'rating'
 	}
 };

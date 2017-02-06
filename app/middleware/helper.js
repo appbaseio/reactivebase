@@ -189,8 +189,22 @@ export var stepValidation = function(props, propName) {
 }
 
 export var validateThreshold = function(props, propName, componentName) {
-	if(!(!isNaN(props[propName]) && props['end'] > props['start'])) {
-		return new Error('Threshold value validation is failed, end value should be greater than start value.');
+	if (componentName == 'NumberBox') {
+		if(!(!isNaN(props[propName]) && props['max'] > props['min'])) {
+			return new Error('Threshold value validation is failed, max value should be greater than min value.');
+		}
+	} else {
+		if(!(!isNaN(props[propName]) && props['end'] > props['start'])) {
+			return new Error('Threshold value validation is failed, end value should be greater than start value.');
+		}
+	}
+}
+
+export var valueValidation = function(props, propName) {
+	const max = props['data']['max'] ? props['data']['max'] : props['defaultSelected'];
+	const min = props['data']['min'] ? props['data']['min'] : props['defaultSelected'];
+	if(!(!isNaN(props[propName]) && max >= props['defaultSelected'] && min <= props['defaultSelected'])) {
+		return new Error('Default value validation is failed, Default value should be between min and max values.');
 	}
 }
 
