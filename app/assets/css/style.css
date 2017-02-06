@@ -332,7 +332,7 @@ a {
     border-color: red;
     background-color: red; }
   .rbc-red .rbc.rbc-numberbox {
-    color: red; }
+    color: #666; }
     .rbc-red .rbc.rbc-numberbox .rbc-btn-active {
       color: #5e5e5e; }
     .rbc-red .rbc.rbc-numberbox .rbc-btn-inactive {
@@ -488,7 +488,7 @@ a {
     border-color: orange;
     background-color: orange; }
   .rbc-orange .rbc.rbc-numberbox {
-    color: orange; }
+    color: #666; }
     .rbc-orange .rbc.rbc-numberbox .rbc-btn-active {
       color: #5e5e5e; }
     .rbc-orange .rbc.rbc-numberbox .rbc-btn-inactive {
@@ -644,7 +644,7 @@ a {
     border-color: yellow;
     background-color: yellow; }
   .rbc-yellow .rbc.rbc-numberbox {
-    color: yellow; }
+    color: #666; }
     .rbc-yellow .rbc.rbc-numberbox .rbc-btn-active {
       color: #5e5e5e; }
     .rbc-yellow .rbc.rbc-numberbox .rbc-btn-inactive {
@@ -800,7 +800,7 @@ a {
     border-color: green;
     background-color: green; }
   .rbc-green .rbc.rbc-numberbox {
-    color: green; }
+    color: #666; }
     .rbc-green .rbc.rbc-numberbox .rbc-btn-active {
       color: #5e5e5e; }
     .rbc-green .rbc.rbc-numberbox .rbc-btn-inactive {
@@ -956,7 +956,7 @@ a {
     border-color: #1893e7;
     background-color: #1893e7; }
   .rbc-blue .rbc.rbc-numberbox {
-    color: #1893e7; }
+    color: #666; }
     .rbc-blue .rbc.rbc-numberbox .rbc-btn-active {
       color: #5e5e5e; }
     .rbc-blue .rbc.rbc-numberbox .rbc-btn-inactive {
@@ -1112,7 +1112,7 @@ a {
     border-color: #ccc;
     background-color: #ccc; }
   .rbc-dark .rbc.rbc-numberbox {
-    color: #ccc; }
+    color: #666; }
     .rbc-dark .rbc.rbc-numberbox .rbc-btn-active {
       color: #d5d5d5; }
     .rbc-dark .rbc.rbc-numberbox .rbc-btn-inactive {
