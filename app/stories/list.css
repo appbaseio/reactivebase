@@ -22,7 +22,7 @@ html {
 
 .rbc-base > .row > .col.s6:first-child::after,
 .rbc-base > .row > .col.s6:last-child::after {
-	content: 'Sensor';
+	content: 'Actuator';
 	display: block;
 	position: absolute;
 	text-align: center;
@@ -37,16 +37,16 @@ html {
 	border-bottom-left-radius: 5px;
 }
 
-.rbc-base > .row > .col.s6:last-child::after {
-	content: 'Actuator';
-}
-
-.rbc-base > .row.reverse-labels > .col.s6:last-child::after {
+.rbc-base > .row > .col.s6:first-child::after {
 	content: 'Sensor';
 }
 
 .rbc-base > .row.reverse-labels > .col.s6:first-child::after {
 	content: 'Actuator';
+}
+
+.rbc-base > .row.reverse-labels > .col.s6:last-child::after {
+	content: 'Sensor';
 }
 
 
