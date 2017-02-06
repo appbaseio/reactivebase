@@ -20,7 +20,7 @@ import {
 
 ```js
 <ReactiveBase
-	appname="reactivemap_demo"
+	app="reactivemap_demo"
 	username="y4pVxY2Ok"
 	password="c92481e2-c07f-4473-8326-082919282c18"
 	type="car"

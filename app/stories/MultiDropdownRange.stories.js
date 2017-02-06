@@ -52,7 +52,7 @@ export default class MultiDropdownRangeDefault extends Component {
 	render() {
 		return (
 			<ReactiveBase
-				appname="car-store"
+				app="car-store"
 				username="cf7QByt5e"
 				password="d2d60548-82a9-43cc-8b40-93cbbe75c34c"
 			>

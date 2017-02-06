@@ -16,7 +16,7 @@ export default class DateRangeDefault extends Component {
 	componentDidMount() {
 		ResponsiveStory();
 	}
-	
+
 	onData(res) {
 		let result, combineData = res.currentData;
 		if(res.mode === 'historic') {
@@ -66,7 +66,7 @@ export default class DateRangeDefault extends Component {
 	render() {
 		return (
 			<ReactiveBase
-				appname="meetup_demo1"
+				app="meetup_demo1"
 				username="yafYCRWns"
 				password="c9c9b34e-185c-42e5-bdfe-b7c32d543f2e"
 				type="meetupdata1"

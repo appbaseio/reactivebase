@@ -11,7 +11,7 @@ export class ReactiveBase extends Component {
 
 		this.appbaseRef = new Appbase({
 			url: 'https://scalr.api.appbase.io',
-			appname: this.props.appname,
+			appname: this.props.app,
 			username: this.props.username,
 			password: this.props.password
 		});
@@ -34,7 +34,7 @@ export class ReactiveBase extends Component {
 }
 
 ReactiveBase.propTypes = {
-	appname: React.PropTypes.string.isRequired,
+	app: React.PropTypes.string.isRequired,
 	username: React.PropTypes.string.isRequired,
 	password: React.PropTypes.string.isRequired,
 	type: React.PropTypes.string,
