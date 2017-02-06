@@ -1527,7 +1527,7 @@ a {
 
 .rbc.rbc-numberbox {
   padding: 0; }
-  .rbc.rbc-numberbox .rbc-numberbox-btn {
+  .rbc.rbc-numberbox .rbc-btn {
     display: inline-block;
     width: 2em;
     height: 2em;
@@ -1538,32 +1538,28 @@ a {
     text-align: center;
     vertical-align: middle;
     box-shadow: none; }
-  .rbc.rbc-numberbox .rbc-numberbox-btn-icon {
+  .rbc.rbc-numberbox .rbc-icon {
     line-height: inherit; }
   .rbc.rbc-numberbox .rbc-numberbox-btn-container {
     padding: 10px 0; }
   .rbc.rbc-numberbox .rbc-numberbox-container {
     display: flex;
     justify-content: flex-start; }
-  .rbc.rbc-numberbox .rbc-numberbox-container-right .rbc-numberbox-label,
-  .rbc.rbc-numberbox .rbc-numberbox-container-bottom .rbc-numberbox-label {
+  .rbc.rbc-numberbox.rbc-label-right .rbc-label, .rbc.rbc-numberbox.rbc-label-bottom .rbc-label {
     order: 2; }
-  .rbc.rbc-numberbox .rbc-numberbox-container-right .rbc-numberbox-label {
+  .rbc.rbc-numberbox.rbc-label-right .rbc-label {
     padding-left: 15px; }
-  .rbc.rbc-numberbox .rbc-numberbox-container-left .rbc-numberbox-label {
+  .rbc.rbc-numberbox.rbc-label-left .rbc-label {
     padding-right: 15px; }
-  .rbc.rbc-numberbox .rbc-numberbox-container-left,
-  .rbc.rbc-numberbox .rbc-numberbox-container-right {
+  .rbc.rbc-numberbox.rbc-label-left .rbc-numberbox-container, .rbc.rbc-numberbox.rbc-label-right .rbc-numberbox-container {
     flex-direction: row; }
-  .rbc.rbc-numberbox .rbc-numberbox-container-top,
-  .rbc.rbc-numberbox .rbc-numberbox-container-bottom {
+  .rbc.rbc-numberbox.rbc-label-top .rbc-numberbox-container, .rbc.rbc-numberbox.rbc-label-bottom .rbc-numberbox-container {
     flex-direction: column; }
-    .rbc.rbc-numberbox .rbc-numberbox-container-top .rbc-numberbox-btn-container,
-    .rbc.rbc-numberbox .rbc-numberbox-container-bottom .rbc-numberbox-btn-container {
-      text-align: center; }
+  .rbc.rbc-numberbox.rbc-label-top .rbc-numberbox-btn-container, .rbc.rbc-numberbox.rbc-label-bottom .rbc-numberbox-btn-container {
+    text-align: center; }
   .rbc.rbc-numberbox .rbc-numberbox-number {
     padding: 1em; }
-  .rbc.rbc-numberbox .rbc-numberbox-label {
+  .rbc.rbc-numberbox .rbc-label {
     display: inline-block;
     line-height: 50px;
     text-align: center;

@@ -17,26 +17,25 @@ const NumberBoxButtonComponent = (props) => {
 	const increment = type == 'plus' ? 1 : -1;
 
 	return (
-		<button className={`btn rbc-btn rbc-numberbox-btn ${cx}`} onClick={props.isActive && (() => props.handleChange(increment))}>
-			<span className={`fa fa-${type} rbc-numberbox-btn-icon`}></span>
+		<button className={`btn rbc-btn ${cx}`} onClick={props.isActive && (() => props.handleChange(increment))}>
+			<span className={`fa fa-${type} rbc-icon`}></span>
 		</button>
 	);
 };
 
 const NumberComponent = (props) => {
-	const {label, max, min, labelPosition, handleChange} = props;
+	const {label, max, min, handleChange} = props;
 	const value = props.value != undefined ? props.value : min;
 	const isPlusActive = max != undefined ? value < max : true;
 	const isMinusActive = min != undefined ? value > min : true;
-	const position = labelPosition ? labelPosition : 'left';
 
 	return (
-		<div className={`rbc rbc-numberbox-container rbc-numberbox-container-${position} col s12 col-xs-12`}>
-			<div className={`rbc-label rbc-numberbox-label`}>{label}</div>
-			<div className={"rbc-numberbox-btn-container"}>
-				<NumberBoxButtonComponent isActive={isMinusActive} handleChange={handleChange} type={'minus'}/>
-				<span className={"rbc-numberbox-number"}>{value}</span>
-				<NumberBoxButtonComponent isActive={isPlusActive} handleChange={handleChange} type={'plus'}/>
+		<div className="rbc-numberbox-container col s12 col-xs-12">
+			<div className="rbc-label">{label}</div>
+			<div className="rbc-numberbox-btn-container">
+				<NumberBoxButtonComponent isActive={isMinusActive} handleChange={handleChange} type="minus" />
+				<span className="rbc-numberbox-number">{value}</span>
+				<NumberBoxButtonComponent isActive={isPlusActive} handleChange={handleChange} type="plus" />
 			</div>
 		</div>
 	);
@@ -143,7 +142,6 @@ class NumberBox extends Component {
 						label={data.label}
 						min={data.min}
 						max={data.max}
-						labelPosition={labelPosition}
 					/>
 				</div>
 			</div>

@@ -1,7 +1,7 @@
 .rbc.rbc-numberbox {
 	padding: 0;
 
-	.rbc-numberbox-btn {
+	.rbc-btn {
 		display: inline-block;
 		width: 2em;
 		height: 2em;
@@ -14,7 +14,7 @@
 		box-shadow: none;
 	}
 
-	.rbc-numberbox-btn-icon {
+	.rbc-icon {
 		line-height: inherit;
 	}
 
@@ -27,33 +27,37 @@
 		justify-content: flex-start;
 	}
 
-	.rbc-numberbox-container-right,
-	.rbc-numberbox-container-bottom {
-		.rbc-numberbox-label {
+	&.rbc-label-right,
+	&.rbc-label-bottom {
+		.rbc-label {
 			order: 2;
 		}
 	}
 
-	.rbc-numberbox-container-right {
-		.rbc-numberbox-label {
+	&.rbc-label-right {
+		.rbc-label {
 			padding-left: 15px;
 		}
 	}
 
-	.rbc-numberbox-container-left {
-		.rbc-numberbox-label {
+	&.rbc-label-left {
+		.rbc-label {
 			padding-right: 15px;
 		}
 	}
 
-	.rbc-numberbox-container-left,
-	.rbc-numberbox-container-right {
-		flex-direction: row;
+	&.rbc-label-left,
+	&.rbc-label-right {
+		.rbc-numberbox-container {
+			flex-direction: row;
+		}
 	}
 
-	.rbc-numberbox-container-top,
-	.rbc-numberbox-container-bottom {
-		flex-direction: column;
+	&.rbc-label-top,
+	&.rbc-label-bottom {
+		.rbc-numberbox-container {
+			flex-direction: column;
+		}
 
 		.rbc-numberbox-btn-container {
 			text-align: center;
@@ -64,7 +68,7 @@
 		padding: 1em;
 	}
 
-	.rbc-numberbox-label {
+	.rbc-label {
 		display: inline-block;
 		line-height: 50px;
 		text-align: center;
