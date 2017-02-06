@@ -10,8 +10,8 @@ const TitleComponent = (props) => (
 
 const NumberBoxButtonComponent = (props) => {
 	const cx = classNames({
-		'rbc-numberbox-btn-active': props.isActive,
-		'rbc-numberbox-btn-inactive': !props.isActive
+		'rbc-btn-active': props.isActive,
+		'rbc-btn-inactive': !props.isActive
 	})
 	const {type} = props;
 	const increment = type == 'plus' ? 1 : -1;

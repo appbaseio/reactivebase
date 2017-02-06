@@ -156,11 +156,11 @@ export var ResponsiveStory = function() {
 		$('.rbc.rbc-resultlist').css({
 			maxHeight: height - 15 - paginationHeight()
 		});
-		$('.rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist').height(height - 100 - 15);
+		$('.rbc.rbc-singlelist, .rbc.rbc-multilist').height(height - 100 - 15);
 		$('.rbc-base > .row').css({
 			'margin-bottom': 0
 		});
-		$('.rbc-reactivemap .rbc-container').css({
+		$('.rbc-reactivemap .rbc-container, .rbc.rbc-nestedlist').css({
 			maxHeight: height - 15
 		});
 	}

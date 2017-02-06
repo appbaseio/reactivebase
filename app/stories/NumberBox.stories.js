@@ -70,6 +70,7 @@ export default class NumberBoxDefault extends Component {
 				app="car-store"
 				username="cf7QByt5e"
 				password="d2d60548-82a9-43cc-8b40-93cbbe75c34c"
+				theme="rbc-dark"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">

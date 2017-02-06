@@ -202,11 +202,13 @@ $themes: (
 			}
 			
 			&.rbc-numberbox {
-				.rbc-numberbox-btn-active {
+				color: map-get($map, color);
+
+				.rbc-btn-active {
 					color: darken(map-get($map, font-color), 10%);
 				}
 
-				.rbc-numberbox-btn-inactive {
+				.rbc-btn-inactive {
 					color: lighten(map-get($map, font-color), 25%);
 				}
 			}
@@ -249,13 +251,30 @@ $themes: (
 	}
 }
 
-.rbc-dark .rbc-poweredby {
-	.rbc-img-responsive {
-		&.rbc-poweredby-dark {
-			display: inline-block;
+.rbc-dark {
+	.rbc.rbc-poweredby {
+		.rbc-img-responsive {
+			&.rbc-poweredby-dark {
+				display: inline-block;
+			}
+			&.rbc-poweredby-light {
+				display: none;
+			}
 		}
-		&.rbc-poweredby-light {
-			display: none;
+	}
+
+	.rbc.rbc-numberbox {
+		.rbc-btn {
+			background-color: #222;
+		}
+
+		.rbc-btn-active {
+			color: #fff;
+		}
+
+		.rbc-btn-inactive {
+			color: #777;
+			background-color: #444;
 		}
 	}
 }
