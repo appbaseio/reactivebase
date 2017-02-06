@@ -217,11 +217,6 @@ storiesOf("NestedList", module)
 		/>
 	)));
 
-storiesOf("PoweredBy", module)
-	.add("Basic", () => (
-		<PoweredByDefault />
-	));
-
 storiesOf("SingleRange", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(SingleRangeReadme), () => (
@@ -344,6 +339,35 @@ storiesOf("RangeSlider", module)
 			})}
 		/>
 	)));
+
+storiesOf("NumberBox", module)
+	.addDecorator(withKnobs)
+	.add("Basic", () => {
+		return (
+			<NumberBoxDefault
+				defaultSelected={3}
+				data={{
+					label: "Car Ratings",
+					min: 1,
+					max: 5
+				}}
+				labelPosition="left"
+			/>
+		);
+	})
+	.add("Playground", () => {
+		return (
+			<NumberBoxDefault
+				defaultSelected={number("defaultSelected", 3)}
+				data={object("data", {
+					"min": 1,
+					"max": 5,
+					"label": "Car Ratings"
+				})}
+				labelPosition={select("labelPosition", {"bottom": "bottom", "top": "top", "left": "left", "right": "right"}, "right")}
+			/>
+		);
+	});
 
 storiesOf("TextField", module)
 	.addDecorator(withKnobs)
@@ -537,29 +561,7 @@ storiesOf("PaginatedResultList", module)
 		/>
 	)));
 
-storiesOf("NumberBox", module)
-	.addDecorator(withKnobs)
-	.add("Basic", () => {
-		return (
-			<NumberBoxDefault
-				defaultSelected={3}
-				data={{
-					label: "Car Ratings"
-				}}
-				labelPosition="left"
-			/>
-		);
-	})
-	.add("Playground", () => {
-		return (
-			<NumberBoxDefault
-				defaultSelected={number("defaultSelected", 3)}
-				data={object("data", {
-					"min": 0,
-					"max": 5,
-					"label": "Car Ratings"
-				})}
-				labelPosition={select("labelPosition", {"bottom": "bottom", "top": "top", "left": "left", "right": "right"}, "right")}
-			/>
-		);
-	});
+storiesOf("PoweredBy", module)
+	.add("Basic", () => (
+		<PoweredByDefault />
+	));
