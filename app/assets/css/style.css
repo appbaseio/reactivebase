@@ -1518,7 +1518,7 @@ a {
   .rbc.rbc-nestedlist.rbc-title-inactive.rbc-search-active .row.rbc-list-container {
     height: calc(100% - 48px); }
   .rbc.rbc-nestedlist .rbc-list-container {
-    padding: 3px 0;
+    padding: 5px 0;
     width: 100%;
     overflow: auto; }
     .rbc.rbc-nestedlist .rbc-list-container.row {

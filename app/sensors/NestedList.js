@@ -162,7 +162,6 @@ export class NestedList extends Component {
 	createChannel() {
 		// Set the actuate - add self aggs query as well with actuate
 		let actuate = this.props.actuate ? this.props.actuate : {};
-		console.log(this.nested[0]);
 		actuate['aggs'] = {
 			key: this.props.appbaseField[0],
 			sort: this.props.sortBy,
