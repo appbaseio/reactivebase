@@ -20,6 +20,7 @@ MultiDropdownList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField : React.PropTypes.string.isRequired,
 	title : React.PropTypes.string,
+	defaultSelected: React.PropTypes.array,
 	showCount: React.PropTypes.bool,
 	size: React.PropTypes.number,
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
