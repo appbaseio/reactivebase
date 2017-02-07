@@ -24,10 +24,10 @@ const NumberBoxButtonComponent = (props) => {
 };
 
 const NumberComponent = (props) => {
-	const {label, max, min, handleChange} = props;
-	const value = props.value != undefined ? props.value : min;
-	const isPlusActive = max != undefined ? value < max : true;
-	const isMinusActive = min != undefined ? value > min : true;
+	const {label, end, start, handleChange} = props;
+	const value = props.value != undefined ? props.value : start;
+	const isPlusActive = end != undefined ? value < end : true;
+	const isMinusActive = start != undefined ? value > start : true;
 
 	return (
 		<div className="rbc-numberbox-container col s12 col-xs-12">
@@ -101,15 +101,15 @@ class NumberBox extends Component {
 	// handle the input change and pass the value inside sensor info
 	handleChange(increment=0) {
 		const {componentId, data} = this.props;
-		let {min, max} = data;
+		let {start, end} = data;
 		let inputVal = this.state.currentValue;
 
-		min = min != undefined ? min : inputVal-1;
-		max = max != undefined ? max : inputVal+1;
+		start = start != undefined ? start : inputVal-1;
+		end = end != undefined ? end : inputVal+1;
 
-		if (increment > 0 && inputVal < max) {
+		if (increment > 0 && inputVal < end) {
 			inputVal += 1;
-		} else if (increment < 0 && inputVal > min) {
+		} else if (increment < 0 && inputVal > start) {
 			inputVal -= 1;
 		}
 
@@ -140,8 +140,8 @@ class NumberBox extends Component {
 						handleChange={this.handleChange}
 						value={currentValue}
 						label={data.label}
-						min={data.min}
-						max={data.max}
+						start={data.start}
+						end={data.end}
 					/>
 				</div>
 			</div>
@@ -154,8 +154,8 @@ NumberBox.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.string,
 	data: React.PropTypes.shape({
-		min: helper.validateThreshold,
-		max: helper.validateThreshold,
+		start: helper.validateThreshold,
+		end: helper.validateThreshold,
 		label: React.PropTypes.string
 	}),
 	defaultSelected:  helper.valueValidation,
