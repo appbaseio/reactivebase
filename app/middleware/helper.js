@@ -160,8 +160,11 @@ export var ResponsiveStory = function() {
 		$('.rbc-base > .row').css({
 			'margin-bottom': 0
 		});
-		$('.rbc-reactivemap .rbc-container, .rbc.rbc-nestedlist').css({
+		$('.rbc.rbc-nestedlist').css({
 			maxHeight: height - 15
+		});
+		$('.rbc-reactivemap .rbc-container, .rbc.rbc-nestedlist').css({
+			maxHeight: height
 		});
 	}
 
@@ -196,6 +199,11 @@ export var validateThreshold = function(props, propName, componentName) {
 	} else {
 		if(!(!isNaN(props[propName]) && props['end'] > props['start'])) {
 			return new Error('Threshold value validation has failed, end value should be greater than start value.');
+		}
+		if (componentName == 'GeoDistanceDropdown' || componentName == 'GeoDistanceSlider') {
+			if (props['start'] < 0) {
+				return new Error('Threshold value is invalid, it should be greater than 0.');
+			}
 		}
 	}
 }
