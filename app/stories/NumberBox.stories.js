@@ -7,23 +7,10 @@ export default class NumberBoxDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.onData = this.onData.bind(this);
-		this.nameQuery = this.nameQuery.bind(this);
 	}
 
 	componentDidMount() {
 		ResponsiveStory();
-	}
-
-	nameQuery(value) {
-		if (value) {
-			return {
-				match: {
-					[this.props.mapping.rating]: value
-				}
-			};
-		} else {
-			return null;
-		}
 	}
 
 	onData(res) {
