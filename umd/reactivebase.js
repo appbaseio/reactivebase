@@ -2419,8 +2419,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			$('.rbc-base > .row').css({
 				'margin-bottom': 0
 			});
-			$('.rbc-reactivemap .rbc-container, .rbc.rbc-nestedlist').css({
+			$('.rbc.rbc-nestedlist').css({
 				maxHeight: height - 15
+			});
+			$('.rbc-reactivemap .rbc-container, .rbc.rbc-nestedlist').css({
+				maxHeight: height
 			});
 		}
 
@@ -2448,22 +2451,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var validateThreshold = exports.validateThreshold = function validateThreshold(props, propName, componentName) {
-		if (componentName == 'NumberBox') {
-			if (!(!isNaN(props[propName]) && props['max'] > props['min'])) {
-				return new Error('Threshold value validation has failed, max value should be greater than min value.');
-			}
-		} else {
-			if (!(!isNaN(props[propName]) && props['end'] > props['start'])) {
-				return new Error('Threshold value validation has failed, end value should be greater than start value.');
+		if (!(!isNaN(props[propName]) && props['end'] > props['start'])) {
+			return new Error('Threshold value validation has failed, end value should be greater than start value.');
+		}
+		if (componentName == 'GeoDistanceDropdown' || componentName == 'GeoDistanceSlider') {
+			if (props['start'] < 0) {
+				return new Error('Threshold value is invalid, it should be greater than 0.');
 			}
 		}
 	};
 
 	var valueValidation = exports.valueValidation = function valueValidation(props, propName) {
-		var max = props['data']['max'] ? props['data']['max'] : props['defaultSelected'];
-		var min = props['data']['min'] ? props['data']['min'] : props['defaultSelected'];
-		if (!(!isNaN(props[propName]) && max >= props['defaultSelected'] && min <= props['defaultSelected'])) {
-			return new Error('Default value validation has failed, Default value should be between min and max values.');
+		var end = props['data']['end'] ? props['data']['end'] : props['defaultSelected'];
+		var start = props['data']['start'] ? props['data']['start'] : props['defaultSelected'];
+		if (!(!isNaN(props[propName]) && end >= props['defaultSelected'] && start <= props['defaultSelected'])) {
+			return new Error('Default value validation has failed, Default value should be between start and end values.');
 		}
 	};
 
@@ -12902,6 +12904,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
 		title: _react2.default.PropTypes.string,
+		defaultSelected: _react2.default.PropTypes.string,
 		showCount: _react2.default.PropTypes.bool,
 		size: _react2.default.PropTypes.number,
 		sortBy: _react2.default.PropTypes.oneOf(['asc', 'desc', 'count']),
@@ -32918,6 +32921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
 		title: _react2.default.PropTypes.string,
+		defaultSelected: _react2.default.PropTypes.array,
 		showCount: _react2.default.PropTypes.bool,
 		size: _react2.default.PropTypes.number,
 		sortBy: _react2.default.PropTypes.oneOf(['asc', 'desc', 'count']),
@@ -67864,7 +67868,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function createChannel() {
 				// Set the actuate - add self aggs query as well with actuate
 				var actuate = this.props.actuate ? this.props.actuate : {};
-				console.log(this.nested[0]);
 				actuate['aggs'] = {
 					key: this.props.appbaseField[0],
 					sort: this.props.sortBy,
@@ -68465,13 +68468,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var NumberComponent = function NumberComponent(props) {
 		var label = props.label,
-		    max = props.max,
-		    min = props.min,
+		    end = props.end,
+		    start = props.start,
 		    handleChange = props.handleChange;
 
-		var value = props.value != undefined ? props.value : min;
-		var isPlusActive = max != undefined ? value < max : true;
-		var isMinusActive = min != undefined ? value > min : true;
+		var value = props.value != undefined ? props.value : start;
+		var isPlusActive = end != undefined ? value < end : true;
+		var isMinusActive = start != undefined ? value > start : true;
 
 		return _react2.default.createElement(
 			'div',
@@ -68581,17 +68584,17 @@ return /******/ (function(modules) { // webpackBootstrap
 				var _props2 = this.props,
 				    componentId = _props2.componentId,
 				    data = _props2.data;
-				var min = data.min,
-				    max = data.max;
+				var start = data.start,
+				    end = data.end;
 
 				var inputVal = this.state.currentValue;
 
-				min = min != undefined ? min : inputVal - 1;
-				max = max != undefined ? max : inputVal + 1;
+				start = start != undefined ? start : inputVal - 1;
+				end = end != undefined ? end : inputVal + 1;
 
-				if (increment > 0 && inputVal < max) {
+				if (increment > 0 && inputVal < end) {
 					inputVal += 1;
-				} else if (increment < 0 && inputVal > min) {
+				} else if (increment < 0 && inputVal > start) {
 					inputVal -= 1;
 				}
 
@@ -68630,8 +68633,8 @@ return /******/ (function(modules) { // webpackBootstrap
 							handleChange: this.handleChange,
 							value: currentValue,
 							label: data.label,
-							min: data.min,
-							max: data.max
+							start: data.start,
+							end: data.end
 						})
 					)
 				);
@@ -68648,8 +68651,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		appbaseField: _react2.default.PropTypes.string.isRequired,
 		title: _react2.default.PropTypes.string,
 		data: _react2.default.PropTypes.shape({
-			min: helper.validateThreshold,
-			max: helper.validateThreshold,
+			start: helper.validateThreshold,
+			end: helper.validateThreshold,
 			label: _react2.default.PropTypes.string
 		}),
 		defaultSelected: helper.valueValidation,
