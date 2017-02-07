@@ -7,59 +7,60 @@ import withReadme from "storybook-readme/with-readme";
 import { Appbase } from "appbase-js";
 
 import SingleListDefault from "./SingleList.stories";
-import SingleListReadme from "@appbaseio/reactivebase-manual/docs/v1/components/SingleList.md";
+import SingleListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleList.md";
 
 import MultiListDefault from "./MultiList.stories";
-import MultiListReadme from "@appbaseio/reactivebase-manual/docs/v1/components/MultiList.md";
+import MultiListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiList.md";
 
 import SingleRangeDefault from "./SingleRange.stories";
-import SingleRangeReadme from "@appbaseio/reactivebase-manual/docs/v1/components/SingleRange.md";
+import SingleRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleRange.md";
 
 import MultiRangeDefault from "./MultiRange.stories";
-import MultiRangeReadme from "@appbaseio/reactivebase-manual/docs/v1/components/MultiRange.md";
+import MultiRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiRange.md";
 
 import PoweredByDefault from "./PoweredBy.stories";
 
 import ToggleButtonDefault from "./ToggleButton.stories";
-import ToggleButtonReadme from "@appbaseio/reactivebase-manual/docs/v1/components/ToggleButton.md";
+import ToggleButtonReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ToggleButton.md";
 
 import TextFieldDefault from "./TextField.stories";
-import TextFieldReadme from "@appbaseio/reactivebase-manual/docs/v1/components/TextField.md";
+import TextFieldReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/TextField.md";
 
 import DataSearchDefault from "./DataSearch.stories";
-import DataSearchReadme from "@appbaseio/reactivebase-manual/docs/v1/components/DataSearch.md";
+import DataSearchReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DataSearch.md";
 
 import RangeSliderDefault from "./RangeSlider.stories";
-import RangeSliderReadme from "@appbaseio/reactivebase-manual/docs/v1/components/RangeSlider.md";
+import RangeSliderReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/RangeSlider.md";
 
 import SingleDropdownListDefault from "./SingleDropdownList.stories";
-import SingleDropdownListReadme from "@appbaseio/reactivebase-manual/docs/v1/components/SingleDropdownList.md";
+import SingleDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleDropdownList.md";
 
 import MultiDropdownListDefault from "./MultiDropdownList.stories";
-import MultiDropdownListReadme from "@appbaseio/reactivebase-manual/docs/v1/components/MultiDropdownList.md";
+import MultiDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiDropdownList.md";
 
 import SingleDropdownRangeDefault from "./SingleDropdownRange.stories";
-import SingleDropdownRangeReadme from "@appbaseio/reactivebase-manual/docs/v1/components/SingleDropdownRange.md";
+import SingleDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleDropdownRange.md";
 
 import MultiDropdownRangeDefault from "./MultiDropdownRange.stories";
-import MultiDropdownRangeReadme from "@appbaseio/reactivebase-manual/docs/v1/components/MultiDropdownRange.md";
+import MultiDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiDropdownRange.md";
 
 import ResultListDefault from "./ResultList.stories";
-import ResultListReadme from "@appbaseio/reactivebase-manual/docs/v1/components/ResultList.md";
+import ResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ResultList.md";
 
 import PaginatedResultListDefault from "./PaginatedResultList.stories";
-import PaginatedResultListReadme from "@appbaseio/reactivebase-manual/docs/v1/components/PaginatedResultList.md";
+import PaginatedResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/PaginatedResultList.md";
 
 import DatePickerDefault from "./DatePicker.stories";
-import DatePickerReadme from "@appbaseio/reactivebase-manual/docs/v1/components/DatePicker.md";
+import DatePickerReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DatePicker.md";
 
 import DateRangeDefault from "./DateRange.stories";
-import DateRangeReadme from "@appbaseio/reactivebase-manual/docs/v1/components/DateRange.md";
+import DateRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DateRange.md";
 
 import NestedListDefault from "./NestedList.stories";
-import NestedListReadme from "@appbaseio/reactivebase-manual/docs/v1/components/NestedList.md";
+import NestedListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/NestedList.md";
 
 import NumberBoxDefault from './NumberBox.stories';
+import NumberBoxReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/NumberBox.md";
 
 require ("../../node_modules/materialize-css/dist/css/materialize.min.css");
 require ("../../dist/css/vendor.min.css");
@@ -342,32 +343,28 @@ storiesOf("RangeSlider", module)
 
 storiesOf("NumberBox", module)
 	.addDecorator(withKnobs)
-	.add("Basic", () => {
-		return (
-			<NumberBoxDefault
-				defaultSelected={3}
-				data={{
-					label: "Car Ratings",
-					start: 1,
-					end: 5
-				}}
-				labelPosition="left"
-			/>
-		);
-	})
-	.add("Playground", () => {
-		return (
-			<NumberBoxDefault
-				defaultSelected={number("defaultSelected", 3)}
-				data={object("data", {
-					"start": 1,
-					"end": 5,
-					"label": "Car Ratings"
-				})}
-				labelPosition={select("labelPosition", {"bottom": "bottom", "top": "top", "left": "left", "right": "right"}, "right")}
-			/>
-		);
-	});
+	.add("Basic", withReadme(removeFirstLine(NumberBoxReadme), () => (
+		<NumberBoxDefault
+			defaultSelected={3}
+			data={{
+				label: "Car Ratings",
+				start: 1,
+				end: 5
+			}}
+			labelPosition="left"
+		/>
+	)))
+	.add("Playground", withReadme(removeFirstLine(NumberBoxReadme), () => (
+		<NumberBoxDefault
+			defaultSelected={number("defaultSelected", 3)}
+			data={object("data", {
+				"start": 1,
+				"end": 5,
+				"label": "Car Ratings"
+			})}
+			labelPosition={select("labelPosition", {"bottom": "bottom", "top": "top", "left": "left", "right": "right"}, "right")}
+		/>
+	)));
 
 storiesOf("TextField", module)
 	.addDecorator(withKnobs)
