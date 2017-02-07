@@ -18,8 +18,9 @@ export class SingleDropdownList extends Component {
 
 SingleDropdownList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField : React.PropTypes.string.isRequired,
-	title : React.PropTypes.string,
+	appbaseField: React.PropTypes.string.isRequired,
+	title: React.PropTypes.string,
+	defaultSelected: React.PropTypes.string,
 	showCount: React.PropTypes.bool,
 	size: React.PropTypes.number,
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
