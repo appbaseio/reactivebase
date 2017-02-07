@@ -83,7 +83,7 @@ storiesOf("SingleList", module)
 	.add("Custom Sort", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault title="SingleList: Ascending Sort" showSearch={true} defaultSelected="London" sortBy="asc" placeholder="Search City" />
 	)))
-	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
+	.add("With Select All", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault showSearch={true} selectAllLabel="All Cities" placeholder="Search City" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleListReadme), () => (
