@@ -131,8 +131,8 @@ class channelManager {
 				requestOptions = previousSelectedSensor[depend];
 			} else {
 				let queryObj = null;
-				if(actuate[depend].defaultQuery) {
-					queryObj = actuate[depend].defaultQuery(previousSelectedSensor[depend]);
+				if(actuate[depend].customQuery) {
+					queryObj = actuate[depend].customQuery(previousSelectedSensor[depend]);
 				} else {
 					queryObj = singleQuery(depend);
 				}
@@ -161,8 +161,8 @@ class channelManager {
 		function singleQuery(depend) {
 			let sensorInfo = helper.selectedSensor.get(depend, 'sensorInfo');
 			let s_query = null;
-			if(sensorInfo && sensorInfo.defaultQuery) {
-				s_query = sensorInfo.defaultQuery(previousSelectedSensor[depend]);
+			if(sensorInfo && sensorInfo.customQuery) {
+				s_query = sensorInfo.customQuery(previousSelectedSensor[depend]);
 			}
 			else if(previousSelectedSensor[depend]) {
 				s_query = {};

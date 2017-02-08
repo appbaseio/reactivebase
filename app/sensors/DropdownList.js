@@ -27,7 +27,7 @@ export class DropdownList extends Component {
 		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
-		this.defaultQuery = this.defaultQuery.bind(this);
+		this.customQuery = this.customQuery.bind(this);
 		this.renderOption = this.renderOption.bind(this);
 	}
 
@@ -100,7 +100,7 @@ export class DropdownList extends Component {
 	}
 
 	// build query for this sensor only
-	defaultQuery(value) {
+	customQuery(value) {
 		if(this.selectAll) {
 			return {
 				"exists": {
@@ -124,7 +124,7 @@ export class DropdownList extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				defaultQuery: this.defaultQuery
+				customQuery: this.customQuery
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);

@@ -86,7 +86,7 @@ export default class TextFieldDefault extends Component {
 							size={20}
 							onData={this.onData}
 							actuate={{
-								NameTextSensor: {"operation": "must", defaultQuery: this.NameQuery}
+								NameTextSensor: {"operation": "must", customQuery: this.NameQuery}
 							}}
 						/>
 					</div>

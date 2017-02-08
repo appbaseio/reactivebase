@@ -92,7 +92,7 @@ export default class ResultListDefault extends Component {
 							onData={this.onData}
 							{...this.props}
 							actuate={{
-								CitySensor: {"operation": "must", defaultQuery: this.cityQuery}
+								CitySensor: {"operation": "must", customQuery: this.cityQuery}
 							}}
 						/>
 					</div>

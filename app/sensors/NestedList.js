@@ -33,7 +33,7 @@ export class NestedList extends Component {
 		this.defaultSelected = this.props.defaultSelected;
 		this.filterBySearch = this.filterBySearch.bind(this);
 		this.onItemSelect = this.onItemSelect.bind(this);
-		this.defaultQuery = this.defaultQuery.bind(this);
+		this.customQuery = this.customQuery.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
 		this.type = 'Term';
 	}
@@ -102,7 +102,7 @@ export class NestedList extends Component {
 	}
 
 	// build query for this sensor only
-	defaultQuery(record) {
+	customQuery(record) {
 		if(record) {
 			let query = {
 				bool: {
@@ -129,7 +129,7 @@ export class NestedList extends Component {
 				value: {
 					queryType: this.type,
 					inputData: this.props.appbaseField[0],
-					defaultQuery: this.defaultQuery
+					customQuery: this.customQuery
 				}
 		};
 		helper.selectedSensor.setSensorInfo(obj);

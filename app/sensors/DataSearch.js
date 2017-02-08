@@ -52,7 +52,7 @@ export class DataSearch extends Component {
 				value: {
 					queryType: this.type,
 					inputData: this.props.appbaseField,
-					defaultQuery: this.defaultSearchQuery
+					customQuery: this.defaultSearchQuery
 				}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -71,7 +71,7 @@ export class DataSearch extends Component {
 		let actuate = {};
 		actuate[this.props.searchInputId] = {
 			operation: "must",
-			defaultQuery: this.defaultSearchQuery
+			customQuery: this.defaultSearchQuery
 		};
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
 		this.channelId = channelObj.channelId;

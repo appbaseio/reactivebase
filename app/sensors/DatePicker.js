@@ -15,7 +15,7 @@ export class DatePicker extends Component {
 		};
 		this.type = 'range';
 		this.handleChange = this.handleChange.bind(this);
-		this.defaultQuery = this.defaultQuery.bind(this);
+		this.customQuery = this.customQuery.bind(this);
 	}
 
 	// Set query information
@@ -30,14 +30,14 @@ export class DatePicker extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				defaultQuery: this.defaultQuery
+				customQuery: this.customQuery
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
 	}
 
 	// build query for this sensor only
-	defaultQuery(value) {
+	customQuery(value) {
 		let query = null;
 		if(value) {
 			query = {

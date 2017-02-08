@@ -51,7 +51,7 @@ class NumberBox extends Component {
 		}
 		this.type = 'term';
 		this.handleChange = this.handleChange.bind(this);
-		this.defaultQuery = this.defaultQuery.bind(this);
+		this.customQuery = this.customQuery.bind(this);
 	}
 
 	componentDidMount() {
@@ -70,7 +70,7 @@ class NumberBox extends Component {
 	}
 
 	// build query for this sensor only
-	defaultQuery(value) {
+	customQuery(value) {
 		return {
 			[this.type]: {
 				[this.props.appbaseField]: value
@@ -85,7 +85,7 @@ class NumberBox extends Component {
 			value: {
 				queryType: this.type,
 				inputData: appbaseField,
-				defaultQuery: this.defaultQuery
+				customQuery: this.customQuery
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);

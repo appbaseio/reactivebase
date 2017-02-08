@@ -11,7 +11,7 @@ export class TextField extends Component {
 		};
 		this.type = 'match';
 		this.handleChange = this.handleChange.bind(this);
-		this.defaultQuery = this.defaultQuery.bind(this);
+		this.customQuery = this.customQuery.bind(this);
 	}
 
 	// Set query information
@@ -26,14 +26,14 @@ export class TextField extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				defaultQuery: this.defaultQuery
+				customQuery: this.customQuery
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
 	}
 
 	// build query for this sensor only
-	defaultQuery(value) {
+	customQuery(value) {
 		return {
 			'term': {
 				[this.props.appbaseField]: value

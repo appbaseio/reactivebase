@@ -32,7 +32,7 @@ export class RangeSlider extends Component {
 		this.channelListener = null;
 		this.handleValuesChange = this.handleValuesChange.bind(this);
 		this.handleResults = this.handleResults.bind(this);
-		this.defaultQuery = this.defaultQuery.bind(this);
+		this.customQuery = this.customQuery.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -185,7 +185,7 @@ export class RangeSlider extends Component {
 				value: {
 					queryType: 'range',
 					inputData: this.props.appbaseField,
-					defaultQuery: this.defaultQuery
+					customQuery: this.customQuery
 				}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -201,7 +201,7 @@ export class RangeSlider extends Component {
 		helper.selectedSensor.set(objValue, true);
 	}
 
-	defaultQuery(record) {
+	customQuery(record) {
 		if(record) {
 			return {
 				range: {

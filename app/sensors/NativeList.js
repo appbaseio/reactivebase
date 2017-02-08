@@ -31,7 +31,7 @@ export class NativeList extends Component {
 		this.filterBySearch = this.filterBySearch.bind(this);
 		this.selectAll = this.selectAll.bind(this);
 		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
-		this.defaultQuery = this.defaultQuery.bind(this);
+		this.customQuery = this.customQuery.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -42,7 +42,7 @@ export class NativeList extends Component {
 	}
 
 	// build query for this sensor only
-	defaultQuery(value) {
+	customQuery(value) {
 		if(this.state.selectAll) {
 			return {
 				"exists": {
@@ -108,7 +108,7 @@ export class NativeList extends Component {
 				value: {
 					queryType: this.type,
 					inputData: this.props.appbaseField,
-					defaultQuery: this.defaultQuery
+					customQuery: this.customQuery
 				}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
