@@ -4,8 +4,6 @@ import { storiesOf, addDecorator } from "@kadira/storybook";
 import { withKnobs, text, boolean, number, array, select, object } from "@kadira/storybook-addon-knobs";
 import withReadme from "storybook-readme/with-readme";
 
-import { Appbase } from "appbase-js";
-
 import SingleListDefault from "./SingleList.stories";
 import SingleListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleList.md";
 
@@ -63,7 +61,6 @@ import NumberBoxDefault from './NumberBox.stories';
 import NumberBoxReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/NumberBox.md";
 
 require ("../../node_modules/materialize-css/dist/css/materialize.min.css");
-require ("../../dist/css/vendor.min.css");
 require ("../../dist/css/style.min.css");
 
 function removeFirstLine(str) {

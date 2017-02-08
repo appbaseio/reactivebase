@@ -8,44 +8,23 @@ var dir_path = './app/';
 
 var files = {
 	css: {
-		vendor: [
+		main: [
 			'node_modules/react-select/dist/react-select.min.css',
 			'node_modules/rc-slider/assets/index.css',
 			'node_modules/font-awesome/css/font-awesome.min.css',
-			'node_modules/react-dates/lib/css/_datepicker.css'
+			'node_modules/react-dates/lib/css/_datepicker.css',
+			dir_path+'assets/css/style.css'
 		],
-		custom: [dir_path+'assets/css/style.css'],
 		sassFile: [dir_path+'assets/styles/*.scss'],
 		sassPartials: [dir_path+'assets/styles/partials/**/*.scss']
-	},
-	js: {
-		vendor: [
-			'node_modules/lodash/dist/lodash.min.js',
-			'node_modules/appbase-js/browser/appbase.js'
-		],
-		custom: [
-		]
 	}
 };
 
-gulp.task('vendorcss', function() {
-	return gulp.src(files.css.vendor)
-		.pipe(minifyCSS())
-		.pipe(concat('vendor.min.css'))
-		.pipe(gulp.dest('dist/css'));
-});
-
-gulp.task('customcss', ['sass'], function() {
-	return gulp.src(files.css.custom)
+gulp.task('maincss', ['sass'], function() {
+	return gulp.src(files.css.main)
 		.pipe(minifyCSS())
 		.pipe(concat('style.min.css'))
 		.pipe(gulp.dest('dist/css'));
-});
-
-gulp.task('vendorjs', function() {
-	return gulp.src(files.js.vendor)
-		.pipe(concat('vendor.min.js'))
-		.pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('sass', function() {
@@ -54,7 +33,7 @@ gulp.task('sass', function() {
 		.pipe(gulp.dest(dir_path+'assets/css'));
 });
 
-gulp.task('moveCss', ['customcss'], function() {
+gulp.task('moveCss', ['maincss'], function() {
 	return gulp.src([
 			'app/assets/css/bootstrap.polyfill.css',
 			'app/assets/css/material.polyfill.css'
@@ -76,8 +55,7 @@ gulp.task('moveImages', function() {
 });
 
 gulp.task('compact', [
-	'vendorcss',
-	'vendorjs',
+	'maincss',
 	'moveCss',
 	'moveFonts',
 	'moveImages'

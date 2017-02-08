@@ -1,7 +1,7 @@
 import { default as React, Component } from 'react';
-import { render } from 'react-dom';
 import { manager } from './ChannelManager.js';
-var helper = require('./helper.js');
+const Appbase = require('appbase-js');
+const helper = require('./helper.js');
 
 export class ReactiveBase extends Component {
 	constructor(props, context) {
