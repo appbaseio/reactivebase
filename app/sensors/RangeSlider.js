@@ -284,7 +284,7 @@ export class RangeSlider extends Component {
 		var storeItems = {};
 		newItems = newItems.map(function(item) {
 			item.key = Math.floor(item.key);
-			if(storeItems.hasOwnProperty(item.key)) {
+			if(!storeItems.hasOwnProperty(item.key)) {
 				storeItems[item.key] = item.doc_count;
 			} else {
 				storeItems[item.key] += item.doc_count;
