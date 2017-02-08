@@ -72,9 +72,7 @@ export class Bar extends Component {
 		return (
 			<span className="rbc-bar-item" style={barStyle} >
 				<span className="bar" style={this.style.bar}
-					data-tip={element.count}
 					title={element.count} />
-				<ReactTooltip />
 			</span>
 		);
 	}

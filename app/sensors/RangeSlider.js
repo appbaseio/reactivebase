@@ -222,7 +222,7 @@ export class RangeSlider extends Component {
 		actuate['aggs'] = {
 			key: this.props.appbaseField,
 			sort: 'asc',
-			size: this.getSize()
+			size: 1000
 		};
 		actuate[this.props.componentId+'-internal'] = {
 			operation: 'must'
