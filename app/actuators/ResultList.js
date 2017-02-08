@@ -294,7 +294,7 @@ export class ResultList extends Component {
 				return (
 					<div
 						key={index}
-						style={{'borderBottom': '1px solid #eee', 'padding': '12px'}}
+						style={{'borderBottom': '1px solid #eee', 'padding': '12px', 'fontSize': '12px'}}
 						className="makerInfo">
 							<JsonPrint data={marker._source} />
 					</div>
