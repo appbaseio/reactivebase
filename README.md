@@ -15,7 +15,7 @@ import {
   ReactiveBase,
   DataSearch,
   ResultList
-} from @appbaseio/reactivebase;
+} from "@appbaseio/reactivebase";
 ```
 
 ```js
@@ -29,17 +29,16 @@ import {
 	<div className="row">
 		<div className="col s6 col-xs-6">
 			<DataSearch
-				appbaseField={venue_name_ngrams}
-				sensorId="VenueSensor"
-				searchInputId="CityVenue"
+				appbaseField="venue_name_ngrams"
+				componentId="VenueSensor"
 				placeholder="Search Venue"
 			/>
 		</div>
 
 		<div className="col s6 col-xs-6">
 			<ResultList
-				sensorId="SearchResult"
-				appbaseField={group.group_topics.topic_name_raw}
+				componentId="SearchResult"
+				appbaseField="group.group_topics.topic_name_raw"
 				title="Meetups"
 				sortBy="asc"
 				from={0}
