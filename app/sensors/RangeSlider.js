@@ -281,9 +281,18 @@ export class RangeSlider extends Component {
 
 	countCalc(min, max, newItems) {
 		let counts = [];
-		for(let i = min; i <= max; i++) {
-			let item = _.find(newItems, {'key': i});
-			let val =  item ? item.doc_count : 0;
+		var storeItems = {};
+		newItems = newItems.map(function(item) {
+			item.key = Math.floor(item.key);
+			if(storeItems.hasOwnProperty(item.key)) {
+				storeItems[item.key] = item.doc_count;
+			} else {
+				storeItems[item.key] += item.doc_count;
+			}
+			return item;
+		});
+		for (var i = min; i <= max; i++) {
+			var val = storeItems[i] ? storeItems[i] : 0;
 			counts.push(val);
 		}
 		return counts;
