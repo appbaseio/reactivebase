@@ -68,7 +68,6 @@ export class ToggleButton extends Component {
 					"boost" : 1.0
 				}
 			};
-			console.log(query);
 			return query;
 		} else {
 			return query;

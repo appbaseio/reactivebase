@@ -73,7 +73,6 @@ export class MultiRange extends Component {
 					"boost" : 1.0
 				}
 			};
-			console.log(query);
 			return query;
 		}
 		function generateRangeQuery(appbaseField) {
