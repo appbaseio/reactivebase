@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["react", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["sensor-js"] = factory(require("react"), require("react-dom"));
+		exports["UmdReactiveBase"] = factory(require("react"), require("react-dom"));
 	else
-		root["sensor-js"] = factory(root["React"], root["ReactDOM"]);
+		root["UmdReactiveBase"] = factory(root["React"], root["ReactDOM"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_8__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -290,7 +290,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			_this.filterBySearch = _this.filterBySearch.bind(_this);
 			_this.selectAll = _this.selectAll.bind(_this);
 			_this.type = _this.props.multipleSelect ? 'Terms' : 'Term';
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			return _this;
 		}
 
@@ -308,8 +308,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// build query for this sensor only
 
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(value) {
+			key: 'customQuery',
+			value: function customQuery(value) {
 				if (this.state.selectAll) {
 					return {
 						"exists": {
@@ -380,7 +380,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: this.props.appbaseField,
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -1509,8 +1509,8 @@ return /******/ (function(modules) { // webpackBootstrap
 						requestOptions = previousSelectedSensor[depend];
 					} else {
 						var queryObj = null;
-						if (actuate[depend].defaultQuery) {
-							queryObj = actuate[depend].defaultQuery(previousSelectedSensor[depend]);
+						if (actuate[depend].customQuery) {
+							queryObj = actuate[depend].customQuery(previousSelectedSensor[depend]);
 						} else {
 							queryObj = singleQuery(depend);
 						}
@@ -1538,8 +1538,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				function singleQuery(depend) {
 					var sensorInfo = helper.selectedSensor.get(depend, 'sensorInfo');
 					var s_query = null;
-					if (sensorInfo && sensorInfo.defaultQuery) {
-						s_query = sensorInfo.defaultQuery(previousSelectedSensor[depend]);
+					if (sensorInfo && sensorInfo.customQuery) {
+						s_query = sensorInfo.customQuery(previousSelectedSensor[depend]);
 					} else if (previousSelectedSensor[depend]) {
 						s_query = {};
 						s_query[sensorInfo.queryType] = {};
@@ -12992,7 +12992,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			_this.defaultSelected = _this.props.defaultSelected;
 			_this.handleChange = _this.handleChange.bind(_this);
 			_this.type = _this.props.multipleSelect ? 'Terms' : 'Term';
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			_this.renderOption = _this.renderOption.bind(_this);
 			return _this;
 		}
@@ -13080,8 +13080,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// build query for this sensor only
 
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(value) {
+			key: 'customQuery',
+			value: function customQuery(value) {
 				if (this.selectAll) {
 					return {
 						"exists": {
@@ -13103,7 +13103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: this.props.appbaseField,
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -33015,7 +33015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			_this.channelListener = null;
 			_this.handleValuesChange = _this.handleValuesChange.bind(_this);
 			_this.handleResults = _this.handleResults.bind(_this);
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			return _this;
 		}
 
@@ -33180,7 +33180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: 'range',
 						inputData: this.props.appbaseField,
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -33197,8 +33197,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				helper.selectedSensor.set(objValue, true);
 			}
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(record) {
+			key: 'customQuery',
+			value: function customQuery(record) {
 				if (record) {
 					return {
 						range: _defineProperty({}, this.props.appbaseField, {
@@ -33220,7 +33220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				actuate['aggs'] = {
 					key: this.props.appbaseField,
 					sort: 'asc',
-					size: this.getSize()
+					size: 1000
 				};
 				actuate[this.props.componentId + '-internal'] = {
 					operation: 'must'
@@ -33287,9 +33287,18 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'countCalc',
 			value: function countCalc(min, max, newItems) {
 				var counts = [];
+				var storeItems = {};
+				newItems = newItems.map(function (item) {
+					item.key = Math.floor(item.key);
+					if (!storeItems.hasOwnProperty(item.key)) {
+						storeItems[item.key] = item.doc_count;
+					} else {
+						storeItems[item.key] += item.doc_count;
+					}
+					return item;
+				});
 				for (var i = min; i <= max; i++) {
-					var item = _.find(newItems, { 'key': i });
-					var val = item ? item.doc_count : 0;
+					var val = storeItems[i] ? storeItems[i] : 0;
 					counts.push(val);
 				}
 				return counts;
@@ -33540,9 +33549,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					'span',
 					{ className: 'rbc-bar-item', style: barStyle },
 					_react2.default.createElement('span', { className: 'bar', style: this.style.bar,
-						'data-tip': element.count,
-						title: element.count }),
-					_react2.default.createElement(_reactTooltip2.default, null)
+						title: element.count })
 				);
 			}
 		}]);
@@ -42013,7 +42020,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 			_this.type = 'match';
 			_this.handleChange = _this.handleChange.bind(_this);
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			return _this;
 		}
 
@@ -42036,7 +42043,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: this.props.appbaseField,
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -42045,8 +42052,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// build query for this sensor only
 
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(value) {
+			key: 'customQuery',
+			value: function customQuery(value) {
 				return {
 					'term': _defineProperty({}, this.props.appbaseField, value)
 				};
@@ -42241,7 +42248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: this.props.appbaseField,
-						defaultQuery: this.defaultSearchQuery
+						customQuery: this.defaultSearchQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -42263,7 +42270,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var actuate = {};
 				actuate[this.props.searchInputId] = {
 					operation: "must",
-					defaultQuery: this.defaultSearchQuery
+					customQuery: this.defaultSearchQuery
 				};
 				var channelObj = _ChannelManager.manager.create(this.context.appbaseRef, this.context.type, actuate);
 				this.channelId = channelObj.channelId;
@@ -42577,7 +42584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			_this.type = 'range';
 			_this.defaultSelected = _this.props.defaultSelected;
 			_this.handleChange = _this.handleChange.bind(_this);
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			return _this;
 		}
 
@@ -42627,7 +42634,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: this.props.appbaseField,
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -42636,8 +42643,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// build query for this sensor only
 
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(record) {
+			key: 'customQuery',
+			value: function customQuery(record) {
 				if (record) {
 					return {
 						range: _defineProperty({}, this.props.appbaseField, {
@@ -42814,7 +42821,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			_this.handleChange = _this.handleChange.bind(_this);
 			_this.resetState = _this.resetState.bind(_this);
 			_this.handleTagClick = _this.handleTagClick.bind(_this);
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			return _this;
 		}
 
@@ -42869,7 +42876,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: this.props.appbaseField,
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -42878,8 +42885,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// build query for this sensor only
 
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(record) {
+			key: 'customQuery',
+			value: function customQuery(record) {
 				if (record) {
 					var query = {
 						bool: {
@@ -42982,6 +42989,7 @@ return /******/ (function(modules) { // webpackBootstrap
 									return _this4.handleChange(record);
 								} },
 							_react2.default.createElement('input', { type: 'checkbox',
+								className: 'rbc-checkbox-item',
 								checked: selectedText.indexOf(record.label) > -1 ? true : false,
 								value: record.label }),
 							_react2.default.createElement(
@@ -43155,7 +43163,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			_this.type = 'range';
 			_this.defaultSelected = _this.props.defaultSelected;
 			_this.handleChange = _this.handleChange.bind(_this);
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			return _this;
 		}
 
@@ -43205,7 +43213,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: this.props.appbaseField,
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -43214,8 +43222,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// build query for this sensor only
 
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(record) {
+			key: 'customQuery',
+			value: function customQuery(record) {
 				if (record) {
 					return {
 						range: _defineProperty({}, this.props.appbaseField, {
@@ -43377,7 +43385,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			});
 			_this.defaultSelected = _this.props.defaultSelected;
 			_this.handleChange = _this.handleChange.bind(_this);
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			return _this;
 		}
 
@@ -43427,7 +43435,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: this.props.appbaseField,
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -43436,8 +43444,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// build query for this sensor only
 
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(record) {
+			key: 'customQuery',
+			value: function customQuery(record) {
 				if (record) {
 					var query = {
 						bool: {
@@ -43610,7 +43618,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			_this.type = 'term';
 			_this.defaultSelected = _this.props.defaultSelected;
 			_this.handleChange = _this.handleChange.bind(_this);
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			return _this;
 		}
 
@@ -43662,7 +43670,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: this.props.appbaseField,
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -43671,8 +43679,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// build query for this sensor only
 
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(record) {
+			key: 'customQuery',
+			value: function customQuery(record) {
 				var query = null;
 				if (record && record.length) {
 					query = {
@@ -43881,7 +43889,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 			_this.type = 'range';
 			_this.handleChange = _this.handleChange.bind(_this);
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			return _this;
 		}
 
@@ -43904,7 +43912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: this.props.appbaseField,
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -43913,8 +43921,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// build query for this sensor only
 
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(value) {
+			key: 'customQuery',
+			value: function customQuery(value) {
 				var query = null;
 				if (value) {
 					query = {
@@ -67463,7 +67471,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 			_this.type = 'range';
 			_this.handleChange = _this.handleChange.bind(_this);
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			_this.onFocusChange = _this.onFocusChange.bind(_this);
 			return _this;
 		}
@@ -67487,7 +67495,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: this.props.appbaseField,
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -67496,8 +67504,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// build query for this sensor only
 
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(value) {
+			key: 'customQuery',
+			value: function customQuery(value) {
 				var query = null;
 				if (value) {
 					query = {
@@ -67709,7 +67717,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			_this.defaultSelected = _this.props.defaultSelected;
 			_this.filterBySearch = _this.filterBySearch.bind(_this);
 			_this.onItemSelect = _this.onItemSelect.bind(_this);
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			_this.handleSelect = _this.handleSelect.bind(_this);
 			_this.type = 'Term';
 			return _this;
@@ -67797,8 +67805,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// build query for this sensor only
 
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(record) {
+			key: 'customQuery',
+			value: function customQuery(record) {
 				if (record) {
 					var query = {
 						bool: {
@@ -67826,7 +67834,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: this.props.appbaseField[0],
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -68516,7 +68524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 			_this.type = 'term';
 			_this.handleChange = _this.handleChange.bind(_this);
-			_this.defaultQuery = _this.defaultQuery.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
 			return _this;
 		}
 
@@ -68543,8 +68551,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// build query for this sensor only
 
 		}, {
-			key: 'defaultQuery',
-			value: function defaultQuery(value) {
+			key: 'customQuery',
+			value: function customQuery(value) {
 				return _defineProperty({}, this.type, _defineProperty({}, this.props.appbaseField, value));
 			}
 		}, {
@@ -68559,7 +68567,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: {
 						queryType: this.type,
 						inputData: appbaseField,
-						defaultQuery: this.defaultQuery
+						customQuery: this.customQuery
 					}
 				};
 				helper.selectedSensor.setSensorInfo(obj);
@@ -69372,12 +69380,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		function PaginatedResultList(props, context) {
 			_classCallCheck(this, PaginatedResultList);
 
-			var _this = _possibleConstructorReturn(this, (PaginatedResultList.__proto__ || Object.getPrototypeOf(PaginatedResultList)).call(this, props));
-
-			_this.colStyle = {
-				padding: 0
-			};
-			return _this;
+			return _possibleConstructorReturn(this, (PaginatedResultList.__proto__ || Object.getPrototypeOf(PaginatedResultList)).call(this, props));
 		}
 
 		_createClass(PaginatedResultList, [{
@@ -69394,7 +69397,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (this.props.paginationAt === method || this.props.paginationAt === 'both') {
 					pageinationComp = _react2.default.createElement(
 						'div',
-						{ className: 'col s12 col-xs-12', style: this.colStyle },
+						{ className: 'rbc-pagination-container col s12 col-xs-12' },
 						_react2.default.createElement(_Pagination.Pagination, {
 							className: 'rbc-pagination-' + method,
 							componentId: 'pagination',
@@ -69412,7 +69415,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					this.paginationAt('top'),
 					_react2.default.createElement(
 						'div',
-						{ className: 'col s12 col-xs-12', style: this.colStyle },
+						{ className: 'rbc-pagination-container col s12 col-xs-12' },
 						_react2.default.createElement(_ResultList.ResultList, _extends({}, this.props, {
 							requestOnScroll: false,
 							actuate: this.actuate
