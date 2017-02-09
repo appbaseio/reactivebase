@@ -7,7 +7,7 @@ var umd_config = {
 	entry: './app/app.js',
 
 	output: {
-		library: 'ReactiveBase',
+		library: 'ReactiveBaseUmd',
 		libraryTarget: 'umd',
 	},
 

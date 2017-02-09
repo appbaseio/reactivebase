@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["react", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["ReactiveBase"] = factory(require("react"), require("react-dom"));
+		exports["ReactiveBaseUmd"] = factory(require("react"), require("react-dom"));
 	else
-		root["ReactiveBase"] = factory(root["React"], root["ReactDOM"]);
+		root["ReactiveBaseUmd"] = factory(root["React"], root["ReactDOM"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_8__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
