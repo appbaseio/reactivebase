@@ -2455,7 +2455,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			return new Error('Threshold value validation has failed, end value should be greater than start value.');
 		}
 		if (componentName == 'GeoDistanceDropdown' || componentName == 'GeoDistanceSlider') {
-			if (props['start'] < 0) {
+			if (props['start'] <= 0) {
 				return new Error('Threshold value is invalid, it should be greater than 0.');
 			}
 		}
