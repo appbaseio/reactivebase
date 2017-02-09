@@ -1,48 +1,109 @@
 .rbc {
-	&.thumbnail {
-		margin: 0.5rem 0 1rem 0;
+	.rbc-input {
+		width: 100%;
+		border-radius: 0;
+		box-shadow: none;
+
+		&:focus {
+			outline: none;
+		}
 	}
 
-	.rbc-title {
-		font-size: 1.8em;
-		line-height: 110%;
-		margin: 0.5em 0;
+	// &.thumbnail {
+	// 	margin: 0.5rem 0 1rem 0;
+	// }
+
+	// .rbc-title {
+	// 	font-size: 1.8em;
+	// 	line-height: 110%;
+	// 	margin: 0.5em 0;
+	// }
+
+	// &.rbc-list {
+	// 	.rbc-list-container {
+			
+	// 		margin-top: 15px;
+			
+	// 		.rbc-list-item {
+	// 			margin-bottom: 15px;
+	// 		}
+	// 	}
+	// }
+
+	// .InputRange-label {
+	// 	font-size: 12px;
+	// }
+
+	.rbc-checkbox-item , .rbc-radio-item{
+		margin-right: 10px;
+		margin-left: 4px;
 	}
 
-	&.rbc-list {
-		.rbc-list-container {
-			
-			margin-top: 15px;
-			
-			.rbc-list-item {
-				margin-bottom: 15px;
+	.rbc-tag-item {
+		.close {
+			float: left;
+			border-right: 1px solid;
+		}
+		span {
+			line-height: 23px;
+		}
+	}
+
+	&.rbc-singledropdownlist,
+	&.rbc-multidropdownlist,
+	&.rbc-singledropdownrange,
+	&.rbc-multidropdownrange,
+	&.rbc-togglebutton {
+		padding: 12px 15px;
+
+		.col.s12 {
+			padding: 0 12px;
+
+			.Select {
+				margin-top: 8px;
+			}
+		}
+
+		.rbc-buttongroup {
+			button {
+				margin: 12px 4px 0 0;
+
+				&:focus {
+					outline: none;
+				}
 			}
 		}
 	}
 
-	.InputRange-label {
-		font-size: 12px;
+	&.rbc-nestedlist {
+		a:focus, a:hover {
+			text-decoration: none;
+		}
+
+		&.rbc-search-inactive > ul.row.rbc-list-container {
+			padding-top: 0;
+		}
 	}
 
-	.rbc-checkbox-item , .rbc-radio-item{
-		cursor: pointer;
+	&.rbc-singlerange,
+	&.rbc-multirange,
+	&.rbc-numberbox {
+		padding: 0 15px;
 
-		label {
-			padding-left: 10px;
-			font-weight: normal;
-			cursor: pointer;
-		}
-		
-		input {
-			cursor: pointer;
+		.rbc-numberbox-container {
+			padding: 0 12px 12px;
 		}
 	}
 }
 
-.rbc-btn-active {
-	background-color: #1893e7;
+.rbc-resultlist-container {
+	margin: 0 5px;
 }
 
-.rbc-btn-inactive {
-	background-color: #b0bec5;
+.rbc-pagination-container.col.s12 {
+	padding: 0 15px;
+
+	.rbc-pagination {
+		width: calc(100% - 10px);
+	}
 }

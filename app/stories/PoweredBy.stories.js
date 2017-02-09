@@ -14,7 +14,7 @@ export default class PoweredByDefault extends Component {
 				password="d2d60548-82a9-43cc-8b40-93cbbe75c34c"
 			>
 				<div className="row">
-					<div className="col s6 col-xs-6 card thumbnail">
+					<div className="col s6 col-xs-6 card thumbnail" style={{'height': '100px'}}>
 						<PoweredBy />
 					</div>
 				</div>
