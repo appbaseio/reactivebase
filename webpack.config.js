@@ -24,7 +24,7 @@ var umd_config = {
 			},
 			{
 				test: /node_modules\/JSONStream\/index\.js$/,
-				loaders: ['shebang', 'babel']
+				loaders: ['shebang-loader', 'babel-loader']
 			}
 		]
 	},
