@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { ReactiveBase, MultiList, ResultList } from '../app.js';
+import { ReactiveBase, MultiList, ReactiveList } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
 require('./list.css');
 
-export default class ResultListDefault extends Component {
+export default class ReactiveListDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.cityQuery = this.cityQuery.bind(this);
@@ -14,7 +14,7 @@ export default class ResultListDefault extends Component {
 	}
 
 	cityQuery(value) {
-		if(value) {
+		if (value) {
 			let field = 'group.group_city.group_city_simple';
 			let query = JSON.parse(`{"${field}":` + JSON.stringify(value) + '}');
 			return { terms: query };
@@ -28,12 +28,11 @@ export default class ResultListDefault extends Component {
 	onData(response) {
 		let res = response.res;
 		let result = null;
-		if(res) {
+		if (res) {
 			let combineData = res.currentData;
-			if(res.mode === 'historic') {
+			if (res.mode === 'historic') {
 				combineData = res.currentData.concat(res.newData);
-			}
-			else if(res.mode === 'streaming') {
+			} else if (res.mode === 'streaming') {
 				combineData = combineStreamData(res.currentData, res.newData);
 			}
 			if (combineData) {
@@ -83,14 +82,13 @@ export default class ResultListDefault extends Component {
 				username="qz4ZD8xq1"
 				password="a0edfc7f-5611-46f6-8fe1-d4db234631f3"
 				type="meetup"
-				theme="rbc-dark"
 			>
 				<div className="row reverse-labels">
 					<div className="col s6 col-xs-6">
-						<ResultList
+						<ReactiveList
 							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
-							title="ResultList"
+							title="ReactiveList"
 							sortBy="asc"
 							from={0}
 							size={20}
@@ -120,7 +118,7 @@ export default class ResultListDefault extends Component {
 	}
 }
 
-ResultListDefault.defaultProps = {
+ReactiveListDefault.defaultProps = {
 	mapping: {
 		city: 'group.group_city.group_city_simple',
 		topic: 'group.group_topics.topic_name.topic_name_simple'

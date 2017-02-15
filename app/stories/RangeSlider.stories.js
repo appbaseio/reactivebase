@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ReactiveBase, RangeSlider, ResultList } from '../app.js';
+import { ReactiveBase, RangeSlider, ReactiveList } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
@@ -89,7 +89,7 @@ export default class RangeSliderDefault extends Component {
 					</div>
 
 					<div className="col s6 col-xs-6">
-						<ResultList
+						<ReactiveList
 							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="Results"

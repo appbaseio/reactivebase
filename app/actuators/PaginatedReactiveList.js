@@ -1,9 +1,9 @@
 import { default as React, Component } from 'react';
-import { ResultList } from './ResultList';
+import { ReactiveList } from './ReactiveList';
 import { Pagination } from './component/Pagination';
 var helper = require('../middleware/helper.js');
 
-export class PaginatedResultList extends Component {
+export class PaginatedReactiveList extends Component {
 	constructor(props, context) {
 		super(props);
 	}
@@ -34,7 +34,7 @@ export class PaginatedResultList extends Component {
 			<div className="row">
 				{this.paginationAt('top')}
 				<div className="rbc-pagination-container col s12 col-xs-12">
-					<ResultList
+					<ReactiveList
 						{...this.props}
 						requestOnScroll={false}
 						react={this.react}
@@ -46,7 +46,7 @@ export class PaginatedResultList extends Component {
 	}
 }
 
-PaginatedResultList.propTypes = {
+PaginatedReactiveList.propTypes = {
 	componentId: React.PropTypes.string,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
@@ -66,14 +66,14 @@ PaginatedResultList.propTypes = {
 };
 
 // Default props value
-PaginatedResultList.defaultProps = {
+PaginatedReactiveList.defaultProps = {
 	from: 0,
 	size: 20,
 	paginationAt: 'bottom'
 };
 
 // context type
-PaginatedResultList.contextTypes = {
+PaginatedReactiveList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
 };

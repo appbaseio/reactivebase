@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ReactiveBase, DataSearch, ResultList } from '../app.js';
+import { ReactiveBase, DataSearch, ReactiveList } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
@@ -87,7 +87,7 @@ export default class DataSearchDefault extends Component {
 					</div>
 
 					<div className="col s6 col-xs-6">
-						<ResultList
+						<ReactiveList
 							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
 							title="Results"

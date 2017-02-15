@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ReactiveBase, MultiRange, ResultList } from '../app.js';
+import { ReactiveBase, MultiRange, ReactiveList } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 
 require('./list.css');
@@ -81,7 +81,7 @@ export default class MultiRangeDefault extends Component {
 					</div>
 
 					<div className="col s6 col-xs-6">
-						<ResultList
+						<ReactiveList
 							componentId="SearchResult"
 							appbaseField={this.props.mapping.name}
 							title="Results"

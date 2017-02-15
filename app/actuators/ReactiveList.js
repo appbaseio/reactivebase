@@ -7,7 +7,7 @@ var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 var _ = require('lodash');
 
-export class ResultList extends Component {
+export class ReactiveList extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -422,7 +422,7 @@ export class ResultList extends Component {
 	}
 }
 
-ResultList.propTypes = {
+ReactiveList.propTypes = {
 	componentId: React.PropTypes.string,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
@@ -442,7 +442,7 @@ ResultList.propTypes = {
 	componentStyle: React.PropTypes.object
 };
 
-ResultList.defaultProps = {
+ReactiveList.defaultProps = {
 	from: 0,
 	size: 20,
 	requestOnScroll: true,
@@ -451,7 +451,7 @@ ResultList.defaultProps = {
 };
 
 // context type
-ResultList.contextTypes = {
+ReactiveList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
 };

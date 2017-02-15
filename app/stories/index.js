@@ -42,13 +42,13 @@ import SingleDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/co
 import MultiDropdownRangeDefault from "./MultiDropdownRange.stories";
 import MultiDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiDropdownRange.md";
 
-import ResultListDefault from "./ResultList.stories";
+import ReactiveListDefault from "./ReactiveList.stories";
 import ResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ResultList.md";
 
 import ReactiveElement from "./ReactiveElement";
 let ReactiveElementReadme = ResultListReadme;
 
-import PaginatedResultListDefault from "./PaginatedResultList.stories";
+import PaginatedReactiveListDefault from "./PaginatedReactiveList.stories";
 import PaginatedResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/PaginatedResultList.md";
 
 import DatePickerDefault from "./DatePicker.stories";
@@ -473,19 +473,19 @@ storiesOf("DateRange", module)
 		/>
 	)));
 
-storiesOf("ResultList", module)
+storiesOf("ReactiveList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(ResultListReadme), () => (
-		<ResultListDefault requestOnScroll={true} stream={false} />
+		<ReactiveListDefault requestOnScroll={true} stream={false} />
 	)))
 	.add("With Title", withReadme(removeFirstLine(ResultListReadme), () => (
-		<ResultListDefault title="Meetups" requestOnScroll={true} stream={false} />
+		<ReactiveListDefault title="Meetups" requestOnScroll={true} stream={false} />
 	)))
 	.add("With Streaming", withReadme(removeFirstLine(ResultListReadme), () => (
-		<ResultListDefault title="Meetups" stream={true} />
+		<ReactiveListDefault title="Meetups" stream={true} />
 	)))
 	.add("With Sort Options", withReadme(removeFirstLine(ResultListReadme), () => (
-		<ResultListDefault
+		<ReactiveListDefault
 			title="Meetups"
 			requestOnScroll={true}
 			stream={false}
@@ -509,8 +509,8 @@ storiesOf("ResultList", module)
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(ResultListReadme), () => (
-		<ResultListDefault
-			title={text("title", "ResultList: Results")}
+		<ReactiveListDefault
+			title={text("title", "ReactiveList: Results")}
 			from={number("from", 0)}
 			size={number("size", 5)}
 			requestOnScroll={boolean("requestOnScroll", true)}
@@ -538,18 +538,18 @@ storiesOf("ReactiveElement", module)
 			stream={boolean("stream", false)} />
 	)));
 
-storiesOf("PaginatedResultList", module)
+storiesOf("PaginatedReactiveList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
-		<PaginatedResultListDefault/>
+		<PaginatedReactiveListDefault/>
 	)))
 	.add("Without on data", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
-		<PaginatedResultListDefault
+		<PaginatedReactiveListDefault
 			onData={null}
 		/>
 	)))
 	.add("With Sort Options", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
-		<PaginatedResultListDefault
+		<PaginatedReactiveListDefault
 			sortOptions={[
 				{
 					label: "Most Recent RSVP",
@@ -570,8 +570,8 @@ storiesOf("PaginatedResultList", module)
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
-		<PaginatedResultListDefault
-			title={text("title", "PaginatedResultList: Playground")}
+		<PaginatedReactiveListDefault
+			title={text("title", "PaginatedReactiveList: Playground")}
 			from={number("from", 0)}
 			size={number("size", 5)}
 			sortBy={select("sortBy", {"asc": "asc", "desc": "desc", "default": "default"}, "default")}

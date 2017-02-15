@@ -1,27 +1,22 @@
 import React, { Component } from 'react';
-import { ReactiveBase, MultiList, ResultList } from '../app.js';
+import { ReactiveBase, SingleList, PaginatedReactiveList } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
 require('./list.css');
 
-export default class ResultListDefault extends Component {
+export default class PaginatedReactiveListDefault extends Component {
 	constructor(props) {
 		super(props);
-		this.cityQuery = this.cityQuery.bind(this);
 		this.onData = this.onData.bind(this);
 		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
 	}
 
-	cityQuery(value) {
-		if(value) {
-			let field = 'group.group_city.group_city_simple';
-			let query = JSON.parse(`{"${field}":` + JSON.stringify(value) + '}');
-			return { terms: query };
-		} else return null;
+	componentDidMount() {
+		ResponsiveStory();
 	}
 
-	componentDidMount() {
+	componentDidUpdate() {
 		ResponsiveStory();
 	}
 
@@ -48,7 +43,7 @@ export default class ResultListDefault extends Component {
 
 	itemMarkup(marker, markerData) {
 		return (
-			<a className={"full_row single-record single_record_for_clone "+(markerData.stream ? 'animate' : '')}
+			<a className="full_row single-record single_record_for_clone"
 				href={marker.event ? marker.event.event_url : ''}
 				target="_blank"
 				key={markerData._id}>
@@ -65,7 +60,7 @@ export default class ResultListDefault extends Component {
 					<div className="text-description text-overflow full_row">
 						<ul className="highlight_tags">
 							{
-								marker.group.group_topics.map(function(tag,i) {
+								marker.group.group_topics.map(function(tag,i){
 									return (<li key={i}>{tag.topic_name}</li>)
 								})
 							}
@@ -79,18 +74,17 @@ export default class ResultListDefault extends Component {
 	render() {
 		return (
 			<ReactiveBase
-				app="meetup2"
-				username="qz4ZD8xq1"
-				password="a0edfc7f-5611-46f6-8fe1-d4db234631f3"
-				type="meetup"
-				theme="rbc-dark"
+				app="meetup_demo"
+				username="LPpISlEBe"
+				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
+				type="meetupdata1"
 			>
 				<div className="row reverse-labels">
 					<div className="col s6 col-xs-6">
-						<ResultList
+						<PaginatedReactiveList
 							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
-							title="ResultList"
+							title="PaginatedReactiveList"
 							sortBy="asc"
 							from={0}
 							size={20}
@@ -103,15 +97,14 @@ export default class ResultListDefault extends Component {
 					</div>
 
 					<div className="col s6 col-xs-6">
-						<MultiList
+						<SingleList
 							componentId="CitySensor"
 							appbaseField={this.props.mapping.city}
-							showCount={true}
-							size={10}
 							title="Input Filter"
-							customQuery={this.cityQuery}
+							showCount={true}
+							size={100}
+							defaultSelected="London"
 							searchPlaceholder="Search City"
-							includeSelectAll={true}
 						/>
 					</div>
 				</div>
@@ -120,9 +113,9 @@ export default class ResultListDefault extends Component {
 	}
 }
 
-ResultListDefault.defaultProps = {
+PaginatedReactiveListDefault.defaultProps = {
 	mapping: {
-		city: 'group.group_city.group_city_simple',
-		topic: 'group.group_topics.topic_name.topic_name_simple'
+		city: 'group.group_city.raw',
+		topic: 'group.group_topics.topic_name_raw'
 	}
 };

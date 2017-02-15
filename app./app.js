@@ -15,9 +15,9 @@ import {DatePicker} from './sensors/DatePicker';
 import {DateRange} from './sensors/DateRange';
 import {NestedList} from './sensors/NestedList';
 import {NumberBox} from './sensors/NumberBox';
-import {ResultList} from './actuators/ResultList';
+import {ReactiveList} from './actuators/ReactiveList';
 import {ReactiveElement} from './actuators/ReactiveElement';
-import {PaginatedResultList} from './actuators/PaginatedResultList';
+import {PaginatedReactiveList} from './actuators/PaginatedReactiveList';
 import {PoweredBy} from './sensors/PoweredBy';
 // middleware
 import {ReactiveBase} from './middleware/ReactiveBase';
@@ -42,9 +42,9 @@ module.exports = {
 	NestedList: NestedList,
 	NumberBox: NumberBox,
 	ReactiveBase: ReactiveBase,
-	ResultList: ResultList,
+	ReactiveList: ReactiveList,
 	ReactiveElement: ReactiveElement,
-	PaginatedResultList: PaginatedResultList,
+	PaginatedReactiveList: PaginatedReactiveList,
 	AppbaseChannelManager: manager,
 	AppbaseSensorHelper: helper,
 	PoweredBy: PoweredBy

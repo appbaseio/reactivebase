@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ReactiveBase, NumberBox, ResultList} from '../app.js';
+import {ReactiveBase, NumberBox, ReactiveList} from '../app.js';
 import {ResponsiveStory} from '../middleware/helper.js';
 require('./list.css');
 
@@ -75,7 +75,7 @@ export default class NumberBoxDefault extends Component {
 					</div>
 
 					<div className="col s6 col-xs-6">
-						<ResultList componentId="SearchResult"
+						<ReactiveList componentId="SearchResult"
 							appbaseField={this.props.mapping.rating}
 							title="Cars"
 							from={0}
