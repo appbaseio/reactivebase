@@ -12,8 +12,8 @@ export class PaginatedResultList extends Component {
 	}
 
 	componentWillMount() {
-		this.actuate = this.props.actuate ? this.props.actuate : {};
-		this.actuate['pagination'] = {};
+		this.react = this.props.react ? this.props.react : {};
+		this.react['pagination'] = {};
 	}
 
 	paginationAt(method) {
@@ -40,7 +40,7 @@ export class PaginatedResultList extends Component {
 					<ResultList
 						{...this.props}
 						requestOnScroll={false}
-						actuate={this.actuate}
+						react={this.react}
 					/>
 				</div>
 				{this.paginationAt('bottom')}

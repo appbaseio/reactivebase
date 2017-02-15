@@ -158,26 +158,26 @@ export class NestedList extends Component {
 		});
 	}
 
-	// Create a channel which passes the actuate and receive results whenever actuate changes
+	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
-		// Set the actuate - add self aggs query as well with actuate
-		let actuate = this.props.actuate ? this.props.actuate : {};
-		actuate['aggs'] = {
+		// Set the react - add self aggs query as well with react
+		let react = this.props.react ? this.props.react : {};
+		react['aggs'] = {
 			key: this.props.appbaseField[0],
 			sort: this.props.sortBy,
 			size: this.props.size,
 			sortRef: this.nested[0]
 		};
-		if(actuate && actuate.and && typeof actuate.and === 'string') {
-			actuate.and = [actuate.and];
+		if(react && react.and && typeof react.and === 'string') {
+			react.and = [react.and];
 		} else {
-			actuate.and = actuate.and ? actuate.and : [];
+			react.and = react.and ? react.and : [];
 		}
-		actuate.and.push(this.nested[0]);
+		react.and.push(this.nested[0]);
 		this.includeAggQuery();
 
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(this.channelId, function(res) {
 			let data = res.data;
@@ -198,7 +198,7 @@ export class NestedList extends Component {
 	// Create a channel for sub category
 	createSubChannel() {
 		this.setSubCategory();
-		let actuate = {
+		let react = {
 			'aggs': {
 				key: this.props.appbaseField[1],
 				sort: this.props.sortBy,
@@ -208,7 +208,7 @@ export class NestedList extends Component {
 			'and': ['subCategory', this.nested[1]]
 		};
 		// create a channel and listen the changes
-		var subChannelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
+		var subChannelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.subChannelId = subChannelObj.channelId;
 		this.subChannelListener = subChannelObj.emitter.addListener(this.subChannelId, function(res) {
 			let data = res.data;

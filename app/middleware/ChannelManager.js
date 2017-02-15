@@ -49,7 +49,7 @@ class channelManager {
 					let globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
 					self.emitter.emit('global', {
 						channelResponse: channelResponse,
-						actuate: channelObj.actuate,
+						react: channelObj.react,
 						queryOptions: globalQueryOptions
 					});
 				}).on('error', function(error) {
@@ -117,7 +117,7 @@ class channelManager {
 	}
 
 	// queryBuild
-	// Builds the query by using actuate object and values of sensor
+	// Builds the query by using react object and values of sensor
 	queryBuild(channelObj, previousSelectedSensor) {
 		let aggs = null;
 		let sortObj = [];
@@ -189,7 +189,7 @@ class channelManager {
 		}
 
 		function aggsQuery(depend) {
-			let aggsObj = channelObj.actuate[depend];
+			let aggsObj = channelObj.react[depend];
 			let order, type;
 			if(aggsObj.sortRef) {
 				let sortField = sortAvailable(aggsObj.sortRef);
@@ -286,10 +286,10 @@ class channelManager {
 		this.receive('channel-options-'+channelId, channelId);
 	}
 
-	// Create the channel by passing actuate
-	// if actuate are same it will create single channel for them
-	create(appbaseRef, type, actuate, size = 100, from =0, stream=false) {
-		let channelId = btoa(JSON.stringify(actuate));
+	// Create the channel by passing react
+	// if react are same it will create single channel for them
+	create(appbaseRef, type, react, size = 100, from =0, stream=false) {
+		let channelId = btoa(JSON.stringify(react));
 		let optionValues = {
 			size: size,
 			from: from
@@ -297,7 +297,7 @@ class channelManager {
 		this.queryOptions[channelId] = optionValues;
 		this.type[channelId] = type;
 		this.appbaseRef[channelId] = appbaseRef;
-		actuate['channel-options-'+channelId] = optionValues;
+		react['channel-options-'+channelId] = optionValues;
 		let previousSelectedSensor = {
 			['channel-options-'+channelId]: optionValues
 		};
@@ -305,11 +305,11 @@ class channelManager {
 			key: 'channel-options-' + channelId,
 			value: optionValues
 		};
-		let serializeDepends = helper.serializeDepends.serialize(actuate);
+		let serializeDepends = helper.serializeDepends.serialize(react);
 		helper.selectedSensor.set(obj);
 		if(!(this.channels.hasOwnProperty(channelId) && stream === this.channels[channelId].stream)) {
 			this.channels[channelId] = {
-				actuate: actuate,
+				react: react,
 				size: size,
 				from: from,
 				stream: stream,
@@ -320,7 +320,7 @@ class channelManager {
 			this.channels[channelId].watchDependency.start();
 		}
 		setTimeout(() => {
-			if(actuate.hasOwnProperty('aggs')) {
+			if(react.hasOwnProperty('aggs')) {
 				this.receive('aggs', channelId)
 			}
 		}, 100);

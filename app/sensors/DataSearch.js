@@ -67,16 +67,16 @@ export class DataSearch extends Component {
 		helper.selectedSensor.setSensorInfo(searchObj);
 	}
 
-	// Create a channel which passes the actuate and receive results whenever actuate changes
+	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
-		let actuate = this.props.actuate ? this.props.actuate : {};
-		if(actuate && actuate.and && typeof actuate.and === 'string') {
-			actuate.and = [actuate.and];
+		let react = this.props.react ? this.props.react : {};
+		if(react && react.and && typeof react.and === 'string') {
+			react.and = [react.and];
 		} else {
-			actuate.and = actuate.and ? actuate.and : [];
+			react.and = react.and ? react.and : [];
 		}
-		actuate.and.push(this.props.searchInputId);
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
+		react.and.push(this.props.searchInputId);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;

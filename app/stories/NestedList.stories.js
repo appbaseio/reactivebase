@@ -75,7 +75,7 @@ export default class NestedListDefault extends Component {
 							from={0}
 							size={20}
 							onData={this.onData}
-							actuate={{
+							react={{
 								"and": "CategorySensor"
 							}}
 						/>

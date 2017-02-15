@@ -81,19 +81,19 @@ export class ResultList extends Component {
 		}
 	}
 
-	// Create a channel which passes the actuate and receive results whenever actuate changes
+	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
-		// Set the actuate - add self aggs query as well with actuate
-		let actuate = this.props.actuate ? this.props.actuate : {};
-		if(actuate && actuate.and && typeof actuate.and === 'string') {
-			actuate.and = [actuate.and];
+		// Set the react - add self aggs query as well with react
+		let react = this.props.react ? this.props.react : {};
+		if(react && react.and && typeof react.and === 'string') {
+			react.and = [react.and];
 		}
-		actuate.and.push('streamChanges');
+		react.and.push('streamChanges');
 		if (this.sortObj) {
-			this.enableSort(actuate);
+			this.enableSort(react);
 		}
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate, this.props.size, this.props.from, this.props.stream);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream);
 		this.channelId = channelObj.channelId;
 
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
@@ -234,8 +234,8 @@ export class ResultList extends Component {
 	}
 
 	// enable sort
-	enableSort(actuate) {
-		actuate.and.push(this.resultSortKey);
+	enableSort(react) {
+		react.and.push(this.resultSortKey);
 		let sortObj = {
 			key: this.resultSortKey,
 			value: this.sortObj

@@ -3,7 +3,7 @@ var $ = require('jquery');
 var globalI = 0;
 export var sensorEmitter = new EventEmitter();
 
-export var watchForDependencyChange = function(actuate, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
+export var watchForDependencyChange = function(react, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
 	var self = this;
 	globalI += 1;
 	this.random = globalI;
@@ -16,7 +16,7 @@ export var watchForDependencyChange = function(actuate, previousSelectedSensor, 
 		}
 	}
 	// apply depend changes when new value received
-	let applyDependChange = function(actuate, depend) {
+	let applyDependChange = function(react, depend) {
 		if (selectedSensor[depend] && typeof selectedSensor[depend] === 'object') {
 			previousSelectedSensor[depend] = JSON.parse(JSON.stringify(selectedSensor[depend]));
 		} else {
@@ -29,15 +29,15 @@ export var watchForDependencyChange = function(actuate, previousSelectedSensor, 
 
 	// initialize the process
 	this.init = function() {
-		actuate.forEach((depend) => {
+		react.forEach((depend) => {
 			checkDependExists(depend);
 			if (typeof selectedSensor[depend] === 'object') {
 				if (JSON.stringify(selectedSensor[depend]) !== JSON.stringify(previousSelectedSensor[depend])) {
-					applyDependChange(actuate, depend);
+					applyDependChange(react, depend);
 				}
 			} else {
 				if (selectedSensor[depend] !== previousSelectedSensor[depend]) {
-					applyDependChange(actuate, depend);
+					applyDependChange(react, depend);
 				}
 			}
 		});
@@ -48,7 +48,7 @@ export var watchForDependencyChange = function(actuate, previousSelectedSensor, 
 		this.sensorListener = sensorEmitter.addListener('sensorChange', function(data) {
 			let foundDepend = false;
 			for(let single in data) {
-				if(actuate.indexOf(single) > -1) {
+				if(react.indexOf(single) > -1) {
 					foundDepend = true;
 				}
 			}
@@ -60,7 +60,7 @@ export var watchForDependencyChange = function(actuate, previousSelectedSensor, 
 
 		this.paginationListener = sensorEmitter.addListener('paginationChange', function(data) {
 			if (paginationCb) {
-				if (actuate.indexOf(data.key) > -1) {
+				if (react.indexOf(data.key) > -1) {
 					paginationCb(data.value, channelId);
 				}
 			}

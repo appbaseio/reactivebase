@@ -40,7 +40,7 @@ export class Pagination extends Component {
 	// listen all results
 	listenGlobal() {
 		this.globalListener = manager.emitter.addListener('global', function(res) {
-			if(res.actuate && Object.keys(res.actuate).indexOf(this.props.componentId) > -1) {
+			if(res.react && Object.keys(res.react).indexOf(this.props.componentId) > -1) {
 				let totalHits = res.channelResponse.data.hits.total;
 				let maxPageNumber = Math.ceil(totalHits/res.queryOptions.size) < 1 ? 1 : Math.ceil(totalHits/res.queryOptions.size);
 				let size = res.queryOptions.size ? res.queryOptions.size : 20;
