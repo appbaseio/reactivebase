@@ -211,7 +211,9 @@ export class ReactiveElement extends Component {
 		if(res && res.appliedQuery) {
 			result = (
 				<div className="row" style={{'marginTop': '60px'}}>
-					<JsonPrint data={res.newData} />
+					<pre>
+						{JSON.stringify(res.newData, null, 4)}
+					</pre>
 				</div>
 			);
 		}

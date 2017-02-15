@@ -1,5 +1,6 @@
 var { EventEmitter } = require('fbemitter');
 var $ = require('jquery');
+var _ = require('lodash');
 var globalI = 0;
 export var sensorEmitter = new EventEmitter();
 
@@ -32,7 +33,9 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 		react.forEach((depend) => {
 			checkDependExists(depend);
 			if (typeof selectedSensor[depend] === 'object') {
-				if (JSON.stringify(selectedSensor[depend]) !== JSON.stringify(previousSelectedSensor[depend])) {
+				let newData = _(selectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
+				let oldData = _(previousSelectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
+				if (JSON.stringify(newData) !== JSON.stringify(oldData)) {
 					applyDependChange(react, depend);
 				}
 			} else {

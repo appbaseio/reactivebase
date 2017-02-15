@@ -77,16 +77,14 @@ export default class SingleListDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
-						<div className="col s6 col-xs-6">
-							<SingleList
-								componentId="CitySensor"
-								appbaseField={this.props.mapping.city}
-								title="SingleList"
-								size={100}
-								customQuery={this.customQuery}
-								{...this.props}
-							/>
-						</div>
+						<SingleList
+							componentId="CitySensor"
+							appbaseField={this.props.mapping.city}
+							title="SingleList"
+							size={100}
+							customQuery={this.customQuery}
+							{...this.props}
+						/>
 					</div>
 					<div className="col s6 col-xs-6">
 						<ResultList
