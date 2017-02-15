@@ -83,6 +83,7 @@ export default class ResultListDefault extends Component {
 				username="qz4ZD8xq1"
 				password="a0edfc7f-5611-46f6-8fe1-d4db234631f3"
 				type="meetup"
+				theme="rbc-dark"
 			>
 				<div className="row reverse-labels">
 					<div className="col s6 col-xs-6">

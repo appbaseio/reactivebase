@@ -45,7 +45,7 @@ import MultiDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/com
 import ResultListDefault from "./ResultList.stories";
 import ResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ResultList.md";
 
-import ReactiveElementDefault from "./ReactiveElement.stories";
+import ReactiveElement from "./ReactiveElement";
 let ReactiveElementReadme = ResultListReadme;
 
 import PaginatedResultListDefault from "./PaginatedResultList.stories";
@@ -521,17 +521,18 @@ storiesOf("ResultList", module)
 storiesOf("ReactiveElement", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(ReactiveElementReadme), () => (
-		<ReactiveElementDefault stream={false} />
+		<ReactiveElement.Basic />
 	)))
-	.add("With Title", withReadme(removeFirstLine(ReactiveElementReadme), () => (
-		<ReactiveElementDefault title="Meetups" stream={false} />
+	.add("Stream", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElement.WithStream />
 	)))
-	.add("With Streaming", withReadme(removeFirstLine(ReactiveElementReadme), () => (
-		<ReactiveElementDefault title="Meetups" stream={true} />
+	.add("Theme", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElement.WithTheme />
 	)))
 	.add("Playground", withReadme(removeFirstLine(ReactiveElementReadme), () => (
-		<ReactiveElementDefault
-			title={text("title", "ReactiveElement: ReactiveElement")}
+		<ReactiveElement.Basic
+			title={text("title", "ReactiveElement")}
+			placeholder={text("placeholder", "Select city from the list")}
 			from={number("from", 0)}
 			size={number("size", 5)}
 			stream={boolean("stream", false)} />

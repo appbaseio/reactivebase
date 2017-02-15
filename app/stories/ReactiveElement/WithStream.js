@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { ReactiveBase, MultiList, ResultList } from '../app.js';
-import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
-import { Img } from './Img.js';
+import { ReactiveBase, MultiList, ReactiveElement } from '../../app.js';
+import { ResponsiveStory, combineStreamData } from '../../middleware/helper.js';
+import {GetTopTopics} from './helper';
+import { Img } from '../Img.js';
 
-require('./list.css');
+require('../list.css');
 
-export default class ResultListDefault extends Component {
+export default class WithStream extends Component {
 	constructor(props) {
 		super(props);
 		this.cityQuery = this.cityQuery.bind(this);
@@ -28,7 +29,7 @@ export default class ResultListDefault extends Component {
 	onData(response) {
 		let res = response.res;
 		let result = null;
-		if(res) {
+		if(res && res.appliedQuery) {
 			let combineData = res.currentData;
 			if(res.mode === 'historic') {
 				combineData = res.currentData.concat(res.newData);
@@ -37,44 +38,35 @@ export default class ResultListDefault extends Component {
 				combineData = combineStreamData(res.currentData, res.newData);
 			}
 			if (combineData) {
-				result = combineData.map((markerData, index) => {
-					let marker = markerData._source;
-					return this.itemMarkup(marker, markerData);
+				combineData = GetTopTopics(combineData);
+				let resultMarkup = combineData.map((data, index) => {
+					if(index < 5) {
+						return this.itemMarkup(data, index);
+					}
 				});
+				result = (
+					<div className="trendingTopics col s12 col-xs-12" style={{"padding": "10px", "paddingBottom": "60px"}}>
+						<table className="table">
+							<tbody>
+								{resultMarkup}
+							</tbody>
+						</table>
+					</div>
+				);
 			}
 		}
 		return result;
 	}
 
-	itemMarkup(marker, markerData) {
+	itemMarkup(data, index) {
 		return (
-			<a className={"full_row single-record single_record_for_clone "+(markerData.stream ? 'animate' : '')}
-				href={marker.event ? marker.event.event_url : ''}
-				target="_blank"
-				key={markerData._id}>
-				<div className="img-container">
-					<Img key={markerData._id} src={marker.member ? marker.member.photo : this.DEFAULT_IMAGE} />
-				</div>
-				<div className="text-container full_row">
-					<div className="text-head text-overflow full_row">
-						<span className="text-head-info text-overflow">
-							{marker.member ? marker.member.member_name : ''} is going to {marker.event ? marker.event.event_name : ''}
-						</span>
-						<span className="text-head-city">{marker.group ? marker.group.group_city : ''}</span>
-					</div>
-					<div className="text-description text-overflow full_row">
-						<ul className="highlight_tags">
-							{
-								marker.group.group_topics.map(function(tag,i) {
-									return (<li key={i}>{tag.topic_name}</li>)
-								})
-							}
-						</ul>
-					</div>
-				</div>
-			</a>
+			<tr key={index}>
+				<th>{data.name}</th>
+				<td>{data.value}</td>
+			</tr>
 		);
 	}
+
 
 	render() {
 		return (
@@ -83,18 +75,17 @@ export default class ResultListDefault extends Component {
 				username="qz4ZD8xq1"
 				password="a0edfc7f-5611-46f6-8fe1-d4db234631f3"
 				type="meetup"
-				theme="rbc-dark"
 			>
 				<div className="row reverse-labels">
 					<div className="col s6 col-xs-6">
-						<ResultList
+						<ReactiveElement
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.topic}
-							title="ResultList"
-							sortBy="asc"
 							from={0}
-							size={20}
+							size={1000}
 							onData={this.onData}
+							placeholder="select city"
+							title="Trending Topics"
+							stream={true}
 							{...this.props}
 							react={{
 								"and": "CitySensor"
@@ -109,6 +100,7 @@ export default class ResultListDefault extends Component {
 							showCount={true}
 							size={10}
 							title="Input Filter"
+							selectAllLabel="All cities"
 							customQuery={this.cityQuery}
 							searchPlaceholder="Search City"
 							includeSelectAll={true}
@@ -120,7 +112,7 @@ export default class ResultListDefault extends Component {
 	}
 }
 
-ResultListDefault.defaultProps = {
+WithStream.defaultProps = {
 	mapping: {
 		city: 'group.group_city.group_city_simple',
 		topic: 'group.group_topics.topic_name.topic_name_simple'

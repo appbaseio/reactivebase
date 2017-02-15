@@ -5,6 +5,7 @@ import JsonPrint from './component/JsonPrint';
 import { PoweredBy } from '../sensors/PoweredBy';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
+var _ = require('lodash');
 
 export class ResultList extends Component {
 	constructor(props, context) {

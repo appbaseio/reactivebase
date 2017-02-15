@@ -5,6 +5,7 @@ import JsonPrint from './component/JsonPrint';
 import { PoweredBy } from '../sensors/PoweredBy';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
+var _ = require('lodash');
 
 export class ReactiveElement extends Component {
 	constructor(props, context) {
@@ -83,21 +84,18 @@ export class ReactiveElement extends Component {
 		this.streamFlag = false;
 		if (res.mode === 'streaming') {
 			this.channelMethod = 'streaming';
-			let modData = this.streamDataModify(this.state.rawData, res);
-			rawData = modData.rawData;
-			newData = res;
-			currentData = this.state.rawData;
-			res = modData.res;
+			newData = res.data;
+			newData.stream = true;
+			currentData = this.state.currentData;
 			this.streamFlag = true;
 			markersData = this.setMarkersData(rawData);
 		} else if (res.mode === 'historic') {
 			this.queryStartTime = res.startTime;
 			this.channelMethod = 'historic';
 			newData = res.data.hits && res.data.hits.hits ? res.data.hits.hits : [];
-			let normalizeCurrentData = this.normalizeCurrentData(res, this.state.rawData, newData);
+			let normalizeCurrentData = this.normalizeCurrentData(res, this.state.currentData, newData);
 			newData = normalizeCurrentData.newData;
 			currentData = normalizeCurrentData.currentData;
-			rawData = currentData.concat(newData);
 		}
 		this.setState({
 			rawData: rawData,
@@ -113,11 +111,28 @@ export class ReactiveElement extends Component {
 			modifiedData.currentData = this.state.currentData;
 			delete modifiedData.data;
 			modifiedData = helper.prepareResultData(modifiedData, res.data);
-			let generatedData = this.props.onData ? this.props.onData(modifiedData) : this.defaultonData(res);
+			let generatedData = this.props.onData ? this.props.onData(modifiedData) : this.defaultonData(modifiedData);
 			this.setState({
-				resultMarkup: generatedData
+				resultMarkup: generatedData,
+				currentData: this.combineCurrentData(newData)
 			});
+			if (this.streamFlag) {
+				this.streamMarkerInterval();
+			}
 		}.bind(this));
+	}
+
+	// Check if stream data exists in markersData
+	// and if exists the call streamToNormal.
+	streamMarkerInterval() {
+		let markersData = this.state.markersData;
+		let isStreamData = markersData.filter((hit) => hit.stream && hit.streamStart);
+		if(isStreamData.length) {
+			this.isStreamDataExists = true;
+			setTimeout(() => this.streamToNormal(), this.props.streamActiveTime*1000);
+		} else {
+			this.isStreamDataExists = false;
+		}
 	}
 
 	// normalize current data
@@ -127,7 +142,7 @@ export class ReactiveElement extends Component {
 			delete appliedQuery.body.from;
 			delete appliedQuery.body.size;
 		}
-		let currentData = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery) ? rawData : [];
+		let currentData = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery) ? (rawData ? rawData : []) : [];
 		if(!currentData.length) {
 			this.appliedQuery = appliedQuery;
 		} else {
@@ -147,32 +162,36 @@ export class ReactiveElement extends Component {
 		};
 	}
 
+	combineCurrentData(newData) {
+		if(_.isArray(newData)) {
+			return this.state.currentData.concat(newData);
+		} else {
+			return this.streamDataModify(this.state.currentData, newData)
+		}
+	}
+
 	// append stream boolean flag and also start time of stream
-	streamDataModify(rawData, res) {
-		if (res.data) {
-			res.data.stream = true;
-			res.data.streamStart = new Date();
-			if (res.data._deleted) {
+	streamDataModify(rawData, data) {
+		if (data) {
+			data.stream = true;
+			data.streamStart = new Date();
+			if (data._deleted) {
 				let hits = rawData.filter((hit) => {
-					return hit._id !== res.data._id;
+					return hit._id !== data._id;
 				});
 				rawData = hits;
 			} else {
 				let prevData = rawData.filter((hit) => {
-					return hit._id === res.data._id;
+					return hit._id === data._id;
 				});
 				let hits = rawData.filter((hit) => {
-					return hit._id !== res.data._id;
+					return hit._id !== data._id;
 				});
 				rawData = hits;
-				rawData.unshift(res.data);
+				rawData.unshift(data);
 			}
 		}
-		return {
-			rawData: rawData,
-			res: res,
-			streamFlag: true
-		};
+		return rawData;
 	}
 
 	// tranform the raw data to marker data
@@ -186,24 +205,26 @@ export class ReactiveElement extends Component {
 	}
 
 	// default markup
-	defaultonData(res) {
-		let result;
-		if (res.allMarkers) {
-			result = JSON.stringify(res.allMarkers, null, 4);
+	defaultonData(response) {
+		let result = null;
+		let res = response.res;
+		if(res && res.appliedQuery) {
+			result = (
+				<div className="row" style={{'marginTop': '60px'}}>
+					<JsonPrint data={res.newData} />
+				</div>
+			);
 		}
-		result = (
-			<div className="row" style={{'marginTop': '60px'}}>
-				{result}
-			</div>
-		)
 		return result;
 	}
 
 	render() {
-		let title = null, sortOptions = null;
+		let title = null, placeholder=null, sortOptions = null;
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
 			'rbc-title-inactive': !this.props.title,
+			'rbc-placeholder-active': this.props.placeholder,
+			'rbc-placeholder-inactive': !this.props.placeholder,
 			'rbc-stream-active': this.props.stream,
 			'rbc-stream-inactive': !this.props.stream
 		});
@@ -211,12 +232,15 @@ export class ReactiveElement extends Component {
 		if(this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
+		if(this.props.placeholder) {
+			placeholder = (<p className="rbc-placeholder col s12 col-xs-12">{this.props.placeholder}</p>);
+		}
 
 		return (
 			<div className="rbc-reactiveelement-container">
 				<div ref="ListContainer" className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
-					{this.state.resultMarkup}
+					{this.state.resultMarkup || placeholder}
 				</div >
 				<PoweredBy></PoweredBy>
 			</div>
@@ -231,7 +255,8 @@ ReactiveElement.propTypes = {
 	onData: React.PropTypes.func,
 	size: helper.sizeValidation,
 	stream: React.PropTypes.bool,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	placeholder: React.PropTypes.string
 };
 
 ReactiveElement.defaultProps = {
