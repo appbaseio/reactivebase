@@ -1,0 +1,30 @@
+.rbc.thumbnail {
+  margin: 0.5rem 0 1rem 0; }
+
+.rbc .rbc-title {
+  font-size: 1.8em;
+  line-height: 110%;
+  margin: 0.5em 0; }
+
+.rbc.rbc-list .rbc-list-container {
+  margin-top: 15px; }
+  .rbc.rbc-list .rbc-list-container .rbc-list-item {
+    margin-bottom: 15px; }
+
+.rbc .InputRange-label {
+  font-size: 12px; }
+
+.rbc .rbc-checkbox-item, .rbc .rbc-radio-item {
+  cursor: pointer; }
+  .rbc .rbc-checkbox-item label, .rbc .rbc-radio-item label {
+    padding-left: 10px;
+    font-weight: normal;
+    cursor: pointer; }
+  .rbc .rbc-checkbox-item input, .rbc .rbc-radio-item input {
+    cursor: pointer; }
+
+.rbc-btn-active {
+  background-color: #1893e7; }
+
+.rbc-btn-inactive {
+  background-color: #b0bec5; }

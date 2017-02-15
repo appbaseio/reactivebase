@@ -1,0 +1,77 @@
+.rbc.rbc-numberbox {
+	padding: 0;
+
+	.rbc-btn {
+		display: inline-block;
+		width: 2em;
+		height: 2em;
+		font-size: 1em;
+		background: #ebebed;
+		line-height: 30px;
+		padding: 0;
+		text-align: center;
+		vertical-align: middle;
+		box-shadow: none;
+	}
+
+	.rbc-icon {
+		line-height: inherit;
+	}
+
+	.rbc-numberbox-btn-container {
+		padding: 10px 0;
+	}
+
+	.rbc-numberbox-container {
+		display: flex;
+		justify-content: flex-start;
+	}
+
+	&.rbc-label-right,
+	&.rbc-label-bottom {
+		.rbc-label {
+			order: 2;
+		}
+	}
+
+	&.rbc-label-right {
+		.rbc-label {
+			padding-left: 15px;
+		}
+	}
+
+	&.rbc-label-left {
+		.rbc-label {
+			padding-right: 15px;
+		}
+	}
+
+	&.rbc-label-left,
+	&.rbc-label-right {
+		.rbc-numberbox-container {
+			flex-direction: row;
+		}
+	}
+
+	&.rbc-label-top,
+	&.rbc-label-bottom {
+		.rbc-numberbox-container {
+			flex-direction: column;
+		}
+
+		.rbc-numberbox-btn-container {
+			text-align: center;
+		}
+	}
+
+	.rbc-numberbox-number {
+		padding: 1em;
+	}
+
+	.rbc-label {
+		display: inline-block;
+		line-height: 50px;
+		text-align: center;
+		vertical-align: middle;
+	}
+}
