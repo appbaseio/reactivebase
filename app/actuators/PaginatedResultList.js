@@ -6,9 +6,6 @@ var helper = require('../middleware/helper.js');
 export class PaginatedResultList extends Component {
 	constructor(props, context) {
 		super(props);
-		this.colStyle = {
-			padding: 0
-		};
 	}
 
 	componentWillMount() {
@@ -21,7 +18,7 @@ export class PaginatedResultList extends Component {
 
 		if(this.props.paginationAt === method || this.props.paginationAt === 'both') {
 			pageinationComp = (
-				<div className="col s12 col-xs-12" style={this.colStyle}>
+				<div className="rbc-pagination-container col s12 col-xs-12">
 					<Pagination
 						className={`rbc-pagination-${method}`}
 						componentId="pagination"
@@ -36,7 +33,7 @@ export class PaginatedResultList extends Component {
 		return (
 			<div className="row">
 				{this.paginationAt('top')}
-				<div className="col s12 col-xs-12" style={this.colStyle}>
+				<div className="rbc-pagination-container col s12 col-xs-12">
 					<ResultList
 						{...this.props}
 						requestOnScroll={false}

@@ -1,6 +1,5 @@
 import { default as React, Component } from 'react';
 import { render } from 'react-dom';
-import ReactTooltip from 'react-tooltip'
 
 export class HistoGramComponent extends Component {
 	constructor(props) {

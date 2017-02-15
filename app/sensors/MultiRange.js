@@ -73,7 +73,6 @@ export class MultiRange extends Component {
 					"boost" : 1.0
 				}
 			};
-			console.log(query);
 			return query;
 		}
 		function generateRangeQuery(appbaseField) {
@@ -153,6 +152,7 @@ export class MultiRange extends Component {
 				return (
 					<div className="rbc-list-item row" key={i} onClick={() => this.handleChange(record)}>
 						<input type="checkbox"
+							className="rbc-checkbox-item"
 							checked={selectedText.indexOf(record.label) > -1 ? true : false}
 							value={record.label} />
 						<label className="rbc-label">{record.label}</label>
