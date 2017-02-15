@@ -161,7 +161,7 @@ export var selectedSensor = new selectedSensorFn();
 export var ResponsiveStory = function() {
 	function handleResponsive() {
 		var height = $(window).height();
-		$('.rbc.rbc-resultlist').css({
+		$('.rbc.rbc-resultlist, .rbc.rbc-reactiveelement').css({
 			maxHeight: height - 15 - paginationHeight()
 		});
 		$('.rbc.rbc-singlelist, .rbc.rbc-multilist').height(height - 100 - 15);
@@ -476,3 +476,43 @@ var SerializeDepends = function() {
 }
 
 export var serializeDepends = new SerializeDepends();
+
+export var prepareResultData = function(data, res) {
+	let response = {
+		err: null,
+		res: null
+	};
+	if(data.error) {
+		response.err = data;
+	} else {
+		response.res = {
+			mode: data.mode,
+			newData: data.newData,
+			currentData: data.currentData,
+			appliedQuery: data.appliedQuery
+		};
+		if(res) {
+			response.res.took = res.took ? res.took : 0;
+			response.res.total = res.hits && res.hits.total ? res.hits.total : 0;
+		}
+	}
+	return response;
+}
+
+export var combineStreamData = function(currentData, newData) {
+	if (newData) {
+		if (newData._deleted) {
+			let hits = currentData.filter((hit) => {
+				return hit._id !== newData._id;
+			});
+			currentData = hits;
+		} else {
+			let hits = currentData.filter((hit) => {
+				return hit._id !== newData._id;
+			});
+			currentData = hits;
+			currentData.unshift(newData);
+		}
+	}
+	return currentData;
+}

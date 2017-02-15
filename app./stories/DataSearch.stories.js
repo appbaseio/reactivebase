@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ReactiveBase, DataSearch, ResultList } from '../app.js';
-import { ResponsiveStory } from '../middleware/helper.js';
+import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
 require('./list.css');
@@ -16,16 +16,23 @@ export default class DataSearchDefault extends Component {
 		ResponsiveStory();
 	}
 
-	onData(res) {
-		let result, combineData = res.currentData;
-		if(res.mode === 'historic') {
-			combineData = res.currentData.concat(res.newData);
-		}
-		if (combineData) {
-			result = combineData.map((markerData, index) => {
-				let marker = markerData._source;
-				return this.itemMarkup(marker, markerData);
-			});
+	onData(response) {
+		let res = response.res;
+		let result = null;
+		if(res) {
+			let combineData = res.currentData;
+			if(res.mode === 'historic') {
+				combineData = res.currentData.concat(res.newData);
+			}
+			else if(res.mode === 'streaming') {
+				combineData = combineStreamData(res.currentData, res.newData);
+			}
+			if (combineData) {
+				result = combineData.map((markerData, index) => {
+					let marker = markerData._source;
+					return this.itemMarkup(marker, markerData);
+				});
+			}
 		}
 		return result;
 	}

@@ -16,6 +16,7 @@ import {DateRange} from './sensors/DateRange';
 import {NestedList} from './sensors/NestedList';
 import {NumberBox} from './sensors/NumberBox';
 import {ResultList} from './actuators/ResultList';
+import {ReactiveElement} from './actuators/ReactiveElement';
 import {PaginatedResultList} from './actuators/PaginatedResultList';
 import {PoweredBy} from './sensors/PoweredBy';
 // middleware
@@ -42,6 +43,7 @@ module.exports = {
 	NumberBox: NumberBox,
 	ReactiveBase: ReactiveBase,
 	ResultList: ResultList,
+	ReactiveElement: ReactiveElement,
 	PaginatedResultList: PaginatedResultList,
 	AppbaseChannelManager: manager,
 	AppbaseSensorHelper: helper,

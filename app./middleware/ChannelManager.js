@@ -53,7 +53,12 @@ class channelManager {
 						queryOptions: globalQueryOptions
 					});
 				}).on('error', function(error) {
-					console.log(error);
+					let channelError = {
+						appliedQuery: channelResponse.appliedQuery,
+						error: error,
+						startTime: channelResponse.startTime
+					};
+					self.emitter.emit(channelId, channelError);
 				});
 				// apply searchStream query and emit streaming data
 				if(channelObj.stream) {

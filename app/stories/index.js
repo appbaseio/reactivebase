@@ -45,6 +45,9 @@ import MultiDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/com
 import ResultListDefault from "./ResultList.stories";
 import ResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ResultList.md";
 
+import ReactiveElementDefault from "./ReactiveElement.stories";
+let ReactiveElementReadme = ResultListReadme;
+
 import PaginatedResultListDefault from "./PaginatedResultList.stories";
 import PaginatedResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/PaginatedResultList.md";
 
@@ -511,6 +514,26 @@ storiesOf("ResultList", module)
 			from={number("from", 0)}
 			size={number("size", 5)}
 			requestOnScroll={boolean("requestOnScroll", true)}
+			stream={boolean("stream", false)} />
+	)));
+
+
+storiesOf("ReactiveElement", module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElementDefault stream={false} />
+	)))
+	.add("With Title", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElementDefault title="Meetups" stream={false} />
+	)))
+	.add("With Streaming", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElementDefault title="Meetups" stream={true} />
+	)))
+	.add("Playground", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElementDefault
+			title={text("title", "ReactiveElement: ReactiveElement")}
+			from={number("from", 0)}
+			size={number("size", 5)}
 			stream={boolean("stream", false)} />
 	)));
 

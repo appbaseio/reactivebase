@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { ReactiveBase, MultiList, ResultList } from '../app.js';
+import { ReactiveBase, MultiList, ReactiveElement } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
 require('./list.css');
 
-export default class ResultListDefault extends Component {
+export default class ReactiveElementDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.cityQuery = this.cityQuery.bind(this);
@@ -37,43 +37,16 @@ export default class ResultListDefault extends Component {
 				combineData = combineStreamData(res.currentData, res.newData);
 			}
 			if (combineData) {
-				result = combineData.map((markerData, index) => {
-					let marker = markerData._source;
-					return this.itemMarkup(marker, markerData);
-				});
+				result = (
+					<div>
+						<pre className="col-xs-12 pull-left">
+							{JSON.stringify(res, null, 4)}
+						</pre>
+					</div>
+				)
 			}
 		}
 		return result;
-	}
-
-	itemMarkup(marker, markerData) {
-		return (
-			<a className={"full_row single-record single_record_for_clone "+(markerData.stream ? 'animate' : '')}
-				href={marker.event ? marker.event.event_url : ''}
-				target="_blank"
-				key={markerData._id}>
-				<div className="img-container">
-					<Img key={markerData._id} src={marker.member ? marker.member.photo : this.DEFAULT_IMAGE} />
-				</div>
-				<div className="text-container full_row">
-					<div className="text-head text-overflow full_row">
-						<span className="text-head-info text-overflow">
-							{marker.member ? marker.member.member_name : ''} is going to {marker.event ? marker.event.event_name : ''}
-						</span>
-						<span className="text-head-city">{marker.group ? marker.group.group_city : ''}</span>
-					</div>
-					<div className="text-description text-overflow full_row">
-						<ul className="highlight_tags">
-							{
-								marker.group.group_topics.map(function(tag,i) {
-									return (<li key={i}>{tag.topic_name}</li>)
-								})
-							}
-						</ul>
-					</div>
-				</div>
-			</a>
-		);
 	}
 
 	render() {
@@ -86,11 +59,8 @@ export default class ResultListDefault extends Component {
 			>
 				<div className="row reverse-labels">
 					<div className="col s6 col-xs-6">
-						<ResultList
+						<ReactiveElement
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.topic}
-							title="ResultList"
-							sortBy="asc"
 							from={0}
 							size={20}
 							onData={this.onData}
@@ -119,7 +89,7 @@ export default class ResultListDefault extends Component {
 	}
 }
 
-ResultListDefault.defaultProps = {
+ReactiveElementDefault.defaultProps = {
 	mapping: {
 		city: 'group.group_city.group_city_simple',
 		topic: 'group.group_topics.topic_name.topic_name_simple'

@@ -1594,3 +1594,12 @@ a {
   .rbc-poweredby .rbc-img-responsive {
     max-width: 100px;
     width: 100%; }
+
+.rbc.rbc-reactiveelement {
+  height: auto;
+  max-height: 700px;
+  overflow: auto;
+  margin: 5px 0; }
+
+.rbc-reactiveelement-container {
+  position: relative; }

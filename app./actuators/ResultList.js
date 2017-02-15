@@ -12,7 +12,7 @@ export class ResultList extends Component {
 		this.state = {
 			markers: [],
 			query: {},
-			rawData:  [],
+			currentData:  [],
 			resultMarkup: [],
 			isLoading: false
 		};
@@ -100,6 +100,12 @@ export class ResultList extends Component {
 			// implementation to prevent initialize query issue if old query response is late then the newer query
 			// then we will consider the response of new query and prevent to apply changes for old query response.
 			// if queryStartTime of channel response is greater than the previous one only then apply changes
+			if(res.error && res.startTime > this.queryStartTime) {
+				if(this.props.onData) {
+					let modifiedData = helper.prepareResultData(data);
+					this.props.onData(modifiedData);
+				}
+			}
 			if(res.mode === 'historic' && res.startTime > this.queryStartTime) {
 				this.afterChannelResponse(res);
 			} else if(res.mode === 'streaming') {
@@ -119,21 +125,18 @@ export class ResultList extends Component {
 		this.streamFlag = false;
 		if (res.mode === 'streaming') {
 			this.channelMethod = 'streaming';
-			let modData = this.streamDataModify(this.state.rawData, res);
-			rawData = modData.rawData;
-			newData = res;
-			currentData = this.state.rawData;
-			res = modData.res;
+			newData = res.data;
+			newData.stream = true;
+			currentData = this.state.currentData;
 			this.streamFlag = true;
 			markersData = this.setMarkersData(rawData);
 		} else if (res.mode === 'historic') {
 			this.queryStartTime = res.startTime;
 			this.channelMethod = 'historic';
 			newData = res.data.hits && res.data.hits.hits ? res.data.hits.hits : [];
-			let normalizeCurrentData = this.normalizeCurrentData(res, this.state.rawData, newData);
+			let normalizeCurrentData = this.normalizeCurrentData(res, this.state.currentData, newData);
 			newData = normalizeCurrentData.newData;
 			currentData = normalizeCurrentData.currentData;
-			rawData = currentData.concat(newData);
 		}
 		this.setState({
 			rawData: rawData,
@@ -148,9 +151,11 @@ export class ResultList extends Component {
 			modifiedData.newData = this.state.newData;
 			modifiedData.currentData = this.state.currentData;
 			delete modifiedData.data;
-			let generatedData = this.props.onData ? this.props.onData(modifiedData) : this.defaultonData(res);
+			modifiedData = helper.prepareResultData(modifiedData, res.data);
+			let generatedData = this.props.onData ? this.props.onData(modifiedData) : this.defaultonData(modifiedData);
 			this.setState({
-				resultMarkup: this.wrapMarkup(generatedData)
+				resultMarkup: this.wrapMarkup(generatedData),
+				currentData: this.combineCurrentData(newData)
 			});
 			if (this.streamFlag) {
 				this.streamMarkerInterval();
@@ -213,7 +218,7 @@ export class ResultList extends Component {
 			delete appliedQuery.body.from;
 			delete appliedQuery.body.size;
 		}
-		let currentData = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery) ? rawData : [];
+		let currentData = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery) ? (rawData ? rawData : []) : [];
 		if(!currentData.length) {
 			this.appliedQuery = appliedQuery;
 		} else {
@@ -231,6 +236,14 @@ export class ResultList extends Component {
 			currentData: currentData,
 			newData: newData
 		};
+	}
+
+	combineCurrentData(newData) {
+		if(_.isArray(newData)) {
+			return this.state.currentData.concat(newData);
+		} else {
+			return this.streamDataModify(this.state.currentData, newData)
+		}
 	}
 
 	// enable sort
@@ -252,31 +265,27 @@ export class ResultList extends Component {
 	}
 
 	// append stream boolean flag and also start time of stream
-	streamDataModify(rawData, res) {
-		if (res.data) {
-			res.data.stream = true;
-			res.data.streamStart = new Date();
-			if (res.data._deleted) {
+	streamDataModify(rawData, data) {
+		if (data) {
+			data.stream = true;
+			data.streamStart = new Date();
+			if (data._deleted) {
 				let hits = rawData.filter((hit) => {
-					return hit._id !== res.data._id;
+					return hit._id !== data._id;
 				});
 				rawData = hits;
 			} else {
 				let prevData = rawData.filter((hit) => {
-					return hit._id === res.data._id;
+					return hit._id === data._id;
 				});
 				let hits = rawData.filter((hit) => {
-					return hit._id !== res.data._id;
+					return hit._id !== data._id;
 				});
 				rawData = hits;
-				rawData.unshift(res.data);
+				rawData.unshift(data);
 			}
 		}
-		return {
-			rawData: rawData,
-			res: res,
-			streamFlag: true
-		};
+		return rawData;
 	}
 
 	// tranform the raw data to marker data
@@ -289,27 +298,40 @@ export class ResultList extends Component {
 		}
 	}
 
-	// default markup
-	defaultonData(res) {
-		let result;
-		if (res.allMarkers) {
-			result = res.allMarkers.map((marker, index) => {
-				return (
-					<div
-						key={index}
-						style={{'borderBottom': '1px solid #eee', 'padding': '12px', 'fontSize': '12px'}}
-						className="makerInfo">
-							<JsonPrint data={marker._source} />
-					</div>
-				);
-			});
+	defaultonData(response) {
+		let res = response.res;
+		let result = null;
+		if(res) {
+			let combineData = res.currentData;
+			if(res.mode === 'historic') {
+				combineData = res.currentData.concat(res.newData);
+			}
+			else if(res.mode === 'streaming') {
+				combineData = helper.combineStreamData(res.currentData, res.newData);
+			}
+			if (combineData) {
+				result = combineData.map((markerData, index) => {
+					let marker = markerData._source;
+					return (
+						<div className="row" style={{'marginTop': '60px'}}>
+							{this.itemMarkup(marker, markerData)}
+						</div>
+					);
+				});
+			}
 		}
-		result = (
-			<div className="row" style={{'marginTop': '60px'}}>
-				{result}
-			</div>
-		)
 		return result;
+	}
+
+	itemMarkup(marker, markerData) {
+		return (
+			<div
+				key={markerData._id}
+				style={{'borderBottom': '1px solid #eee', 'padding': '12px', 'fontSize': '12px'}}
+				className="makerInfo">
+					<JsonPrint data={marker} />
+			</div>
+		);
 	}
 
 	nextPage() {
