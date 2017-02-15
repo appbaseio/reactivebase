@@ -215,23 +215,23 @@ export class RangeSlider extends Component {
 		}
 	}
 
-	// Create a channel which passes the actuate and receive results whenever actuate changes
+	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
-		// Set the actuate - add self aggs query as well with actuate
-		let actuate = this.props.actuate ? this.props.actuate : {};
-		actuate['aggs'] = {
+		// Set the react - add self aggs query as well with react
+		let react = this.props.react ? this.props.react : {};
+		react['aggs'] = {
 			key: this.props.appbaseField,
 			sort: 'asc',
 			size: 1000
 		};
-		if(actuate && actuate.and && typeof actuate.and === 'string') {
-			actuate.and = [actuate.and];
+		if(react && react.and && typeof react.and === 'string') {
+			react.and = [react.and];
 		} else {
-			actuate.and = actuate.and ? actuate.and : [];
+			react.and = react.and ? react.and : [];
 		}
-		actuate.and.push(this.props.componentId+'-internal');
+		react.and.push(this.props.componentId+'-internal');
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;

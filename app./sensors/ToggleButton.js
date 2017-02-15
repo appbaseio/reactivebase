@@ -68,7 +68,6 @@ export class ToggleButton extends Component {
 					"boost" : 1.0
 				}
 			};
-			console.log(query);
 			return query;
 		} else {
 			return query;
@@ -85,10 +84,10 @@ export class ToggleButton extends Component {
 	}
 
 	// use this only if want to create actuators
-	// Create a channel which passes the actuate and receive results whenever actuate changes
+	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
-		let actuate = this.props.actuate ? this.props.actuate : {};
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
+		let react = this.props.react ? this.props.react : {};
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 	}
 
 	// handle the input change and pass the value inside sensor info

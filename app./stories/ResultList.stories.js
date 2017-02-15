@@ -91,7 +91,7 @@ export default class ResultListDefault extends Component {
 							size={20}
 							onData={this.onData}
 							{...this.props}
-							actuate={{
+							react={{
 								"and": "CitySensor"
 							}}
 						/>

@@ -75,7 +75,7 @@ export default class NumberBoxDefault extends Component {
 							from={0}
 							size={20}
 							onData={this.onData}
-							actuate={{
+							react={{
 								"and": "CarRatingSensor"
 							}}
 						/>

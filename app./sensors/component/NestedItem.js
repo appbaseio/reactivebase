@@ -112,7 +112,7 @@ class ItemRow extends Component {
 					<NestedList
 						componentId={"nested-"+this.props.value}
 						appbaseField={[this.props.appbaseField[1]]}
-						actuate={this.props.actuate}
+						react={this.props.react}
 					></NestedList>
 				)
 			}

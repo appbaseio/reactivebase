@@ -73,7 +73,6 @@ export class MultiRange extends Component {
 					"boost" : 1.0
 				}
 			};
-			console.log(query);
 			return query;
 		}
 		function generateRangeQuery(appbaseField) {
@@ -94,10 +93,10 @@ export class MultiRange extends Component {
 	}
 
 	// use this only if want to create actuators
-	// Create a channel which passes the actuate and receive results whenever actuate changes
+	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
-		let actuate = this.props.actuate ? this.props.actuate : {};
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, actuate);
+		let react = this.props.react ? this.props.react : {};
+		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 	}
 
 	// handle the input change and pass the value inside sensor info
@@ -153,6 +152,7 @@ export class MultiRange extends Component {
 				return (
 					<div className="rbc-list-item row" key={i} onClick={() => this.handleChange(record)}>
 						<input type="checkbox"
+							className="rbc-checkbox-item"
 							checked={selectedText.indexOf(record.label) > -1 ? true : false}
 							value={record.label} />
 						<label className="rbc-label">{record.label}</label>

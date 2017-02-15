@@ -83,7 +83,7 @@ export default class PaginatedResultListDefault extends Component {
 							size={20}
 							onData={this.onData}
 							{...this.props}
-							actuate={{
+							react={{
 								"and": "CitySensor"
 							}}
 						/>

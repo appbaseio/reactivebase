@@ -11,12 +11,6 @@
   font-weight: 900;
   font-style: normal; }
 
-@font-face {
-  font-family: 'Lato Bold Italic';
-  src: url("../fonts/Lato/Lato-BoldItalic.ttf") format("truetype");
-  font-weight: 900;
-  font-style: normal; }
-
 html,
 body {
   height: 100%;
@@ -1500,8 +1494,13 @@ a {
   .rbc.rbc-togglebutton .rbc-btn {
     text-transform: inherit; }
 
-.rbc.rbc-pagination li i {
-  font-size: 1rem; }
+.rbc.rbc-pagination {
+  padding: 0; }
+  .rbc.rbc-pagination li i {
+    font-size: 1rem; }
+
+.rbc-pagination-container.col.s12 {
+  padding: 0; }
 
 .rbc.rbc-nestedlist {
   height: 500px;

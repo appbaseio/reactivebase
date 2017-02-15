@@ -90,7 +90,7 @@ export default class DatePickerDefault extends Component {
 							size={20}
 							onData={this.onData}
 							requestOnScroll={true}
-							actuate={{
+							react={{
 								"and": "DateSensor"
 							}}
 						/>

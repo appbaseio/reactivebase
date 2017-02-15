@@ -82,7 +82,7 @@ export default class MultiRangeDefault extends Component {
 							from={0}
 							size={20}
 							onData={this.onData}
-							actuate={{
+							react={{
 								"and": "PriceSensor"
 							}}
 						/>
