@@ -45,6 +45,16 @@ export class DataSearch extends Component {
 		}
 	}
 
+	componentWillUpdate() {
+		if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
+			this.defaultSelected = this.props.defaultSelected;
+			this.setValue(this.defaultSelected);
+			this.handleSearch({
+				value: this.defaultSelected
+			});
+		}
+	}
+
 	// set the query type and input data
 	setQueryInfo() {
 		let obj = {
@@ -296,7 +306,8 @@ DataSearch.propTypes = {
 	]),
 	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
-	autocomplete: React.PropTypes.bool
+	autocomplete: React.PropTypes.bool,
+	defaultSelected: React.PropTypes.string
 };
 
 // Default props value
