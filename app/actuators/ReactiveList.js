@@ -107,10 +107,12 @@ export class ReactiveList extends Component {
 					this.props.onData(modifiedData);
 				}
 			}
-			if(res.mode === 'historic' && res.startTime > this.queryStartTime) {
-				this.afterChannelResponse(res);
-			} else if(res.mode === 'streaming') {
-				this.afterChannelResponse(res);
+			if(res.appliedQuery) {
+				if(res.mode === 'historic' && res.startTime > this.queryStartTime) {
+					this.afterChannelResponse(res);
+				} else if(res.mode === 'streaming') {
+					this.afterChannelResponse(res);
+				}
 			}
 		}.bind(this));
 		var obj = {
