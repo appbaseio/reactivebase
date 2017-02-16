@@ -239,7 +239,6 @@ var SerializeDepends = function() {
 
 		function initialize() {
 			queries = checkConjunctions(depends, 0);
-			console.log(queries);
 			return {
 				queries: queries,
 				dependsList: dependsList

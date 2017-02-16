@@ -141,7 +141,7 @@ class channelManager {
 			channelObj.serializeDepends.dependsList.forEach((depend) => {
 				if(depend === 'aggs') {
 					dependsQuery[depend] = aggsQuery(depend);
-				} else if(depend.indexOf('channel-options-') > -1) {
+				} else if(depend && depend.indexOf('channel-options-') > -1) {
 					requestOptions = previousSelectedSensor[depend];
 				} else {
 					dependsQuery[depend] = singleQuery(depend);

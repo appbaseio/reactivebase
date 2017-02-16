@@ -33,6 +33,7 @@ export class DataSearch extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		this.createChannel();
+		this.checkDefault();
 	}
 
 	// stop streaming request and remove listener when component will unmount
@@ -46,6 +47,10 @@ export class DataSearch extends Component {
 	}
 
 	componentWillUpdate() {
+		this.checkDefault();
+	}
+
+	checkDefault() {
 		if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
 			this.defaultSelected = this.props.defaultSelected;
 			this.setValue(this.defaultSelected);

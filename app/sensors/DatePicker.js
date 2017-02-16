@@ -21,9 +21,14 @@ export class DatePicker extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
+		this.checkDefault();
 	}
 
 	componentWillUpdate() {
+		this.checkDefault();
+	}
+
+	checkDefault() {
 		if (this.props.date && this.defaultDate != this.props.date) {
 			this.defaultDate = this.props.date;
 			this.handleChange(this.defaultDate);
