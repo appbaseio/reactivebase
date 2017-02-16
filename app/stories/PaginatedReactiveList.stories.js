@@ -71,6 +71,10 @@ export default class PaginatedReactiveListDefault extends Component {
 		);
 	}
 
+	onPageChange(page) {
+		// console.log(page);
+	}
+
 	render() {
 		return (
 			<ReactiveBase
@@ -89,6 +93,7 @@ export default class PaginatedReactiveListDefault extends Component {
 							from={0}
 							size={20}
 							onData={this.onData}
+							onPageChange={this.onPageChange}
 							{...this.props}
 							react={{
 								"and": "CitySensor"

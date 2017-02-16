@@ -68,6 +68,9 @@ export class Pagination extends Component {
 		// pass the selected sensor value with componentId as key,
 		let isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery, 'paginationChange');
+		if(this.props.onPageChange) {
+			this.props.onPageChange(inputVal);
+		}
 	}
 
 	// pre page
@@ -138,7 +141,8 @@ export class Pagination extends Component {
 
 Pagination.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string
+	title: React.PropTypes.string,
+	onPageChange: React.PropTypes.func
 };
 
 // Default props value

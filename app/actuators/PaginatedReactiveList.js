@@ -22,6 +22,7 @@ export class PaginatedReactiveList extends Component {
 					<Pagination
 						className={`rbc-pagination-${method}`}
 						componentId="pagination"
+						onPageChange={this.props.onPageChange}
 						title={this.props.paginationTitle} />
 				</div>
 			);
@@ -61,6 +62,7 @@ PaginatedReactiveList.propTypes = {
 	),
 	from: helper.validation.resultListFrom,
 	onData: React.PropTypes.func,
+	onPageChange: React.PropTypes.func,
 	size: helper.sizeValidation,
 	stream: React.PropTypes.bool
 };
