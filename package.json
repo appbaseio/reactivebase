@@ -70,6 +70,8 @@
     "shebang-loader": "0.0.1",
     "storybook-readme": "^1.2.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "enzyme": "^2.7.1",
+    "react-test-renderer": "^15.4.2"
   }
 }
