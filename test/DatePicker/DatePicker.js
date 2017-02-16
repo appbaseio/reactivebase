@@ -1,13 +1,13 @@
 import React from 'react';
 import { ReactiveBase, DatePicker, ReactiveList } from '../../app/app.js';
 import {config} from './config';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 function testComponent(cb) {
 	const onData = function(response) {
 		cb(response);
 	}
-	const component = shallow(
+	const component = mount(
 		<ReactiveBase
 				app={config.ReactiveBase.app}
 				username={config.ReactiveBase.username}

@@ -1,14 +1,14 @@
 import React from 'react';
 import { ReactiveBase, DataSearch, ReactiveList } from '../../app/app.js';
 import {config} from './config';
-import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 
 function testComponent(cb) {
 	const onData = function(response) {
 		console.log(response);
 		cb(response);
 	}
-	const component = renderer.create(
+	const component = mount(
 		<ReactiveBase
 				app={config.ReactiveBase.app}
 				username={config.ReactiveBase.username}

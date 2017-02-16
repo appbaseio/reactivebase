@@ -27,11 +27,11 @@ const expectedValues = {
 						"bool": {
 							"should": [{
 								"match_phrase_prefix": {
-									[config.mapping.topic]: [config.DataSearch.defaultSelected]
+									[config.mapping.venue]: config.DataSearch.defaultSelected
 								}
 							}, {
 								"match_phrase_prefix": {
-									[config.mapping.venue]: [config.DataSearch.defaultSelected]
+									[config.mapping.topic]: config.DataSearch.defaultSelected
 								}
 							}],
 							"minimum_should_match": 1

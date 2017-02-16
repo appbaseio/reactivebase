@@ -1,15 +1,18 @@
 import React from 'react';
 import {DatePickerTest} from './DatePicker';
 import {expectedValues} from './config';
+// jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 describe('DatePicker test', () => {
 	var response = null;
-	beforeAll(() => {
+	beforeAll((done) => {
 		return DatePickerTest().then((res) => {
 			response = res;
+			done();
 			return response;
 		}).catch((err) => {
 			console.log(err);
+			done();
 			return err;
 		});
 	});
