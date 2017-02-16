@@ -83,8 +83,8 @@ export default class WithStream extends Component {
 							from={0}
 							size={1000}
 							onData={this.onData}
-							placeholder="select city"
-							title="Trending Topics"
+							placeholder="Select a city from the input filter..."
+							title="Reactive Element: Stream New Results"
 							stream={true}
 							{...this.props}
 							react={{
@@ -96,7 +96,7 @@ export default class WithStream extends Component {
 					<div className="col s6 col-xs-6">
 						<MultiList
 							componentId="CitySensor"
-							appbaseField={this.props.mapping.city}
+							appbaseField="group.group_city.group_city_simple"
 							showCount={true}
 							size={10}
 							title="Input Filter"
@@ -111,10 +111,3 @@ export default class WithStream extends Component {
 		);
 	}
 }
-
-WithStream.defaultProps = {
-	mapping: {
-		city: 'group.group_city.group_city_simple',
-		topic: 'group.group_topics.topic_name.topic_name_simple'
-	}
-};

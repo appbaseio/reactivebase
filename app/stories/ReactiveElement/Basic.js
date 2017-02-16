@@ -36,9 +36,10 @@ export default class Basic extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveElement
 							componentId="SearchResult"
+							title="Reactive Element"
 							from={0}
 							size={20}
-							placeholder="Select city to see results"
+							placeholder="Select a city from the input filter..."
 							{...this.props}
 							react={{
 								"and": "CitySensor"
@@ -49,7 +50,7 @@ export default class Basic extends Component {
 					<div className="col s6 col-xs-6">
 						<MultiList
 							componentId="CitySensor"
-							appbaseField={this.props.mapping.city}
+							appbaseField="group.group_city.group_city_simple"
 							showCount={true}
 							size={10}
 							title="Input Filter"
@@ -63,10 +64,3 @@ export default class Basic extends Component {
 		);
 	}
 }
-
-Basic.defaultProps = {
-	mapping: {
-		city: 'group.group_city.group_city_simple',
-		topic: 'group.group_topics.topic_name.topic_name_simple'
-	}
-};
