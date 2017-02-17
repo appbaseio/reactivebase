@@ -291,6 +291,9 @@ a {
 .rbc-red .rbc.rbc-resultlist .rbc-list-item {
   border-bottom-color: red; }
 
+.rbc-red .rbc.rbc-reactiveelement .rbc-placeholder {
+  color: #777; }
+
 .rbc-red .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: red;
   color: #fff; }
@@ -446,6 +449,9 @@ a {
 
 .rbc-orange .rbc.rbc-resultlist .rbc-list-item {
   border-bottom-color: orange; }
+
+.rbc-orange .rbc.rbc-reactiveelement .rbc-placeholder {
+  color: #777; }
 
 .rbc-orange .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: orange;
@@ -603,6 +609,9 @@ a {
 .rbc-yellow .rbc.rbc-resultlist .rbc-list-item {
   border-bottom-color: yellow; }
 
+.rbc-yellow .rbc.rbc-reactiveelement .rbc-placeholder {
+  color: #777; }
+
 .rbc-yellow .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: yellow;
   color: #fff; }
@@ -758,6 +767,9 @@ a {
 
 .rbc-green .rbc.rbc-resultlist .rbc-list-item {
   border-bottom-color: green; }
+
+.rbc-green .rbc.rbc-reactiveelement .rbc-placeholder {
+  color: #777; }
 
 .rbc-green .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: green;
@@ -915,6 +927,9 @@ a {
 .rbc-blue .rbc.rbc-resultlist .rbc-list-item {
   border-bottom-color: #1893e7; }
 
+.rbc-blue .rbc.rbc-reactiveelement .rbc-placeholder {
+  color: #777; }
+
 .rbc-blue .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: #1893e7;
   color: #fff; }
@@ -1070,6 +1085,9 @@ a {
 
 .rbc-dark .rbc.rbc-resultlist .rbc-list-item {
   border-bottom-color: #ccc; }
+
+.rbc-dark .rbc.rbc-reactiveelement .rbc-placeholder {
+  color: #eee; }
 
 .rbc-dark .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: #ccc;
@@ -1400,7 +1418,8 @@ a {
   height: auto;
   max-height: 700px;
   overflow: auto;
-  margin: 5px 0; }
+  margin: 5px 0;
+  padding-bottom: 28px; }
   .rbc.rbc-resultlist .rbc-json-print span {
     width: 60px;
     display: inline-block;
@@ -1600,6 +1619,9 @@ a {
   max-height: 700px;
   overflow: auto;
   margin: 5px 0; }
+  .rbc.rbc-reactiveelement .rbc-placeholder {
+    padding: 60px 15px;
+    text-align: center; }
 
 .rbc-reactiveelement-container {
   position: relative; }
