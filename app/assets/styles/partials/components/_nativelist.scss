@@ -1,7 +1,7 @@
 .rbc.rbc-singlelist,
 .rbc.rbc-multilist {
 	overflow: hidden;
-	height: 400px;
+	max-height: 400px;
 	padding: 0;
 	position: relative;
 	.rbc-list-container {

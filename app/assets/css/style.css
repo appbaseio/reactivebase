@@ -1260,7 +1260,7 @@ a {
 .rbc.rbc-singlelist,
 .rbc.rbc-multilist {
   overflow: hidden;
-  height: 400px;
+  max-height: 400px;
   padding: 0;
   position: relative; }
   .rbc.rbc-singlelist .rbc-list-container,
@@ -1419,7 +1419,10 @@ a {
   max-height: 700px;
   overflow: auto;
   margin: 5px 0;
-  padding-bottom: 28px; }
+  padding-bottom: 45px; }
+  .rbc.rbc-resultlist .rbc-resultlist-scroll-container {
+    position: relative;
+    overflow: auto; }
   .rbc.rbc-resultlist .rbc-json-print span {
     width: 60px;
     display: inline-block;
@@ -1618,7 +1621,8 @@ a {
   height: auto;
   max-height: 700px;
   overflow: auto;
-  margin: 5px 0; }
+  margin: 5px 0;
+  padding-bottom: 45px; }
   .rbc.rbc-reactiveelement .rbc-placeholder {
     padding: 60px 15px;
     text-align: center; }
