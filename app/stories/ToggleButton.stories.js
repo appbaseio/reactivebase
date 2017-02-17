@@ -29,7 +29,6 @@ export default class ToggleButtonDefault extends Component {
 	}
 
 	onData(response) {
-		debugger
 		let res = response.res;
 		let result = null;
 		if(res) {
@@ -83,10 +82,9 @@ export default class ToggleButtonDefault extends Component {
 	render() {
 		return (
 			<ReactiveBase
-				app="ReactiveMapTest"
-				username="J9GnR18lo"
-				password="348fb7b0-52e5-4b24-8306-9efeaba5ee09"
-				type="meetupdata"
+				app="meetup_demo"
+				username="LPpISlEBe"
+				password="2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
@@ -95,7 +93,6 @@ export default class ToggleButtonDefault extends Component {
 							componentId="MeetupTops"
 							title="ToggleButton"
 							data={this.toggleData}
-							defaultSelected={["Social"]}
 							{...this.props}
 						/>
 					</div>
