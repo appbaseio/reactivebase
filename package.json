@@ -16,7 +16,7 @@
     "build-storybook": "build-storybook -o playground"
   },
   "jest": {
-    "rootDir": "./test"
+    "rootDir": "./test/MultiRange"
   },
   "files": [
     "lib/",

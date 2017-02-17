@@ -1,11 +1,11 @@
 import React from 'react';
-import {SingleRangeTest} from './SingleRange';
+import {MultiRangeTest} from './MultiRange';
 import {expectedValues} from './config';
 
-describe('SingleRange test', () => {
+describe('MultiRange test', () => {
 	var response = null;
 	beforeAll(() => {
-		return SingleRangeTest().then((res) => {
+		return MultiRangeTest().then((res) => {
 			response = res;
 			return response;
 		}).catch((err) => err);
