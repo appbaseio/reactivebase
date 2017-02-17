@@ -335,7 +335,7 @@ export class RangeSlider extends Component {
 		if(this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
-		if(this.state.counts && this.state.counts.length) {
+		if(this.state.counts && this.state.counts.length && this.props.showHistogram) {
 			histogram = (<HistoGramComponent data={this.state.counts} />);
 		}
 		if (this.props.rangeLabels.start || this.props.rangeLabels.end) {
@@ -379,6 +379,7 @@ RangeSlider.propTypes = {
 		end: helper.validateThreshold
 	}),
 	defaultSelected: React.PropTypes.object,
+	showHistogram: React.PropTypes.bool,
 	stepValue: helper.stepValidation,
 	rangeLabels: React.PropTypes.shape({
 		start: React.PropTypes.string,
@@ -399,6 +400,7 @@ RangeSlider.defaultProps = {
 		start: null,
 		end: null
 	},
+	showHistogram: true,
 	stepValue: 1,
 	title: null
 };

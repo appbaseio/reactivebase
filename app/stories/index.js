@@ -306,6 +306,11 @@ storiesOf("RangeSlider", module)
 			}
 		/>
 	)))
+	.add("Without histogram", withReadme(removeFirstLine(RangeSliderReadme), () => (
+		<RangeSliderDefault
+			showHistogram={false}
+		/>
+	)))
 	.add("With Range Labels", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
 			defaultSelected={
@@ -338,6 +343,7 @@ storiesOf("RangeSlider", module)
 				"start": "Start",
 				"end": "End"
 			})}
+			showHistogram={boolean('showHistogram', true)}
 		/>
 	)));
 
