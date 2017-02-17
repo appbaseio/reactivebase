@@ -29,7 +29,7 @@ export class DatePicker extends Component {
 	}
 
 	checkDefault() {
-		if (this.props.date && this.defaultDate != this.props.date) {
+		if (this.props.date && moment(this.defaultDate).format('YYYY-MM-DD') != moment(this.props.date).format('YYYY-MM-DD')) {
 			this.defaultDate = this.props.date;
 			this.handleChange(this.defaultDate);
 		}
