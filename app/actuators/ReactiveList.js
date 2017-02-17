@@ -46,8 +46,8 @@ export class ReactiveList extends Component {
 		this.initialize();
 	}
 
-	initialize() {
-		this.createChannel();
+	initialize(executeChannel=false) {
+		this.createChannel(executeChannel);
 		if (this.props.requestOnScroll) {
 			this.listComponent();
 		}
@@ -58,11 +58,19 @@ export class ReactiveList extends Component {
 			if (this.streamProp != this.props.stream) {
 				this.streamProp = this.props.stream;
 				this.removeChannel();
-				this.initialize();
+				this.initialize(true);
 			}
 			if (this.requestOnScroll != this.props.requestOnScroll) {
 				this.requestOnScroll = this.props.requestOnScroll;
 				this.listComponent();
+			}
+			if (this.size != this.props.size) {
+				this.size = this.props.size;
+				this.setState({
+					currentData: []
+				});
+				this.removeChannel();
+				this.initialize(true);
 			}
 		}, 300);
 	}
@@ -70,6 +78,26 @@ export class ReactiveList extends Component {
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
 		this.removeChannel();
+	}
+
+	// check the height and set scroll if scroll not exists
+	componentDidUpdate() {
+		this.applyScroll();
+	}
+
+	applyScroll() {
+		let resultElement = $('.rbc.rbc-resultlist');
+		let scrollElement = $('.rbc-resultlist-scroll-container');
+		let padding = 45;
+		$('.rbc-resultlist-scroll-container').css('height', 'auto');
+		setTimeout(checkHeight, 1000);
+		function checkHeight() {
+			let flag = resultElement.get(0).scrollHeight-padding > resultElement.height() ? true : false;
+			let scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height() ? true : false;
+			if(!flag && !scrollFlag && $('.rbc-resultlist-scroll-container').length) {
+				$('.rbc-resultlist-scroll-container').css('height', resultElement.height()-100);
+			}
+		}
 	}
 
 	removeChannel() {
@@ -83,7 +111,7 @@ export class ReactiveList extends Component {
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
+	createChannel(executeChannel=false) {
 		// Set the react - add self aggs query as well with react
 		let react = this.props.react ? this.props.react : {};
 		if(react && react.and && typeof react.and === 'string') {
@@ -115,11 +143,13 @@ export class ReactiveList extends Component {
 				}
 			}
 		}.bind(this));
-		var obj = {
-			key: 'streamChanges',
-			value: ''
-		};
-		helper.selectedSensor.set(obj, true);
+		if(executeChannel) {
+			var obj = {
+				key: 'streamChanges',
+				value: ''
+			};
+			helper.selectedSensor.set(obj, true);
+		}
 	}
 
 	afterChannelResponse(res) {
@@ -167,13 +197,19 @@ export class ReactiveList extends Component {
 	}
 
 	wrapMarkup(generatedData) {
+		let markup = null;
 		if(Object.prototype.toString.call(generatedData) === '[object Array]' ) {
-			return generatedData.map((item, index) => {
+			markup = generatedData.map((item, index) => {
 				return (<div key={index} className="rbc-list-item">{item}</div>);
 			});
 		} else {
-			return generatedData;
+			markup = generatedData;
 		}
+		return(
+			<div className="rbc-resultlist-scroll-container col s12 col-xs-12">
+				{markup}
+			</div>
+		);
 	}
 
 	// Check if stream data exists in markersData
