@@ -371,6 +371,9 @@ storiesOf("TextField", module)
 	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault />
 	)))
+	.add("DefaultSelected", withReadme(removeFirstLine(TextFieldReadme), () => (
+		<TextFieldDefault defaultSelected="nissan" />
+	)))
 	.add("Playground", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault
 			title={text("title", "TextField: Car Search")}
