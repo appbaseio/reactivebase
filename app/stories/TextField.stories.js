@@ -70,16 +70,15 @@ export default class TextFieldDefault extends Component {
 	render() {
 		return (
 			<ReactiveBase
-				app="ReactiveMapTest"
-				username="J9GnR18lo"
-				password="348fb7b0-52e5-4b24-8306-9efeaba5ee09"
-				type="meetupdata"
+				app="car-store"
+				username="cf7QByt5e"
+				password="d2d60548-82a9-43cc-8b40-93cbbe75c34c"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<TextField
 							componentId="NameTextSensor"
-							appbaseField={this.props.mapping.city}
+							appbaseField={this.props.mapping.name}
 							title="TextField"
 							customQuery= {this.NameQuery}
 							{...this.props}
@@ -89,7 +88,7 @@ export default class TextFieldDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.topic}
+							appbaseField={this.props.mapping.name}
 							title="Cars"
 							from={0}
 							size={20}
@@ -107,7 +106,6 @@ export default class TextFieldDefault extends Component {
 
 TextFieldDefault.defaultProps = {
 	mapping: {
-		city: 'group.group_city.raw',
-		topic: 'group.group_topics.topic_name_raw'
+		name: 'name'
 	}
 };
