@@ -1422,7 +1422,8 @@ a {
   padding-bottom: 45px; }
   .rbc.rbc-resultlist .rbc-resultlist-scroll-container {
     position: relative;
-    overflow: auto; }
+    overflow: auto;
+    padding: 0; }
   .rbc.rbc-resultlist .rbc-json-print span {
     width: 60px;
     display: inline-block;
