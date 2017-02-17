@@ -89,13 +89,15 @@ export class ReactiveList extends Component {
 		let resultElement = $('.rbc.rbc-resultlist');
 		let scrollElement = $('.rbc-resultlist-scroll-container');
 		let padding = 45;
-		$('.rbc-resultlist-scroll-container').css('height', 'auto');
-		setTimeout(checkHeight, 1000);
+		if(resultElement && resultElement.length && scrollElement && scrollElement.length) {
+			scrollElement.css('height', 'auto');
+			setTimeout(checkHeight, 1000);
+		}
 		function checkHeight() {
 			let flag = resultElement.get(0).scrollHeight-padding > resultElement.height() ? true : false;
 			let scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height() ? true : false;
-			if(!flag && !scrollFlag && $('.rbc-resultlist-scroll-container').length) {
-				$('.rbc-resultlist-scroll-container').css('height', resultElement.height()-100);
+			if(!flag && !scrollFlag && scrollElement.length) {
+				scrollElement.css('height', resultElement.height()-100);
 			}
 		}
 	}
