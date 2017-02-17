@@ -1,17 +1,14 @@
 import React from 'react';
-import {DataSearchTest} from './DataSearch';
+import {SingleDropdownListTest} from './SingleDropdownList';
 import {expectedValues} from './config';
 
-describe('DataSearch test', () => {
+describe('SingleDropdownList test', () => {
 	var response = null;
 	beforeAll(() => {
-		return DataSearchTest().then((res) => {
+		return SingleDropdownListTest().then((res) => {
 			response = res;
 			return response;
-		}).catch((err) => {
-			console.log(err);
-			return err;
-		});
+		}).catch((err) => err);
 	});
 
 	test('Response should exists', ()=> {
