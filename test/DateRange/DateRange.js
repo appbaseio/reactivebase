@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactiveBase, DataSearch, ReactiveList } from '../../app/app.js';
+import { ReactiveBase, DateRange, ReactiveList } from '../../app/app.js';
 import {config} from './config';
 import { mount } from 'enzyme';
 
@@ -16,11 +16,12 @@ function testComponent(cb) {
 			>
 			<div className="row">
 				<div className="col s6 col-xs-6">
-					<DataSearch
+					<DateRange
 						componentId="CitySensor"
-						appbaseField={[config.mapping.venue, config.mapping.topic]}
-						title="DataSearch"
-						defaultSelected={config.DataSearch.defaultSelected}
+						appbaseField={config.mapping.date}
+						title="DateRange"
+						startDate={config.DateRange.startDate}
+						endDate={config.DateRange.endDate}
 						size={100}
 					/>
 				</div>
@@ -43,7 +44,7 @@ function testComponent(cb) {
 		</ReactiveBase>
 	);
 }
-export var DataSearchTest = function() {
+export var DateRangeTest = function() {
 	return new Promise((resolve, reject) => {
 		testComponent(function(response) {
 			if (response.err) {

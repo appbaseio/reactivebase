@@ -1,19 +1,14 @@
 import React from 'react';
-import {DatePickerTest} from './DatePicker';
+import {DateRangeTest} from './DateRange';
 import {expectedValues} from './config';
 
-describe('DatePicker test', () => {
+describe('DateRange test', () => {
 	var response = null;
-	beforeAll((done) => {
-		return DatePickerTest().then((res) => {
+	beforeAll(() => {
+		return DateRangeTest().then((res) => {
 			response = res;
-			done();
 			return response;
-		}).catch((err) => {
-			console.log(err);
-			done();
-			return err;
-		});
+		}).catch((err) => err);
 	});
 
 	test('Response should exists', ()=> {

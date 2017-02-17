@@ -1,6 +1,6 @@
 var moment = require("moment");
 const values = {
-	gte: '2017-02-15T18:30:00.000Z',
+	gte: '2017-02-14T18:30:00.000Z',
 	lte: '2017-02-16T18:30:00.000Z'
 }
 const config = {
@@ -9,8 +9,9 @@ const config = {
 		topic: "group.group_topics.topic_name_raw",
 		date: 'mtime'
 	},
-	DatePicker: {
-		defaultSelected: moment(values.gte)
+	DateRange: {
+		startDate: moment(values.gte),
+		endDate: moment(values.lte)
 	},
 	ReactiveList: {
 		sortBy: "asc",
@@ -31,9 +32,9 @@ const expectedValues = {
 				"bool": {
 					"must": [{
 						"range": {
-							"mtime": {
+							[config.mapping.date]: {
 								"gte": values.gte,
-								"lt": values.lte
+								"lte": values.lte
 							}
 						}
 					}]
