@@ -6,7 +6,7 @@ import { manager } from '../middleware/ChannelManager.js';
 import { StaticSearch } from './component/StaticSearch.js';
 var helper = require('../middleware/helper.js');
 var _ = require('lodash');
-import * as TYPE from '../middleware/constants.js';
+import * as TYPES from '../middleware/constants.js';
 
 export class NestedList extends Component {
 	constructor(props, context) {
@@ -436,12 +436,12 @@ NestedList.contextTypes = {
 };
 
 NestedList.types = {
-	componentId: TYPE.STRING,
-	appbaseField: TYPE.STRING,
-	title: TYPE.STRING,
-	size: TYPE.NUMBER,
-	sortBy: TYPE.STRING,
-	showCount: TYPE.BOOLEAN,
-	showSearch: TYPE.BOOLEAN,
-	defaultSelected: TYPE.ARRAY
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	size: TYPES.NUMBER,
+	sortBy: TYPES.STRING,
+	showCount: TYPES.BOOLEAN,
+	showSearch: TYPES.BOOLEAN,
+	defaultSelected: TYPES.ARRAY
 };

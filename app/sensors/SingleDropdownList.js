@@ -1,6 +1,6 @@
 import { default as React, Component } from 'react';
 import { DropdownList } from './DropdownList';
-import * as TYPE from '../middleware/constants.js';
+import * as TYPES from '../middleware/constants.js';
 
 export class SingleDropdownList extends Component {
 	constructor(props, context) {
@@ -44,13 +44,13 @@ SingleDropdownList.contextTypes = {
 };
 
 SingleDropdownList.types = {
-	componentId: TYPE.STRING,
-	appbaseField: TYPE.STRING,
-	title: TYPE.STRING,
-	defaultSelected: TYPE.ARRAY,
-	showCount: TYPE.STRING,
-	size: TYPE.NUMBER,
-	sortBy: TYPE.STRING,
-	placeholder: TYPE.STRING,
-	selectAllLabel: TYPE.STRING
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	defaultSelected: TYPES.ARRAY,
+	showCount: TYPES.STRING,
+	size: TYPES.NUMBER,
+	sortBy: TYPES.STRING,
+	placeholder: TYPES.STRING,
+	selectAllLabel: TYPES.STRING
 };

@@ -2,7 +2,7 @@ import {default as React, Component} from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
-import * as TYPE from '../middleware/constants.js';
+import * as TYPES from '../middleware/constants.js';
 
 export class TextField extends Component {
 	constructor(props, context) {
@@ -125,8 +125,8 @@ TextField.contextTypes = {
 };
 
 TextField.types = {
-	componentId: TYPE.STRING,
-	appbaseField: TYPE.STRING,
-	title: TYPE.STRING,
-	placeholder: TYPE.STRING
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	placeholder: TYPES.STRING
 };

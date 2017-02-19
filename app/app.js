@@ -23,6 +23,7 @@ import {PoweredBy} from './sensors/PoweredBy';
 import {ReactiveBase} from './middleware/ReactiveBase';
 import {manager} from './middleware/ChannelManager';
 var helper = require('./middleware/helper.js');
+import * as TYPES from './middleware/constants.js';
 
 module.exports = {
 	SingleList: SingleList,
@@ -47,5 +48,6 @@ module.exports = {
 	PaginatedReactiveList: PaginatedReactiveList,
 	AppbaseChannelManager: manager,
 	AppbaseSensorHelper: helper,
-	PoweredBy: PoweredBy
+	PoweredBy: PoweredBy,
+	TYPES: TYPES
 };
