@@ -22,6 +22,18 @@ export class DatePicker extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
+		this.checkDefault();
+	}
+
+	componentWillUpdate() {
+		this.checkDefault();
+	}
+
+	checkDefault() {
+		if (this.props.date && moment(this.defaultDate).format('YYYY-MM-DD') != moment(this.props.date).format('YYYY-MM-DD')) {
+			this.defaultDate = this.props.date;
+			this.handleChange(this.defaultDate);
+		}
 	}
 
 	// set the query type and input data

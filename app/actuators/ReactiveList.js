@@ -3,6 +3,9 @@ import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import JsonPrint from './component/JsonPrint';
 import { PoweredBy } from '../sensors/PoweredBy';
+import { InitialLoader } from '../sensors/InitialLoader';
+import {NoResults} from '../sensors/NoResults';
+import {ResultStats} from '../sensors/ResultStats';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 var _ = require('lodash');
@@ -15,7 +18,13 @@ export class ReactiveList extends Component {
 			query: {},
 			currentData:  [],
 			resultMarkup: [],
-			isLoading: false
+			isLoading: false,
+			queryStart: false,
+			resultStats: {
+				resultFound: false,
+				total: 0,
+				took: 0
+			}
 		};
 		if (this.props.sortOptions) {
 			let obj = this.props.sortOptions[0];
@@ -46,8 +55,8 @@ export class ReactiveList extends Component {
 		this.initialize();
 	}
 
-	initialize() {
-		this.createChannel();
+	initialize(executeChannel=false) {
+		this.createChannel(executeChannel);
 		if (this.props.requestOnScroll) {
 			this.listComponent();
 		}
@@ -58,11 +67,19 @@ export class ReactiveList extends Component {
 			if (this.streamProp != this.props.stream) {
 				this.streamProp = this.props.stream;
 				this.removeChannel();
-				this.initialize();
+				this.initialize(true);
 			}
 			if (this.requestOnScroll != this.props.requestOnScroll) {
 				this.requestOnScroll = this.props.requestOnScroll;
 				this.listComponent();
+			}
+			if (this.size != this.props.size) {
+				this.size = this.props.size;
+				this.setState({
+					currentData: []
+				});
+				this.removeChannel();
+				this.initialize(true);
 			}
 		}, 300);
 	}
@@ -70,6 +87,28 @@ export class ReactiveList extends Component {
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
 		this.removeChannel();
+	}
+
+	// check the height and set scroll if scroll not exists
+	componentDidUpdate() {
+		this.applyScroll();
+	}
+
+	applyScroll() {
+		let resultElement = $('.rbc.rbc-resultlist');
+		let scrollElement = $('.rbc-resultlist-scroll-container');
+		let padding = 45;
+		if(resultElement && resultElement.length && scrollElement && scrollElement.length) {
+			scrollElement.css('height', 'auto');
+			setTimeout(checkHeight, 1000);
+		}
+		function checkHeight() {
+			let flag = resultElement.get(0).scrollHeight-padding > resultElement.height() ? true : false;
+			let scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height() ? true : false;
+			if(!flag && !scrollFlag && scrollElement.length) {
+				scrollElement.css('height', resultElement.height()-100);
+			}
+		}
 	}
 
 	removeChannel() {
@@ -83,7 +122,7 @@ export class ReactiveList extends Component {
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
+	createChannel(executeChannel=false) {
 		// Set the react - add self aggs query as well with react
 		let react = this.props.react ? this.props.react : {};
 		if(react && react.and && typeof react.and === 'string') {
@@ -107,17 +146,45 @@ export class ReactiveList extends Component {
 					this.props.onData(modifiedData);
 				}
 			}
-			if(res.mode === 'historic' && res.startTime > this.queryStartTime) {
-				this.afterChannelResponse(res);
-			} else if(res.mode === 'streaming') {
-				this.afterChannelResponse(res);
+			if(res.appliedQuery) {
+				if(res.mode === 'historic' && res.startTime > this.queryStartTime) {
+					let visibleNoResults = res.appliedQuery && res.data && !res.data.error ? (res.data.hits && res.data.hits.total ? false : true) : false;
+					let resultStats = {
+						resultFound: res.appliedQuery && res.data && !res.data.error ? true : false
+					};
+					if(res.appliedQuery && res.data && !res.data.error) {
+						resultStats.total = res.data.hits.total;
+						resultStats.took = res.data.took;
+					}
+					this.setState({
+						queryStart: false,
+						visibleNoResults: visibleNoResults,
+						resultStats: resultStats
+					});
+					this.afterChannelResponse(res);
+				} else if(res.mode === 'streaming') {
+					this.afterChannelResponse(res);
+				}
 			}
 		}.bind(this));
-		var obj = {
-			key: 'streamChanges',
-			value: ''
-		};
-		helper.selectedSensor.set(obj, true);
+		this.listenLoadingChannel(channelObj);
+		if(executeChannel) {
+			var obj = {
+				key: 'streamChanges',
+				value: ''
+			};
+			helper.selectedSensor.set(obj, true);
+		}
+	}
+
+	listenLoadingChannel(channelObj) {
+		this.loadListener = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
+			if(res.appliedQuery) {
+				this.setState({
+					queryStart: res.queryState
+				});
+			}
+		}.bind(this));
 	}
 
 	afterChannelResponse(res) {
@@ -165,13 +232,19 @@ export class ReactiveList extends Component {
 	}
 
 	wrapMarkup(generatedData) {
+		let markup = null;
 		if(Object.prototype.toString.call(generatedData) === '[object Array]' ) {
-			return generatedData.map((item, index) => {
+			markup = generatedData.map((item, index) => {
 				return (<div key={index} className="rbc-list-item">{item}</div>);
 			});
 		} else {
-			return generatedData;
+			markup = generatedData;
 		}
+		return(
+			<div className="rbc-resultlist-scroll-container col s12 col-xs-12">
+				{markup}
+			</div>
+		);
 	}
 
 	// Check if stream data exists in markersData
@@ -409,6 +482,7 @@ export class ReactiveList extends Component {
 				<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{sortOptions}
+					{this.props.ShowResultStats ? (<ResultStats visible={this.state.resultStats.resultFound} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
 					{this.state.resultMarkup}
 					{
 						this.state.isLoading ?
@@ -416,6 +490,8 @@ export class ReactiveList extends Component {
 						null
 					}
 				</div >
+				{this.props.ShowNoResults ? (<NoResults visible={this.state.visibleNoResults}></NoResults>) : null}
+				{this.props.ShowInitialLoader ? (<InitialLoader queryState={this.state.queryStart}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
 		)
@@ -439,7 +515,10 @@ ReactiveList.propTypes = {
 	size: helper.sizeValidation,
 	requestOnScroll: React.PropTypes.bool,
 	stream: React.PropTypes.bool,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	ShowInitialLoader: React.PropTypes.bool,
+	ShowNoResults: React.PropTypes.bool,
+	ShowResultStats: React.PropTypes.bool
 };
 
 ReactiveList.defaultProps = {
@@ -447,6 +526,9 @@ ReactiveList.defaultProps = {
 	size: 20,
 	requestOnScroll: true,
 	stream: false,
+	ShowNoResults: true,
+	ShowInitialLoader: true,
+	ShowResultStats: true,
 	componentStyle: {}
 };
 

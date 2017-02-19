@@ -18,6 +18,18 @@ export class TextField extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
+		this.checkDefault();
+	}
+
+	componentWillUpdate() {
+		this.checkDefault();
+	}
+
+	checkDefault() {
+		if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
+			this.defaultSelected = this.props.defaultSelected;
+			this.setValue(this.defaultSelected);
+		}
 	}
 
 	// set the query type and input data
@@ -52,6 +64,10 @@ export class TextField extends Component {
 	// handle the input change and pass the value inside sensor info
 	handleChange(event) {
 		let inputVal = event.target.value;
+		this.setValue(inputVal);
+	}
+
+	setValue(inputVal){
 		this.setState({
 			'currentValue': inputVal
 		});
@@ -94,7 +110,8 @@ TextField.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
-	placeholder: React.PropTypes.string
+	placeholder: React.PropTypes.string,
+	defaultSelected: React.PropTypes.string
 };
 
 // Default props value

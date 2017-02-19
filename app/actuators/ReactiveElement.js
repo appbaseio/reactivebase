@@ -24,16 +24,32 @@ export class ReactiveElement extends Component {
 	}
 
 	componentDidMount() {
+		this.streamProp = this.props.stream;
 		this.initialize();
 	}
 
-	initialize() {
-		this.createChannel();
+	initialize(executeChannel=false) {
+		this.createChannel(executeChannel);
 	}
 
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
 		this.removeChannel();
+	}
+
+	componentWillUpdate() {
+		setTimeout(() => {
+			if (this.streamProp != this.props.stream) {
+				this.streamProp = this.props.stream;
+				this.removeChannel();
+				this.initialize(true);
+			}
+			if (this.size != this.props.size) {
+				this.size = this.props.size;
+				this.removeChannel();
+				this.initialize(true);
+			}
+		}, 300);
 	}
 
 	removeChannel() {
@@ -47,7 +63,7 @@ export class ReactiveElement extends Component {
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
+	createChannel(executeChannel=false) {
 		// Set the react - add self aggs query as well with react
 		let react = this.props.react ? this.props.react : {};
 		if(react && react.and && typeof react.and === 'string') {
@@ -71,11 +87,13 @@ export class ReactiveElement extends Component {
 				this.afterChannelResponse(res);
 			}
 		}.bind(this));
-		var obj = {
-			key: 'streamChanges',
-			value: ''
-		};
-		helper.selectedSensor.set(obj, true);
+		if(executeChannel) {
+			var obj = {
+				key: 'streamChanges',
+				value: ''
+			};
+			helper.selectedSensor.set(obj, true);
+		}
 	}
 
 	afterChannelResponse(res) {

@@ -34,6 +34,7 @@ export class DataSearch extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		this.createChannel();
+		this.checkDefault();
 	}
 
 	// stop streaming request and remove listener when component will unmount
@@ -43,6 +44,20 @@ export class DataSearch extends Component {
 		}
 		if(this.channelListener) {
 			this.channelListener.remove();
+		}
+	}
+
+	componentWillUpdate() {
+		this.checkDefault();
+	}
+
+	checkDefault() {
+		if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
+			this.defaultSelected = this.props.defaultSelected;
+			this.setValue(this.defaultSelected);
+			this.handleSearch({
+				value: this.defaultSelected
+			});
 		}
 	}
 
@@ -297,7 +312,8 @@ DataSearch.propTypes = {
 	]),
 	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
-	autocomplete: React.PropTypes.bool
+	autocomplete: React.PropTypes.bool,
+	defaultSelected: React.PropTypes.string
 };
 
 // Default props value

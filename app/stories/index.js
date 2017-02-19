@@ -42,11 +42,11 @@ import SingleDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/co
 import MultiDropdownRangeDefault from "./MultiDropdownRange.stories";
 import MultiDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiDropdownRange.md";
 
-import ReactiveListDefault from "./ReactiveList.stories";
-import ResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ResultList.md";
-
 import ReactiveElement from "./ReactiveElement";
 let ReactiveElementReadme = ResultListReadme;
+
+import ReactiveListDefault from "./ReactiveList.stories";
+import ResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ResultList.md";
 
 import PaginatedReactiveListDefault from "./PaginatedReactiveList.stories";
 import PaginatedResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/PaginatedResultList.md";
@@ -306,6 +306,11 @@ storiesOf("RangeSlider", module)
 			}
 		/>
 	)))
+	.add("Without histogram", withReadme(removeFirstLine(RangeSliderReadme), () => (
+		<RangeSliderDefault
+			showHistogram={false}
+		/>
+	)))
 	.add("With Range Labels", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
 			defaultSelected={
@@ -338,6 +343,7 @@ storiesOf("RangeSlider", module)
 				"start": "Start",
 				"end": "End"
 			})}
+			showHistogram={boolean('showHistogram', true)}
 		/>
 	)));
 
@@ -370,6 +376,9 @@ storiesOf("TextField", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault />
+	)))
+	.add("DefaultSelected", withReadme(removeFirstLine(TextFieldReadme), () => (
+		<TextFieldDefault defaultSelected="nissan" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault
@@ -473,6 +482,31 @@ storiesOf("DateRange", module)
 		/>
 	)));
 
+storiesOf("PoweredBy", module)
+	.add("Basic", () => (
+		<PoweredByDefault />
+	));
+
+storiesOf("ReactiveElement", module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElement.Basic />
+	)))
+	.add("Stream", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElement.WithStream />
+	)))
+	.add("Theme", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElement.WithTheme />
+	)))
+	.add("Playground", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElement.Basic
+			title={text("title", "ReactiveElement")}
+			placeholder={text("placeholder", "Select city from the list")}
+			from={number("from", 0)}
+			size={number("size", 5)}
+			stream={boolean("stream", false)} />
+	)));
+
 storiesOf("ReactiveList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(ResultListReadme), () => (
@@ -517,27 +551,6 @@ storiesOf("ReactiveList", module)
 			stream={boolean("stream", false)} />
 	)));
 
-
-storiesOf("ReactiveElement", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(ReactiveElementReadme), () => (
-		<ReactiveElement.Basic />
-	)))
-	.add("Stream", withReadme(removeFirstLine(ReactiveElementReadme), () => (
-		<ReactiveElement.WithStream />
-	)))
-	.add("Theme", withReadme(removeFirstLine(ReactiveElementReadme), () => (
-		<ReactiveElement.WithTheme />
-	)))
-	.add("Playground", withReadme(removeFirstLine(ReactiveElementReadme), () => (
-		<ReactiveElement.Basic
-			title={text("title", "ReactiveElement")}
-			placeholder={text("placeholder", "Select city from the list")}
-			from={number("from", 0)}
-			size={number("size", 5)}
-			stream={boolean("stream", false)} />
-	)));
-
 storiesOf("PaginatedReactiveList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
@@ -578,8 +591,3 @@ storiesOf("PaginatedReactiveList", module)
 			paginationAt={select("paginationAt", {"bottom": "bottom", "top": "top", "both": "both"}, "bottom")}
 		/>
 	)));
-
-storiesOf("PoweredBy", module)
-	.add("Basic", () => (
-		<PoweredByDefault />
-	));

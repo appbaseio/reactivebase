@@ -3,7 +3,12 @@
 	max-height: 700px;
 	overflow: auto;
 	margin: 5px 0;
-	
+	padding-bottom: 45px;
+	.rbc-resultlist-scroll-container {
+		position: relative;
+		overflow: auto;
+		padding: 0;
+	}
 	.rbc-json-print {
 		span {
 			width: 60px;
