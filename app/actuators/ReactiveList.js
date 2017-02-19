@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import JsonPrint from './component/JsonPrint';
 import { PoweredBy } from '../sensors/PoweredBy';
+import { InitialLoader } from '../sensors/InitialLoader';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 var _ = require('lodash');
@@ -15,7 +16,8 @@ export class ReactiveList extends Component {
 			query: {},
 			currentData:  [],
 			resultMarkup: [],
-			isLoading: false
+			isLoading: false,
+			queryStart: false
 		};
 		if (this.props.sortOptions) {
 			let obj = this.props.sortOptions[0];
@@ -139,12 +141,16 @@ export class ReactiveList extends Component {
 			}
 			if(res.appliedQuery) {
 				if(res.mode === 'historic' && res.startTime > this.queryStartTime) {
+					this.setState({
+						queryStart: false
+					});
 					this.afterChannelResponse(res);
 				} else if(res.mode === 'streaming') {
 					this.afterChannelResponse(res);
 				}
 			}
 		}.bind(this));
+		this.listenLoadingChannel(channelObj);
 		if(executeChannel) {
 			var obj = {
 				key: 'streamChanges',
@@ -152,6 +158,16 @@ export class ReactiveList extends Component {
 			};
 			helper.selectedSensor.set(obj, true);
 		}
+	}
+
+	listenLoadingChannel(channelObj) {
+		this.loadListener = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
+			if(res.appliedQuery) {
+				this.setState({
+					queryStart: res.queryState
+				});
+			}
+		}.bind(this));
 	}
 
 	afterChannelResponse(res) {
@@ -456,6 +472,7 @@ export class ReactiveList extends Component {
 						null
 					}
 				</div >
+				{this.props.ShowInitialLoader ? (<InitialLoader queryState={this.state.queryStart}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
 		)
@@ -479,7 +496,8 @@ ReactiveList.propTypes = {
 	size: helper.sizeValidation,
 	requestOnScroll: React.PropTypes.bool,
 	stream: React.PropTypes.bool,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	ShowInitialLoader: React.PropTypes.bool
 };
 
 ReactiveList.defaultProps = {
@@ -487,6 +505,7 @@ ReactiveList.defaultProps = {
 	size: 20,
 	requestOnScroll: true,
 	stream: false,
+	ShowInitialLoader: true,
 	componentStyle: {}
 };
 
