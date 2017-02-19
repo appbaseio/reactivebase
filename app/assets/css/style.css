@@ -1646,3 +1646,19 @@ a {
 
 .rbc.rbc-initialloader.rbc-initialloader-inactive {
   display: none; }
+
+.rbc.rbc-noresults.rbc-noresults-active {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  z-index: 6; }
+
+.rbc.rbc-noresults.rbc-noresults-inactive {
+  display: none; }

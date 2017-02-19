@@ -4,6 +4,8 @@ import { manager } from '../middleware/ChannelManager.js';
 import JsonPrint from './component/JsonPrint';
 import { PoweredBy } from '../sensors/PoweredBy';
 import { InitialLoader } from '../sensors/InitialLoader';
+import {NoResults} from '../sensors/NoResults';
+import {ResultStats} from '../sensors/ResultStats';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 var _ = require('lodash');
@@ -17,7 +19,12 @@ export class ReactiveList extends Component {
 			currentData:  [],
 			resultMarkup: [],
 			isLoading: false,
-			queryStart: false
+			queryStart: false,
+			resultStats: {
+				resultFound: false,
+				total: 0,
+				took: 0
+			}
 		};
 		if (this.props.sortOptions) {
 			let obj = this.props.sortOptions[0];
@@ -141,8 +148,18 @@ export class ReactiveList extends Component {
 			}
 			if(res.appliedQuery) {
 				if(res.mode === 'historic' && res.startTime > this.queryStartTime) {
+					let visibleNoResults = res.appliedQuery && res.data && !res.data.error ? (res.data.hits && res.data.hits.total ? false : true) : false;
+					let resultStats = {
+						resultFound: res.appliedQuery && res.data && !res.data.error ? true : false
+					};
+					if(res.appliedQuery && res.data && !res.data.error) {
+						resultStats.total = res.data.hits.total;
+						resultStats.took = res.data.took;
+					}
 					this.setState({
-						queryStart: false
+						queryStart: false,
+						visibleNoResults: visibleNoResults,
+						resultStats: resultStats
 					});
 					this.afterChannelResponse(res);
 				} else if(res.mode === 'streaming') {
@@ -465,6 +482,7 @@ export class ReactiveList extends Component {
 				<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{sortOptions}
+					{this.props.ShowResultStats ? (<ResultStats visible={this.state.resultStats.resultFound} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
 					{this.state.resultMarkup}
 					{
 						this.state.isLoading ?
@@ -472,6 +490,7 @@ export class ReactiveList extends Component {
 						null
 					}
 				</div >
+				{this.props.ShowNoResults ? (<NoResults visible={this.state.visibleNoResults}></NoResults>) : null}
 				{this.props.ShowInitialLoader ? (<InitialLoader queryState={this.state.queryStart}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
@@ -497,7 +516,9 @@ ReactiveList.propTypes = {
 	requestOnScroll: React.PropTypes.bool,
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
-	ShowInitialLoader: React.PropTypes.bool
+	ShowInitialLoader: React.PropTypes.bool,
+	ShowNoResults: React.PropTypes.bool,
+	ShowResultStats: React.PropTypes.bool
 };
 
 ReactiveList.defaultProps = {
@@ -505,7 +526,9 @@ ReactiveList.defaultProps = {
 	size: 20,
 	requestOnScroll: true,
 	stream: false,
+	ShowNoResults: true,
 	ShowInitialLoader: true,
+	ShowResultStats: true,
 	componentStyle: {}
 };
 
