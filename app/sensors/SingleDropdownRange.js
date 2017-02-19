@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Select from 'react-select';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+import * as TYPE from '../middleware/constants.js';
 
 export class SingleDropdownRange extends Component {
 	constructor(props, context) {
@@ -142,4 +143,13 @@ SingleDropdownRange.defaultProps = {
 SingleDropdownRange.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+SingleDropdownRange.types = {
+	componentId: TYPE.STRING,
+	appbaseField: TYPE.STRING,
+	data: TYPE.OBJECT,
+	defaultSelected: TYPE.STRING,
+	title: TYPE.STRING,
+	placeholder: TYPE.STRING
 };

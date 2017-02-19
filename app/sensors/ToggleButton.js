@@ -2,6 +2,7 @@ import {default as React, Component} from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+import * as TYPE from '../middleware/constants.js';
 
 export class ToggleButton extends Component {
 	constructor(props, context) {
@@ -185,4 +186,13 @@ ToggleButton.defaultProps = {
 ToggleButton.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+ToggleButton.types = {
+	componentId: TYPE.STRING,
+	appbaseField: TYPE.STRING,
+	title: TYPE.STRING,
+	data: TYPE.OBJECT,
+	defaultSelected: TYPE.ARRAY,
+	multiSelect: TYPE.BOOLEAN
 };

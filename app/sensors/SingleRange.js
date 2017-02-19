@@ -2,6 +2,7 @@ import {default as React, Component} from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+import * as TYPE from '../middleware/constants.js';
 
 export class SingleRange extends Component {
 	constructor(props, context) {
@@ -152,4 +153,12 @@ SingleRange.defaultProps = {
 SingleRange.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+SingleRange.types = {
+	componentId: TYPE.STRING,
+	appbaseField: TYPE.STRING,
+	title: TYPE.STRING,
+	data: TYPE.OBJECT,
+	defaultSelected: TYPE.ARRAY
 };

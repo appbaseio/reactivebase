@@ -5,6 +5,7 @@ var moment = require('moment');
 var momentPropTypes = require('react-moment-proptypes');
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+import * as TYPE from '../middleware/constants.js';
 
 export class DateRange extends Component {
 	constructor(props, context) {
@@ -154,4 +155,16 @@ DateRange.defaultProps = {
 DateRange.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+DateRange.types = {
+	componentId: TYPE.STRING,
+	appbaseField: TYPE.STRING,
+	title: TYPE.STRING,
+	placeholder: TYPE.STRING,
+	startDate: TYPE.OBJECT,
+	endDate: TYPE.OBJECT,
+	numberOfMonths: TYPE.NUMBER,
+	allowAllDates: TYPE.BOOLEAN,
+	extra: TYPE.OBJECT
 };

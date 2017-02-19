@@ -6,6 +6,7 @@ import { manager } from '../middleware/ChannelManager.js';
 import { StaticSearch } from './component/StaticSearch.js';
 var helper = require('../middleware/helper.js');
 var _ = require('lodash');
+import * as TYPE from '../middleware/constants.js';
 
 export class NestedList extends Component {
 	constructor(props, context) {
@@ -408,9 +409,11 @@ export class NestedList extends Component {
 }
 
 NestedList.propTypes = {
-	appbaseField: React.PropTypes.array.isRequired,
-	size: React.PropTypes.number,
+	componentId: React.PropTypes.string.isRequired,
+	appbaseField: React.PropTypes.string.isRequired,
+	title: React.PropTypes.string,
 	showCount: React.PropTypes.bool,
+	showSearch: React.PropTypes.bool,
 	sortBy: React.PropTypes.oneOf(['count', 'asc', 'desc']),
 	size: helper.sizeValidation,
 	defaultSelected: React.PropTypes.array
@@ -430,4 +433,15 @@ NestedList.defaultProps = {
 NestedList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+NestedList.types = {
+	componentId: TYPE.STRING,
+	appbaseField: TYPE.STRING,
+	title: TYPE.STRING,
+	size: TYPE.NUMBER,
+	sortBy: TYPE.STRING,
+	showCount: TYPE.BOOLEAN,
+	showSearch: TYPE.BOOLEAN,
+	defaultSelected: TYPE.ARRAY
 };

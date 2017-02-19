@@ -1,5 +1,6 @@
 import { default as React, Component } from 'react';
 import { DropdownList } from './DropdownList';
+import * as TYPE from '../middleware/constants.js';
 
 export class MultiDropdownList extends Component {
 	constructor(props, context) {
@@ -24,7 +25,8 @@ MultiDropdownList.propTypes = {
 	showCount: React.PropTypes.bool,
 	size: React.PropTypes.number,
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
-	placeholder: React.PropTypes.string
+	placeholder: React.PropTypes.string,
+	selectAllLabel: React.PropTypes.string
 };
 
 // Default props value
@@ -39,4 +41,16 @@ MultiDropdownList.defaultProps = {
 MultiDropdownList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+MultiDropdownList.types = {
+	componentId: TYPE.STRING,
+	appbaseField: TYPE.STRING,
+	defaultSelected: TYPE.ARRAY,
+	title: TYPE.STRING,
+	size: TYPE.NUMBER,
+	showCount: TYPE.BOOLEAN,
+	sortBy: TYPE.STRING,
+	placeholder: TYPE.STRING,
+	selectAllLabel: TYPE.STRING
 };

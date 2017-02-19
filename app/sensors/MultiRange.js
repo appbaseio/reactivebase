@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 var _ = require('lodash');
+import * as TYPE from '../middleware/constants.js';
 
 export class MultiRange extends Component {
 	constructor(props, context) {
@@ -239,4 +240,13 @@ MultiRange.defaultProps = {
 MultiRange.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+MultiRange.types = {
+	componentId: TYPE.STRING,
+	appbaseField: TYPE.STRING,
+	title: TYPE.STRING,
+	data: TYPE.OBJECT,
+	defaultSelected: TYPE.ARRAY,
+	showTags: TYPE.BOOLEAN
 };

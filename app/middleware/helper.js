@@ -231,7 +231,7 @@ export var validation = {
 
 var SerializeDepends = function() {
 	let conjunctions = ['and', 'or', 'not'];
-		
+
 	this.serialize = function(depends) {
 		let queries = [];
 		let dependsList = [];
@@ -239,7 +239,6 @@ var SerializeDepends = function() {
 
 		function initialize() {
 			queries = checkConjunctions(depends, 0);
-			console.log(queries);
 			return {
 				queries: queries,
 				dependsList: dependsList
@@ -362,7 +361,7 @@ var SerializeDepends = function() {
 				fullQuery = {
 					body: {
 						query: {
-							bool: query 
+							bool: query
 						}
 					}
 				}
@@ -395,7 +394,7 @@ var SerializeDepends = function() {
 			let getParent = serializeResultQuery.filter((dep) => {
 				return dep.componentId === depend.parentId;
 			});
-			
+
 			if(Object.prototype.toString.call(depend.components) === '[object Array]' ) {
 				depend.components.forEach((comp) => {
 					if(dependsQuery[comp]) {

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
-
 import {manager} from '../middleware/ChannelManager.js';
 const helper = require('../middleware/helper.js');
+import * as TYPE from '../middleware/constants.js';
 
 const TitleComponent = (props) => (
 	<h4 className="rbc-title col s12 col-xs-12">{props.title}</h4>
@@ -167,5 +167,14 @@ NumberBox.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
 };
+
+NumberBox.types = {
+	componentId: TYPE.STRING,
+	appbaseField: TYPE.STRING,
+	title: TYPE.STRING,
+	data: TYPE.OBJECT,
+	defaultSelected:  TYPE.NUMBER,
+	labelPosition: TYPE.STRING
+}
 
 export {NumberBox};
