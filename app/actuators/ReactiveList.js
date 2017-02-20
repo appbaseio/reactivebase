@@ -240,11 +240,7 @@ export class ReactiveList extends Component {
 		} else {
 			markup = generatedData;
 		}
-		return(
-			<div className="rbc-resultlist-scroll-container col s12 col-xs-12">
-				{markup}
-			</div>
-		);
+		return markup;
 	}
 
 	// Check if stream data exists in markersData
@@ -424,13 +420,18 @@ export class ReactiveList extends Component {
 	}
 
 	listComponent() {
-		let node = this.refs.ListContainer;
-		if (node) {
-			node.addEventListener('scroll', () => {
-				if (this.props.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight) {
-					this.nextPage();
-				}
-			});
+		let listParentElement = this.refs.ListContainer;
+		let listChildElement = this.refs.resultListScrollContainer;
+		setScroll.call(this, listParentElement);
+		setScroll.call(this, listChildElement);
+		function setScroll(node) {
+			if (node) {
+				node.addEventListener('scroll', () => {
+					if (this.props.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight) {
+						this.nextPage();
+					}
+				});
+			}
 		}
 	}
 
@@ -483,7 +484,9 @@ export class ReactiveList extends Component {
 					{title}
 					{sortOptions}
 					{this.props.ResultStats.show ? (<ResultStats setText={this.props.ResultStats.setText} visible={this.state.resultStats.resultFound} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
-					{this.state.resultMarkup}
+					<div ref="resultListScrollContainer" className="rbc-resultlist-scroll-container col s12 col-xs-12">
+						{this.state.resultMarkup}
+					</div>
 					{
 						this.state.isLoading ?
 						<div className="rbc-loader"></div> :
