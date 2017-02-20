@@ -543,7 +543,6 @@ ReactiveList.propTypes = {
 	requestOnScroll: React.PropTypes.bool,
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
-	placeholder: React.PropTypes.string,
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string

@@ -4,6 +4,9 @@ import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import JsonPrint from './component/JsonPrint';
 import { PoweredBy } from '../sensors/PoweredBy';
+import { InitialLoader } from '../sensors/InitialLoader';
+import {NoResults} from '../sensors/NoResults';
+import {ResultStats} from '../sensors/ResultStats';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 var _ = require('lodash');
@@ -16,7 +19,14 @@ export class ReactiveElement extends Component {
 			query: {},
 			rawData: [],
 			resultMarkup: [],
-			isLoading: false
+			isLoading: false,
+			queryStart: false,
+			resultStats: {
+				resultFound: false,
+				total: 0,
+				took: 0
+			},
+			showPlaceholder: true
 		};
 		this.channelId = null;
 		this.channelListener = null;
@@ -61,6 +71,9 @@ export class ReactiveElement extends Component {
 		if (this.channelListener) {
 			this.channelListener.remove();
 		}
+		if(this.loadListener) {
+			this.loadListener.remove();
+		}
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
@@ -82,12 +95,43 @@ export class ReactiveElement extends Component {
 			// implementation to prevent initialize query issue if old query response is late then the newer query
 			// then we will consider the response of new query and prevent to apply changes for old query response.
 			// if queryStartTime of channel response is greater than the previous one only then apply changes
-			if (res.mode === 'historic' && res.startTime > this.queryStartTime) {
-				this.afterChannelResponse(res);
-			} else if (res.mode === 'streaming') {
-				this.afterChannelResponse(res);
+			if(res.error && res.startTime > this.queryStartTime) {
+				this.setState({
+					queryStart: false,
+					showPlaceholder: false
+				});
+				if(this.props.onData) {
+					let modifiedData = helper.prepareResultData(data);
+					this.props.onData(modifiedData);
+				}
+			}
+			if(res.appliedQuery) {
+				if (res.mode === 'historic' && res.startTime > this.queryStartTime) {
+					let visibleNoResults = res.appliedQuery && res.data && !res.data.error ? (res.data.hits && res.data.hits.total ? false : true) : false;
+					let resultStats = {
+						resultFound: res.appliedQuery && res.data && !res.data.error && res.data.hits && res.data.hits.total ? true : false
+					};
+					if(res.appliedQuery && res.data && !res.data.error) {
+						resultStats.total = res.data.hits.total;
+						resultStats.took = res.data.took;
+					}
+					this.setState({
+						queryStart: false,
+						visibleNoResults: visibleNoResults,
+						resultStats: resultStats,
+						showPlaceholder: false
+					});
+					this.afterChannelResponse(res);
+				} else if (res.mode === 'streaming') {
+					this.afterChannelResponse(res);
+				}
+			} else {
+				this.setState({
+					showPlaceholder: true
+				});
 			}
 		}.bind(this));
+		this.listenLoadingChannel(channelObj);
 		if (executeChannel) {
 			var obj = {
 				key: 'streamChanges',
@@ -95,6 +139,16 @@ export class ReactiveElement extends Component {
 			};
 			helper.selectedSensor.set(obj, true);
 		}
+	}
+
+	listenLoadingChannel(channelObj) {
+		this.loadListener = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
+			if(res.appliedQuery) {
+				this.setState({
+					queryStart: res.queryState
+				});
+			}
+		}.bind(this));
 	}
 
 	afterChannelResponse(res) {
@@ -231,7 +285,7 @@ export class ReactiveElement extends Component {
 		if (res && res.appliedQuery) {
 			result = (
 				<div className="row" style={{'marginTop': '60px'}}>
-					<pre>
+					<pre className="pull-left">
 						{JSON.stringify(res.newData, null, 4)}
 					</pre>
 				</div>
@@ -264,8 +318,12 @@ export class ReactiveElement extends Component {
 			<div className="rbc-reactiveelement-container">
 				<div ref="ListContainer" className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
-					{this.state.resultMarkup || placeholder}
+					{this.props.resultStats.show ? (<ResultStats setText={this.props.resultStats.setText} visible={this.state.resultStats.resultFound} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
+					{this.state.resultMarkup}
+					{this.state.showPlaceholder ? placeholder : null}
 				</div >
+				{this.props.noResults.show ? (<NoResults defaultText={this.props.noResults.text} visible={this.state.visibleNoResults}></NoResults>) : null}
+				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
 		)
@@ -280,6 +338,18 @@ ReactiveElement.propTypes = {
 	size: helper.sizeValidation,
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
+	initialLoader: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		text: React.PropTypes.string
+	}),
+	NoResults: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		text: React.PropTypes.string
+	}),
+	ResultStats: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		setText: React.PropTypes.func
+	}),
 	placeholder: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.number,
@@ -292,6 +362,17 @@ ReactiveElement.defaultProps = {
 	size: 20,
 	requestOnScroll: true,
 	stream: false,
+	ShowNoResults: true,
+	initialLoader: {
+		show: true
+	},
+	noResults: {
+		show: true
+	},
+	resultStats: {
+		show: true
+	},
+	ShowResultStats: true,
 	componentStyle: {}
 };
 

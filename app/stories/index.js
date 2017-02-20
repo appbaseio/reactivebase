@@ -525,6 +525,17 @@ storiesOf("ReactiveElement", module)
 			placeholder={text("placeholder", "Select city from the list")}
 			from={number("from", 0)}
 			size={number("size", 5)}
+			initialLoader={object("initialLoader", {
+				"show": true,
+				"text": 'Loading initially.'
+			})}
+			noResults={object("noResults", {
+				"show": true,
+				"text": 'No Results Found!'
+			})}
+			resultStats={object("resultStats", {
+				"show": true
+			})}
 			stream={boolean("stream", false)} />
 	)));
 
