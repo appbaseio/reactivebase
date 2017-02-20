@@ -324,7 +324,9 @@ export class NativeList extends Component {
 			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`}>
 				{title}
 				{searchComponent}
-				{listComponent}
+				<div className="col s12 col-xs-12 nativelist-container">
+					{listComponent}
+				</div>
 			</div>
 		);
 	}
