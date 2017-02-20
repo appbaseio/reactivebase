@@ -164,7 +164,7 @@ export var selectedSensor = new selectedSensorFn();
 export var ResponsiveStory = function() {
 	function handleResponsive() {
 		var height = $(window).height();
-		$('.rbc.rbc-resultlist, .rbc.rbc-reactiveelement').css({
+		$('.rbc.rbc-reactivelist, .rbc.rbc-reactiveelement').css({
 			maxHeight: height - 15 - paginationHeight()
 		});
 		$('.rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist').css({

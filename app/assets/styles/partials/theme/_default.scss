@@ -116,7 +116,7 @@ $map in $themes {
 				}
 			}
 		}
-		.rbc.rbc-resultlist {
+		.rbc.rbc-reactivelist {
 			.rbc-json-print {
 				span {
 					&:hover {
@@ -128,7 +128,7 @@ $map in $themes {
 				border-bottom-color: map-get($map, color);
 			}
 		}
-		.rbc.rbc-reactiveelement {
+		.rbc.rbc-reactiveelement, .rbc.rbc-reactivelist {
 			.rbc-placeholder {
 				color: map-get($map, font-color);
 			}

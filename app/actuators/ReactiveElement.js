@@ -1,4 +1,5 @@
-import {default as React, Component} from 'react';
+import {
+	default as React, Component } from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import JsonPrint from './component/JsonPrint';
@@ -13,7 +14,7 @@ export class ReactiveElement extends Component {
 		this.state = {
 			markers: [],
 			query: {},
-			rawData:  [],
+			rawData: [],
 			resultMarkup: [],
 			isLoading: false
 		};
@@ -28,7 +29,7 @@ export class ReactiveElement extends Component {
 		this.initialize();
 	}
 
-	initialize(executeChannel=false) {
+	initialize(executeChannel = false) {
 		this.createChannel(executeChannel);
 	}
 
@@ -53,20 +54,20 @@ export class ReactiveElement extends Component {
 	}
 
 	removeChannel() {
-		if(this.channelId) {
+		if (this.channelId) {
 			manager.stopStream(this.channelId);
 			this.channelId = null;
 		}
-		if(this.channelListener) {
+		if (this.channelListener) {
 			this.channelListener.remove();
 		}
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
-	createChannel(executeChannel=false) {
+	createChannel(executeChannel = false) {
 		// Set the react - add self aggs query as well with react
 		let react = this.props.react ? this.props.react : {};
-		if(react && react.and && typeof react.and === 'string') {
+		if (react && react.and && typeof react.and === 'string') {
 			react.and = [react.and];
 		}
 		react.and.push('streamChanges');
@@ -81,13 +82,13 @@ export class ReactiveElement extends Component {
 			// implementation to prevent initialize query issue if old query response is late then the newer query
 			// then we will consider the response of new query and prevent to apply changes for old query response.
 			// if queryStartTime of channel response is greater than the previous one only then apply changes
-			if(res.mode === 'historic' && res.startTime > this.queryStartTime) {
+			if (res.mode === 'historic' && res.startTime > this.queryStartTime) {
 				this.afterChannelResponse(res);
-			} else if(res.mode === 'streaming') {
+			} else if (res.mode === 'streaming') {
 				this.afterChannelResponse(res);
 			}
 		}.bind(this));
-		if(executeChannel) {
+		if (executeChannel) {
 			var obj = {
 				key: 'streamChanges',
 				value: ''
@@ -98,7 +99,8 @@ export class ReactiveElement extends Component {
 
 	afterChannelResponse(res) {
 		let data = res.data;
-		let rawData, markersData, newData = [], currentData = [];
+		let rawData, markersData, newData = [],
+			currentData = [];
 		this.streamFlag = false;
 		if (res.mode === 'streaming') {
 			this.channelMethod = 'streaming';
@@ -145,9 +147,9 @@ export class ReactiveElement extends Component {
 	streamMarkerInterval() {
 		let markersData = this.state.markersData;
 		let isStreamData = markersData.filter((hit) => hit.stream && hit.streamStart);
-		if(isStreamData.length) {
+		if (isStreamData.length) {
 			this.isStreamDataExists = true;
-			setTimeout(() => this.streamToNormal(), this.props.streamActiveTime*1000);
+			setTimeout(() => this.streamToNormal(), this.props.streamActiveTime * 1000);
 		} else {
 			this.isStreamDataExists = false;
 		}
@@ -156,18 +158,18 @@ export class ReactiveElement extends Component {
 	// normalize current data
 	normalizeCurrentData(res, rawData, newData) {
 		let appliedQuery = JSON.parse(JSON.stringify(res.appliedQuery));
-		if(this.props.requestOnScroll && appliedQuery && appliedQuery.body) {
+		if (this.props.requestOnScroll && appliedQuery && appliedQuery.body) {
 			delete appliedQuery.body.from;
 			delete appliedQuery.body.size;
 		}
 		let currentData = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery) ? (rawData ? rawData : []) : [];
-		if(!currentData.length) {
+		if (!currentData.length) {
 			this.appliedQuery = appliedQuery;
 		} else {
 			newData = newData.filter((newRecord) => {
 				let notExits = true;
 				currentData.forEach((oldRecord) => {
-					if(newRecord._id+'-'+newRecord._type === oldRecord._id+'-'+oldRecord._type) {
+					if (newRecord._id + '-' + newRecord._type === oldRecord._id + '-' + oldRecord._type) {
 						notExits = false;
 					}
 				});
@@ -181,7 +183,7 @@ export class ReactiveElement extends Component {
 	}
 
 	combineCurrentData(newData) {
-		if(_.isArray(newData)) {
+		if (_.isArray(newData)) {
 			return this.state.currentData.concat(newData);
 		} else {
 			return this.streamDataModify(this.state.currentData, newData)
@@ -226,7 +228,7 @@ export class ReactiveElement extends Component {
 	defaultonData(response) {
 		let result = null;
 		let res = response.res;
-		if(res && res.appliedQuery) {
+		if (res && res.appliedQuery) {
 			result = (
 				<div className="row" style={{'marginTop': '60px'}}>
 					<pre>
@@ -239,7 +241,9 @@ export class ReactiveElement extends Component {
 	}
 
 	render() {
-		let title = null, placeholder=null, sortOptions = null;
+		let title = null,
+			placeholder = null,
+			sortOptions = null;
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
 			'rbc-title-inactive': !this.props.title,
@@ -249,11 +253,11 @@ export class ReactiveElement extends Component {
 			'rbc-stream-inactive': !this.props.stream
 		});
 
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
-		if(this.props.placeholder) {
-			placeholder = (<p className="rbc-placeholder col s12 col-xs-12">{this.props.placeholder}</p>);
+		if (this.props.placeholder) {
+			placeholder = (<div className="rbc-placeholder col s12 col-xs-12">{this.props.placeholder}</div>);
 		}
 
 		return (
@@ -276,7 +280,11 @@ ReactiveElement.propTypes = {
 	size: helper.sizeValidation,
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
-	placeholder: React.PropTypes.string
+	placeholder: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	])
 };
 
 ReactiveElement.defaultProps = {
