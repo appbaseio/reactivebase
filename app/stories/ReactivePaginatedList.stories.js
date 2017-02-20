@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { ReactiveBase, SingleList, PaginatedReactiveList } from '../app.js';
+import { ReactiveBase, SingleList, ReactivePaginatedList } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
 require('./list.css');
 
-export default class PaginatedReactiveListDefault extends Component {
+export default class ReactivePaginatedListDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.onData = this.onData.bind(this);
@@ -85,10 +85,10 @@ export default class PaginatedReactiveListDefault extends Component {
 			>
 				<div className="row reverse-labels">
 					<div className="col s6 col-xs-6">
-						<PaginatedReactiveList
+						<ReactivePaginatedList
 							componentId="SearchResult"
 							appbaseField={this.props.mapping.topic}
-							title="PaginatedReactiveList"
+							title="ReactivePaginatedList"
 							sortBy="asc"
 							from={0}
 							size={20}
@@ -118,7 +118,7 @@ export default class PaginatedReactiveListDefault extends Component {
 	}
 }
 
-PaginatedReactiveListDefault.defaultProps = {
+ReactivePaginatedListDefault.defaultProps = {
 	mapping: {
 		city: 'group.group_city.raw',
 		topic: 'group.group_topics.topic_name_raw'

@@ -3,7 +3,7 @@ import { ReactiveList } from './ReactiveList';
 import { Pagination } from './component/Pagination';
 var helper = require('../middleware/helper.js');
 
-export class PaginatedReactiveList extends Component {
+export class ReactivePaginatedList extends Component {
 	constructor(props, context) {
 		super(props);
 	}
@@ -47,7 +47,7 @@ export class PaginatedReactiveList extends Component {
 	}
 }
 
-PaginatedReactiveList.propTypes = {
+ReactivePaginatedList.propTypes = {
 	componentId: React.PropTypes.string,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
@@ -68,14 +68,14 @@ PaginatedReactiveList.propTypes = {
 };
 
 // Default props value
-PaginatedReactiveList.defaultProps = {
+ReactivePaginatedList.defaultProps = {
 	from: 0,
 	size: 20,
 	paginationAt: 'bottom'
 };
 
 // context type
-PaginatedReactiveList.contextTypes = {
+ReactivePaginatedList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
 };

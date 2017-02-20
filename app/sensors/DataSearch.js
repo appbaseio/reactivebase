@@ -3,6 +3,7 @@ import Select from 'react-select';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+import * as TYPES from '../middleware/constants.js';
 
 export class DataSearch extends Component {
 	constructor(props, context) {
@@ -33,6 +34,7 @@ export class DataSearch extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		this.createChannel();
+		this.checkDefault();
 	}
 
 	// stop streaming request and remove listener when component will unmount
@@ -42,6 +44,20 @@ export class DataSearch extends Component {
 		}
 		if(this.channelListener) {
 			this.channelListener.remove();
+		}
+	}
+
+	componentWillUpdate() {
+		this.checkDefault();
+	}
+
+	checkDefault() {
+		if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
+			this.defaultSelected = this.props.defaultSelected;
+			setTimeout(this.setValue.bind(this,this.defaultSelected), 100);
+			this.handleSearch({
+				value: this.defaultSelected
+			});
 		}
 	}
 
@@ -296,7 +312,8 @@ DataSearch.propTypes = {
 	]),
 	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
-	autocomplete: React.PropTypes.bool
+	autocomplete: React.PropTypes.bool,
+	defaultSelected: React.PropTypes.string
 };
 
 // Default props value
@@ -309,4 +326,12 @@ DataSearch.defaultProps = {
 DataSearch.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+DataSearch.types = {
+	componentId: TYPES.STRING,
+	appbaseField : TYPES.STRING,
+	title: TYPES.STRING,
+	placeholder: TYPES.STRING,
+	autocomplete: TYPES.BOOLEAN
 };

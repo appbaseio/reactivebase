@@ -1,7 +1,7 @@
 .rbc.rbc-nestedlist {
-	height: 500px;
+	overflow: auto;
+	max-height: 500px;
 	padding: 0;
-	overflow: hidden;
 
 	.rbc-indent {
 		padding-left: 1em;

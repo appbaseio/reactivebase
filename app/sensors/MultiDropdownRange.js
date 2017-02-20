@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 var _ = require('lodash');
+import * as TYPES from '../middleware/constants.js';
 
 export class MultiDropdownRange extends Component {
 	constructor(props, context) {
@@ -165,4 +166,13 @@ MultiDropdownRange.defaultProps = {
 MultiDropdownRange.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+MultiDropdownRange.types = {
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	data: TYPES.OBJECT,
+	defaultSelected: TYPES.ARRAY,
+	title: TYPES.STRING,
+	placeholder: TYPES.STRING
 };

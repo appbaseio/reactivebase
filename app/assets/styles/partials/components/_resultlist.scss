@@ -1,9 +1,18 @@
-.rbc.rbc-resultlist {
+.rbc.rbc-reactivelist {
 	height: auto;
 	max-height: 700px;
 	overflow: auto;
 	margin: 5px 0;
-	
+	padding-bottom: 45px;
+	.rbc-reactivelist-scroll-container {
+		position: relative;
+		overflow: auto;
+		padding: 0;
+	}
+	.rbc-placeholder {
+		padding: 60px 15px;
+		text-align: center;
+	}
 	.rbc-json-print {
 		span {
 			width: 60px;
@@ -55,7 +64,7 @@
 	}
 }
 
-.rbc-resultlist-container {
+.rbc-reactivelist-container {
 	position: relative;
 }
 

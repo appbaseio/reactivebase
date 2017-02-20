@@ -76,6 +76,7 @@ export default class ReactiveListDefault extends Component {
 	}
 
 	render() {
+		let placeholder = (<h6>Select city to see the results.</h6>);
 		return (
 			<ReactiveBase
 				app="meetup2"
@@ -94,6 +95,7 @@ export default class ReactiveListDefault extends Component {
 							size={20}
 							onData={this.onData}
 							{...this.props}
+							placeholder={placeholder}
 							react={{
 								"and": "CitySensor"
 							}}

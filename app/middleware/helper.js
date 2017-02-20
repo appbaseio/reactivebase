@@ -164,17 +164,16 @@ export var selectedSensor = new selectedSensorFn();
 export var ResponsiveStory = function() {
 	function handleResponsive() {
 		var height = $(window).height();
-		$('.rbc.rbc-resultlist, .rbc.rbc-reactiveelement').css({
+		$('.rbc.rbc-reactivelist, .rbc.rbc-reactiveelement').css({
 			maxHeight: height - 15 - paginationHeight()
 		});
-		$('.rbc.rbc-singlelist, .rbc.rbc-multilist').height(height - 100 - 15);
+		$('.rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist').css({
+			maxHeight: height - 15
+		});
 		$('.rbc-base > .row').css({
 			'margin-bottom': 0
 		});
-		$('.rbc.rbc-nestedlist').css({
-			maxHeight: height - 15
-		});
-		$('.rbc-reactivemap .rbc-container, .rbc.rbc-nestedlist').css({
+		$('.rbc-reactivemap .rbc-container').css({
 			maxHeight: height
 		});
 	}
@@ -231,7 +230,7 @@ export var validation = {
 
 var SerializeDepends = function() {
 	let conjunctions = ['and', 'or', 'not'];
-		
+
 	this.serialize = function(depends) {
 		let queries = [];
 		let dependsList = [];
@@ -239,7 +238,6 @@ var SerializeDepends = function() {
 
 		function initialize() {
 			queries = checkConjunctions(depends, 0);
-			console.log(queries);
 			return {
 				queries: queries,
 				dependsList: dependsList
@@ -362,7 +360,7 @@ var SerializeDepends = function() {
 				fullQuery = {
 					body: {
 						query: {
-							bool: query 
+							bool: query
 						}
 					}
 				}
@@ -395,7 +393,7 @@ var SerializeDepends = function() {
 			let getParent = serializeResultQuery.filter((dep) => {
 				return dep.componentId === depend.parentId;
 			});
-			
+
 			if(Object.prototype.toString.call(depend.components) === '[object Array]' ) {
 				depend.components.forEach((comp) => {
 					if(dependsQuery[comp]) {

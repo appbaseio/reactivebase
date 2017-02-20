@@ -215,24 +215,28 @@ a {
 
 .rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-start,
+.rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected,
 .rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-end,
 .rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: red;
   border-color: red; }
 
-.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-span {
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
+.rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-red .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-red .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-red .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-red .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: red; }
 
-.rbc-red .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-red .rbc.rbc-daterange .DateInput__display-text--focused {
+.rbc-red .rbc.rbc-datepicker .DateInput__display-text--focused,
+.rbc-red .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(255, 0, 0, 0.24);
   border-color: #990000;
   color: red;
@@ -274,22 +278,39 @@ a {
 .rbc-red .rbc.rbc-pagination .rbc-pagination-active {
   background-color: red; }
 
-.rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+.rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
+.rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #e60000; }
 
-.rbc-red .rbc.rbc-singlerange .rbc-tag-item, .rbc-red .rbc.rbc-multirange .rbc-tag-item {
+.rbc-red .rbc.rbc-singlerange .rbc-tag-item,
+.rbc-red .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(255, 0, 0, 0.08);
   border-color: rgba(255, 0, 0, 0.24);
   color: red; }
-  .rbc-red .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-red .rbc.rbc-multirange .rbc-tag-item .close {
+  .rbc-red .rbc.rbc-singlerange .rbc-tag-item .close,
+  .rbc-red .rbc.rbc-multirange .rbc-tag-item .close {
     color: red;
     border-color: rgba(255, 0, 0, 0.24); }
 
-.rbc-red .rbc.rbc-resultlist .rbc-json-print span:hover {
+.rbc-red .rbc.rbc-reactivelist .rbc-json-print span:hover {
   color: red; }
 
-.rbc-red .rbc.rbc-resultlist .rbc-list-item {
+.rbc-red .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: red; }
+
+.rbc-red .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-red .rbc.rbc-reactivelist .rbc-placeholder {
+  color: #777; }
+
+.rbc-red .rbc.rbc-initialloader,
+.rbc-red .rbc.rbc-noresults,
+.rbc-red .rbc.rbc-resultstats {
+  color: #777; }
+  .rbc-red .rbc.rbc-initialloader.rbc-noresults-active, .rbc-red .rbc.rbc-initialloader.rbc-initialloader-active,
+  .rbc-red .rbc.rbc-noresults.rbc-noresults-active,
+  .rbc-red .rbc.rbc-noresults.rbc-initialloader-active,
+  .rbc-red .rbc.rbc-resultstats.rbc-noresults-active,
+  .rbc-red .rbc.rbc-resultstats.rbc-initialloader-active {
+    background: rgba(255, 255, 255, 0.8); }
 
 .rbc-red .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: red;
@@ -298,6 +319,9 @@ a {
 .rbc-red .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
   background-color: #f5f5f5; }
+
+.rbc-red .rbc-datacontroller .rbc-querylabel {
+  color: #777; }
 
 .rbc-red .rbc {
   background: #fff; }
@@ -332,8 +356,10 @@ a {
     .rbc-red .rbc.rbc-numberbox .rbc-btn-inactive {
       color: #b7b7b7; }
   .rbc-red .rbc label,
-  .rbc-red .rbc [type="checkbox"] + label:before, .rbc-red .rbc [type="checkbox"]:not(.filled-in) + label:after,
-  .rbc-red .rbc [type="radio"]:not(:checked) + label:before, .rbc-red .rbc [type="radio"]:not(:checked) + label:after {
+  .rbc-red .rbc [type="checkbox"] + label:before,
+  .rbc-red .rbc [type="checkbox"]:not(.filled-in) + label:after,
+  .rbc-red .rbc [type="radio"]:not(:checked) + label:before,
+  .rbc-red .rbc [type="radio"]:not(:checked) + label:after {
     color: #777;
     border-color: #777; }
   .rbc-red .rbc input:not([type]):focus:not([readonly]),
@@ -371,24 +397,28 @@ a {
 
 .rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-start,
+.rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected,
 .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-end,
 .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: orange;
   border-color: orange; }
 
-.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-span {
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
+.rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-orange .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: orange; }
 
-.rbc-orange .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-orange .rbc.rbc-daterange .DateInput__display-text--focused {
+.rbc-orange .rbc.rbc-datepicker .DateInput__display-text--focused,
+.rbc-orange .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(255, 165, 0, 0.24);
   border-color: #996300;
   color: orange;
@@ -430,22 +460,39 @@ a {
 .rbc-orange .rbc.rbc-pagination .rbc-pagination-active {
   background-color: orange; }
 
-.rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+.rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
+.rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #e69500; }
 
-.rbc-orange .rbc.rbc-singlerange .rbc-tag-item, .rbc-orange .rbc.rbc-multirange .rbc-tag-item {
+.rbc-orange .rbc.rbc-singlerange .rbc-tag-item,
+.rbc-orange .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(255, 165, 0, 0.08);
   border-color: rgba(255, 165, 0, 0.24);
   color: orange; }
-  .rbc-orange .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-orange .rbc.rbc-multirange .rbc-tag-item .close {
+  .rbc-orange .rbc.rbc-singlerange .rbc-tag-item .close,
+  .rbc-orange .rbc.rbc-multirange .rbc-tag-item .close {
     color: orange;
     border-color: rgba(255, 165, 0, 0.24); }
 
-.rbc-orange .rbc.rbc-resultlist .rbc-json-print span:hover {
+.rbc-orange .rbc.rbc-reactivelist .rbc-json-print span:hover {
   color: orange; }
 
-.rbc-orange .rbc.rbc-resultlist .rbc-list-item {
+.rbc-orange .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: orange; }
+
+.rbc-orange .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-orange .rbc.rbc-reactivelist .rbc-placeholder {
+  color: #777; }
+
+.rbc-orange .rbc.rbc-initialloader,
+.rbc-orange .rbc.rbc-noresults,
+.rbc-orange .rbc.rbc-resultstats {
+  color: #777; }
+  .rbc-orange .rbc.rbc-initialloader.rbc-noresults-active, .rbc-orange .rbc.rbc-initialloader.rbc-initialloader-active,
+  .rbc-orange .rbc.rbc-noresults.rbc-noresults-active,
+  .rbc-orange .rbc.rbc-noresults.rbc-initialloader-active,
+  .rbc-orange .rbc.rbc-resultstats.rbc-noresults-active,
+  .rbc-orange .rbc.rbc-resultstats.rbc-initialloader-active {
+    background: rgba(255, 255, 255, 0.8); }
 
 .rbc-orange .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: orange;
@@ -454,6 +501,9 @@ a {
 .rbc-orange .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
   background-color: #f5f5f5; }
+
+.rbc-orange .rbc-datacontroller .rbc-querylabel {
+  color: #777; }
 
 .rbc-orange .rbc {
   background: #fff; }
@@ -488,8 +538,10 @@ a {
     .rbc-orange .rbc.rbc-numberbox .rbc-btn-inactive {
       color: #b7b7b7; }
   .rbc-orange .rbc label,
-  .rbc-orange .rbc [type="checkbox"] + label:before, .rbc-orange .rbc [type="checkbox"]:not(.filled-in) + label:after,
-  .rbc-orange .rbc [type="radio"]:not(:checked) + label:before, .rbc-orange .rbc [type="radio"]:not(:checked) + label:after {
+  .rbc-orange .rbc [type="checkbox"] + label:before,
+  .rbc-orange .rbc [type="checkbox"]:not(.filled-in) + label:after,
+  .rbc-orange .rbc [type="radio"]:not(:checked) + label:before,
+  .rbc-orange .rbc [type="radio"]:not(:checked) + label:after {
     color: #777;
     border-color: #777; }
   .rbc-orange .rbc input:not([type]):focus:not([readonly]),
@@ -527,24 +579,28 @@ a {
 
 .rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-start,
+.rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected,
 .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-end,
 .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: yellow;
   border-color: yellow; }
 
-.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-span {
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
+.rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: yellow; }
 
-.rbc-yellow .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-yellow .rbc.rbc-daterange .DateInput__display-text--focused {
+.rbc-yellow .rbc.rbc-datepicker .DateInput__display-text--focused,
+.rbc-yellow .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(255, 255, 0, 0.24);
   border-color: #999900;
   color: yellow;
@@ -586,22 +642,39 @@ a {
 .rbc-yellow .rbc.rbc-pagination .rbc-pagination-active {
   background-color: yellow; }
 
-.rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+.rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
+.rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #e6e600; }
 
-.rbc-yellow .rbc.rbc-singlerange .rbc-tag-item, .rbc-yellow .rbc.rbc-multirange .rbc-tag-item {
+.rbc-yellow .rbc.rbc-singlerange .rbc-tag-item,
+.rbc-yellow .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(255, 255, 0, 0.08);
   border-color: rgba(255, 255, 0, 0.24);
   color: yellow; }
-  .rbc-yellow .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-yellow .rbc.rbc-multirange .rbc-tag-item .close {
+  .rbc-yellow .rbc.rbc-singlerange .rbc-tag-item .close,
+  .rbc-yellow .rbc.rbc-multirange .rbc-tag-item .close {
     color: yellow;
     border-color: rgba(255, 255, 0, 0.24); }
 
-.rbc-yellow .rbc.rbc-resultlist .rbc-json-print span:hover {
+.rbc-yellow .rbc.rbc-reactivelist .rbc-json-print span:hover {
   color: yellow; }
 
-.rbc-yellow .rbc.rbc-resultlist .rbc-list-item {
+.rbc-yellow .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: yellow; }
+
+.rbc-yellow .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-yellow .rbc.rbc-reactivelist .rbc-placeholder {
+  color: #777; }
+
+.rbc-yellow .rbc.rbc-initialloader,
+.rbc-yellow .rbc.rbc-noresults,
+.rbc-yellow .rbc.rbc-resultstats {
+  color: #777; }
+  .rbc-yellow .rbc.rbc-initialloader.rbc-noresults-active, .rbc-yellow .rbc.rbc-initialloader.rbc-initialloader-active,
+  .rbc-yellow .rbc.rbc-noresults.rbc-noresults-active,
+  .rbc-yellow .rbc.rbc-noresults.rbc-initialloader-active,
+  .rbc-yellow .rbc.rbc-resultstats.rbc-noresults-active,
+  .rbc-yellow .rbc.rbc-resultstats.rbc-initialloader-active {
+    background: rgba(255, 255, 255, 0.8); }
 
 .rbc-yellow .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: yellow;
@@ -610,6 +683,9 @@ a {
 .rbc-yellow .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
   background-color: #f5f5f5; }
+
+.rbc-yellow .rbc-datacontroller .rbc-querylabel {
+  color: #777; }
 
 .rbc-yellow .rbc {
   background: #fff; }
@@ -644,8 +720,10 @@ a {
     .rbc-yellow .rbc.rbc-numberbox .rbc-btn-inactive {
       color: #b7b7b7; }
   .rbc-yellow .rbc label,
-  .rbc-yellow .rbc [type="checkbox"] + label:before, .rbc-yellow .rbc [type="checkbox"]:not(.filled-in) + label:after,
-  .rbc-yellow .rbc [type="radio"]:not(:checked) + label:before, .rbc-yellow .rbc [type="radio"]:not(:checked) + label:after {
+  .rbc-yellow .rbc [type="checkbox"] + label:before,
+  .rbc-yellow .rbc [type="checkbox"]:not(.filled-in) + label:after,
+  .rbc-yellow .rbc [type="radio"]:not(:checked) + label:before,
+  .rbc-yellow .rbc [type="radio"]:not(:checked) + label:after {
     color: #777;
     border-color: #777; }
   .rbc-yellow .rbc input:not([type]):focus:not([readonly]),
@@ -683,24 +761,28 @@ a {
 
 .rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-start,
+.rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected,
 .rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-end,
 .rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: green;
   border-color: green; }
 
-.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-span {
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
+.rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-green .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-green .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-green .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-green .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: green; }
 
-.rbc-green .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-green .rbc.rbc-daterange .DateInput__display-text--focused {
+.rbc-green .rbc.rbc-datepicker .DateInput__display-text--focused,
+.rbc-green .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(0, 128, 0, 0.24);
   border-color: #001a00;
   color: green;
@@ -742,22 +824,39 @@ a {
 .rbc-green .rbc.rbc-pagination .rbc-pagination-active {
   background-color: green; }
 
-.rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+.rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
+.rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #006700; }
 
-.rbc-green .rbc.rbc-singlerange .rbc-tag-item, .rbc-green .rbc.rbc-multirange .rbc-tag-item {
+.rbc-green .rbc.rbc-singlerange .rbc-tag-item,
+.rbc-green .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(0, 128, 0, 0.08);
   border-color: rgba(0, 128, 0, 0.24);
   color: green; }
-  .rbc-green .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-green .rbc.rbc-multirange .rbc-tag-item .close {
+  .rbc-green .rbc.rbc-singlerange .rbc-tag-item .close,
+  .rbc-green .rbc.rbc-multirange .rbc-tag-item .close {
     color: green;
     border-color: rgba(0, 128, 0, 0.24); }
 
-.rbc-green .rbc.rbc-resultlist .rbc-json-print span:hover {
+.rbc-green .rbc.rbc-reactivelist .rbc-json-print span:hover {
   color: green; }
 
-.rbc-green .rbc.rbc-resultlist .rbc-list-item {
+.rbc-green .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: green; }
+
+.rbc-green .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-green .rbc.rbc-reactivelist .rbc-placeholder {
+  color: #777; }
+
+.rbc-green .rbc.rbc-initialloader,
+.rbc-green .rbc.rbc-noresults,
+.rbc-green .rbc.rbc-resultstats {
+  color: #777; }
+  .rbc-green .rbc.rbc-initialloader.rbc-noresults-active, .rbc-green .rbc.rbc-initialloader.rbc-initialloader-active,
+  .rbc-green .rbc.rbc-noresults.rbc-noresults-active,
+  .rbc-green .rbc.rbc-noresults.rbc-initialloader-active,
+  .rbc-green .rbc.rbc-resultstats.rbc-noresults-active,
+  .rbc-green .rbc.rbc-resultstats.rbc-initialloader-active {
+    background: rgba(255, 255, 255, 0.8); }
 
 .rbc-green .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: green;
@@ -766,6 +865,9 @@ a {
 .rbc-green .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
   background-color: #f5f5f5; }
+
+.rbc-green .rbc-datacontroller .rbc-querylabel {
+  color: #777; }
 
 .rbc-green .rbc {
   background: #fff; }
@@ -800,8 +902,10 @@ a {
     .rbc-green .rbc.rbc-numberbox .rbc-btn-inactive {
       color: #b7b7b7; }
   .rbc-green .rbc label,
-  .rbc-green .rbc [type="checkbox"] + label:before, .rbc-green .rbc [type="checkbox"]:not(.filled-in) + label:after,
-  .rbc-green .rbc [type="radio"]:not(:checked) + label:before, .rbc-green .rbc [type="radio"]:not(:checked) + label:after {
+  .rbc-green .rbc [type="checkbox"] + label:before,
+  .rbc-green .rbc [type="checkbox"]:not(.filled-in) + label:after,
+  .rbc-green .rbc [type="radio"]:not(:checked) + label:before,
+  .rbc-green .rbc [type="radio"]:not(:checked) + label:after {
     color: #777;
     border-color: #777; }
   .rbc-green .rbc input:not([type]):focus:not([readonly]),
@@ -839,24 +943,28 @@ a {
 
 .rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-start,
+.rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected,
 .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-end,
 .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: #1893e7;
   border-color: #1893e7; }
 
-.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-span {
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
+.rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-blue .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: #1893e7; }
 
-.rbc-blue .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-blue .rbc.rbc-daterange .DateInput__display-text--focused {
+.rbc-blue .rbc.rbc-datepicker .DateInput__display-text--focused,
+.rbc-blue .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(24, 147, 231, 0.24);
   border-color: #0e588b;
   color: #1893e7;
@@ -898,22 +1006,39 @@ a {
 .rbc-blue .rbc.rbc-pagination .rbc-pagination-active {
   background-color: #1893e7; }
 
-.rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+.rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
+.rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #1684d0; }
 
-.rbc-blue .rbc.rbc-singlerange .rbc-tag-item, .rbc-blue .rbc.rbc-multirange .rbc-tag-item {
+.rbc-blue .rbc.rbc-singlerange .rbc-tag-item,
+.rbc-blue .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(24, 147, 231, 0.08);
   border-color: rgba(24, 147, 231, 0.24);
   color: #1893e7; }
-  .rbc-blue .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-blue .rbc.rbc-multirange .rbc-tag-item .close {
+  .rbc-blue .rbc.rbc-singlerange .rbc-tag-item .close,
+  .rbc-blue .rbc.rbc-multirange .rbc-tag-item .close {
     color: #1893e7;
     border-color: rgba(24, 147, 231, 0.24); }
 
-.rbc-blue .rbc.rbc-resultlist .rbc-json-print span:hover {
+.rbc-blue .rbc.rbc-reactivelist .rbc-json-print span:hover {
   color: #1893e7; }
 
-.rbc-blue .rbc.rbc-resultlist .rbc-list-item {
+.rbc-blue .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: #1893e7; }
+
+.rbc-blue .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-blue .rbc.rbc-reactivelist .rbc-placeholder {
+  color: #777; }
+
+.rbc-blue .rbc.rbc-initialloader,
+.rbc-blue .rbc.rbc-noresults,
+.rbc-blue .rbc.rbc-resultstats {
+  color: #777; }
+  .rbc-blue .rbc.rbc-initialloader.rbc-noresults-active, .rbc-blue .rbc.rbc-initialloader.rbc-initialloader-active,
+  .rbc-blue .rbc.rbc-noresults.rbc-noresults-active,
+  .rbc-blue .rbc.rbc-noresults.rbc-initialloader-active,
+  .rbc-blue .rbc.rbc-resultstats.rbc-noresults-active,
+  .rbc-blue .rbc.rbc-resultstats.rbc-initialloader-active {
+    background: rgba(255, 255, 255, 0.8); }
 
 .rbc-blue .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: #1893e7;
@@ -922,6 +1047,9 @@ a {
 .rbc-blue .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
   background-color: #f5f5f5; }
+
+.rbc-blue .rbc-datacontroller .rbc-querylabel {
+  color: #777; }
 
 .rbc-blue .rbc {
   background: #fff; }
@@ -956,8 +1084,10 @@ a {
     .rbc-blue .rbc.rbc-numberbox .rbc-btn-inactive {
       color: #b7b7b7; }
   .rbc-blue .rbc label,
-  .rbc-blue .rbc [type="checkbox"] + label:before, .rbc-blue .rbc [type="checkbox"]:not(.filled-in) + label:after,
-  .rbc-blue .rbc [type="radio"]:not(:checked) + label:before, .rbc-blue .rbc [type="radio"]:not(:checked) + label:after {
+  .rbc-blue .rbc [type="checkbox"] + label:before,
+  .rbc-blue .rbc [type="checkbox"]:not(.filled-in) + label:after,
+  .rbc-blue .rbc [type="radio"]:not(:checked) + label:before,
+  .rbc-blue .rbc [type="radio"]:not(:checked) + label:after {
     color: #777;
     border-color: #777; }
   .rbc-blue .rbc input:not([type]):focus:not([readonly]),
@@ -995,24 +1125,28 @@ a {
 
 .rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-start,
+.rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected,
 .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-end,
 .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: #ccc;
   border-color: #ccc; }
 
-.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-span {
+.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
+.rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-dark .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: #ccc; }
 
-.rbc-dark .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-dark .rbc.rbc-daterange .DateInput__display-text--focused {
+.rbc-dark .rbc.rbc-datepicker .DateInput__display-text--focused,
+.rbc-dark .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(204, 204, 204, 0.24);
   border-color: #999999;
   color: #ccc;
@@ -1054,22 +1188,39 @@ a {
 .rbc-dark .rbc.rbc-pagination .rbc-pagination-active {
   background-color: #ccc; }
 
-.rbc-dark .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-dark .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+.rbc-dark .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
+.rbc-dark .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #bfbfbf; }
 
-.rbc-dark .rbc.rbc-singlerange .rbc-tag-item, .rbc-dark .rbc.rbc-multirange .rbc-tag-item {
+.rbc-dark .rbc.rbc-singlerange .rbc-tag-item,
+.rbc-dark .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(204, 204, 204, 0.08);
   border-color: rgba(204, 204, 204, 0.24);
   color: #ccc; }
-  .rbc-dark .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-dark .rbc.rbc-multirange .rbc-tag-item .close {
+  .rbc-dark .rbc.rbc-singlerange .rbc-tag-item .close,
+  .rbc-dark .rbc.rbc-multirange .rbc-tag-item .close {
     color: #ccc;
     border-color: rgba(204, 204, 204, 0.24); }
 
-.rbc-dark .rbc.rbc-resultlist .rbc-json-print span:hover {
+.rbc-dark .rbc.rbc-reactivelist .rbc-json-print span:hover {
   color: #ccc; }
 
-.rbc-dark .rbc.rbc-resultlist .rbc-list-item {
+.rbc-dark .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: #ccc; }
+
+.rbc-dark .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-dark .rbc.rbc-reactivelist .rbc-placeholder {
+  color: #eee; }
+
+.rbc-dark .rbc.rbc-initialloader,
+.rbc-dark .rbc.rbc-noresults,
+.rbc-dark .rbc.rbc-resultstats {
+  color: #eee; }
+  .rbc-dark .rbc.rbc-initialloader.rbc-noresults-active, .rbc-dark .rbc.rbc-initialloader.rbc-initialloader-active,
+  .rbc-dark .rbc.rbc-noresults.rbc-noresults-active,
+  .rbc-dark .rbc.rbc-noresults.rbc-initialloader-active,
+  .rbc-dark .rbc.rbc-resultstats.rbc-noresults-active,
+  .rbc-dark .rbc.rbc-resultstats.rbc-initialloader-active {
+    background: rgba(85, 85, 85, 0.8); }
 
 .rbc-dark .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: #ccc;
@@ -1078,6 +1229,9 @@ a {
 .rbc-dark .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #eee;
   background-color: #aaa; }
+
+.rbc-dark .rbc-datacontroller .rbc-querylabel {
+  color: #eee; }
 
 .rbc-dark .rbc {
   background: #555; }
@@ -1112,8 +1266,10 @@ a {
     .rbc-dark .rbc.rbc-numberbox .rbc-btn-inactive {
       color: white; }
   .rbc-dark .rbc label,
-  .rbc-dark .rbc [type="checkbox"] + label:before, .rbc-dark .rbc [type="checkbox"]:not(.filled-in) + label:after,
-  .rbc-dark .rbc [type="radio"]:not(:checked) + label:before, .rbc-dark .rbc [type="radio"]:not(:checked) + label:after {
+  .rbc-dark .rbc [type="checkbox"] + label:before,
+  .rbc-dark .rbc [type="checkbox"]:not(.filled-in) + label:after,
+  .rbc-dark .rbc [type="radio"]:not(:checked) + label:before,
+  .rbc-dark .rbc [type="radio"]:not(:checked) + label:after {
     color: #eee;
     border-color: #eee; }
   .rbc-dark .rbc input:not([type]):focus:not([readonly]),
@@ -1241,8 +1397,8 @@ a {
 
 .rbc.rbc-singlelist,
 .rbc.rbc-multilist {
-  overflow: hidden;
-  height: 400px;
+  overflow: auto;
+  max-height: 400px;
   padding: 0;
   position: relative; }
   .rbc.rbc-singlelist .rbc-list-container,
@@ -1396,26 +1552,34 @@ a {
 .rbc.rbc-multirange .rbc-list-container .rbc-list-item {
   padding: 4px 12px; }
 
-.rbc.rbc-resultlist {
+.rbc.rbc-reactivelist {
   height: auto;
   max-height: 700px;
   overflow: auto;
-  margin: 5px 0; }
-  .rbc.rbc-resultlist .rbc-json-print span {
+  margin: 5px 0;
+  padding-bottom: 45px; }
+  .rbc.rbc-reactivelist .rbc-reactivelist-scroll-container {
+    position: relative;
+    overflow: auto;
+    padding: 0; }
+  .rbc.rbc-reactivelist .rbc-placeholder {
+    padding: 60px 15px;
+    text-align: center; }
+  .rbc.rbc-reactivelist .rbc-json-print span {
     width: 60px;
     display: inline-block;
     cursor: pointer;
     float: left; }
-    .rbc.rbc-resultlist .rbc-json-print span.head:after {
+    .rbc.rbc-reactivelist .rbc-json-print span.head:after {
       content: '▾';
       display: inline-block;
       margin-left: 5px; }
-    .rbc.rbc-resultlist .rbc-json-print span.head.collapsed:after {
+    .rbc.rbc-reactivelist .rbc-json-print span.head.collapsed:after {
       webkit-transform: rotate(-90deg);
       -moz-transform: rotate(-90deg);
       -ms-transform: rotate(-90deg);
       transform: rotate(-90deg); }
-  .rbc.rbc-resultlist .rbc-json-print pre {
+  .rbc.rbc-reactivelist .rbc-json-print pre {
     width: calc(100% - 60px);
     display: inline-block;
     background-color: #fdfdfd;
@@ -1423,18 +1587,18 @@ a {
     margin: 0;
     padding: 0 12px;
     float: left; }
-  .rbc.rbc-resultlist .rbc-list-item {
+  .rbc.rbc-reactivelist .rbc-list-item {
     border-bottom: 1px solid;
     float: left;
     width: 100%; }
-  .rbc.rbc-resultlist.rbc-sort-active .rbc-sortoptions {
+  .rbc.rbc-reactivelist.rbc-sort-active .rbc-sortoptions {
     position: absolute;
     right: 0;
     margin: 10px 0; }
-    .rbc.rbc-resultlist.rbc-sort-active .rbc-sortoptions select {
+    .rbc.rbc-reactivelist.rbc-sort-active .rbc-sortoptions select {
       height: 32px; }
 
-.rbc-resultlist-container {
+.rbc-reactivelist-container {
   position: relative; }
 
 .rbc-loader {
@@ -1503,9 +1667,9 @@ a {
   padding: 0; }
 
 .rbc.rbc-nestedlist {
-  height: 500px;
-  padding: 0;
-  overflow: hidden; }
+  overflow: auto;
+  max-height: 500px;
+  padding: 0; }
   .rbc.rbc-nestedlist .rbc-indent {
     padding-left: 1em; }
   .rbc.rbc-nestedlist.rbc-title-active.rbc-search-inactive .row.rbc-list-container {
@@ -1590,7 +1754,8 @@ a {
   display: inline-block;
   position: absolute;
   bottom: 0;
-  right: 12px; }
+  right: 12px;
+  z-index: 99; }
   .rbc-poweredby .rbc-img-responsive {
     max-width: 100px;
     width: 100%; }
@@ -1599,7 +1764,45 @@ a {
   height: auto;
   max-height: 700px;
   overflow: auto;
-  margin: 5px 0; }
+  margin: 5px 0;
+  padding-bottom: 45px; }
+  .rbc.rbc-reactiveelement .rbc-placeholder {
+    padding: 60px 15px;
+    text-align: center; }
 
 .rbc-reactiveelement-container {
   position: relative; }
+
+.rbc.rbc-initialloader.rbc-initialloader-active {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 6; }
+
+.rbc.rbc-initialloader.rbc-initialloader-inactive {
+  display: none; }
+
+.rbc.rbc-noresults.rbc-noresults-active {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 6; }
+
+.rbc.rbc-noresults.rbc-noresults-inactive {
+  display: none; }
+
+.rbc-datacontroller {
+  float: left;
+  width: 100%; }

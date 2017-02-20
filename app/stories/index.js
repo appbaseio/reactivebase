@@ -27,6 +27,8 @@ import TextFieldReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/T
 import DataSearchDefault from "./DataSearch.stories";
 import DataSearchReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DataSearch.md";
 
+import DataControllerDefault from "./DataController.stories";
+
 import RangeSliderDefault from "./RangeSlider.stories";
 import RangeSliderReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/RangeSlider.md";
 
@@ -42,13 +44,13 @@ import SingleDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/co
 import MultiDropdownRangeDefault from "./MultiDropdownRange.stories";
 import MultiDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiDropdownRange.md";
 
-import ReactiveListDefault from "./ReactiveList.stories";
-import ResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ResultList.md";
-
 import ReactiveElement from "./ReactiveElement";
 let ReactiveElementReadme = ResultListReadme;
 
-import PaginatedReactiveListDefault from "./PaginatedReactiveList.stories";
+import ReactiveListDefault from "./ReactiveList.stories";
+import ResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ResultList.md";
+
+import ReactivePaginatedListDefault from "./ReactivePaginatedList.stories";
 import PaginatedResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/PaginatedResultList.md";
 
 import DatePickerDefault from "./DatePicker.stories";
@@ -306,6 +308,11 @@ storiesOf("RangeSlider", module)
 			}
 		/>
 	)))
+	.add("Without histogram", withReadme(removeFirstLine(RangeSliderReadme), () => (
+		<RangeSliderDefault
+			showHistogram={false}
+		/>
+	)))
 	.add("With Range Labels", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
 			defaultSelected={
@@ -338,6 +345,7 @@ storiesOf("RangeSlider", module)
 				"start": "Start",
 				"end": "End"
 			})}
+			showHistogram={boolean('showHistogram', true)}
 		/>
 	)));
 
@@ -371,10 +379,14 @@ storiesOf("TextField", module)
 	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault />
 	)))
+	.add("DefaultSelected", withReadme(removeFirstLine(TextFieldReadme), () => (
+		<TextFieldDefault defaultSelected="nissan" />
+	)))
 	.add("Playground", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault
 			title={text("title", "TextField: Car Search")}
-			placeholder={text("placeholder", "Type a car name")} />
+			placeholder={text("placeholder", "Type a car name")}
+			defaultSelected={text("defaultSelected", "nissan")} />
 	)));
 
 storiesOf("DataSearch", module)
@@ -396,6 +408,25 @@ storiesOf("DataSearch", module)
 			placeholder={text("placeholder", "Search Venue")}
 			autocomplete={boolean("autocomplete", true)} />
 	)));
+
+
+storiesOf("DataController", module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataControllerDefault />
+	)))
+	.add("With UI", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataControllerDefault
+			title="DataController"
+			showUI={true} />
+	)))
+	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataControllerDefault
+			title={text("title", "DataController")}
+			queryLabel={text("queryLabel", "matchall")}
+			showUI={boolean("showUI", true)} />
+	)));
+
 
 storiesOf("DatePicker", module)
 	.addDecorator(withKnobs)
@@ -473,6 +504,42 @@ storiesOf("DateRange", module)
 		/>
 	)));
 
+storiesOf("PoweredBy", module)
+	.add("Basic", () => (
+		<PoweredByDefault />
+	));
+
+storiesOf("ReactiveElement", module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElement.Basic />
+	)))
+	.add("Stream", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElement.WithStream />
+	)))
+	.add("Theme", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElement.WithTheme />
+	)))
+	.add("Playground", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+		<ReactiveElement.Basic
+			title={text("title", "ReactiveElement")}
+			placeholder={text("placeholder", "Select city from the list")}
+			from={number("from", 0)}
+			size={number("size", 5)}
+			initialLoader={object("initialLoader", {
+				"show": true,
+				"text": 'Loading initially.'
+			})}
+			noResults={object("noResults", {
+				"show": true,
+				"text": 'No Results Found!'
+			})}
+			resultStats={object("resultStats", {
+				"show": true
+			})}
+			stream={boolean("stream", false)} />
+	)));
+
 storiesOf("ReactiveList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(ResultListReadme), () => (
@@ -513,43 +580,33 @@ storiesOf("ReactiveList", module)
 			title={text("title", "ReactiveList: Results")}
 			from={number("from", 0)}
 			size={number("size", 5)}
+			initialLoader={object("initialLoader", {
+				"show": true,
+				"text": 'Loading initially.'
+			})}
+			noResults={object("noResults", {
+				"show": true,
+				"text": 'No Results Found!'
+			})}
+			resultStats={object("resultStats", {
+				"show": true
+			})}
 			requestOnScroll={boolean("requestOnScroll", true)}
 			stream={boolean("stream", false)} />
 	)));
 
-
-storiesOf("ReactiveElement", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(ReactiveElementReadme), () => (
-		<ReactiveElement.Basic />
-	)))
-	.add("Stream", withReadme(removeFirstLine(ReactiveElementReadme), () => (
-		<ReactiveElement.WithStream />
-	)))
-	.add("Theme", withReadme(removeFirstLine(ReactiveElementReadme), () => (
-		<ReactiveElement.WithTheme />
-	)))
-	.add("Playground", withReadme(removeFirstLine(ReactiveElementReadme), () => (
-		<ReactiveElement.Basic
-			title={text("title", "ReactiveElement")}
-			placeholder={text("placeholder", "Select city from the list")}
-			from={number("from", 0)}
-			size={number("size", 5)}
-			stream={boolean("stream", false)} />
-	)));
-
-storiesOf("PaginatedReactiveList", module)
+storiesOf("ReactivePaginatedList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
-		<PaginatedReactiveListDefault/>
+		<ReactivePaginatedListDefault/>
 	)))
 	.add("Without on data", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
-		<PaginatedReactiveListDefault
+		<ReactivePaginatedListDefault
 			onData={null}
 		/>
 	)))
 	.add("With Sort Options", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
-		<PaginatedReactiveListDefault
+		<ReactivePaginatedListDefault
 			sortOptions={[
 				{
 					label: "Most Recent RSVP",
@@ -570,16 +627,11 @@ storiesOf("PaginatedReactiveList", module)
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
-		<PaginatedReactiveListDefault
-			title={text("title", "PaginatedReactiveList: Playground")}
+		<ReactivePaginatedListDefault
+			title={text("title", "ReactivePaginatedList: Playground")}
 			from={number("from", 0)}
 			size={number("size", 5)}
 			sortBy={select("sortBy", {"asc": "asc", "desc": "desc", "default": "default"}, "default")}
 			paginationAt={select("paginationAt", {"bottom": "bottom", "top": "top", "both": "both"}, "bottom")}
 		/>
 	)));
-
-storiesOf("PoweredBy", module)
-	.add("Basic", () => (
-		<PoweredByDefault />
-	));

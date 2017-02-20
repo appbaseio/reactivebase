@@ -13,6 +13,8 @@ export class Pagination extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.prePage = this.prePage.bind(this);
 		this.nextPage = this.nextPage.bind(this);
+		this.firstPage = this.firstPage.bind(this);
+		this.lastPage = this.lastPage.bind(this);
 	}
 
 	// Set query information
@@ -73,6 +75,20 @@ export class Pagination extends Component {
 		}
 	}
 
+	// first page
+	firstPage() {
+		if(this.state.currentValue !== 1) {
+			this.handleChange.call(this, 1);
+		}
+	}
+
+	// last page
+	lastPage() {
+		if(this.state.currentValue !== this.state.maxPageNumber) {
+			this.handleChange.call(this, this.state.maxPageNumber);
+		}
+	}
+
 	// pre page
 	prePage() {
 		let currentValue = this.state.currentValue > 1 ? this.state.currentValue - 1 : 1;
@@ -108,9 +124,11 @@ export class Pagination extends Component {
 		}
 		return (
 			<ul className="pagination">
-				<li className={(this.state.currentValue === 1 ? 'disabled' : 'waves-effect')}><a className="rbc-page-previous" onClick={this.prePage}><i className="fa fa-chevron-left"></i></a></li>
+				<li className={(this.state.currentValue === 1 ? 'disabled' : 'waves-effect')}><a className="rbc-page-previous" onClick={this.firstPage}><i className="fa fa-angle-double-left"></i></a></li>
+				<li className={(this.state.currentValue === 1 ? 'disabled' : 'waves-effect')}><a className="rbc-page-previous" onClick={this.prePage}><i className="fa fa-angle-left"></i></a></li>
 				{numbers}
-				<li className={(this.state.currentValue === this.state.maxPageNumber ? 'disabled' : 'waves-effect')}><a className="rbc-page-next" onClick={this.nextPage}><i className="fa fa-chevron-right"></i></a></li>
+				<li className={(this.state.currentValue === this.state.maxPageNumber ? 'disabled' : 'waves-effect')}><a className="rbc-page-next" onClick={this.nextPage}><i className="fa fa-angle-right"></i></a></li>
+				<li className={(this.state.currentValue === this.state.maxPageNumber ? 'disabled' : 'waves-effect')}><a className="rbc-page-previous" onClick={this.lastPage}><i className="fa fa-angle-double-right"></i></a></li>
 			</ul>
 		);
 	}

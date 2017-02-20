@@ -5,6 +5,7 @@ var moment = require('moment');
 var momentPropTypes = require('react-moment-proptypes');
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+import * as TYPES from '../middleware/constants.js';
 
 export class DateRange extends Component {
 	constructor(props, context) {
@@ -25,6 +26,48 @@ export class DateRange extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
+		this.checkDefault();
+	}
+
+	componentWillUpdate() {
+		this.checkDefault();
+	}
+
+	checkDefault() {
+		if (this.isDateChange()) {
+			this.handleChange({
+				startDate: this.startDate,
+				endDate: this.endDate
+			});
+		}
+	}
+
+	isDateChange() {
+		let flag = false;
+		try {
+			if(this.startDate && this.endDate) { 
+				if(moment(this.startDate).format('YYYY-MM-DD') != moment(this.props.startDate).format('YYYY-MM-DD') && moment(this.endDate).format('YYYY-MM-DD') != moment(this.props.endDate).format('YYYY-MM-DD')) {
+					this.startDate = this.props.startDate;
+					this.endDate = this.props.endDate;
+					flag = true;
+				}
+			} else {
+				flag = checkDefault.call(this);
+			}
+		} catch(e) {
+			flag = checkDefault.call(this);
+		}
+
+		function checkDefault() {
+			let flag1 = false;
+			if(this.props.startDate && this.props.endDate) {
+				this.startDate = this.props.startDate;
+				this.endDate = this.props.endDate;
+				flag1 = true;
+			}
+			return flag1;
+		}
+		return flag;
 	}
 
 	// set the query type and input data
@@ -154,4 +197,16 @@ DateRange.defaultProps = {
 DateRange.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+DateRange.types = {
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	placeholder: TYPES.STRING,
+	startDate: TYPES.OBJECT,
+	endDate: TYPES.OBJECT,
+	numberOfMonths: TYPES.NUMBER,
+	allowAllDates: TYPES.BOOLEAN,
+	extra: TYPES.OBJECT
 };

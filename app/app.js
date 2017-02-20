@@ -17,12 +17,14 @@ import {NestedList} from './sensors/NestedList';
 import {NumberBox} from './sensors/NumberBox';
 import {ReactiveList} from './actuators/ReactiveList';
 import {ReactiveElement} from './actuators/ReactiveElement';
-import {PaginatedReactiveList} from './actuators/PaginatedReactiveList';
+import {ReactivePaginatedList} from './actuators/ReactivePaginatedList';
 import {PoweredBy} from './sensors/PoweredBy';
+import {DataController} from './sensors/DataController';
 // middleware
 import {ReactiveBase} from './middleware/ReactiveBase';
 import {manager} from './middleware/ChannelManager';
 var helper = require('./middleware/helper.js');
+import * as TYPES from './middleware/constants.js';
 
 module.exports = {
 	SingleList: SingleList,
@@ -44,8 +46,10 @@ module.exports = {
 	ReactiveBase: ReactiveBase,
 	ReactiveList: ReactiveList,
 	ReactiveElement: ReactiveElement,
-	PaginatedReactiveList: PaginatedReactiveList,
+	ReactivePaginatedList: ReactivePaginatedList,
 	AppbaseChannelManager: manager,
 	AppbaseSensorHelper: helper,
-	PoweredBy: PoweredBy
+	PoweredBy: PoweredBy,
+	DataController: DataController,
+	TYPES: TYPES
 };

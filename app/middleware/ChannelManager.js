@@ -42,6 +42,7 @@ class channelManager {
 				// apply search query and emit historic queryResult
 				let searchQueryObj = queryObj;
 				searchQueryObj.type = this.type[channelId] == '*' ? '' : this.type[channelId];
+				setQueryState(channelResponse);
 				appbaseRef.search(searchQueryObj).on('data', function(data) {
 					channelResponse.mode = 'historic';
 					channelResponse.data = data;
@@ -82,6 +83,12 @@ class channelManager {
 				appliedQuery: queryObj
 			};
 			self.emitter.emit(channelId, obj);
+		}
+
+		function setQueryState(channelResponse) {
+			let obj = JSON.parse(JSON.stringify(channelResponse));
+			obj.queryState = true;
+			self.emitter.emit(channelId+'-query', obj);
 		}
 
 		function activateStream(channelId, queryObj, appbaseRef) {
@@ -141,7 +148,7 @@ class channelManager {
 			channelObj.serializeDepends.dependsList.forEach((depend) => {
 				if(depend === 'aggs') {
 					dependsQuery[depend] = aggsQuery(depend);
-				} else if(depend.indexOf('channel-options-') > -1) {
+				} else if(depend && depend.indexOf('channel-options-') > -1) {
 					requestOptions = previousSelectedSensor[depend];
 				} else {
 					dependsQuery[depend] = singleQuery(depend);

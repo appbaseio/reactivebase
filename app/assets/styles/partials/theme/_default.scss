@@ -1,15 +1,7 @@
-$themes: (
-	rbc-red: (color: red, background: #fff, font-color: #777, input-bg: #f5f5f5),
-	rbc-orange: (color: orange, background: #fff, font-color: #777, input-bg: #f5f5f5),
-	rbc-yellow: (color: yellow, background: #fff, font-color: #777, input-bg: #f5f5f5),
-	rbc-green: (color: green, background: #fff, font-color: #777, input-bg: #f5f5f5),
-	rbc-blue: (color: #1893e7, background: #fff, font-color: #777, input-bg: #f5f5f5),
-	rbc-dark: (color: #ccc, background: #555, font-color: #eee, input-bg: #aaa)
-);
-
-@each $theme, $map in $themes {
+$themes: ( rbc-red: (color: red, background: #fff, font-color: #777, input-bg: #f5f5f5), rbc-orange: (color: orange, background: #fff, font-color: #777, input-bg: #f5f5f5), rbc-yellow: (color: yellow, background: #fff, font-color: #777, input-bg: #f5f5f5), rbc-green: (color: green, background: #fff, font-color: #777, input-bg: #f5f5f5), rbc-blue: (color: #1893e7, background: #fff, font-color: #777, input-bg: #f5f5f5), rbc-dark: (color: #ccc, background: #555, font-color: #eee, input-bg: #aaa));
+@each $theme,
+$map in $themes {
 	.#{$theme} {
-
 		.rbc.rbc-datasearch {
 			.Select-control {
 				.Select-arrow-zone {
@@ -19,7 +11,6 @@ $themes: (
 				}
 			}
 		}
-
 		.rbc-poweredby {
 			.rbc-img-responsive {
 				&.rbc-poweredby-dark {
@@ -30,8 +21,8 @@ $themes: (
 				}
 			}
 		}
-
-		.rbc.rbc-datepicker, .rbc.rbc-daterange {
+		.rbc.rbc-datepicker,
+		.rbc.rbc-daterange {
 			.CalendarMonth__day--selected,
 			.CalendarMonth__day--selected-end,
 			.CalendarMonth__day--selected-start {
@@ -55,7 +46,6 @@ $themes: (
 				font-family: $font-regular;
 			}
 		}
-
 		.rbc.rbc-singledropdownlist,
 		.rbc.rbc-multidropdownlist,
 		.rbc.rbc-singledropdownrange,
@@ -71,7 +61,6 @@ $themes: (
 				}
 			}
 		}
-
 		.rbc.rbc-singlelist,
 		.rbc.rbc-multilist {
 			.rbc-list-container {
@@ -82,16 +71,15 @@ $themes: (
 				}
 			}
 			.rbc-tag-item {
-				background-color: rgba(map-get($map, color),.08); 
-				border-color: rgba(map-get($map, color),.24);
+				background-color: rgba(map-get($map, color), .08);
+				border-color: rgba(map-get($map, color), .24);
 				color: map-get($map, color);
 				.close {
 					color: map-get($map, color);
-					border-color: rgba(map-get($map, color),.24);
+					border-color: rgba(map-get($map, color), .24);
 				}
 			}
 		}
-
 		.rbc.rbc-nestedlist {
 			.rbc-list-container {
 				.rbc-list-item {
@@ -102,17 +90,16 @@ $themes: (
 				}
 			}
 		}
-
 		.rbc.rbc-pagination {
 			.rbc-pagination-active {
 				background-color: map-get($map, color);
 			}
 		}
-
-		.rbc.rbc-singlerange, .rbc.rbc-multirange {
+		.rbc.rbc-singlerange,
+		.rbc.rbc-multirange {
 			.rbc-list-container {
 				.rbc-list-item {
-					a{
+					a {
 						&.active {
 							color: darken(map-get($map, color), 5%);
 						}
@@ -120,17 +107,16 @@ $themes: (
 				}
 			}
 			.rbc-tag-item {
-				background-color: rgba(map-get($map, color),.08); 
-				border-color: rgba(map-get($map, color),.24);
+				background-color: rgba(map-get($map, color), .08);
+				border-color: rgba(map-get($map, color), .24);
 				color: map-get($map, color);
 				.close {
 					color: map-get($map, color);
-					border-color: rgba(map-get($map, color),.24);
+					border-color: rgba(map-get($map, color), .24);
 				}
 			}
 		}
-
-		.rbc.rbc-resultlist {
+		.rbc.rbc-reactivelist {
 			.rbc-json-print {
 				span {
 					&:hover {
@@ -142,7 +128,20 @@ $themes: (
 				border-bottom-color: map-get($map, color);
 			}
 		}
-
+		.rbc.rbc-reactiveelement, .rbc.rbc-reactivelist {
+			.rbc-placeholder {
+				color: map-get($map, font-color);
+			}
+		}
+		.rbc.rbc-initialloader,
+		.rbc.rbc-noresults,
+		.rbc.rbc-resultstats {
+			color: map-get($map, font-color);
+			&.rbc-noresults-active,
+			&.rbc-initialloader-active {
+				background: rgba(map-get($map, background), 0.8);
+			}
+		}
 		.rbc.rbc-togglebutton {
 			.rbc-btn-active {
 				background-color: map-get($map, color);
@@ -153,73 +152,65 @@ $themes: (
 				background-color: map-get($map, input-bg);
 			}
 		}
-		
+		.rbc-datacontroller {
+			.rbc-querylabel {
+				color: map-get($map, font-color);
+			}
+		}
 		.rbc {
 			background: map-get($map, background);
-			
 			.rbc-title {
 				color: map-get($map, font-color);
 			}
-
 			.rbc-loader::after {
 				border: .25rem solid rgba(map-get($map, font-color), 0.2);
 				border-top-color: map-get($map, font-color);
 			}
-
 			[type="radio"]:checked+label:after,
 			[type="radio"].with-gap:checked+label:before,
 			[type="radio"].with-gap:checked+label:after {
 				border-color: map-get($map, color);
 				background-color: map-get($map, color);
 			}
-
 			.rbc-input {
 				background-color: map-get($map, input-bg);
 			}
-
 			.rbc-search-icon {
 				color: map-get($map, color);
 			}
-
 			.rc-slider {
 				.rc-slider-track {
 					background: map-get($map, color);
 				}
-
 				.rc-slider-handle {
 					border-color: map-get($map, color);
 				}
-
 				.rc-slider-dot {
 					background-color: #e9e9e9;
 					border-color: #e9e9e9;
 				}
-
 				.rc-slider-dot-active {
 					border-color: map-get($map, color);
 					background-color: map-get($map, color);
 				}
 			}
-			
 			&.rbc-numberbox {
 				color: #666;
-
 				.rbc-btn-active {
 					color: darken(map-get($map, font-color), 10%);
 				}
-
 				.rbc-btn-inactive {
 					color: lighten(map-get($map, font-color), 25%);
 				}
 			}
-
 			label,
-			[type="checkbox"]+label:before, [type="checkbox"]:not(.filled-in)+label:after,
-			[type="radio"]:not(:checked)+label:before, [type="radio"]:not(:checked)+label:after {
+			[type="checkbox"]+label:before,
+			[type="checkbox"]:not(.filled-in)+label:after,
+			[type="radio"]:not(:checked)+label:before,
+			[type="radio"]:not(:checked)+label:after {
 				color: map-get($map, font-color);
 				border-color: map-get($map, font-color);
 			}
-
 			input:not([type]):focus:not([readonly]),
 			input[type=text]:focus:not([readonly]),
 			input[type=password]:focus:not([readonly]),
@@ -233,21 +224,18 @@ $themes: (
 			input[type=number]:focus:not([readonly]),
 			input[type=search]:focus:not([readonly]),
 			textarea.materialize-textarea:focus:not([readonly]) {
-				border-color:  map-get($map, color);
+				border-color: map-get($map, color);
 				box-shadow: 0 1px 0 0 map-get($map, color);
 			}
 		}
-
 		[type="checkbox"]:checked+label:before {
 			border-color: transparent;
 			border-right-color: map-get($map, color);
 			border-bottom-color: map-get($map, color);
 		}
-
 		a {
 			color: map-get($map, font-color);
 		}
-
 	}
 }
 
@@ -262,16 +250,13 @@ $themes: (
 			}
 		}
 	}
-
 	.rbc.rbc-numberbox {
 		.rbc-btn {
 			background-color: #222;
 		}
-
 		.rbc-btn-active {
 			color: #fff;
 		}
-
 		.rbc-btn-inactive {
 			color: #777;
 			background-color: #444;
