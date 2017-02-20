@@ -215,24 +215,28 @@ a {
 
 .rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-start,
+.rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected,
 .rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-end,
 .rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: red;
   border-color: red; }
 
-.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-span {
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
+.rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-red .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-red .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-red .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-red .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-red .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: red; }
 
-.rbc-red .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-red .rbc.rbc-daterange .DateInput__display-text--focused {
+.rbc-red .rbc.rbc-datepicker .DateInput__display-text--focused,
+.rbc-red .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(255, 0, 0, 0.24);
   border-color: #990000;
   color: red;
@@ -274,14 +278,17 @@ a {
 .rbc-red .rbc.rbc-pagination .rbc-pagination-active {
   background-color: red; }
 
-.rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+.rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
+.rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #e60000; }
 
-.rbc-red .rbc.rbc-singlerange .rbc-tag-item, .rbc-red .rbc.rbc-multirange .rbc-tag-item {
+.rbc-red .rbc.rbc-singlerange .rbc-tag-item,
+.rbc-red .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(255, 0, 0, 0.08);
   border-color: rgba(255, 0, 0, 0.24);
   color: red; }
-  .rbc-red .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-red .rbc.rbc-multirange .rbc-tag-item .close {
+  .rbc-red .rbc.rbc-singlerange .rbc-tag-item .close,
+  .rbc-red .rbc.rbc-multirange .rbc-tag-item .close {
     color: red;
     border-color: rgba(255, 0, 0, 0.24); }
 
@@ -312,6 +319,9 @@ a {
 .rbc-red .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
   background-color: #f5f5f5; }
+
+.rbc-red .rbc-datacontroller .rbc-querylabel {
+  color: #777; }
 
 .rbc-red .rbc {
   background: #fff; }
@@ -346,8 +356,10 @@ a {
     .rbc-red .rbc.rbc-numberbox .rbc-btn-inactive {
       color: #b7b7b7; }
   .rbc-red .rbc label,
-  .rbc-red .rbc [type="checkbox"] + label:before, .rbc-red .rbc [type="checkbox"]:not(.filled-in) + label:after,
-  .rbc-red .rbc [type="radio"]:not(:checked) + label:before, .rbc-red .rbc [type="radio"]:not(:checked) + label:after {
+  .rbc-red .rbc [type="checkbox"] + label:before,
+  .rbc-red .rbc [type="checkbox"]:not(.filled-in) + label:after,
+  .rbc-red .rbc [type="radio"]:not(:checked) + label:before,
+  .rbc-red .rbc [type="radio"]:not(:checked) + label:after {
     color: #777;
     border-color: #777; }
   .rbc-red .rbc input:not([type]):focus:not([readonly]),
@@ -385,24 +397,28 @@ a {
 
 .rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-start,
+.rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected,
 .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-end,
 .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: orange;
   border-color: orange; }
 
-.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-span {
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
+.rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-orange .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: orange; }
 
-.rbc-orange .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-orange .rbc.rbc-daterange .DateInput__display-text--focused {
+.rbc-orange .rbc.rbc-datepicker .DateInput__display-text--focused,
+.rbc-orange .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(255, 165, 0, 0.24);
   border-color: #996300;
   color: orange;
@@ -444,14 +460,17 @@ a {
 .rbc-orange .rbc.rbc-pagination .rbc-pagination-active {
   background-color: orange; }
 
-.rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+.rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
+.rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #e69500; }
 
-.rbc-orange .rbc.rbc-singlerange .rbc-tag-item, .rbc-orange .rbc.rbc-multirange .rbc-tag-item {
+.rbc-orange .rbc.rbc-singlerange .rbc-tag-item,
+.rbc-orange .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(255, 165, 0, 0.08);
   border-color: rgba(255, 165, 0, 0.24);
   color: orange; }
-  .rbc-orange .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-orange .rbc.rbc-multirange .rbc-tag-item .close {
+  .rbc-orange .rbc.rbc-singlerange .rbc-tag-item .close,
+  .rbc-orange .rbc.rbc-multirange .rbc-tag-item .close {
     color: orange;
     border-color: rgba(255, 165, 0, 0.24); }
 
@@ -482,6 +501,9 @@ a {
 .rbc-orange .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
   background-color: #f5f5f5; }
+
+.rbc-orange .rbc-datacontroller .rbc-querylabel {
+  color: #777; }
 
 .rbc-orange .rbc {
   background: #fff; }
@@ -516,8 +538,10 @@ a {
     .rbc-orange .rbc.rbc-numberbox .rbc-btn-inactive {
       color: #b7b7b7; }
   .rbc-orange .rbc label,
-  .rbc-orange .rbc [type="checkbox"] + label:before, .rbc-orange .rbc [type="checkbox"]:not(.filled-in) + label:after,
-  .rbc-orange .rbc [type="radio"]:not(:checked) + label:before, .rbc-orange .rbc [type="radio"]:not(:checked) + label:after {
+  .rbc-orange .rbc [type="checkbox"] + label:before,
+  .rbc-orange .rbc [type="checkbox"]:not(.filled-in) + label:after,
+  .rbc-orange .rbc [type="radio"]:not(:checked) + label:before,
+  .rbc-orange .rbc [type="radio"]:not(:checked) + label:after {
     color: #777;
     border-color: #777; }
   .rbc-orange .rbc input:not([type]):focus:not([readonly]),
@@ -555,24 +579,28 @@ a {
 
 .rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-start,
+.rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected,
 .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-end,
 .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: yellow;
   border-color: yellow; }
 
-.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-span {
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
+.rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: yellow; }
 
-.rbc-yellow .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-yellow .rbc.rbc-daterange .DateInput__display-text--focused {
+.rbc-yellow .rbc.rbc-datepicker .DateInput__display-text--focused,
+.rbc-yellow .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(255, 255, 0, 0.24);
   border-color: #999900;
   color: yellow;
@@ -614,14 +642,17 @@ a {
 .rbc-yellow .rbc.rbc-pagination .rbc-pagination-active {
   background-color: yellow; }
 
-.rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+.rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
+.rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #e6e600; }
 
-.rbc-yellow .rbc.rbc-singlerange .rbc-tag-item, .rbc-yellow .rbc.rbc-multirange .rbc-tag-item {
+.rbc-yellow .rbc.rbc-singlerange .rbc-tag-item,
+.rbc-yellow .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(255, 255, 0, 0.08);
   border-color: rgba(255, 255, 0, 0.24);
   color: yellow; }
-  .rbc-yellow .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-yellow .rbc.rbc-multirange .rbc-tag-item .close {
+  .rbc-yellow .rbc.rbc-singlerange .rbc-tag-item .close,
+  .rbc-yellow .rbc.rbc-multirange .rbc-tag-item .close {
     color: yellow;
     border-color: rgba(255, 255, 0, 0.24); }
 
@@ -652,6 +683,9 @@ a {
 .rbc-yellow .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
   background-color: #f5f5f5; }
+
+.rbc-yellow .rbc-datacontroller .rbc-querylabel {
+  color: #777; }
 
 .rbc-yellow .rbc {
   background: #fff; }
@@ -686,8 +720,10 @@ a {
     .rbc-yellow .rbc.rbc-numberbox .rbc-btn-inactive {
       color: #b7b7b7; }
   .rbc-yellow .rbc label,
-  .rbc-yellow .rbc [type="checkbox"] + label:before, .rbc-yellow .rbc [type="checkbox"]:not(.filled-in) + label:after,
-  .rbc-yellow .rbc [type="radio"]:not(:checked) + label:before, .rbc-yellow .rbc [type="radio"]:not(:checked) + label:after {
+  .rbc-yellow .rbc [type="checkbox"] + label:before,
+  .rbc-yellow .rbc [type="checkbox"]:not(.filled-in) + label:after,
+  .rbc-yellow .rbc [type="radio"]:not(:checked) + label:before,
+  .rbc-yellow .rbc [type="radio"]:not(:checked) + label:after {
     color: #777;
     border-color: #777; }
   .rbc-yellow .rbc input:not([type]):focus:not([readonly]),
@@ -725,24 +761,28 @@ a {
 
 .rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-start,
+.rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected,
 .rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-end,
 .rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: green;
   border-color: green; }
 
-.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-span {
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
+.rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-green .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-green .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-green .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-green .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-green .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: green; }
 
-.rbc-green .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-green .rbc.rbc-daterange .DateInput__display-text--focused {
+.rbc-green .rbc.rbc-datepicker .DateInput__display-text--focused,
+.rbc-green .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(0, 128, 0, 0.24);
   border-color: #001a00;
   color: green;
@@ -784,14 +824,17 @@ a {
 .rbc-green .rbc.rbc-pagination .rbc-pagination-active {
   background-color: green; }
 
-.rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+.rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
+.rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #006700; }
 
-.rbc-green .rbc.rbc-singlerange .rbc-tag-item, .rbc-green .rbc.rbc-multirange .rbc-tag-item {
+.rbc-green .rbc.rbc-singlerange .rbc-tag-item,
+.rbc-green .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(0, 128, 0, 0.08);
   border-color: rgba(0, 128, 0, 0.24);
   color: green; }
-  .rbc-green .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-green .rbc.rbc-multirange .rbc-tag-item .close {
+  .rbc-green .rbc.rbc-singlerange .rbc-tag-item .close,
+  .rbc-green .rbc.rbc-multirange .rbc-tag-item .close {
     color: green;
     border-color: rgba(0, 128, 0, 0.24); }
 
@@ -822,6 +865,9 @@ a {
 .rbc-green .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
   background-color: #f5f5f5; }
+
+.rbc-green .rbc-datacontroller .rbc-querylabel {
+  color: #777; }
 
 .rbc-green .rbc {
   background: #fff; }
@@ -856,8 +902,10 @@ a {
     .rbc-green .rbc.rbc-numberbox .rbc-btn-inactive {
       color: #b7b7b7; }
   .rbc-green .rbc label,
-  .rbc-green .rbc [type="checkbox"] + label:before, .rbc-green .rbc [type="checkbox"]:not(.filled-in) + label:after,
-  .rbc-green .rbc [type="radio"]:not(:checked) + label:before, .rbc-green .rbc [type="radio"]:not(:checked) + label:after {
+  .rbc-green .rbc [type="checkbox"] + label:before,
+  .rbc-green .rbc [type="checkbox"]:not(.filled-in) + label:after,
+  .rbc-green .rbc [type="radio"]:not(:checked) + label:before,
+  .rbc-green .rbc [type="radio"]:not(:checked) + label:after {
     color: #777;
     border-color: #777; }
   .rbc-green .rbc input:not([type]):focus:not([readonly]),
@@ -895,24 +943,28 @@ a {
 
 .rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-start,
+.rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected,
 .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-end,
 .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: #1893e7;
   border-color: #1893e7; }
 
-.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-span {
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
+.rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-blue .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: #1893e7; }
 
-.rbc-blue .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-blue .rbc.rbc-daterange .DateInput__display-text--focused {
+.rbc-blue .rbc.rbc-datepicker .DateInput__display-text--focused,
+.rbc-blue .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(24, 147, 231, 0.24);
   border-color: #0e588b;
   color: #1893e7;
@@ -954,14 +1006,17 @@ a {
 .rbc-blue .rbc.rbc-pagination .rbc-pagination-active {
   background-color: #1893e7; }
 
-.rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+.rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
+.rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #1684d0; }
 
-.rbc-blue .rbc.rbc-singlerange .rbc-tag-item, .rbc-blue .rbc.rbc-multirange .rbc-tag-item {
+.rbc-blue .rbc.rbc-singlerange .rbc-tag-item,
+.rbc-blue .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(24, 147, 231, 0.08);
   border-color: rgba(24, 147, 231, 0.24);
   color: #1893e7; }
-  .rbc-blue .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-blue .rbc.rbc-multirange .rbc-tag-item .close {
+  .rbc-blue .rbc.rbc-singlerange .rbc-tag-item .close,
+  .rbc-blue .rbc.rbc-multirange .rbc-tag-item .close {
     color: #1893e7;
     border-color: rgba(24, 147, 231, 0.24); }
 
@@ -992,6 +1047,9 @@ a {
 .rbc-blue .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #777;
   background-color: #f5f5f5; }
+
+.rbc-blue .rbc-datacontroller .rbc-querylabel {
+  color: #777; }
 
 .rbc-blue .rbc {
   background: #fff; }
@@ -1026,8 +1084,10 @@ a {
     .rbc-blue .rbc.rbc-numberbox .rbc-btn-inactive {
       color: #b7b7b7; }
   .rbc-blue .rbc label,
-  .rbc-blue .rbc [type="checkbox"] + label:before, .rbc-blue .rbc [type="checkbox"]:not(.filled-in) + label:after,
-  .rbc-blue .rbc [type="radio"]:not(:checked) + label:before, .rbc-blue .rbc [type="radio"]:not(:checked) + label:after {
+  .rbc-blue .rbc [type="checkbox"] + label:before,
+  .rbc-blue .rbc [type="checkbox"]:not(.filled-in) + label:after,
+  .rbc-blue .rbc [type="radio"]:not(:checked) + label:before,
+  .rbc-blue .rbc [type="radio"]:not(:checked) + label:after {
     color: #777;
     border-color: #777; }
   .rbc-blue .rbc input:not([type]):focus:not([readonly]),
@@ -1065,24 +1125,28 @@ a {
 
 .rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected,
 .rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-end,
-.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-start, .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected,
+.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-start,
+.rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected,
 .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-end,
 .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-start {
   background: #ccc;
   border-color: #ccc; }
 
-.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-span, .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-span {
+.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
+.rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-span {
   background-color: #a4d6f9;
   border-color: #5cb5f4; }
 
 .rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
-.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--hovered-span, .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
+.rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-dark .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
   background: #bce1fa;
   border-color: #8ccbf7;
   color: #ccc; }
 
-.rbc-dark .rbc.rbc-datepicker .DateInput__display-text--focused, .rbc-dark .rbc.rbc-daterange .DateInput__display-text--focused {
+.rbc-dark .rbc.rbc-datepicker .DateInput__display-text--focused,
+.rbc-dark .rbc.rbc-daterange .DateInput__display-text--focused {
   background: rgba(204, 204, 204, 0.24);
   border-color: #999999;
   color: #ccc;
@@ -1124,14 +1188,17 @@ a {
 .rbc-dark .rbc.rbc-pagination .rbc-pagination-active {
   background-color: #ccc; }
 
-.rbc-dark .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active, .rbc-dark .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
+.rbc-dark .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
+.rbc-dark .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #bfbfbf; }
 
-.rbc-dark .rbc.rbc-singlerange .rbc-tag-item, .rbc-dark .rbc.rbc-multirange .rbc-tag-item {
+.rbc-dark .rbc.rbc-singlerange .rbc-tag-item,
+.rbc-dark .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(204, 204, 204, 0.08);
   border-color: rgba(204, 204, 204, 0.24);
   color: #ccc; }
-  .rbc-dark .rbc.rbc-singlerange .rbc-tag-item .close, .rbc-dark .rbc.rbc-multirange .rbc-tag-item .close {
+  .rbc-dark .rbc.rbc-singlerange .rbc-tag-item .close,
+  .rbc-dark .rbc.rbc-multirange .rbc-tag-item .close {
     color: #ccc;
     border-color: rgba(204, 204, 204, 0.24); }
 
@@ -1162,6 +1229,9 @@ a {
 .rbc-dark .rbc.rbc-togglebutton .rbc-btn-inactive {
   color: #eee;
   background-color: #aaa; }
+
+.rbc-dark .rbc-datacontroller .rbc-querylabel {
+  color: #eee; }
 
 .rbc-dark .rbc {
   background: #555; }
@@ -1196,8 +1266,10 @@ a {
     .rbc-dark .rbc.rbc-numberbox .rbc-btn-inactive {
       color: white; }
   .rbc-dark .rbc label,
-  .rbc-dark .rbc [type="checkbox"] + label:before, .rbc-dark .rbc [type="checkbox"]:not(.filled-in) + label:after,
-  .rbc-dark .rbc [type="radio"]:not(:checked) + label:before, .rbc-dark .rbc [type="radio"]:not(:checked) + label:after {
+  .rbc-dark .rbc [type="checkbox"] + label:before,
+  .rbc-dark .rbc [type="checkbox"]:not(.filled-in) + label:after,
+  .rbc-dark .rbc [type="radio"]:not(:checked) + label:before,
+  .rbc-dark .rbc [type="radio"]:not(:checked) + label:after {
     color: #eee;
     border-color: #eee; }
   .rbc-dark .rbc input:not([type]):focus:not([readonly]),
@@ -1727,3 +1799,7 @@ a {
 
 .rbc.rbc-noresults.rbc-noresults-inactive {
   display: none; }
+
+.rbc-datacontroller {
+  float: left;
+  width: 100%; }

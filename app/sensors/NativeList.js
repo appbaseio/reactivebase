@@ -171,7 +171,7 @@ export class NativeList extends Component {
 				this.setState({
 					queryStart: false
 				});
-			} 
+			}
 			if(res.appliedQuery) {
 				let data = res.data;
 				let rawData;

@@ -19,6 +19,7 @@ import {ReactiveList} from './actuators/ReactiveList';
 import {ReactiveElement} from './actuators/ReactiveElement';
 import {PaginatedReactiveList} from './actuators/PaginatedReactiveList';
 import {PoweredBy} from './sensors/PoweredBy';
+import {DataController} from './sensors/DataController';
 // middleware
 import {ReactiveBase} from './middleware/ReactiveBase';
 import {manager} from './middleware/ChannelManager';
@@ -49,5 +50,6 @@ module.exports = {
 	AppbaseChannelManager: manager,
 	AppbaseSensorHelper: helper,
 	PoweredBy: PoweredBy,
+	DataController: DataController,
 	TYPES: TYPES
 };

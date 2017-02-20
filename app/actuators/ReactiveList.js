@@ -52,6 +52,7 @@ export class ReactiveList extends Component {
 	componentDidMount() {
 		this.streamProp = this.props.stream;
 		this.requestOnScroll = this.props.requestOnScroll;
+		this.size = this.props.size;
 		this.initialize();
 	}
 
@@ -175,11 +176,13 @@ export class ReactiveList extends Component {
 		}.bind(this));
 		this.listenLoadingChannel(channelObj);
 		if(executeChannel) {
-			var obj = {
-				key: 'streamChanges',
-				value: ''
-			};
-			helper.selectedSensor.set(obj, true);
+			setTimeout(() => {
+				var obj = {
+					key: 'streamChanges',
+					value: ''
+				};
+				helper.selectedSensor.set(obj, true);
+			}, 100);
 		}
 	}
 

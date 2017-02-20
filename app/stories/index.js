@@ -27,6 +27,8 @@ import TextFieldReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/T
 import DataSearchDefault from "./DataSearch.stories";
 import DataSearchReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DataSearch.md";
 
+import DataControllerDefault from "./DataController.stories";
+
 import RangeSliderDefault from "./RangeSlider.stories";
 import RangeSliderReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/RangeSlider.md";
 
@@ -405,6 +407,25 @@ storiesOf("DataSearch", module)
 			placeholder={text("placeholder", "Search Venue")}
 			autocomplete={boolean("autocomplete", true)} />
 	)));
+
+
+storiesOf("DataController", module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataControllerDefault />
+	)))
+	.add("With UI", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataControllerDefault
+			title="DataController"
+			showUI={true} />
+	)))
+	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataControllerDefault
+			title={text("title", "DataController")}
+			queryLabel={text("queryLabel", "matchall")}
+			showUI={boolean("showUI", true)} />
+	)));
+
 
 storiesOf("DatePicker", module)
 	.addDecorator(withKnobs)
