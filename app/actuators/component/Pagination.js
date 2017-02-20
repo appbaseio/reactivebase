@@ -124,11 +124,11 @@ export class Pagination extends Component {
 		}
 		return (
 			<ul className="pagination">
-				<li className={(this.state.currentValue === 1 ? 'disabled' : 'waves-effect')}><a className="rbc-page-previous" onClick={this.firstPage}><i className="fa fa-backward"></i></a></li>
-				<li className={(this.state.currentValue === 1 ? 'disabled' : 'waves-effect')}><a className="rbc-page-previous" onClick={this.prePage}><i className="fa fa-chevron-left"></i></a></li>
+				<li className={(this.state.currentValue === 1 ? 'disabled' : 'waves-effect')}><a className="rbc-page-previous" onClick={this.firstPage}><i className="fa fa-angle-double-left"></i></a></li>
+				<li className={(this.state.currentValue === 1 ? 'disabled' : 'waves-effect')}><a className="rbc-page-previous" onClick={this.prePage}><i className="fa fa-angle-left"></i></a></li>
 				{numbers}
-				<li className={(this.state.currentValue === this.state.maxPageNumber ? 'disabled' : 'waves-effect')}><a className="rbc-page-next" onClick={this.nextPage}><i className="fa fa-chevron-right"></i></a></li>
-				<li className={(this.state.currentValue === this.state.maxPageNumber ? 'disabled' : 'waves-effect')}><a className="rbc-page-previous" onClick={this.lastPage}><i className="fa fa-forward"></i></a></li>
+				<li className={(this.state.currentValue === this.state.maxPageNumber ? 'disabled' : 'waves-effect')}><a className="rbc-page-next" onClick={this.nextPage}><i className="fa fa-angle-right"></i></a></li>
+				<li className={(this.state.currentValue === this.state.maxPageNumber ? 'disabled' : 'waves-effect')}><a className="rbc-page-previous" onClick={this.lastPage}><i className="fa fa-angle-double-right"></i></a></li>
 			</ul>
 		);
 	}

@@ -342,11 +342,11 @@ ReactiveElement.propTypes = {
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
-	NoResults: React.PropTypes.shape({
+	noResults: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
-	ResultStats: React.PropTypes.shape({
+	resultStats: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		setText: React.PropTypes.func
 	}),
