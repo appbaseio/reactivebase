@@ -4,6 +4,7 @@ import { NestedItem } from './component/NestedItem.js';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import { StaticSearch } from './component/StaticSearch.js';
+import { InitialLoader } from './InitialLoader';
 var helper = require('../middleware/helper.js');
 var _ = require('lodash');
 import * as TYPES from '../middleware/constants.js';
@@ -100,6 +101,12 @@ export class NestedList extends Component {
 		if(this.subChannelListener) {
 			this.subChannelListener.remove();
 		}
+		if(this.loadListenerParent) {
+			this.loadListenerParent.remove();
+		}
+		if(this.loadListenerChild) {
+			this.loadListenerChild.remove();
+		}
 	}
 
 	// build query for this sensor only
@@ -181,18 +188,37 @@ export class NestedList extends Component {
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(this.channelId, function(res) {
-			let data = res.data;
-			let rawData;
-			if(res.mode === 'streaming') {
-				rawData = this.state.rawData;
-				rawData.hits.hits.push(res.data);
-			} else if(res.mode === 'historic') {
-				rawData = data;
+			if(res.error) {
+				this.setState({
+					queryStart: false
+				});
+			} 
+			if(res.appliedQuery) {
+				let data = res.data;
+				let rawData;
+				if(res.mode === 'streaming') {
+					rawData = this.state.rawData;
+					rawData.hits.hits.push(res.data);
+				} else if(res.mode === 'historic') {
+					rawData = data;
+				}
+				this.setState({
+					queryStart: false,
+					rawData: rawData
+				});
+				this.setData(rawData, 0);
 			}
-			this.setState({
-				rawData: rawData
-			});
-			this.setData(rawData, 0);
+		}.bind(this));
+		this.listenLoadingChannel(channelObj, 'loadListenerParent');
+	}
+
+	listenLoadingChannel(channelObj, listener) {
+		this[listener] = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
+			if(res.appliedQuery) {
+				this.setState({
+					queryStart: res.queryState
+				});
+			}
 		}.bind(this));
 	}
 
@@ -212,21 +238,30 @@ export class NestedList extends Component {
 		var subChannelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.subChannelId = subChannelObj.channelId;
 		this.subChannelListener = subChannelObj.emitter.addListener(this.subChannelId, function(res) {
-			let data = res.data;
-			let rawData;
-			if(res.mode === 'streaming') {
-				rawData = this.state.subRawData;
-				rawData.hits.hits.push(res.data);
-			} else if(res.mode === 'historic') {
-				rawData = data;
-			}
-			if(this.state.selectedValues.length) {
+			if(res.error) {
 				this.setState({
-					subRawData: rawData
+					queryStart: false
 				});
-				this.setData(rawData, 1);
+			} 
+			if(res.appliedQuery) {
+			let data = res.data;
+				let rawData;
+				if(res.mode === 'streaming') {
+					rawData = this.state.subRawData;
+					rawData.hits.hits.push(res.data);
+				} else if(res.mode === 'historic') {
+					rawData = data;
+				}
+				if(this.state.selectedValues.length) {
+					this.setState({
+						queryStart: false,
+						subRawData: rawData
+					});
+					this.setData(rawData, 1);
+				}
 			}
 		}.bind(this));
+		this.listenLoadingChannel(subChannelObj, 'loadListenerChild');
 		var obj = {
 			key: 'subCategory',
 			value: ''
@@ -403,6 +438,7 @@ export class NestedList extends Component {
 				{title}
 				{searchComponent}
 				{listComponent}
+				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -410,13 +446,17 @@ export class NestedList extends Component {
 
 NestedList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string.isRequired,
+	appbaseField: React.PropTypes.array.isRequired,
 	title: React.PropTypes.string,
 	showCount: React.PropTypes.bool,
 	showSearch: React.PropTypes.bool,
 	sortBy: React.PropTypes.oneOf(['count', 'asc', 'desc']),
 	size: helper.sizeValidation,
-	defaultSelected: React.PropTypes.array
+	defaultSelected: React.PropTypes.array,
+	initialLoader: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		text: React.PropTypes.string
+	})
 };
 
 // Default props value
@@ -426,7 +466,10 @@ NestedList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	placeholder: 'Search'
+	placeholder: 'Search',
+	initialLoader: {
+		show: true
+	}
 };
 
 // context type
@@ -437,11 +480,12 @@ NestedList.contextTypes = {
 
 NestedList.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
+	appbaseField: TYPES.ARRAY,
 	title: TYPES.STRING,
 	size: TYPES.NUMBER,
 	sortBy: TYPES.STRING,
 	showCount: TYPES.BOOLEAN,
 	showSearch: TYPES.BOOLEAN,
-	defaultSelected: TYPES.ARRAY
+	defaultSelected: TYPES.ARRAY,
+	initialLoader: TYPES.OBJECT
 };

@@ -1592,9 +1592,9 @@ a {
   padding: 0; }
 
 .rbc.rbc-nestedlist {
-  height: 500px;
-  padding: 0;
-  overflow: hidden; }
+  overflow: auto;
+  max-height: 500px;
+  padding: 0; }
   .rbc.rbc-nestedlist .rbc-indent {
     padding-left: 1em; }
   .rbc.rbc-nestedlist.rbc-title-active.rbc-search-inactive .row.rbc-list-container {
@@ -1679,7 +1679,8 @@ a {
   display: inline-block;
   position: absolute;
   bottom: 0;
-  right: 12px; }
+  right: 12px;
+  z-index: 99; }
   .rbc-poweredby .rbc-img-responsive {
     max-width: 100px;
     width: 100%; }

@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import { HistoGramComponent } from './component/HistoGram.js';
 import Slider from 'rc-slider';
+import { InitialLoader } from './InitialLoader';
 var helper = require('../middleware/helper.js');
 var _ = require('lodash');
 import * as TYPES from '../middleware/constants.js';
@@ -49,6 +50,9 @@ export class RangeSlider extends Component {
 		}
 		if(this.channelListener) {
 			this.channelListener.remove();
+		}
+		if(this.loadListener) {
+			this.loadListener.remove();
 		}
 	}
 
@@ -235,18 +239,37 @@ export class RangeSlider extends Component {
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
-			let data = res.data;
-			let rawData;
-			if(res.mode === 'streaming') {
-				rawData = this.state.rawData;
-				rawData.hits.hits.push(res.data);
-			} else if(res.mode === 'historic') {
-				rawData = data;
+			if(res.error) {
+				this.setState({
+					queryStart: false
+				});
+			} 
+			if(res.appliedQuery) {
+				let data = res.data;
+				let rawData;
+				if(res.mode === 'streaming') {
+					rawData = this.state.rawData;
+					rawData.hits.hits.push(res.data);
+				} else if(res.mode === 'historic') {
+					rawData = data;
+				}
+				this.setState({
+					queryStart: false,
+					rawData: rawData
+				});
+				this.setData(data);
 			}
-			this.setState({
-				rawData: rawData
-			});
-			this.setData(data);
+		}.bind(this));
+		this.listenLoadingChannel(channelObj);
+	}
+
+	listenLoadingChannel(channelObj) {
+		this.loadListener = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
+			if(res.appliedQuery) {
+				this.setState({
+					queryStart: res.queryState
+				});
+			}
 		}.bind(this));
 	}
 
@@ -367,6 +390,7 @@ export class RangeSlider extends Component {
 						marks={marks}
 					/>
 				</div>
+				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -386,6 +410,10 @@ RangeSlider.propTypes = {
 	rangeLabels: React.PropTypes.shape({
 		start: React.PropTypes.string,
 		end: React.PropTypes.string
+	}),
+	initialLoader: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		text: React.PropTypes.string
 	})
 };
 
@@ -404,7 +432,10 @@ RangeSlider.defaultProps = {
 	},
 	showHistogram: true,
 	stepValue: 1,
-	title: null
+	title: null,
+	initialLoader: {
+		show: true
+	}
 };
 
 // context type
@@ -420,5 +451,6 @@ RangeSlider.types = {
 	range: TYPES.OBJECT,
 	defaultSelected: TYPES.OBJECT,
 	stepValue: TYPES.NUMBER,
-	rangeLabels: TYPES.OBJECT
+	rangeLabels: TYPES.OBJECT,
+	initialLoader: TYPES.OBJECT
 };

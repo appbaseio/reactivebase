@@ -167,16 +167,13 @@ export var ResponsiveStory = function() {
 		$('.rbc.rbc-resultlist, .rbc.rbc-reactiveelement').css({
 			maxHeight: height - 15 - paginationHeight()
 		});
-		$('.rbc.rbc-singlelist, .rbc.rbc-multilist').css({
+		$('.rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist').css({
 			maxHeight: height - 15
 		});
 		$('.rbc-base > .row').css({
 			'margin-bottom': 0
 		});
-		$('.rbc.rbc-nestedlist').css({
-			maxHeight: height - 15
-		});
-		$('.rbc-reactivemap .rbc-container, .rbc.rbc-nestedlist').css({
+		$('.rbc-reactivemap .rbc-container').css({
 			maxHeight: height
 		});
 	}

@@ -3,6 +3,7 @@ import Select from 'react-select';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+import { InitialLoader } from './InitialLoader';
 var _ = require('lodash');
 
 export class DropdownList extends Component {
@@ -97,6 +98,9 @@ export class DropdownList extends Component {
 		if(this.channelListener) {
 			this.channelListener.remove();
 		}
+		if(this.loadListener) {
+			this.loadListener.remove();
+		}
 	}
 
 	// build query for this sensor only
@@ -170,18 +174,37 @@ export class DropdownList extends Component {
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
-			let data = res.data;
-			let rawData;
-			if(res.mode === 'streaming') {
-				rawData = this.state.rawData;
-				rawData.hits.hits.push(res.data);
-			} else if(res.mode === 'historic') {
-				rawData = data;
+			if(res.error) {
+				this.setState({
+					queryStart: false
+				});
+			} 
+			if(res.appliedQuery) {
+				let data = res.data;
+				let rawData;
+				if(res.mode === 'streaming') {
+					rawData = this.state.rawData;
+					rawData.hits.hits.push(res.data);
+				} else if(res.mode === 'historic') {
+					rawData = data;
+				}
+				this.setState({
+					queryStart: false,
+					rawData: rawData
+				});
+				this.setData(rawData);
 			}
-			this.setState({
-				rawData: rawData
-			});
-			this.setData(rawData);
+		}.bind(this));
+		this.listenLoadingChannel(channelObj);
+	}
+
+	listenLoadingChannel(channelObj) {
+		this.loadListener = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
+			if(res.appliedQuery) {
+				this.setState({
+					queryStart: res.queryState
+				});
+			}
 		}.bind(this));
 	}
 
@@ -307,6 +330,7 @@ export class DropdownList extends Component {
 								searchable={true} /> : null }
 					</div>
 				</div>
+				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -321,7 +345,11 @@ DropdownList.propTypes = {
 	showCount: React.PropTypes.bool,
 	sortBy: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
-	selectAllLabel: React.PropTypes.string
+	selectAllLabel: React.PropTypes.string,
+	initialLoader: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		text: React.PropTypes.string
+	})
 };
 
 // Default props value
@@ -331,7 +359,10 @@ DropdownList.defaultProps = {
 	size: 100,
 	title: null,
 	placeholder: 'Select...',
-	selectAllLabel: null
+	selectAllLabel: null,
+	initialLoader: {
+		show: true
+	}
 };
 
 // context type

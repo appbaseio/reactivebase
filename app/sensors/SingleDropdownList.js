@@ -26,7 +26,11 @@ SingleDropdownList.propTypes = {
 	size: React.PropTypes.number,
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
 	placeholder: React.PropTypes.string,
-	selectAllLabel: React.PropTypes.string
+	selectAllLabel: React.PropTypes.string,
+	initialLoader: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		text: React.PropTypes.string
+	})
 };
 
 // Default props value
@@ -34,7 +38,10 @@ SingleDropdownList.defaultProps = {
 	showCount: true,
 	sortBy: 'count',
 	size: 100,
-	title: null
+	title: null,
+	initialLoader: {
+		show: true
+	}
 };
 
 // context type
@@ -52,5 +59,6 @@ SingleDropdownList.types = {
 	size: TYPES.NUMBER,
 	sortBy: TYPES.STRING,
 	placeholder: TYPES.STRING,
-	selectAllLabel: TYPES.STRING
+	selectAllLabel: TYPES.STRING,
+	initialLoader: TYPES.OBJECT
 };

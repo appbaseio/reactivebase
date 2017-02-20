@@ -27,7 +27,11 @@ SingleList.propTypes = {
 	sortBy: React.PropTypes.string,
 	showSearch: React.PropTypes.bool,
 	placeholder: React.PropTypes.string,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	initialLoader: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		text: React.PropTypes.string
+	})
 };
 
 // Default props value
@@ -37,7 +41,10 @@ SingleList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	placeholder: 'Search'
+	placeholder: 'Search',
+	initialLoader: {
+		show: true
+	}
 };
 
 // context type
@@ -55,5 +62,6 @@ SingleList.types = {
 	sortBy: TYPES.STRING,
 	showCount: TYPES.BOOLEAN,
 	showSearch: TYPES.BOOLEAN,
-	placeholder: TYPES.STRING
+	placeholder: TYPES.STRING,
+	initialLoader: TYPES.OBJECT
 };

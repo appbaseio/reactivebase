@@ -119,6 +119,9 @@ export class ReactiveList extends Component {
 		if(this.channelListener) {
 			this.channelListener.remove();
 		}
+		if(this.loadListener) {
+			this.loadListener.remove();
+		}
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes

@@ -4,6 +4,7 @@ import { ItemList } from './component/ItemList.js';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import { StaticSearch } from './component/StaticSearch.js';
+import { InitialLoader } from './InitialLoader';
 var helper = require('../middleware/helper.js');
 
 export class NativeList extends Component {
@@ -17,6 +18,7 @@ export class NativeList extends Component {
 					hits: []
 				}
 			},
+			queryStart: false,
 			defaultSelectAll: false
 		};
 		this.sortObj = {
@@ -107,6 +109,9 @@ export class NativeList extends Component {
 		if(this.channelListener) {
 			this.channelListener.remove();
 		}
+		if(this.loadListener) {
+			this.loadListener.remove();
+		}
 	}
 
 	// set the query type and input data
@@ -162,18 +167,37 @@ export class NativeList extends Component {
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(this.channelId, function(res) {
-			let data = res.data;
-			let rawData;
-			if(res.mode === 'streaming') {
-				rawData = this.state.rawData;
-				rawData.hits.hits.push(res.data);
-			} else if(res.mode === 'historic') {
-				rawData = data;
+			if(res.error) {
+				this.setState({
+					queryStart: false
+				});
+			} 
+			if(res.appliedQuery) {
+				let data = res.data;
+				let rawData;
+				if(res.mode === 'streaming') {
+					rawData = this.state.rawData;
+					rawData.hits.hits.push(res.data);
+				} else if(res.mode === 'historic') {
+					rawData = data;
+				}
+				this.setState({
+					queryStart: false,
+					rawData: rawData
+				});
+				this.setData(rawData);
 			}
-			this.setState({
-				rawData: rawData
-			});
-			this.setData(rawData);
+		}.bind(this));
+		this.listenLoadingChannel(channelObj);
+	}
+
+	listenLoadingChannel(channelObj) {
+		this.loadListener = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
+			if(res.appliedQuery) {
+				this.setState({
+					queryStart: res.queryState
+				});
+			}
 		}.bind(this));
 	}
 
@@ -327,6 +351,7 @@ export class NativeList extends Component {
 				<div className="col s12 col-xs-12 nativelist-container">
 					{listComponent}
 				</div>
+				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -339,7 +364,11 @@ NativeList.propTypes = {
 	multipleSelect: React.PropTypes.bool,
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
 	selectAllLabel: React.PropTypes.string,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	initialLoader: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		text: React.PropTypes.string
+	})
 };
 
 // Default props value
@@ -351,7 +380,10 @@ NativeList.defaultProps = {
 	showSearch: false,
 	title: null,
 	placeholder: 'Search',
-	selectAllLabel: null
+	selectAllLabel: null,
+	initialLoader: {
+		show: true
+	}
 };
 
 // context type

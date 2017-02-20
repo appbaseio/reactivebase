@@ -26,7 +26,11 @@ MultiList.propTypes = {
 	showCount: React.PropTypes.bool,
 	sortBy: React.PropTypes.string,
 	showSearch: React.PropTypes.bool,
-	placeholder: React.PropTypes.string
+	placeholder: React.PropTypes.string,
+	initialLoader: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		text: React.PropTypes.string
+	})
 };
 
 // Default props value
@@ -36,7 +40,10 @@ MultiList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	placeholder: 'Search'
+	placeholder: 'Search',
+	initialLoader: {
+		show: true
+	}
 };
 
 // context type
@@ -54,5 +61,6 @@ MultiList.types = {
 	sortBy: TYPES.STRING,
 	showCount: TYPES.BOOLEAN,
 	showSearch: TYPES.BOOLEAN,
-	placeholder: TYPES.STRING
+	placeholder: TYPES.STRING,
+	initialLoader: TYPES.OBJECT
 };
