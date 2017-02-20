@@ -482,7 +482,7 @@ export class ReactiveList extends Component {
 				<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{sortOptions}
-					{this.props.ShowResultStats ? (<ResultStats visible={this.state.resultStats.resultFound} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
+					{this.props.ResultStats.show ? (<ResultStats setText={this.props.ResultStats.setText} visible={this.state.resultStats.resultFound} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
 					{this.state.resultMarkup}
 					{
 						this.state.isLoading ?
@@ -490,8 +490,8 @@ export class ReactiveList extends Component {
 						null
 					}
 				</div >
-				{this.props.ShowNoResults ? (<NoResults visible={this.state.visibleNoResults}></NoResults>) : null}
-				{this.props.ShowInitialLoader ? (<InitialLoader queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.NoResults.show ? (<NoResults defaultText={this.props.NoResults.text} visible={this.state.visibleNoResults}></NoResults>) : null}
+				{this.props.InitialLoader.show ? (<InitialLoader defaultText={this.props.InitialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
 		)
@@ -516,9 +516,18 @@ ReactiveList.propTypes = {
 	requestOnScroll: React.PropTypes.bool,
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
-	ShowInitialLoader: React.PropTypes.bool,
-	ShowNoResults: React.PropTypes.bool,
-	ShowResultStats: React.PropTypes.bool
+	InitialLoader: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		text: React.PropTypes.string
+	}),
+	NoResults: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		text: React.PropTypes.string
+	}),
+	ResultStats: React.PropTypes.shape({
+		show: React.PropTypes.bool,
+		setText: React.PropTypes.func
+	})
 };
 
 ReactiveList.defaultProps = {
@@ -527,7 +536,15 @@ ReactiveList.defaultProps = {
 	requestOnScroll: true,
 	stream: false,
 	ShowNoResults: true,
-	ShowInitialLoader: true,
+	InitialLoader: {
+		show: true
+	},
+	NoResults: {
+		show: true
+	},
+	ResultStats: {
+		show: true
+	},
 	ShowResultStats: true,
 	componentStyle: {}
 };
