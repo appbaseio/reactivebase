@@ -3,6 +3,7 @@ import Select from 'react-select';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+import * as TYPES from '../middleware/constants.js';
 
 export class DataSearch extends Component {
 	constructor(props, context) {
@@ -325,4 +326,12 @@ DataSearch.defaultProps = {
 DataSearch.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+DataSearch.types = {
+	componentId: TYPES.STRING,
+	appbaseField : TYPES.STRING,
+	title: TYPES.STRING,
+	placeholder: TYPES.STRING,
+	autocomplete: TYPES.BOOLEAN
 };

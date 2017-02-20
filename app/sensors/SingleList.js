@@ -1,5 +1,6 @@
 import { default as React, Component } from 'react';
 import { NativeList } from './NativeList';
+import * as TYPES from '../middleware/constants.js';
 
 export class SingleList extends Component {
 	constructor(props, context) {
@@ -43,4 +44,16 @@ SingleList.defaultProps = {
 SingleList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+SingleList.types = {
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	defaultSelected: TYPES.STRING,
+	size: TYPES.NUMBER,
+	sortBy: TYPES.STRING,
+	showCount: TYPES.BOOLEAN,
+	showSearch: TYPES.BOOLEAN,
+	placeholder: TYPES.STRING
 };

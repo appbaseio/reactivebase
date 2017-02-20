@@ -5,6 +5,7 @@ import { HistoGramComponent } from './component/HistoGram.js';
 import Slider from 'rc-slider';
 var helper = require('../middleware/helper.js');
 var _ = require('lodash');
+import * as TYPES from '../middleware/constants.js';
 
 export class RangeSlider extends Component {
 	constructor(props, context) {
@@ -374,6 +375,7 @@ export class RangeSlider extends Component {
 RangeSlider.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
+	title: React.PropTypes.string,
 	range: React.PropTypes.shape({
 		start: helper.validateThreshold,
 		end: helper.validateThreshold
@@ -409,4 +411,14 @@ RangeSlider.defaultProps = {
 RangeSlider.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+RangeSlider.types = {
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	range: TYPES.OBJECT,
+	defaultSelected: TYPES.OBJECT,
+	stepValue: TYPES.NUMBER,
+	rangeLabels: TYPES.OBJECT
 };

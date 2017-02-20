@@ -1,5 +1,6 @@
 import { default as React, Component } from 'react';
 import { NativeList } from './NativeList';
+import * as TYPES from '../middleware/constants.js';
 
 export class MultiList extends Component {
 	constructor(props, context) {
@@ -42,4 +43,16 @@ MultiList.defaultProps = {
 MultiList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+MultiList.types = {
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	defaultSelected: TYPES.ARRAY,
+	size: TYPES.NUMBER,
+	sortBy: TYPES.STRING,
+	showCount: TYPES.BOOLEAN,
+	showSearch: TYPES.BOOLEAN,
+	placeholder: TYPES.STRING
 };

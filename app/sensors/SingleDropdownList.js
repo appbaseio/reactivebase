@@ -1,5 +1,6 @@
 import { default as React, Component } from 'react';
 import { DropdownList } from './DropdownList';
+import * as TYPES from '../middleware/constants.js';
 
 export class SingleDropdownList extends Component {
 	constructor(props, context) {
@@ -24,7 +25,8 @@ SingleDropdownList.propTypes = {
 	showCount: React.PropTypes.bool,
 	size: React.PropTypes.number,
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
-	placeholder: React.PropTypes.string
+	placeholder: React.PropTypes.string,
+	selectAllLabel: React.PropTypes.string
 };
 
 // Default props value
@@ -39,4 +41,16 @@ SingleDropdownList.defaultProps = {
 SingleDropdownList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+SingleDropdownList.types = {
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	defaultSelected: TYPES.ARRAY,
+	showCount: TYPES.STRING,
+	size: TYPES.NUMBER,
+	sortBy: TYPES.STRING,
+	placeholder: TYPES.STRING,
+	selectAllLabel: TYPES.STRING
 };

@@ -5,6 +5,7 @@ var moment = require('moment');
 var momentPropTypes = require('react-moment-proptypes');
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
+import * as TYPES from '../middleware/constants.js';
 
 export class DatePicker extends Component {
 	constructor(props, context) {
@@ -164,4 +165,16 @@ DatePicker.defaultProps = {
 DatePicker.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+DatePicker.types = {
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	placeholder: TYPES.STRING,
+	date: TYPES.OBJECT,
+	focused: TYPES.BOOLEAN,
+	numberOfMonths: TYPES.NUMBER,
+	allowAllDates: TYPES.BOOLEAN,
+	extra: TYPES.OBJECT
 };

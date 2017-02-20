@@ -313,12 +313,15 @@ export class DropdownList extends Component {
 }
 
 DropdownList.propTypes = {
+	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
+	title: React.PropTypes.string,
 	size: helper.sizeValidation,
 	multipleSelect: React.PropTypes.bool,
 	showCount: React.PropTypes.bool,
 	sortBy: React.PropTypes.string,
-	placeholder: React.PropTypes.string
+	placeholder: React.PropTypes.string,
+	selectAllLabel: React.PropTypes.string
 };
 
 // Default props value
