@@ -168,7 +168,7 @@ export var ResponsiveStory = function() {
 			maxHeight: height - 15 - paginationHeight()
 		});
 		$('.rbc.rbc-singlelist, .rbc.rbc-multilist').css({
-			maxHeight: height - 100 - 15
+			maxHeight: height
 		});
 		$('.rbc-base > .row').css({
 			'margin-bottom': 0
