@@ -141,6 +141,9 @@ export class ReactiveList extends Component {
 			// then we will consider the response of new query and prevent to apply changes for old query response.
 			// if queryStartTime of channel response is greater than the previous one only then apply changes
 			if(res.error && res.startTime > this.queryStartTime) {
+				this.setState({
+					queryStart: false
+				});
 				if(this.props.onData) {
 					let modifiedData = helper.prepareResultData(data);
 					this.props.onData(modifiedData);
@@ -150,7 +153,7 @@ export class ReactiveList extends Component {
 				if(res.mode === 'historic' && res.startTime > this.queryStartTime) {
 					let visibleNoResults = res.appliedQuery && res.data && !res.data.error ? (res.data.hits && res.data.hits.total ? false : true) : false;
 					let resultStats = {
-						resultFound: res.appliedQuery && res.data && !res.data.error ? true : false
+						resultFound: res.appliedQuery && res.data && !res.data.error && res.data.hits && res.data.hits.total ? true : false
 					};
 					if(res.appliedQuery && res.data && !res.data.error) {
 						resultStats.total = res.data.hits.total;
@@ -483,7 +486,7 @@ export class ReactiveList extends Component {
 				<div ref="ListContainer" className={`rbc rbc-resultlist card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{sortOptions}
-					{this.props.ResultStats.show ? (<ResultStats setText={this.props.ResultStats.setText} visible={this.state.resultStats.resultFound} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
+					{this.props.resultStats.show ? (<ResultStats setText={this.props.resultStats.setText} visible={this.state.resultStats.resultFound} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
 					<div ref="resultListScrollContainer" className="rbc-resultlist-scroll-container col s12 col-xs-12">
 						{this.state.resultMarkup}
 					</div>
@@ -493,8 +496,8 @@ export class ReactiveList extends Component {
 						null
 					}
 				</div >
-				{this.props.NoResults.show ? (<NoResults defaultText={this.props.NoResults.text} visible={this.state.visibleNoResults}></NoResults>) : null}
-				{this.props.InitialLoader.show ? (<InitialLoader defaultText={this.props.InitialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.noResults.show ? (<NoResults defaultText={this.props.noResults.text} visible={this.state.visibleNoResults}></NoResults>) : null}
+				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
 		)
@@ -519,7 +522,7 @@ ReactiveList.propTypes = {
 	requestOnScroll: React.PropTypes.bool,
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
-	InitialLoader: React.PropTypes.shape({
+	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
@@ -539,13 +542,13 @@ ReactiveList.defaultProps = {
 	requestOnScroll: true,
 	stream: false,
 	ShowNoResults: true,
-	InitialLoader: {
+	initialLoader: {
 		show: true
 	},
-	NoResults: {
+	noResults: {
 		show: true
 	},
-	ResultStats: {
+	resultStats: {
 		show: true
 	},
 	ShowResultStats: true,

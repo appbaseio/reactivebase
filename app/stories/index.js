@@ -547,15 +547,15 @@ storiesOf("ReactiveList", module)
 			title={text("title", "ReactiveList: Results")}
 			from={number("from", 0)}
 			size={number("size", 5)}
-			InitialLoader={object("InitialLoader", {
+			initialLoader={object("initialLoader", {
 				"show": true,
 				"text": 'Loading initially.'
 			})}
-			NoResults={object("NoResults", {
+			noResults={object("noResults", {
 				"show": true,
 				"text": 'No Results Found!'
 			})}
-			ResultStats={object("ResultStats", {
+			resultStats={object("resultStats", {
 				"show": true
 			})}
 			requestOnScroll={boolean("requestOnScroll", true)}

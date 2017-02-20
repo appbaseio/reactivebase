@@ -294,6 +294,17 @@ a {
 .rbc-red .rbc.rbc-reactiveelement .rbc-placeholder {
   color: #777; }
 
+.rbc-red .rbc.rbc-initialloader,
+.rbc-red .rbc.rbc-noresults,
+.rbc-red .rbc.rbc-resultstats {
+  color: #777; }
+  .rbc-red .rbc.rbc-initialloader.rbc-noresults-active, .rbc-red .rbc.rbc-initialloader.rbc-initialloader-active,
+  .rbc-red .rbc.rbc-noresults.rbc-noresults-active,
+  .rbc-red .rbc.rbc-noresults.rbc-initialloader-active,
+  .rbc-red .rbc.rbc-resultstats.rbc-noresults-active,
+  .rbc-red .rbc.rbc-resultstats.rbc-initialloader-active {
+    background: rgba(255, 255, 255, 0.8); }
+
 .rbc-red .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: red;
   color: #fff; }
@@ -452,6 +463,17 @@ a {
 
 .rbc-orange .rbc.rbc-reactiveelement .rbc-placeholder {
   color: #777; }
+
+.rbc-orange .rbc.rbc-initialloader,
+.rbc-orange .rbc.rbc-noresults,
+.rbc-orange .rbc.rbc-resultstats {
+  color: #777; }
+  .rbc-orange .rbc.rbc-initialloader.rbc-noresults-active, .rbc-orange .rbc.rbc-initialloader.rbc-initialloader-active,
+  .rbc-orange .rbc.rbc-noresults.rbc-noresults-active,
+  .rbc-orange .rbc.rbc-noresults.rbc-initialloader-active,
+  .rbc-orange .rbc.rbc-resultstats.rbc-noresults-active,
+  .rbc-orange .rbc.rbc-resultstats.rbc-initialloader-active {
+    background: rgba(255, 255, 255, 0.8); }
 
 .rbc-orange .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: orange;
@@ -612,6 +634,17 @@ a {
 .rbc-yellow .rbc.rbc-reactiveelement .rbc-placeholder {
   color: #777; }
 
+.rbc-yellow .rbc.rbc-initialloader,
+.rbc-yellow .rbc.rbc-noresults,
+.rbc-yellow .rbc.rbc-resultstats {
+  color: #777; }
+  .rbc-yellow .rbc.rbc-initialloader.rbc-noresults-active, .rbc-yellow .rbc.rbc-initialloader.rbc-initialloader-active,
+  .rbc-yellow .rbc.rbc-noresults.rbc-noresults-active,
+  .rbc-yellow .rbc.rbc-noresults.rbc-initialloader-active,
+  .rbc-yellow .rbc.rbc-resultstats.rbc-noresults-active,
+  .rbc-yellow .rbc.rbc-resultstats.rbc-initialloader-active {
+    background: rgba(255, 255, 255, 0.8); }
+
 .rbc-yellow .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: yellow;
   color: #fff; }
@@ -770,6 +803,17 @@ a {
 
 .rbc-green .rbc.rbc-reactiveelement .rbc-placeholder {
   color: #777; }
+
+.rbc-green .rbc.rbc-initialloader,
+.rbc-green .rbc.rbc-noresults,
+.rbc-green .rbc.rbc-resultstats {
+  color: #777; }
+  .rbc-green .rbc.rbc-initialloader.rbc-noresults-active, .rbc-green .rbc.rbc-initialloader.rbc-initialloader-active,
+  .rbc-green .rbc.rbc-noresults.rbc-noresults-active,
+  .rbc-green .rbc.rbc-noresults.rbc-initialloader-active,
+  .rbc-green .rbc.rbc-resultstats.rbc-noresults-active,
+  .rbc-green .rbc.rbc-resultstats.rbc-initialloader-active {
+    background: rgba(255, 255, 255, 0.8); }
 
 .rbc-green .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: green;
@@ -930,6 +974,17 @@ a {
 .rbc-blue .rbc.rbc-reactiveelement .rbc-placeholder {
   color: #777; }
 
+.rbc-blue .rbc.rbc-initialloader,
+.rbc-blue .rbc.rbc-noresults,
+.rbc-blue .rbc.rbc-resultstats {
+  color: #777; }
+  .rbc-blue .rbc.rbc-initialloader.rbc-noresults-active, .rbc-blue .rbc.rbc-initialloader.rbc-initialloader-active,
+  .rbc-blue .rbc.rbc-noresults.rbc-noresults-active,
+  .rbc-blue .rbc.rbc-noresults.rbc-initialloader-active,
+  .rbc-blue .rbc.rbc-resultstats.rbc-noresults-active,
+  .rbc-blue .rbc.rbc-resultstats.rbc-initialloader-active {
+    background: rgba(255, 255, 255, 0.8); }
+
 .rbc-blue .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: #1893e7;
   color: #fff; }
@@ -1088,6 +1143,17 @@ a {
 
 .rbc-dark .rbc.rbc-reactiveelement .rbc-placeholder {
   color: #eee; }
+
+.rbc-dark .rbc.rbc-initialloader,
+.rbc-dark .rbc.rbc-noresults,
+.rbc-dark .rbc.rbc-resultstats {
+  color: #eee; }
+  .rbc-dark .rbc.rbc-initialloader.rbc-noresults-active, .rbc-dark .rbc.rbc-initialloader.rbc-initialloader-active,
+  .rbc-dark .rbc.rbc-noresults.rbc-noresults-active,
+  .rbc-dark .rbc.rbc-noresults.rbc-initialloader-active,
+  .rbc-dark .rbc.rbc-resultstats.rbc-noresults-active,
+  .rbc-dark .rbc.rbc-resultstats.rbc-initialloader-active {
+    background: rgba(85, 85, 85, 0.8); }
 
 .rbc-dark .rbc.rbc-togglebutton .rbc-btn-active {
   background-color: #ccc;
@@ -1640,7 +1706,6 @@ a {
   align-items: center;
   top: 0;
   left: 0;
-  background: rgba(255, 255, 255, 0.8);
   margin: 0;
   z-index: 6; }
 
@@ -1656,7 +1721,6 @@ a {
   align-items: center;
   top: 0;
   left: 0;
-  background: rgba(255, 255, 255, 0.8);
   margin: 0;
   z-index: 6; }
 

@@ -149,6 +149,16 @@ $themes: (
 			}
 		}
 
+		.rbc.rbc-initialloader, 
+		.rbc.rbc-noresults,
+		.rbc.rbc-resultstats {
+			color: map-get($map, font-color);
+			&.rbc-noresults-active,
+			&.rbc-initialloader-active {
+				background: rgba(map-get($map, background), 0.8);
+			}
+		}
+
 		.rbc.rbc-togglebutton {
 			.rbc-btn-active {
 				background-color: map-get($map, color);

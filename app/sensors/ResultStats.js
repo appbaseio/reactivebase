@@ -22,7 +22,7 @@ export class ResultStats extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-resultstats ${cx}`}>
+			<div className={`rbc rbc-resultstats col s12 col-xs-12 ${cx}`}>
 				{this.props.visible ? this.defaultText() : null}
 			</div>
 		);
