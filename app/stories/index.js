@@ -385,7 +385,8 @@ storiesOf("TextField", module)
 	.add("Playground", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault
 			title={text("title", "TextField: Car Search")}
-			placeholder={text("placeholder", "Type a car name")} />
+			placeholder={text("placeholder", "Type a car name")}
+			defaultSelected={text("defaultSelected", "nissan")} />
 	)));
 
 storiesOf("DataSearch", module)

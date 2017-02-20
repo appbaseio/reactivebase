@@ -28,7 +28,7 @@ export class TextField extends Component {
 	checkDefault() {
 		if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
 			this.defaultSelected = this.props.defaultSelected;
-			this.setValue(this.defaultSelected);
+			setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
 		}
 	}
 
