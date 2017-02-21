@@ -1,5 +1,6 @@
 import { default as React, Component } from 'react';
 import { render } from 'react-dom';
+var _ = require('lodash');
 
 export class HistoGramComponent extends Component {
 	constructor(props) {
