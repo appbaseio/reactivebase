@@ -1,9 +1,11 @@
 import React from 'react';
 import {MultiListTest} from './MultiList';
 import {expectedValues} from './config';
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 describe('MultiList test', () => {
 	var response = null;
+	
 	beforeAll(() => {
 		return MultiListTest().then((res) => {
 			response = res;

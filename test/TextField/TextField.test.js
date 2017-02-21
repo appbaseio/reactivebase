@@ -1,9 +1,11 @@
 import React from 'react';
 import {TextFieldTest} from './TextField';
 import {expectedValues} from './config';
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 describe('TextField test', () => {
 	var response = null;
+	
 	beforeAll(() => {
 		return TextFieldTest().then((res) => {
 			response = res;

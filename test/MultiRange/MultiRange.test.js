@@ -1,9 +1,11 @@
 import React from 'react';
 import {MultiRangeTest} from './MultiRange';
 import {expectedValues} from './config';
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 describe('MultiRange test', () => {
 	var response = null;
+	
 	beforeAll(() => {
 		return MultiRangeTest().then((res) => {
 			response = res;

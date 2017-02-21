@@ -1,9 +1,11 @@
 import React from 'react';
 import {MultiDropdownRangeTest} from './MultiDropdownRange';
 import {expectedValues} from './config';
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 describe('MultiDropdownRange test', () => {
 	var response = null;
+	
 	beforeAll(() => {
 		return MultiDropdownRangeTest().then((res) => {
 			response = res;

@@ -1,9 +1,11 @@
 import React from 'react';
 import {MultiDropdownListTest} from './MultiDropdownList';
 import {expectedValues} from './config';
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 describe('MultiDropdownList test', () => {
 	var response = null;
+	
 	beforeAll(() => {
 		return MultiDropdownListTest().then((res) => {
 			response = res;

@@ -1,9 +1,11 @@
 import React from 'react';
 import {DataSearchTest} from './DataSearch';
 import {expectedValues} from './config';
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 describe('DataSearch test', () => {
 	var response = null;
+	
 	beforeAll(() => {
 		return DataSearchTest().then((res) => {
 			response = res;

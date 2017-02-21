@@ -1,9 +1,11 @@
 import React from 'react';
 import {ToggleButtonTest} from './ToggleButton';
 import {expectedValues} from './config';
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 describe('ToggleButton test', () => {
 	var response = null;
+	
 	beforeAll(() => {
 		return ToggleButtonTest().then((res) => {
 			response = res;

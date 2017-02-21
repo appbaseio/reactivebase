@@ -5,7 +5,7 @@ const config = {
 		price: 'price'
 	},
 	NestedList: {
-		defaultSelected: ["bmw", "x series"]
+		defaultSelected: ["bmw"]
 	},
 	ReactiveList: {
 		sortBy: "asc",
@@ -42,15 +42,6 @@ const expectedValues = {
 			"size": config.ReactiveList.size,
 			"from": config.ReactiveList.from
 		},
-		"type": ""
-	},
-	resultLength: 1
-}
-module.exports = {
-	config: config,
-	expectedValues: expectedValues
-};
-},
 		"type": ""
 	},
 	resultLength: 1

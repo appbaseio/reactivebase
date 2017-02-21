@@ -1,9 +1,11 @@
 import React from 'react';
 import {SingleDropdownListTest} from './SingleDropdownList';
 import {expectedValues} from './config';
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 describe('SingleDropdownList test', () => {
 	var response = null;
+	
 	beforeAll(() => {
 		return SingleDropdownListTest().then((res) => {
 			response = res;
