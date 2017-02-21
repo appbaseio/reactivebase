@@ -119,6 +119,9 @@ storiesOf("MultiList", module)
 	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault showSearch={true} selectAllLabel="All Cities" placeholder="Search City" />
 	)))
+	.add("Without Tags", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showTags={false} selectAllLabel="All Cities" placeholder="Search City" />
+	)))
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
 			title={text("title", "MultiList: City Filter")}

@@ -196,7 +196,9 @@ export class MultiRange extends Component {
 
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title
+			'rbc-title-inactive': !this.props.title,
+			'rbc-tags-active': this.props.showTags,
+			'rbc-tags-inactive': !this.props.showTags
 		});
 
 		return (
