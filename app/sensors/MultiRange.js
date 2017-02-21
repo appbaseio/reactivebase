@@ -28,7 +28,7 @@ export class MultiRange extends Component {
 			});
 			if(records && records.length) {
 				records.forEach((singleRecord) => {
-					this.handleChange(singleRecord);
+					setTimeout(this.handleChange.bind(this, singleRecord), 1000);
 				});
 			}
 		}
@@ -44,7 +44,7 @@ export class MultiRange extends Component {
 				});
 				if(records && records.length) {
 					records.forEach((singleRecord) => {
-						this.handleChange(singleRecord);
+						setTimeout(this.handleChange.bind(this, singleRecord), 1000);
 					});
 				}
 			}

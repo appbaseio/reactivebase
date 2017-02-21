@@ -56,7 +56,7 @@ class NumberBox extends Component {
 
 	componentDidMount() {
 		this.setQueryInfo();
-		this.handleChange();
+		setTimeout(this.handleChange.bind(this), 1000);
 	}
 
 	componentWillReceiveProps(nextProps) {

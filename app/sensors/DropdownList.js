@@ -47,7 +47,7 @@ export class DropdownList extends Component {
 						return this.defaultSelected.indexOf(record.value) > -1 ? true : false;
 					});
 					if (records.length) {
-						this.handleChange(records);
+						setTimeout(this.handleChange.bind(this, records), 1000);
 					}
 				}
 			} else {
@@ -57,7 +57,7 @@ export class DropdownList extends Component {
 						return record.value === this.defaultSelected;
 					});
 					if (records.length) {
-						this.handleChange(records[0]);
+						setTimeout(this.handleChange.bind(this, records), 1000);
 					}
 				}
 			}

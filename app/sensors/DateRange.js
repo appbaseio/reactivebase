@@ -35,10 +35,11 @@ export class DateRange extends Component {
 
 	checkDefault() {
 		if (this.isDateChange()) {
-			this.handleChange({
+			let dateSelectionObj = {
 				startDate: this.startDate,
 				endDate: this.endDate
-			});
+			};
+			setTimeout(this.handleChange.bind(this, dateSelectionObj), 1000);
 		}
 	}
 

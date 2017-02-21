@@ -83,7 +83,7 @@ export class NativeList extends Component {
 					items: items,
 					storedItems: items
 				});
-				this.handleSelect(this.defaultSelected);
+				setTimeout(this.handleSelect.bind(this, this.defaultSelected), 1000);
 			}
 			if (this.sortBy !== this.props.sortBy) {
 				this.sortBy = this.props.sortBy;

@@ -30,7 +30,7 @@ export class MultiDropdownRange extends Component {
 				return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
 			});
 			if(records && records.length) {
-				this.handleChange(records);
+				setTimeout(this.handleChange.bind(this, records), 1000);
 			}
 		}
 	}
@@ -43,7 +43,7 @@ export class MultiDropdownRange extends Component {
 					return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
 				});
 				if(records && records.length) {
-					this.handleChange(records);
+					setTimeout(this.handleChange.bind(this, records), 1000);
 				}
 			}
 		}, 300);

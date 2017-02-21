@@ -78,7 +78,9 @@ export class RangeSlider extends Component {
 							to: nextProps.defaultSelected.end - rem
 						}
 					};
-					helper.selectedSensor.set(obj, true);
+					setTimeout(() => {
+						helper.selectedSensor.set(obj, true);
+					}, 1000);
 				} else {
 					let values = {};
 					values.min = nextProps.defaultSelected.start;
@@ -94,7 +96,9 @@ export class RangeSlider extends Component {
 							to: values.max
 						}
 					};
-					helper.selectedSensor.set(obj, true);
+					setTimeout(() => {
+						helper.selectedSensor.set(obj, true);
+					}, 1000);
 				}
 			}
 			// check range

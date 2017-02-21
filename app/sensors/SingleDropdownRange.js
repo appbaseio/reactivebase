@@ -25,7 +25,7 @@ export class SingleDropdownRange extends Component {
 				return record.label === this.defaultSelected;
 			});
 			if(records && records.length) {
-				this.handleChange(records[0]);
+				setTimeout(this.handleChange.bind(this, records[0]), 1000);
 			}
 		}
 	}
@@ -38,7 +38,7 @@ export class SingleDropdownRange extends Component {
 					return record.label === this.defaultSelected;
 				});
 				if(records && records.length) {
-					this.handleChange(records[0]);
+					setTimeout(this.handleChange.bind(this, records[0]), 1000);
 				}
 			}
 		}, 300);

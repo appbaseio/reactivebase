@@ -281,7 +281,7 @@ export class NestedList extends Component {
 	}
 
 	setData(data, level) {
-		if(data.aggregations && data.aggregations[this.props.appbaseField[level]] && data.aggregations[this.props.appbaseField[level]].buckets) {
+		if(data && data.aggregations && data.aggregations[this.props.appbaseField[level]] && data.aggregations[this.props.appbaseField[level]].buckets) {
 			this.addItemsToList(data.aggregations[this.props.appbaseField[level]].buckets, level);
 		}
 	}
