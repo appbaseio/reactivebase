@@ -423,7 +423,7 @@ storiesOf("DataController", module)
 	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataControllerDefault
 			title={text("title", "DataController")}
-			queryLabel={text("queryLabel", "matchall")}
+			dataLabel={text("dataLabel", "matchall")}
 			showUI={boolean("showUI", true)} />
 	)));
 

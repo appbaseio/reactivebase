@@ -54,19 +54,19 @@ export class DataController extends Component {
 
 	// render
 	render() {
-		let title = null, queryLabel = null;
+		let title = null, dataLabel = null;
 		if(this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
-		if(this.props.queryLabel) {
-			queryLabel = (<span className="rbc-querylabel col s12 col-xs-12">{this.props.queryLabel}</span>);
+		if(this.props.dataLabel) {
+			dataLabel = (<span className="rbc-datalabel col s12 col-xs-12">{this.props.dataLabel}</span>);
 		}
 
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
 			'rbc-title-inactive': !this.props.title,
-			'rbc-querylabel-active': this.props.queryLabel,
-			'rbc-querylabel-inactive': !this.props.queryLabel
+			'rbc-querylabel-active': this.props.dataLabel,
+			'rbc-querylabel-inactive': !this.props.dataLabel
 		});
 
 		return (
@@ -76,7 +76,7 @@ export class DataController extends Component {
 				(
 					<div>
 						{title}
-						{queryLabel}
+						{dataLabel}
 					</div>
 				) : null
 			}
@@ -90,7 +90,7 @@ DataController.propTypes = {
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
 	showUI: React.PropTypes.bool,
-	queryLabel: React.PropTypes.string,
+	dataLabel: React.PropTypes.string,
 	value: React.PropTypes.any
 };
 
@@ -111,5 +111,5 @@ DataController.types = {
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
 	showUI: TYPES.BOOL,
-	queryLabel: TYPES.STRING
+	dataLabel: TYPES.STRING
 };
