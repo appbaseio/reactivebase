@@ -49,10 +49,8 @@ export class NestedList extends Component {
 
 	componentDidMount() {
 		if(this.props.defaultSelected) {
-			this.setValue('', false);
-			setTimeout(() => {
-				this.handleSelect();
-			}, 2000);
+			this.defaultSelected = this.props.defaultSelected;
+			setTimeout(this.handleSelect.bind(this), 100);
 		}
 	}
 
@@ -329,7 +327,7 @@ export class NestedList extends Component {
 	onItemSelect(key, level) {
 		let selectedValues = this.state.selectedValues;
 		let stateItems = {};
-		if (selectedValues[level] == key || (this.defaultSelected && this.defaultSelected.length == 1)) {
+		if (selectedValues[level] == key) {
 			delete selectedValues[level];
 			stateItems = {
 				selectedValues: selectedValues
@@ -434,10 +432,12 @@ export class NestedList extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-nestedlist col s12 col-xs-12 card thumbnail ${cx}`}>
-				{title}
-				{searchComponent}
-				{listComponent}
+			<div className="rbc rbc-nestedlist-container card thumbnail col s12 col-xs-12">
+				<div className={`rbc rbc-nestedlist col s12 col-xs-12 ${cx}`}>
+					{title}
+					{searchComponent}
+					{listComponent}
+				</div>
 				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 			</div>
 		);
