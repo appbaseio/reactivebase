@@ -185,7 +185,7 @@ export class MultiRange extends Component {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		if(this.props.showTags && this.state.selected) {
+		if(this.state.selected) {
 			this.state.selected.forEach(function (item) {
 				TagItemsArray.push(<Tag
 					key={item.label}
@@ -196,9 +196,7 @@ export class MultiRange extends Component {
 
 		let cx = classNames({
 			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-tags-active': this.props.showTags,
-			'rbc-tags-inactive': !this.props.showTags
+			'rbc-title-inactive': !this.props.title
 		});
 
 		return (
@@ -242,13 +240,10 @@ MultiRange.propTypes = {
 	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
-	showTags: React.PropTypes.bool
 };
 
 // Default props value
-MultiRange.defaultProps = {
-	showTags: true
-};
+MultiRange.defaultProps = {};
 
 // context type
 MultiRange.contextTypes = {
@@ -261,6 +256,5 @@ MultiRange.types = {
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
-	defaultSelected: TYPES.ARRAY,
-	showTags: TYPES.BOOLEAN
+	defaultSelected: TYPES.ARRAY
 };

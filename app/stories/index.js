@@ -119,9 +119,6 @@ storiesOf("MultiList", module)
 	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault showSearch={true} selectAllLabel="All Cities" placeholder="Search City" />
 	)))
-	.add("Without Tags", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showTags={false} selectAllLabel="All Cities" placeholder="Search City" />
-	)))
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
 			title={text("title", "MultiList: City Filter")}
@@ -248,8 +245,7 @@ storiesOf("MultiRange", module)
 	.add("Playground", withReadme(removeFirstLine(MultiRangeReadme), () => (
 		<MultiRangeDefault
 			title={text("title", "MultiRange: Price Filter")}
-			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
-			showTags={boolean("showTags", "false")} />
+			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])} />
 	)));
 
 storiesOf("SingleDropdownRange", module)

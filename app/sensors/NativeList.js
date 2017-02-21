@@ -302,7 +302,6 @@ export class NativeList extends Component {
 		if (this.props.multipleSelect) {
 			listComponent = <ItemCheckboxList
 				items={this.state.items}
-				showTags={this.props.showTags}
 				onSelect={this.handleSelect}
 				onRemove={this.handleRemove}
 				showCount={this.props.showCount}
@@ -342,9 +341,7 @@ export class NativeList extends Component {
 			'rbc-placeholder-active': this.props.placeholder,
 			'rbc-placeholder-inactive': !this.props.placeholder,
 			'rbc-singlelist': !this.props.multipleSelect,
-			'rbc-multilist': this.props.multipleSelect,
-			'rbc-tags-active': this.props.multipleSelect && this.props.showTags,
-			'rbc-tags-inactive': this.props.multipleSelect && !this.props.showTags
+			'rbc-multilist': this.props.multipleSelect
 		});
 
 		return (
@@ -368,7 +365,6 @@ NativeList.propTypes = {
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
 	selectAllLabel: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
-	showTags: React.PropTypes.bool,
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
@@ -387,8 +383,7 @@ NativeList.defaultProps = {
 	selectAllLabel: null,
 	initialLoader: {
 		show: true
-	},
-	showTags: true
+	}
 };
 
 // context type

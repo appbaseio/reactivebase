@@ -26,7 +26,6 @@ MultiList.propTypes = {
 	showCount: React.PropTypes.bool,
 	sortBy: React.PropTypes.string,
 	showSearch: React.PropTypes.bool,
-	showTags: React.PropTypes.bool,
 	placeholder: React.PropTypes.string,
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
@@ -40,7 +39,6 @@ MultiList.defaultProps = {
 	sort: 'count',
 	size: 100,
 	showSearch: false,
-	showTags: true,
 	title: null,
 	placeholder: 'Search',
 	initialLoader: {
@@ -64,6 +62,5 @@ MultiList.types = {
 	showCount: TYPES.BOOLEAN,
 	showSearch: TYPES.BOOLEAN,
 	placeholder: TYPES.STRING,
-	initialLoader: TYPES.OBJECT,
-	showTags: TYPES.BOOLEAN
+	initialLoader: TYPES.OBJECT
 };
