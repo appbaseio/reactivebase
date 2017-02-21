@@ -408,13 +408,16 @@ RangeSlider.propTypes = {
 		start: helper.validateThreshold,
 		end: helper.validateThreshold
 	}),
-	defaultSelected: React.PropTypes.object,
-	showHistogram: React.PropTypes.bool,
-	stepValue: helper.stepValidation,
 	rangeLabels: React.PropTypes.shape({
 		start: React.PropTypes.string,
 		end: React.PropTypes.string
 	}),
+	defaultSelected: React.PropTypes.shape({
+		start: React.PropTypes.number,
+		end: React.PropTypes.number
+	}),
+	stepValue: helper.stepValidation,
+	showHistogram: React.PropTypes.bool,
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
@@ -422,21 +425,21 @@ RangeSlider.propTypes = {
 };
 
 RangeSlider.defaultProps = {
-	defaultSelected: {
-		start: 0,
-		end: 10
-	},
+	title: null,
 	range: {
 		start: 0,
 		end: 10
 	},
 	rangeLabels: {
-		start: null,
-		end: null
+		start: "",
+		end: ""
 	},
-	showHistogram: true,
+	defaultSelected: {
+		start: 0,
+		end: 10
+	},
 	stepValue: 1,
-	title: null,
+	showHistogram: true,
 	initialLoader: {
 		show: true
 	}
@@ -453,8 +456,9 @@ RangeSlider.types = {
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
 	range: TYPES.OBJECT,
+	rangeLabels: TYPES.OBJECT,
 	defaultSelected: TYPES.OBJECT,
 	stepValue: TYPES.NUMBER,
-	rangeLabels: TYPES.OBJECT,
+	showHistogram: TYPES.BOOLEAN,
 	initialLoader: TYPES.OBJECT
 };

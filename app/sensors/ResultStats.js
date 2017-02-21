@@ -11,7 +11,7 @@ export class ResultStats extends Component {
 		if(this.props.setText) {
 			return this.props.setText(this.props.total, this.props.took);
 		} else {
-			return `${this.props.total} results found in ${this.props.took}ms.`;
+			return `${this.props.total} results found in ${this.props.took}ms`;
 		}
 	}
 

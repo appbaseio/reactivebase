@@ -16,8 +16,6 @@ import SingleRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components
 import MultiRangeDefault from "./MultiRange.stories";
 import MultiRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiRange.md";
 
-import PoweredByDefault from "./PoweredBy.stories";
-
 import ToggleButtonDefault from "./ToggleButton.stories";
 import ToggleButtonReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ToggleButton.md";
 
@@ -26,8 +24,6 @@ import TextFieldReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/T
 
 import DataSearchDefault from "./DataSearch.stories";
 import DataSearchReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DataSearch.md";
-
-import DataControllerDefault from "./DataController.stories";
 
 import RangeSliderDefault from "./RangeSlider.stories";
 import RangeSliderReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/RangeSlider.md";
@@ -43,6 +39,10 @@ import SingleDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/co
 
 import MultiDropdownRangeDefault from "./MultiDropdownRange.stories";
 import MultiDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiDropdownRange.md";
+
+import DataControllerDefault from "./DataController.stories";
+
+import PoweredByDefault from "./PoweredBy.stories";
 
 import ReactiveElement from "./ReactiveElement";
 let ReactiveElementReadme = ResultListReadme;
@@ -277,22 +277,6 @@ storiesOf("MultiDropdownRange", module)
 			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])} />
 	)));
 
-storiesOf("ToggleButton", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(ToggleButtonReadme), () => (
-		<ToggleButtonDefault />
-	)))
-	.add("With Default Selected", withReadme(removeFirstLine(ToggleButtonReadme), () => (
-		<ToggleButtonDefault defaultSelected={["Social"]} />
-	)))
-	.add("Playground", withReadme(removeFirstLine(ToggleButtonReadme), () => (
-		<ToggleButtonDefault
-			title={text("title", "ToggleButton: Meetup Categories")}
-			multiSelect={boolean("multiSelect", true)}
-			defaultSelected={array("defaultSelected", ["Social", "Travel"])}
-		/>
-	)));
-
 storiesOf("RangeSlider", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(RangeSliderReadme), () => (
@@ -374,6 +358,22 @@ storiesOf("NumberBox", module)
 		/>
 	)));
 
+storiesOf("ToggleButton", module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault />
+	)))
+	.add("With Default Selected", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault defaultSelected={["Social"]} />
+	)))
+	.add("Playground", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault
+			title={text("title", "ToggleButton: Meetup Categories")}
+			multiSelect={boolean("multiSelect", true)}
+			defaultSelected={array("defaultSelected", ["Social", "Travel"])}
+		/>
+	)));
+
 storiesOf("TextField", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
@@ -423,7 +423,7 @@ storiesOf("DataController", module)
 	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataControllerDefault
 			title={text("title", "DataController")}
-			queryLabel={text("queryLabel", "matchall")}
+			dataLabel={text("dataLabel", "matchall")}
 			showUI={boolean("showUI", true)} />
 	)));
 
