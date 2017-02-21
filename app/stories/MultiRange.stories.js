@@ -70,6 +70,7 @@ export default class MultiRangeDefault extends Component {
 							componentId="PriceSensor"
 							appbaseField={this.props.mapping.price}
 							title="MultiRange"
+							defaultSelected={['Cheap', 'Moderate']}
 							data={
 								[{"start": 0, "end": 100, "label": "Cheap"},
 								{"start": 101, "end": 200, "label": "Moderate"},
