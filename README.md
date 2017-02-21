@@ -1,3 +1,5 @@
+[![Code Quality](https://www.bithound.io/github/appbaseio/reactivebase/badges/score.svg)](https://www.bithound.io/github/appbaseio/reactivebase) ![Tests Badge](https://img.shields.io/badge/tests%20passing-45%2F45-brightgreen.svg)
+
 # Data components for building reactive UIs
 
 {% raw %}
