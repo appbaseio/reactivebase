@@ -453,6 +453,7 @@ NestedList.propTypes = {
 	sortBy: React.PropTypes.oneOf(['count', 'asc', 'desc']),
 	size: helper.sizeValidation,
 	defaultSelected: React.PropTypes.array,
+	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
@@ -487,5 +488,6 @@ NestedList.types = {
 	showCount: TYPES.BOOLEAN,
 	showSearch: TYPES.BOOLEAN,
 	defaultSelected: TYPES.ARRAY,
+	customQuery: TYPES.FUNCTION,
 	initialLoader: TYPES.OBJECT
 };

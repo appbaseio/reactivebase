@@ -228,7 +228,8 @@ MultiRange.propTypes = {
 	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
-	showTags: React.PropTypes.bool
+	showTags: React.PropTypes.bool,
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -248,5 +249,6 @@ MultiRange.types = {
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
-	showTags: TYPES.BOOLEAN
+	showTags: TYPES.BOOLEAN,
+	customQuery: TYPES.FUNCTION
 };

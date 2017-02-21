@@ -313,7 +313,8 @@ DataSearch.propTypes = {
 	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
 	autocomplete: React.PropTypes.bool,
-	defaultSelected: React.PropTypes.string
+	defaultSelected: React.PropTypes.string,
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -333,5 +334,7 @@ DataSearch.types = {
 	appbaseField : TYPES.STRING,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
-	autocomplete: TYPES.BOOLEAN
+	autocomplete: TYPES.BOOLEAN,
+	defaultSelected: TYPES.STRING,
+	customQuery: TYPES.FUNCTION
 };

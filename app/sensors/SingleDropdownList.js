@@ -27,6 +27,7 @@ SingleDropdownList.propTypes = {
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
 	placeholder: React.PropTypes.string,
 	selectAllLabel: React.PropTypes.string,
+	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
@@ -60,5 +61,6 @@ SingleDropdownList.types = {
 	sortBy: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	selectAllLabel: TYPES.STRING,
+	customQuery: TYPES.FUNCTION,
 	initialLoader: TYPES.OBJECT
 };
