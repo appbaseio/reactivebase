@@ -341,5 +341,5 @@ class ChannelManager {
 			emitter: this.emitter
 		};
 	}
-};
+}
 export const manager = new ChannelManager();
