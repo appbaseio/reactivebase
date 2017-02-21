@@ -30,5 +30,5 @@ InitialLoader.propTypes = {
 // Default props value
 InitialLoader.defaultProps = {
 	queryState: false,
-	defaultText: "loading please wait..."
+	defaultText: "Initializing data.."
 };
