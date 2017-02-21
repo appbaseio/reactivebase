@@ -29,10 +29,6 @@ const expectedValues = {
 								"term": {
 									[config.mapping.brand]: config.NestedList.defaultSelected[0]
 								}
-							}, {
-								"term": {
-									[config.mapping.model]: config.NestedList.defaultSelected[1]
-								}
 							}]
 						}
 					}]
@@ -46,6 +42,15 @@ const expectedValues = {
 			"size": config.ReactiveList.size,
 			"from": config.ReactiveList.from
 		},
+		"type": ""
+	},
+	resultLength: 1
+}
+module.exports = {
+	config: config,
+	expectedValues: expectedValues
+};
+},
 		"type": ""
 	},
 	resultLength: 1
