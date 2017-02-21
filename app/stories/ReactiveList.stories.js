@@ -25,8 +25,7 @@ export default class ReactiveListDefault extends Component {
 		ResponsiveStory();
 	}
 
-	onData(response) {
-		let res = response.res;
+	onData(err, res) {
 		let result = null;
 		if (res) {
 			let combineData = res.currentData;
