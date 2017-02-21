@@ -63,5 +63,6 @@ SingleList.types = {
 	showCount: TYPES.BOOLEAN,
 	showSearch: TYPES.BOOLEAN,
 	placeholder: TYPES.STRING,
+	customQuery: TYPES.FUNCTION,
 	initialLoader: TYPES.OBJECT
 };

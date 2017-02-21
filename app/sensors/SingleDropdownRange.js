@@ -132,7 +132,8 @@ SingleDropdownRange.propTypes = {
 	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
-	defaultSelected: React.PropTypes.string
+	defaultSelected: React.PropTypes.string,
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -151,5 +152,6 @@ SingleDropdownRange.types = {
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.STRING,
 	title: TYPES.STRING,
-	placeholder: TYPES.STRING
+	placeholder: TYPES.STRING,
+	customQuery: TYPES.FUNCTION
 };

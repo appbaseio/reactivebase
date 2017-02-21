@@ -240,6 +240,7 @@ MultiRange.propTypes = {
 	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -256,5 +257,6 @@ MultiRange.types = {
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
-	defaultSelected: TYPES.ARRAY
+	defaultSelected: TYPES.ARRAY,
+	customQuery: TYPES.FUNCTION
 };

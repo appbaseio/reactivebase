@@ -149,7 +149,8 @@ DatePicker.propTypes = {
 	focused: React.PropTypes.bool,
 	numberOfMonths: React.PropTypes.number,
 	allowAllDates: React.PropTypes.bool,
-	extra: React.PropTypes.any
+	extra: React.PropTypes.any,
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -176,5 +177,6 @@ DatePicker.types = {
 	focused: TYPES.BOOLEAN,
 	numberOfMonths: TYPES.NUMBER,
 	allowAllDates: TYPES.BOOLEAN,
-	extra: TYPES.OBJECT
+	extra: TYPES.OBJECT,
+	customQuery: TYPES.FUNCTION
 };

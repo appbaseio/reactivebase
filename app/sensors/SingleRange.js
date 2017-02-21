@@ -141,7 +141,8 @@ SingleRange.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
-	defaultSelected: React.PropTypes.string
+	defaultSelected: React.PropTypes.string,
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -160,5 +161,6 @@ SingleRange.types = {
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
-	defaultSelected: TYPES.ARRAY
+	defaultSelected: TYPES.STRING,
+	customQuery: TYPES.FUNCTION
 };

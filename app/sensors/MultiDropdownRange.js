@@ -155,7 +155,8 @@ MultiDropdownRange.propTypes = {
 	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
-	defaultSelected: React.PropTypes.array
+	defaultSelected: React.PropTypes.array,
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -174,5 +175,6 @@ MultiDropdownRange.types = {
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
 	title: TYPES.STRING,
-	placeholder: TYPES.STRING
+	placeholder: TYPES.STRING,
+	customQuery: TYPES.FUNCION
 };

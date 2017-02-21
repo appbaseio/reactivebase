@@ -182,7 +182,8 @@ DateRange.propTypes = {
 	endDate: momentPropTypes.momentObj,
 	numberOfMonths: React.PropTypes.number,
 	allowAllDates: React.PropTypes.bool,
-	extra: React.PropTypes.any
+	extra: React.PropTypes.any,
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -209,5 +210,6 @@ DateRange.types = {
 	endDate: TYPES.OBJECT,
 	numberOfMonths: TYPES.NUMBER,
 	allowAllDates: TYPES.BOOLEAN,
-	extra: TYPES.OBJECT
+	extra: TYPES.OBJECT,
+	customQuery: TYPES.FUNCTION
 };

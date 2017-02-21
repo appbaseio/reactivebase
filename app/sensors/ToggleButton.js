@@ -174,7 +174,8 @@ ToggleButton.propTypes = {
 	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
-	multiSelect: React.PropTypes.bool
+	multiSelect: React.PropTypes.bool,
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -194,5 +195,6 @@ ToggleButton.types = {
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
-	multiSelect: TYPES.BOOLEAN
+	multiSelect: TYPES.BOOLEAN,
+	customQuery: TYPES.FUNCTION
 };

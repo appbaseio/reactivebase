@@ -418,6 +418,7 @@ RangeSlider.propTypes = {
 	}),
 	stepValue: helper.stepValidation,
 	showHistogram: React.PropTypes.bool,
+	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
@@ -460,5 +461,6 @@ RangeSlider.types = {
 	defaultSelected: TYPES.OBJECT,
 	stepValue: TYPES.NUMBER,
 	showHistogram: TYPES.BOOLEAN,
+	customQuery: TYPES.FUNCTION,
 	initialLoader: TYPES.OBJECT
 };

@@ -158,7 +158,7 @@ NumberBox.propTypes = {
 		end: helper.validateThreshold,
 		label: React.PropTypes.string
 	}),
-	defaultSelected:  helper.valueValidation,
+	defaultSelected: helper.valueValidation,
 	labelPosition: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right'])
 };
 

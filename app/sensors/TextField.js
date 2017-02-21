@@ -110,8 +110,9 @@ TextField.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
+	defaultSelected: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
-	defaultSelected: React.PropTypes.string
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -128,5 +129,7 @@ TextField.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
-	placeholder: TYPES.STRING
+	defaultSelected: TYPES.STRING,
+	placeholder: TYPES.STRING,
+	customQuery: TYPES.FUNCTION
 };
