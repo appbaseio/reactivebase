@@ -15,7 +15,7 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 		if (!previousSelectedSensor.hasOwnProperty(depend)) {
 			previousSelectedSensor[depend] = '';
 		}
-	}
+	};
 	// apply depend changes when new value received
 	let applyDependChange = function(react, depend) {
 		if (selectedSensor[depend] && typeof selectedSensor[depend] === 'object') {
@@ -26,7 +26,7 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 		// if (!selectedSensor[depend].doNotExecute) {
 			cb(depend, channelId);
 		// }
-	}
+	};
 
 	// initialize the process
 	this.init = function() {
@@ -44,7 +44,7 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 				}
 			}
 		});
-	}
+	};
 
 	this.start = function() {
 		var self = this;
@@ -74,7 +74,7 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 				sortCb(channelId);
 			}
 		});
-	}
+	};
 
 	this.stop = function() {
 		if (this.sensorListener) {
@@ -86,7 +86,7 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 		if (this.sortListener) {
 			this.sortListener.remove();
 		}
-	}
+	};
 
 };
 
@@ -110,7 +110,7 @@ function selectedSensorFn() {
 				return self.selectedSensor;
 			}
 		}
-	}
+	};
 
 	// Set
 	let set = function(obj, isExecuteUpdate = false, setMethod = "sensorChange") {
@@ -128,27 +128,27 @@ function selectedSensorFn() {
 			default:
 				self.selectedSensor[obj.key] = obj.value;
 				methodObj = self.selectedSensor;
-				break;
+			break;
 		}
 		if (isExecuteUpdate) {
 			sensorEmitter.emit(setMethod, methodObj);
 		}
-	}
+	};
 
 	// Set fieldname
 	let setSensorInfo = function(obj) {
 		self.sensorInfo[obj.key] = obj.value;
-	}
+	};
 
 	// Set sort info
 	let setSortInfo = function(obj) {
 		self.sortInfo[obj.key] = obj.value;
-	}
+	};
 
 	// Set pagination info
 	let setPaginationInfo = function(obj) {
 		self.paginationInfo[obj.key] = obj.value;
-	}
+	};
 
 	return {
 		get: get,
@@ -157,7 +157,7 @@ function selectedSensorFn() {
 		setSortInfo: setSortInfo,
 		setPaginationInfo: setPaginationInfo
 	};
-};
+}
 
 export var selectedSensor = new selectedSensorFn();
 
@@ -184,25 +184,25 @@ export var ResponsiveStory = function() {
 	handleResponsive();
 	$(window).resize(function() {
 		handleResponsive();
-	})
-}
+	});
+};
 
 export var sizeValidation = function(props, propName, componentName) {
 	if (props[propName] < 1 || props[propName] > 1000) {
 		return new Error('Size value is invalid, it should be between 1 and 1000.');
 	}
-}
+};
 
 export var stepValidation = function(props, propName) {
-	if (props[propName] > Math.floor((props['range']['end'] - props['range']['start'])/2)) {
-		return new Error(`Step value is invalid, it should be less than or equal to ${Math.floor((props['range']['end'] - props['range']['start'])/2)}.`);
+	if (props[propName] > Math.floor((props.range.end - props.range.start)/2)) {
+		return new Error(`Step value is invalid, it should be less than or equal to ${Math.floor((props.range.end - props.range.start)/2)}.`);
 	} else if (props[propName] <= 0) {
 		return new Error('Step value is invalid, it should be greater than 0.');
 	}
-}
+};
 
 export var validateThreshold = function(props, propName, componentName) {
-	if(!(!isNaN(props[propName]) && props['end'] > props['start'])) {
+	if(!(!isNaN(props[propName]) && props.end > props.start)) {
 		return new Error('Threshold value validation has failed, end value should be greater than start value.');
 	}
 	if (componentName == 'GeoDistanceDropdown' || componentName == 'GeoDistanceSlider') {
@@ -210,15 +210,15 @@ export var validateThreshold = function(props, propName, componentName) {
 			return new Error('Threshold value is invalid, it should be greater than 0.');
 		}
 	}
-}
+};
 
 export var valueValidation = function(props, propName) {
-	const end = props['data']['end'] ? props['data']['end'] : props['defaultSelected'];
-	const start = props['data']['start'] ? props['data']['start'] : props['defaultSelected'];
-	if(!(!isNaN(props[propName]) && end >= props['defaultSelected'] && start <= props['defaultSelected'])) {
+	const end = props.data.end ? props.data.end : props.defaultSelected;
+	const start = props.data.start ? props.data.start : props.defaultSelected;
+	if(!(!isNaN(props[propName]) && end >= props.defaultSelected && start <= props.defaultSelected)) {
 		return new Error('Default value validation has failed, Default value should be between start and end values.');
 	}
-}
+};
 
 export var validation = {
 	resultListFrom: function(props, propName, componentName) {
@@ -226,7 +226,7 @@ export var validation = {
 			return new Error('From value is invalid, it should be greater than or equal to 0.');
 		}
 	}
-}
+};
 
 var SerializeDepends = function() {
 	let conjunctions = ['and', 'or', 'not'];
@@ -302,7 +302,7 @@ var SerializeDepends = function() {
 			} else {
 				depend.forEach((single) => {
 					addDep(single);
-				})
+				});
 			}
 			function addDep(dep) {
 				if(dependsList.indexOf(dep) < 0) {
@@ -310,9 +310,8 @@ var SerializeDepends = function() {
 				}
 			}
 		}
-
 		return initialize();
-	}
+	};
 	this.createQuery = function(serializeResult, dependsQuery) {
 		let query = {};
 		let serializeResultQuery = serializeResult.queries.map((query) => {
@@ -363,7 +362,7 @@ var SerializeDepends = function() {
 							bool: query
 						}
 					}
-				}
+				};
 			}
 			if(aggs) {
 				if(fullQuery) {
@@ -373,7 +372,7 @@ var SerializeDepends = function() {
 						body: {
 							aggs: aggs
 						}
-					}
+					};
 				}
 			}
 			return fullQuery;
@@ -471,10 +470,9 @@ var SerializeDepends = function() {
 			}
 			return operation;
 		}
-
 		return initialize();
 	}
-}
+};
 
 export var serializeDepends = new SerializeDepends();
 
@@ -498,7 +496,7 @@ export var prepareResultData = function(data, res) {
 		}
 	}
 	return response;
-}
+};
 
 export var combineStreamData = function(currentData, newData) {
 	if (newData) {
@@ -516,4 +514,4 @@ export var combineStreamData = function(currentData, newData) {
 		}
 	}
 	return currentData;
-}
+};

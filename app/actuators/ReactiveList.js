@@ -33,7 +33,7 @@ export class ReactiveList extends Component {
 				[obj.appbaseField]: {
 					order: obj.sortBy
 				}
-			}
+			};
 		} else if (this.props.sortBy) {
 			this.sortObj = {
 				[this.props.appbaseField] : {
@@ -330,7 +330,7 @@ export class ReactiveList extends Component {
 		if(_.isArray(newData)) {
 			return this.state.currentData.concat(newData);
 		} else {
-			return this.streamDataModify(this.state.currentData, newData)
+			return this.streamDataModify(this.state.currentData, newData);
 		}
 	}
 
@@ -348,7 +348,7 @@ export class ReactiveList extends Component {
 	appendData(data) {
 		let rawData = this.state.rawData;
 		let hits = rawData.hits.hits.concat(data.hits.hits);
-		rawData.hits.hits = _.uniqBy(hits, '_id');;
+		rawData.hits.hits = _.uniqBy(hits, '_id');
 		return rawData;
 	}
 
@@ -455,8 +455,8 @@ export class ReactiveList extends Component {
 	handleSortSelect(event) {
 		let index = event.target.value;
 		this.sortObj = {
-			[this.props.sortOptions[index]['appbaseField']]: {
-				order: this.props.sortOptions[index]['sortBy']
+			[this.props.sortOptions[index].appbaseField]: {
+				order: this.props.sortOptions[index].sortBy
 			}
 		};
 		let obj = {
@@ -497,7 +497,7 @@ export class ReactiveList extends Component {
 						{options}
 					</select>
 				</div>
-			)
+			);
 		}
 
 		return (
@@ -520,7 +520,7 @@ export class ReactiveList extends Component {
 				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
-		)
+		);
 	}
 }
 
