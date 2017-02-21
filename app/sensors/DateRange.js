@@ -12,8 +12,8 @@ export class DateRange extends Component {
 		super(props);
 		this.state = {
 			currentValue: {
-				startDate: this.props.startDate,
-				endDate: this.props.endDate
+				startDate: this.props.defaultSelected.startDate,
+				endDate: this.props.defaultSelected.endDate
 			},
 			focusedInput: null
 		};
@@ -47,9 +47,9 @@ export class DateRange extends Component {
 		let flag = false;
 		try {
 			if(this.startDate && this.endDate) { 
-				if(moment(this.startDate).format('YYYY-MM-DD') != moment(this.props.startDate).format('YYYY-MM-DD') && moment(this.endDate).format('YYYY-MM-DD') != moment(this.props.endDate).format('YYYY-MM-DD')) {
-					this.startDate = this.props.startDate;
-					this.endDate = this.props.endDate;
+				if(moment(this.startDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected.startDate).format('YYYY-MM-DD') && moment(this.endDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected.endDate).format('YYYY-MM-DD')) {
+					this.startDate = this.props.defaultSelected.startDate;
+					this.endDate = this.props.defaultSelected.endDate;
 					flag = true;
 				}
 			} else {
@@ -61,9 +61,9 @@ export class DateRange extends Component {
 
 		function checkDefault() {
 			let flag1 = false;
-			if(this.props.startDate && this.props.endDate) {
-				this.startDate = this.props.startDate;
-				this.endDate = this.props.endDate;
+			if(this.props.defaultSelected.startDate && this.props.defaultSelected.endDate) {
+				this.startDate = this.props.defaultSelected.startDate;
+				this.endDate = this.props.defaultSelected.endDate;
 				flag1 = true;
 			}
 			return flag1;
@@ -178,8 +178,10 @@ DateRange.propTypes = {
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
-	startDate: momentPropTypes.momentObj,
-	endDate: momentPropTypes.momentObj,
+	defaultSelected: React.PropTypes.shape({
+		startDate: momentPropTypes.momentObj,
+		endDate: momentPropTypes.momentObj,
+	}),
 	numberOfMonths: React.PropTypes.number,
 	allowAllDates: React.PropTypes.bool,
 	extra: React.PropTypes.any,
@@ -191,8 +193,10 @@ DateRange.defaultProps = {
 	placeholder: 'Select Date',
 	numberOfMonths: 2,
 	allowAllDates: true,
-	startDate: null,
-	endDate: null
+	defaultSelected: {
+		startDate: null,
+		endDate: null
+	}
 };
 
 // context type
@@ -206,8 +210,7 @@ DateRange.types = {
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
-	startDate: TYPES.OBJECT,
-	endDate: TYPES.OBJECT,
+	defaultSelected: TYPES.OBJECT,
 	numberOfMonths: TYPES.NUMBER,
 	allowAllDates: TYPES.BOOLEAN,
 	extra: TYPES.OBJECT,

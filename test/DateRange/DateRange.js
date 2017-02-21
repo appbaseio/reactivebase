@@ -20,8 +20,10 @@ function testComponent(cb) {
 						componentId="CitySensor"
 						appbaseField={config.mapping.date}
 						title="DateRange"
-						startDate={config.DateRange.startDate}
-						endDate={config.DateRange.endDate}
+						defaultSelected ={{
+							startDate: config.DateRange.startDate,
+							endDate: config.DateRange.endDate
+						}}
 						size={100}
 					/>
 				</div>

@@ -20,7 +20,7 @@ function testComponent(cb) {
 						componentId="CitySensor"
 						appbaseField={config.mapping.date}
 						title="DatePicker"
-						date={config.DatePicker.defaultSelected}
+						defaultSelected={config.DatePicker.defaultSelected}
 						size={100}
 					/>
 				</div>

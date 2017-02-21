@@ -11,7 +11,7 @@ export class DatePicker extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
-			currentValue: this.props.date,
+			currentValue: this.props.defaultSelected,
 			focused: this.props.focused
 		};
 		this.type = 'range';
@@ -30,8 +30,8 @@ export class DatePicker extends Component {
 	}
 
 	checkDefault() {
-		if (this.props.date && moment(this.defaultDate).format('YYYY-MM-DD') != moment(this.props.date).format('YYYY-MM-DD')) {
-			this.defaultDate = this.props.date;
+		if (this.props.defaultSelected && moment(this.defaultDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected).format('YYYY-MM-DD')) {
+			this.defaultDate = this.props.defaultSelected;
 			setTimeout(this.handleChange.bind(this, this.defaultDate), 1000)
 		}
 	}
@@ -159,7 +159,7 @@ DatePicker.defaultProps = {
 	numberOfMonths: 1,
 	focused: true,
 	allowAllDates: true,
-	date: null
+	defaultSelected: null
 };
 
 // context type
@@ -173,7 +173,7 @@ DatePicker.types = {
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
-	date: TYPES.OBJECT,
+	defaultSelected: TYPES.OBJECT,
 	focused: TYPES.BOOLEAN,
 	numberOfMonths: TYPES.NUMBER,
 	allowAllDates: TYPES.BOOLEAN,

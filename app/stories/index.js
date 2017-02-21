@@ -439,7 +439,7 @@ storiesOf("DatePicker", module)
 	)))
 	.add("Default date", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
-			date={moment()}
+			defaultSelected={moment()}
 		/>
 	)))
 	.add("Initial Focus", withReadme(removeFirstLine(DatePickerReadme), () => (
@@ -478,8 +478,10 @@ storiesOf("DateRange", module)
 	)))
 	.add("Default date", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault
-			startDate={moment()}
-			endDate={moment().add(5, "days")}
+			defaultSelected ={{
+				startDate: moment()
+				endDate: moment().add(5, "days")
+			}}
 		/>
 	)))
 	.add("Enable days from today only", withReadme(removeFirstLine(DateRangeReadme), () => (
