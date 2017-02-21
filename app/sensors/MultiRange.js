@@ -27,9 +27,10 @@ export class MultiRange extends Component {
 				return this.props.defaultSelected.indexOf(record.label) > -1 ? true : false;
 			});
 			if(records && records.length) {
-				records.forEach((singleRecord) => {
-					setTimeout(this.handleChange.bind(this, singleRecord), 1000);
-				});
+				setTimeout(this.handleChange.bind(this, records), 1000);
+				// records.forEach((singleRecord) => {
+				// 	setTimeout(this.handleChange.bind(this, singleRecord), 1000);
+				// });
 			}
 		}
 	}
@@ -43,9 +44,10 @@ export class MultiRange extends Component {
 					return this.props.defaultSelected.indexOf(record.label) > -1 ? true : false;
 				});
 				if(records && records.length) {
-					records.forEach((singleRecord) => {
-						setTimeout(this.handleChange.bind(this, singleRecord), 1000);
-					});
+					setTimeout(this.handleChange.bind(this, records), 1000);
+					// records.forEach((singleRecord) => {
+					// 	setTimeout(this.handleChange.bind(this, singleRecord), 1000);
+					// });
 				}
 			}
 		}, 300);
@@ -104,15 +106,25 @@ export class MultiRange extends Component {
 	handleChange(record) {
 		let selected = this.state.selected;
 		let selectedIndex = null;
-		let isAlreadySelected = selected.forEach((selectedRecord, index) => {
+		let records = record
+		if(!_.isArray(record)) {
+			records = [record];
+		}
+		records.forEach((record) => {
+			selected.forEach((selectedRecord, index) => {
+				setRecord(selectedRecord, index, record);
+			});
+		});
+		function setRecord(selectedRecord, index, record) {
 			if(record.label === selectedRecord.label) {
 				selectedIndex = index;
 				selected.splice(index, 1);
 			}
-		});
-		if(selectedIndex === null) {
-			selected.push(record);
 		}
+		records.forEach((record) => {
+			selected.push(record);
+		});
+		
 		this.setState({
 			'selected': selected
 		});

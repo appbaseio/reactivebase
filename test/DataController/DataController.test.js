@@ -1,16 +1,19 @@
 import React from 'react';
-import {SingleRangeTest} from './SingleRange';
+import {DataControllerTest} from './DataController';
 import {expectedValues} from './config';
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
-describe('SingleRange test', () => {
+describe('DataController test', () => {
 	var response = null;
 	
 	beforeAll(() => {
-		return SingleRangeTest().then((res) => {
+		return DataControllerTest().then((res) => {
 			response = res;
 			return response;
-		}).catch((err) => err);
+		}).catch((err) => {
+			console.log(err);
+			return err;
+		});
 	});
 
 	test('Response should exists', ()=> {

@@ -1,11 +1,14 @@
 import React from 'react';
-import { ReactiveBase, TextField, ReactiveList } from '../../app/app.js';
+import { ReactiveBase, DataController, ReactiveList } from '../../app/app.js';
 import {config} from './config';
 import { mount } from 'enzyme';
 
 function testComponent(cb) {
 	const onData = function(err, res) {
 		cb(err, res);
+	}
+	const CustomQuery = function() {
+		return config.DataController.customQuery
 	}
 	const component = mount(
 		<ReactiveBase
@@ -16,12 +19,9 @@ function testComponent(cb) {
 			>
 			<div className="row">
 				<div className="col s6 col-xs-6">
-					<TextField
+					<DataController
 						componentId="CitySensor"
-						appbaseField={config.mapping.city}
-						title="TextField"
-						defaultSelected={config.TextField.defaultSelected}
-						size={100}
+						customQuery= {CustomQuery}
 					/>
 				</div>
 				<div className="col s6 col-xs-6">
@@ -43,7 +43,7 @@ function testComponent(cb) {
 		</ReactiveBase>
 	);
 }
-export var TextFieldTest = function() {
+export var DataControllerTest = function() {
 	return new Promise((resolve, reject) => {
 		testComponent(function(err, res) {
 			if (err) {

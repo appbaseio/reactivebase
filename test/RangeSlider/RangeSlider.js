@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactiveBase, TextField, ReactiveList } from '../../app/app.js';
+import { ReactiveBase, RangeSlider, ReactiveList } from '../../app/app.js';
 import {config} from './config';
 import { mount } from 'enzyme';
 
@@ -16,11 +16,12 @@ function testComponent(cb) {
 			>
 			<div className="row">
 				<div className="col s6 col-xs-6">
-					<TextField
+					<RangeSlider
 						componentId="CitySensor"
-						appbaseField={config.mapping.city}
-						title="TextField"
-						defaultSelected={config.TextField.defaultSelected}
+						appbaseField={config.mapping.guests}
+						title="RangeSlider"
+						defaultSelected={config.RangeSlider.defaultSelected}
+						range={config.RangeSlider.data}
 						size={100}
 					/>
 				</div>
@@ -43,7 +44,7 @@ function testComponent(cb) {
 		</ReactiveBase>
 	);
 }
-export var TextFieldTest = function() {
+export var RangeSliderTest = function() {
 	return new Promise((resolve, reject) => {
 		testComponent(function(err, res) {
 			if (err) {

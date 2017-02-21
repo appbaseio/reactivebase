@@ -22,8 +22,7 @@ export default class DataControllerDefault extends Component {
 		};
 	}
 
-	onData(response) {
-		let res = response.res;
+	onData(err, res) {
 		let result = null;
 		if(res) {
 			let combineData = res.currentData;

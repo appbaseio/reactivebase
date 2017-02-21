@@ -4,8 +4,8 @@ import {config} from './config';
 import renderer from 'react-test-renderer';
 
 function testComponent(cb) {
-	const onData = function(response) {
-		cb(response);
+	const onData = function(err, res) {
+		cb(err, res);
 	}
 	const component = renderer.create(
 		<ReactiveBase
@@ -46,11 +46,11 @@ function testComponent(cb) {
 }
 export var ToggleButtonTest = function() {
 	return new Promise((resolve, reject) => {
-		testComponent(function(response) {
-			if (response.err) {
-				reject(response);
-			} else if (response.res) {
-				resolve(response);
+		testComponent(function(err, res) {
+			if (err) {
+				reject(err);
+			} else if (res) {
+				resolve(res);
 			}
 		});
 	});

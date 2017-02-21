@@ -1,13 +1,12 @@
 import React from 'react';
-import {SingleRangeTest} from './SingleRange';
+import {RangeSliderTest} from './RangeSlider';
 import {expectedValues} from './config';
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
-describe('SingleRange test', () => {
+describe('RangeSlider test', () => {
 	var response = null;
-	
 	beforeAll(() => {
-		return SingleRangeTest().then((res) => {
+		return RangeSliderTest().then((res) => {
 			response = res;
 			return response;
 		}).catch((err) => err);
