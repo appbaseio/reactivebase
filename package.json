@@ -5,11 +5,10 @@
   "main": "lib/app.js",
   "scripts": {
     "test": "jest",
-    "lint": "esw app --color",
-    "lint:watch": "npm run lint -- --watch",
+    "lint": "esw app --color --watch",
     "webpack-server": "webpack-dev-server --hot --inline --progress --colors --port 8012",
     "web-server": "http-server -p 3000 .",
-    "start": "cross-env CHOOSE_CONFIG=EXAMPLES && concurrently \"npm run webpack-server\" \"gulp watch\" \"npm run lint:watch\" ",
+    "start": "cross-env CHOOSE_CONFIG=EXAMPLES && concurrently \"npm run webpack-server\" \"gulp watch\" ",
     "build": "cross-env NODE_ENV=production && cross-env CHOOSE_CONFIG=EXAMPLES && webpack -p && gulp",
     "build:lib": "gulp && cross-env NODE_ENV=production && cross-env CHOOSE_CONFIG=LIB babel app --out-dir lib",
     "build:umd": "cross-env NODE_ENV=development && webpack --config webpack.config.umd.js app/app.js umd/reactivebase.js",
