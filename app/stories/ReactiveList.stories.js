@@ -75,7 +75,7 @@ export default class ReactiveListDefault extends Component {
 	}
 
 	render() {
-		let placeholder = (<h6>Select city to see the results.</h6>);
+		let placeholder = (<h6>Select a city to see the results.</h6>);
 		return (
 			<ReactiveBase
 				app="meetup2"
@@ -107,10 +107,11 @@ export default class ReactiveListDefault extends Component {
 							appbaseField={this.props.mapping.city}
 							showCount={true}
 							size={10}
+							selectAllLabel="All Cities"
 							title="Input Filter"
 							customQuery={this.cityQuery}
 							searchPlaceholder="Search City"
-							includeSelectAll={true}
+							initialLoader="Loading cities.."
 						/>
 					</div>
 				</div>

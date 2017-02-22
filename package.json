@@ -18,7 +18,7 @@
     "build-storybook": "build-storybook -o playground"
   },
   "jest": {
-    "rootDir": "./test"
+    "rootDir": "./tests"
   },
   "files": [
     "lib/",
@@ -36,11 +36,11 @@
     "lodash": "^4.15.0",
     "moment": "^2.14.1",
     "rc-slider": "^5.4.0",
-    "react": "^15.1.0",
+    "react": "^15.4.2",
     "react-addons-shallow-compare": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-dates": "^4.3.0",
-    "react-dom": "^15.1.0",
+    "react-dom": "^15.4.2",
     "react-select": "^1.0.0-rc.3"
   },
   "devDependencies": {

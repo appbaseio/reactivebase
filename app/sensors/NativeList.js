@@ -39,6 +39,7 @@ export default class NativeList extends Component {
 
 	// Get the items from Appbase when component is mounted
 	componentDidMount() {
+		this.size = this.props.size;
 		this.setQueryInfo();
 		this.handleSelect('');
 		this.createChannel();

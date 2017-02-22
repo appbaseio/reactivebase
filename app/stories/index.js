@@ -527,12 +527,8 @@ storiesOf("ReactiveElement", module)
 			placeholder={text("placeholder", "Select city from the list")}
 			from={number("from", 0)}
 			size={number("size", 5)}
-			initialLoader={object("initialLoader", {
-				"text": 'Loading initially.'
-			})}
-			noResults={object("noResults", {
-				"text": 'No Results Found!'
-			})}
+			initialLoader="Loading results.."
+			noResults="No results found! Try a different filter duh.."
 			stream={boolean("stream", false)} />
 	)));
 
@@ -576,7 +572,7 @@ storiesOf("ReactiveList", module)
 			title="Meetups"
 			requestOnScroll={true}
 			stream={false}
-			initialLoader= 'Initializing data..'
+			initialLoader= 'Loading results..'
 			noResults= 'No results found!'
 		/>
 	)))
@@ -585,8 +581,8 @@ storiesOf("ReactiveList", module)
 			title={text("title", "ReactiveList: Results")}
 			from={number("from", 0)}
 			size={number("size", 5)}
-			initialLoader={text("initialLoader", 'Loading initially.')}
-			noResults={text("initialLoader", 'No Results Found!.')}
+			initialLoader={text("initialLoader", 'Loading results..')}
+			noResults={text("noResults", 'No results found!')}
 			showResultStats={boolean("showResultStats", true)}
 			requestOnScroll={boolean("requestOnScroll", true)}
 			stream={boolean("stream", false)} />

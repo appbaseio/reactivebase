@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ReactiveList } from './ReactiveList';
+import ReactiveList from './ReactiveList';
 import Pagination from '../addons/Pagination';
 var helper = require('../middleware/helper.js');
 import * as TYPES from '../middleware/constants.js';
