@@ -348,9 +348,7 @@ export class NativeList extends Component {
 			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`}>
 				{title}
 				{searchComponent}
-				<div className="col s12 col-xs-12 nativelist-container">
-					{listComponent}
-				</div>
+				{listComponent}
 				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 			</div>
 		);
