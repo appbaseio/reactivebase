@@ -23,7 +23,7 @@ class ChannelManager {
 		let queryObj;
 		if(!queryOptions) {
 			queryObj = this.queryBuild(channelObj, channelObj.previousSelectedSensor);
-			this.queryOptions[channelId] = channelObj.previousSelectedSensor['channel-options-'+channelId];
+			this.queryOptions[channelId] = channelObj.previousSelectedSensor["channel-options-"+channelId];
 		} else {
 			queryObj = this.queryBuild(channelObj, queryOptions);
 		}
@@ -41,19 +41,19 @@ class ChannelManager {
 			if(appbaseRef) {
 				// apply search query and emit historic queryResult
 				let searchQueryObj = queryObj;
-				searchQueryObj.type = this.type[channelId] == '*' ? '' : this.type[channelId];
+				searchQueryObj.type = this.type[channelId] == "*" ? "" : this.type[channelId];
 				setQueryState(channelResponse);
-				appbaseRef.search(searchQueryObj).on('data', function(data) {
-					channelResponse.mode = 'historic';
+				appbaseRef.search(searchQueryObj).on("data", function(data) {
+					channelResponse.mode = "historic";
 					channelResponse.data = data;
 					self.emitter.emit(channelId, channelResponse);
 					let globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
-					self.emitter.emit('global', {
+					self.emitter.emit("global", {
 						channelResponse: channelResponse,
 						react: channelObj.react,
 						queryOptions: globalQueryOptions
 					});
-				}).on('error', function(error) {
+				}).on("error", function(error) {
 					let channelError = {
 						appliedQuery: channelResponse.appliedQuery,
 						error: error,
@@ -67,11 +67,11 @@ class ChannelManager {
 				}
 
 			} else {
-				console.error('appbaseRef is not set for '+channelId);
+				console.error("appbaseRef is not set for "+channelId);
 			}
 		} else {
 			let obj = {
-				mode: 'historic',
+				mode: "historic",
 				startTime: (new Date()).getTime(),
 				appliedQuery: queryObj,
 				data: {
@@ -88,7 +88,7 @@ class ChannelManager {
 		function setQueryState(channelResponse) {
 			let obj = JSON.parse(JSON.stringify(channelResponse));
 			obj.queryState = true;
-			self.emitter.emit(channelId+'-query', obj);
+			self.emitter.emit(channelId+"-query", obj);
 		}
 
 		function activateStream(channelId, queryObj, appbaseRef) {
@@ -102,14 +102,14 @@ class ChannelManager {
 				delete streamQueryObj.body.size;
 				delete streamQueryObj.body.sort;
 			}
-			this.streamRef[channelId] = appbaseRef.searchStream(streamQueryObj).on('data', function(data) {
+			this.streamRef[channelId] = appbaseRef.searchStream(streamQueryObj).on("data", function(data) {
 				let obj = {
-					mode: 'streaming',
+					mode: "streaming",
 					data: data,
 					appliedQuery: queryObj
 				};
 				self.emitter.emit(channelId, obj);
-			}).on('error', function(error) {
+			}).on("error", function(error) {
 				console.log(error);
 			});
 		}
@@ -146,15 +146,15 @@ class ChannelManager {
 		function generateQuery() {
 			let dependsQuery = {};
 			channelObj.serializeDepends.dependsList.forEach((depend) => {
-				if(depend === 'aggs') {
+				if(depend === "aggs") {
 					dependsQuery[depend] = aggsQuery(depend);
-				} else if(depend && depend.indexOf('channel-options-') > -1) {
+				} else if(depend && depend.indexOf("channel-options-") > -1) {
 					requestOptions = previousSelectedSensor[depend];
 				} else {
 					dependsQuery[depend] = singleQuery(depend);
 				}
 				let sortField = sortAvailable(depend);
-				if(sortField && !sortField.hasOwnProperty('aggSort')) {
+				if(sortField && !sortField.hasOwnProperty("aggSort")) {
 					sortObj.push(sortField);
 				}
 			});
@@ -179,13 +179,13 @@ class ChannelManager {
 
 		// check if sortinfo is availbale
 		function sortAvailable(depend) {
-			let sortInfo = helper.selectedSensor.get(depend, 'sortInfo');
+			let sortInfo = helper.selectedSensor.get(depend, "sortInfo");
 			return sortInfo;
 		}
 
 		// build single query or if default query present in sensor itself use that
 		function singleQuery(depend) {
-			let sensorInfo = helper.selectedSensor.get(depend, 'sensorInfo');
+			let sensorInfo = helper.selectedSensor.get(depend, "sensorInfo");
 			let s_query = null;
 			if(sensorInfo && sensorInfo.customQuery) {
 				s_query = sensorInfo.customQuery(previousSelectedSensor[depend]);
@@ -193,7 +193,7 @@ class ChannelManager {
 			else if(previousSelectedSensor[depend]) {
 				s_query = {};
 				s_query[sensorInfo.queryType] = {};
-				if (sensorInfo.queryType != 'match_all') {
+				if (sensorInfo.queryType != "match_all") {
 					s_query[sensorInfo.queryType][sensorInfo.inputData] = previousSelectedSensor[depend];
 				}
 			}
@@ -267,35 +267,35 @@ class ChannelManager {
 	nextPage(channelId) {
 		let channelObj = this.channels[channelId];
 		let queryOptions = JSON.parse(JSON.stringify(this.channels[channelId].previousSelectedSensor));
-		let channelOptionsObj = channelObj.previousSelectedSensor['channel-options-'+channelId];
+		let channelOptionsObj = channelObj.previousSelectedSensor["channel-options-"+channelId];
 		let options = {
 			size: this.queryOptions[channelId].size,
 			from: this.queryOptions[channelId].from + this.queryOptions[channelId].size
 		};
-		queryOptions['channel-options-'+channelId] = JSON.parse(JSON.stringify(options));
-		// queryOptions['channel-options-'+channelId].from += 1;
+		queryOptions["channel-options-"+channelId] = JSON.parse(JSON.stringify(options));
+		// queryOptions["channel-options-"+channelId].from += 1;
 		this.queryOptions[channelId] = options;
-		this.receive('channel-options-'+channelId, channelId, queryOptions);
+		this.receive("channel-options-"+channelId, channelId, queryOptions);
 	}
 
 	// callback on page number changes
 	paginationChanges(pageNumber, channelId) {
 		let channelObj = this.channels[channelId];
 		let queryOptions = JSON.parse(JSON.stringify(this.channels[channelId].previousSelectedSensor));
-		let channelOptionsObj = channelObj.previousSelectedSensor['channel-options-'+channelId];
+		let channelOptionsObj = channelObj.previousSelectedSensor["channel-options-"+channelId];
 		let options = {
 			size: this.queryOptions[channelId].size,
 			from: this.queryOptions[channelId].size*(pageNumber-1) + 1
 		};
-		queryOptions['channel-options-'+channelId] = JSON.parse(JSON.stringify(options));
-		// queryOptions['channel-options-'+channelId].from += 1;
+		queryOptions["channel-options-"+channelId] = JSON.parse(JSON.stringify(options));
+		// queryOptions["channel-options-"+channelId].from += 1;
 		this.queryOptions[channelId] = options;
-		this.receive('channel-options-'+channelId, channelId, queryOptions);
+		this.receive("channel-options-"+channelId, channelId, queryOptions);
 	}
 
 	// sort changes
 	sortChanges(channelId) {
-		this.receive('channel-options-'+channelId, channelId);
+		this.receive("channel-options-"+channelId, channelId);
 	}
 
 	// Create the channel by passing react
@@ -309,12 +309,12 @@ class ChannelManager {
 		this.queryOptions[channelId] = optionValues;
 		this.type[channelId] = type;
 		this.appbaseRef[channelId] = appbaseRef;
-		react['channel-options-'+channelId] = optionValues;
+		react["channel-options-"+channelId] = optionValues;
 		let previousSelectedSensor = {
-			['channel-options-'+channelId]: optionValues
+			["channel-options-"+channelId]: optionValues
 		};
 		let obj = {
-			key: 'channel-options-' + channelId,
+			key: "channel-options-" + channelId,
 			value: optionValues
 		};
 		let serializeDepends = helper.serializeDepends.serialize(react);
@@ -332,8 +332,8 @@ class ChannelManager {
 			this.channels[channelId].watchDependency.start();
 		}
 		setTimeout(() => {
-			if(react.hasOwnProperty('aggs')) {
-				this.receive('aggs', channelId)
+			if(react.hasOwnProperty("aggs")) {
+				this.receive("aggs", channelId)
 			}
 		}, 100);
 		return {

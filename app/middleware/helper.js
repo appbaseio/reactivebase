@@ -1,3 +1,4 @@
+/*eslint max-lines: 0*/
 var { EventEmitter } = require('fbemitter');
 var $ = require('jquery');
 var _ = require('lodash');
@@ -13,12 +14,12 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 	// check if depend object already exists
 	let checkDependExists = function(depend) {
 		if (!previousSelectedSensor.hasOwnProperty(depend)) {
-			previousSelectedSensor[depend] = '';
+			previousSelectedSensor[depend] = "";
 		}
 	};
 	// apply depend changes when new value received
 	let applyDependChange = function(react, depend) {
-		if (selectedSensor[depend] && typeof selectedSensor[depend] === 'object') {
+		if (selectedSensor[depend] && typeof selectedSensor[depend] === "object") {
 			previousSelectedSensor[depend] = JSON.parse(JSON.stringify(selectedSensor[depend]));
 		} else {
 			previousSelectedSensor[depend] = selectedSensor[depend];
@@ -32,7 +33,7 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 	this.init = function() {
 		react.forEach((depend) => {
 			checkDependExists(depend);
-			if (typeof selectedSensor[depend] === 'object') {
+			if (typeof selectedSensor[depend] === "object") {
 				let newData = _(selectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
 				let oldData = _(previousSelectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
 				if (JSON.stringify(newData) !== JSON.stringify(oldData)) {
@@ -48,7 +49,7 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 
 	this.start = function() {
 		var self = this;
-		this.sensorListener = sensorEmitter.addListener('sensorChange', function(data) {
+		this.sensorListener = sensorEmitter.addListener("sensorChange", function(data) {
 			let foundDepend = false;
 			for(let single in data) {
 				if(react.indexOf(single) > -1) {
@@ -61,7 +62,7 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 			}
 		});
 
-		this.paginationListener = sensorEmitter.addListener('paginationChange', function(data) {
+		this.paginationListener = sensorEmitter.addListener("paginationChange", function(data) {
 			if (paginationCb) {
 				if (react.indexOf(data.key) > -1) {
 					paginationCb(data.value, channelId);
@@ -69,7 +70,7 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 			}
 		});
 
-		this.sortListener = sensorEmitter.addListener('sortChange', function(data) {
+		this.sortListener = sensorEmitter.addListener("sortChange", function(data) {
 			if (sortCb) {
 				sortCb(channelId);
 			}
@@ -116,15 +117,15 @@ function selectedSensorFn() {
 	let set = function(obj, isExecuteUpdate = false, setMethod = "sensorChange") {
 		let methodObj;
 		switch (setMethod) {
-			case 'sortChange':
+			case "sortChange":
 				self.sortInfo[obj.key] = obj.value;
 				methodObj = self.sortInfo;
 				break;
-			case 'paginationChange':
+			case "paginationChange":
 				self.selectedPagination[obj.key] = obj.value;
 				methodObj = obj;
 				break;
-			case 'sensorChange':
+			case "sensorChange":
 			default:
 				self.selectedSensor[obj.key] = obj.value;
 				methodObj = self.selectedSensor;
@@ -164,22 +165,22 @@ export var selectedSensor = new selectedSensorFn();
 export var ResponsiveStory = function() {
 	function handleResponsive() {
 		var height = $(window).height();
-		$('.rbc.rbc-reactivelist, .rbc.rbc-reactiveelement').css({
+		$(".rbc.rbc-reactivelist, .rbc.rbc-reactiveelement").css({
 			maxHeight: height - 15 - paginationHeight()
 		});
-		$('.rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist').css({
+		$(".rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist").css({
 			maxHeight: height - 15
 		});
-		$('.rbc-base > .row').css({
-			'margin-bottom': 0
+		$(".rbc-base > .row").css({
+			"margin-bottom": 0
 		});
-		$('.rbc-reactivemap .rbc-container').css({
+		$(".rbc-reactivemap .rbc-container").css({
 			maxHeight: height
 		});
 	}
 
 	function paginationHeight() {
-		return $('.rbc-pagination').length * 85;
+		return $(".rbc-pagination").length * 85;
 	}
 	handleResponsive();
 	$(window).resize(function() {
@@ -189,7 +190,7 @@ export var ResponsiveStory = function() {
 
 export var sizeValidation = function(props, propName, componentName) {
 	if (props[propName] < 1 || props[propName] > 1000) {
-		return new Error('Size value is invalid, it should be between 1 and 1000.');
+		return new Error("Size value is invalid, it should be between 1 and 1000.");
 	}
 };
 
@@ -197,17 +198,17 @@ export var stepValidation = function(props, propName) {
 	if (props[propName] > Math.floor((props.range.end - props.range.start)/2)) {
 		return new Error(`Step value is invalid, it should be less than or equal to ${Math.floor((props.range.end - props.range.start)/2)}.`);
 	} else if (props[propName] <= 0) {
-		return new Error('Step value is invalid, it should be greater than 0.');
+		return new Error("Step value is invalid, it should be greater than 0.");
 	}
 };
 
 export var validateThreshold = function(props, propName, componentName) {
 	if(!(!isNaN(props[propName]) && props.end > props.start)) {
-		return new Error('Threshold value validation has failed, end value should be greater than start value.');
+		return new Error("Threshold value validation has failed, end value should be greater than start value.");
 	}
-	if (componentName == 'GeoDistanceDropdown' || componentName == 'GeoDistanceSlider') {
-		if (props['start'] <= 0) {
-			return new Error('Threshold value is invalid, it should be greater than 0.');
+	if (componentName == "GeoDistanceDropdown" || componentName == "GeoDistanceSlider") {
+		if (props["start"] <= 0) {
+			return new Error("Threshold value is invalid, it should be greater than 0.");
 		}
 	}
 };
@@ -216,20 +217,20 @@ export var valueValidation = function(props, propName) {
 	const end = props.data.end ? props.data.end : props.defaultSelected;
 	const start = props.data.start ? props.data.start : props.defaultSelected;
 	if(!(!isNaN(props[propName]) && end >= props.defaultSelected && start <= props.defaultSelected)) {
-		return new Error('Default value validation has failed, Default value should be between start and end values.');
+		return new Error("Default value validation has failed, Default value should be between start and end values.");
 	}
 };
 
 export var validation = {
 	resultListFrom: function(props, propName, componentName) {
 		if (props[propName] < 0) {
-			return new Error('From value is invalid, it should be greater than or equal to 0.');
+			return new Error("From value is invalid, it should be greater than or equal to 0.");
 		}
 	}
 };
 
 var SerializeDepends = function() {
-	let conjunctions = ['and', 'or', 'not'];
+	let conjunctions = ["and", "or", "not"];
 
 	this.serialize = function(depends) {
 		let queries = [];
@@ -280,12 +281,12 @@ var SerializeDepends = function() {
 				leaf: false,
 				components: null
 			};
-			if(Object.prototype.toString.call(depend) === '[object Array]' ) {
+			if(Object.prototype.toString.call(depend) === "[object Array]" ) {
 				res.components = depend;
 				res.leaf = true;
 				addDependList(depend);
 			}
-			else if(typeof depend === 'string') {
+			else if(typeof depend === "string") {
 				res.components = depend;
 				res.leaf = true;
 				addDependList(depend);
@@ -297,7 +298,7 @@ var SerializeDepends = function() {
 		}
 
 		function addDependList(depend) {
-			if(typeof depend === 'string') {
+			if(typeof depend === "string") {
 				addDep(depend);
 			} else {
 				depend.forEach((single) => {
@@ -346,10 +347,10 @@ var SerializeDepends = function() {
 			let aggs = null;
 			serializeResultQuery.forEach((sub) => {
 				if(sub.parentId === 0) {
-					if(sub.conjunction !== 'aggs') {
+					if(sub.conjunction !== "aggs") {
 						query = Object.assign(query, sub.query);
 					}
-					else if(sub.conjunction === 'aggs') {
+					else if(sub.conjunction === "aggs") {
 						aggs = sub.query;
 					}
 				}
@@ -393,7 +394,7 @@ var SerializeDepends = function() {
 				return dep.componentId === depend.parentId;
 			});
 
-			if(Object.prototype.toString.call(depend.components) === '[object Array]' ) {
+			if(Object.prototype.toString.call(depend.components) === "[object Array]" ) {
 				depend.components.forEach((comp) => {
 					if(dependsQuery[comp]) {
 						if(queryArray) {
@@ -405,7 +406,7 @@ var SerializeDepends = function() {
 					}
 				});
 			}
-			else if(typeof depend.components === 'string') {
+			else if(typeof depend.components === "string") {
 				if(dependsQuery[depend.components]) {
 					queryArray = dependsQuery[depend.components];
 				}
@@ -458,14 +459,14 @@ var SerializeDepends = function() {
 		function getOperation(conjunction) {
 			let operation = null;
 			switch(conjunction) {
-				case 'and':
-					operation = 'must';
+				case "and":
+					operation = "must";
 				break;
-				case 'or':
-					operation = 'should';
+				case "or":
+					operation = "should";
 				break;
-				case 'not':
-					operation = 'must_not';
+				case "not":
+					operation = "must_not";
 				break;
 			}
 			return operation;
