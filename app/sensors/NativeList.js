@@ -42,7 +42,7 @@ export default class NativeList extends Component {
 		this.size = this.props.size;
 		this.setQueryInfo();
 		this.handleSelect('');
-		this.createChannel();
+		this.createChannel(true);
 	}
 
 	// build query for this sensor only
@@ -147,7 +147,7 @@ export default class NativeList extends Component {
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
+	createChannel(executeChannel=false) {
 		// Set the react - add self aggs query as well with react
 		let react = this.props.react ? this.props.react : {};
 		react['aggs'] = {
@@ -162,6 +162,7 @@ export default class NativeList extends Component {
 			react.and = react.and ? react.and : [];
 		}
 		react.and.push(this.props.componentId + '-sort');
+		react.and.push('streamChanges');
 		this.includeAggQuery();
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
@@ -188,6 +189,15 @@ export default class NativeList extends Component {
 				this.setData(rawData);
 			}
 		}.bind(this));
+		if (executeChannel) {
+			setTimeout(() => {
+				var obj = {
+					key: 'streamChanges',
+					value: ''
+				};
+				helper.selectedSensor.set(obj, true);
+			}, 100);
+		}
 		this.listenLoadingChannel(channelObj);
 	}
 
