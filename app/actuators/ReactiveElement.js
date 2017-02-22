@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager';
-import PoweredBy from '../sensors/PoweredBy';
-import InitialLoader from '../addons/InitialLoader';
-import NoResults from '../addons/NoResults';
-import ResultStats from '../addons/ResultStats';
-import * as TYPES from '../middleware/constants';
+import React, { Component } from "react";
+import classNames from "classnames";
+import { manager } from "../middleware/ChannelManager";
+import PoweredBy from "../sensors/PoweredBy";
+import InitialLoader from "../addons/InitialLoader";
+import NoResults from "../addons/NoResults";
+import ResultStats from "../addons/ResultStats";
+import * as TYPES from "../middleware/constants";
 
-const helper = require('../middleware/helper');
-const _ = require('lodash');
+const helper = require("../middleware/helper");
+const _ = require("lodash");
 
 export default class ReactiveElement extends Component {
 	constructor(props) {
@@ -79,10 +79,10 @@ export default class ReactiveElement extends Component {
 	createChannel(executeChannel = false) {
 		// Set the react - add self aggs query as well with react
 		let react = this.props.react ? this.props.react : {};
-		if (react && react.and && typeof react.and === 'string') {
+		if (react && react.and && typeof react.and === "string") {
 			react.and = [react.and];
 		}
-		react.and.push('streamChanges');
+		react.and.push("streamChanges");
 		if (this.sortObj) {
 			this.enableSort(react);
 		}
@@ -105,7 +105,7 @@ export default class ReactiveElement extends Component {
 				}
 			}
 			if (res.appliedQuery) {
-				if (res.mode === 'historic' && res.startTime > this.queryStartTime) {
+				if (res.mode === "historic" && res.startTime > this.queryStartTime) {
 					let visibleNoResults = res.appliedQuery && res.data && !res.data.error ? (res.data.hits && res.data.hits.total ? false : true) : false;
 					let resultStats = {
 						resultFound: res.appliedQuery && res.data && !res.data.error && res.data.hits && res.data.hits.total ? true : false
@@ -121,7 +121,7 @@ export default class ReactiveElement extends Component {
 						showPlaceholder: false
 					});
 					this.afterChannelResponse(res);
-				} else if (res.mode === 'streaming') {
+				} else if (res.mode === "streaming") {
 					this.afterChannelResponse(res);
 					this.updateResultStats(res.data);
 				}
@@ -134,8 +134,8 @@ export default class ReactiveElement extends Component {
 		this.listenLoadingChannel(channelObj);
 		if (executeChannel) {
 			let obj = {
-				key: 'streamChanges',
-				value: ''
+				key: "streamChanges",
+				value: ""
 			};
 			helper.selectedSensor.set(obj, true);
 		}
@@ -150,7 +150,7 @@ export default class ReactiveElement extends Component {
 	}
 
 	listenLoadingChannel(channelObj) {
-		this.loadListener = channelObj.emitter.addListener(channelObj.channelId + '-query', function(res) {
+		this.loadListener = channelObj.emitter.addListener(channelObj.channelId + "-query", function(res) {
 			if (res.appliedQuery) {
 				this.setState({
 					queryStart: res.queryState
@@ -164,16 +164,16 @@ export default class ReactiveElement extends Component {
 		let rawData, markersData, newData = [],
 			currentData = [];
 		this.streamFlag = false;
-		if (res.mode === 'streaming') {
-			this.channelMethod = 'streaming';
+		if (res.mode === "streaming") {
+			this.channelMethod = "streaming";
 			newData = res.data;
 			newData.stream = true;
 			currentData = this.state.currentData;
 			this.streamFlag = true;
 			markersData = this.setMarkersData(rawData);
-		} else if (res.mode === 'historic') {
+		} else if (res.mode === "historic") {
 			this.queryStartTime = res.startTime;
-			this.channelMethod = 'historic';
+			this.channelMethod = "historic";
 			newData = res.data.hits && res.data.hits.hits ? res.data.hits.hits : [];
 			let normalizeCurrentData = this.normalizeCurrentData(res, this.state.currentData, newData);
 			newData = normalizeCurrentData.newData;
@@ -227,7 +227,7 @@ export default class ReactiveElement extends Component {
 			newData = newData.filter((newRecord) => {
 				let notExits = true;
 				currentData.forEach((oldRecord) => {
-					if (newRecord._id + '-' + newRecord._type === oldRecord._id + '-' + oldRecord._type) {
+					if (newRecord._id + "-" + newRecord._type === oldRecord._id + "-" + oldRecord._type) {
 						notExits = false;
 					}
 				});
@@ -287,7 +287,7 @@ export default class ReactiveElement extends Component {
 		let result = null;
 		if (res && res.appliedQuery) {
 			result = (
-				<div className="row" style={{'marginTop': '60px'}}>
+				<div className="row" style={{"marginTop": "60px"}}>
 					<pre className="pull-left">
 						{JSON.stringify(res.newData, null, 4)}
 					</pre>
@@ -302,12 +302,12 @@ export default class ReactiveElement extends Component {
 			placeholder = null,
 			sortOptions = null;
 		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder,
-			'rbc-stream-active': this.props.stream,
-			'rbc-stream-inactive': !this.props.stream
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-placeholder-active": this.props.placeholder,
+			"rbc-placeholder-inactive": !this.props.placeholder,
+			"rbc-stream-active": this.props.stream,
+			"rbc-stream-inactive": !this.props.stream
 		});
 
 		if (this.props.title) {

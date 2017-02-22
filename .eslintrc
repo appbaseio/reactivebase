@@ -11,6 +11,7 @@
 	"extends": "airbnb",
 	"rules": {
         "indent": [2, "tab"],
+        "quotes": ["error", "double"],
         "no-tabs": 0,
         comma-dangle: ["error", "never"],
         "object-curly-spacing": [2, "always"],
