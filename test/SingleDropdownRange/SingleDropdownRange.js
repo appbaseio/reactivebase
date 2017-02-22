@@ -4,8 +4,8 @@ import {config} from './config';
 import { mount } from 'enzyme';
 
 function testComponent(cb) {
-	const onData = function(err, res) {
-		cb(err, res);
+	const onData = function(res, err) {
+		cb(res, err);
 	}
 	const component = mount(
 		<ReactiveBase
@@ -45,7 +45,7 @@ function testComponent(cb) {
 }
 export var SingleDropdownRangeTest = function() {
 	return new Promise((resolve, reject) => {
-		testComponent(function(err, res) {
+		testComponent(function(res,err) {
 			if (err) {
 				reject(err);
 			} else if (res) {

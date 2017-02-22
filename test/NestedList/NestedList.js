@@ -4,8 +4,8 @@ import {config} from './config';
 import renderer from 'react-test-renderer';
 
 function testComponent(cb) {
-	const onData = function(err, res) {
-		cb(err, res);
+	const onData = function(res, err) {
+		cb(res, err);
 	}
 	const component = renderer.create(
 		<ReactiveBase
@@ -44,7 +44,7 @@ function testComponent(cb) {
 }
 export var NestedListTest = function() {
 	return new Promise((resolve, reject) => {
-		testComponent(function(err, res) {
+		testComponent(function(res,err) {
 			if (err) {
 				reject(err);
 			} else if (res) {

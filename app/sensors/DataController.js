@@ -1,10 +1,10 @@
-import {default as React, Component} from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 import * as TYPES from '../middleware/constants.js';
 
-export class DataController extends Component {
+export default class DataController extends Component {
 	constructor(props, context) {
 		super(props);
 		this.type = 'match';
@@ -22,7 +22,7 @@ export class DataController extends Component {
 			queryType: this.type,
 			inputData: this.props.appbaseField
 		};
-		if(this.props.customQuery) {
+		if (this.props.customQuery) {
 			valObj.customQuery = this.props.customQuery;
 		}
 		let obj = {
@@ -35,14 +35,14 @@ export class DataController extends Component {
 	// use this only if want to create actuators
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
-		if(this.props.react) {
+		if (this.props.react) {
 			let react = this.props.react ? this.props.react : {};
 			var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		}
 		setTimeout(this.setValue.bind(this), 100);
 	}
 
-	setValue(){
+	setValue() {
 		var obj = {
 			key: this.props.componentId,
 			value: this.props.value
@@ -54,11 +54,12 @@ export class DataController extends Component {
 
 	// render
 	render() {
-		let title = null, dataLabel = null;
-		if(this.props.title) {
+		let title = null,
+			dataLabel = null;
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
-		if(this.props.dataLabel) {
+		if (this.props.dataLabel) {
 			dataLabel = (<span className="rbc-datalabel col s12 col-xs-12">{this.props.dataLabel}</span>);
 		}
 
@@ -91,7 +92,9 @@ DataController.propTypes = {
 	title: React.PropTypes.string,
 	showUI: React.PropTypes.bool,
 	dataLabel: React.PropTypes.string,
-	value: React.PropTypes.any
+	value: React.PropTypes.any,
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value

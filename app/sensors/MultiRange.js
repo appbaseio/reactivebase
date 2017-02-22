@@ -1,11 +1,11 @@
-import {default as React, Component} from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 var _ = require('lodash');
 import * as TYPES from '../middleware/constants.js';
 
-export class MultiRange extends Component {
+export default class MultiRange extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -22,11 +22,11 @@ export class MultiRange extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if(this.props.defaultSelected) {
+		if (this.props.defaultSelected) {
 			let records = this.props.data.filter((record) => {
 				return this.props.defaultSelected.indexOf(record.label) > -1 ? true : false;
 			});
-			if(records && records.length) {
+			if (records && records.length) {
 				setTimeout(this.handleChange.bind(this, records), 1000);
 				// records.forEach((singleRecord) => {
 				// 	setTimeout(this.handleChange.bind(this, singleRecord), 1000);
@@ -37,13 +37,13 @@ export class MultiRange extends Component {
 
 	componentWillUpdate() {
 		setTimeout(() => {
-			if(!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
+			if (!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
 				this.defaultSelected = this.props.defaultSelected;
 				this.resetState();
 				let records = this.props.data.filter((record) => {
 					return this.props.defaultSelected.indexOf(record.label) > -1 ? true : false;
 				});
-				if(records && records.length) {
+				if (records && records.length) {
 					setTimeout(this.handleChange.bind(this, records), 1000);
 					// records.forEach((singleRecord) => {
 					// 	setTimeout(this.handleChange.bind(this, singleRecord), 1000);
@@ -68,22 +68,23 @@ export class MultiRange extends Component {
 
 	// build query for this sensor only
 	customQuery(record) {
-		if(record) {
+		if (record) {
 			let query = {
 				bool: {
 					should: generateRangeQuery(this.props.appbaseField),
-					"minimum_should_match" : 1,
-					"boost" : 1.0
+					"minimum_should_match": 1,
+					"boost": 1.0
 				}
 			};
 			return query;
 		}
+
 		function generateRangeQuery(appbaseField) {
 			if (record.length > 0) {
 				return record.map((singleRecord, index) => {
 					return {
 						range: {
-								[appbaseField]: {
+							[appbaseField]: {
 								gte: singleRecord.start,
 								lte: singleRecord.end,
 								boost: 2.0
@@ -107,7 +108,7 @@ export class MultiRange extends Component {
 		let selected = this.state.selected;
 		let selectedIndex = null;
 		let records = record
-		if(!_.isArray(record)) {
+		if (!_.isArray(record)) {
 			records = [record];
 		}
 		records.forEach((record) => {
@@ -115,8 +116,9 @@ export class MultiRange extends Component {
 				setRecord(selectedRecord, index, record);
 			});
 		});
+
 		function setRecord(selectedRecord, index, record) {
-			if(record.label === selectedRecord.label) {
+			if (record.label === selectedRecord.label) {
 				selectedIndex = index;
 				selected.splice(index, 1);
 			}
@@ -160,7 +162,7 @@ export class MultiRange extends Component {
 		let selectedText = this.state.selected.map((record) => {
 			return record.label;
 		});
-		if(this.props.data) {
+		if (this.props.data) {
 			buttons = this.props.data.map((record, i) => {
 				return (
 					<div className="rbc-list-item row" key={i} onClick={() => this.handleChange(record)}>
@@ -181,12 +183,12 @@ export class MultiRange extends Component {
 		let title = null,
 			TagItemsArray = [];
 
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		if(this.state.selected) {
-			this.state.selected.forEach(function (item) {
+		if (this.state.selected) {
+			this.state.selected.forEach(function(item) {
 				TagItemsArray.push(<Tag
 					key={item.label}
 					value={item.label}
@@ -235,12 +237,13 @@ class Tag extends Component {
 }
 
 MultiRange.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
+	componentId: React.PropTypes.string.isRequired,
 	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value

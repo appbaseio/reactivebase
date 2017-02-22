@@ -1,11 +1,11 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import Select from 'react-select';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 import * as TYPES from '../middleware/constants.js';
 
-export class SingleDropdownRange extends Component {
+export default class SingleDropdownRange extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -20,11 +20,11 @@ export class SingleDropdownRange extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if(this.defaultSelected) {
+		if (this.defaultSelected) {
 			let records = this.props.data.filter((record) => {
 				return record.label === this.defaultSelected;
 			});
-			if(records && records.length) {
+			if (records && records.length) {
 				setTimeout(this.handleChange.bind(this, records[0]), 1000);
 			}
 		}
@@ -37,7 +37,7 @@ export class SingleDropdownRange extends Component {
 				let records = this.props.data.filter((record) => {
 					return record.label === this.defaultSelected;
 				});
-				if(records && records.length) {
+				if (records && records.length) {
 					setTimeout(this.handleChange.bind(this, records[0]), 1000);
 				}
 			}
@@ -51,7 +51,7 @@ export class SingleDropdownRange extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery:  this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -59,7 +59,7 @@ export class SingleDropdownRange extends Component {
 
 	// build query for this sensor only
 	customQuery(record) {
-		if(record) {
+		if (record) {
 			return {
 				range: {
 					[this.props.appbaseField]: {
@@ -96,7 +96,7 @@ export class SingleDropdownRange extends Component {
 	// render
 	render() {
 		let title = null;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
@@ -133,12 +133,12 @@ SingleDropdownRange.propTypes = {
 	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.string,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value
-SingleDropdownRange.defaultProps = {
-};
+SingleDropdownRange.defaultProps = {};
 
 // context type
 SingleDropdownRange.contextTypes = {

@@ -1,4 +1,4 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import Select from 'react-select';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
@@ -7,7 +7,7 @@ import InitialLoader from '../addons/InitialLoader';
 
 var _ = require('lodash');
 
-export class DropdownList extends Component {
+export default class DropdownList extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -80,7 +80,7 @@ export class DropdownList extends Component {
 			if (this.props.selectAllLabel) {
 				items.shift();
 			}
-			items.unshift({label: nextProps.selectAllLabel, value: nextProps.selectAllLabel});
+			items.unshift({ label: nextProps.selectAllLabel, value: nextProps.selectAllLabel });
 			this.setState({
 				items: items
 			});
@@ -93,27 +93,26 @@ export class DropdownList extends Component {
 	}
 
 	removeChannel() {
-		if(this.channelId) {
+		if (this.channelId) {
 			manager.stopStream(this.channelId);
 		}
-		if(this.channelListener) {
+		if (this.channelListener) {
 			this.channelListener.remove();
 		}
-		if(this.loadListener) {
+		if (this.loadListener) {
 			this.loadListener.remove();
 		}
 	}
 
 	// build query for this sensor only
 	customQuery(value) {
-		if(this.selectAll) {
+		if (this.selectAll) {
 			return {
 				"exists": {
 					'field': [this.props.appbaseField]
 				}
 			};
-		}
-		else if(value) {
+		} else if (value) {
 			return {
 				[this.type]: {
 					[this.props.appbaseField]: value
@@ -137,7 +136,7 @@ export class DropdownList extends Component {
 
 	includeAggQuery() {
 		var obj = {
-			key: this.props.componentId+'-sort',
+			key: this.props.componentId + '-sort',
 			value: this.sortObj
 		};
 		helper.selectedSensor.setSortInfo(obj);
@@ -148,7 +147,7 @@ export class DropdownList extends Component {
 			aggSort: this.props.sortBy
 		};
 		let obj = {
-			key: this.props.componentId+'-sort',
+			key: this.props.componentId + '-sort',
 			value: this.sortObj
 		};
 		helper.selectedSensor.set(obj, true, 'sortChange');
@@ -162,31 +161,31 @@ export class DropdownList extends Component {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
 			size: this.props.size,
-			sortRef: this.props.componentId+'-sort'
+			sortRef: this.props.componentId + '-sort'
 		};
-		if(react && react.and && typeof react.and === 'string') {
+		if (react && react.and && typeof react.and === 'string') {
 			react.and = [react.and];
 		} else {
 			react.and = react.and ? react.and : [];
 		}
-		react.and.push(this.props.componentId+'-sort');
+		react.and.push(this.props.componentId + '-sort');
 		this.includeAggQuery();
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
-			if(res.error) {
+			if (res.error) {
 				this.setState({
 					queryStart: false
 				});
-			} 
-			if(res.appliedQuery) {
+			}
+			if (res.appliedQuery) {
 				let data = res.data;
 				let rawData;
-				if(res.mode === 'streaming') {
+				if (res.mode === 'streaming') {
 					rawData = this.state.rawData;
 					rawData.hits.hits.push(res.data);
-				} else if(res.mode === 'historic') {
+				} else if (res.mode === 'historic') {
 					rawData = data;
 				}
 				this.setState({
@@ -200,8 +199,8 @@ export class DropdownList extends Component {
 	}
 
 	listenLoadingChannel(channelObj) {
-		this.loadListener = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
-			if(res.appliedQuery) {
+		this.loadListener = channelObj.emitter.addListener(channelObj.channelId + '-query', function(res) {
+			if (res.appliedQuery) {
 				this.setState({
 					queryStart: res.queryState
 				});
@@ -210,7 +209,7 @@ export class DropdownList extends Component {
 	}
 
 	setData(data) {
-		if(data.aggregations && data.aggregations[this.props.appbaseField] && data.aggregations[this.props.appbaseField].buckets) {
+		if (data.aggregations && data.aggregations[this.props.appbaseField] && data.aggregations[this.props.appbaseField].buckets) {
 			this.addItemsToList(data.aggregations[this.props.appbaseField].buckets);
 		}
 	}
@@ -232,7 +231,7 @@ export class DropdownList extends Component {
 			return item
 		});
 		if (this.props.selectAllLabel) {
-			newItems.unshift({label: this.props.selectAllLabel, value: this.props.selectAllLabel});
+			newItems.unshift({ label: this.props.selectAllLabel, value: this.props.selectAllLabel });
 		}
 		this.setState({
 			items: newItems
@@ -284,7 +283,7 @@ export class DropdownList extends Component {
 	}
 
 	// set value
-	setValue(value, isExecuteQuery=false) {
+	setValue(value, isExecuteQuery = false) {
 		if (this.props.multipleSelect) {
 			value = value.split(',');
 		}
@@ -298,7 +297,7 @@ export class DropdownList extends Component {
 	render() {
 		// Checking if component is single select or multiple select
 		let title = null;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
@@ -331,7 +330,7 @@ export class DropdownList extends Component {
 								searchable={true} /> : null }
 					</div>
 				</div>
-				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -344,13 +343,18 @@ DropdownList.propTypes = {
 	size: helper.sizeValidation,
 	multipleSelect: React.PropTypes.bool,
 	showCount: React.PropTypes.bool,
-	sortBy: React.PropTypes.string,
+	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
 	placeholder: React.PropTypes.string,
 	selectAllLabel: React.PropTypes.string,
 	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
-	})
+	}),
+	defaultSelected: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.array
+	]),
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value
@@ -360,10 +364,7 @@ DropdownList.defaultProps = {
 	size: 100,
 	title: null,
 	placeholder: 'Select...',
-	selectAllLabel: null,
-	initialLoader: {
-		show: true
-	}
+	selectAllLabel: null
 };
 
 // context type

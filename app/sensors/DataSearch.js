@@ -1,11 +1,11 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import Select from 'react-select';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 import * as TYPES from '../middleware/constants.js';
 
-export class DataSearch extends Component {
+export default class DataSearch extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -20,6 +20,7 @@ export class DataSearch extends Component {
 			}
 		};
 		this.type = 'match_phrase';
+		this.searchInputId = 'internal-' + this.props.componentId;
 		this.channelId = null;
 		this.channelListener = null;
 		this.fieldType = typeof this.props.appbaseField;
@@ -39,10 +40,10 @@ export class DataSearch extends Component {
 
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
-		if(this.channelId) {
+		if (this.channelId) {
 			manager.stopStream(this.channelId);
 		}
-		if(this.channelListener) {
+		if (this.channelListener) {
 			this.channelListener.remove();
 		}
 	}
@@ -54,7 +55,7 @@ export class DataSearch extends Component {
 	checkDefault() {
 		if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
 			this.defaultSelected = this.props.defaultSelected;
-			setTimeout(this.setValue.bind(this,this.defaultSelected), 100);
+			setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
 			this.handleSearch({
 				value: this.defaultSelected
 			});
@@ -64,21 +65,21 @@ export class DataSearch extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		let obj = {
-				key: this.props.componentId,
-				value: {
-					queryType: this.type,
-					inputData: this.props.appbaseField,
-					customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery
-				}
+			key: this.props.componentId,
+			value: {
+				queryType: this.type,
+				inputData: this.props.appbaseField,
+				customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery
+			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
 		let searchObj = {
-				key: this.props.searchInputId,
-				value: {
-					queryType: 'multi_match',
-					inputData: this.props.appbaseField,
-					customQuery: this.defaultSearchQuery
-				}
+			key: this.searchInputId,
+			value: {
+				queryType: 'multi_match',
+				inputData: this.props.appbaseField,
+				customQuery: this.defaultSearchQuery
+			}
 		};
 		helper.selectedSensor.setSensorInfo(searchObj);
 	}
@@ -86,21 +87,21 @@ export class DataSearch extends Component {
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
 		let react = this.props.react ? this.props.react : {};
-		if(react && react.and && typeof react.and === 'string') {
+		if (react && react.and && typeof react.and === 'string') {
 			react.and = [react.and];
 		} else {
 			react.and = react.and ? react.and : [];
 		}
-		react.and.push(this.props.searchInputId);
+		react.and.push(this.searchInputId);
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
 			let data = res.data;
 			let rawData;
-			if(res.mode === 'streaming') {
+			if (res.mode === 'streaming') {
 				rawData = this.state.rawData;
 				rawData.hits.hits.push(res.data);
-			} else if(res.mode === 'historic') {
+			} else if (res.mode === 'historic') {
 				rawData = data;
 			}
 			this.setState({
@@ -143,11 +144,11 @@ export class DataSearch extends Component {
 	// set value to search
 	setValue(value) {
 		var obj = {
-			key: this.props.searchInputId,
+			key: this.searchInputId,
 			value: value
 		};
 		helper.selectedSensor.set(obj, true);
-		if(value && value.trim() !== '') {
+		if (value && value.trim() !== '') {
 			this.setState({
 				options: [{
 					label: value,
@@ -172,45 +173,20 @@ export class DataSearch extends Component {
 		if (this.fieldType == 'string') {
 			searchField = `hit._source.${this.props.appbaseField}.trim()`;
 		}
-		// Check if this is Geo search or field tag search
-		if (this.props.isGeoSearch) {
-			// If it is Geo, we return the location field
-			let latField = `hit._source.${this.props.latField}`;
-			let lonField = `hit._source.${this.props.lonField}`;
-			data.hits.hits.map((hit) => {
-				let location = {
-					lat: eval(latField),
-					lon: eval(lonField)
-				};
-				if (searchField) {
-					options.push({ value: location, label: eval(searchField) });
-				} else {
-					if (this.fieldType == 'object') {
-						this.props.appbaseField.map(field => {
-							let tempField = `hit._source.${field}`
-							if (eval(tempField)) {
-								options.push({ value: location, label: eval(tempField) });
-							}
-						})
-					}
+		data.hits.hits.map((hit) => {
+			if (searchField) {
+				options.push({ value: eval(searchField), label: eval(searchField) });
+			} else {
+				if (this.fieldType == 'object') {
+					this.props.appbaseField.map(field => {
+						let tempField = `hit._source.${field}`
+						if (eval(tempField)) {
+							options.push({ value: eval(tempField), label: eval(tempField) });
+						}
+					});
 				}
-			});
-		} else {
-			data.hits.hits.map((hit) => {
-				if (searchField) {
-					options.push({ value: eval(searchField), label: eval(searchField) });
-				} else {
-					if (this.fieldType == 'object') {
-						this.props.appbaseField.map(field => {
-							let tempField = `hit._source.${field}`
-							if (eval(tempField)) {
-								options.push({ value: eval(tempField), label: eval(tempField) });
-							}
-						});
-					}
-				}
-			});
-		}
+			}
+		});
 		if (this.state.currentValue && this.state.currentValue.trim() !== '') {
 			options.unshift({
 				label: this.state.currentValue,
@@ -262,7 +238,7 @@ export class DataSearch extends Component {
 
 	render() {
 		let title = null;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 		let cx = classNames({
@@ -306,7 +282,7 @@ export class DataSearch extends Component {
 
 DataSearch.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField : React.PropTypes.oneOfType([
+	appbaseField: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
@@ -314,7 +290,8 @@ DataSearch.propTypes = {
 	placeholder: React.PropTypes.string,
 	autocomplete: React.PropTypes.bool,
 	defaultSelected: React.PropTypes.string,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value

@@ -1,9 +1,9 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import { manager } from './ChannelManager.js';
 const Appbase = require('appbase-js');
 const helper = require('./helper.js');
 
-export class ReactiveBase extends Component {
+export default class ReactiveBase extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {};

@@ -1,10 +1,10 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import { ReactiveList } from './ReactiveList';
 import Pagination from '../addons/Pagination';
 var helper = require('../middleware/helper.js');
 import * as TYPES from '../middleware/constants.js';
 
-export class ReactivePaginatedList extends Component {
+export default class ReactivePaginatedList extends Component {
 	constructor(props, context) {
 		super(props);
 	}
@@ -17,7 +17,7 @@ export class ReactivePaginatedList extends Component {
 	paginationAt(method) {
 		let pageinationComp;
 
-		if(this.props.paginationAt === method || this.props.paginationAt === 'both') {
+		if (this.props.paginationAt === method || this.props.paginationAt === 'both') {
 			pageinationComp = (
 				<div className="rbc-pagination-container col s12 col-xs-12">
 					<Pagination

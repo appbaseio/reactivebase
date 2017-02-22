@@ -1,4 +1,4 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import { StaticSearch } from '../addons/StaticSearch.js';
@@ -7,7 +7,7 @@ var helper = require('../middleware/helper.js');
 var _ = require('lodash');
 import * as TYPES from '../middleware/constants.js';
 
-export class NestedList extends Component {
+export default class NestedList extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -46,14 +46,14 @@ export class NestedList extends Component {
 	}
 
 	componentDidMount() {
-		if(this.props.defaultSelected) {
+		if (this.props.defaultSelected) {
 			this.defaultSelected = this.props.defaultSelected;
 			setTimeout(this.handleSelect.bind(this), 100);
 		}
 	}
 
 	handleSelect() {
-		if(this.props.defaultSelected) {
+		if (this.props.defaultSelected) {
 			this.props.defaultSelected.forEach((value, index) => {
 				this.onItemSelect(value, index);
 			})
@@ -85,29 +85,29 @@ export class NestedList extends Component {
 
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
-		if(this.channelId) {
+		if (this.channelId) {
 			manager.stopStream(this.channelId);
 		}
-		if(this.subChannelId) {
+		if (this.subChannelId) {
 			manager.stopStream(this.subChannelId);
 		}
-		if(this.channelListener) {
+		if (this.channelListener) {
 			this.channelListener.remove();
 		}
-		if(this.subChannelListener) {
+		if (this.subChannelListener) {
 			this.subChannelListener.remove();
 		}
-		if(this.loadListenerParent) {
+		if (this.loadListenerParent) {
 			this.loadListenerParent.remove();
 		}
-		if(this.loadListenerChild) {
+		if (this.loadListenerChild) {
 			this.loadListenerChild.remove();
 		}
 	}
 
 	// build query for this sensor only
 	customQuery(record) {
-		if(record) {
+		if (record) {
 			let query = {
 				bool: {
 					must: generateRangeQuery(this.props.appbaseField)
@@ -115,6 +115,7 @@ export class NestedList extends Component {
 			};
 			return query;
 		}
+
 		function generateRangeQuery(appbaseField) {
 			return record.map((singleRecord, index) => {
 				return {
@@ -129,12 +130,12 @@ export class NestedList extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
-				key: this.props.componentId,
-				value: {
-					queryType: this.type,
-					inputData: this.props.appbaseField[0],
-					customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
-				}
+			key: this.props.componentId,
+			value: {
+				queryType: this.type,
+				inputData: this.props.appbaseField[0],
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
+			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
 	}
@@ -172,7 +173,7 @@ export class NestedList extends Component {
 			size: this.props.size,
 			sortRef: this.nested[0]
 		};
-		if(react && react.and && typeof react.and === 'string') {
+		if (react && react.and && typeof react.and === 'string') {
 			react.and = [react.and];
 		} else {
 			react.and = react.and ? react.and : [];
@@ -184,18 +185,18 @@ export class NestedList extends Component {
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(this.channelId, function(res) {
-			if(res.error) {
+			if (res.error) {
 				this.setState({
 					queryStart: false
 				});
 			}
-			if(res.appliedQuery) {
+			if (res.appliedQuery) {
 				let data = res.data;
 				let rawData;
-				if(res.mode === 'streaming') {
+				if (res.mode === 'streaming') {
 					rawData = this.state.rawData;
 					rawData.hits.hits.push(res.data);
-				} else if(res.mode === 'historic') {
+				} else if (res.mode === 'historic') {
 					rawData = data;
 				}
 				this.setState({
@@ -209,8 +210,8 @@ export class NestedList extends Component {
 	}
 
 	listenLoadingChannel(channelObj, listener) {
-		this[listener] = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
-			if(res.appliedQuery) {
+		this[listener] = channelObj.emitter.addListener(channelObj.channelId + '-query', function(res) {
+			if (res.appliedQuery) {
 				this.setState({
 					queryStart: res.queryState
 				});
@@ -234,21 +235,21 @@ export class NestedList extends Component {
 		var subChannelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.subChannelId = subChannelObj.channelId;
 		this.subChannelListener = subChannelObj.emitter.addListener(this.subChannelId, function(res) {
-			if(res.error) {
+			if (res.error) {
 				this.setState({
 					queryStart: false
 				});
 			}
-			if(res.appliedQuery) {
-			let data = res.data;
+			if (res.appliedQuery) {
+				let data = res.data;
 				let rawData;
-				if(res.mode === 'streaming') {
+				if (res.mode === 'streaming') {
 					rawData = this.state.subRawData;
 					rawData.hits.hits.push(res.data);
-				} else if(res.mode === 'historic') {
+				} else if (res.mode === 'historic') {
 					rawData = data;
 				}
-				if(this.state.selectedValues.length) {
+				if (this.state.selectedValues.length) {
 					this.setState({
 						queryStart: false,
 						subRawData: rawData
@@ -268,18 +269,18 @@ export class NestedList extends Component {
 	// set the query type and input data
 	setSubCategory() {
 		var obj = {
-				key: 'subCategory',
-				value: {
-					queryType: 'term',
-					inputData: this.props.appbaseField[0]
-				}
+			key: 'subCategory',
+			value: {
+				queryType: 'term',
+				inputData: this.props.appbaseField[0]
+			}
 		};
 
 		helper.selectedSensor.setSensorInfo(obj);
 	}
 
 	setData(data, level) {
-		if(data && data.aggregations && data.aggregations[this.props.appbaseField[level]] && data.aggregations[this.props.appbaseField[level]].buckets) {
+		if (data && data.aggregations && data.aggregations[this.props.appbaseField[level]] && data.aggregations[this.props.appbaseField[level]].buckets) {
 			this.addItemsToList(data.aggregations[this.props.appbaseField[level]].buckets, level);
 		}
 	}
@@ -298,7 +299,7 @@ export class NestedList extends Component {
 	}
 
 	// set value
-	setValue(value, isExecuteQuery=false) {
+	setValue(value, isExecuteQuery = false) {
 		var obj = {
 			key: this.props.componentId,
 			value: value
@@ -308,7 +309,7 @@ export class NestedList extends Component {
 
 	// filter
 	filterBySearch(value) {
-		if(value) {
+		if (value) {
 			let items = this.state.storedItems.filter(function(item) {
 				return item.key && item.key.toLowerCase().indexOf(value.toLowerCase()) > -1;
 			});
@@ -335,9 +336,9 @@ export class NestedList extends Component {
 			stateItems = {
 				selectedValues: selectedValues
 			};
-			if(level === 0) {
+			if (level === 0) {
 				selectedValues.splice(1, 1);
-				if(key !== selectedValues[0]) {
+				if (key !== selectedValues[0]) {
 					stateItems.subItems = [];
 				}
 				var obj = {
@@ -352,12 +353,12 @@ export class NestedList extends Component {
 	}
 
 	renderChevron(level) {
-		return level === 0 ? (<i className="fa fa-chevron-right"></i>) : '' ;
+		return level === 0 ? (<i className="fa fa-chevron-right"></i>) : '';
 	}
 
 	countRender(doc_count) {
 		var count;
-		if(this.props.showCount) {
+		if (this.props.showCount) {
 			count = (<span className="rbc-count"> {doc_count}</span>);
 		}
 		return count;
@@ -385,7 +386,7 @@ export class NestedList extends Component {
 
 	renderList(key, level) {
 		let list;
-		if(key === this.state.selectedValues[level] && level === 0) {
+		if (key === this.state.selectedValues[level] && level === 0) {
 			list = (
 				<ul className="rbc-sublist-container rbc-indent col s12 col-xs-12">
 					{this.renderItems(this.state.subItems, 1)}
@@ -407,14 +408,14 @@ export class NestedList extends Component {
 		);
 
 		// set static search
-		if(this.props.showSearch) {
+		if (this.props.showSearch) {
 			searchComponent = <StaticSearch
 				placeholder={this.props.placeholder}
 				changeCallback={this.filterBySearch}
 			/>
 		}
 
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
@@ -436,7 +437,7 @@ export class NestedList extends Component {
 					{searchComponent}
 					{listComponent}
 				</div>
-				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -453,9 +454,10 @@ NestedList.propTypes = {
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
-	})
+	}),
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value
@@ -465,10 +467,7 @@ NestedList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	placeholder: 'Search',
-	initialLoader: {
-		show: true
-	}
+	placeholder: 'Search'
 };
 
 // context type

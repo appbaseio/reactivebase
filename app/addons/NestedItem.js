@@ -1,8 +1,8 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
-import {NestedList} from '../sensors/NestedList';
+import NestedList from '../sensors/NestedList';
 
-export class NestedItem extends Component {
+export default class NestedItem extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -21,14 +21,14 @@ export class NestedItem extends Component {
 	}
 
 	componentDidUpdate() {
-		if(this.props.items.length && this.defaultAllowed) {
+		if (this.props.items.length && this.defaultAllowed) {
 			this.defaultAllowed = false;
 			this.defaultSelection();
 		}
 	}
 
 	defaultSelection() {
-		if(this.props.defaultSelected) {
+		if (this.props.defaultSelected) {
 			this.handleClick(this.props.defaultSelected);
 		}
 	}
@@ -48,7 +48,7 @@ export class NestedItem extends Component {
 		let items = this.props.items;
 		let itemsComponent = [];
 		// Build the array of components for each item
-		items.forEach(function (item) {
+		items.forEach(function(item) {
 			itemsComponent.push(<ItemRow
 				{...this.props}
 				key={item.key}
@@ -83,7 +83,7 @@ class ItemRow extends Component {
 				{count}
 			</a>
 		);
-		if(this.props.value === this.props.selectedItem) {
+		if (this.props.value === this.props.selectedItem) {
 			item = (
 				<a href="javascript:void(0)" className={"col s12 col-xs-12"}>
 					<strong>
@@ -107,15 +107,15 @@ class ItemRow extends Component {
 
 	renderList() {
 		let list;
-			if(this.props.value === this.props.selectedItem && this.props.appbaseField[1]) {
-				list = (
-					<NestedList
+		if (this.props.value === this.props.selectedItem && this.props.appbaseField[1]) {
+			list = (
+				<NestedList
 						componentId={"nested-"+this.props.value}
 						appbaseField={[this.props.appbaseField[1]]}
 						react={this.props.react}
 					></NestedList>
-				)
-			}
+			)
+		}
 		return list;
 	}
 

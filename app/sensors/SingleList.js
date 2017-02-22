@@ -1,8 +1,8 @@
-import { default as React, Component } from 'react';
-import { NativeList } from './NativeList';
+import React, { Component } from 'react';
+import NativeList from './NativeList';
 import * as TYPES from '../middleware/constants.js';
 
-export class SingleList extends Component {
+export default class SingleList extends Component {
 	constructor(props, context) {
 		super(props);
 	}
@@ -19,8 +19,8 @@ export class SingleList extends Component {
 
 SingleList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField : React.PropTypes.string.isRequired,
-	title : React.PropTypes.string,
+	appbaseField: React.PropTypes.string.isRequired,
+	title: React.PropTypes.string,
 	defaultSelected: React.PropTypes.string,
 	size: React.PropTypes.number,
 	showCount: React.PropTypes.bool,
@@ -29,9 +29,9 @@ SingleList.propTypes = {
 	placeholder: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
-	})
+	}),
+	react: React.PropTypes.object
 };
 
 // Default props value
@@ -41,10 +41,7 @@ SingleList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	placeholder: 'Search',
-	initialLoader: {
-		show: true
-	}
+	placeholder: 'Search'
 };
 
 // context type

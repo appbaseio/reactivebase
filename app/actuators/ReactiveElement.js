@@ -1,8 +1,8 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import JsonPrint from '../addons/JsonPrint';
-import { PoweredBy } from '../sensors/PoweredBy';
+import PoweredBy from '../sensors/PoweredBy';
 import InitialLoader from '../addons/InitialLoader';
 import NoResults from '../addons/NoResults';
 import ResultStats from '../addons/ResultStats';
@@ -11,7 +11,7 @@ var $ = require('jquery');
 var _ = require('lodash');
 import * as TYPES from '../middleware/constants.js';
 
-export class ReactiveElement extends Component {
+export default class ReactiveElement extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -102,7 +102,7 @@ export class ReactiveElement extends Component {
 				});
 				if (this.props.onData) {
 					let modifiedData = helper.prepareResultData(data);
-					this.props.onData(modifiedData.err, modifiedData.res);
+					this.props.onData(modifiedData.res, modifiedData.err);
 				}
 			}
 			if (res.appliedQuery) {
@@ -185,7 +185,7 @@ export class ReactiveElement extends Component {
 			modifiedData.currentData = this.state.currentData;
 			delete modifiedData.data;
 			modifiedData = helper.prepareResultData(modifiedData, res.data);
-			let generatedData = this.props.onData ? this.props.onData(modifiedData.err, modifiedData.res) : this.defaultonData(modifiedData.err, modifiedData.res);
+			let generatedData = this.props.onData ? this.props.onData(modifiedData.res, modifiedData.err) : this.defaultonData(modifiedData.res, modifiedData.err);
 			this.setState({
 				resultMarkup: generatedData,
 				currentData: this.combineCurrentData(newData)
@@ -212,10 +212,6 @@ export class ReactiveElement extends Component {
 	// normalize current data
 	normalizeCurrentData(res, rawData, newData) {
 		let appliedQuery = JSON.parse(JSON.stringify(res.appliedQuery));
-		if (this.props.requestOnScroll && appliedQuery && appliedQuery.body) {
-			delete appliedQuery.body.from;
-			delete appliedQuery.body.size;
-		}
 		let currentData = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery) ? (rawData ? rawData : []) : [];
 		if (!currentData.length) {
 			this.appliedQuery = appliedQuery;
@@ -240,7 +236,7 @@ export class ReactiveElement extends Component {
 		if (_.isArray(newData)) {
 			return this.state.currentData.concat(newData);
 		} else {
-			return this.streamDataModify(this.state.currentData, newData)
+			return this.streamDataModify(this.state.currentData, newData);
 		}
 	}
 
@@ -279,7 +275,7 @@ export class ReactiveElement extends Component {
 	}
 
 	// default markup
-	defaultonData(err, res) {
+	defaultonData(res, err) {
 		let result = null;
 		if (res && res.appliedQuery) {
 			result = (
@@ -325,7 +321,7 @@ export class ReactiveElement extends Component {
 				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
-		)
+		);
 	}
 }
 
@@ -346,6 +342,7 @@ ReactiveElement.propTypes = {
 	resultStats: React.PropTypes.shape({
 		setText: React.PropTypes.func
 	}),
+	react: React.PropTypes.object,
 	placeholder: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.number,
@@ -356,7 +353,6 @@ ReactiveElement.propTypes = {
 ReactiveElement.defaultProps = {
 	from: 0,
 	size: 20,
-	requestOnScroll: true,
 	stream: false,
 	ShowNoResults: true,
 	ShowResultStats: true,

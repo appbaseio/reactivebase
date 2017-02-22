@@ -20,7 +20,7 @@ export default class ReactivePaginatedListDefault extends Component {
 		ResponsiveStory();
 	}
 
-	onData(err, res) {
+	onData(res, err) {
 		let result = null;
 		if(res) {
 			let combineData = res.currentData;
