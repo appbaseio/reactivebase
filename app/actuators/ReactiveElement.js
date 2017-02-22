@@ -236,7 +236,7 @@ export default class ReactiveElement extends Component {
 		if (_.isArray(newData)) {
 			return this.state.currentData.concat(newData);
 		} else {
-			return this.streamDataModify(this.state.currentData, newData)
+			return this.streamDataModify(this.state.currentData, newData);
 		}
 	}
 
@@ -321,7 +321,7 @@ export default class ReactiveElement extends Component {
 				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
-		)
+		);
 	}
 }
 
