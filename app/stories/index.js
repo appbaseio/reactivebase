@@ -1,3 +1,4 @@
+/*eslint max-lines: 0*/
 import React from "react";
 import { storiesOf } from "@kadira/storybook";
 import { withKnobs, text, boolean, number, array, select, object } from "@kadira/storybook-addon-knobs";
