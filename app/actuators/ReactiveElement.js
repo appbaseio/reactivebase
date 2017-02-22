@@ -313,12 +313,12 @@ export default class ReactiveElement extends Component {
 			<div className="rbc-reactiveelement-container">
 				<div ref="ListContainer" className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
-					{this.props.resultStats && this.state.resultStats.resultFound ? (<ResultStats setText={this.props.resultStats.setText} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
+					{this.props.resultStats && this.state.resultStats.resultFound ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
 					{this.state.resultMarkup}
 					{this.state.showPlaceholder ? placeholder : null}
 				</div >
-				{this.props.noResults ? (<NoResults defaultText={this.props.noResults.text} visible={this.state.visibleNoResults}></NoResults>) : null}
-				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults.text}></NoResults>) : null}
+				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader.text}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
 		);
@@ -333,15 +333,18 @@ ReactiveElement.propTypes = {
 	size: helper.sizeValidation,
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
-	initialLoader: React.PropTypes.shape({
-		text: React.PropTypes.string
-	}),
-	noResults: React.PropTypes.shape({
-		text: React.PropTypes.string
-	}),
-	resultStats: React.PropTypes.shape({
-		setText: React.PropTypes.func
-	}),
+	initialLoader: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
+	noResults: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
+	showResultStats: React.PropTypes.bool,
+	onResultStats: React.PropTypes.func,
 	react: React.PropTypes.object,
 	placeholder: React.PropTypes.oneOfType([
 		React.PropTypes.string,
@@ -354,8 +357,7 @@ ReactiveElement.defaultProps = {
 	from: 0,
 	size: 20,
 	stream: false,
-	ShowNoResults: true,
-	ShowResultStats: true,
+	showResultStats: true,
 	componentStyle: {}
 };
 

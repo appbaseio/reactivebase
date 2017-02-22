@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
 
 export default class InitialLoader extends Component {
 	constructor(props, context) {
@@ -8,14 +7,9 @@ export default class InitialLoader extends Component {
 
 	// render
 	render() {
-		let cx = classNames({
-			'rbc-initialloader-active': this.props.queryState,
-			'rbc-initialloader-inactive': !this.props.queryState
-		});
-
 		return (
-			<div className={`rbc rbc-initialloader ${cx}`}>
-				{this.props.queryState ? this.props.defaultText : null}
+			<div className={`rbc rbc-initialloader`}>
+				{this.props.defaultText}
 			</div>
 		);
 	}
@@ -23,11 +17,9 @@ export default class InitialLoader extends Component {
 
 InitialLoader.propTypes = {
 	defaultText: React.PropTypes.string,
-	queryState: React.PropTypes.bool
 };
 
 // Default props value
 InitialLoader.defaultProps = {
-	queryState: false,
 	defaultText: "Initializing data.."
 };

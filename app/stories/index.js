@@ -576,13 +576,8 @@ storiesOf("ReactiveList", module)
 			title="Meetups"
 			requestOnScroll={true}
 			stream={false}
-			initialLoader= {{
-				text: 'Initializing data..'
-			}}
-			noResults= {{
-				text: 'No results found!'
-			}}
-			resultStats= {{}}
+			initialLoader= 'Initializing data..'
+			noResults= 'No results found!'
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(ResultListReadme), () => (
@@ -590,12 +585,9 @@ storiesOf("ReactiveList", module)
 			title={text("title", "ReactiveList: Results")}
 			from={number("from", 0)}
 			size={number("size", 5)}
-			initialLoader={object("initialLoader", {
-				"text": 'Loading initially.'
-			})}
-			noResults={object("noResults", {
-				"text": 'No Results Found!'
-			})}
+			initialLoader={text("initialLoader", 'Loading initially.')}
+			noResults={text("initialLoader", 'No Results Found!.')}
+			showResultStats={boolean("showResultStats", true)}
 			requestOnScroll={boolean("requestOnScroll", true)}
 			stream={boolean("stream", false)} />
 	)));

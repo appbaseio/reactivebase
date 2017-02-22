@@ -28,9 +28,11 @@ SingleList.propTypes = {
 	showSearch: React.PropTypes.bool,
 	placeholder: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
-	initialLoader: React.PropTypes.shape({
-		text: React.PropTypes.string
-	}),
+	initialLoader: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
 	react: React.PropTypes.object
 };
 

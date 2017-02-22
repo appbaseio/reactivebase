@@ -330,7 +330,7 @@ export default class DropdownList extends Component {
 								searchable={true} /> : null }
 					</div>
 				</div>
-				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -346,9 +346,11 @@ DropdownList.propTypes = {
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
 	placeholder: React.PropTypes.string,
 	selectAllLabel: React.PropTypes.string,
-	initialLoader: React.PropTypes.shape({
-		text: React.PropTypes.string
-	}),
+	initialLoader: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
 	defaultSelected: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.array

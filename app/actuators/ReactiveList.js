@@ -510,7 +510,7 @@ export default class ReactiveList extends Component {
 				<div ref="ListContainer" className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{sortOptions}
-					{this.props.resultStats && this.state.resultStats.resultFound ? (<ResultStats setText={this.props.resultStats.setText} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
+					{this.props.showResultStats && this.state.resultStats.resultFound ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
 					<div ref="resultListScrollContainer" className="rbc-reactivelist-scroll-container col s12 col-xs-12">
 						{this.state.resultMarkup}
 					</div>
@@ -521,8 +521,8 @@ export default class ReactiveList extends Component {
 					}
 					{this.state.showPlaceholder ? placeholder : null}
 				</div >
-				{this.props.noResults ? (<NoResults defaultText={this.props.noResults.text} visible={this.state.visibleNoResults}></NoResults>) : null}
-				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults}></NoResults>) : null}
+				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
 		);
@@ -547,15 +547,18 @@ ReactiveList.propTypes = {
 	requestOnScroll: React.PropTypes.bool,
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
-	initialLoader: React.PropTypes.shape({
-		text: React.PropTypes.string
-	}),
-	noResults: React.PropTypes.shape({
-		text: React.PropTypes.string
-	}),
-	resultStats: React.PropTypes.shape({
-		setText: React.PropTypes.func
-	}),
+	initialLoader: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
+	noResults: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
+	showResultStats: React.PropTypes.bool,
+	onResultStats: React.PropTypes.func,
 	placeholder: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.number,
@@ -569,7 +572,8 @@ ReactiveList.defaultProps = {
 	size: 20,
 	requestOnScroll: true,
 	stream: false,
-	componentStyle: {}
+	componentStyle: {},
+	showResultStats: true
 };
 
 // context type

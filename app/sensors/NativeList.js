@@ -347,7 +347,7 @@ export default class NativeList extends Component {
 				{title}
 				{searchComponent}
 				{listComponent}
-				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -361,9 +361,11 @@ NativeList.propTypes = {
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
 	selectAllLabel: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
-	initialLoader: React.PropTypes.shape({
-		text: React.PropTypes.string
-	}),
+	initialLoader: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
 	react: React.PropTypes.object
 };
 

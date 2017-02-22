@@ -28,9 +28,11 @@ MultiDropdownList.propTypes = {
 	placeholder: React.PropTypes.string,
 	selectAllLabel: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
-	initialLoader: React.PropTypes.shape({
-		text: React.PropTypes.string
-	}),
+	initialLoader: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
 	customQuery: React.PropTypes.func,
 	react: React.PropTypes.object
 };

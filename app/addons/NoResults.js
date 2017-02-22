@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
 
 export default class NoResults extends Component {
 	constructor(props, context) {
@@ -8,14 +7,9 @@ export default class NoResults extends Component {
 
 	// render
 	render() {
-		let cx = classNames({
-			'rbc-noresults-active': this.props.visible,
-			'rbc-noresults-inactive': !this.props.visible
-		});
-
 		return (
-			<div className={`rbc rbc-noresults ${cx}`}>
-				{this.props.visible ? this.props.defaultText : null}
+			<div className={`rbc rbc-noresults`}>
+				{this.props.defaultText}
 			</div>
 		);
 	}
@@ -23,11 +17,9 @@ export default class NoResults extends Component {
 
 NoResults.propTypes = {
 	defaultText: React.PropTypes.string,
-	visible: React.PropTypes.bool
 };
 
 // Default props value
 NoResults.defaultProps = {
-	visible: false,
 	defaultText: "No results found..."
 };

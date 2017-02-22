@@ -395,7 +395,7 @@ export default class RangeSlider extends Component {
 						marks={marks}
 					/>
 				</div>
-				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -420,9 +420,11 @@ RangeSlider.propTypes = {
 	stepValue: helper.stepValidation,
 	showHistogram: React.PropTypes.bool,
 	customQuery: React.PropTypes.func,
-	initialLoader: React.PropTypes.shape({
-		text: React.PropTypes.string
-	}),
+	initialLoader: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
 	react: React.PropTypes.object
 };
 
