@@ -320,7 +320,9 @@ export default class DropdownList extends Component {
 			'rbc-multidropdownlist': this.props.multipleSelect,
 			'rbc-singledropdownlist': !this.props.multipleSelect,
 			'rbc-count-active': this.props.showCount,
-			'rbc-count-inactive': !this.props.showCount
+			'rbc-count-inactive': !this.props.showCount,
+			"rbc-initialloader-active": this.props.initialLoader,
+			"rbc-initialloader-inactive": !this.props.initialLoader
 		});
 
 		return (
@@ -359,7 +361,6 @@ DropdownList.propTypes = {
 	selectAllLabel: React.PropTypes.string,
 	initialLoader: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	defaultSelected: React.PropTypes.oneOfType([

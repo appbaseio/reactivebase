@@ -350,7 +350,9 @@ export default class NativeList extends Component {
 			'rbc-placeholder-active': this.props.placeholder,
 			'rbc-placeholder-inactive': !this.props.placeholder,
 			'rbc-singlelist': !this.props.multipleSelect,
-			'rbc-multilist': this.props.multipleSelect
+			'rbc-multilist': this.props.multipleSelect,
+			"rbc-initialloader-active": this.props.initialLoader,
+			"rbc-initialloader-inactive": !this.props.initialLoader
 		});
 
 		return (
@@ -374,7 +376,6 @@ NativeList.propTypes = {
 	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	react: React.PropTypes.object

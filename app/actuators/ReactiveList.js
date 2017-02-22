@@ -508,7 +508,13 @@ export default class ReactiveList extends Component {
 			'rbc-stream-active': this.props.stream,
 			'rbc-stream-inactive': !this.props.stream,
 			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder
+			'rbc-placeholder-inactive': !this.props.placeholder,
+			"rbc-initialloader-active": this.props.initialLoader,
+			"rbc-initialloader-inactive": !this.props.initialLoader,
+			"rbc-resultstats-active": this.props.showResultStats,
+			"rbc-resultstats-inactive": !this.props.showResultStats,
+			"rbc-noresults-active": this.props.noResults,
+			"rbc-noresults-inactive": !this.props.noResults
 		});
 
 		if (this.props.title) {
@@ -576,19 +582,16 @@ ReactiveList.propTypes = {
 	componentStyle: React.PropTypes.object,
 	initialLoader: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	noResults: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	showResultStats: React.PropTypes.bool,
 	onResultStats: React.PropTypes.func,
 	placeholder: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	react: React.PropTypes.object

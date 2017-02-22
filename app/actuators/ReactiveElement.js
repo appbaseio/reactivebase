@@ -307,7 +307,13 @@ export default class ReactiveElement extends Component {
 			"rbc-placeholder-active": this.props.placeholder,
 			"rbc-placeholder-inactive": !this.props.placeholder,
 			"rbc-stream-active": this.props.stream,
-			"rbc-stream-inactive": !this.props.stream
+			"rbc-stream-inactive": !this.props.stream,
+			"rbc-initialloader-active": this.props.initialLoader,
+			"rbc-initialloader-inactive": !this.props.initialLoader,
+			"rbc-resultstats-active": this.props.showResultStats,
+			"rbc-resultstats-inactive": !this.props.showResultStats,
+			"rbc-noresults-active": this.props.noResults,
+			"rbc-noresults-inactive": !this.props.noResults
 		});
 
 		if (this.props.title) {
@@ -343,12 +349,10 @@ ReactiveElement.propTypes = {
 	componentStyle: React.PropTypes.object,
 	initialLoader: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	noResults: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	showResultStats: React.PropTypes.bool,
@@ -356,7 +360,6 @@ ReactiveElement.propTypes = {
 	react: React.PropTypes.object,
 	placeholder: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	])
 };
