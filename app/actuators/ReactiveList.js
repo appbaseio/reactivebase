@@ -443,18 +443,23 @@ export default class ReactiveList extends Component {
 	}
 
 	nextPage() {
-		this.setState({
-			isLoading: true
-		});
-		let channelOptionsObj = manager.channels[this.channelId].previousSelectedSensor['channel-options-' + this.channelId];
-		let obj = {
-			key: 'channel-options-' + this.channelId,
-			value: {
-				size: this.props.size,
-				from: channelOptionsObj.from + this.props.size
-			}
-		};
-		manager.nextPage(this.channelId);
+		if(this.state.resultStats.total > this.state.currentData.length && !this.state.queryStart) {
+			start.call(this);
+		}
+		function start() {
+			this.setState({
+				isLoading: true
+			});
+			let channelOptionsObj = manager.channels[this.channelId].previousSelectedSensor['channel-options-' + this.channelId];
+			let obj = {
+				key: 'channel-options-' + this.channelId,
+				value: {
+					size: this.props.size,
+					from: channelOptionsObj.from + this.props.size
+				}
+			};
+			manager.nextPage(this.channelId);
+		}
 	}
 
 	listComponent() {
@@ -466,7 +471,7 @@ export default class ReactiveList extends Component {
 		function setScroll(node) {
 			if (node) {
 				node.addEventListener('scroll', () => {
-					if (this.props.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight && this.state.resultStats.total > this.state.currentData.length) {
+					if (this.props.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight && this.state.resultStats.total > this.state.currentData.length && !this.state.queryStart) {
 						this.nextPage();
 					}
 				});
