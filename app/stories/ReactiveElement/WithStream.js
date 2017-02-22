@@ -99,6 +99,7 @@ export default class WithStream extends Component {
 							showCount={true}
 							size={10}
 							title="Input Filter"
+							initialLoader="Loading city list.."
 							selectAllLabel="All cities"
 							customQuery={this.cityQuery}
 							searchPlaceholder="Search City"
