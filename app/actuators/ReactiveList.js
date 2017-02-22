@@ -309,7 +309,8 @@ export default class ReactiveList extends Component {
 			delete appliedQuery.body.from;
 			delete appliedQuery.body.size;
 		}
-		let currentData = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery) ? (rawData ? rawData : []) : [];
+		let isSameQuery = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery) ? true : false;
+		let currentData = isSameQuery ? (rawData ? rawData : []) : [];
 		if (!currentData.length) {
 			this.appliedQuery = appliedQuery;
 		} else {
@@ -322,6 +323,11 @@ export default class ReactiveList extends Component {
 				});
 				return notExits;
 			});
+		}
+		if (!isSameQuery) {
+			$('.rbc.rbc-reactivelist').animate({
+				scrollTop: 0
+			}, 100);
 		}
 		return {
 			currentData: currentData,
@@ -360,7 +366,7 @@ export default class ReactiveList extends Component {
 	}
 
 	// append stream boolean flag and also start time of stream
-	streamDataModify(rawData, data, streamFlag=true) {
+	streamDataModify(rawData, data, streamFlag = true) {
 		if (data) {
 			data.stream = streamFlag;
 			data.streamStart = new Date();
@@ -451,7 +457,8 @@ export default class ReactiveList extends Component {
 		function setScroll(node) {
 			if (node) {
 				node.addEventListener('scroll', () => {
-					if (this.props.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight) {
+					// this.state.resultStats.total > this.state.currentData.length
+					if (this.props.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight && this.state.resultStats.total > this.state.currentData.length) {
 						this.nextPage();
 					}
 				});
