@@ -21,8 +21,8 @@ function testComponent(cb) {
 						appbaseField={config.mapping.date}
 						title="DateRange"
 						defaultSelected ={{
-							startDate: config.DateRange.startDate,
-							endDate: config.DateRange.endDate
+							start: config.DateRange.startDate,
+							end: config.DateRange.endDate
 						}}
 						size={100}
 					/>

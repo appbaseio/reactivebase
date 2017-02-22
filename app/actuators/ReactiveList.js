@@ -566,7 +566,6 @@ ReactiveList.defaultProps = {
 	size: 20,
 	requestOnScroll: true,
 	stream: false,
-	ShowNoResults: true,
 	initialLoader: {
 		show: true
 	},
@@ -576,7 +575,6 @@ ReactiveList.defaultProps = {
 	resultStats: {
 		show: true
 	},
-	ShowResultStats: true,
 	componentStyle: {}
 };
 

@@ -12,8 +12,8 @@ export class DateRange extends Component {
 		super(props);
 		this.state = {
 			currentValue: {
-				startDate: this.props.defaultSelected.startDate,
-				endDate: this.props.defaultSelected.endDate
+				startDate: this.props.defaultSelected.start,
+				endDate: this.props.defaultSelected.end
 			},
 			focusedInput: null
 		};
@@ -47,9 +47,9 @@ export class DateRange extends Component {
 		let flag = false;
 		try {
 			if(this.startDate && this.endDate) { 
-				if(moment(this.startDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected.startDate).format('YYYY-MM-DD') && moment(this.endDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected.endDate).format('YYYY-MM-DD')) {
-					this.startDate = this.props.defaultSelected.startDate;
-					this.endDate = this.props.defaultSelected.endDate;
+				if(moment(this.startDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected.start).format('YYYY-MM-DD') && moment(this.endDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected.end).format('YYYY-MM-DD')) {
+					this.startDate = this.props.defaultSelected.start;
+					this.endDate = this.props.defaultSelected.end;
 					flag = true;
 				}
 			} else {
@@ -61,9 +61,9 @@ export class DateRange extends Component {
 
 		function checkDefault() {
 			let flag1 = false;
-			if(this.props.defaultSelected.startDate && this.props.defaultSelected.endDate) {
-				this.startDate = this.props.defaultSelected.startDate;
-				this.endDate = this.props.defaultSelected.endDate;
+			if(this.props.defaultSelected.start && this.props.defaultSelected.end) {
+				this.startDate = this.props.defaultSelected.start;
+				this.endDate = this.props.defaultSelected.end;
 				flag1 = true;
 			}
 			return flag1;
@@ -194,8 +194,8 @@ DateRange.defaultProps = {
 	numberOfMonths: 2,
 	allowAllDates: true,
 	defaultSelected: {
-		startDate: null,
-		endDate: null
+		start: null,
+		end: null
 	}
 };
 
