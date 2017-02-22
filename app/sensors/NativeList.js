@@ -162,7 +162,7 @@ export default class NativeList extends Component {
 			react.and = react.and ? react.and : [];
 		}
 		react.and.push(this.props.componentId + '-sort');
-		react.and.push('streamChanges');
+		react.and.push('nativeListChanges');
 		this.includeAggQuery();
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
@@ -192,7 +192,7 @@ export default class NativeList extends Component {
 		if (executeChannel) {
 			setTimeout(() => {
 				var obj = {
-					key: 'streamChanges',
+					key: 'nativeListChanges',
 					value: ''
 				};
 				helper.selectedSensor.set(obj, true);

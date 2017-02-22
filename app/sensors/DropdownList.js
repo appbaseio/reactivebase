@@ -35,8 +35,9 @@ export default class DropdownList extends Component {
 
 	// Get the items from Appbase when component is mounted
 	componentDidMount() {
+		this.size = this.props.size;
 		this.setQueryInfo();
-		this.createChannel();
+		this.createChannel(true);
 	}
 
 	componentWillUpdate() {
@@ -154,7 +155,7 @@ export default class DropdownList extends Component {
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
+	createChannel(executeChannel=false) {
 		// Set the react - add self aggs query as well with react
 		let react = this.props.react ? this.props.react : {};
 		react['aggs'] = {
@@ -169,6 +170,7 @@ export default class DropdownList extends Component {
 			react.and = react.and ? react.and : [];
 		}
 		react.and.push(this.props.componentId + '-sort');
+		react.and.push('dropdownListChanges');
 		this.includeAggQuery();
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
@@ -195,6 +197,15 @@ export default class DropdownList extends Component {
 				this.setData(rawData);
 			}
 		}.bind(this));
+		if (executeChannel) {
+			setTimeout(() => {
+				var obj = {
+					key: 'dropdownListChanges',
+					value: ''
+				};
+				helper.selectedSensor.set(obj, true);
+			}, 100);
+		}
 		this.listenLoadingChannel(channelObj);
 	}
 
