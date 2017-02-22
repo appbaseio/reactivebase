@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
-import JsonPrint from '../addons/JsonPrint';
+import { manager } from '../middleware/ChannelManager';
 import PoweredBy from '../sensors/PoweredBy';
 import InitialLoader from '../addons/InitialLoader';
 import NoResults from '../addons/NoResults';
 import ResultStats from '../addons/ResultStats';
-var helper = require('../middleware/helper.js');
-var $ = require('jquery');
-var _ = require('lodash');
-import * as TYPES from '../middleware/constants.js';
+import * as TYPES from '../middleware/constants';
+
+const helper = require('../middleware/helper');
+const _ = require('lodash');
 
 export default class ReactiveElement extends Component {
-	constructor(props, context) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			markers: [],
@@ -88,7 +87,7 @@ export default class ReactiveElement extends Component {
 			this.enableSort(react);
 		}
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream);
+		let channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream);
 		this.channelId = channelObj.channelId;
 
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
@@ -134,7 +133,7 @@ export default class ReactiveElement extends Component {
 		}.bind(this));
 		this.listenLoadingChannel(channelObj);
 		if (executeChannel) {
-			var obj = {
+			let obj = {
 				key: 'streamChanges',
 				value: ''
 			};
@@ -275,7 +274,7 @@ export default class ReactiveElement extends Component {
 
 	// tranform the raw data to marker data
 	setMarkersData(hits) {
-		var self = this;
+		let self = this;
 		if (hits) {
 			return hits;
 		} else {
