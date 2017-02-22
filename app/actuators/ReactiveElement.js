@@ -1,12 +1,14 @@
 import {
-	default as React, Component } from 'react';
+	default as React,
+	Component
+} from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import JsonPrint from './component/JsonPrint';
 import { PoweredBy } from '../sensors/PoweredBy';
 import { InitialLoader } from '../sensors/InitialLoader';
-import {NoResults} from '../sensors/NoResults';
-import {ResultStats} from '../sensors/ResultStats';
+import { NoResults } from '../sensors/NoResults';
+import { ResultStats } from '../sensors/ResultStats';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 var _ = require('lodash');
@@ -71,7 +73,7 @@ export class ReactiveElement extends Component {
 		if (this.channelListener) {
 			this.channelListener.remove();
 		}
-		if(this.loadListener) {
+		if (this.loadListener) {
 			this.loadListener.remove();
 		}
 	}
@@ -95,23 +97,23 @@ export class ReactiveElement extends Component {
 			// implementation to prevent initialize query issue if old query response is late then the newer query
 			// then we will consider the response of new query and prevent to apply changes for old query response.
 			// if queryStartTime of channel response is greater than the previous one only then apply changes
-			if(res.error && res.startTime > this.queryStartTime) {
+			if (res.error && res.startTime > this.queryStartTime) {
 				this.setState({
 					queryStart: false,
 					showPlaceholder: false
 				});
-				if(this.props.onData) {
+				if (this.props.onData) {
 					let modifiedData = helper.prepareResultData(data);
 					this.props.onData(modifiedData.err, modifiedData.res);
 				}
 			}
-			if(res.appliedQuery) {
+			if (res.appliedQuery) {
 				if (res.mode === 'historic' && res.startTime > this.queryStartTime) {
 					let visibleNoResults = res.appliedQuery && res.data && !res.data.error ? (res.data.hits && res.data.hits.total ? false : true) : false;
 					let resultStats = {
 						resultFound: res.appliedQuery && res.data && !res.data.error && res.data.hits && res.data.hits.total ? true : false
 					};
-					if(res.appliedQuery && res.data && !res.data.error) {
+					if (res.appliedQuery && res.data && !res.data.error) {
 						resultStats.total = res.data.hits.total;
 						resultStats.took = res.data.took;
 					}
@@ -142,8 +144,8 @@ export class ReactiveElement extends Component {
 	}
 
 	listenLoadingChannel(channelObj) {
-		this.loadListener = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
-			if(res.appliedQuery) {
+		this.loadListener = channelObj.emitter.addListener(channelObj.channelId + '-query', function(res) {
+			if (res.appliedQuery) {
 				this.setState({
 					queryStart: res.queryState
 				});
@@ -317,12 +319,12 @@ export class ReactiveElement extends Component {
 			<div className="rbc-reactiveelement-container">
 				<div ref="ListContainer" className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
-					{this.props.resultStats.show ? (<ResultStats setText={this.props.resultStats.setText} visible={this.state.resultStats.resultFound} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
+					{this.props.resultStats && this.state.resultStats.resultFound ? (<ResultStats setText={this.props.resultStats.setText} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
 					{this.state.resultMarkup}
 					{this.state.showPlaceholder ? placeholder : null}
 				</div >
-				{this.props.noResults.show ? (<NoResults defaultText={this.props.noResults.text} visible={this.state.visibleNoResults}></NoResults>) : null}
-				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.noResults ? (<NoResults defaultText={this.props.noResults.text} visible={this.state.visibleNoResults}></NoResults>) : null}
+				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
 		)
@@ -338,15 +340,12 @@ ReactiveElement.propTypes = {
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
 	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
 	noResults: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
 	resultStats: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		setText: React.PropTypes.func
 	}),
 	placeholder: React.PropTypes.oneOfType([
@@ -363,14 +362,12 @@ ReactiveElement.defaultProps = {
 	stream: false,
 	ShowNoResults: true,
 	initialLoader: {
-		show: true
+		text: 'Initializing data..'
 	},
 	noResults: {
-		show: true
+		text: 'No results found!'
 	},
-	resultStats: {
-		show: true
-	},
+	resultStats: {},
 	ShowResultStats: true,
 	componentStyle: {}
 };

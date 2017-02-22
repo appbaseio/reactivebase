@@ -505,7 +505,7 @@ export class ReactiveList extends Component {
 				<div ref="ListContainer" className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{sortOptions}
-					{this.props.resultStats.show ? (<ResultStats setText={this.props.resultStats.setText} visible={this.state.resultStats.resultFound} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
+					{this.props.resultStats && this.state.resultStats.resultFound ? (<ResultStats setText={this.props.resultStats.setText} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
 					<div ref="resultListScrollContainer" className="rbc-reactivelist-scroll-container col s12 col-xs-12">
 						{this.state.resultMarkup}
 					</div>
@@ -516,8 +516,8 @@ export class ReactiveList extends Component {
 					}
 					{this.state.showPlaceholder ? placeholder : null}
 				</div >
-				{this.props.noResults.show ? (<NoResults defaultText={this.props.noResults.text} visible={this.state.visibleNoResults}></NoResults>) : null}
-				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.noResults ? (<NoResults defaultText={this.props.noResults.text} visible={this.state.visibleNoResults}></NoResults>) : null}
+				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
 		);
@@ -543,15 +543,12 @@ ReactiveList.propTypes = {
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
 	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
 	noResults: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
 	resultStats: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		setText: React.PropTypes.func
 	}),
 	placeholder: React.PropTypes.oneOfType([
@@ -567,14 +564,12 @@ ReactiveList.defaultProps = {
 	requestOnScroll: true,
 	stream: false,
 	initialLoader: {
-		show: true
+		text: 'Initializing data..'
 	},
 	noResults: {
-		show: true
+		text: 'No results found!'
 	},
-	resultStats: {
-		show: true
-	},
+	resultStats: {},
 	componentStyle: {}
 };
 

@@ -23,18 +23,12 @@ export class ResultStats extends Component {
 
 		return (
 			<div className={`rbc rbc-resultstats col s12 col-xs-12 ${cx}`}>
-				{this.props.visible ? this.defaultText() : null}
+				{this.defaultText()}
 			</div>
 		);
 	}
 }
 
 ResultStats.propTypes = {
-	setText: React.PropTypes.func,
-	visible: React.PropTypes.bool
-};
-
-// Default props value
-ResultStats.defaultProps = {
-	visible: false
+	setText: React.PropTypes.func
 };
