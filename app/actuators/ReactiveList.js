@@ -156,7 +156,7 @@ export default class ReactiveList extends Component {
 				});
 				if (this.props.onData) {
 					let modifiedData = helper.prepareResultData(data);
-					this.props.onData(modifiedData.err, modifiedData.res);
+					this.props.onData(modifiedData.res, modifiedData.err);
 				}
 			}
 			if (res.appliedQuery) {
@@ -241,7 +241,7 @@ export default class ReactiveList extends Component {
 			modifiedData.currentData = this.state.currentData;
 			delete modifiedData.data;
 			modifiedData = helper.prepareResultData(modifiedData, res.data);
-			let generatedData = this.props.onData ? this.props.onData(modifiedData.err, modifiedData.res) : this.defaultonData(modifiedData.err, modifiedData.res);
+			let generatedData = this.props.onData ? this.props.onData(modifiedData.res, modifiedData.err) : this.defaultonData(modifiedData.res, modifiedData.err);
 			this.setState({
 				resultMarkup: this.wrapMarkup(generatedData),
 				currentData: this.combineCurrentData(newData)
@@ -389,7 +389,7 @@ export default class ReactiveList extends Component {
 		}
 	}
 
-	defaultonData(err, res) {
+	defaultonData(res, err) {
 		let result = null;
 		if (res) {
 			let combineData = res.currentData;

@@ -350,7 +350,10 @@ DropdownList.propTypes = {
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
-	defaultSelected: React.PropTypes.string,
+	defaultSelected: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.array
+	]),
 	customQuery: React.PropTypes.func,
 	react: React.PropTypes.object
 };

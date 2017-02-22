@@ -22,7 +22,7 @@ export default class DataControllerDefault extends Component {
 		};
 	}
 
-	onData(err, res) {
+	onData(res, err) {
 		let result = null;
 		if (res) {
 			let combineData = res.currentData;

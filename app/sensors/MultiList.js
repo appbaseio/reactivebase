@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NativeList } from './NativeList';
+import NativeList from './NativeList';
 import * as TYPES from '../middleware/constants.js';
 
 export default class MultiList extends Component {

@@ -26,7 +26,7 @@ export default class WithStream extends Component {
 		ResponsiveStory();
 	}
 
-	onData(err, res) {
+	onData(res, err) {
 		let result = null;
 		if(res && res.appliedQuery) {
 			let combineData = res.currentData;
