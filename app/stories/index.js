@@ -527,12 +527,8 @@ storiesOf("ReactiveElement", module)
 			placeholder={text("placeholder", "Select city from the list")}
 			from={number("from", 0)}
 			size={number("size", 5)}
-			initialLoader={object("initialLoader", {
-				"text": 'Loading initially.'
-			})}
-			noResults={object("noResults", {
-				"text": 'No Results Found!'
-			})}
+			initialLoader="Loading results.."
+			noResults="No results found! Try a different filter duh.."
 			stream={boolean("stream", false)} />
 	)));
 
