@@ -9,6 +9,7 @@ import ResultStats from '../addons/ResultStats';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 var _ = require('lodash');
+import * as TYPES from '../middleware/constants.js';
 
 export default class ReactiveElement extends Component {
 	constructor(props, context) {
@@ -362,4 +363,19 @@ ReactiveElement.defaultProps = {
 ReactiveElement.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+ReactiveElement.types = {
+	componentId: TYPES.STRING,
+	title: TYPES.STRING,
+	react: TYPES.OBJECT,
+	from: TYPES.NUMBER,
+	size: TYPES.NUMBER,
+	onData: TYPES.FUNCTION,
+	stream: TYPES.BOOLEAN,
+	componentStyle: TYPES.OBJECT,
+	initialLoader: TYPES.OBJECT,
+	noResults: TYPES.OBJECT,
+	resultStats: TYPES.OBJECT,
+	placeholder: TYPES.STRING
 };

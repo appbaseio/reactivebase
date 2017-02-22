@@ -486,6 +486,7 @@ NestedList.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.ARRAY,
 	title: TYPES.STRING,
+	react: TYPES.OBJECT,
 	size: TYPES.NUMBER,
 	sortBy: TYPES.STRING,
 	showCount: TYPES.BOOLEAN,

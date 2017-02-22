@@ -458,6 +458,7 @@ RangeSlider.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
+	react: TYPES.OBJECT,
 	range: TYPES.OBJECT,
 	rangeLabels: TYPES.OBJECT,
 	defaultSelected: TYPES.OBJECT,

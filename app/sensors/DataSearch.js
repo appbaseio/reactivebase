@@ -308,7 +308,8 @@ DataSearch.contextTypes = {
 
 DataSearch.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
+	appbaseField : TYPES.STRING,
+	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	autocomplete: TYPES.BOOLEAN,
