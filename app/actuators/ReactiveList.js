@@ -435,7 +435,7 @@ export default class ReactiveList extends Component {
 		return (
 			<div
 				key={markerData._id}
-				style={{'borderBottom': '1px solid #eee', 'padding': '12px', 'fontSize': '12px'}}
+				style={{'padding': '12px', 'fontSize': '12px'}}
 				className="makerInfo">
 					<JsonPrint data={marker} />
 			</div>
