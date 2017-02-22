@@ -4,7 +4,6 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var minifyCSS = require('gulp-minify-css');
 var rename = require("gulp-rename");
-var jshint = require("gulp-jshint");
 var dir_path = './app/';
 
 var files = {
@@ -32,12 +31,6 @@ gulp.task('sass', function() {
 	return gulp.src(files.css.sassFile)
 		.pipe(sass.sync().on('error', sass.logError))
 		.pipe(gulp.dest(dir_path+'assets/css'));
-});
-
-gulp.task('lint', function() {
-  return gulp.src('./app/*/*.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'));
 });
 
 gulp.task('moveCss', ['maincss'], function() {
@@ -77,6 +70,6 @@ gulp.task('watchSassPartials', function() {
 	gulp.watch(files.css.sassPartials, ['moveCss']);
 });
 
-gulp.task('default', ['compact', 'lint']);
+gulp.task('default', ['compact']);
 
-gulp.task('watch', ['compact', 'lint', 'watchfiles', 'watchSassPartials']);
+gulp.task('watch', ['compact', 'watchfiles', 'watchSassPartials']);
