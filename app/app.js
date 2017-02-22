@@ -20,6 +20,10 @@ import ReactiveElement from './actuators/ReactiveElement';
 import ReactivePaginatedList from './actuators/ReactivePaginatedList';
 import PoweredBy from './sensors/PoweredBy';
 import DataController from './sensors/DataController';
+// addons
+import InitialLoader from './addons/InitialLoader';
+import NoResults from './addons/NoResults';
+import ResultStats from './addons/ResultStats';
 // middleware
 import ReactiveBase from './middleware/ReactiveBase';
 import {manager} from './middleware/ChannelManager';
@@ -51,5 +55,8 @@ module.exports = {
 	AppbaseSensorHelper: helper,
 	PoweredBy: PoweredBy,
 	DataController: DataController,
-	TYPES: TYPES
+	TYPES: TYPES,
+	InitialLoader: InitialLoader,
+	NoResults: NoResults,
+	ResultStats: ResultStats
 };
