@@ -2,6 +2,7 @@ import { default as React, Component } from 'react';
 import { ReactiveList } from './ReactiveList';
 import { Pagination } from './component/Pagination';
 var helper = require('../middleware/helper.js');
+import * as TYPES from '../middleware/constants.js';
 
 export class ReactivePaginatedList extends Component {
 	constructor(props, context) {
@@ -78,4 +79,26 @@ ReactivePaginatedList.defaultProps = {
 ReactivePaginatedList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+
+ReactivePaginatedList.types = {
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	react: TYPES.OBJECT,
+	sortBy: TYPES.STRING,
+	sortOptions: TYPES.OBJECT,
+	from: TYPES.NUMBER,
+	size: TYPES.NUMBER,
+	paginationAt: TYPES.STRING,
+	onData: TYPES.FUNCTION,
+	onPageChange: TYPES.FUNCTION,
+	requestOnScroll: TYPES.BOOLEAN,
+	stream: TYPES.BOOLEAN,
+	componentStyle: TYPES.OBJECT,
+	initialLoader: TYPES.OBJECT,
+	noResults: TYPES.OBJECT,
+	resultStats: TYPES.OBJECT,
+	placeholder: TYPES.STRING
 };

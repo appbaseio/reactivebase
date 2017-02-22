@@ -9,6 +9,7 @@ import {ResultStats} from '../sensors/ResultStats';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 var _ = require('lodash');
+import * as TYPES from '../middleware/constants.js';
 
 export class ReactiveList extends Component {
 	constructor(props, context) {
@@ -577,4 +578,23 @@ ReactiveList.defaultProps = {
 ReactiveList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+ReactiveList.types = {
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	react: TYPES.OBJECT,
+	sortBy: TYPES.STRING,
+	sortOptions: TYPES.OBJECT,
+	from: TYPES.NUMBER,
+	onData: TYPES.FUNCTION,
+	size: TYPES.NUMBER,
+	requestOnScroll: TYPES.BOOLEAN,
+	stream: TYPES.BOOLEAN,
+	componentStyle: TYPES.OBJECT,
+	initialLoader: TYPES.OBJECT,
+	noResults: TYPES.OBJECT,
+	resultStats: TYPES.OBJECT,
+	placeholder: TYPES.STRING
 };

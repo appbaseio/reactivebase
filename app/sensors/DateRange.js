@@ -46,7 +46,7 @@ export class DateRange extends Component {
 	isDateChange() {
 		let flag = false;
 		try {
-			if(this.startDate && this.endDate) { 
+			if(this.startDate && this.endDate) {
 				if(moment(this.startDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected.start).format('YYYY-MM-DD') && moment(this.endDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected.end).format('YYYY-MM-DD')) {
 					this.startDate = this.props.defaultSelected.start;
 					this.endDate = this.props.defaultSelected.end;
@@ -208,6 +208,7 @@ DateRange.contextTypes = {
 DateRange.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	defaultSelected: TYPES.OBJECT,

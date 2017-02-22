@@ -149,6 +149,7 @@ SingleDropdownRange.contextTypes = {
 SingleDropdownRange.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	react: TYPES.OBJECT,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.STRING,
 	title: TYPES.STRING,

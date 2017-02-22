@@ -57,6 +57,7 @@ MultiList.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
+	react: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
 	size: TYPES.NUMBER,
 	sortBy: TYPES.STRING,

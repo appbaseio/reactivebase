@@ -171,6 +171,7 @@ DatePicker.contextTypes = {
 DatePicker.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	defaultSelected: TYPES.OBJECT,

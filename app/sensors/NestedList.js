@@ -190,7 +190,7 @@ export class NestedList extends Component {
 				this.setState({
 					queryStart: false
 				});
-			} 
+			}
 			if(res.appliedQuery) {
 				let data = res.data;
 				let rawData;
@@ -240,7 +240,7 @@ export class NestedList extends Component {
 				this.setState({
 					queryStart: false
 				});
-			} 
+			}
 			if(res.appliedQuery) {
 			let data = res.data;
 				let rawData;
@@ -483,6 +483,7 @@ NestedList.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.ARRAY,
 	title: TYPES.STRING,
+	react: TYPES.OBJECT,
 	size: TYPES.NUMBER,
 	sortBy: TYPES.STRING,
 	showCount: TYPES.BOOLEAN,
