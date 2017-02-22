@@ -1,6 +1,6 @@
 import { default as React, Component } from 'react';
 import { render } from 'react-dom';
-import {NestedList} from '../NestedList';
+import {NestedList} from '../sensors/NestedList';
 
 export class NestedItem extends Component {
 	constructor(props) {

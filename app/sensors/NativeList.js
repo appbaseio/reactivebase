@@ -1,10 +1,10 @@
 import { default as React, Component } from 'react';
-import { ItemCheckboxList } from './component/ItemCheckboxList.js';
-import { ItemList } from './component/ItemList.js';
+import { ItemCheckboxList } from '../addons/ItemCheckboxList.js';
+import { ItemList } from '../addons/ItemList.js';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
-import { StaticSearch } from './component/StaticSearch.js';
-import { InitialLoader } from './InitialLoader';
+import { StaticSearch } from '../addons/StaticSearch.js';
+import InitialLoader from '../addons/InitialLoader';
 var helper = require('../middleware/helper.js');
 
 export class NativeList extends Component {

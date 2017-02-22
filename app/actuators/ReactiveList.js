@@ -1,11 +1,11 @@
 import {default as React, Component} from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
-import JsonPrint from './component/JsonPrint';
+import JsonPrint from '../addons/JsonPrint';
 import { PoweredBy } from '../sensors/PoweredBy';
-import { InitialLoader } from '../sensors/InitialLoader';
-import {NoResults} from '../sensors/NoResults';
-import {ResultStats} from '../sensors/ResultStats';
+import InitialLoader from '../addons/InitialLoader';
+import NoResults from '../addons/NoResults';
+import ResultStats from '../addons/ResultStats';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 var _ = require('lodash');
@@ -563,13 +563,6 @@ ReactiveList.defaultProps = {
 	size: 20,
 	requestOnScroll: true,
 	stream: false,
-	initialLoader: {
-		text: 'Initializing data..'
-	},
-	noResults: {
-		text: 'No results found!'
-	},
-	resultStats: {},
 	componentStyle: {}
 };
 

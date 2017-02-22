@@ -1,9 +1,9 @@
-import {default as React, Component} from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
-import { manager } from '../../middleware/ChannelManager.js';
-var helper = require('../../middleware/helper.js');
+import { manager } from '../middleware/ChannelManager.js';
+var helper = require('../middleware/helper.js');
 
-export class Pagination extends Component {
+export default class Pagination extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -25,7 +25,7 @@ export class Pagination extends Component {
 
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
-		if(this.globalListener) {
+		if (this.globalListener) {
 			this.globalListener.remove();
 		}
 	}
@@ -42,11 +42,11 @@ export class Pagination extends Component {
 	// listen all results
 	listenGlobal() {
 		this.globalListener = manager.emitter.addListener('global', function(res) {
-			if(res.react && Object.keys(res.react).indexOf(this.props.componentId) > -1) {
+			if (res.react && Object.keys(res.react).indexOf(this.props.componentId) > -1) {
 				let totalHits = res.channelResponse.data.hits.total;
-				let maxPageNumber = Math.ceil(totalHits/res.queryOptions.size) < 1 ? 1 : Math.ceil(totalHits/res.queryOptions.size);
+				let maxPageNumber = Math.ceil(totalHits / res.queryOptions.size) < 1 ? 1 : Math.ceil(totalHits / res.queryOptions.size);
 				let size = res.queryOptions.size ? res.queryOptions.size : 20;
-				let currentPage = Math.round(res.queryOptions.from/size) + 1;
+				let currentPage = Math.round(res.queryOptions.from / size) + 1;
 				this.setState({
 					totalHits: totalHits,
 					size: size,
@@ -70,21 +70,21 @@ export class Pagination extends Component {
 		// pass the selected sensor value with componentId as key,
 		let isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery, 'paginationChange');
-		if(this.props.onPageChange) {
+		if (this.props.onPageChange) {
 			this.props.onPageChange(inputVal);
 		}
 	}
 
 	// first page
 	firstPage() {
-		if(this.state.currentValue !== 1) {
+		if (this.state.currentValue !== 1) {
 			this.handleChange.call(this, 1);
 		}
 	}
 
 	// last page
 	lastPage() {
-		if(this.state.currentValue !== this.state.maxPageNumber) {
+		if (this.state.currentValue !== this.state.maxPageNumber) {
 			this.handleChange.call(this, this.state.maxPageNumber);
 		}
 	}
@@ -92,7 +92,7 @@ export class Pagination extends Component {
 	// pre page
 	prePage() {
 		let currentValue = this.state.currentValue > 1 ? this.state.currentValue - 1 : 1;
-		if(this.state.currentValue !== currentValue) {
+		if (this.state.currentValue !== currentValue) {
 			this.handleChange.call(this, currentValue);
 		}
 	}
@@ -100,25 +100,25 @@ export class Pagination extends Component {
 	// next page
 	nextPage() {
 		let currentValue = this.state.currentValue < this.state.maxPageNumber ? this.state.currentValue + 1 : this.state.maxPageNumber;
-		if(this.state.currentValue !== currentValue) {
+		if (this.state.currentValue !== currentValue) {
 			this.handleChange.call(this, currentValue);
 		}
 	}
 
 	renderPageNumber() {
 		let start, numbers = [];
-		for(let i = this.state.currentValue; i > 0; i--) {
-			if(i%5 === 0 || i === 1) {
+		for (let i = this.state.currentValue; i > 0; i--) {
+			if (i % 5 === 0 || i === 1) {
 				start = i;
 				break;
 			}
 		}
-		for(let i = start; i <= start+5; i++) {
+		for (let i = start; i <= start + 5; i++) {
 			let singleItem = (
 				<li key={i} className={'rbc-page-number ' + (this.state.currentValue === i ? 'active rbc-pagination-active': 'waves-effect')}>
 					<a onClick={() => this.handleChange(i)}>{i}</a>
 				</li>);
-			if(i <= this.state.maxPageNumber) {
+			if (i <= this.state.maxPageNumber) {
 				numbers.push(singleItem);
 			}
 		}
@@ -137,7 +137,7 @@ export class Pagination extends Component {
 	render() {
 		let title = null;
 		let titleExists = false;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
@@ -164,8 +164,7 @@ Pagination.propTypes = {
 };
 
 // Default props value
-Pagination.defaultProps = {
-};
+Pagination.defaultProps = {};
 
 // context type
 Pagination.contextTypes = {

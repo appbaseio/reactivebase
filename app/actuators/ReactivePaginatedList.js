@@ -1,6 +1,6 @@
 import { default as React, Component } from 'react';
 import { ReactiveList } from './ReactiveList';
-import { Pagination } from './component/Pagination';
+import Pagination from '../addons/Pagination';
 var helper = require('../middleware/helper.js');
 
 export class ReactivePaginatedList extends Component {

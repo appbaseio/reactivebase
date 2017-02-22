@@ -1,8 +1,7 @@
-import {
-	default as React, Component } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 
-export class NoResults extends Component {
+export default class NoResults extends Component {
 	constructor(props, context) {
 		super(props);
 	}

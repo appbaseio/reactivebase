@@ -13,7 +13,7 @@ export default class JsonPrint extends Component {
 		if (this.state.open) {
 			tree = JSON.stringify(this.props.data, null, 2);
 		} else {
-			tree =  JSON.stringify(this.props.data);
+			tree = JSON.stringify(this.props.data);
 		}
 		return (
 			<div className="row rbc-json-print">

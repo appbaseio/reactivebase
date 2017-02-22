@@ -3,7 +3,8 @@ import Select from 'react-select';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
-import { InitialLoader } from './InitialLoader';
+import InitialLoader from '../addons/InitialLoader';
+
 var _ = require('lodash');
 
 export class DropdownList extends Component {

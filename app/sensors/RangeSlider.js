@@ -1,9 +1,9 @@
 import { default as React, Component } from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
-import { HistoGramComponent } from './component/HistoGram.js';
+import { HistoGramComponent } from '../addons/HistoGram.js';
 import Slider from 'rc-slider';
-import { InitialLoader } from './InitialLoader';
+import InitialLoader from '../addons/InitialLoader';
 var helper = require('../middleware/helper.js');
 var _ = require('lodash');
 import * as TYPES from '../middleware/constants.js';

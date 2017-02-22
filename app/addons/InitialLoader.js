@@ -1,8 +1,7 @@
-import {
-	default as React, Component } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 
-export class InitialLoader extends Component {
+export default class InitialLoader extends Component {
 	constructor(props, context) {
 		super(props);
 	}
