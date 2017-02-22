@@ -72,17 +72,15 @@ export default class DateRangeDefault extends Component {
 	render() {
 		return (
 			<ReactiveBase
-				app="meetup_demo1"
-				username="yafYCRWns"
-				password="c9c9b34e-185c-42e5-bdfe-b7c32d543f2e"
-				type="meetupdata1"
+				app="reactivemap-demo"
+				username="SL8fiQ1fg"
+				password="71ea4254-49ba-4685-8276-e44da225c141"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<DateRange
 							componentId="DateRangeSensor"
 							appbaseField={this.props.mapping.date}
-							placeholder="i.e. (20-1-2017 to 30-1-2017)"
 							{...this.props}
 						/>
 					</div>

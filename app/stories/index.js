@@ -442,15 +442,12 @@ storiesOf("DatePicker", module)
 			defaultSelected={moment()}
 		/>
 	)))
-	.add("Initial Focus", withReadme(removeFirstLine(DatePickerReadme), () => (
-		<DatePickerDefault />
-	)))
 	.add("Enable days from today only", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
 			allowAllDates={false}
 		/>
 	)))
-	.add("React-dates props", withReadme(removeFirstLine(DatePickerReadme), () => (
+	.add("Using extra prop object", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
 			extra = {{
 				"withFullScreenPortal": true,
@@ -489,7 +486,7 @@ storiesOf("DateRange", module)
 			allowAllDates={false}
 		/>
 	)))
-	.add("React-dates props", withReadme(removeFirstLine(DateRangeReadme), () => (
+	.add("Using extra prop object", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault
 			extra = {{
 				"withFullScreenPortal": true,

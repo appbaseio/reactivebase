@@ -72,17 +72,15 @@ export default class DatePickerDefault extends Component {
 	render() {
 		return (
 			<ReactiveBase
-				app="meetup_demo1"
-				username="yafYCRWns"
-				password="c9c9b34e-185c-42e5-bdfe-b7c32d543f2e"
-				type="meetupdata1"
+				app="reactivemap-demo"
+				username="SL8fiQ1fg"
+				password="71ea4254-49ba-4685-8276-e44da225c141"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<DatePicker
 							componentId="DateSensor"
 							appbaseField={this.props.mapping.date}
-							placeholder="i.e. (25-1-2017)"
 							{...this.props}
 						/>
 					</div>
