@@ -571,6 +571,20 @@ storiesOf("ReactiveList", module)
 			]}
 		/>
 	)))
+	.add("With Loaders", withReadme(removeFirstLine(ResultListReadme), () => (
+		<ReactiveListDefault
+			title="Meetups"
+			requestOnScroll={true}
+			stream={false}
+			initialLoader= {{
+				text: 'Initializing data..'
+			}}
+			noResults= {{
+				text: 'No results found!'
+			}}
+			resultStats= {{}}
+		/>
+	)))
 	.add("Playground", withReadme(removeFirstLine(ResultListReadme), () => (
 		<ReactiveListDefault
 			title={text("title", "ReactiveList: Results")}
