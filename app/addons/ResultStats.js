@@ -10,7 +10,7 @@ export default class ResultStats extends Component {
 		if (this.props.onResultStats) {
 			return this.props.onResultStats(this.props.total, this.props.took);
 		} else {
-			return `${this.props.total} results found in ${this.props.took}ms`;
+			return `${this.props.total} results found in ${this.props.took} ms`;
 		}
 	}
 
