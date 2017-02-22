@@ -395,7 +395,7 @@ export default class RangeSlider extends Component {
 						marks={marks}
 					/>
 				</div>
-				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -421,7 +421,6 @@ RangeSlider.propTypes = {
 	showHistogram: React.PropTypes.bool,
 	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
 	react: React.PropTypes.object
@@ -442,10 +441,7 @@ RangeSlider.defaultProps = {
 		end: 10
 	},
 	stepValue: 1,
-	showHistogram: true,
-	initialLoader: {
-		show: true
-	}
+	showHistogram: true
 };
 
 // context type

@@ -29,7 +29,6 @@ MultiDropdownList.propTypes = {
 	selectAllLabel: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
 	customQuery: React.PropTypes.func,
@@ -41,10 +40,7 @@ MultiDropdownList.defaultProps = {
 	showCount: true,
 	sortBy: 'count',
 	size: 100,
-	title: null,
-	initialLoader: {
-		show: true
-	}
+	title: null
 };
 
 // context type
