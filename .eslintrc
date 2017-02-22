@@ -23,6 +23,7 @@
 		"object-curly-spacing": [2, "always"],
 		// linebreak-style: ["error", "windows"],
 		"react/require-default-props": 0,
+		"react/require-extension": 0,
 		"react/jsx-uses-react": 2,
 		"react/jsx-uses-vars": 2,
 		"react/forbid-prop-types": 1,
