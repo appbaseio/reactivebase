@@ -532,6 +532,9 @@ storiesOf("ReactiveElement", module)
 storiesOf("ReactiveList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(ResultListReadme), () => (
+		<ReactiveListDefault onData={null} requestOnScroll={true} stream={false} />
+	)))
+	.add("With Custom Markup", withReadme(removeFirstLine(ResultListReadme), () => (
 		<ReactiveListDefault requestOnScroll={true} stream={false} />
 	)))
 	.add("With Title", withReadme(removeFirstLine(ResultListReadme), () => (
@@ -588,12 +591,12 @@ storiesOf("ReactiveList", module)
 storiesOf("ReactivePaginatedList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
-		<ReactivePaginatedListDefault/>
-	)))
-	.add("Without on data", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
 		<ReactivePaginatedListDefault
 			onData={null}
 		/>
+	)))
+	.add("With Custom Markup", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
+		<ReactivePaginatedListDefault/>
 	)))
 	.add("With Sort Options", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
 		<ReactivePaginatedListDefault
