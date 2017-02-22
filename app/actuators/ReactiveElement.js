@@ -321,7 +321,7 @@ export default class ReactiveElement extends Component {
 			<div className="rbc-reactiveelement-container">
 				<div ref="ListContainer" className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
-					{this.props.resultStats && this.state.resultStats.resultFound ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
+					{this.state.resultStats && this.state.resultStats.resultFound && this.props.showResultStats ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
 					{this.state.resultMarkup}
 					{this.state.showPlaceholder ? placeholder : null}
 				</div >

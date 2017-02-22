@@ -526,7 +526,8 @@ storiesOf("ReactiveElement", module)
 			size={number("size", 5)}
 			initialLoader="Loading results.."
 			noResults="No results found! Try a different filter duh.."
-			stream={boolean("stream", false)} />
+			stream={boolean("stream", false)}
+			showResultStats={boolean("showResultStats", true)} />
 	)));
 
 storiesOf("ReactiveList", module)
