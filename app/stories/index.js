@@ -476,8 +476,8 @@ storiesOf("DateRange", module)
 	.add("Default date", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault
 			defaultSelected ={{
-				start: moment(),
-				end: moment().add(5, "days")
+				start: moment().subtract(7, 'days'),
+				end: moment()
 			}}
 		/>
 	)))
