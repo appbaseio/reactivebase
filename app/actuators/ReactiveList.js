@@ -331,9 +331,13 @@ export default class ReactiveList extends Component {
 
 	combineCurrentData(newData) {
 		if (_.isArray(newData)) {
+			newData = newData.map((item) => {
+				item.stream = false;
+				return item;
+			});
 			return this.state.currentData.concat(newData);
 		} else {
-			return this.streamDataModify(this.state.currentData, newData);
+			return this.streamDataModify(this.state.currentData, newData, false);
 		}
 	}
 
@@ -356,9 +360,9 @@ export default class ReactiveList extends Component {
 	}
 
 	// append stream boolean flag and also start time of stream
-	streamDataModify(rawData, data) {
+	streamDataModify(rawData, data, streamFlag=true) {
 		if (data) {
-			data.stream = true;
+			data.stream = streamFlag;
 			data.streamStart = new Date();
 			if (data._deleted) {
 				let hits = rawData.filter((hit) => {
