@@ -80,7 +80,6 @@ export default class MultiDropdownListDefault extends Component {
 							appbaseField={this.props.mapping.city}
 							title="MultiDropdownList"
 							size={100}
-							initialLoader="Loading.."
 							{...this.props}
 						/>
 					</div>
