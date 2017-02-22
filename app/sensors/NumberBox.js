@@ -159,7 +159,8 @@ NumberBox.propTypes = {
 		label: React.PropTypes.string
 	}),
 	defaultSelected: helper.valueValidation,
-	labelPosition: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right'])
+	labelPosition: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+	customQuery: React.PropTypes.func
 };
 
 // context type
@@ -174,7 +175,8 @@ NumberBox.types = {
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.NUMBER,
-	labelPosition: TYPES.STRING
+	labelPosition: TYPES.STRING,
+	customQuery: TYPES.FUNCTION
 }
 
 export {NumberBox};
