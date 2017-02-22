@@ -119,12 +119,14 @@ export class ItemCheckboxList extends Component {
 	}
 
 	getSelectedItems() {
-		let selectedItems = this.state.selectedItems ? this.state.selectedItems : [];
+		// let selectedItems = this.state.selectedItems ? this.state.selectedItems : [];
+		let selectedItems = [];
 		this.props.items.forEach((item) => {
 			if(item.status && selectedItems.indexOf(item.key) < 0) {
 				selectedItems.push(item.key);
 			}
 		});
+
 		return selectedItems;
 	}
 
