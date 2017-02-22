@@ -11,7 +11,7 @@ export default class ReactivePaginatedList extends Component {
 
 	componentWillMount() {
 		this.react = this.props.react ? this.props.react : {};
-		this.react['pagination'] = {};
+		this.react.pagination = {};
 	}
 
 	paginationAt(method) {
