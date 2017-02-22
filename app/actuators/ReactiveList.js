@@ -178,6 +178,7 @@ export default class ReactiveList extends Component {
 					this.afterChannelResponse(res);
 				} else if (res.mode === 'streaming') {
 					this.afterChannelResponse(res);
+					this.updateResultStats(res.data);
 				}
 			} else {
 				this.setState({
@@ -195,6 +196,14 @@ export default class ReactiveList extends Component {
 				helper.selectedSensor.set(obj, true);
 			}, 100);
 		}
+	}
+
+	updateResultStats(newData) {
+		let resultStats = this.state.resultStats;
+		resultStats.total = helper.updateStats(resultStats.total, newData);
+		this.setState({
+			resultStats: resultStats
+		});
 	}
 
 	listenLoadingChannel(channelObj) {
@@ -457,7 +466,6 @@ export default class ReactiveList extends Component {
 		function setScroll(node) {
 			if (node) {
 				node.addEventListener('scroll', () => {
-					// this.state.resultStats.total > this.state.currentData.length
 					if (this.props.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight && this.state.resultStats.total > this.state.currentData.length) {
 						this.nextPage();
 					}
