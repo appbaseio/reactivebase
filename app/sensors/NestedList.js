@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { ItemCheckboxList } from '../addons/ItemCheckboxList.js';
-import NestedItem from '../addons/NestedItem.js';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import { StaticSearch } from '../addons/StaticSearch.js';
@@ -439,7 +437,7 @@ export default class NestedList extends Component {
 					{searchComponent}
 					{listComponent}
 				</div>
-				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -456,7 +454,6 @@ NestedList.propTypes = {
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
 	customQuery: React.PropTypes.func,
@@ -470,10 +467,7 @@ NestedList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	placeholder: 'Search',
-	initialLoader: {
-		show: true
-	}
+	placeholder: 'Search'
 };
 
 // context type

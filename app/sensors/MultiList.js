@@ -29,7 +29,6 @@ MultiList.propTypes = {
 	placeholder: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
 	react: React.PropTypes.object
@@ -42,10 +41,7 @@ MultiList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	placeholder: 'Search',
-	initialLoader: {
-		show: true
-	}
+	placeholder: 'Search'
 };
 
 // context type

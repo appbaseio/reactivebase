@@ -347,7 +347,7 @@ export default class NativeList extends Component {
 				{title}
 				{searchComponent}
 				{listComponent}
-				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -362,7 +362,6 @@ NativeList.propTypes = {
 	selectAllLabel: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
 	react: React.PropTypes.object
@@ -377,10 +376,7 @@ NativeList.defaultProps = {
 	showSearch: false,
 	title: null,
 	placeholder: 'Search',
-	selectAllLabel: null,
-	initialLoader: {
-		show: true
-	}
+	selectAllLabel: null
 };
 
 // context type

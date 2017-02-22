@@ -330,7 +330,7 @@ export default class DropdownList extends Component {
 								searchable={true} /> : null }
 					</div>
 				</div>
-				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -347,7 +347,6 @@ DropdownList.propTypes = {
 	placeholder: React.PropTypes.string,
 	selectAllLabel: React.PropTypes.string,
 	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
 	defaultSelected: React.PropTypes.oneOfType([
@@ -365,10 +364,7 @@ DropdownList.defaultProps = {
 	size: 100,
 	title: null,
 	placeholder: 'Select...',
-	selectAllLabel: null,
-	initialLoader: {
-		show: true
-	}
+	selectAllLabel: null
 };
 
 // context type
