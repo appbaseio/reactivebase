@@ -614,8 +614,9 @@ ReactiveList.types = {
 	requestOnScroll: TYPES.BOOLEAN,
 	stream: TYPES.BOOLEAN,
 	componentStyle: TYPES.OBJECT,
-	initialLoader: TYPES.OBJECT,
-	noResults: TYPES.OBJECT,
-	resultStats: TYPES.OBJECT,
+	initialLoader: TYPES.STRING,
+	noResults: TYPES.FUNC,
+	showResultStats: TYPES.BOOLEAN,
+	onResultStats: TYPES.FUNCTION,
 	placeholder: TYPES.STRING
 };

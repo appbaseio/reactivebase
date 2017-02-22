@@ -385,8 +385,9 @@ ReactiveElement.types = {
 	onData: TYPES.FUNCTION,
 	stream: TYPES.BOOLEAN,
 	componentStyle: TYPES.OBJECT,
-	initialLoader: TYPES.OBJECT,
-	noResults: TYPES.OBJECT,
-	resultStats: TYPES.OBJECT,
+	initialLoader: TYPES.STRING,
+	noResults: TYPES.STRING,
+	showResultStats: TYPES.BOOLEAN,
+	onResultStats: TYPES.FUNCTION,
 	placeholder: TYPES.STRING
 };

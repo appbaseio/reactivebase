@@ -65,14 +65,32 @@ ReactivePaginatedList.propTypes = {
 	onData: React.PropTypes.func,
 	onPageChange: React.PropTypes.func,
 	size: helper.sizeValidation,
-	stream: React.PropTypes.bool
+	stream: React.PropTypes.bool,
+	initialLoader: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
+	noResults: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
+	showResultStats: React.PropTypes.bool,
+	onResultStats: React.PropTypes.func,
+	placeholder: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	])
 };
 
 // Default props value
 ReactivePaginatedList.defaultProps = {
 	from: 0,
 	size: 20,
-	paginationAt: 'bottom'
+	paginationAt: 'bottom',
+	showResultStats: true
 };
 
 // context type
@@ -97,8 +115,9 @@ ReactivePaginatedList.types = {
 	requestOnScroll: TYPES.BOOLEAN,
 	stream: TYPES.BOOLEAN,
 	componentStyle: TYPES.OBJECT,
-	initialLoader: TYPES.OBJECT,
-	noResults: TYPES.OBJECT,
-	resultStats: TYPES.OBJECT,
+	initialLoader: TYPES.STRING,
+	noResults: TYPES.STRING,
+	showResultStats: TYPES.BOOLEAN,
+	onResultStats: TYPES.FUNCTION,
 	placeholder: TYPES.STRING
 };
