@@ -1,4 +1,4 @@
-import {default as React, Component} from 'react';
+import React, { Component } from 'react';
 import { SingleDatePicker } from 'react-dates';
 import classNames from 'classnames';
 var moment = require('moment');
@@ -7,7 +7,7 @@ import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 import * as TYPES from '../middleware/constants.js';
 
-export class DatePicker extends Component {
+export default class DatePicker extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -52,7 +52,7 @@ export class DatePicker extends Component {
 	// build query for this sensor only
 	customQuery(value) {
 		let query = null;
-		if(value) {
+		if (value) {
 			query = {
 				'range': {
 					[this.props.appbaseField]: {
@@ -96,11 +96,12 @@ export class DatePicker extends Component {
 	// allow all dates
 	allowAllDates() {
 		let outsideObj;
-		if(this.props.allowAllDates) {
+		if (this.props.allowAllDates) {
 			outsideObj = {
 				isOutsideRange: isOutsideRange
 			};
 		}
+
 		function isOutsideRange() {
 			return false;
 		}
@@ -111,7 +112,7 @@ export class DatePicker extends Component {
 	// render
 	render() {
 		let title = null;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
@@ -150,7 +151,8 @@ DatePicker.propTypes = {
 	numberOfMonths: React.PropTypes.number,
 	allowAllDates: React.PropTypes.bool,
 	extra: React.PropTypes.any,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value

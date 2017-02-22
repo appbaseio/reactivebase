@@ -1,8 +1,8 @@
-import { default as React, Component } from 'react';
-import { DropdownList } from './DropdownList';
+import React, { Component } from 'react';
+import DropdownList from './DropdownList';
 import * as TYPES from '../middleware/constants.js';
 
-export class SingleDropdownList extends Component {
+export default class SingleDropdownList extends Component {
 	constructor(props, context) {
 		super(props);
 	}
@@ -31,7 +31,9 @@ SingleDropdownList.propTypes = {
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
-	})
+	}),
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value

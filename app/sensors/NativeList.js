@@ -1,4 +1,4 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import { ItemCheckboxList } from '../addons/ItemCheckboxList.js';
 import { ItemList } from '../addons/ItemList.js';
 import classNames from 'classnames';
@@ -7,7 +7,7 @@ import { StaticSearch } from '../addons/StaticSearch.js';
 import InitialLoader from '../addons/InitialLoader';
 var helper = require('../middleware/helper.js');
 
-export class NativeList extends Component {
+export default class NativeList extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -53,14 +53,13 @@ export class NativeList extends Component {
 	}
 
 	defaultCustomQuery(value, selectAll) {
-		if(selectAll) {
+		if (selectAll) {
 			return {
 				"exists": {
 					'field': [this.props.appbaseField]
 				}
 			};
-		}
-		else if(value) {
+		} else if (value) {
 			return {
 				[this.type]: {
 					[this.props.appbaseField]: value
@@ -76,7 +75,7 @@ export class NativeList extends Component {
 				let items = this.state.items;
 				items = items.map((item) => {
 					item.key = item.key.toString();
-					item.status = (this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1) || (this.selectedValue && this.selectedValue.indexOf(item.key) > -1)  ? true : false;
+					item.status = (this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1) || (this.selectedValue && this.selectedValue.indexOf(item.key) > -1) ? true : false;
 					return item;
 				});
 				this.setState({
@@ -103,13 +102,13 @@ export class NativeList extends Component {
 	}
 
 	removeChannel() {
-		if(this.channelId) {
+		if (this.channelId) {
 			manager.stopStream(this.channelId);
 		}
-		if(this.channelListener) {
+		if (this.channelListener) {
 			this.channelListener.remove();
 		}
-		if(this.loadListener) {
+		if (this.loadListener) {
 			this.loadListener.remove();
 		}
 	}
@@ -117,19 +116,19 @@ export class NativeList extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
-				key: this.props.componentId,
-				value: {
-					queryType: this.type,
-					inputData: this.props.appbaseField,
-					customQuery: this.customQuery
-				}
+			key: this.props.componentId,
+			value: {
+				queryType: this.type,
+				inputData: this.props.appbaseField,
+				customQuery: this.customQuery
+			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
 	}
 
 	includeAggQuery() {
 		var obj = {
-			key: this.props.componentId+'-sort',
+			key: this.props.componentId + '-sort',
 			value: this.sortObj
 		};
 		helper.selectedSensor.setSortInfo(obj);
@@ -140,7 +139,7 @@ export class NativeList extends Component {
 			aggSort: this.props.sortBy
 		};
 		let obj = {
-			key: this.props.componentId+'-sort',
+			key: this.props.componentId + '-sort',
 			value: this.sortObj
 		};
 		helper.selectedSensor.set(obj, true, 'sortChange');
@@ -154,31 +153,31 @@ export class NativeList extends Component {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
 			size: this.props.size,
-			sortRef: this.props.componentId+'-sort'
+			sortRef: this.props.componentId + '-sort'
 		};
-		if(react && react.and && typeof react.and === 'string') {
+		if (react && react.and && typeof react.and === 'string') {
 			react.and = [react.and];
 		} else {
 			react.and = react.and ? react.and : [];
 		}
-		react.and.push(this.props.componentId+'-sort');
+		react.and.push(this.props.componentId + '-sort');
 		this.includeAggQuery();
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(this.channelId, function(res) {
-			if(res.error) {
+			if (res.error) {
 				this.setState({
 					queryStart: false
 				});
 			}
-			if(res.appliedQuery) {
+			if (res.appliedQuery) {
 				let data = res.data;
 				let rawData;
-				if(res.mode === 'streaming') {
+				if (res.mode === 'streaming') {
 					rawData = this.state.rawData;
 					rawData.hits.hits.push(res.data);
-				} else if(res.mode === 'historic') {
+				} else if (res.mode === 'historic') {
 					rawData = data;
 				}
 				this.setState({
@@ -192,8 +191,8 @@ export class NativeList extends Component {
 	}
 
 	listenLoadingChannel(channelObj) {
-		this.loadListener = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
-			if(res.appliedQuery) {
+		this.loadListener = channelObj.emitter.addListener(channelObj.channelId + '-query', function(res) {
+			if (res.appliedQuery) {
 				this.setState({
 					queryStart: res.queryState
 				});
@@ -202,7 +201,7 @@ export class NativeList extends Component {
 	}
 
 	setData(data) {
-		if(data.aggregations && data.aggregations[this.props.appbaseField] && data.aggregations[this.props.appbaseField].buckets) {
+		if (data.aggregations && data.aggregations[this.props.appbaseField] && data.aggregations[this.props.appbaseField].buckets) {
 			this.addItemsToList(data.aggregations[this.props.appbaseField].buckets);
 		}
 	}
@@ -220,8 +219,8 @@ export class NativeList extends Component {
 	}
 
 	// Handler function when a value is selected
-	handleSelect(handleValue, selectAll=false) {
-		if(this.state.selectAll && !selectAll) {
+	handleSelect(handleValue, selectAll = false) {
+		if (this.state.selectAll && !selectAll) {
 			this.setState({
 				selectAll: false
 			});
@@ -230,27 +229,27 @@ export class NativeList extends Component {
 	}
 
 	// Handler function when a value is deselected or removed
-	handleRemove(value, isExecuteQuery=false) {
+	handleRemove(value, isExecuteQuery = false) {
 		this.setValue(value, isExecuteQuery);
 	}
 
 	// set value
-	setValue(value, isExecuteQuery=false) {
+	setValue(value, isExecuteQuery = false) {
 		var obj = {
 			key: this.props.componentId,
 			value: value
 		};
 		this.selectedValue = value;
-		if(this.props.multipleSelect) {
+		if (this.props.multipleSelect) {
 			let items = this.state.items.map((item) => {
-				if(value && value.indexOf(item.key) > -1) {
+				if (value && value.indexOf(item.key) > -1) {
 					item.status = true;
 				} else {
 					item.status = false;
 				}
 				return item;
 			});
-			this.setState({items: items});
+			this.setState({ items: items });
 		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
@@ -261,7 +260,7 @@ export class NativeList extends Component {
 			item.status = value;
 			return item;
 		});
-		if(value) {
+		if (value) {
 			this.selectedValue = selectedValue;
 		}
 		this.setState({
@@ -274,7 +273,7 @@ export class NativeList extends Component {
 
 	// filter
 	filterBySearch(value) {
-		if(value) {
+		if (value) {
 			let items = this.state.storedItems.map(function(item) {
 				item.visible = item.key && item.key.toLowerCase().indexOf(value.toLowerCase()) > -1 ? true : false;
 				return item;
@@ -309,8 +308,7 @@ export class NativeList extends Component {
 				defaultSelected={this.props.defaultSelected}
 				selectAllLabel={this.props.selectAllLabel}
 				selectAllValue={this.state.selectAll} />
-		}
-		else {
+		} else {
 			listComponent = <ItemList
 				items={this.state.items}
 				onSelect={this.handleSelect}
@@ -322,14 +320,14 @@ export class NativeList extends Component {
 		}
 
 		// set static search
-		if(this.props.showSearch) {
+		if (this.props.showSearch) {
 			searchComponent = <StaticSearch
 				placeholder={this.props.placeholder}
 				changeCallback={this.filterBySearch}
 			/>
 		}
 
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
@@ -368,7 +366,8 @@ NativeList.propTypes = {
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
-	})
+	}),
+	react: React.PropTypes.object
 };
 
 // Default props value

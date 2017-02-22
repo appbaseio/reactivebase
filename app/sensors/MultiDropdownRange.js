@@ -1,4 +1,4 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import Select from 'react-select';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
@@ -6,7 +6,7 @@ var helper = require('../middleware/helper.js');
 var _ = require('lodash');
 import * as TYPES from '../middleware/constants.js';
 
-export class MultiDropdownRange extends Component {
+export default class MultiDropdownRange extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -25,11 +25,11 @@ export class MultiDropdownRange extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if(this.defaultSelected) {
+		if (this.defaultSelected) {
 			let records = this.state.data.filter((record) => {
 				return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
 			});
-			if(records && records.length) {
+			if (records && records.length) {
 				setTimeout(this.handleChange.bind(this, records), 1000);
 			}
 		}
@@ -42,7 +42,7 @@ export class MultiDropdownRange extends Component {
 				let records = this.state.data.filter((record) => {
 					return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
 				});
-				if(records && records.length) {
+				if (records && records.length) {
 					setTimeout(this.handleChange.bind(this, records), 1000);
 				}
 			}
@@ -64,22 +64,23 @@ export class MultiDropdownRange extends Component {
 
 	// build query for this sensor only
 	customQuery(record) {
-		if(record) {
+		if (record) {
 			let query = {
 				bool: {
 					should: generateRangeQuery(this.props.appbaseField),
-					"minimum_should_match" : 1,
-					"boost" : 1.0
+					"minimum_should_match": 1,
+					"boost": 1.0
 				}
 			};
 			return query;
 		}
+
 		function generateRangeQuery(appbaseField) {
 			if (record.length > 0) {
 				return record.map((singleRecord, index) => {
 					return {
 						range: {
-								[appbaseField]: {
+							[appbaseField]: {
 								gte: singleRecord.start,
 								lte: singleRecord.end,
 								boost: 2.0
@@ -118,7 +119,7 @@ export class MultiDropdownRange extends Component {
 	// render
 	render() {
 		let title = null;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
@@ -156,12 +157,12 @@ MultiDropdownRange.propTypes = {
 	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value
-MultiDropdownRange.defaultProps = {
-};
+MultiDropdownRange.defaultProps = {};
 
 // context type
 MultiDropdownRange.contextTypes = {

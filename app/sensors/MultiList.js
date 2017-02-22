@@ -1,8 +1,8 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import { NativeList } from './NativeList';
 import * as TYPES from '../middleware/constants.js';
 
-export class MultiList extends Component {
+export default class MultiList extends Component {
 	constructor(props, context) {
 		super(props);
 	}
@@ -19,8 +19,8 @@ export class MultiList extends Component {
 
 MultiList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField : React.PropTypes.string.isRequired,
-	title : React.PropTypes.string,
+	appbaseField: React.PropTypes.string.isRequired,
+	title: React.PropTypes.string,
 	defaultSelected: React.PropTypes.array,
 	size: React.PropTypes.number,
 	showCount: React.PropTypes.bool,
@@ -31,7 +31,8 @@ MultiList.propTypes = {
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
-	})
+	}),
+	react: React.PropTypes.object
 };
 
 // Default props value

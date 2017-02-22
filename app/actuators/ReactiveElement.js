@@ -1,11 +1,8 @@
-import {
-	default as React,
-	Component
-} from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import JsonPrint from '../addons/JsonPrint';
-import { PoweredBy } from '../sensors/PoweredBy';
+import PoweredBy from '../sensors/PoweredBy';
 import InitialLoader from '../addons/InitialLoader';
 import NoResults from '../addons/NoResults';
 import ResultStats from '../addons/ResultStats';
@@ -13,7 +10,7 @@ var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 var _ = require('lodash');
 
-export class ReactiveElement extends Component {
+export default class ReactiveElement extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -214,10 +211,6 @@ export class ReactiveElement extends Component {
 	// normalize current data
 	normalizeCurrentData(res, rawData, newData) {
 		let appliedQuery = JSON.parse(JSON.stringify(res.appliedQuery));
-		if (this.props.requestOnScroll && appliedQuery && appliedQuery.body) {
-			delete appliedQuery.body.from;
-			delete appliedQuery.body.size;
-		}
 		let currentData = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery) ? (rawData ? rawData : []) : [];
 		if (!currentData.length) {
 			this.appliedQuery = appliedQuery;
@@ -348,6 +341,7 @@ ReactiveElement.propTypes = {
 	resultStats: React.PropTypes.shape({
 		setText: React.PropTypes.func
 	}),
+	react: React.PropTypes.object,
 	placeholder: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.number,
@@ -358,7 +352,6 @@ ReactiveElement.propTypes = {
 ReactiveElement.defaultProps = {
 	from: 0,
 	size: 20,
-	requestOnScroll: true,
 	stream: false,
 	ShowNoResults: true,
 	ShowResultStats: true,

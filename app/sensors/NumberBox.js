@@ -41,7 +41,7 @@ const NumberComponent = (props) => {
 	);
 };
 
-class NumberBox extends Component {
+export default class NumberBox extends Component {
 	constructor(props, context) {
 		super(props);
 		const {defaultSelected, focused} = this.props;
@@ -159,7 +159,9 @@ NumberBox.propTypes = {
 		label: React.PropTypes.string
 	}),
 	defaultSelected: helper.valueValidation,
-	labelPosition: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right'])
+	labelPosition: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // context type
@@ -176,5 +178,3 @@ NumberBox.types = {
 	defaultSelected: TYPES.NUMBER,
 	labelPosition: TYPES.STRING
 }
-
-export {NumberBox};

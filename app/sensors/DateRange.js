@@ -1,4 +1,4 @@
-import {default as React, Component} from 'react';
+import React, { Component } from 'react';
 import { DateRangePicker } from 'react-dates';
 import classNames from 'classnames';
 var moment = require('moment');
@@ -7,7 +7,7 @@ import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 import * as TYPES from '../middleware/constants.js';
 
-export class DateRange extends Component {
+export default class DateRange extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -46,8 +46,8 @@ export class DateRange extends Component {
 	isDateChange() {
 		let flag = false;
 		try {
-			if(this.startDate && this.endDate) { 
-				if(moment(this.startDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected.start).format('YYYY-MM-DD') && moment(this.endDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected.end).format('YYYY-MM-DD')) {
+			if (this.startDate && this.endDate) {
+				if (moment(this.startDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected.start).format('YYYY-MM-DD') && moment(this.endDate).format('YYYY-MM-DD') != moment(this.props.defaultSelected.end).format('YYYY-MM-DD')) {
 					this.startDate = this.props.defaultSelected.start;
 					this.endDate = this.props.defaultSelected.end;
 					flag = true;
@@ -55,13 +55,13 @@ export class DateRange extends Component {
 			} else {
 				flag = checkDefault.call(this);
 			}
-		} catch(e) {
+		} catch (e) {
 			flag = checkDefault.call(this);
 		}
 
 		function checkDefault() {
 			let flag1 = false;
-			if(this.props.defaultSelected.start && this.props.defaultSelected.end) {
+			if (this.props.defaultSelected.start && this.props.defaultSelected.end) {
 				this.startDate = this.props.defaultSelected.start;
 				this.endDate = this.props.defaultSelected.end;
 				flag1 = true;
@@ -87,7 +87,7 @@ export class DateRange extends Component {
 	// build query for this sensor only
 	customQuery(value) {
 		let query = null;
-		if(value) {
+		if (value) {
 			query = {
 				'range': {
 					[this.props.appbaseField]: {
@@ -129,11 +129,12 @@ export class DateRange extends Component {
 	// allow all dates
 	allowAllDates() {
 		let outsideObj;
-		if(this.props.allowAllDates) {
+		if (this.props.allowAllDates) {
 			outsideObj = {
 				isOutsideRange: isOutsideRange
 			};
 		}
+
 		function isOutsideRange() {
 			return false;
 		}
@@ -144,7 +145,7 @@ export class DateRange extends Component {
 	// render
 	render() {
 		let title = null;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
@@ -185,7 +186,8 @@ DateRange.propTypes = {
 	numberOfMonths: React.PropTypes.number,
 	allowAllDates: React.PropTypes.bool,
 	extra: React.PropTypes.any,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value

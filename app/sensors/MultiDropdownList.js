@@ -1,8 +1,8 @@
-import { default as React, Component } from 'react';
-import { DropdownList } from './DropdownList';
+import React, { Component } from 'react';
+import DropdownList from './DropdownList';
 import * as TYPES from '../middleware/constants.js';
 
-export class MultiDropdownList extends Component {
+export default class MultiDropdownList extends Component {
 	constructor(props, context) {
 		super(props);
 	}
@@ -19,8 +19,8 @@ export class MultiDropdownList extends Component {
 
 MultiDropdownList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField : React.PropTypes.string.isRequired,
-	title : React.PropTypes.string,
+	appbaseField: React.PropTypes.string.isRequired,
+	title: React.PropTypes.string,
 	defaultSelected: React.PropTypes.array,
 	showCount: React.PropTypes.bool,
 	size: React.PropTypes.number,
@@ -31,7 +31,9 @@ MultiDropdownList.propTypes = {
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
-	})
+	}),
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value

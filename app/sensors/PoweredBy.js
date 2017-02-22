@@ -1,6 +1,6 @@
-import {default as React, Component} from 'react';
+import React, { Component } from 'react';
 
-export class PoweredBy extends Component {
+export default class PoweredBy extends Component {
 	constructor(props, context) {
 		super(props);
 	}

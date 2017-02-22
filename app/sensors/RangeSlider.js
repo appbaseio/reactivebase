@@ -1,4 +1,4 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import { HistoGramComponent } from '../addons/HistoGram.js';
@@ -8,14 +8,14 @@ var helper = require('../middleware/helper.js');
 var _ = require('lodash');
 import * as TYPES from '../middleware/constants.js';
 
-export class RangeSlider extends Component {
+export default class RangeSlider extends Component {
 	constructor(props, context) {
 		super(props);
 		let startThreshold = this.props.range.start ? this.props.range.start : 0;
 		let endThreshold = this.props.range.end ? this.props.range.end : 5;
 		let values = {};
 		values.min = this.props.defaultSelected.start < startThreshold ? startThreshold : this.props.defaultSelected.start;
-		values.max = this.props.defaultSelected.end < endThreshold ? this.props.defaultSelected.end :  endThreshold;
+		values.max = this.props.defaultSelected.end < endThreshold ? this.props.defaultSelected.end : endThreshold;
 		this.state = {
 			values: values,
 			startThreshold: startThreshold,
@@ -45,13 +45,13 @@ export class RangeSlider extends Component {
 
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
-		if(this.channelId) {
+		if (this.channelId) {
 			manager.stopStream(this.channelId);
 		}
-		if(this.channelListener) {
+		if (this.channelListener) {
 			this.channelListener.remove();
 		}
-		if(this.loadListener) {
+		if (this.loadListener) {
 			this.loadListener.remove();
 		}
 	}
@@ -104,7 +104,7 @@ export class RangeSlider extends Component {
 			}
 			// check range
 			if (nextProps.range.start !== this.state.startThreshold ||
-				nextProps.range.end !== this.state.endThreshold ) {
+				nextProps.range.end !== this.state.endThreshold) {
 				if (nextProps.range.start <= nextProps.defaultSelected.start &&
 					nextProps.range.end >= nextProps.defaultSelected.end) {
 					this.setState({
@@ -164,7 +164,7 @@ export class RangeSlider extends Component {
 
 	shouldComponentUpdate(nextProps, nextState) {
 		if ((nextProps.stepValue <= 0) ||
-			(nextProps.stepValue > Math.floor((nextProps.range.end - nextProps.range.start)/2))) {
+			(nextProps.stepValue > Math.floor((nextProps.range.end - nextProps.range.start) / 2))) {
 			console.error(`Step value is invalid, it should be less than or equal to ${Math.floor((nextProps.range.end - nextProps.range.start)/2)}.`);
 			return false;
 		} else if (nextState.values.max > nextState.endThreshold) {
@@ -184,19 +184,19 @@ export class RangeSlider extends Component {
 	// set the query type and input data
 	setQueryInfo() {
 		var obj = {
-				key: this.props.componentId,
-				value: {
-					queryType: this.type,
-					inputData: this.props.appbaseField
-				}
+			key: this.props.componentId,
+			value: {
+				queryType: this.type,
+				inputData: this.props.appbaseField
+			}
 		};
 		var obj1 = {
-				key: this.props.componentId+'-internal',
-				value: {
-					queryType: 'range',
-					inputData: this.props.appbaseField,
-					customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
-				}
+			key: this.props.componentId + '-internal',
+			value: {
+				queryType: 'range',
+				inputData: this.props.appbaseField,
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
+			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
 		helper.selectedSensor.setSensorInfo(obj1);
@@ -205,20 +205,20 @@ export class RangeSlider extends Component {
 
 	setRangeValue() {
 		var objValue = {
-			key: this.props.componentId+'-internal',
+			key: this.props.componentId + '-internal',
 			value: this.props.range
 		};
 		helper.selectedSensor.set(objValue, true);
 	}
 
 	customQuery(record) {
-		if(record) {
+		if (record) {
 			return {
 				range: {
-						[this.props.appbaseField]: {
-							gte: record.start,
-							lte: record.end,
-							boost: 2.0
+					[this.props.appbaseField]: {
+						gte: record.start,
+						lte: record.end,
+						boost: 2.0
 					}
 				}
 			};
@@ -234,28 +234,28 @@ export class RangeSlider extends Component {
 			sort: 'asc',
 			size: 1000
 		};
-		if(react && react.and && typeof react.and === 'string') {
+		if (react && react.and && typeof react.and === 'string') {
 			react.and = [react.and];
 		} else {
 			react.and = react.and ? react.and : [];
 		}
-		react.and.push(this.props.componentId+'-internal');
+		react.and.push(this.props.componentId + '-internal');
 		// create a channel and listen the changes
 		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
-			if(res.error) {
+			if (res.error) {
 				this.setState({
 					queryStart: false
 				});
-			} 
-			if(res.appliedQuery) {
+			}
+			if (res.appliedQuery) {
 				let data = res.data;
 				let rawData;
-				if(res.mode === 'streaming') {
+				if (res.mode === 'streaming') {
 					rawData = this.state.rawData;
 					rawData.hits.hits.push(res.data);
-				} else if(res.mode === 'historic') {
+				} else if (res.mode === 'historic') {
 					rawData = data;
 				}
 				this.setState({
@@ -269,8 +269,8 @@ export class RangeSlider extends Component {
 	}
 
 	listenLoadingChannel(channelObj) {
-		this.loadListener = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
-			if(res.appliedQuery) {
+		this.loadListener = channelObj.emitter.addListener(channelObj.channelId + '-query', function(res) {
+			if (res.appliedQuery) {
 				this.setState({
 					queryStart: res.queryState
 				});
@@ -285,7 +285,7 @@ export class RangeSlider extends Component {
 	setData(data) {
 		try {
 			this.addItemsToList(data.aggregations[this.props.appbaseField].buckets);
-		} catch(e) {
+		} catch (e) {
 			console.log(e);
 		}
 	}
@@ -294,8 +294,8 @@ export class RangeSlider extends Component {
 		newItems = _.orderBy(newItems, ['key'], ['asc']);
 		let itemLength = newItems.length;
 		let min = this.state.startThreshold ? this.state.startThreshold : newItems[0].key;
-		let max = this.state.endThreshold ? this.state.endThreshold : newItems[itemLength-1].key;
-		if(itemLength > 1) {
+		let max = this.state.endThreshold ? this.state.endThreshold : newItems[itemLength - 1].key;
+		if (itemLength > 1) {
 			let rangeValue = {
 				counts: this.countCalc(min, max, newItems),
 				startThreshold: min,
@@ -316,7 +316,7 @@ export class RangeSlider extends Component {
 		var storeItems = {};
 		newItems = newItems.map(function(item) {
 			item.key = Math.floor(item.key);
-			if(!storeItems.hasOwnProperty(item.key)) {
+			if (!storeItems.hasOwnProperty(item.key)) {
 				storeItems[item.key] = item.doc_count;
 			} else {
 				storeItems[item.key] += item.doc_count;
@@ -333,7 +333,7 @@ export class RangeSlider extends Component {
 	// Handle function when slider option change is completed
 	handleResults(textVal, value) {
 		let values;
-		if(textVal) {
+		if (textVal) {
 			values = {
 				min: textVal[0],
 				max: textVal[1]
@@ -361,10 +361,10 @@ export class RangeSlider extends Component {
 			histogram = null,
 			marks = {};
 
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
-		if(this.state.counts && this.state.counts.length && this.props.showHistogram) {
+		if (this.state.counts && this.state.counts.length && this.props.showHistogram) {
 			histogram = (<HistoGramComponent data={this.state.counts} />);
 		}
 		if (this.props.rangeLabels.start || this.props.rangeLabels.end) {
@@ -423,7 +423,8 @@ RangeSlider.propTypes = {
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
-	})
+	}),
+	react: React.PropTypes.object
 };
 
 RangeSlider.defaultProps = {

@@ -1,10 +1,10 @@
-import {default as React, Component} from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 var helper = require('../middleware/helper.js');
 import * as TYPES from '../middleware/constants.js';
 
-export class TextField extends Component {
+export default class TextField extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
@@ -39,7 +39,7 @@ export class TextField extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery:  this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -67,7 +67,7 @@ export class TextField extends Component {
 		this.setValue(inputVal);
 	}
 
-	setValue(inputVal){
+	setValue(inputVal) {
 		this.setState({
 			'currentValue': inputVal
 		});
@@ -84,7 +84,7 @@ export class TextField extends Component {
 	// render
 	render() {
 		let title = null;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
@@ -112,12 +112,12 @@ TextField.propTypes = {
 	title: React.PropTypes.string,
 	defaultSelected: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value
-TextField.defaultProps = {
-};
+TextField.defaultProps = {};
 
 // context type
 TextField.contextTypes = {
