@@ -124,6 +124,7 @@ export default class ReactiveElement extends Component {
 					this.afterChannelResponse(res);
 				} else if (res.mode === 'streaming') {
 					this.afterChannelResponse(res);
+					this.updateResultStats(res.data);
 				}
 			} else {
 				this.setState({
@@ -139,6 +140,14 @@ export default class ReactiveElement extends Component {
 			};
 			helper.selectedSensor.set(obj, true);
 		}
+	}
+
+	updateResultStats(newData) {
+		let resultStats = this.state.resultStats;
+		resultStats.total = helper.updateStats(resultStats.total, newData);
+		this.setState({
+			resultStats: resultStats
+		});
 	}
 
 	listenLoadingChannel(channelObj) {

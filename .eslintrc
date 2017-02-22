@@ -1,0 +1,26 @@
+{
+	"ecmaFeatures": {
+		"jsx": true,
+		"modules": true
+	},
+	"env": {
+		"browser": true,
+		"node": true
+	},
+	"parser": "babel-eslint",
+	"extends": "airbnb",
+	"rules": {
+        "indent": [2, "tab"],
+        "no-tabs": 0,
+        "object-curly-spacing": [2, "always"],
+		"react/jsx-uses-react": 2,
+		"react/jsx-uses-vars": 2,
+		"react/react-in-jsx-scope": 2,
+		"react/jsx-indent": [2, "tab"],
+		"react/jsx-indent-props": [2, "tab"],
+		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+	},
+	"plugins": [
+		"react"
+	]
+}

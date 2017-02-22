@@ -515,3 +515,16 @@ export var combineStreamData = function(currentData, newData) {
 	}
 	return currentData;
 };
+
+export var updateStats = function(total, newData) {
+	if (newData) {
+		if (newData._deleted) {
+			total -= 1;
+		} else if(newData._updated) {
+			total = total;
+		} else {
+			total +=1;
+		}
+	}
+	return total;
+}
