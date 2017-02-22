@@ -26,7 +26,8 @@ export default class ReactiveList extends Component {
 				total: 0,
 				took: 0
 			},
-			showPlaceholder: true
+			showPlaceholder: true,
+			showInitialLoader: false
 		};
 		if (this.props.sortOptions) {
 			let obj = this.props.sortOptions[0];
@@ -209,8 +210,10 @@ export default class ReactiveList extends Component {
 	listenLoadingChannel(channelObj) {
 		this.loadListener = channelObj.emitter.addListener(channelObj.channelId + '-query', function(res) {
 			if (res.appliedQuery) {
+				let showInitialLoader = this.props.requestOnScroll && res.appliedQuery.body && res.appliedQuery.body.from ? false : true;
 				this.setState({
-					queryStart: res.queryState
+					queryStart: res.queryState,
+					showInitialLoader: showInitialLoader
 				});
 			}
 		}.bind(this));
@@ -546,7 +549,7 @@ export default class ReactiveList extends Component {
 					{this.state.showPlaceholder ? placeholder : null}
 				</div >
 				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults}></NoResults>) : null}
-				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader}></InitialLoader>) : null}
+				{this.props.initialLoader && this.state.queryStart && this.state.showInitialLoader ? (<InitialLoader defaultText={this.props.initialLoader}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
 		);
