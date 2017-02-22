@@ -1,12 +1,18 @@
-import React, { Component } from 'react';
-import Select from 'react-select';
-import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
-var helper = require('../middleware/helper.js');
-import * as TYPES from '../middleware/constants.js';
+import React, { Component } from "react";
+import Select from "react-select";
+import classNames from "classnames";
+import { manager } from "../middleware/ChannelManager";
+import * as TYPES from "../middleware/constants";
+
+const helper = require("../middleware/helper");
 
 export default class DataSearch extends Component {
-	constructor(props, context) {
+	// Search results often contain duplicate results, so display only unique values
+	static removeDuplicates(myArr, prop) {
+		return myArr.filter((obj, pos, arr) => arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos);
+	}
+
+	constructor(props) {
 		super(props);
 		this.state = {
 			items: [],
@@ -19,8 +25,8 @@ export default class DataSearch extends Component {
 				}
 			}
 		};
-		this.type = 'match_phrase';
-		this.searchInputId = 'internal-' + this.props.componentId;
+		this.type = "match_phrase";
+		this.searchInputId = `internal-${this.props.componentId}`;
 		this.channelId = null;
 		this.channelListener = null;
 		this.fieldType = typeof this.props.appbaseField;
@@ -38,6 +44,10 @@ export default class DataSearch extends Component {
 		this.checkDefault();
 	}
 
+	componentWillUpdate() {
+		this.checkDefault();
+	}
+
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
 		if (this.channelId) {
@@ -48,23 +58,9 @@ export default class DataSearch extends Component {
 		}
 	}
 
-	componentWillUpdate() {
-		this.checkDefault();
-	}
-
-	checkDefault() {
-		if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
-			this.defaultSelected = this.props.defaultSelected;
-			setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
-			this.handleSearch({
-				value: this.defaultSelected
-			});
-		}
-	}
-
 	// set the query type and input data
 	setQueryInfo() {
-		let obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: {
 				queryType: this.type,
@@ -73,10 +69,10 @@ export default class DataSearch extends Component {
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
-		let searchObj = {
+		const searchObj = {
 			key: this.searchInputId,
 			value: {
-				queryType: 'multi_match',
+				queryType: "multi_match",
 				inputData: this.props.appbaseField,
 				customQuery: this.defaultSearchQuery
 			}
@@ -84,75 +80,18 @@ export default class DataSearch extends Component {
 		helper.selectedSensor.setSensorInfo(searchObj);
 	}
 
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
-		let react = this.props.react ? this.props.react : {};
-		if (react && react.and && typeof react.and === 'string') {
-			react.and = [react.and];
-		} else {
-			react.and = react.and ? react.and : [];
-		}
-		react.and.push(this.searchInputId);
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
-		this.channelId = channelObj.channelId;
-		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
-			let data = res.data;
-			let rawData;
-			if (res.mode === 'streaming') {
-				rawData = this.state.rawData;
-				rawData.hits.hits.push(res.data);
-			} else if (res.mode === 'historic') {
-				rawData = data;
-			}
-			this.setState({
-				rawData: rawData
-			});
-			if (this.props.autocomplete) {
-				this.setData(rawData);
-			}
-		}.bind(this));
-	}
-
-	//default query
-	defaultSearchQuery(value) {
-		if (value) {
-			if (this.fieldType == 'string') {
-				return {
-					"match_phrase_prefix": {
-						[this.props.appbaseField]: value
-					}
-				};
-			} else {
-				let query = [];
-				this.props.appbaseField.map(field => {
-					query.push({
-						"match_phrase_prefix": {
-							[field]: value
-						}
-					})
-				});
-				return {
-					bool: {
-						should: query,
-						minimum_should_match: 1
-					}
-				};
-			}
-		}
-	}
-
 	// set value to search
 	setValue(value) {
-		var obj = {
+		const obj = {
 			key: this.searchInputId,
-			value: value
+			value
 		};
 		helper.selectedSensor.set(obj, true);
-		if (value && value.trim() !== '') {
+		if (value && value.trim() !== "") {
 			this.setState({
 				options: [{
 					label: value,
-					value: value
+					value
 				}],
 				isLoadingOptions: true,
 				currentValue: value
@@ -170,24 +109,22 @@ export default class DataSearch extends Component {
 	setData(data) {
 		let options = [];
 		let searchField = null;
-		if (this.fieldType == 'string') {
+		if (this.fieldType === "string") {
 			searchField = `hit._source.${this.props.appbaseField}.trim()`;
 		}
 		data.hits.hits.map((hit) => {
 			if (searchField) {
 				options.push({ value: eval(searchField), label: eval(searchField) });
-			} else {
-				if (this.fieldType == 'object') {
-					this.props.appbaseField.map(field => {
-						let tempField = `hit._source.${field}`
-						if (eval(tempField)) {
-							options.push({ value: eval(tempField), label: eval(tempField) });
-						}
-					});
-				}
+			} else if (this.fieldType === "object") {
+				this.props.appbaseField.map((field) => {
+					const tempField = `hit._source.${field}`;
+					if (eval(tempField)) {
+						options.push({ value: eval(tempField), label: eval(tempField) });
+					}
+				});
 			}
 		});
-		if (this.state.currentValue && this.state.currentValue.trim() !== '') {
+		if (this.state.currentValue && this.state.currentValue.trim() !== "") {
 			options.unshift({
 				label: this.state.currentValue,
 				value: this.state.currentValue
@@ -195,25 +132,84 @@ export default class DataSearch extends Component {
 		}
 		options = this.removeDuplicates(options, "label");
 		this.setState({
-			options: options,
+			options,
 			isLoadingOptions: false
 		});
 	}
 
-	// Search results often contain duplicate results, so display only unique values
-	removeDuplicates(myArr, prop) {
-		return myArr.filter((obj, pos, arr) => {
-			return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+	// default query
+	defaultSearchQuery(value) {
+		if (value) {
+			if (this.fieldType === "string") {
+				return {
+					match_phrase_prefix: {
+						[this.props.appbaseField]: value
+					}
+				};
+			}
+			const query = [];
+			this.props.appbaseField.map((field) => {
+				query.push({
+					match_phrase_prefix: {
+						[field]: value
+					}
+				});
+			});
+			return {
+				bool: {
+					should: query,
+					minimum_should_match: 1
+				}
+			};
+		}
+	}
+
+	// Create a channel which passes the react and receive results whenever react changes
+	createChannel() {
+		const react = this.props.react ? this.props.react : {};
+		if (react && react.and && typeof react.and === "string") {
+			react.and = [react.and];
+		} else {
+			react.and = react.and ? react.and : [];
+		}
+		react.and.push(this.searchInputId);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
+		this.channelId = channelObj.channelId;
+		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
+			const data = res.data;
+			let rawData;
+			if (res.mode === "streaming") {
+				rawData = this.state.rawData;
+				rawData.hits.hits.push(res.data);
+			} else if (res.mode === "historic") {
+				rawData = data;
+			}
+			this.setState({
+				rawData
+			});
+			if (this.props.autocomplete) {
+				this.setData(rawData);
+			}
 		});
+	}
+
+	checkDefault() {
+		if (this.props.defaultSelected && this.defaultSelected !== this.props.defaultSelected) {
+			this.defaultSelected = this.props.defaultSelected;
+			setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
+			this.handleSearch({
+				value: this.defaultSelected
+			});
+		}
 	}
 
 	// When user has selected a search value
 	handleSearch(currentValue) {
 		let value = currentValue ? currentValue.value : null;
-		value = value === 'null' ? null : value;
-		var obj = {
+		value = value === "null" ? null : value;
+		const obj = {
 			key: this.props.componentId,
-			value: value
+			value
 		};
 		helper.selectedSensor.set(obj, true);
 		this.setState({
@@ -222,17 +218,17 @@ export default class DataSearch extends Component {
 	}
 
 	handleInputChange(event) {
-		let inputVal = event.target.value;
+		const inputVal = event.target.value;
 		this.setState({
-			'currentValue': inputVal
+			currentValue: inputVal
 		});
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: inputVal
 		};
 
 		// pass the selected sensor value with componentId as key,
-		let isExecuteQuery = true;
+		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -241,13 +237,13 @@ export default class DataSearch extends Component {
 		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
-		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder,
-			'rbc-autocomplete-active': this.props.autocomplete,
-			'rbc-autocomplete-inactive': !this.props.autocomplete
+		const cx = classNames({
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-placeholder-active": this.props.placeholder,
+			"rbc-placeholder-inactive": !this.props.placeholder,
+			"rbc-autocomplete-active": this.props.autocomplete,
+			"rbc-autocomplete-inactive": !this.props.autocomplete
 		});
 
 		return (
@@ -255,25 +251,25 @@ export default class DataSearch extends Component {
 				{title}
 				{
 					this.props.autocomplete ?
-					<Select
-						isLoading={this.state.isLoadingOptions}
-						value={this.state.currentValue}
-						options={this.state.options}
-						onInputChange={this.setValue}
-						onChange={this.handleSearch}
-						onBlurResetsInput={false}
-						{...this.props}
-					/> :
-					<div className="rbc-search-container col s12 col-xs-12">
-						<input
-							type="text"
-							className="rbc-input"
-							placeholder={this.props.placeholder}
-							value={this.state.currentValue ? this.state.currentValue : ''}
-							onChange={this.handleInputChange}
-						/>
-						<span className="rbc-search-icon"></span>
-					</div>
+						<Select
+							isLoading={this.state.isLoadingOptions}
+							value={this.state.currentValue}
+							options={this.state.options}
+							onInputChange={this.setValue}
+							onChange={this.handleSearch}
+							onBlurResetsInput={false}
+							{...this.props}
+						/> :
+						<div className="rbc-search-container col s12 col-xs-12">
+							<input
+								type="text"
+								className="rbc-input"
+								placeholder={this.props.placeholder}
+								value={this.state.currentValue ? this.state.currentValue : ""}
+								onChange={this.handleInputChange}
+							/>
+							<span className="rbc-search-icon" />
+						</div>
 				}
 			</div>
 		);
@@ -308,7 +304,7 @@ DataSearch.contextTypes = {
 
 DataSearch.types = {
 	componentId: TYPES.STRING,
-	appbaseField : TYPES.STRING,
+	appbaseField: TYPES.STRING,
 	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
