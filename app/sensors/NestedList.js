@@ -458,7 +458,9 @@ NestedList.propTypes = {
 	initialLoader: React.PropTypes.shape({
 		show: React.PropTypes.bool,
 		text: React.PropTypes.string
-	})
+	}),
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value
@@ -471,9 +473,7 @@ NestedList.defaultProps = {
 	placeholder: 'Search',
 	initialLoader: {
 		show: true
-	},
-	customQuery: React.PropTypes.func,
-	react: React.PropTypes.object
+	}
 };
 
 // context type
