@@ -1,9 +1,9 @@
 import { default as React, Component } from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
-import { HistoGramComponent } from './component/HistoGram.js';
+import { HistoGramComponent } from '../addons/HistoGram.js';
 import Slider from 'rc-slider';
-import { InitialLoader } from './InitialLoader';
+import InitialLoader from '../addons/InitialLoader';
 var helper = require('../middleware/helper.js');
 var _ = require('lodash');
 import * as TYPES from '../middleware/constants.js';
@@ -64,6 +64,7 @@ export class RangeSlider extends Component {
 				nextProps.range.start <= nextProps.defaultSelected.start &&
 				nextProps.range.end >= nextProps.defaultSelected.end) {
 				let rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
+				let obj;
 				if (rem) {
 					this.setState({
 						values: {
@@ -71,7 +72,7 @@ export class RangeSlider extends Component {
 							max: nextProps.defaultSelected.end - rem
 						}
 					});
-					var obj = {
+					obj = {
 						key: this.props.componentId,
 						value: {
 							from: this.state.values.min,
@@ -89,7 +90,7 @@ export class RangeSlider extends Component {
 						values: values,
 						currentValues: values
 					});
-					var obj = {
+					obj = {
 						key: this.props.componentId,
 						value: {
 							from: values.min,
@@ -130,7 +131,7 @@ export class RangeSlider extends Component {
 						from: values.min,
 						to: values.max
 					};
-					var obj = {
+					obj = {
 						key: this.props.componentId,
 						value: currentRange
 					};
@@ -148,7 +149,7 @@ export class RangeSlider extends Component {
 							max: nextProps.defaultSelected.end - rem
 						}
 					});
-					var obj = {
+					obj = {
 						key: this.props.componentId,
 						value: {
 							from: this.state.values.min,
@@ -163,8 +164,8 @@ export class RangeSlider extends Component {
 
 	shouldComponentUpdate(nextProps, nextState) {
 		if ((nextProps.stepValue <= 0) ||
-			(nextProps.stepValue > Math.floor((nextProps['range']['end'] - nextProps['range']['start'])/2))) {
-			console.error(`Step value is invalid, it should be less than or equal to ${Math.floor((nextProps['range']['end'] - nextProps['range']['start'])/2)}.`);
+			(nextProps.stepValue > Math.floor((nextProps.range.end - nextProps.range.start)/2))) {
+			console.error(`Step value is invalid, it should be less than or equal to ${Math.floor((nextProps.range.end - nextProps.range.start)/2)}.`);
 			return false;
 		} else if (nextState.values.max > nextState.endThreshold) {
 			return false;
@@ -228,7 +229,7 @@ export class RangeSlider extends Component {
 	createChannel() {
 		// Set the react - add self aggs query as well with react
 		let react = this.props.react ? this.props.react : {};
-		react['aggs'] = {
+		react.aggs = {
 			key: this.props.appbaseField,
 			sort: 'asc',
 			size: 1000
@@ -247,7 +248,7 @@ export class RangeSlider extends Component {
 				this.setState({
 					queryStart: false
 				});
-			} 
+			}
 			if(res.appliedQuery) {
 				let data = res.data;
 				let rawData;
@@ -283,7 +284,7 @@ export class RangeSlider extends Component {
 
 	setData(data) {
 		try {
-			this.addItemsToList(eval(`data.aggregations["${this.props.appbaseField}"].buckets`));
+			this.addItemsToList(data.aggregations[this.props.appbaseField].buckets);
 		} catch(e) {
 			console.log(e);
 		}
@@ -343,7 +344,7 @@ export class RangeSlider extends Component {
 		var real_values = {
 			from: values.min,
 			to: values.max
-		}
+		};
 		var obj = {
 			key: this.props.componentId,
 			value: real_values
@@ -456,6 +457,7 @@ RangeSlider.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
+	react: TYPES.OBJECT,
 	range: TYPES.OBJECT,
 	rangeLabels: TYPES.OBJECT,
 	defaultSelected: TYPES.OBJECT,

@@ -1,7 +1,7 @@
 var {EventEmitter} = require('fbemitter');
 var helper = require('./helper.js');
 
-class channelManager {
+class ChannelManager {
 	constructor() {
 		this.emitter = new EventEmitter();
 		this.channels = {};
@@ -341,5 +341,5 @@ class channelManager {
 			emitter: this.emitter
 		};
 	}
-};
-export const manager = new channelManager();
+}
+export const manager = new ChannelManager();

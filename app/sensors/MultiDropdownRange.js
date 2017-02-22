@@ -172,6 +172,7 @@ MultiDropdownRange.contextTypes = {
 MultiDropdownRange.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	react: TYPES.OBJECT,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
 	title: TYPES.STRING,

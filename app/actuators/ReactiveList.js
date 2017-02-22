@@ -1,14 +1,15 @@
 import {default as React, Component} from 'react';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
-import JsonPrint from './component/JsonPrint';
+import JsonPrint from '../addons/JsonPrint';
 import { PoweredBy } from '../sensors/PoweredBy';
-import { InitialLoader } from '../sensors/InitialLoader';
-import {NoResults} from '../sensors/NoResults';
-import {ResultStats} from '../sensors/ResultStats';
+import InitialLoader from '../addons/InitialLoader';
+import NoResults from '../addons/NoResults';
+import ResultStats from '../addons/ResultStats';
 var helper = require('../middleware/helper.js');
 var $ = require('jquery');
 var _ = require('lodash');
+import * as TYPES from '../middleware/constants.js';
 
 export class ReactiveList extends Component {
 	constructor(props, context) {
@@ -33,7 +34,7 @@ export class ReactiveList extends Component {
 				[obj.appbaseField]: {
 					order: obj.sortBy
 				}
-			}
+			};
 		} else if (this.props.sortBy) {
 			this.sortObj = {
 				[this.props.appbaseField] : {
@@ -330,7 +331,7 @@ export class ReactiveList extends Component {
 		if(_.isArray(newData)) {
 			return this.state.currentData.concat(newData);
 		} else {
-			return this.streamDataModify(this.state.currentData, newData)
+			return this.streamDataModify(this.state.currentData, newData);
 		}
 	}
 
@@ -348,7 +349,7 @@ export class ReactiveList extends Component {
 	appendData(data) {
 		let rawData = this.state.rawData;
 		let hits = rawData.hits.hits.concat(data.hits.hits);
-		rawData.hits.hits = _.uniqBy(hits, '_id');;
+		rawData.hits.hits = _.uniqBy(hits, '_id');
 		return rawData;
 	}
 
@@ -455,8 +456,8 @@ export class ReactiveList extends Component {
 	handleSortSelect(event) {
 		let index = event.target.value;
 		this.sortObj = {
-			[this.props.sortOptions[index]['appbaseField']]: {
-				order: this.props.sortOptions[index]['sortBy']
+			[this.props.sortOptions[index].appbaseField]: {
+				order: this.props.sortOptions[index].sortBy
 			}
 		};
 		let obj = {
@@ -497,7 +498,7 @@ export class ReactiveList extends Component {
 						{options}
 					</select>
 				</div>
-			)
+			);
 		}
 
 		return (
@@ -505,7 +506,7 @@ export class ReactiveList extends Component {
 				<div ref="ListContainer" className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{sortOptions}
-					{this.props.resultStats.show ? (<ResultStats setText={this.props.resultStats.setText} visible={this.state.resultStats.resultFound} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
+					{this.props.resultStats && this.state.resultStats.resultFound ? (<ResultStats setText={this.props.resultStats.setText} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
 					<div ref="resultListScrollContainer" className="rbc-reactivelist-scroll-container col s12 col-xs-12">
 						{this.state.resultMarkup}
 					</div>
@@ -516,11 +517,11 @@ export class ReactiveList extends Component {
 					}
 					{this.state.showPlaceholder ? placeholder : null}
 				</div >
-				{this.props.noResults.show ? (<NoResults defaultText={this.props.noResults.text} visible={this.state.visibleNoResults}></NoResults>) : null}
-				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.noResults ? (<NoResults defaultText={this.props.noResults.text} visible={this.state.visibleNoResults}></NoResults>) : null}
+				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
-		)
+		);
 	}
 }
 
@@ -543,15 +544,12 @@ ReactiveList.propTypes = {
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
 	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
 	noResults: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		text: React.PropTypes.string
 	}),
 	resultStats: React.PropTypes.shape({
-		show: React.PropTypes.bool,
 		setText: React.PropTypes.func
 	}),
 	placeholder: React.PropTypes.oneOfType([
@@ -566,17 +564,6 @@ ReactiveList.defaultProps = {
 	size: 20,
 	requestOnScroll: true,
 	stream: false,
-	ShowNoResults: true,
-	initialLoader: {
-		show: true
-	},
-	noResults: {
-		show: true
-	},
-	resultStats: {
-		show: true
-	},
-	ShowResultStats: true,
 	componentStyle: {}
 };
 
@@ -584,4 +571,23 @@ ReactiveList.defaultProps = {
 ReactiveList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+ReactiveList.types = {
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	react: TYPES.OBJECT,
+	sortBy: TYPES.STRING,
+	sortOptions: TYPES.OBJECT,
+	from: TYPES.NUMBER,
+	onData: TYPES.FUNCTION,
+	size: TYPES.NUMBER,
+	requestOnScroll: TYPES.BOOLEAN,
+	stream: TYPES.BOOLEAN,
+	componentStyle: TYPES.OBJECT,
+	initialLoader: TYPES.OBJECT,
+	noResults: TYPES.OBJECT,
+	resultStats: TYPES.OBJECT,
+	placeholder: TYPES.STRING
 };

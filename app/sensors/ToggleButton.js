@@ -192,6 +192,7 @@ ToggleButton.contextTypes = {
 ToggleButton.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,

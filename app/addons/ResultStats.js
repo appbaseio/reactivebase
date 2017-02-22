@@ -1,14 +1,13 @@
-import {
-	default as React, Component } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 
-export class ResultStats extends Component {
+export default class ResultStats extends Component {
 	constructor(props, context) {
 		super(props);
 	}
 
 	defaultText() {
-		if(this.props.setText) {
+		if (this.props.setText) {
 			return this.props.setText(this.props.total, this.props.took);
 		} else {
 			return `${this.props.total} results found in ${this.props.took}ms`;
@@ -23,18 +22,12 @@ export class ResultStats extends Component {
 
 		return (
 			<div className={`rbc rbc-resultstats col s12 col-xs-12 ${cx}`}>
-				{this.props.visible ? this.defaultText() : null}
+				{this.defaultText()}
 			</div>
 		);
 	}
 }
 
 ResultStats.propTypes = {
-	setText: React.PropTypes.func,
-	visible: React.PropTypes.bool
-};
-
-// Default props value
-ResultStats.defaultProps = {
-	visible: false
+	setText: React.PropTypes.func
 };

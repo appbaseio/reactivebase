@@ -55,6 +55,7 @@ MultiDropdownList.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
 	defaultSelected: TYPES.ARRAY,
+	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	size: TYPES.NUMBER,
 	showCount: TYPES.BOOLEAN,

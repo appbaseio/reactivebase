@@ -124,7 +124,7 @@ export class MultiRange extends Component {
 		records.forEach((record) => {
 			selected.push(record);
 		});
-		
+
 		this.setState({
 			'selected': selected
 		});
@@ -255,6 +255,7 @@ MultiRange.contextTypes = {
 MultiRange.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,

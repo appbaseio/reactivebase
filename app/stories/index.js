@@ -479,8 +479,8 @@ storiesOf("DateRange", module)
 	.add("Default date", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault
 			defaultSelected ={{
-				startDate: moment()
-				endDate: moment().add(5, "days")
+				start: moment(),
+				end: moment().add(5, "days")
 			}}
 		/>
 	)))
@@ -528,15 +528,10 @@ storiesOf("ReactiveElement", module)
 			from={number("from", 0)}
 			size={number("size", 5)}
 			initialLoader={object("initialLoader", {
-				"show": true,
 				"text": 'Loading initially.'
 			})}
 			noResults={object("noResults", {
-				"show": true,
 				"text": 'No Results Found!'
-			})}
-			resultStats={object("resultStats", {
-				"show": true
 			})}
 			stream={boolean("stream", false)} />
 	)));
@@ -576,21 +571,30 @@ storiesOf("ReactiveList", module)
 			]}
 		/>
 	)))
+	.add("With Loaders", withReadme(removeFirstLine(ResultListReadme), () => (
+		<ReactiveListDefault
+			title="Meetups"
+			requestOnScroll={true}
+			stream={false}
+			initialLoader= {{
+				text: 'Initializing data..'
+			}}
+			noResults= {{
+				text: 'No results found!'
+			}}
+			resultStats= {{}}
+		/>
+	)))
 	.add("Playground", withReadme(removeFirstLine(ResultListReadme), () => (
 		<ReactiveListDefault
 			title={text("title", "ReactiveList: Results")}
 			from={number("from", 0)}
 			size={number("size", 5)}
 			initialLoader={object("initialLoader", {
-				"show": true,
 				"text": 'Loading initially.'
 			})}
 			noResults={object("noResults", {
-				"show": true,
 				"text": 'No Results Found!'
-			})}
-			resultStats={object("resultStats", {
-				"show": true
 			})}
 			requestOnScroll={boolean("requestOnScroll", true)}
 			stream={boolean("stream", false)} />
