@@ -107,6 +107,7 @@ export default class ReactiveListDefault extends Component {
 							appbaseField={this.props.mapping.city}
 							showCount={true}
 							size={10}
+							selectAllLabel="All Cities"
 							title="Input Filter"
 							customQuery={this.cityQuery}
 							searchPlaceholder="Search City"
