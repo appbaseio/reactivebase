@@ -87,6 +87,18 @@ export default class DropdownList extends Component {
 		this.removeChannel();
 	}
 
+	removeChannel() {
+		if (this.channelId) {
+			manager.stopStream(this.channelId);
+		}
+		if (this.channelListener) {
+			this.channelListener.remove();
+		}
+		if (this.loadListener) {
+			this.loadListener.remove();
+		}
+	}
+
 	// build query for this sensor only
 	customQuery(value) {
 		if (this.selectAll) {
