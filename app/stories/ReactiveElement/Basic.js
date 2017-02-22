@@ -54,6 +54,7 @@ export default class Basic extends Component {
 							showCount={true}
 							size={10}
 							title="Input Filter"
+							initialLoader="Loading city list.."
 							customQuery={this.cityQuery}
 							searchPlaceholder="Search City"
 							includeSelectAll={true}
