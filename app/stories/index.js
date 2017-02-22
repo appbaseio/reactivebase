@@ -537,10 +537,10 @@ storiesOf("ReactiveList", module)
 	.add("With Custom Markup", withReadme(removeFirstLine(ResultListReadme), () => (
 		<ReactiveListDefault requestOnScroll={true} stream={false} />
 	)))
-	.add("With Title", withReadme(removeFirstLine(ResultListReadme), () => (
-		<ReactiveListDefault title="Meetups" requestOnScroll={true} stream={false} />
+	.add("Without Title", withReadme(removeFirstLine(ResultListReadme), () => (
+		<ReactiveListDefault title="" requestOnScroll={true} stream={false} />
 	)))
-	.add("With Streaming", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("With Streaming Enabled", withReadme(removeFirstLine(ResultListReadme), () => (
 		<ReactiveListDefault title="Meetups" stream={true} />
 	)))
 	.add("With Sort Options", withReadme(removeFirstLine(ResultListReadme), () => (
@@ -567,13 +567,12 @@ storiesOf("ReactiveList", module)
 			]}
 		/>
 	)))
-	.add("With Loaders", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("With Loader", withReadme(removeFirstLine(ResultListReadme), () => (
 		<ReactiveListDefault
 			title="Meetups"
 			requestOnScroll={true}
 			stream={false}
-			initialLoader= 'Loading results..'
-			noResults= 'No results found!'
+			initialLoader='Loading results..'
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(ResultListReadme), () => (
@@ -617,6 +616,13 @@ storiesOf("ReactivePaginatedList", module)
 					sortBy: "asc"
 				}
 			]}
+		/>
+	)))
+	.add("With Loader", withReadme(removeFirstLine(ResultListReadme), () => (
+		<ReactivePaginatedListDefault
+			title="Meetups"
+			stream={false}
+			initialLoader='Loading results..'
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
