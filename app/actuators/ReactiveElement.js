@@ -11,6 +11,46 @@ const helper = require("../middleware/helper");
 const _ = require("lodash");
 
 export default class ReactiveElement extends Component {
+	// tranform the raw data to marker data
+	static setMarkersData(hits) {
+		if (hits) {
+			return hits;
+		}
+		return [];
+	}
+
+	// append stream boolean flag and also start time of stream
+	static streamDataModify(rawData, data) {
+		if (data) {
+			data.stream = true;
+			data.streamStart = new Date();
+			if (data._deleted) {
+				const hits = rawData.filter(hit => hit._id !== data._id);
+				rawData = hits;
+			} else {
+				const hits = rawData.filter(hit => hit._id !== data._id);
+				rawData = hits;
+				rawData.unshift(data);
+			}
+		}
+		return rawData;
+	}
+
+	// default markup
+	static defaultonData(res) {
+		let result = null;
+		if (res && res.appliedQuery) {
+			result = (
+				<div className="row" style={{ marginTop: "60px" }}>
+					<pre className="pull-left">
+						{JSON.stringify(res.newData, null, 4)}
+					</pre>
+				</div>
+			);
+		}
+		return result;
+	}
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -56,14 +96,6 @@ export default class ReactiveElement extends Component {
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
 		this.removeChannel();
-	}
-
-	// tranform the raw data to marker data
-	setMarkersData(hits) {
-		if (hits) {
-			return hits;
-		}
-		return [];
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
@@ -224,23 +256,6 @@ export default class ReactiveElement extends Component {
 		return this.streamDataModify(this.state.currentData, newData);
 	}
 
-	// append stream boolean flag and also start time of stream
-	streamDataModify(rawData, data) {
-		if (data) {
-			data.stream = true;
-			data.streamStart = new Date();
-			if (data._deleted) {
-				const hits = rawData.filter(hit => hit._id !== data._id);
-				rawData = hits;
-			} else {
-				const hits = rawData.filter(hit => hit._id !== data._id);
-				rawData = hits;
-				rawData.unshift(data);
-			}
-		}
-		return rawData;
-	}
-
 	initialize(executeChannel = false) {
 		this.createChannel(executeChannel);
 	}
@@ -258,21 +273,6 @@ export default class ReactiveElement extends Component {
 		}
 	}
 
-	// default markup
-	defaultonData(res, err) {
-		let result = null;
-		if (res && res.appliedQuery) {
-			result = (
-				<div className="row" style={{ marginTop: "60px" }}>
-					<pre className="pull-left">
-						{JSON.stringify(res.newData, null, 4)}
-					</pre>
-				</div>
-			);
-		}
-		return result;
-	}
-
 	render() {
 		let title = null,
 			placeholder = null;
@@ -282,7 +282,13 @@ export default class ReactiveElement extends Component {
 			"rbc-placeholder-active": this.props.placeholder,
 			"rbc-placeholder-inactive": !this.props.placeholder,
 			"rbc-stream-active": this.props.stream,
-			"rbc-stream-inactive": !this.props.stream
+			"rbc-stream-inactive": !this.props.stream,
+			"rbc-initialloader-active": this.props.initialLoader,
+			"rbc-initialloader-inactive": !this.props.initialLoader,
+			"rbc-resultstats-active": this.props.showResultStats,
+			"rbc-resultstats-inactive": !this.props.showResultStats,
+			"rbc-noresults-active": this.props.noResults,
+			"rbc-noresults-inactive": !this.props.noResults
 		});
 
 		if (this.props.title) {
@@ -296,10 +302,10 @@ export default class ReactiveElement extends Component {
 			<div className="rbc-reactiveelement-container">
 				<div className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
-					{this.props.resultStats && this.state.resultStats.resultFound ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
+					{this.state.resultStats && this.state.resultStats.resultFound && this.props.showResultStats ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
 					{this.state.resultMarkup}
 					{this.state.showPlaceholder ? placeholder : null}
-				</div >
+				</div>
 				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults.text} />) : null}
 				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader.text} />) : null}
 				<PoweredBy />
@@ -318,12 +324,10 @@ ReactiveElement.propTypes = {
 	componentStyle: React.PropTypes.object,
 	initialLoader: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	noResults: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	showResultStats: React.PropTypes.bool,
@@ -331,7 +335,6 @@ ReactiveElement.propTypes = {
 	react: React.PropTypes.object,
 	placeholder: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	])
 };

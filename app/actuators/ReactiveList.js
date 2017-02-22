@@ -26,7 +26,8 @@ export default class ReactiveList extends Component {
 				total: 0,
 				took: 0
 			},
-			showPlaceholder: true
+			showPlaceholder: true,
+			showInitialLoader: false
 		};
 		if (this.props.sortOptions) {
 			let obj = this.props.sortOptions[0];
@@ -209,8 +210,10 @@ export default class ReactiveList extends Component {
 	listenLoadingChannel(channelObj) {
 		this.loadListener = channelObj.emitter.addListener(channelObj.channelId + '-query', function(res) {
 			if (res.appliedQuery) {
+				let showInitialLoader = this.props.requestOnScroll && res.appliedQuery.body && res.appliedQuery.body.from ? false : true;
 				this.setState({
-					queryStart: res.queryState
+					queryStart: res.queryState,
+					showInitialLoader: showInitialLoader
 				});
 			}
 		}.bind(this));
@@ -505,7 +508,13 @@ export default class ReactiveList extends Component {
 			'rbc-stream-active': this.props.stream,
 			'rbc-stream-inactive': !this.props.stream,
 			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder
+			'rbc-placeholder-inactive': !this.props.placeholder,
+			"rbc-initialloader-active": this.props.initialLoader,
+			"rbc-initialloader-inactive": !this.props.initialLoader,
+			"rbc-resultstats-active": this.props.showResultStats,
+			"rbc-resultstats-inactive": !this.props.showResultStats,
+			"rbc-noresults-active": this.props.noResults,
+			"rbc-noresults-inactive": !this.props.noResults
 		});
 
 		if (this.props.title) {
@@ -546,7 +555,7 @@ export default class ReactiveList extends Component {
 					{this.state.showPlaceholder ? placeholder : null}
 				</div >
 				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults}></NoResults>) : null}
-				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader}></InitialLoader>) : null}
+				{this.props.initialLoader && this.state.queryStart && this.state.showInitialLoader ? (<InitialLoader defaultText={this.props.initialLoader}></InitialLoader>) : null}
 				<PoweredBy></PoweredBy>
 			</div>
 		);
@@ -573,19 +582,16 @@ ReactiveList.propTypes = {
 	componentStyle: React.PropTypes.object,
 	initialLoader: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	noResults: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	showResultStats: React.PropTypes.bool,
 	onResultStats: React.PropTypes.func,
 	placeholder: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	react: React.PropTypes.object

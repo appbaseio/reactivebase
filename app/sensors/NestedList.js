@@ -427,7 +427,9 @@ export default class NestedList extends Component {
 			'rbc-placeholder-active': this.props.placeholder,
 			'rbc-placeholder-inactive': !this.props.placeholder,
 			'rbc-count-active': this.props.showCount,
-			'rbc-count-inactive': !this.props.showCount
+			'rbc-count-inactive': !this.props.showCount,
+			"rbc-initialloader-active": this.props.initialLoader,
+			"rbc-initialloader-inactive": !this.props.initialLoader
 		});
 
 		return (
@@ -437,7 +439,7 @@ export default class NestedList extends Component {
 					{searchComponent}
 					{listComponent}
 				</div>
-				{this.props.initialLoader ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader}></InitialLoader>) : null}
 			</div>
 		);
 	}
@@ -453,9 +455,10 @@ NestedList.propTypes = {
 	size: helper.sizeValidation,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
-	initialLoader: React.PropTypes.shape({
-		text: React.PropTypes.string
-	}),
+	initialLoader: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	customQuery: React.PropTypes.func,
 	react: React.PropTypes.object
 };

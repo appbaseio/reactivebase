@@ -378,7 +378,9 @@ export default class RangeSlider extends Component {
 			'rbc-title-active': this.props.title,
 			'rbc-title-inactive': !this.props.title,
 			'rbc-labels-active': this.props.rangeLabels.start || this.props.rangeLabels.end,
-			'rbc-labels-inactive': !this.props.rangeLabels.start && !this.props.rangeLabels.end
+			'rbc-labels-inactive': !this.props.rangeLabels.start && !this.props.rangeLabels.end,
+			"rbc-initialloader-active": this.props.initialLoader,
+			"rbc-initialloader-inactive": !this.props.initialLoader
 		});
 
 		return (
@@ -422,7 +424,6 @@ RangeSlider.propTypes = {
 	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	react: React.PropTypes.object
