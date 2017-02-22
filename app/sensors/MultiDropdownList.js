@@ -1,6 +1,6 @@
 import React from "react";
 import DropdownList from "./DropdownList";
-import * as TYPES from "../middleware/constants.js";
+import * as TYPES from "../middleware/constants";
 
 export default function MultiDropdownList(props) {
 	return (
