@@ -21,5 +21,5 @@ NoResults.propTypes = {
 
 // Default props value
 NoResults.defaultProps = {
-	defaultText: "No results found..."
+	defaultText: "No results found."
 };
