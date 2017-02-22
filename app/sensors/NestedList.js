@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { ItemCheckboxList } from '../addons/ItemCheckboxList.js';
-import NestedItem from '../addons/NestedItem.js';
 import classNames from 'classnames';
 import { manager } from '../middleware/ChannelManager.js';
 import { StaticSearch } from '../addons/StaticSearch.js';

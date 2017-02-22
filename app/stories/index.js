@@ -44,11 +44,11 @@ import DataControllerDefault from "./DataController.stories";
 
 import PoweredByDefault from "./PoweredBy.stories";
 
-import ReactiveElement from "./ReactiveElement";
-let ReactiveElementReadme = ResultListReadme;
-
 import ReactiveListDefault from "./ReactiveList.stories";
 import ResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ResultList.md";
+
+import ReactiveElement from "./ReactiveElement";
+let ReactiveElementReadme = ResultListReadme;
 
 import ReactivePaginatedListDefault from "./ReactivePaginatedList.stories";
 import PaginatedResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/PaginatedResultList.md";
