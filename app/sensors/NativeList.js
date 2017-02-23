@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import ItemCheckboxList from '../addons/ItemCheckboxList.js';
-import ItemList from '../addons/ItemList.js';
-import classNames from 'classnames';
-import manager from '../middleware/ChannelManager';
-import { StaticSearch } from '../addons/StaticSearch.js';
-import InitialLoader from '../addons/InitialLoader';
-var helper = require('../middleware/helper.js');
+/* eslint max-lines: 0 */
+import React, { Component } from "react";
+import classNames from "classnames";
+import ItemCheckboxList from "../addons/ItemCheckboxList";
+import ItemList from "../addons/ItemList";
+import manager from "../middleware/ChannelManager";
+import { StaticSearch } from "../addons/StaticSearch";
+import InitialLoader from "../addons/InitialLoader";
+
+const helper = require("../middleware/helper");
 
 export default class NativeList extends Component {
-	constructor(props, context) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			items: [],
@@ -32,7 +34,7 @@ export default class NativeList extends Component {
 		this.handleRemove = this.handleRemove.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
 		this.selectAll = this.selectAll.bind(this);
-		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
+		this.type = this.props.multipleSelect ? "Terms" : "Term";
 		this.customQuery = this.customQuery.bind(this);
 		this.defaultCustomQuery = this.defaultCustomQuery.bind(this);
 	}
@@ -41,7 +43,7 @@ export default class NativeList extends Component {
 	componentDidMount() {
 		this.size = this.props.size;
 		this.setQueryInfo();
-		this.handleSelect('');
+		this.handleSelect("");
 		this.createChannel(true);
 	}
 
@@ -49,38 +51,40 @@ export default class NativeList extends Component {
 	// execute either user defined customQuery or component default query
 	// customQuery will receive 2 arguments, selected sensor value and select all.
 	customQuery(value) {
-		let defaultQuery = this.props.customQuery ? this.props.customQuery : this.defaultCustomQuery;
+		const defaultQuery = this.props.customQuery ? this.props.customQuery : this.defaultCustomQuery;
 		return defaultQuery(value, this.state.selectAll);
 	}
 
 	defaultCustomQuery(value, selectAll) {
+		let query = null;
 		if (selectAll) {
-			return {
-				"exists": {
-					'field': [this.props.appbaseField]
+			query = {
+				exists: {
+					field: [this.props.appbaseField]
 				}
 			};
 		} else if (value) {
-			return {
+			query = {
 				[this.type]: {
 					[this.props.appbaseField]: value
 				}
 			};
 		}
+		return query;
 	}
 
 	componentWillUpdate() {
 		setTimeout(() => {
-			if (this.defaultSelected != this.props.defaultSelected) {
+			if (this.defaultSelected !== this.props.defaultSelected) {
 				this.defaultSelected = this.props.defaultSelected;
 				let items = this.state.items;
 				items = items.map((item) => {
 					item.key = item.key.toString();
-					item.status = (this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1) || (this.selectedValue && this.selectedValue.indexOf(item.key) > -1) ? true : false;
+					item.status = !!((this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1) || (this.selectedValue && this.selectedValue.indexOf(item.key) > -1));
 					return item;
 				});
 				this.setState({
-					items: items,
+					items,
 					storedItems: items
 				});
 				setTimeout(this.handleSelect.bind(this, this.defaultSelected), 1000);
@@ -116,7 +120,7 @@ export default class NativeList extends Component {
 
 	// set the query type and input data
 	setQueryInfo() {
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: {
 				queryType: this.type,
@@ -128,8 +132,8 @@ export default class NativeList extends Component {
 	}
 
 	includeAggQuery() {
-		var obj = {
-			key: this.props.componentId + '-sort',
+		const obj = {
+			key: `${this.props.componentId}-sort`,
 			value: this.sortObj
 		};
 		helper.selectedSensor.setSortInfo(obj);
@@ -139,61 +143,61 @@ export default class NativeList extends Component {
 		this.sortObj = {
 			aggSort: this.props.sortBy
 		};
-		let obj = {
-			key: this.props.componentId + '-sort',
+		const obj = {
+			key: `${this.props.componentId}-sort`,
 			value: this.sortObj
 		};
-		helper.selectedSensor.set(obj, true, 'sortChange');
+		helper.selectedSensor.set(obj, true, "sortChange");
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
-	createChannel(executeChannel=false) {
+	createChannel(executeChannel = false) {
 		// Set the react - add self aggs query as well with react
-		let react = this.props.react ? this.props.react : {};
-		react['aggs'] = {
+		const react = this.props.react ? this.props.react : {};
+		react.aggs = {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
 			size: this.props.size,
-			sortRef: this.props.componentId + '-sort'
+			sortRef: `${this.props.componentId}-sort`
 		};
-		if (react && react.and && typeof react.and === 'string') {
+		if (react && react.and && typeof react.and === "string") {
 			react.and = [react.and];
 		} else {
 			react.and = react.and ? react.and : [];
 		}
-		react.and.push(this.props.componentId + '-sort');
-		react.and.push('nativeListChanges');
+		react.and.push(`${this.props.componentId}-sort`);
+		react.and.push("nativeListChanges");
 		this.includeAggQuery();
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
-		this.channelListener = channelObj.emitter.addListener(this.channelId, function(res) {
+		this.channelListener = channelObj.emitter.addListener(this.channelId, (res) => {
 			if (res.error) {
 				this.setState({
 					queryStart: false
 				});
 			}
 			if (res.appliedQuery) {
-				let data = res.data;
+				const data = res.data;
 				let rawData;
-				if (res.mode === 'streaming') {
+				if (res.mode === "streaming") {
 					rawData = this.state.rawData;
 					rawData.hits.hits.push(res.data);
-				} else if (res.mode === 'historic') {
+				} else if (res.mode === "historic") {
 					rawData = data;
 				}
 				this.setState({
 					queryStart: false,
-					rawData: rawData
+					rawData
 				});
 				this.setData(rawData);
 			}
-		}.bind(this));
+		});
 		if (executeChannel) {
 			setTimeout(() => {
-				var obj = {
-					key: 'nativeListChanges',
-					value: ''
+				const obj = {
+					key: "nativeListChanges",
+					value: ""
 				};
 				helper.selectedSensor.set(obj, true);
 			}, 100);
@@ -202,13 +206,13 @@ export default class NativeList extends Component {
 	}
 
 	listenLoadingChannel(channelObj) {
-		this.loadListener = channelObj.emitter.addListener(channelObj.channelId + '-query', function(res) {
+		this.loadListener = channelObj.emitter.addListener(`${channelObj.channelId}-query`, (res) => {
 			if (res.appliedQuery) {
 				this.setState({
 					queryStart: res.queryState
 				});
 			}
-		}.bind(this));
+		});
 	}
 
 	setData(data) {
@@ -220,8 +224,8 @@ export default class NativeList extends Component {
 	addItemsToList(newItems) {
 		newItems = newItems.map((item) => {
 			item.key = item.key.toString();
-			item.status = (this.selectedValue && this.selectedValue.indexOf(item.key) > -1) ? true : false;
-			return item
+			item.status = !!((this.selectedValue && this.selectedValue.indexOf(item.key) > -1));
+			return item;
 		});
 		this.setState({
 			items: newItems,
@@ -246,13 +250,13 @@ export default class NativeList extends Component {
 
 	// set value
 	setValue(value, isExecuteQuery = false) {
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
-			value: value
+			value
 		};
 		this.selectedValue = value;
 		if (this.props.multipleSelect) {
-			let items = this.state.items.map((item) => {
+			const items = this.state.items.map((item) => {
 				if (value && value.indexOf(item.key) > -1) {
 					item.status = true;
 				} else {
@@ -260,14 +264,14 @@ export default class NativeList extends Component {
 				}
 				return item;
 			});
-			this.setState({ items: items });
+			this.setState({ items });
 		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	// selectAll
 	selectAll(value, selectedValue, cb) {
-		let items = this.state.items.map((item) => {
+		const items = this.state.items.map((item) => {
 			item.status = value;
 			return item;
 		});
@@ -275,7 +279,7 @@ export default class NativeList extends Component {
 			this.selectedValue = selectedValue;
 		}
 		this.setState({
-			items: items,
+			items,
 			storedItems: items,
 			defaultSelectAll: value,
 			selectAll: value
@@ -285,20 +289,20 @@ export default class NativeList extends Component {
 	// filter
 	filterBySearch(value) {
 		if (value) {
-			let items = this.state.storedItems.map(function(item) {
-				item.visible = item.key && item.key.toLowerCase().indexOf(value.toLowerCase()) > -1 ? true : false;
+			const items = this.state.storedItems.map((item) => {
+				item.visible = !!(item.key && item.key.toLowerCase().indexOf(value.toLowerCase()) > -1);
 				return item;
 			});
 			this.setState({
-				items: items
+				items
 			});
 		} else {
-			let items = this.state.storedItems.map(function(item) {
+			const items = this.state.storedItems.map((item) => {
 				item.visible = true;
 				return item;
 			});
 			this.setState({
-				items: items
+				items
 			});
 		}
 	}
@@ -310,7 +314,7 @@ export default class NativeList extends Component {
 			title = null;
 
 		if (this.props.multipleSelect) {
-			listComponent = <ItemCheckboxList
+			listComponent = (<ItemCheckboxList
 				items={this.state.items}
 				onSelect={this.handleSelect}
 				onRemove={this.handleRemove}
@@ -318,39 +322,41 @@ export default class NativeList extends Component {
 				selectAll={this.selectAll}
 				defaultSelected={this.props.defaultSelected}
 				selectAllLabel={this.props.selectAllLabel}
-				selectAllValue={this.state.selectAll} />
+				selectAllValue={this.state.selectAll}
+			/>);
 		} else {
-			listComponent = <ItemList
+			listComponent = (<ItemList
 				items={this.state.items}
 				onSelect={this.handleSelect}
 				onRemove={this.handleRemove}
 				showCount={this.props.showCount}
 				defaultSelected={this.props.defaultSelected}
 				selectAllLabel={this.props.selectAllLabel}
-				selectAll={this.selectAll} />
+				selectAll={this.selectAll}
+			/>);
 		}
 
 		// set static search
 		if (this.props.showSearch) {
-			searchComponent = <StaticSearch
+			searchComponent = (<StaticSearch
 				placeholder={this.props.placeholder}
 				changeCallback={this.filterBySearch}
-			/>
+			/>);
 		}
 
 		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		let cx = classNames({
-			'rbc-search-active': this.props.showSearch,
-			'rbc-search-inactive': !this.props.showSearch,
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder,
-			'rbc-singlelist': !this.props.multipleSelect,
-			'rbc-multilist': this.props.multipleSelect,
+		const cx = classNames({
+			"rbc-search-active": this.props.showSearch,
+			"rbc-search-inactive": !this.props.showSearch,
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-placeholder-active": this.props.placeholder,
+			"rbc-placeholder-inactive": !this.props.placeholder,
+			"rbc-singlelist": !this.props.multipleSelect,
+			"rbc-multilist": this.props.multipleSelect,
 			"rbc-initialloader-active": this.props.initialLoader,
 			"rbc-initialloader-inactive": !this.props.initialLoader
 		});
@@ -360,7 +366,7 @@ export default class NativeList extends Component {
 				{title}
 				{searchComponent}
 				{listComponent}
-				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader}></InitialLoader>) : null}
+				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader} />) : null}
 			</div>
 		);
 	}
@@ -368,15 +374,24 @@ export default class NativeList extends Component {
 
 NativeList.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
+	componentId: React.PropTypes.string.isRequired,
+	title: React.PropTypes.string,
 	size: helper.sizeValidation,
 	showCount: React.PropTypes.bool,
 	multipleSelect: React.PropTypes.bool,
-	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
+	sortBy: React.PropTypes.oneOf(["asc", "desc", "count"]),
+	showSearch: React.PropTypes.bool,
+	placeholder: React.PropTypes.string,
 	selectAllLabel: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
+	]),
+	defaultSelected: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.array
 	]),
 	react: React.PropTypes.object
 };
@@ -385,11 +400,11 @@ NativeList.propTypes = {
 NativeList.defaultProps = {
 	showCount: true,
 	multipleSelect: true,
-	sortBy: 'count',
+	sortBy: "count",
 	size: 100,
 	showSearch: false,
 	title: null,
-	placeholder: 'Search',
+	placeholder: "Search",
 	selectAllLabel: null
 };
 
