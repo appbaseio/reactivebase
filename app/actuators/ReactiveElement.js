@@ -11,46 +11,6 @@ const helper = require("../middleware/helper");
 const _ = require("lodash");
 
 export default class ReactiveElement extends Component {
-	// tranform the raw data to marker data
-	static setMarkersData(hits) {
-		if (hits) {
-			return hits;
-		}
-		return [];
-	}
-
-	// append stream boolean flag and also start time of stream
-	static streamDataModify(rawData, data) {
-		if (data) {
-			data.stream = true;
-			data.streamStart = new Date();
-			if (data._deleted) {
-				const hits = rawData.filter(hit => hit._id !== data._id);
-				rawData = hits;
-			} else {
-				const hits = rawData.filter(hit => hit._id !== data._id);
-				rawData = hits;
-				rawData.unshift(data);
-			}
-		}
-		return rawData;
-	}
-
-	// default markup
-	static defaultonData(res) {
-		let result = null;
-		if (res && res.appliedQuery) {
-			result = (
-				<div className="row" style={{ marginTop: "60px" }}>
-					<pre className="pull-left">
-						{JSON.stringify(res.newData, null, 4)}
-					</pre>
-				</div>
-			);
-		}
-		return result;
-	}
-
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -71,6 +31,46 @@ export default class ReactiveElement extends Component {
 		this.channelListener = null;
 		this.queryStartTime = 0;
 		this.appliedQuery = {};
+	}
+
+	// tranform the raw data to marker data
+	setMarkersData(hits) {
+		if (hits) {
+			return hits;
+		}
+		return [];
+	}
+
+	// append stream boolean flag and also start time of stream
+	streamDataModify(rawData, data) {
+		if (data) {
+			data.stream = true;
+			data.streamStart = new Date();
+			if (data._deleted) {
+				const hits = rawData.filter(hit => hit._id !== data._id);
+				rawData = hits;
+			} else {
+				const hits = rawData.filter(hit => hit._id !== data._id);
+				rawData = hits;
+				rawData.unshift(data);
+			}
+		}
+		return rawData;
+	}
+
+	// default markup
+	defaultonData(res) {
+		let result = null;
+		if (res && res.appliedQuery) {
+			result = (
+				<div className="row" style={{ marginTop: "60px" }}>
+					<pre className="pull-left">
+						{JSON.stringify(res.newData, null, 4)}
+					</pre>
+				</div>
+			);
+		}
+		return result;
 	}
 
 	componentDidMount() {
