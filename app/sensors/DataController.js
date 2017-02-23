@@ -9,12 +9,13 @@ export default class DataController extends Component {
 	constructor(props) {
 		super(props);
 		this.type = "match";
+		this.value = 'customValue';
 	}
 
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		this.createChannel();
+		setTimeout(this.setValue.bind(this), 1000);
 	}
 
 	// set the query type and input data
@@ -36,21 +37,11 @@ export default class DataController extends Component {
 	setValue() {
 		const obj = {
 			key: this.props.componentId,
-			value: this.props.value
+			value: this.value
 		};
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
-	}
-
-	// use this only if want to create actuators
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
-		if (this.props.react) {
-			const react = this.props.react ? this.props.react : {};
-			manager.create(this.context.appbaseRef, this.context.type, react);
-		}
-		setTimeout(this.setValue.bind(this), 100);
 	}
 
 	// render
@@ -92,16 +83,16 @@ DataController.propTypes = {
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
 	showUI: React.PropTypes.bool,
-	dataLabel: React.PropTypes.string,
-	value: React.PropTypes.any,
-	customQuery: React.PropTypes.func,
-	react: React.PropTypes.object
+	dataLabel: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
 DataController.defaultProps = {
 	showUI: false,
-	value: "customValue"
 };
 
 // context type
@@ -115,5 +106,6 @@ DataController.types = {
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
 	showUI: TYPES.BOOL,
-	dataLabel: TYPES.STRING
+	dataLabel: TYPES.STRING,
+	customQuery: TYPES.FUNCTION
 };

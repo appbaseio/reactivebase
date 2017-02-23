@@ -30,7 +30,6 @@ SingleList.propTypes = {
 	customQuery: React.PropTypes.func,
 	initialLoader: React.PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number,
 		React.PropTypes.element
 	]),
 	react: React.PropTypes.object
