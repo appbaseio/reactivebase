@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import classNames from "classnames";
-import manager from "../middleware/ChannelManager";
 import * as TYPES from "../middleware/constants";
 
 const helper = require("../middleware/helper");
