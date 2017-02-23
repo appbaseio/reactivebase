@@ -5,6 +5,7 @@
   "main": "lib/app.js",
   "scripts": {
     "test": "jest",
+    "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "lint": "esw app --color --watch",
     "webpack-server": "webpack-dev-server --hot --inline --progress --colors --port 8012",
     "web-server": "http-server -p 3000 .",
@@ -58,6 +59,7 @@
     "browserify": "^13.1.1",
     "browserify-shim": "^3.8.12",
     "concurrently": "^2.0.0",
+    "coveralls": "^2.11.16",
     "cross-env": "^3.1.3",
     "css-loader": "^0.26.1",
     "enzyme": "^2.7.1",
