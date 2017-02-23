@@ -1,17 +1,17 @@
-import { default as React, Component } from 'react';
-import classNames from 'classnames';
-import Select from 'react-select';
-import { manager } from '../middleware/ChannelManager.js';
-var helper = require('../middleware/helper.js');
-import * as TYPES from '../middleware/constants.js';
+import React, { Component } from "react";
+import classNames from "classnames";
+import Select from "react-select";
+import * as TYPES from "../middleware/constants";
 
-export class SingleDropdownRange extends Component {
-	constructor(props, context) {
+const helper = require("../middleware/helper");
+
+export default class SingleDropdownRange extends Component {
+	constructor(props) {
 		super(props);
 		this.state = {
 			selected: null
 		};
-		this.type = 'range';
+		this.type = "range";
 		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
@@ -20,25 +20,21 @@ export class SingleDropdownRange extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if(this.defaultSelected) {
-			let records = this.props.data.filter((record) => {
-				return record.label === this.defaultSelected;
-			});
-			if(records && records.length) {
-				this.handleChange(records[0]);
+		if (this.defaultSelected) {
+			const records = this.props.data.filter(record => record.label === this.defaultSelected);
+			if (records && records.length) {
+				setTimeout(this.handleChange.bind(this, records[0]), 1000);
 			}
 		}
 	}
 
 	componentWillUpdate() {
 		setTimeout(() => {
-			if (this.defaultSelected != this.props.defaultSelected) {
+			if (this.defaultSelected !== this.props.defaultSelected) {
 				this.defaultSelected = this.props.defaultSelected;
-				let records = this.props.data.filter((record) => {
-					return record.label === this.defaultSelected;
-				});
-				if(records && records.length) {
-					this.handleChange(records[0]);
+				const records = this.props.data.filter(record => record.label === this.defaultSelected);
+				if (records && records.length) {
+					setTimeout(this.handleChange.bind(this, records[0]), 1000);
 				}
 			}
 		}, 300);
@@ -46,12 +42,12 @@ export class SingleDropdownRange extends Component {
 
 	// set the query type and input data
 	setQueryInfo() {
-		let obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery:  this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -59,7 +55,7 @@ export class SingleDropdownRange extends Component {
 
 	// build query for this sensor only
 	customQuery(record) {
-		if(record) {
+		if (record) {
 			return {
 				range: {
 					[this.props.appbaseField]: {
@@ -72,43 +68,36 @@ export class SingleDropdownRange extends Component {
 		}
 	}
 
-	// use this only if want to create actuators
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
-		let react = this.props.react ? this.props.react : {};
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
-	}
-
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
 		this.setState({
-			'selected': record
+			selected: record
 		});
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: record
 		};
 		// pass the selected sensor value with componentId as key,
-		let isExecuteQuery = true;
+		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	// render
 	render() {
 		let title = null;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder
+		const cx = classNames({
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-placeholder-active": this.props.placeholder,
+			"rbc-placeholder-inactive": !this.props.placeholder
 		});
 
 		return (
-			<div className={`rbc rbc-singledropdownrange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-singledropdownrange col s12 col-xs-12 card thumbnail ${cx}`}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">
@@ -118,7 +107,8 @@ export class SingleDropdownRange extends Component {
 							value={this.state.selected}
 							onChange={this.handleChange}
 							placeholder={this.props.placeholder}
-							searchable={true} />
+							searchable
+						/>
 					</div>
 				</div>
 			</div>
@@ -132,12 +122,12 @@ SingleDropdownRange.propTypes = {
 	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
-	defaultSelected: React.PropTypes.string
+	defaultSelected: React.PropTypes.string,
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
-SingleDropdownRange.defaultProps = {
-};
+SingleDropdownRange.defaultProps = {};
 
 // context type
 SingleDropdownRange.contextTypes = {
@@ -151,5 +141,6 @@ SingleDropdownRange.types = {
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.STRING,
 	title: TYPES.STRING,
-	placeholder: TYPES.STRING
+	placeholder: TYPES.STRING,
+	customQuery: TYPES.FUNCTION
 };

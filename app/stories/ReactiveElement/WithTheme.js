@@ -26,8 +26,7 @@ export default class WithTheme extends Component {
 		ResponsiveStory();
 	}
 
-	onData(response) {
-		let res = response.res;
+	onData(res, err) {
 		let result = null;
 		if(res && res.appliedQuery) {
 			let combineData = res.currentData;
@@ -100,6 +99,7 @@ export default class WithTheme extends Component {
 							showCount={true}
 							size={10}
 							title="Input Filter"
+							initialLoader="Loading city list.."
 							selectAllLabel="All cities"
 							customQuery={this.cityQuery}
 							searchPlaceholder="Search City"

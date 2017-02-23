@@ -1,16 +1,15 @@
-import {default as React, Component} from 'react';
-import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
-var helper = require('../middleware/helper.js');
-import * as TYPES from '../middleware/constants.js';
+import React, { Component } from "react";
+import classNames from "classnames";
+const helper = require("../middleware/helper.js");
+import * as TYPES from "../middleware/constants.js";
 
-export class TextField extends Component {
+export default class TextField extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
-			currentValue: ''
+			currentValue: ""
 		};
-		this.type = 'match';
+		this.type = "match";
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -34,12 +33,12 @@ export class TextField extends Component {
 
 	// set the query type and input data
 	setQueryInfo() {
-		let obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery:  this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -48,51 +47,44 @@ export class TextField extends Component {
 	// build query for this sensor only
 	customQuery(value) {
 		return {
-			'term': {
+			term: {
 				[this.props.appbaseField]: value
 			}
 		};
 	}
 
-	// use this only if want to create actuators
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
-		let react = this.props.react ? this.props.react : {};
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
-	}
-
 	// handle the input change and pass the value inside sensor info
 	handleChange(event) {
-		let inputVal = event.target.value;
+		const inputVal = event.target.value;
 		this.setValue(inputVal);
 	}
 
-	setValue(inputVal){
+	setValue(inputVal) {
 		this.setState({
-			'currentValue': inputVal
+			currentValue: inputVal
 		});
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: inputVal
 		};
 
 		// pass the selected sensor value with componentId as key,
-		let isExecuteQuery = true;
+		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	// render
 	render() {
 		let title = null;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder
+		const cx = classNames({
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-placeholder-active": this.props.placeholder,
+			"rbc-placeholder-inactive": !this.props.placeholder
 		});
 
 		return (
@@ -110,13 +102,13 @@ TextField.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
+	defaultSelected: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
-	defaultSelected: React.PropTypes.string
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
-TextField.defaultProps = {
-};
+TextField.defaultProps = {};
 
 // context type
 TextField.contextTypes = {
@@ -128,5 +120,7 @@ TextField.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
-	placeholder: TYPES.STRING
+	defaultSelected: TYPES.STRING,
+	placeholder: TYPES.STRING,
+	customQuery: TYPES.FUNCTION
 };

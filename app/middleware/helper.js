@@ -1,67 +1,66 @@
-var { EventEmitter } = require('fbemitter');
-var $ = require('jquery');
-var _ = require('lodash');
-var globalI = 0;
-export var sensorEmitter = new EventEmitter();
+/* eslint max-lines: 0 */
+const { EventEmitter } = require("fbemitter");
+const _ = require("lodash");
 
-export var watchForDependencyChange = function(react, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
-	var self = this;
+let globalI = 0;
+export const sensorEmitter = new EventEmitter();
+
+export const WatchForDependencyChange = function (react, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
 	globalI += 1;
 	this.random = globalI;
 	let selectedSensor = {};
-	let sensorListener, paginationListener;
 	// check if depend object already exists
-	let checkDependExists = function(depend) {
-		if (!previousSelectedSensor.hasOwnProperty(depend)) {
-			previousSelectedSensor[depend] = '';
+	const checkDependExists = function (depend) {
+		if (!Object.prototype.hasOwnProperty.call(previousSelectedSensor, depend)) {
+			previousSelectedSensor[depend] = "";
 		}
-	}
+	};
 	// apply depend changes when new value received
-	let applyDependChange = function(react, depend) {
-		if (selectedSensor[depend] && typeof selectedSensor[depend] === 'object') {
+	const applyDependChange = function (currentReact, depend) {
+		if (selectedSensor[depend] && typeof selectedSensor[depend] === "object") {
 			previousSelectedSensor[depend] = JSON.parse(JSON.stringify(selectedSensor[depend]));
 		} else {
 			previousSelectedSensor[depend] = selectedSensor[depend];
 		}
 		// if (!selectedSensor[depend].doNotExecute) {
-			cb(depend, channelId);
+		cb(depend, channelId);
 		// }
-	}
+	};
 
 	// initialize the process
-	this.init = function() {
+	this.init = function () {
 		react.forEach((depend) => {
 			checkDependExists(depend);
-			if (typeof selectedSensor[depend] === 'object') {
-				let newData = _(selectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
-				let oldData = _(previousSelectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
+			if (typeof selectedSensor[depend] === "object") {
+				const newData = _(selectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
+				const oldData = _(previousSelectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
 				if (JSON.stringify(newData) !== JSON.stringify(oldData)) {
 					applyDependChange(react, depend);
 				}
-			} else {
-				if (selectedSensor[depend] !== previousSelectedSensor[depend]) {
-					applyDependChange(react, depend);
-				}
+			} else if (selectedSensor[depend] !== previousSelectedSensor[depend]) {
+				applyDependChange(react, depend);
 			}
 		});
-	}
+	};
 
-	this.start = function() {
-		var self = this;
-		this.sensorListener = sensorEmitter.addListener('sensorChange', function(data) {
+	this.start = function () {
+		const self = this;
+		this.sensorListener = sensorEmitter.addListener("sensorChange", (data) => {
 			let foundDepend = false;
-			for(let single in data) {
-				if(react.indexOf(single) > -1) {
+
+			Object.keys(data).forEach((item) => {
+				if (react.indexOf(item) > -1) {
 					foundDepend = true;
 				}
-			}
-			if(foundDepend) {
+			});
+
+			if (foundDepend) {
 				selectedSensor = data;
 				self.init();
 			}
 		});
 
-		this.paginationListener = sensorEmitter.addListener('paginationChange', function(data) {
+		this.paginationListener = sensorEmitter.addListener("paginationChange", (data) => {
 			if (paginationCb) {
 				if (react.indexOf(data.key) > -1) {
 					paginationCb(data.value, channelId);
@@ -69,14 +68,14 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 			}
 		});
 
-		this.sortListener = sensorEmitter.addListener('sortChange', function(data) {
+		this.sortListener = sensorEmitter.addListener("sortChange", () => {
 			if (sortCb) {
 				sortCb(channelId);
 			}
 		});
-	}
+	};
 
-	this.stop = function() {
+	this.stop = function () {
 		if (this.sensorListener) {
 			this.sensorListener.remove();
 		}
@@ -86,12 +85,11 @@ export var watchForDependencyChange = function(react, previousSelectedSensor, cb
 		if (this.sortListener) {
 			this.sortListener.remove();
 		}
-	}
-
+	};
 };
 
-function selectedSensorFn() {
-	var self = this;
+function SelectedSensorFn() {
+	const self = this;
 	this.sensorInfo = {};
 	this.selectedSensor = {};
 	this.paginationInfo = {};
@@ -100,31 +98,29 @@ function selectedSensorFn() {
 	this.selectedSort = {};
 
 	// Get
-	let get = function(prop, obj) {
+	const get = function (prop, obj) {
 		if (obj) {
 			return self[obj][prop];
-		} else {
-			if (prop) {
-				return self.selectedSensor[prop];
-			} else {
-				return self.selectedSensor;
-			}
 		}
-	}
+		if (prop) {
+			return self.selectedSensor[prop];
+		}
+		return self.selectedSensor;
+	};
 
 	// Set
-	let set = function(obj, isExecuteUpdate = false, setMethod = "sensorChange") {
+	const set = function (obj, isExecuteUpdate = false, setMethod = "sensorChange") {
 		let methodObj;
 		switch (setMethod) {
-			case 'sortChange':
+			case "sortChange":
 				self.sortInfo[obj.key] = obj.value;
 				methodObj = self.sortInfo;
 				break;
-			case 'paginationChange':
+			case "paginationChange":
 				self.selectedPagination[obj.key] = obj.value;
 				methodObj = obj;
 				break;
-			case 'sensorChange':
+			case "sensorChange":
 			default:
 				self.selectedSensor[obj.key] = obj.value;
 				methodObj = self.selectedSensor;
@@ -133,271 +129,135 @@ function selectedSensorFn() {
 		if (isExecuteUpdate) {
 			sensorEmitter.emit(setMethod, methodObj);
 		}
-	}
+	};
 
 	// Set fieldname
-	let setSensorInfo = function(obj) {
+	const setSensorInfo = function (obj) {
 		self.sensorInfo[obj.key] = obj.value;
-	}
+	};
 
 	// Set sort info
-	let setSortInfo = function(obj) {
+	const setSortInfo = function (obj) {
 		self.sortInfo[obj.key] = obj.value;
-	}
+	};
 
 	// Set pagination info
-	let setPaginationInfo = function(obj) {
+	const setPaginationInfo = function (obj) {
 		self.paginationInfo[obj.key] = obj.value;
-	}
+	};
 
 	return {
-		get: get,
-		set: set,
-		setSensorInfo: setSensorInfo,
-		setSortInfo: setSortInfo,
-		setPaginationInfo: setPaginationInfo
+		get,
+		set,
+		setSensorInfo,
+		setSortInfo,
+		setPaginationInfo
 	};
-};
-
-export var selectedSensor = new selectedSensorFn();
-
-export var ResponsiveStory = function() {
-	function handleResponsive() {
-		var height = $(window).height();
-		$('.rbc.rbc-reactivelist, .rbc.rbc-reactiveelement').css({
-			maxHeight: height - 15 - paginationHeight()
-		});
-		$('.rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist').css({
-			maxHeight: height - 15
-		});
-		$('.rbc-base > .row').css({
-			'margin-bottom': 0
-		});
-		$('.rbc-reactivemap .rbc-container').css({
-			maxHeight: height
-		});
-	}
-
-	function paginationHeight() {
-		return $('.rbc-pagination').length * 85;
-	}
-	handleResponsive();
-	$(window).resize(function() {
-		handleResponsive();
-	})
 }
 
-export var sizeValidation = function(props, propName, componentName) {
-	if (props[propName] < 1 || props[propName] > 1000) {
-		return new Error('Size value is invalid, it should be between 1 and 1000.');
-	}
-}
+export const selectedSensor = new SelectedSensorFn();
 
-export var stepValidation = function(props, propName) {
-	if (props[propName] > Math.floor((props['range']['end'] - props['range']['start'])/2)) {
-		return new Error(`Step value is invalid, it should be less than or equal to ${Math.floor((props['range']['end'] - props['range']['start'])/2)}.`);
-	} else if (props[propName] <= 0) {
-		return new Error('Step value is invalid, it should be greater than 0.');
-	}
-}
+const SerializeDepends = function () {
+	const conjunctions = ["and", "or", "not"];
 
-export var validateThreshold = function(props, propName, componentName) {
-	if(!(!isNaN(props[propName]) && props['end'] > props['start'])) {
-		return new Error('Threshold value validation has failed, end value should be greater than start value.');
-	}
-	if (componentName == 'GeoDistanceDropdown' || componentName == 'GeoDistanceSlider') {
-		if (props['start'] <= 0) {
-			return new Error('Threshold value is invalid, it should be greater than 0.');
-		}
-	}
-}
-
-export var valueValidation = function(props, propName) {
-	const end = props['data']['end'] ? props['data']['end'] : props['defaultSelected'];
-	const start = props['data']['start'] ? props['data']['start'] : props['defaultSelected'];
-	if(!(!isNaN(props[propName]) && end >= props['defaultSelected'] && start <= props['defaultSelected'])) {
-		return new Error('Default value validation has failed, Default value should be between start and end values.');
-	}
-}
-
-export var validation = {
-	resultListFrom: function(props, propName, componentName) {
-		if (props[propName] < 0) {
-			return new Error('From value is invalid, it should be greater than or equal to 0.');
-		}
-	}
-}
-
-var SerializeDepends = function() {
-	let conjunctions = ['and', 'or', 'not'];
-
-	this.serialize = function(depends) {
+	this.serialize = function (depends) {
 		let queries = [];
-		let dependsList = [];
+		const dependsList = [];
 		let compId = 0;
 
-		function initialize() {
-			queries = checkConjunctions(depends, 0);
-			return {
-				queries: queries,
-				dependsList: dependsList
-			};
+		function addDependList(depend) {
+			function addDep(dep) {
+				if (dependsList.indexOf(dep) < 0) {
+					dependsList.push(dep);
+				}
+			}
+
+			if (typeof depend === "string") {
+				addDep(depend);
+			} else {
+				depend.forEach((single) => {
+					addDep(single);
+				});
+			}
 		}
 
 		function checkConjunctions(depend, parentId) {
-			for(let conjunction in depend) {
-				compId++;
-				let res = addConjunction(conjunction, parentId, depend[conjunction], compId);
+			Object.keys(depend).forEach((conjunction) => {
+				compId += 1;
+				const res = addConjunction(conjunction, parentId, depend[conjunction], compId);
 				queries.push(res);
-				if(conjunctions.indexOf(conjunction) < 0) {
+				if (conjunctions.indexOf(conjunction) < 0) {
 					addDependList(conjunction);
 				}
-			}
+			});
 			return queries;
 		}
 
-		function addConjunction(conjunction, parentId, depend, compId) {
-			let leaf = true;
-			if(conjunctions.indexOf(conjunction) > -1) {
-				let dependRes = addLeaf(depend, compId);
-				leaf = false;
-				queries.push(dependRes);
-			}
-			return {
-				parentId: parentId,
-				componentId: compId,
-				conjunction: conjunction,
-				components: conjunction,
-				leaf: leaf
-			};
-		}
-
 		function addLeaf(depend, parentId) {
-			compId++;
-			let res = {
-				parentId: parentId,
+			compId += 1;
+			const res = {
+				parentId,
 				componentId: compId,
 				leaf: false,
 				components: null
 			};
-			if(Object.prototype.toString.call(depend) === '[object Array]' ) {
+			if (Object.prototype.toString.call(depend) === "[object Array]") {
 				res.components = depend;
 				res.leaf = true;
 				addDependList(depend);
-			}
-			else if(typeof depend === 'string') {
+			}			else if (typeof depend === "string") {
 				res.components = depend;
 				res.leaf = true;
 				addDependList(depend);
-			}
-			else {
+			} else {
 				checkConjunctions(depend, parentId);
 			}
 			return res;
 		}
 
-		function addDependList(depend) {
-			if(typeof depend === 'string') {
-				addDep(depend);
-			} else {
-				depend.forEach((single) => {
-					addDep(single);
-				})
+		function addConjunction(conjunction, parentId, depend, currentCompId) {
+			let leaf = true;
+			if (conjunctions.indexOf(conjunction) > -1) {
+				const dependRes = addLeaf(depend, currentCompId);
+				leaf = false;
+				queries.push(dependRes);
 			}
-			function addDep(dep) {
-				if(dependsList.indexOf(dep) < 0) {
-					dependsList.push(dep);
-				}
-			}
+			return {
+				parentId,
+				componentId: currentCompId,
+				conjunction,
+				components: conjunction,
+				leaf
+			};
+		}
+
+		function initialize() {
+			queries = checkConjunctions(depends, 0);
+			return {
+				queries,
+				dependsList
+			};
 		}
 
 		return initialize();
-	}
-	this.createQuery = function(serializeResult, dependsQuery) {
-		let query = {};
+	};
+
+	this.createQuery = function (serializeResult, dependsQuery) {
 		let serializeResultQuery = serializeResult.queries.map((query) => {
 			query.checked = false;
 			delete query.query;
 			return query;
 		});
 
-
-		function initialize() {
-			return checkAndMake();
-		}
-
-		function checkAndMake() {
-			let uncheckedQueryFound = false;
-			serializeResultQuery.forEach((dependParent) => {
-				if(!dependParent.checked && canWeProceed(dependParent.componentId)) {
-					dependParent.checked = true;
-					uncheckedQueryFound = true;
-					setQuery(dependParent);
-				}
-			});
-			if(uncheckedQueryFound) {
-				return checkAndMake();
-			} else {
-				return finalQuery();
-			}
-		}
-
-		function finalQuery() {
-			let query = {};
-			let aggs = null;
-			serializeResultQuery.forEach((sub) => {
-				if(sub.parentId === 0) {
-					if(sub.conjunction !== 'aggs') {
-						query = Object.assign(query, sub.query);
-					}
-					else if(sub.conjunction === 'aggs') {
-						aggs = sub.query;
-					}
-				}
-			});
-			let fullQuery = null;
-			if(query && Object.keys(query).length) {
-				fullQuery = {
-					body: {
-						query: {
-							bool: query
-						}
-					}
-				}
-			}
-			if(aggs) {
-				if(fullQuery) {
-					fullQuery.body.aggs = aggs;
-				} else {
-					fullQuery = {
-						body: {
-							aggs: aggs
-						}
-					}
-				}
-			}
-			return fullQuery;
-		}
-
-		function canWeProceed(componentId) {
-			let children = serializeResultQuery.filter((query) => {
-				return !query.checked && query.parentId === componentId;
-			});
-			let flag = children.length ? false : true;
-			return flag;
-		}
-
 		function setQuery(depend) {
 			let subQuery = [];
 			let queryArray = null;
-			let getParent = serializeResultQuery.filter((dep) => {
-				return dep.componentId === depend.parentId;
-			});
+			const getParent = serializeResultQuery.filter(dep => dep.componentId === depend.parentId);
 
-			if(Object.prototype.toString.call(depend.components) === '[object Array]' ) {
+			if (Object.prototype.toString.call(depend.components) === "[object Array]") {
 				depend.components.forEach((comp) => {
-					if(dependsQuery[comp]) {
-						if(queryArray) {
+					if (dependsQuery[comp]) {
+						if (queryArray) {
 							queryArray.push(dependsQuery[comp]);
 						} else {
 							queryArray = [];
@@ -405,23 +265,22 @@ var SerializeDepends = function() {
 						}
 					}
 				});
-			}
-			else if(typeof depend.components === 'string') {
-				if(dependsQuery[depend.components]) {
+			}			else if (typeof depend.components === "string") {
+				if (dependsQuery[depend.components]) {
 					queryArray = dependsQuery[depend.components];
 				}
 			}
 
-			if(getParent && getParent.length) {
+			if (getParent && getParent.length) {
 				subQuery = getParent[0].query ? adjustQuery(getParent[0].query, getParent[0].conjunction, queryArray) : createBoolQuery(getParent[0].conjunction, queryArray);
 			} else {
 				subQuery = queryArray;
 			}
-			if(subQuery) {
+			if (subQuery) {
 				serializeResultQuery = serializeResultQuery.map((dep) => {
-					if(getParent.length && dep.componentId === getParent[0].componentId) {
+					if (getParent.length && dep.componentId === getParent[0].componentId) {
 						dep.query = subQuery;
-					} else if(depend.parentId === 0 && dep.componentId === depend.componentId) {
+					} else if (depend.parentId === 0 && dep.componentId === depend.componentId) {
 						dep.query = subQuery;
 					}
 					return dep;
@@ -429,61 +288,121 @@ var SerializeDepends = function() {
 			}
 		}
 
-		function createBoolQuery(conjunction, queryArray) {
-			if(!queryArray) {
-				return null;
-			} else {
-				let query = queryArray;
-				let operation = getOperation(conjunction);
-				if(conjunctions.indexOf(conjunction) > -1) {
-					query = {
-						[operation]: queryArray
-					};
-				}
-				return query;
-			}
+		function canWeProceed(componentId) {
+			const children = serializeResultQuery.filter(query => !query.checked && query.parentId === componentId);
+			const flag = !children.length;
+			return flag;
 		}
 
-		function adjustQuery(originalQuery, conjunction, queryArray) {
-			if(!queryArray) {
-				return null;
-			} else {
-				let operation = getOperation(conjunction);
-				let originalArray = originalQuery && originalQuery[operation] ? originalQuery[operation] : [];
-				return {
-					[operation]: originalArray.concat(queryArray)
+		function finalQuery() {
+			let query = {};
+			let aggs = null;
+			serializeResultQuery.forEach((sub) => {
+				if (sub.parentId === 0) {
+					if (sub.conjunction !== "aggs") {
+						query = Object.assign(query, sub.query);
+					}					else if (sub.conjunction === "aggs") {
+						aggs = sub.query;
+					}
+				}
+			});
+			let fullQuery = null;
+			if (query && Object.keys(query).length) {
+				fullQuery = {
+					body: {
+						query: {
+							bool: query
+						}
+					}
 				};
 			}
+			if (aggs) {
+				if (fullQuery) {
+					fullQuery.body.aggs = aggs;
+				} else {
+					fullQuery = {
+						body: {
+							aggs
+						}
+					};
+				}
+			}
+			return fullQuery;
+		}
+
+		function checkAndMake() {
+			let uncheckedQueryFound = false;
+			serializeResultQuery.forEach((dependParent) => {
+				if (!dependParent.checked && canWeProceed(dependParent.componentId)) {
+					dependParent.checked = true;
+					uncheckedQueryFound = true;
+					setQuery(dependParent);
+				}
+			});
+			if (uncheckedQueryFound) {
+				return checkAndMake();
+			}
+			return finalQuery();
+		}
+
+		function initialize() {
+			return checkAndMake();
 		}
 
 		function getOperation(conjunction) {
 			let operation = null;
-			switch(conjunction) {
-				case 'and':
-					operation = 'must';
-				break;
-				case 'or':
-					operation = 'should';
-				break;
-				case 'not':
-					operation = 'must_not';
-				break;
+			switch (conjunction) {
+				case "and":
+					operation = "must";
+					break;
+				case "or":
+					operation = "should";
+					break;
+				case "not":
+					operation = "must_not";
+					break;
+				default: operation = "must";
 			}
 			return operation;
 		}
 
+		function createBoolQuery(conjunction, queryArray) {
+			if (!queryArray) {
+				return null;
+			}
+			let query = queryArray;
+			const operation = getOperation(conjunction);
+			if (conjunctions.indexOf(conjunction) > -1) {
+				query = {
+					[operation]: queryArray
+				};
+			}
+			return query;
+		}
+
+		function adjustQuery(originalQuery, conjunction, queryArray) {
+			if (!queryArray) {
+				return null;
+			}
+			const operation = getOperation(conjunction);
+			const originalArray = originalQuery && originalQuery[operation] ? originalQuery[operation] : [];
+			return {
+				[operation]: originalArray.concat(queryArray)
+			};
+		}
+
 		return initialize();
-	}
-}
+	};
+};
 
-export var serializeDepends = new SerializeDepends();
+export const serializeDepends = new SerializeDepends();
 
-export var prepareResultData = function(data, res) {
-	let response = {
+export const prepareResultData = function (data, res) {
+	const response = {
 		err: null,
 		res: null
 	};
-	if(data.error) {
+	if (data.error) {
 		response.err = data;
 	} else {
 		response.res = {
@@ -492,28 +411,37 @@ export var prepareResultData = function(data, res) {
 			currentData: data.currentData,
 			appliedQuery: data.appliedQuery
 		};
-		if(res) {
+		if (res) {
 			response.res.took = res.took ? res.took : 0;
 			response.res.total = res.hits && res.hits.total ? res.hits.total : 0;
 		}
 	}
 	return response;
-}
+};
 
-export var combineStreamData = function(currentData, newData) {
+export const combineStreamData = function (currentData, newData) {
 	if (newData) {
 		if (newData._deleted) {
-			let hits = currentData.filter((hit) => {
-				return hit._id !== newData._id;
-			});
+			const hits = currentData.filter(hit => hit._id !== newData._id);
 			currentData = hits;
 		} else {
-			let hits = currentData.filter((hit) => {
-				return hit._id !== newData._id;
-			});
+			const hits = currentData.filter(hit => hit._id !== newData._id);
 			currentData = hits;
 			currentData.unshift(newData);
 		}
 	}
 	return currentData;
-}
+};
+
+export const updateStats = function (total, newData) {
+	if (newData) {
+		if (newData._deleted) {
+			total -= 1;
+		} else if (!newData._updated) {
+			total += 1;
+		}
+	}
+	return total;
+};
+
+export * from "./utils";

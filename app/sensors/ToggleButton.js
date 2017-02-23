@@ -1,16 +1,15 @@
-import {default as React, Component} from 'react';
-import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
-var helper = require('../middleware/helper.js');
-import * as TYPES from '../middleware/constants.js';
+import React, { Component } from "react";
+import classNames from "classnames";
+const helper = require("../middleware/helper.js");
+import * as TYPES from "../middleware/constants.js";
 
-export class ToggleButton extends Component {
+export default class ToggleButton extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {
 			selected: []
 		};
-		this.type = 'term';
+		this.type = "term";
 		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
@@ -19,27 +18,23 @@ export class ToggleButton extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if(this.defaultSelected) {
-			let records = this.props.data.filter((record) => {
-				return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
-			});
-			if(records && records.length) {
+		if (this.defaultSelected) {
+			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
+			if (records && records.length) {
 				records.forEach((singleRecord) => {
-					this.handleChange(singleRecord);
+					setTimeout(this.handleChange.bind(this, singleRecord), 1000);
 				});
 			}
 		}
 	}
 
 	componentWillUpdate() {
-		if(this.defaultSelected != this.props.defaultSelected) {
+		if (this.defaultSelected != this.props.defaultSelected) {
 			this.defaultSelected = this.props.defaultSelected;
-			let records = this.props.data.filter((record) => {
-				return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
-			});
-			if(records && records.length) {
+			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
+			if (records && records.length) {
 				records.forEach((singleRecord) => {
-					this.handleChange(singleRecord);
+					setTimeout(this.handleChange.bind(this, singleRecord), 1000);
 				});
 			}
 		}
@@ -47,12 +42,12 @@ export class ToggleButton extends Component {
 
 	// set the query type and input data
 	setQueryInfo() {
-		let obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery:  this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -61,49 +56,41 @@ export class ToggleButton extends Component {
 	// build query for this sensor only
 	customQuery(record) {
 		let query = null;
-		if(record && record.length) {
+		if (record && record.length) {
 			query = {
 				bool: {
 					should: generateRangeQuery(this.props.appbaseField),
-					"minimum_should_match" : 1,
-					"boost" : 1.0
+					minimum_should_match: 1,
+					boost: 1.0
 				}
 			};
 			return query;
-		} else {
-			return query;
 		}
-		function generateRangeQuery(appbaseField) {
-			return record.map((singleRecord, index) => {
-				return {
-					term: {
-						[appbaseField]: singleRecord.value
-					}
-				};
-			});
-		}
-	}
+		return query;
 
-	// use this only if want to create actuators
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
-		let react = this.props.react ? this.props.react : {};
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
+
+		function generateRangeQuery(appbaseField) {
+			return record.map((singleRecord, index) => ({
+				term: {
+					[appbaseField]: singleRecord.value
+				}
+			}));
+		}
 	}
 
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
-		let selected = this.state.selected;
+		const selected = this.state.selected;
 		let newSelection = [];
 		let selectedIndex = null;
 		selected.forEach((selectedRecord, index) => {
-			if(record.label === selectedRecord.label) {
+			if (record.label === selectedRecord.label) {
 				selectedIndex = index;
 				selected.splice(index, 1);
 			}
 		});
-		if(selectedIndex === null) {
-			if(this.props.multiSelect) {
+		if (selectedIndex === null) {
+			if (this.props.multiSelect) {
 				selected.push(record);
 				newSelection = selected;
 			} else {
@@ -113,31 +100,29 @@ export class ToggleButton extends Component {
 			newSelection = selected;
 		}
 		this.setState({
-			'selected': newSelection
+			selected: newSelection
 		});
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: newSelection
 		};
 		// pass the selected sensor value with componentId as key,
-		let isExecuteQuery = true;
+		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	renderButtons() {
 		let buttons;
-		let selectedText = this.state.selected.map((record) => {
-			return record.label;
-		});
-		if(this.props.data) {
-			buttons = this.props.data.map((record, i) => {
-				return (
-					<button key={i} className={"btn rbc-btn "+ (selectedText.indexOf(record.label) > -1 ? 'rbc-btn-active' : 'rbc-btn-inactive')}
-						onClick={() => this.handleChange(record)} title={record.title ? record.title: record.label}>
-						{record.label}
-					</button>
-				);
-			});
+		const selectedText = this.state.selected.map(record => record.label);
+		if (this.props.data) {
+			buttons = this.props.data.map((record, i) => (
+				<button
+					key={i} className={`btn rbc-btn ${selectedText.indexOf(record.label) > -1 ? "rbc-btn-active" : "rbc-btn-inactive"}`}
+					onClick={() => this.handleChange(record)} title={record.title ? record.title : record.label}
+				>
+					{record.label}
+				</button>
+				));
 		}
 		return buttons;
 	}
@@ -145,15 +130,15 @@ export class ToggleButton extends Component {
 	// render
 	render() {
 		let title = null;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-multiselect-active': this.props.multiSelect,
-			'rbc-multiselect-inactive': !this.props.multiSelect
+		const cx = classNames({
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-multiselect-active": this.props.multiSelect,
+			"rbc-multiselect-inactive": !this.props.multiSelect
 		});
 		return (
 			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
@@ -174,7 +159,8 @@ ToggleButton.propTypes = {
 	title: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
-	multiSelect: React.PropTypes.bool
+	multiSelect: React.PropTypes.bool,
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -194,5 +180,6 @@ ToggleButton.types = {
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
-	multiSelect: TYPES.BOOLEAN
+	multiSelect: TYPES.BOOLEAN,
+	customQuery: TYPES.FUNCTION
 };

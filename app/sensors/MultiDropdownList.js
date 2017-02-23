@@ -1,64 +1,31 @@
-import { default as React, Component } from 'react';
-import { DropdownList } from './DropdownList';
-import * as TYPES from '../middleware/constants.js';
+import React from "react";
+import DropdownList from "./DropdownList";
+import * as TYPES from "../middleware/constants";
 
-export class MultiDropdownList extends Component {
-	constructor(props, context) {
-		super(props);
-	}
-
-	render() {
-		return (
-			<DropdownList
-				{...this.props}
-				multipleSelect={true}
-			/>
-		);
-	}
+export default function MultiDropdownList(props) {
+	return (
+		<DropdownList
+			{...props}
+			multipleSelect
+		/>
+	);
 }
 
 MultiDropdownList.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	appbaseField : React.PropTypes.string.isRequired,
-	title : React.PropTypes.string,
-	defaultSelected: React.PropTypes.array,
-	showCount: React.PropTypes.bool,
-	size: React.PropTypes.number,
-	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'count']),
-	placeholder: React.PropTypes.string,
-	selectAllLabel: React.PropTypes.string,
-	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
-		text: React.PropTypes.string
-	})
-};
-
-// Default props value
-MultiDropdownList.defaultProps = {
-	showCount: true,
-	sortBy: 'count',
-	size: 100,
-	title: null,
-	initialLoader: {
-		show: true
-	}
-};
-
-// context type
-MultiDropdownList.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	defaultSelected: React.PropTypes.array
 };
 
 MultiDropdownList.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
 	defaultSelected: TYPES.ARRAY,
+	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	size: TYPES.NUMBER,
 	showCount: TYPES.BOOLEAN,
 	sortBy: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	selectAllLabel: TYPES.STRING,
+	customQuery: TYPES.FUNCTION,
 	initialLoader: TYPES.OBJECT
 };

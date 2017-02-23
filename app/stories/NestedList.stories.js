@@ -14,8 +14,7 @@ export default class NestedListDefault extends Component {
 		ResponsiveStory();
 	}
 
-	onData(response) {
-		let res = response.res;
+	onData(res, err) {
 		let result = null;
 		if(res) {
 			let combineData = res.currentData;
@@ -70,6 +69,7 @@ export default class NestedListDefault extends Component {
 							componentId="CategorySensor"
 							appbaseField={[this.props.mapping.brand, this.props.mapping.model]}
 							title="NestedList"
+							defaultSelected={['bmw']}
 							{...this.props}
 						/>
 					</div>
@@ -77,10 +77,11 @@ export default class NestedListDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.name}
+							appbaseField={this.props.mapping.model}
 							title="Results"
 							from={0}
 							size={20}
+							sortBy='asc'
 							onData={this.onData}
 							react={{
 								"and": "CategorySensor"

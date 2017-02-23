@@ -1,16 +1,16 @@
-import { default as React, Component } from 'react';
-import { manager } from './ChannelManager.js';
+import React, { Component } from 'react';
+import manager from './ChannelManager';
 const Appbase = require('appbase-js');
 const helper = require('./helper.js');
 
-export class ReactiveBase extends Component {
+export default class ReactiveBase extends Component {
 	constructor(props, context) {
 		super(props);
 		this.state = {};
-		this.type = this.props.type ? this.props.type : '*';
+		this.type = this.props.type ? this.props.type : "*";
 
 		this.appbaseRef = new Appbase({
-			url: 'https://scalr.api.appbase.io',
+			url: "https://scalr.api.appbase.io",
 			appname: this.props.app,
 			username: this.props.username,
 			password: this.props.password
@@ -26,7 +26,7 @@ export class ReactiveBase extends Component {
 
 	render() {
 		return (
-			<section className={"rbc-base col s12 col-xs-12 "+this.props.theme} style={{'padding': 0}}>
+			<section className={"rbc-base col s12 col-xs-12 "+this.props.theme} style={{"padding": 0}}>
 				{this.props.children}
 			</section>
 		);

@@ -1,19 +1,19 @@
-import { default as React, Component } from 'react';
-import Select from 'react-select';
-import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
-var helper = require('../middleware/helper.js');
-var _ = require('lodash');
-import * as TYPES from '../middleware/constants.js';
+import React, { Component } from "react";
+import Select from "react-select";
+import classNames from "classnames";
+import * as TYPES from "../middleware/constants";
 
-export class MultiDropdownRange extends Component {
-	constructor(props, context) {
+const helper = require("../middleware/helper");
+const _ = require("lodash");
+
+export default class MultiDropdownRange extends Component {
+	constructor(props) {
 		super(props);
 		this.state = {
 			selected: ""
 		};
-		this.type = 'range';
-		this.state.data = this.props.data.map(item => {
+		this.type = "range";
+		this.state.data = this.props.data.map((item) => {
 			item.value = item.label;
 			return item;
 		});
@@ -25,12 +25,10 @@ export class MultiDropdownRange extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if(this.defaultSelected) {
-			let records = this.state.data.filter((record) => {
-				return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
-			});
-			if(records && records.length) {
-				this.handleChange(records);
+		if (this.defaultSelected) {
+			const records = this.state.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
+			if (records && records.length) {
+				setTimeout(this.handleChange.bind(this, records), 1000);
 			}
 		}
 	}
@@ -39,11 +37,9 @@ export class MultiDropdownRange extends Component {
 		setTimeout(() => {
 			if (!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
 				this.defaultSelected = this.props.defaultSelected;
-				let records = this.state.data.filter((record) => {
-					return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
-				});
-				if(records && records.length) {
-					this.handleChange(records);
+				const records = this.state.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
+				if (records && records.length) {
+					setTimeout(this.handleChange.bind(this, records), 1000);
 				}
 			}
 		}, 300);
@@ -51,7 +47,7 @@ export class MultiDropdownRange extends Component {
 
 	// set the query type and input data
 	setQueryInfo() {
-		let obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: {
 				queryType: this.type,
@@ -64,38 +60,30 @@ export class MultiDropdownRange extends Component {
 
 	// build query for this sensor only
 	customQuery(record) {
-		if(record) {
-			let query = {
+		function generateRangeQuery(appbaseField) {
+			if (record.length > 0) {
+				return record.map(singleRecord => ({
+					range: {
+						[appbaseField]: {
+							gte: singleRecord.start,
+							lte: singleRecord.end,
+							boost: 2.0
+						}
+					}
+				}));
+			}
+		}
+
+		if (record) {
+			const query = {
 				bool: {
 					should: generateRangeQuery(this.props.appbaseField),
-					"minimum_should_match" : 1,
-					"boost" : 1.0
+					minimum_should_match: 1,
+					boost: 1.0
 				}
 			};
 			return query;
 		}
-		function generateRangeQuery(appbaseField) {
-			if (record.length > 0) {
-				return record.map((singleRecord, index) => {
-					return {
-						range: {
-								[appbaseField]: {
-								gte: singleRecord.start,
-								lte: singleRecord.end,
-								boost: 2.0
-							}
-						}
-					};
-				});
-			}
-		}
-	}
-
-	// use this only if want to create actuators
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
-		let react = this.props.react ? this.props.react : {};
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 	}
 
 	// handle the input change and pass the value inside sensor info
@@ -104,33 +92,33 @@ export class MultiDropdownRange extends Component {
 		selected = record.map(item => item.label);
 		selected = selected.join();
 		this.setState({
-			'selected': selected
+			selected
 		});
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: record
 		};
 		// pass the selected sensor value with componentId as key,
-		let isExecuteQuery = true;
+		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	// render
 	render() {
 		let title = null;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder
+		const cx = classNames({
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-placeholder-active": this.props.placeholder,
+			"rbc-placeholder-inactive": !this.props.placeholder
 		});
 
 		return (
-			<div className={`rbc rbc-multidropdownrange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-multidropdownrange col s12 col-xs-12 card thumbnail ${cx}`}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">
@@ -139,9 +127,10 @@ export class MultiDropdownRange extends Component {
 							value={this.state.selected}
 							onChange={this.handleChange}
 							clearable={false}
-							multi={true}
+							multi
 							placeholder={this.props.placeholder}
-							searchable={true} />
+							searchable
+						/>
 					</div>
 				</div>
 			</div>
@@ -155,12 +144,12 @@ MultiDropdownRange.propTypes = {
 	title: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
-	defaultSelected: React.PropTypes.array
+	defaultSelected: React.PropTypes.array,
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
-MultiDropdownRange.defaultProps = {
-};
+MultiDropdownRange.defaultProps = {};
 
 // context type
 MultiDropdownRange.contextTypes = {
@@ -174,5 +163,6 @@ MultiDropdownRange.types = {
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
 	title: TYPES.STRING,
-	placeholder: TYPES.STRING
+	placeholder: TYPES.STRING,
+	customQuery: TYPES.FUNCION
 };

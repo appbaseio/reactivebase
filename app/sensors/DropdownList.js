@@ -1,17 +1,18 @@
-import { default as React, Component } from 'react';
-import Select from 'react-select';
-import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
-var helper = require('../middleware/helper.js');
-import { InitialLoader } from './InitialLoader';
-var _ = require('lodash');
+import React, { Component } from "react";
+import Select from "react-select";
+import classNames from "classnames";
+import manager from "../middleware/ChannelManager";
+import InitialLoader from "../addons/InitialLoader";
 
-export class DropdownList extends Component {
-	constructor(props, context) {
+const _ = require("lodash");
+const helper = require("../middleware/helper");
+
+export default class DropdownList extends Component {
+	constructor(props) {
 		super(props);
 		this.state = {
 			items: [],
-			value: '',
+			value: "",
 			rawData: {
 				hits: {
 					hits: []
@@ -27,15 +28,29 @@ export class DropdownList extends Component {
 		this.previousSelectedSensor = {};
 		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
-		this.type = this.props.multipleSelect ? 'Terms' : 'Term';
+		this.type = this.props.multipleSelect ? "Terms" : "Term";
 		this.customQuery = this.customQuery.bind(this);
 		this.renderOption = this.renderOption.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
 	componentDidMount() {
+		this.size = this.props.size;
 		this.setQueryInfo();
-		this.createChannel();
+		this.createChannel(true);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		const items = this.state.items;
+		if (nextProps.selectAllLabel !== this.props.selectAllLabel) {
+			if (this.props.selectAllLabel) {
+				items.shift();
+			}
+			items.unshift({ label: nextProps.selectAllLabel, value: nextProps.selectAllLabel });
+			this.setState({
+				items
+			});
+		}
 	}
 
 	componentWillUpdate() {
@@ -43,22 +58,16 @@ export class DropdownList extends Component {
 			if (this.props.multipleSelect) {
 				if (!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
 					this.defaultSelected = this.props.defaultSelected;
-					let records = this.state.items.filter((record) => {
-						return this.defaultSelected.indexOf(record.value) > -1 ? true : false;
-					});
+					const records = this.state.items.filter(record => this.defaultSelected.indexOf(record.value) > -1);
 					if (records.length) {
-						this.handleChange(records);
+						setTimeout(this.handleChange.bind(this, records), 1000);
 					}
 				}
-			} else {
-				if (this.defaultSelected != this.props.defaultSelected) {
-					this.defaultSelected = this.props.defaultSelected;
-					let records = this.state.items.filter((record) => {
-						return record.value === this.defaultSelected;
-					});
-					if (records.length) {
-						this.handleChange(records[0]);
-					}
+			} else if (this.defaultSelected !== this.props.defaultSelected) {
+				this.defaultSelected = this.props.defaultSelected;
+				const records = this.state.items.filter(record => record.value === this.defaultSelected);
+				if (records.length) {
+					setTimeout(this.handleChange.bind(this, records), 1000);
 				}
 			}
 			if (this.sortBy !== this.props.sortBy) {
@@ -73,46 +82,32 @@ export class DropdownList extends Component {
 		}, 300);
 	}
 
-	componentWillReceiveProps(nextProps) {
-		let items = this.state.items;
-		if (nextProps.selectAllLabel != this.props.selectAllLabel) {
-			if (this.props.selectAllLabel) {
-				items.shift();
-			}
-			items.unshift({label: nextProps.selectAllLabel, value: nextProps.selectAllLabel});
-			this.setState({
-				items: items
-			});
-		}
-	}
-
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
 		this.removeChannel();
 	}
 
 	removeChannel() {
-		if(this.channelId) {
+		if (this.channelId) {
 			manager.stopStream(this.channelId);
 		}
-		if(this.channelListener) {
+		if (this.channelListener) {
 			this.channelListener.remove();
 		}
-		if(this.loadListener) {
+		if (this.loadListener) {
 			this.loadListener.remove();
 		}
 	}
 
 	// build query for this sensor only
 	customQuery(value) {
-		if(this.selectAll) {
+		if (this.selectAll) {
 			return {
-				"exists": {
-					'field': [this.props.appbaseField]
+				exists: {
+					field: [this.props.appbaseField]
 				}
 			};
-		}
-		else if(value) {
+		} else if (value) {
 			return {
 				[this.type]: {
 					[this.props.appbaseField]: value
@@ -123,7 +118,7 @@ export class DropdownList extends Component {
 
 	// set the query type and input data
 	setQueryInfo() {
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: {
 				queryType: this.type,
@@ -135,8 +130,8 @@ export class DropdownList extends Component {
 	}
 
 	includeAggQuery() {
-		var obj = {
-			key: this.props.componentId+'-sort',
+		const obj = {
+			key: `${this.props.componentId}-sort`,
 			value: this.sortObj
 		};
 		helper.selectedSensor.setSortInfo(obj);
@@ -146,70 +141,80 @@ export class DropdownList extends Component {
 		this.sortObj = {
 			aggSort: this.props.sortBy
 		};
-		let obj = {
-			key: this.props.componentId+'-sort',
+		const obj = {
+			key: `${this.props.componentId}-sort`,
 			value: this.sortObj
 		};
-		helper.selectedSensor.set(obj, true, 'sortChange');
+		helper.selectedSensor.set(obj, true, "sortChange");
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
+	createChannel(executeChannel = false) {
 		// Set the react - add self aggs query as well with react
-		let react = this.props.react ? this.props.react : {};
-		react['aggs'] = {
+		const react = this.props.react ? this.props.react : {};
+		react.aggs = {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
 			size: this.props.size,
-			sortRef: this.props.componentId+'-sort'
+			sortRef: `${this.props.componentId}-sort`
 		};
-		if(react && react.and && typeof react.and === 'string') {
+		if (react && react.and && typeof react.and === "string") {
 			react.and = [react.and];
 		} else {
 			react.and = react.and ? react.and : [];
 		}
-		react.and.push(this.props.componentId+'-sort');
+		react.and.push(`${this.props.componentId}-sort`);
+		react.and.push("dropdownListChanges");
 		this.includeAggQuery();
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
-		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
-			if(res.error) {
+		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
+			if (res.error) {
 				this.setState({
 					queryStart: false
 				});
-			} 
-			if(res.appliedQuery) {
-				let data = res.data;
+			}
+			if (res.appliedQuery) {
+				const data = res.data;
 				let rawData;
-				if(res.mode === 'streaming') {
+				if (res.mode === "streaming") {
 					rawData = this.state.rawData;
 					rawData.hits.hits.push(res.data);
-				} else if(res.mode === 'historic') {
+				} else if (res.mode === "historic") {
 					rawData = data;
 				}
 				this.setState({
 					queryStart: false,
-					rawData: rawData
+					rawData
 				});
 				this.setData(rawData);
 			}
-		}.bind(this));
+		});
+		if (executeChannel) {
+			setTimeout(() => {
+				const obj = {
+					key: "dropdownListChanges",
+					value: ""
+				};
+				helper.selectedSensor.set(obj, true);
+			}, 100);
+		}
 		this.listenLoadingChannel(channelObj);
 	}
 
 	listenLoadingChannel(channelObj) {
-		this.loadListener = channelObj.emitter.addListener(channelObj.channelId+'-query', function(res) {
-			if(res.appliedQuery) {
+		this.loadListener = channelObj.emitter.addListener(`${channelObj.channelId}-query`, (res) => {
+			if (res.appliedQuery) {
 				this.setState({
 					queryStart: res.queryState
 				});
 			}
-		}.bind(this));
+		});
 	}
 
 	setData(data) {
-		if(data.aggregations && data.aggregations[this.props.appbaseField] && data.aggregations[this.props.appbaseField].buckets) {
+		if (data.aggregations && data.aggregations[this.props.appbaseField] && data.aggregations[this.props.appbaseField].buckets) {
 			this.addItemsToList(data.aggregations[this.props.appbaseField].buckets);
 		}
 	}
@@ -217,7 +222,7 @@ export class DropdownList extends Component {
 	renderOption(option) {
 		return (
 			<span key={option.value}>{option.value} {this.props.showCount && option.count ? (<span className="rbc-count">{option.count}</span>) : null}</span>
-		)
+		);
 	}
 
 	addItemsToList(newItems) {
@@ -226,28 +231,24 @@ export class DropdownList extends Component {
 			item.value = item.key.toString();
 			item.count = null;
 			if (this.props.showCount) {
-				item.count = item.doc_count
+				item.count = item.doc_count;
 			}
-			return item
+			return item;
 		});
 		if (this.props.selectAllLabel) {
-			newItems.unshift({label: this.props.selectAllLabel, value: this.props.selectAllLabel});
+			newItems.unshift({ label: this.props.selectAllLabel, value: this.props.selectAllLabel });
 		}
 		this.setState({
 			items: newItems
 		});
 		if (this.defaultSelected) {
 			if (this.props.multipleSelect) {
-				let records = this.state.items.filter((record) => {
-					return this.defaultSelected.indexOf(record.value) > -1 ? true : false;
-				});
+				const records = this.state.items.filter(record => this.defaultSelected.indexOf(record.value) > -1);
 				if (records.length) {
 					this.handleChange(records);
 				}
 			} else {
-				let records = this.state.items.filter((record) => {
-					return record.value === this.defaultSelected;
-				});
+				const records = this.state.items.filter(record => record.value === this.defaultSelected);
 				if (records.length) {
 					this.handleChange(records[0]);
 				}
@@ -261,7 +262,7 @@ export class DropdownList extends Component {
 		this.selectAll = false;
 		if (this.props.multipleSelect) {
 			result = [];
-			value.map(item => {
+			value.map((item) => {
 				result.push(item.value);
 			});
 			if (this.props.selectAllLabel && (result.indexOf(this.props.selectAllLabel) > -1)) {
@@ -272,7 +273,7 @@ export class DropdownList extends Component {
 			}
 		} else {
 			result = value.value;
-			if (this.props.selectAllLabel && result == this.props.selectAllLabel) {
+			if (this.props.selectAllLabel && result === this.props.selectAllLabel) {
 				this.selectAll = true;
 			}
 		}
@@ -283,13 +284,13 @@ export class DropdownList extends Component {
 	}
 
 	// set value
-	setValue(value, isExecuteQuery=false) {
+	setValue(value, isExecuteQuery = false) {
 		if (this.props.multipleSelect) {
-			value = value.split(',');
+			value = value.split(",");
 		}
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
-			value: value
+			value
 		};
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
@@ -297,19 +298,21 @@ export class DropdownList extends Component {
 	render() {
 		// Checking if component is single select or multiple select
 		let title = null;
-		if(this.props.title) {
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder,
-			'rbc-multidropdownlist': this.props.multipleSelect,
-			'rbc-singledropdownlist': !this.props.multipleSelect,
-			'rbc-count-active': this.props.showCount,
-			'rbc-count-inactive': !this.props.showCount
+		const cx = classNames({
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-placeholder-active": this.props.placeholder,
+			"rbc-placeholder-inactive": !this.props.placeholder,
+			"rbc-multidropdownlist": this.props.multipleSelect,
+			"rbc-singledropdownlist": !this.props.multipleSelect,
+			"rbc-count-active": this.props.showCount,
+			"rbc-count-inactive": !this.props.showCount,
+			"rbc-initialloader-active": this.props.initialLoader,
+			"rbc-initialloader-inactive": !this.props.initialLoader
 		});
 
 		return (
@@ -327,10 +330,11 @@ export class DropdownList extends Component {
 								cache={false}
 								placeholder={this.props.placeholder}
 								optionRenderer={this.renderOption}
-								searchable={true} /> : null }
+								searchable
+							/> : null }
 					</div>
 				</div>
-				{this.props.initialLoader.show ? (<InitialLoader defaultText={this.props.initialLoader.text} queryState={this.state.queryStart}></InitialLoader>) : null}
+				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader} />) : null}
 			</div>
 		);
 	}
@@ -343,26 +347,29 @@ DropdownList.propTypes = {
 	size: helper.sizeValidation,
 	multipleSelect: React.PropTypes.bool,
 	showCount: React.PropTypes.bool,
-	sortBy: React.PropTypes.string,
+	sortBy: React.PropTypes.oneOf(["asc", "desc", "count"]),
 	placeholder: React.PropTypes.string,
 	selectAllLabel: React.PropTypes.string,
-	initialLoader: React.PropTypes.shape({
-		show: React.PropTypes.bool,
-		text: React.PropTypes.string
-	})
+	initialLoader: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
+	defaultSelected: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.array
+	]),
+	customQuery: React.PropTypes.func,
+	react: React.PropTypes.object
 };
 
 // Default props value
 DropdownList.defaultProps = {
 	showCount: true,
-	sortBy: 'count',
+	sortBy: "count",
 	size: 100,
 	title: null,
-	placeholder: 'Select...',
-	selectAllLabel: null,
-	initialLoader: {
-		show: true
-	}
+	placeholder: "Select...",
+	selectAllLabel: null
 };
 
 // context type

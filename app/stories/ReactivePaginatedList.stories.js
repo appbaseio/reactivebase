@@ -20,8 +20,7 @@ export default class ReactivePaginatedListDefault extends Component {
 		ResponsiveStory();
 	}
 
-	onData(response) {
-		let res = response.res;
+	onData(res, err) {
 		let result = null;
 		if(res) {
 			let combineData = res.currentData;
@@ -108,6 +107,7 @@ export default class ReactivePaginatedListDefault extends Component {
 							title="Input Filter"
 							showCount={true}
 							size={100}
+							initialLoader="Loading city list.."
 							defaultSelected="London"
 							searchPlaceholder="Search City"
 						/>

@@ -22,15 +22,13 @@ export default class DataControllerDefault extends Component {
 		};
 	}
 
-	onData(response) {
-		let res = response.res;
+	onData(res, err) {
 		let result = null;
-		if(res) {
+		if (res) {
 			let combineData = res.currentData;
-			if(res.mode === 'historic') {
+			if (res.mode === 'historic') {
 				combineData = res.currentData.concat(res.newData);
-			}
-			else if(res.mode === 'streaming') {
+			} else if (res.mode === 'streaming') {
 				combineData = combineStreamData(res.currentData, res.newData);
 			}
 			if (combineData) {

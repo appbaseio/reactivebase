@@ -1,82 +1,74 @@
-import {default as React, Component} from 'react';
-import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
-var helper = require('../middleware/helper.js');
-import * as TYPES from '../middleware/constants.js';
+import React, { Component } from "react";
+import classNames from "classnames";
+import * as TYPES from "../middleware/constants";
 
-export class DataController extends Component {
-	constructor(props, context) {
+const helper = require("../middleware/helper");
+
+export default class DataController extends Component {
+	constructor(props) {
 		super(props);
-		this.type = 'match';
+		this.type = "match";
+		this.value = "customValue";
 	}
 
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		this.createChannel();
+		setTimeout(this.setValue.bind(this), 1000);
 	}
 
 	// set the query type and input data
 	setQueryInfo() {
-		let valObj = {
+		const valObj = {
 			queryType: this.type,
 			inputData: this.props.appbaseField
 		};
-		if(this.props.customQuery) {
+		if (this.props.customQuery) {
 			valObj.customQuery = this.props.customQuery;
 		}
-		let obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: valObj
 		};
 		helper.selectedSensor.setSensorInfo(obj);
 	}
 
-	// use this only if want to create actuators
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
-		if(this.props.react) {
-			let react = this.props.react ? this.props.react : {};
-			var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
-		}
-		setTimeout(this.setValue.bind(this), 100);
-	}
-
-	setValue(){
-		var obj = {
+	setValue() {
+		const obj = {
 			key: this.props.componentId,
-			value: this.props.value
+			value: this.value
 		};
 		// pass the selected sensor value with componentId as key,
-		let isExecuteQuery = true;
+		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	// render
 	render() {
-		let title = null, queryLabel = null;
-		if(this.props.title) {
+		let title = null,
+			dataLabel = null;
+		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
-		if(this.props.queryLabel) {
-			queryLabel = (<span className="rbc-querylabel col s12 col-xs-12">{this.props.queryLabel}</span>);
+		if (this.props.dataLabel) {
+			dataLabel = (<span className="rbc-datalabel col s12 col-xs-12">{this.props.dataLabel}</span>);
 		}
 
-		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-querylabel-active': this.props.queryLabel,
-			'rbc-querylabel-inactive': !this.props.queryLabel
+		const cx = classNames({
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-querylabel-active": this.props.dataLabel,
+			"rbc-querylabel-inactive": !this.props.dataLabel
 		});
 
 		return (
 			<div className={`rbc rbc-datacontroller card thumbnail ${cx}`}>
-			{
+				{
 				this.props.showUI ?
 				(
 					<div>
 						{title}
-						{queryLabel}
+						{dataLabel}
 					</div>
 				) : null
 			}
@@ -90,14 +82,16 @@ DataController.propTypes = {
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
 	showUI: React.PropTypes.bool,
-	queryLabel: React.PropTypes.string,
-	value: React.PropTypes.any
+	dataLabel: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
 DataController.defaultProps = {
-	showUI: false,
-	value: 'customValue'
+	showUI: false
 };
 
 // context type
@@ -111,5 +105,6 @@ DataController.types = {
 	appbaseField: TYPES.STRING,
 	title: TYPES.STRING,
 	showUI: TYPES.BOOL,
-	queryLabel: TYPES.STRING
+	dataLabel: TYPES.STRING,
+	customQuery: TYPES.FUNCTION
 };

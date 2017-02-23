@@ -1,22 +1,23 @@
-import { default as React, Component } from 'react';
-import { ReactiveList } from './ReactiveList';
-import { Pagination } from './component/Pagination';
+import React, { Component } from 'react';
+import ReactiveList from './ReactiveList';
+import Pagination from '../addons/Pagination';
 var helper = require('../middleware/helper.js');
+import * as TYPES from '../middleware/constants.js';
 
-export class ReactivePaginatedList extends Component {
+export default class ReactivePaginatedList extends Component {
 	constructor(props, context) {
 		super(props);
 	}
 
 	componentWillMount() {
 		this.react = this.props.react ? this.props.react : {};
-		this.react['pagination'] = {};
+		this.react.pagination = {};
 	}
 
 	paginationAt(method) {
 		let pageinationComp;
 
-		if(this.props.paginationAt === method || this.props.paginationAt === 'both') {
+		if (this.props.paginationAt === method || this.props.paginationAt === 'both') {
 			pageinationComp = (
 				<div className="rbc-pagination-container col s12 col-xs-12">
 					<Pagination
@@ -64,18 +65,59 @@ ReactivePaginatedList.propTypes = {
 	onData: React.PropTypes.func,
 	onPageChange: React.PropTypes.func,
 	size: helper.sizeValidation,
-	stream: React.PropTypes.bool
+	stream: React.PropTypes.bool,
+	initialLoader: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
+	noResults: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	]),
+	showResultStats: React.PropTypes.bool,
+	onResultStats: React.PropTypes.func,
+	placeholder: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+		React.PropTypes.element
+	])
 };
 
 // Default props value
 ReactivePaginatedList.defaultProps = {
 	from: 0,
 	size: 20,
-	paginationAt: 'bottom'
+	paginationAt: 'bottom',
+	showResultStats: true
 };
 
 // context type
 ReactivePaginatedList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired
+};
+
+
+ReactivePaginatedList.types = {
+	componentId: TYPES.STRING,
+	appbaseField: TYPES.STRING,
+	title: TYPES.STRING,
+	react: TYPES.OBJECT,
+	sortBy: TYPES.STRING,
+	sortOptions: TYPES.OBJECT,
+	from: TYPES.NUMBER,
+	size: TYPES.NUMBER,
+	paginationAt: TYPES.STRING,
+	onData: TYPES.FUNCTION,
+	onPageChange: TYPES.FUNCTION,
+	requestOnScroll: TYPES.BOOLEAN,
+	stream: TYPES.BOOLEAN,
+	componentStyle: TYPES.OBJECT,
+	initialLoader: TYPES.STRING,
+	noResults: TYPES.STRING,
+	showResultStats: TYPES.BOOLEAN,
+	onResultStats: TYPES.FUNCTION,
+	placeholder: TYPES.STRING
 };

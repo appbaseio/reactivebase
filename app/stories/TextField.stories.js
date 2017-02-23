@@ -24,8 +24,7 @@ export default class TextFieldDefault extends Component {
 		} else return null;
 	}
 
-	onData(response) {
-		let res = response.res;
+	onData(res, err) {
 		let result = null;
 		if(res) {
 			let combineData = res.currentData;

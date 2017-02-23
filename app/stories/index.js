@@ -1,72 +1,66 @@
+/*eslint max-lines: 0*/
 import React from "react";
-var moment = require("moment");
-import { storiesOf, addDecorator } from "@kadira/storybook";
+import { storiesOf } from "@kadira/storybook";
 import { withKnobs, text, boolean, number, array, select, object } from "@kadira/storybook-addon-knobs";
+
+// importing READMEs first, to be used in playground for each component
 import withReadme from "storybook-readme/with-readme";
 
-import SingleListDefault from "./SingleList.stories";
 import SingleListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleList.md";
-
-import MultiListDefault from "./MultiList.stories";
 import MultiListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiList.md";
-
-import SingleRangeDefault from "./SingleRange.stories";
-import SingleRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleRange.md";
-
-import MultiRangeDefault from "./MultiRange.stories";
-import MultiRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiRange.md";
-
-import PoweredByDefault from "./PoweredBy.stories";
-
-import ToggleButtonDefault from "./ToggleButton.stories";
-import ToggleButtonReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ToggleButton.md";
-
-import TextFieldDefault from "./TextField.stories";
-import TextFieldReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/TextField.md";
-
-import DataSearchDefault from "./DataSearch.stories";
-import DataSearchReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DataSearch.md";
-
-import DataControllerDefault from "./DataController.stories";
-
-import RangeSliderDefault from "./RangeSlider.stories";
-import RangeSliderReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/RangeSlider.md";
-
-import SingleDropdownListDefault from "./SingleDropdownList.stories";
 import SingleDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleDropdownList.md";
-
-import MultiDropdownListDefault from "./MultiDropdownList.stories";
 import MultiDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiDropdownList.md";
-
-import SingleDropdownRangeDefault from "./SingleDropdownRange.stories";
-import SingleDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleDropdownRange.md";
-
-import MultiDropdownRangeDefault from "./MultiDropdownRange.stories";
-import MultiDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiDropdownRange.md";
-
-import ReactiveElement from "./ReactiveElement";
-let ReactiveElementReadme = ResultListReadme;
-
-import ReactiveListDefault from "./ReactiveList.stories";
-import ResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ResultList.md";
-
-import ReactivePaginatedListDefault from "./ReactivePaginatedList.stories";
-import PaginatedResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/PaginatedResultList.md";
-
-import DatePickerDefault from "./DatePicker.stories";
-import DatePickerReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DatePicker.md";
-
-import DateRangeDefault from "./DateRange.stories";
-import DateRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DateRange.md";
-
-import NestedListDefault from "./NestedList.stories";
 import NestedListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/NestedList.md";
 
-import NumberBoxDefault from './NumberBox.stories';
-import NumberBoxReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/NumberBox.md";
+import SingleRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleRange.md";
+import MultiRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiRange.md";
+import SingleDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleDropdownRange.md";
+import MultiDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiDropdownRange.md";
 
-require ("../../node_modules/materialize-css/dist/css/materialize.min.css");
-require ("../../dist/css/style.min.css");
+import RangeSliderReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/RangeSlider.md";
+import NumberBoxReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/NumberBox.md";
+import ToggleButtonReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ToggleButton.md";
+import DatePickerReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DatePicker.md";
+import DateRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DateRange.md";
+
+import TextFieldReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/TextField.md";
+import DataSearchReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DataSearch.md";
+
+import ResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ResultList.md";
+import PaginatedResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/PaginatedResultList.md";
+
+// importing individual component stories
+import SingleListDefault from "./SingleList.stories";
+import MultiListDefault from "./MultiList.stories";
+import SingleDropdownListDefault from "./SingleDropdownList.stories";
+import MultiDropdownListDefault from "./MultiDropdownList.stories";
+import NestedListDefault from "./NestedList.stories";
+
+import SingleRangeDefault from "./SingleRange.stories";
+import MultiRangeDefault from "./MultiRange.stories";
+import SingleDropdownRangeDefault from "./SingleDropdownRange.stories";
+import MultiDropdownRangeDefault from "./MultiDropdownRange.stories";
+
+import RangeSliderDefault from "./RangeSlider.stories";
+import NumberBoxDefault from "./NumberBox.stories";
+import ToggleButtonDefault from "./ToggleButton.stories";
+import DatePickerDefault from "./DatePicker.stories";
+import DateRangeDefault from "./DateRange.stories";
+
+import TextFieldDefault from "./TextField.stories";
+import DataSearchDefault from "./DataSearch.stories";
+
+import DataControllerDefault from "./DataController.stories";
+import PoweredByDefault from "./PoweredBy.stories";
+
+import ReactiveElement from "./ReactiveElement";
+import ReactiveListDefault from "./ReactiveList.stories";
+import ReactivePaginatedListDefault from "./ReactivePaginatedList.stories";
+
+const moment = require("moment");
+
+require("../../node_modules/materialize-css/dist/css/materialize.min.css");
+require("../../dist/css/style.min.css");
 
 function removeFirstLine(str) {
 	return str.substring(str.indexOf("\n") + 1);
@@ -75,25 +69,25 @@ function removeFirstLine(str) {
 storiesOf("SingleList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={true} placeholder="Search City" />
+		<SingleListDefault showSearch placeholder="Search City" />
 	)))
 	.add("Without Search", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault showSearch={false} placeholder="Search City" />
 	)))
 	.add("Default Selected", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={true} defaultSelected="San Francisco" placeholder="Search City" />
+		<SingleListDefault showSearch defaultSelected="San Francisco" placeholder="Search City" />
 	)))
 	.add("Custom Sort", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault title="SingleList: Ascending Sort" showSearch={true} defaultSelected="London" sortBy="asc" placeholder="Search City" />
+		<SingleListDefault title="SingleList: Ascending Sort" showSearch defaultSelected="London" sortBy="asc" placeholder="Search City" />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={true} selectAllLabel="All Cities" placeholder="Search City" />
+		<SingleListDefault showSearch selectAllLabel="All Cities" placeholder="Search City" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault
 			title={text("title", "SingleList: City Filter")}
 			size={number("size", 100)}
-			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
+			sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "count")}
 			defaultSelected={text("defaultSelected", "San Francisco")}
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
@@ -105,25 +99,25 @@ storiesOf("SingleList", module)
 storiesOf("MultiList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} placeholder="Search City" />
+		<MultiListDefault showSearch placeholder="Search City" />
 	)))
 	.add("Without Search", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault showSearch={false} placeholder="Search City" />
 	)))
 	.add("Default Selected", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} defaultSelected={["London", "Sydney"]} placeholder="Search City" />
+		<MultiListDefault showSearch defaultSelected={["London", "Sydney"]} placeholder="Search City" />
 	)))
 	.add("Custom Sort", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault title="MultiList: Ascending Sort" showSearch={true} defaultSelected={["London"]} sortBy="asc" placeholder="Search City" />
+		<MultiListDefault title="MultiList: Ascending Sort" showSearch defaultSelected={["London"]} sortBy="asc" placeholder="Search City" />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={true} selectAllLabel="All Cities" placeholder="Search City" />
+		<MultiListDefault showSearch selectAllLabel="All Cities" placeholder="Search City" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
 			title={text("title", "MultiList: City Filter")}
 			size={number("size", 10)}
-			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
+			sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "count")}
 			defaultSelected={array("defaultSelected", ["London", "Sydney"])}
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
@@ -153,11 +147,11 @@ storiesOf("SingleDropdownList", module)
 			title={text("title", "SingleDropdownList")}
 			size={number("size", 100)}
 			showCount={boolean("showCount", true)}
-			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
+			sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "count")}
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={text("defaultSelected", "London")}
 			placeholder={text("placeholder", "Select a City")}
-			/>
+		/>
 	)));
 
 storiesOf("MultiDropdownList", module)
@@ -189,7 +183,7 @@ storiesOf("MultiDropdownList", module)
 			title={text("title", "MultiDropdownList")}
 			size={number("size", 100)}
 			showCount={boolean("showCount", true)}
-			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
+			sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "count")}
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
 			placeholder={text("placeholder", "Select Cities")}
@@ -203,16 +197,19 @@ storiesOf("NestedList", module)
 	)))
 	.add("With Title", withReadme(removeFirstLine(NestedListReadme), () => (
 		<NestedListDefault
-			title={text("title", "Car Category")} />
+			title={text("title", "Car Category")}
+		/>
 	)))
 	.add("Default selection", withReadme(removeFirstLine(NestedListReadme), () => (
 		<NestedListDefault
-			defaultSelected={["bmw", "x series"]} />
-	))).add("Playground", withReadme(removeFirstLine(NestedListReadme), () => (
+			defaultSelected={["bmw", "x series"]}
+		/>
+	)))
+	.add("Playground", withReadme(removeFirstLine(NestedListReadme), () => (
 		<NestedListDefault
 			title={text("title", "NestedList: Car Filter")}
 			size={number("size", 100)}
-			sortBy={select("sortBy", {asc: "asc", desc: "desc", count: "count"}, "count")}
+			sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "count")}
 			defaultSelected={array("defaultSelected", ["bmw", "x series"])}
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
@@ -231,7 +228,8 @@ storiesOf("SingleRange", module)
 	.add("Playground", withReadme(removeFirstLine(SingleRangeReadme), () => (
 		<SingleRangeDefault
 			title={text("title", "SingleRange: Price Filter")}
-			defaultSelected={text("defaultSelected", "Cheap")} />
+			defaultSelected={text("defaultSelected", "Cheap")}
+		/>
 	)));
 
 storiesOf("MultiRange", module)
@@ -246,7 +244,7 @@ storiesOf("MultiRange", module)
 		<MultiRangeDefault
 			title={text("title", "MultiRange: Price Filter")}
 			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
-			showTags={boolean("showTags", "false")} />
+		/>
 	)));
 
 storiesOf("SingleDropdownRange", module)
@@ -260,7 +258,8 @@ storiesOf("SingleDropdownRange", module)
 	.add("Playground", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
 		<SingleDropdownRangeDefault
 			title={text("title", "SingleDropdownRange: Price Filter")}
-			defaultSelected={text("defaultSelected", "Cheap")} />
+			defaultSelected={text("defaultSelected", "Cheap")}
+		/>
 	)));
 
 storiesOf("MultiDropdownRange", module)
@@ -274,22 +273,7 @@ storiesOf("MultiDropdownRange", module)
 	.add("Playground", withReadme(removeFirstLine(MultiDropdownRangeReadme), () => (
 		<MultiDropdownRangeDefault
 			title={text("title", "MultiDropdownRange: Price Filter")}
-			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])} />
-	)));
-
-storiesOf("ToggleButton", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(ToggleButtonReadme), () => (
-		<ToggleButtonDefault />
-	)))
-	.add("With Default Selected", withReadme(removeFirstLine(ToggleButtonReadme), () => (
-		<ToggleButtonDefault defaultSelected={["Social"]} />
-	)))
-	.add("Playground", withReadme(removeFirstLine(ToggleButtonReadme), () => (
-		<ToggleButtonDefault
-			title={text("title", "ToggleButton: Meetup Categories")}
-			multiSelect={boolean("multiSelect", true)}
-			defaultSelected={array("defaultSelected", ["Social", "Travel"])}
+			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
 		/>
 	)));
 
@@ -300,12 +284,10 @@ storiesOf("RangeSlider", module)
 	)))
 	.add("With Default Selected", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
-			defaultSelected={
-				{
-					"start": 0,
-					"end": 2
-				}
-			}
+			defaultSelected={{
+				start: 0,
+				end: 2
+			}}
 		/>
 	)))
 	.add("Without histogram", withReadme(removeFirstLine(RangeSliderReadme), () => (
@@ -315,37 +297,33 @@ storiesOf("RangeSlider", module)
 	)))
 	.add("With Range Labels", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
-			defaultSelected={
-				{
-					"start": 0,
-					"end": 2
-				}
-			}
-			rangeLabels={
-				{
-					"start": "Start",
-					"end": "End"
-				}
-			}
+			defaultSelected={{
+				start: 0,
+				end: 2
+			}}
+			rangeLabels={{
+				start: "Start",
+				end: "End"
+			}}
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
 			title={text("title", "RangeSlider: Guest RSVPs")}
 			range={object("range", {
-				"start": 0,
-				"end": 5
+				start: 0,
+				end: 5
 			})}
 			stepValue={number("stepValue", 1)}
 			defaultSelected={object("defaultSelected", {
-				"start": 0,
-				"end": 2
+				start: 0,
+				end: 2
 			})}
 			rangeLabels={object("rangeLabels", {
-				"start": "Start",
-				"end": "End"
+				start: "Start",
+				end: "End"
 			})}
-			showHistogram={boolean('showHistogram', true)}
+			showHistogram={boolean("showHistogram", true)}
 		/>
 	)));
 
@@ -366,11 +344,27 @@ storiesOf("NumberBox", module)
 		<NumberBoxDefault
 			defaultSelected={number("defaultSelected", 3)}
 			data={object("data", {
-				"start": 1,
-				"end": 5,
-				"label": "Car Ratings"
+				start: 1,
+				end: 5,
+				label: "Car Ratings"
 			})}
-			labelPosition={select("labelPosition", {"bottom": "bottom", "top": "top", "left": "left", "right": "right"}, "right")}
+			labelPosition={select("labelPosition", { bottom: "bottom", top: "top", left: "left", right: "right" }, "right")}
+		/>
+	)));
+
+storiesOf("ToggleButton", module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault />
+	)))
+	.add("With Default Selected", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault defaultSelected={["Social"]} />
+	)))
+	.add("Playground", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault
+			title={text("title", "ToggleButton: Meetup Categories")}
+			multiSelect={boolean("multiSelect", true)}
+			defaultSelected={array("defaultSelected", ["Social", "Travel"])}
 		/>
 	)));
 
@@ -386,7 +380,8 @@ storiesOf("TextField", module)
 		<TextFieldDefault
 			title={text("title", "TextField: Car Search")}
 			placeholder={text("placeholder", "Type a car name")}
-			defaultSelected={text("defaultSelected", "nissan")} />
+			defaultSelected={text("defaultSelected", "nissan")}
+		/>
 	)));
 
 storiesOf("DataSearch", module)
@@ -394,19 +389,22 @@ storiesOf("DataSearch", module)
 	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venue" />
+			placeholder="Search Venue"
+		/>
 	)))
 	.add("Without Autocomplete", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
 			placeholder="Search Venue"
-			autocomplete={false} />
+			autocomplete={false}
+		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title={text("title", "DataSearch")}
 			placeholder={text("placeholder", "Search Venue")}
-			autocomplete={boolean("autocomplete", true)} />
+			autocomplete={boolean("autocomplete", true)}
+		/>
 	)));
 
 
@@ -418,13 +416,15 @@ storiesOf("DataController", module)
 	.add("With UI", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataControllerDefault
 			title="DataController"
-			showUI={true} />
+			showUI
+		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataControllerDefault
 			title={text("title", "DataController")}
-			queryLabel={text("queryLabel", "matchall")}
-			showUI={boolean("showUI", true)} />
+			dataLabel={text("dataLabel", "matchall")}
+			showUI={boolean("showUI", true)}
+		/>
 	)));
 
 
@@ -440,22 +440,19 @@ storiesOf("DatePicker", module)
 	)))
 	.add("Default date", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
-			date={moment()}
+			defaultSelected={moment().subtract(1, "days")}
 		/>
-	)))
-	.add("Initial Focus", withReadme(removeFirstLine(DatePickerReadme), () => (
-		<DatePickerDefault />
 	)))
 	.add("Enable days from today only", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
 			allowAllDates={false}
 		/>
 	)))
-	.add("React-dates props", withReadme(removeFirstLine(DatePickerReadme), () => (
+	.add("Using extra prop object", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
-			extra = {{
-				"withFullScreenPortal": true,
-				"showClearDate": true
+			extra={{
+				withFullScreenPortal: true,
+				showClearDate: true
 			}}
 		/>
 	)))
@@ -479,8 +476,10 @@ storiesOf("DateRange", module)
 	)))
 	.add("Default date", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault
-			startDate={moment()}
-			endDate={moment().add(5, "days")}
+			defaultSelected={{
+				start: moment().subtract(7, "days"),
+				end: moment()
+			}}
 		/>
 	)))
 	.add("Enable days from today only", withReadme(removeFirstLine(DateRangeReadme), () => (
@@ -488,11 +487,11 @@ storiesOf("DateRange", module)
 			allowAllDates={false}
 		/>
 	)))
-	.add("React-dates props", withReadme(removeFirstLine(DateRangeReadme), () => (
+	.add("Using extra prop object", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault
-			extra = {{
-				"withFullScreenPortal": true,
-				"showClearDate": true
+			extra={{
+				withFullScreenPortal: true,
+				showClearDate: true
 			}}
 		/>
 	)))
@@ -511,50 +510,46 @@ storiesOf("PoweredBy", module)
 
 storiesOf("ReactiveElement", module)
 	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(ResultListReadme), () => (
 		<ReactiveElement.Basic />
 	)))
-	.add("Stream", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+	.add("Stream", withReadme(removeFirstLine(ResultListReadme), () => (
 		<ReactiveElement.WithStream />
 	)))
-	.add("Theme", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+	.add("Theme", withReadme(removeFirstLine(ResultListReadme), () => (
 		<ReactiveElement.WithTheme />
 	)))
-	.add("Playground", withReadme(removeFirstLine(ReactiveElementReadme), () => (
+	.add("Playground", withReadme(removeFirstLine(ResultListReadme), () => (
 		<ReactiveElement.Basic
 			title={text("title", "ReactiveElement")}
 			placeholder={text("placeholder", "Select city from the list")}
 			from={number("from", 0)}
 			size={number("size", 5)}
-			initialLoader={object("initialLoader", {
-				"show": true,
-				"text": 'Loading initially.'
-			})}
-			noResults={object("noResults", {
-				"show": true,
-				"text": 'No Results Found!'
-			})}
-			resultStats={object("resultStats", {
-				"show": true
-			})}
-			stream={boolean("stream", false)} />
+			initialLoader="Loading results.."
+			noResults="No results found! Try a different filter duh.."
+			stream={boolean("stream", false)}
+			showResultStats={boolean("showResultStats", true)}
+		/>
 	)));
 
 storiesOf("ReactiveList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(ResultListReadme), () => (
-		<ReactiveListDefault requestOnScroll={true} stream={false} />
+		<ReactiveListDefault onData={null} requestOnScroll stream={false} />
 	)))
-	.add("With Title", withReadme(removeFirstLine(ResultListReadme), () => (
-		<ReactiveListDefault title="Meetups" requestOnScroll={true} stream={false} />
+	.add("With Custom Markup", withReadme(removeFirstLine(ResultListReadme), () => (
+		<ReactiveListDefault requestOnScroll stream={false} />
 	)))
-	.add("With Streaming", withReadme(removeFirstLine(ResultListReadme), () => (
-		<ReactiveListDefault title="Meetups" stream={true} />
+	.add("Without Title", withReadme(removeFirstLine(ResultListReadme), () => (
+		<ReactiveListDefault title="" requestOnScroll stream={false} />
+	)))
+	.add("With Streaming Enabled", withReadme(removeFirstLine(ResultListReadme), () => (
+		<ReactiveListDefault title="Meetups" stream />
 	)))
 	.add("With Sort Options", withReadme(removeFirstLine(ResultListReadme), () => (
 		<ReactiveListDefault
 			title="Meetups"
-			requestOnScroll={true}
+			requestOnScroll
 			stream={false}
 			sortOptions={[
 				{
@@ -575,35 +570,36 @@ storiesOf("ReactiveList", module)
 			]}
 		/>
 	)))
+	.add("With Loader", withReadme(removeFirstLine(ResultListReadme), () => (
+		<ReactiveListDefault
+			title="Meetups"
+			requestOnScroll
+			stream={false}
+			initialLoader="Loading results.."
+		/>
+	)))
 	.add("Playground", withReadme(removeFirstLine(ResultListReadme), () => (
 		<ReactiveListDefault
 			title={text("title", "ReactiveList: Results")}
 			from={number("from", 0)}
 			size={number("size", 5)}
-			initialLoader={object("initialLoader", {
-				"show": true,
-				"text": 'Loading initially.'
-			})}
-			noResults={object("noResults", {
-				"show": true,
-				"text": 'No Results Found!'
-			})}
-			resultStats={object("resultStats", {
-				"show": true
-			})}
+			initialLoader={text("initialLoader", "Loading results..")}
+			noResults={text("noResults", "No results found!")}
+			showResultStats={boolean("showResultStats", true)}
 			requestOnScroll={boolean("requestOnScroll", true)}
-			stream={boolean("stream", false)} />
+			stream={boolean("stream", false)}
+		/>
 	)));
 
 storiesOf("ReactivePaginatedList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
-		<ReactivePaginatedListDefault/>
-	)))
-	.add("Without on data", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
 		<ReactivePaginatedListDefault
 			onData={null}
 		/>
+	)))
+	.add("With Custom Markup", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
+		<ReactivePaginatedListDefault />
 	)))
 	.add("With Sort Options", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
 		<ReactivePaginatedListDefault
@@ -626,12 +622,19 @@ storiesOf("ReactivePaginatedList", module)
 			]}
 		/>
 	)))
+	.add("With Loader", withReadme(removeFirstLine(ResultListReadme), () => (
+		<ReactivePaginatedListDefault
+			title="Meetups"
+			stream={false}
+			initialLoader="Loading results.."
+		/>
+	)))
 	.add("Playground", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
 		<ReactivePaginatedListDefault
 			title={text("title", "ReactivePaginatedList: Playground")}
 			from={number("from", 0)}
 			size={number("size", 5)}
-			sortBy={select("sortBy", {"asc": "asc", "desc": "desc", "default": "default"}, "default")}
-			paginationAt={select("paginationAt", {"bottom": "bottom", "top": "top", "both": "both"}, "bottom")}
+			sortBy={select("sortBy", { asc: "asc", desc: "desc", default: "default" }, "default")}
+			paginationAt={select("paginationAt", { bottom: "bottom", top: "top", both: "both" }, "bottom")}
 		/>
 	)));
