@@ -8,7 +8,7 @@ const helper = require("../middleware/helper");
 
 export default class DataSearch extends Component {
 	// Search results often contain duplicate results, so display only unique values
-	static removeDuplicates(myArr, prop) {
+	removeDuplicates(myArr, prop) {
 		return myArr.filter((obj, pos, arr) => arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos);
 	}
 

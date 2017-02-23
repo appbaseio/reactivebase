@@ -1,8 +1,8 @@
-import { default as React, Component } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import { render } from 'react-dom';
 
-export class ItemList extends Component {
+export default class ItemList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -22,20 +22,20 @@ export class ItemList extends Component {
 	}
 
 	componentDidUpdate() {
-		if(this.props.items.length && this.defaultAllowed) {
+		if (this.props.items.length && this.defaultAllowed) {
 			this.defaultAllowed = false;
 			this.defaultSelection();
 		}
 	}
 
 	defaultSelection() {
-		if(this.props.defaultSelected) {
+		if (this.props.defaultSelected) {
 			this.handleClick(this.props.defaultSelected);
 		}
 	}
 
 	handleListClickAll(value) {
-		let selectedItems = this.props.items.map((item) => item.key );
+		let selectedItems = this.props.items.map((item) => item.key);
 		this.props.selectAll(value, selectedItems);
 		this.setState({
 			selectedItem: value
@@ -59,7 +59,7 @@ export class ItemList extends Component {
 		let items = this.props.items;
 		let itemsComponent = [];
 		// Build the array of components for each item
-		items.forEach(function (item) {
+		items.forEach(function(item) {
 			let visibleFlag = !item.hasOwnProperty('visible') ? true : (item.visible ? true : false);
 			itemsComponent.push(<ItemRow
 				key={item.key}
@@ -72,7 +72,7 @@ export class ItemList extends Component {
 		}.bind(this));
 
 		// include select all if set from parent
-		if(this.props.selectAllLabel && items && items.length) {
+		if (this.props.selectAllLabel && items && items.length) {
 			itemsComponent.unshift(
 				<ItemRow
 					key='selectall'
@@ -114,7 +114,7 @@ class ItemRow extends Component {
 				{count}
 			</a>
 		);
-		if(this.props.value === this.props.selectedItem) {
+		if (this.props.value === this.props.selectedItem) {
 			item = (
 				<a href="javascript:void(0)" className={"col s12 col-xs-12"}>
 					<strong>

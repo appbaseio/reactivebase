@@ -151,7 +151,7 @@ export default class ItemCheckboxList extends Component {
 			} catch (e) {
 				item.keyRef = index;
 			}
-			const visibleFlag = !(item in "visible") ? true : (!!item.visible);
+			const visibleFlag = !("visible" in item) ? true : (!!item.visible);
 			ListItemsArray.push(
 				<ListItem
 					key={item.keyRef}
@@ -224,7 +224,7 @@ ItemCheckboxList.propTypes = {
 	items: React.PropTypes.array,
 	onRemove: React.PropTypes.func,
 	onSelect: React.PropTypes.func,
-	selectAll: React.PropTypes.bool,
+	selectAll: React.PropTypes.func,
 	selectAllLabel: React.PropTypes.string,
 	selectAllValue: React.PropTypes.bool,
 	showCount: React.PropTypes.bool,
