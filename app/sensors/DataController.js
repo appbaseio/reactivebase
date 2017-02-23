@@ -62,7 +62,7 @@ export default class DataController extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-datacontroller card thumbnail ${cx}`}>
+			<div className={`rbc rbc-datacontroller card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{
 				this.props.showUI ?
 				(
@@ -86,7 +86,8 @@ DataController.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	componentStyle: React.PropTypes.object
 };
 
 // Default props value
@@ -97,7 +98,8 @@ DataController.defaultProps = {
 // context type
 DataController.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	componentStyle: {}
 };
 
 DataController.types = {
@@ -106,5 +108,6 @@ DataController.types = {
 	title: TYPES.STRING,
 	showUI: TYPES.BOOL,
 	dataLabel: TYPES.STRING,
-	customQuery: TYPES.FUNCTION
+	customQuery: TYPES.FUNCTION,
+	componentStyle: TYPES.OBJECT
 };

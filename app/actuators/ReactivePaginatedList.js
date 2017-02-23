@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ReactiveList from './ReactiveList';
 import Pagination from '../addons/Pagination';
-var helper = require('../middleware/helper.js');
 import * as TYPES from '../middleware/constants.js';
+
+var helper = require('../middleware/helper.js');
 
 export default class ReactivePaginatedList extends Component {
 	constructor(props, context) {
@@ -10,8 +11,55 @@ export default class ReactivePaginatedList extends Component {
 	}
 
 	componentWillMount() {
+		this.paginationAtVal = this.props.paginationAt;
+		this.setQueryInfo();
+		this.setReact();
+		this.executePaginationUpdate();
+	}
+
+	componentWillUpdate() {
+		setTimeout(() => {
+			if (this.paginationAtVal !== this.props.paginationAt) {
+				this.paginationAtVal = this.props.paginationAt;
+				this.executePaginationUpdate();
+			}
+		}, 300);
+	}
+
+	customQuery() {
+		return null;
+	}
+	// set the query type and input data
+	setQueryInfo() {
+		const valObj = {
+			queryType: 'match',
+			inputData: this.props.appbaseField,
+			customQuery: this.customQuery
+		};
+		const obj = {
+			key: 'paginationChanges',
+			value: valObj
+		};
+		helper.selectedSensor.setSensorInfo(obj);
+	}
+
+	setReact() {
 		this.react = this.props.react ? this.props.react : {};
 		this.react.pagination = {};
+		if (this.react && this.react.and && typeof this.react.and === "string") {
+			this.react.and = [this.react.and];
+		}
+		this.react.and.push("paginationChanges");
+	}
+
+	executePaginationUpdate() {
+		setTimeout(() => {
+			const obj = {
+				key: "paginationChanges",
+				value: Math.random()
+			};
+			helper.selectedSensor.set(obj, true);
+		}, 100);
 	}
 
 	paginationAt(method) {
@@ -53,7 +101,7 @@ ReactivePaginatedList.propTypes = {
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
 	paginationAt: React.PropTypes.string,
-	sortBy: React.PropTypes.oneOf(['asc', 'desc']),
+	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'default']),
 	sortOptions: React.PropTypes.arrayOf(
 		React.PropTypes.shape({
 			label: React.PropTypes.string,
