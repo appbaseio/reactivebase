@@ -440,7 +440,7 @@ storiesOf("DatePicker", module)
 	)))
 	.add("Default date", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
-			defaultSelected={moment()}
+			defaultSelected={moment().subtract(1, "days")}
 		/>
 	)))
 	.add("Enable days from today only", withReadme(removeFirstLine(DatePickerReadme), () => (

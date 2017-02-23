@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import manager from '../middleware/ChannelManager';
-const helper = require('../middleware/helper.js');
-import * as TYPES from '../middleware/constants.js';
+import React, { Component } from "react";
+import classNames from "classnames";
+const helper = require("../middleware/helper.js");
+import * as TYPES from "../middleware/constants.js";
 
-const TitleComponent = (props) => (
+const TitleComponent = props => (
 	<h4 className="rbc-title col s12 col-xs-12">{props.title}</h4>
 );
 
 const NumberBoxButtonComponent = (props) => {
 	const cx = classNames({
-		'rbc-btn-active': props.isActive,
-		'rbc-btn-inactive': !props.isActive
-	})
+		"rbc-btn-active": props.isActive,
+		"rbc-btn-inactive": !props.isActive
+	});
 	const { type } = props;
-	const increment = type == 'plus' ? 1 : -1;
+	const increment = type == "plus" ? 1 : -1;
 
 	return (
 		<button className={`btn rbc-btn ${cx}`} onClick={props.isActive && (() => props.handleChange(increment))}>
-			<span className={`fa fa-${type} rbc-icon`}></span>
+			<span className={`fa fa-${type} rbc-icon`} />
 		</button>
 	);
 };
@@ -47,9 +46,9 @@ export default class NumberBox extends Component {
 		const { defaultSelected, focused } = this.props;
 		this.state = {
 			currentValue: defaultSelected,
-			focused: focused
-		}
-		this.type = 'term';
+			focused
+		};
+		this.type = "term";
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -91,13 +90,6 @@ export default class NumberBox extends Component {
 		helper.selectedSensor.setSensorInfo(obj);
 	}
 
-	// use this only if want to create actuators
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
-		const react = this.props.react ? this.props.react : {};
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
-	}
-
 	// handle the input change and pass the value inside sensor info
 	handleChange(increment = 0) {
 		const { componentId, data } = this.props;
@@ -127,10 +119,10 @@ export default class NumberBox extends Component {
 	render() {
 		const { title, data, labelPosition } = this.props;
 		const { currentValue } = this.state;
-		const ComponentTitle = title ? <TitleComponent title={title}/> : null;
+		const ComponentTitle = title ? <TitleComponent title={title} /> : null;
 		const cx = classNames({
-			'rbc-title-active': title,
-			'rbc-title-inactive': !title
+			"rbc-title-active": title,
+			"rbc-title-inactive": !title
 		});
 		return (
 			<div className={`rbc rbc-numberbox col s12 col-xs-12 card thumbnail ${cx} rbc-label-${labelPosition}`}>
@@ -147,7 +139,7 @@ export default class NumberBox extends Component {
 			</div>
 		);
 	}
-};
+}
 
 NumberBox.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
@@ -159,9 +151,8 @@ NumberBox.propTypes = {
 		label: React.PropTypes.string
 	}),
 	defaultSelected: helper.valueValidation,
-	labelPosition: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
-	customQuery: React.PropTypes.func,
-	react: React.PropTypes.object
+	labelPosition: React.PropTypes.oneOf(["top", "bottom", "left", "right"]),
+	customQuery: React.PropTypes.func
 };
 
 // context type
@@ -173,10 +164,9 @@ NumberBox.contextTypes = {
 NumberBox.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
-	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.NUMBER,
 	labelPosition: TYPES.STRING,
 	customQuery: TYPES.FUNCTION
-}
+};

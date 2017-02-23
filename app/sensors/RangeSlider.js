@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import Slider from "rc-slider";
 import classNames from "classnames";
-import manager from '../middleware/ChannelManager';
+import manager from "../middleware/ChannelManager";
 import { HistoGramComponent } from "../addons/HistoGram";
 import InitialLoader from "../addons/InitialLoader";
 import * as TYPES from "../middleware/constants";

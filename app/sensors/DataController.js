@@ -9,7 +9,7 @@ export default class DataController extends Component {
 	constructor(props) {
 		super(props);
 		this.type = "match";
-		this.value = 'customValue';
+		this.value = "customValue";
 	}
 
 	// Set query information
@@ -92,7 +92,7 @@ DataController.propTypes = {
 
 // Default props value
 DataController.defaultProps = {
-	showUI: false,
+	showUI: false
 };
 
 // context type

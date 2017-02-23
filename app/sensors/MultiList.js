@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import NativeList from './NativeList';
-import * as TYPES from '../middleware/constants.js';
+import React, { Component } from "react";
+import NativeList from "./NativeList";
+import * as TYPES from "../middleware/constants.js";
 
 export default class MultiList extends Component {
 	constructor(props, context) {
@@ -11,7 +11,7 @@ export default class MultiList extends Component {
 		return (
 			<NativeList
 				{...this.props}
-				multipleSelect={true}
+				multipleSelect
 			/>
 		);
 	}
@@ -38,11 +38,11 @@ MultiList.propTypes = {
 // Default props value
 MultiList.defaultProps = {
 	showCount: true,
-	sort: 'count',
+	sort: "count",
 	size: 100,
 	showSearch: false,
 	title: null,
-	placeholder: 'Search'
+	placeholder: "Search"
 };
 
 // context type

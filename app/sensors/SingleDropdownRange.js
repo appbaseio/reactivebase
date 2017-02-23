@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import Select from "react-select";
-import manager from '../middleware/ChannelManager';
 import * as TYPES from "../middleware/constants";
 
 const helper = require("../middleware/helper");
@@ -69,13 +68,6 @@ export default class SingleDropdownRange extends Component {
 		}
 	}
 
-	// use this only if want to create actuators
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
-		const react = this.props.react ? this.props.react : {};
-		manager.create(this.context.appbaseRef, this.context.type, react);
-	}
-
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
 		this.setState({
@@ -131,8 +123,7 @@ SingleDropdownRange.propTypes = {
 	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.string,
-	customQuery: React.PropTypes.func,
-	react: React.PropTypes.object
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -147,7 +138,6 @@ SingleDropdownRange.contextTypes = {
 SingleDropdownRange.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
-	react: TYPES.OBJECT,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.STRING,
 	title: TYPES.STRING,

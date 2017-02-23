@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import NativeList from './NativeList';
-import * as TYPES from '../middleware/constants.js';
+import React, { Component } from "react";
+import NativeList from "./NativeList";
+import * as TYPES from "../middleware/constants.js";
 
 export default class SingleList extends Component {
 	constructor(props, context) {
@@ -38,11 +38,11 @@ SingleList.propTypes = {
 // Default props value
 SingleList.defaultProps = {
 	showCount: true,
-	sort: 'count',
+	sort: "count",
 	size: 100,
 	showSearch: false,
 	title: null,
-	placeholder: 'Search'
+	placeholder: "Search"
 };
 
 // context type

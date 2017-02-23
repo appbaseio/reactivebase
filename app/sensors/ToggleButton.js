@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import manager from '../middleware/ChannelManager';
-var helper = require('../middleware/helper.js');
-import * as TYPES from '../middleware/constants.js';
+import React, { Component } from "react";
+import classNames from "classnames";
+const helper = require("../middleware/helper.js");
+import * as TYPES from "../middleware/constants.js";
 
 export default class ToggleButton extends Component {
 	constructor(props, context) {
@@ -10,7 +9,7 @@ export default class ToggleButton extends Component {
 		this.state = {
 			selected: []
 		};
-		this.type = 'term';
+		this.type = "term";
 		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
@@ -20,9 +19,7 @@ export default class ToggleButton extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		if (this.defaultSelected) {
-			let records = this.props.data.filter((record) => {
-				return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
-			});
+			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 			if (records && records.length) {
 				records.forEach((singleRecord) => {
 					setTimeout(this.handleChange.bind(this, singleRecord), 1000);
@@ -34,9 +31,7 @@ export default class ToggleButton extends Component {
 	componentWillUpdate() {
 		if (this.defaultSelected != this.props.defaultSelected) {
 			this.defaultSelected = this.props.defaultSelected;
-			let records = this.props.data.filter((record) => {
-				return this.defaultSelected.indexOf(record.label) > -1 ? true : false;
-			});
+			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 			if (records && records.length) {
 				records.forEach((singleRecord) => {
 					setTimeout(this.handleChange.bind(this, singleRecord), 1000);
@@ -47,7 +42,7 @@ export default class ToggleButton extends Component {
 
 	// set the query type and input data
 	setQueryInfo() {
-		let obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: {
 				queryType: this.type,
@@ -65,36 +60,27 @@ export default class ToggleButton extends Component {
 			query = {
 				bool: {
 					should: generateRangeQuery(this.props.appbaseField),
-					"minimum_should_match": 1,
-					"boost": 1.0
+					minimum_should_match: 1,
+					boost: 1.0
 				}
 			};
 			return query;
-		} else {
-			return query;
 		}
+		return query;
+
 
 		function generateRangeQuery(appbaseField) {
-			return record.map((singleRecord, index) => {
-				return {
-					term: {
-						[appbaseField]: singleRecord.value
-					}
-				};
-			});
+			return record.map((singleRecord, index) => ({
+				term: {
+					[appbaseField]: singleRecord.value
+				}
+			}));
 		}
-	}
-
-	// use this only if want to create actuators
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
-		let react = this.props.react ? this.props.react : {};
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 	}
 
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
-		let selected = this.state.selected;
+		const selected = this.state.selected;
 		let newSelection = [];
 		let selectedIndex = null;
 		selected.forEach((selectedRecord, index) => {
@@ -114,31 +100,29 @@ export default class ToggleButton extends Component {
 			newSelection = selected;
 		}
 		this.setState({
-			'selected': newSelection
+			selected: newSelection
 		});
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: newSelection
 		};
 		// pass the selected sensor value with componentId as key,
-		let isExecuteQuery = true;
+		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	renderButtons() {
 		let buttons;
-		let selectedText = this.state.selected.map((record) => {
-			return record.label;
-		});
+		const selectedText = this.state.selected.map(record => record.label);
 		if (this.props.data) {
-			buttons = this.props.data.map((record, i) => {
-				return (
-					<button key={i} className={"btn rbc-btn "+ (selectedText.indexOf(record.label) > -1 ? 'rbc-btn-active' : 'rbc-btn-inactive')}
-						onClick={() => this.handleChange(record)} title={record.title ? record.title: record.label}>
-						{record.label}
-					</button>
-				);
-			});
+			buttons = this.props.data.map((record, i) => (
+				<button
+					key={i} className={`btn rbc-btn ${selectedText.indexOf(record.label) > -1 ? "rbc-btn-active" : "rbc-btn-inactive"}`}
+					onClick={() => this.handleChange(record)} title={record.title ? record.title : record.label}
+				>
+					{record.label}
+				</button>
+				));
 		}
 		return buttons;
 	}
@@ -150,11 +134,11 @@ export default class ToggleButton extends Component {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-multiselect-active': this.props.multiSelect,
-			'rbc-multiselect-inactive': !this.props.multiSelect
+		const cx = classNames({
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-multiselect-active": this.props.multiSelect,
+			"rbc-multiselect-inactive": !this.props.multiSelect
 		});
 		return (
 			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
@@ -176,8 +160,7 @@ ToggleButton.propTypes = {
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
 	multiSelect: React.PropTypes.bool,
-	customQuery: React.PropTypes.func,
-	react: React.PropTypes.object
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -194,7 +177,6 @@ ToggleButton.contextTypes = {
 ToggleButton.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
-	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,

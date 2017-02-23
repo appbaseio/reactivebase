@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { SingleDatePicker } from "react-dates";
 import classNames from "classnames";
-import manager from "../middleware/ChannelManager";
 import * as TYPES from "../middleware/constants";
 
 const moment = require("moment");
@@ -64,13 +63,6 @@ export default class DatePicker extends Component {
 			};
 		}
 		return query;
-	}
-
-	// use this only if want to create actuators
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
-		const react = this.props.react ? this.props.react : {};
-		manager.create(this.context.appbaseRef, this.context.type, react);
 	}
 
 	// handle the input change and pass the value inside sensor info
@@ -148,8 +140,7 @@ DatePicker.propTypes = {
 	numberOfMonths: React.PropTypes.number,
 	allowAllDates: React.PropTypes.bool,
 	extra: React.PropTypes.any,
-	customQuery: React.PropTypes.func,
-	react: React.PropTypes.object
+	customQuery: React.PropTypes.func
 };
 
 // Default props value
@@ -170,7 +161,6 @@ DatePicker.contextTypes = {
 DatePicker.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
-	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	defaultSelected: TYPES.OBJECT,
