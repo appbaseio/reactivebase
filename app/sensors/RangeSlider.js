@@ -1,25 +1,28 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
-import { HistoGramComponent } from '../addons/HistoGram.js';
-import Slider from 'rc-slider';
-import InitialLoader from '../addons/InitialLoader';
-var helper = require('../middleware/helper.js');
-var _ = require('lodash');
-import * as TYPES from '../middleware/constants.js';
+/* eslint max-lines: 0 */
+import React, { Component } from "react";
+import Slider from "rc-slider";
+import classNames from "classnames";
+import { manager } from "../middleware/ChannelManager";
+import { HistoGramComponent } from "../addons/HistoGram";
+import InitialLoader from "../addons/InitialLoader";
+import * as TYPES from "../middleware/constants";
+
+
+const helper = require("../middleware/helper");
+const _ = require("lodash");
 
 export default class RangeSlider extends Component {
-	constructor(props, context) {
+	constructor(props) {
 		super(props);
-		let startThreshold = this.props.range.start ? this.props.range.start : 0;
-		let endThreshold = this.props.range.end ? this.props.range.end : 5;
-		let values = {};
+		const startThreshold = this.props.range.start ? this.props.range.start : 0;
+		const endThreshold = this.props.range.end ? this.props.range.end : 5;
+		const values = {};
 		values.min = this.props.defaultSelected.start < startThreshold ? startThreshold : this.props.defaultSelected.start;
 		values.max = this.props.defaultSelected.end < endThreshold ? this.props.defaultSelected.end : endThreshold;
 		this.state = {
-			values: values,
-			startThreshold: startThreshold,
-			endThreshold: endThreshold,
+			values,
+			startThreshold,
+			endThreshold,
 			currentValues: [],
 			counts: [],
 			rawData: {
@@ -29,7 +32,7 @@ export default class RangeSlider extends Component {
 			}
 		};
 		this.maxSize = 100;
-		this.type = 'range';
+		this.type = "range";
 		this.channelId = null;
 		this.channelListener = null;
 		this.handleValuesChange = this.handleValuesChange.bind(this);
@@ -43,19 +46,6 @@ export default class RangeSlider extends Component {
 		this.createChannel();
 	}
 
-	// stop streaming request and remove listener when component will unmount
-	componentWillUnmount() {
-		if (this.channelId) {
-			manager.stopStream(this.channelId);
-		}
-		if (this.channelListener) {
-			this.channelListener.remove();
-		}
-		if (this.loadListener) {
-			this.loadListener.remove();
-		}
-	}
-
 	componentWillReceiveProps(nextProps) {
 		setTimeout(() => {
 			// check defaultSelected
@@ -63,8 +53,7 @@ export default class RangeSlider extends Component {
 				nextProps.defaultSelected.end !== this.state.values.max &&
 				nextProps.range.start <= nextProps.defaultSelected.start &&
 				nextProps.range.end >= nextProps.defaultSelected.end) {
-				let rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
-				let obj;
+				const rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
 				if (rem) {
 					this.setState({
 						values: {
@@ -72,7 +61,7 @@ export default class RangeSlider extends Component {
 							max: nextProps.defaultSelected.end - rem
 						}
 					});
-					obj = {
+					const obj = {
 						key: this.props.componentId,
 						value: {
 							from: this.state.values.min,
@@ -83,14 +72,14 @@ export default class RangeSlider extends Component {
 						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				} else {
-					let values = {};
+					const values = {};
 					values.min = nextProps.defaultSelected.start;
 					values.max = nextProps.defaultSelected.end;
 					this.setState({
-						values: values,
+						values,
 						currentValues: values
 					});
-					obj = {
+					const obj = {
 						key: this.props.componentId,
 						value: {
 							from: values.min,
@@ -112,7 +101,7 @@ export default class RangeSlider extends Component {
 						endThreshold: nextProps.range.end
 					});
 				} else {
-					let values = {
+					const values = {
 						min: this.state.values.min,
 						max: this.state.values.max
 					};
@@ -125,13 +114,13 @@ export default class RangeSlider extends Component {
 					this.setState({
 						startThreshold: nextProps.range.start,
 						endThreshold: nextProps.range.end,
-						values: values
+						values
 					});
-					var currentRange = {
+					const currentRange = {
 						from: values.min,
 						to: values.max
 					};
-					obj = {
+					const obj = {
 						key: this.props.componentId,
 						value: currentRange
 					};
@@ -141,7 +130,7 @@ export default class RangeSlider extends Component {
 			}
 			// drop value if it exceeds the threshold (based on step value)
 			if (nextProps.stepValue !== this.props.stepValue) {
-				let rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
+				const rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
 				if (rem) {
 					this.setState({
 						values: {
@@ -149,7 +138,7 @@ export default class RangeSlider extends Component {
 							max: nextProps.defaultSelected.end - rem
 						}
 					});
-					obj = {
+					const obj = {
 						key: this.props.componentId,
 						value: {
 							from: this.state.values.min,
@@ -165,35 +154,40 @@ export default class RangeSlider extends Component {
 	shouldComponentUpdate(nextProps, nextState) {
 		if ((nextProps.stepValue <= 0) ||
 			(nextProps.stepValue > Math.floor((nextProps.range.end - nextProps.range.start) / 2))) {
-			console.error(`Step value is invalid, it should be less than or equal to ${Math.floor((nextProps.range.end - nextProps.range.start)/2)}.`);
+			console.error(`Step value is invalid, it should be less than or equal to ${Math.floor((nextProps.range.end - nextProps.range.start) / 2)}.`);
 			return false;
 		} else if (nextState.values.max > nextState.endThreshold) {
 			return false;
-		} else {
-			return true;
 		}
+		return true;
 	}
 
-	// Handle function when value slider option is changing
-	handleValuesChange(component, values) {
-		this.setState({
-			values: values
-		});
+	// stop streaming request and remove listener when component will unmount
+	componentWillUnmount() {
+		if (this.channelId) {
+			manager.stopStream(this.channelId);
+		}
+		if (this.channelListener) {
+			this.channelListener.remove();
+		}
+		if (this.loadListener) {
+			this.loadListener.remove();
+		}
 	}
 
 	// set the query type and input data
 	setQueryInfo() {
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField
 			}
 		};
-		var obj1 = {
-			key: this.props.componentId + '-internal',
+		const obj1 = {
+			key: `${this.props.componentId}-internal`,
 			value: {
-				queryType: 'range',
+				queryType: "range",
 				inputData: this.props.appbaseField,
 				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
 			}
@@ -204,8 +198,8 @@ export default class RangeSlider extends Component {
 	}
 
 	setRangeValue() {
-		var objValue = {
-			key: this.props.componentId + '-internal',
+		const objValue = {
+			key: `${this.props.componentId}-internal`,
 			value: this.props.range
 		};
 		helper.selectedSensor.set(objValue, true);
@@ -228,54 +222,54 @@ export default class RangeSlider extends Component {
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
 		// Set the react - add self aggs query as well with react
-		let react = this.props.react ? this.props.react : {};
+		const react = this.props.react ? this.props.react : {};
 		react.aggs = {
 			key: this.props.appbaseField,
-			sort: 'asc',
+			sort: "asc",
 			size: 1000
 		};
-		if (react && react.and && typeof react.and === 'string') {
+		if (react && react.and && typeof react.and === "string") {
 			react.and = [react.and];
 		} else {
 			react.and = react.and ? react.and : [];
 		}
-		react.and.push(this.props.componentId + '-internal');
+		react.and.push(`${this.props.componentId}-internal`);
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
 		this.channelId = channelObj.channelId;
-		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
+		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
 			if (res.error) {
 				this.setState({
 					queryStart: false
 				});
 			}
 			if (res.appliedQuery) {
-				let data = res.data;
+				const data = res.data;
 				let rawData;
-				if (res.mode === 'streaming') {
+				if (res.mode === "streaming") {
 					rawData = this.state.rawData;
 					rawData.hits.hits.push(res.data);
-				} else if (res.mode === 'historic') {
+				} else if (res.mode === "historic") {
 					rawData = data;
 				}
 				this.setState({
 					queryStart: false,
-					rawData: rawData
+					rawData
 				});
 				this.setData(data);
 			}
-		}.bind(this));
+		});
 		this.listenLoadingChannel(channelObj);
 	}
 
 	listenLoadingChannel(channelObj) {
-		this.loadListener = channelObj.emitter.addListener(channelObj.channelId + '-query', function(res) {
+		this.loadListener = channelObj.emitter.addListener(`${channelObj.channelId}-query`, (res) => {
 			if (res.appliedQuery) {
 				this.setState({
 					queryStart: res.queryState
 				});
 			}
-		}.bind(this));
+		});
 	}
 
 	getSize() {
@@ -290,13 +284,38 @@ export default class RangeSlider extends Component {
 		}
 	}
 
+	// Handle function when value slider option is changing
+	handleValuesChange(component, values) {
+		this.setState({
+			values
+		});
+	}
+
+	countCalc(min, max, newItems) {
+		const counts = [];
+		const storeItems = {};
+		newItems.forEach((item) => {
+			item.key = Math.floor(item.key);
+			if (!(item.key in storeItems)) {
+				storeItems[item.key] = item.doc_count;
+			} else {
+				storeItems[item.key] += item.doc_count;
+			}
+		});
+		for (let i = min; i <= max; i += 1) {
+			const val = storeItems[i] ? storeItems[i] : 0;
+			counts.push(val);
+		}
+		return counts;
+	}
+
 	addItemsToList(newItems) {
-		newItems = _.orderBy(newItems, ['key'], ['asc']);
-		let itemLength = newItems.length;
-		let min = this.state.startThreshold ? this.state.startThreshold : newItems[0].key;
-		let max = this.state.endThreshold ? this.state.endThreshold : newItems[itemLength - 1].key;
+		newItems = _.orderBy(newItems, ["key"], ["asc"]);
+		const itemLength = newItems.length;
+		const min = this.state.startThreshold ? this.state.startThreshold : newItems[0].key;
+		const max = this.state.endThreshold ? this.state.endThreshold : newItems[itemLength - 1].key;
 		if (itemLength > 1) {
-			let rangeValue = {
+			const rangeValue = {
 				counts: this.countCalc(min, max, newItems),
 				startThreshold: min,
 				endThreshold: max,
@@ -305,29 +324,10 @@ export default class RangeSlider extends Component {
 					max: this.state.values.max
 				}
 			};
-			this.setState(rangeValue, function() {
+			this.setState(rangeValue, () => {
 				this.handleResults(null, rangeValue.values);
-			}.bind(this));
+			});
 		}
-	}
-
-	countCalc(min, max, newItems) {
-		let counts = [];
-		var storeItems = {};
-		newItems = newItems.map(function(item) {
-			item.key = Math.floor(item.key);
-			if (!storeItems.hasOwnProperty(item.key)) {
-				storeItems[item.key] = item.doc_count;
-			} else {
-				storeItems[item.key] += item.doc_count;
-			}
-			return item;
-		});
-		for (var i = min; i <= max; i++) {
-			var val = storeItems[i] ? storeItems[i] : 0;
-			counts.push(val);
-		}
-		return counts;
 	}
 
 	// Handle function when slider option change is completed
@@ -341,18 +341,18 @@ export default class RangeSlider extends Component {
 		} else {
 			values = value;
 		}
-		var real_values = {
+		const realValues = {
 			from: values.min,
 			to: values.max
 		};
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
-			value: real_values
+			value: realValues
 		};
 		helper.selectedSensor.set(obj, true);
 		this.setState({
 			currentValues: values,
-			values: values
+			values
 		});
 	}
 
@@ -371,14 +371,14 @@ export default class RangeSlider extends Component {
 			marks = {
 				[this.state.startThreshold]: this.props.rangeLabels.start,
 				[this.state.endThreshold]: this.props.rangeLabels.end
-			}
+			};
 		}
 
-		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-labels-active': this.props.rangeLabels.start || this.props.rangeLabels.end,
-			'rbc-labels-inactive': !this.props.rangeLabels.start && !this.props.rangeLabels.end,
+		const cx = classNames({
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-labels-active": this.props.rangeLabels.start || this.props.rangeLabels.end,
+			"rbc-labels-inactive": !this.props.rangeLabels.start && !this.props.rangeLabels.end,
 			"rbc-initialloader-active": this.props.initialLoader,
 			"rbc-initialloader-inactive": !this.props.initialLoader
 		});
@@ -388,7 +388,8 @@ export default class RangeSlider extends Component {
 				{title}
 				{histogram}
 				<div className="rbc-rangeslider-container col s12 col-xs-12">
-					<Slider range
+					<Slider
+						range
 						value={[this.state.values.min, this.state.values.max]}
 						min={this.state.startThreshold}
 						max={this.state.endThreshold}
@@ -397,7 +398,7 @@ export default class RangeSlider extends Component {
 						marks={marks}
 					/>
 				</div>
-				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader}></InitialLoader>) : null}
+				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader} />) : null}
 			</div>
 		);
 	}
