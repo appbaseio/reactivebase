@@ -2,64 +2,32 @@
 
 # Data components for building reactive UIs
 
-{% raw %}
+The UI component library that powers [Reactive Maps](https://github/appbaseio/reactivemaps) and [Reactive Search](https://github/appbaseio/reactivesearch).
 
-## Installation
+# How to Run
 
-```js
-npm install --save @appbaseio/reactivebase@latest
+### Installation
+
+```
+npm install
+npm test
 ```
 
-## Using It
+### Run Examples
 
-```js
-import {
-  ReactiveBase,
-  DataSearch,
-  ResultList
-} from "@appbaseio/reactivebase";
+```
+npm run storybook
+open localhost:9009
 ```
 
-```js
-<ReactiveBase
-	app="reactivemap_demo"
-	username="y4pVxY2Ok"
-	password="c92481e2-c07f-4473-8326-082919282c18"
-	type="car"
-	theme="rbc-dark">
+### Test Coverage
 
-	<div className="row">
-		<div className="col s6 col-xs-6">
-			<DataSearch
-				appbaseField="venue_name_ngrams"
-				componentId="VenueSensor"
-				placeholder="Search Venue"
-			/>
-		</div>
-
-		<div className="col s6 col-xs-6">
-			<ResultList
-				componentId="SearchResult"
-				appbaseField="group.group_topics.topic_name_raw"
-				title="Meetups"
-				sortBy="asc"
-				from={0}
-				size={20}
-				onData={this.onData}
-				depends={{
-					VenueSensor: {"operation": "must"}
-				}}
-			/>
-		</div>
-	</div>
-</ReactiveBase>
+```
+npm run coverage
 ```
 
-```js
-// all the result updates are shown here
-this.onData = function(res) {
-	console.log(res);
-}
-```
+### Lint
 
-{% endraw %}
+```
+npm run lint
+```
