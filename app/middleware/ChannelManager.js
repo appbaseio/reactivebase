@@ -147,7 +147,7 @@ class ChannelManager {
 		const queryOptions = JSON.parse(JSON.stringify(this.channels[channelId].previousSelectedSensor));
 		const options = {
 			size: this.queryOptions[channelId].size,
-			from: this.queryOptions[channelId].size * ((pageNumber - 1) + 1)
+			from: (this.queryOptions[channelId].size * (pageNumber - 1)) + 1
 		};
 		queryOptions[`channel-options-${channelId}`] = JSON.parse(JSON.stringify(options));
 		// queryOptions["channel-options-"+channelId].from += 1;
