@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import Select from 'react-select';
-import { manager } from '../middleware/ChannelManager.js';
-var helper = require('../middleware/helper.js');
-import * as TYPES from '../middleware/constants.js';
+import React, { Component } from "react";
+import classNames from "classnames";
+import Select from "react-select";
+import { manager } from "../middleware/ChannelManager";
+import * as TYPES from "../middleware/constants";
+
+const helper = require("../middleware/helper");
 
 export default class SingleDropdownRange extends Component {
-	constructor(props, context) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			selected: null
 		};
-		this.type = 'range';
+		this.type = "range";
 		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
@@ -21,9 +22,7 @@ export default class SingleDropdownRange extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		if (this.defaultSelected) {
-			let records = this.props.data.filter((record) => {
-				return record.label === this.defaultSelected;
-			});
+			const records = this.props.data.filter(record => record.label === this.defaultSelected);
 			if (records && records.length) {
 				setTimeout(this.handleChange.bind(this, records[0]), 1000);
 			}
@@ -32,11 +31,9 @@ export default class SingleDropdownRange extends Component {
 
 	componentWillUpdate() {
 		setTimeout(() => {
-			if (this.defaultSelected != this.props.defaultSelected) {
+			if (this.defaultSelected !== this.props.defaultSelected) {
 				this.defaultSelected = this.props.defaultSelected;
-				let records = this.props.data.filter((record) => {
-					return record.label === this.defaultSelected;
-				});
+				const records = this.props.data.filter(record => record.label === this.defaultSelected);
 				if (records && records.length) {
 					setTimeout(this.handleChange.bind(this, records[0]), 1000);
 				}
@@ -46,7 +43,7 @@ export default class SingleDropdownRange extends Component {
 
 	// set the query type and input data
 	setQueryInfo() {
-		let obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: {
 				queryType: this.type,
@@ -75,21 +72,21 @@ export default class SingleDropdownRange extends Component {
 	// use this only if want to create actuators
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
-		let react = this.props.react ? this.props.react : {};
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
+		const react = this.props.react ? this.props.react : {};
+		manager.create(this.context.appbaseRef, this.context.type, react);
 	}
 
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
 		this.setState({
-			'selected': record
+			selected: record
 		});
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: record
 		};
 		// pass the selected sensor value with componentId as key,
-		let isExecuteQuery = true;
+		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -100,15 +97,15 @@ export default class SingleDropdownRange extends Component {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder
+		const cx = classNames({
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-placeholder-active": this.props.placeholder,
+			"rbc-placeholder-inactive": !this.props.placeholder
 		});
 
 		return (
-			<div className={`rbc rbc-singledropdownrange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-singledropdownrange col s12 col-xs-12 card thumbnail ${cx}`}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">
@@ -118,7 +115,8 @@ export default class SingleDropdownRange extends Component {
 							value={this.state.selected}
 							onChange={this.handleChange}
 							placeholder={this.props.placeholder}
-							searchable={true} />
+							searchable
+						/>
 					</div>
 				</div>
 			</div>
