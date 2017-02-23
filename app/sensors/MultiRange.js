@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import manager from '../middleware/ChannelManager';
-var helper = require('../middleware/helper.js');
-var _ = require('lodash');
-import * as TYPES from '../middleware/constants.js';
+import React, { Component } from "react";
+import classNames from "classnames";
+import manager from "../middleware/ChannelManager";
+import * as TYPES from "../middleware/constants";
+
+const helper = require("../middleware/helper");
+const _ = require("lodash");
 
 export default class MultiRange extends Component {
-	constructor(props, context) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			selected: []
 		};
-		this.type = 'range';
+		this.type = "range";
 		this.defaultSelected = this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.resetState = this.resetState.bind(this);
@@ -23,14 +24,9 @@ export default class MultiRange extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		if (this.props.defaultSelected) {
-			let records = this.props.data.filter((record) => {
-				return this.props.defaultSelected.indexOf(record.label) > -1 ? true : false;
-			});
+			const records = this.props.data.filter(record => this.props.defaultSelected.indexOf(record.label) > -1);
 			if (records && records.length) {
 				setTimeout(this.handleChange.bind(this, records), 1000);
-				// records.forEach((singleRecord) => {
-				// 	setTimeout(this.handleChange.bind(this, singleRecord), 1000);
-				// });
 			}
 		}
 	}
@@ -40,14 +36,9 @@ export default class MultiRange extends Component {
 			if (!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
 				this.defaultSelected = this.props.defaultSelected;
 				this.resetState();
-				let records = this.props.data.filter((record) => {
-					return this.props.defaultSelected.indexOf(record.label) > -1 ? true : false;
-				});
+				const records = this.props.data.filter(record => this.props.defaultSelected.indexOf(record.label) > -1);
 				if (records && records.length) {
 					setTimeout(this.handleChange.bind(this, records), 1000);
-					// records.forEach((singleRecord) => {
-					// 	setTimeout(this.handleChange.bind(this, singleRecord), 1000);
-					// });
 				}
 			}
 		}, 300);
@@ -55,7 +46,7 @@ export default class MultiRange extends Component {
 
 	// set the query type and input data
 	setQueryInfo() {
-		let obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: {
 				queryType: this.type,
@@ -68,74 +59,81 @@ export default class MultiRange extends Component {
 
 	// build query for this sensor only
 	customQuery(record) {
+		function generateRangeQuery(appbaseField) {
+			if (record.length > 0) {
+				return record.map(singleRecord => ({
+					range: {
+						[appbaseField]: {
+							gte: singleRecord.start,
+							lte: singleRecord.end,
+							boost: 2.0
+						}
+					}
+				}));
+			}
+			return null;
+		}
+
 		if (record) {
-			let query = {
+			const query = {
 				bool: {
 					should: generateRangeQuery(this.props.appbaseField),
-					"minimum_should_match": 1,
-					"boost": 1.0
+					minimum_should_match: 1,
+					boost: 1.0
 				}
 			};
 			return query;
 		}
-
-		function generateRangeQuery(appbaseField) {
-			if (record.length > 0) {
-				return record.map((singleRecord, index) => {
-					return {
-						range: {
-							[appbaseField]: {
-								gte: singleRecord.start,
-								lte: singleRecord.end,
-								boost: 2.0
-							}
-						}
-					};
-				});
-			}
-		}
+		return null;
 	}
 
 	// use this only if want to create actuators
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
-		let react = this.props.react ? this.props.react : {};
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
+		const react = this.props.react ? this.props.react : {};
+		manager.create(this.context.appbaseRef, this.context.type, react);
 	}
 
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
-		let selected = this.state.selected;
+		const selected = this.state.selected;
 		let selectedIndex = null;
-		let records = record
+		let records = record;
+
 		if (!_.isArray(record)) {
 			records = [record];
 		}
-		records.forEach((record) => {
-			selected.forEach((selectedRecord, index) => {
-				setRecord(selectedRecord, index, record);
-			});
-		});
 
-		function setRecord(selectedRecord, index, record) {
-			if (record.label === selectedRecord.label) {
+		function setRecord(selectedRecord, index, item) {
+			if (item.label === selectedRecord.label) {
 				selectedIndex = index;
 				selected.splice(index, 1);
 			}
 		}
-		records.forEach((record) => {
-			selected.push(record);
+
+		records.forEach((item) => {
+			selected.forEach((selectedRecord, index) => {
+				setRecord(selectedRecord, index, item);
+			});
 		});
 
+		if (selectedIndex === null) {
+			records.forEach((item) => {
+				selected.push(item);
+			});
+		}
+
 		this.setState({
-			'selected': selected
+			selected
 		});
-		var obj = {
+
+		const obj = {
 			key: this.props.componentId,
 			value: selected
 		};
+
 		// pass the selected sensor value with componentId as key,
-		let isExecuteQuery = true;
+		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -143,74 +141,73 @@ export default class MultiRange extends Component {
 		this.setState({
 			selected: []
 		});
-		var obj = {
+		const obj = {
 			key: this.props.componentId,
 			value: []
 		};
 		// pass the selected sensor value with componentId as key,
-		let isExecuteQuery = true;
+		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	handleTagClick(label) {
-		let target = this.state.selected.filter(record => record.label == label);
+		const target = this.state.selected.filter(record => record.label === label);
 		this.handleChange(target[0]);
 	}
 
 	renderButtons() {
 		let buttons;
-		let selectedText = this.state.selected.map((record) => {
-			return record.label;
-		});
+		const selectedText = this.state.selected.map(record => record.label);
 		if (this.props.data) {
-			buttons = this.props.data.map((record, i) => {
-				return (
-					<div className="rbc-list-item row" key={i} onClick={() => this.handleChange(record)}>
-						<input type="checkbox"
-							className="rbc-checkbox-item"
-							checked={selectedText.indexOf(record.label) > -1 ? true : false}
-							value={record.label} />
-						<label className="rbc-label">{record.label}</label>
-					</div>
-				);
-			});
+			buttons = this.props.data.map(record => (
+				<div className="rbc-list-item row" key={record.label} onClick={() => this.handleChange(record)}>
+					<input
+						type="checkbox"
+						className="rbc-checkbox-item"
+						checked={selectedText.indexOf(record.label) > -1}
+						value={record.label}
+					/>
+					<label className="rbc-label">{record.label}</label>
+				</div>
+				));
 		}
 		return buttons;
 	}
 
 	// render
 	render() {
-		let title = null,
-			TagItemsArray = [];
+		let title = null;
+		const TagItemsArray = [];
 
 		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
 		if (this.state.selected) {
-			this.state.selected.forEach(function(item) {
+			this.state.selected.forEach((item) => {
 				TagItemsArray.push(<Tag
 					key={item.label}
 					value={item.label}
-					onClick={this.handleTagClick} />);
-			}.bind(this));
+					onClick={this.handleTagClick}
+				/>);
+			});
 		}
 
-		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title
+		const cx = classNames({
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title
 		});
 
 		return (
-			<div className={`rbc rbc-multirange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-multirange col s12 col-xs-12 card thumbnail ${cx}`}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12 rbc-list-container">
 						{
 							TagItemsArray.length ?
-							<div className="row" style={{'marginTop': '0'}}>
-								{TagItemsArray}
-							</div> :
+								<div className="row" style={{ marginTop: "0" }}>
+									{TagItemsArray}
+								</div> :
 							null
 						}
 						{this.renderButtons()}
@@ -221,20 +218,19 @@ export default class MultiRange extends Component {
 	}
 }
 
-class Tag extends Component {
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
-		return (
-			<span onClick={this.props.onClick.bind(null, this.props.value) } className="rbc-tag-item col">
-				<a href="javascript:void(0)" className="close">×</a>
-				<span>{this.props.value}</span>
-			</span>
-		);
-	}
+function Tag(props) {
+	return (
+		<span onClick={() => props.onClick(props.value)} className="rbc-tag-item col">
+			<a className="close">×</a>
+			<span>{props.value}</span>
+		</span>
+	);
 }
+
+Tag.propTypes = {
+	onClick: React.PropTypes.func.isRequired,
+	value: React.PropTypes.string.isRequired
+};
 
 MultiRange.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
