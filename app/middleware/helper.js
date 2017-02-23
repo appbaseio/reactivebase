@@ -1,5 +1,5 @@
+/* eslint max-lines: 0 */
 const { EventEmitter } = require("fbemitter");
-const $ = require("jquery");
 const _ = require("lodash");
 
 let globalI = 0;
@@ -47,11 +47,13 @@ export const watchForDependencyChange = function (react, previousSelectedSensor,
 		const self = this;
 		this.sensorListener = sensorEmitter.addListener("sensorChange", (data) => {
 			let foundDepend = false;
-			for (const single in data) {
-				if (react.indexOf(single) > -1) {
+
+			Object.keys(data).forEach((item) => {
+				if (react.indexOf(item) > -1) {
 					foundDepend = true;
 				}
-			}
+			});
+
 			if (foundDepend) {
 				selectedSensor = data;
 				self.init();
@@ -86,7 +88,7 @@ export const watchForDependencyChange = function (react, previousSelectedSensor,
 	};
 };
 
-function selectedSensorFn() {
+function SelectedSensorFn() {
 	const self = this;
 	this.sensorInfo = {};
 	this.selectedSensor = {};
@@ -110,19 +112,19 @@ function selectedSensorFn() {
 	const set = function (obj, isExecuteUpdate = false, setMethod = "sensorChange") {
 		let methodObj;
 		switch (setMethod) {
-		case "sortChange":
-			self.sortInfo[obj.key] = obj.value;
-			methodObj = self.sortInfo;
-			break;
-		case "paginationChange":
-			self.selectedPagination[obj.key] = obj.value;
-			methodObj = obj;
-			break;
-		case "sensorChange":
-		default:
-			self.selectedSensor[obj.key] = obj.value;
-			methodObj = self.selectedSensor;
-			break;
+			case "sortChange":
+				self.sortInfo[obj.key] = obj.value;
+				methodObj = self.sortInfo;
+				break;
+			case "paginationChange":
+				self.selectedPagination[obj.key] = obj.value;
+				methodObj = obj;
+				break;
+			case "sensorChange":
+			default:
+				self.selectedSensor[obj.key] = obj.value;
+				methodObj = self.selectedSensor;
+				break;
 		}
 		if (isExecuteUpdate) {
 			sensorEmitter.emit(setMethod, methodObj);
@@ -153,84 +155,7 @@ function selectedSensorFn() {
 	};
 }
 
-export var selectedSensor = new selectedSensorFn();
-
-export var ResponsiveStory = function () {
-	function handleResponsive() {
-		const height = $(window).height();
-		$(".rbc.rbc-reactivelist, .rbc.rbc-reactiveelement").css({
-			maxHeight: height - 15 - paginationHeight()
-		});
-		$(".rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist").css({
-			maxHeight: height - 15
-		});
-		$(".rbc-base > .row").css({
-			"margin-bottom": 0
-		});
-		$(".rbc-reactivemap .rbc-container").css({
-			maxHeight: height
-		});
-	}
-
-	function paginationHeight() {
-		return $(".rbc-pagination").length * 85;
-	}
-	handleResponsive();
-	$(window).resize(() => {
-		handleResponsive();
-	});
-};
-
-export var sizeValidation = function (props, propName) {
-	let err = null;
-	if (props[propName] < 1 || props[propName] > 1000) {
-		err = new Error("Size value is invalid, it should be between 1 and 1000.");
-	}
-	return err;
-};
-
-export var stepValidation = function (props, propName) {
-	let err = null;
-	if (props[propName] > Math.floor((props.range.end - props.range.start) / 2)) {
-		err = new Error(`Step value is invalid, it should be less than or equal to ${Math.floor((props.range.end - props.range.start) / 2)}.`);
-	} else if (props[propName] <= 0) {
-		err = new Error("Step value is invalid, it should be greater than 0.");
-	}
-	return err;
-};
-
-export var validateThreshold = function (props, propName, componentName) {
-	let err = null;
-	if (!(!isNaN(props[propName]) && props.end > props.start)) {
-		err = new Error("Threshold value validation has failed, end value should be greater than start value.");
-	}
-	if (componentName === "GeoDistanceDropdown" || componentName === "GeoDistanceSlider") {
-		if (props.start <= 0) {
-			err = new Error("Threshold value is invalid, it should be greater than 0.");
-		}
-	}
-	return err;
-};
-
-export var valueValidation = function (props, propName) {
-	let err = null;
-	const end = props.data.end ? props.data.end : props.defaultSelected;
-	const start = props.data.start ? props.data.start : props.defaultSelected;
-	if (!(!isNaN(props[propName]) && end >= props.defaultSelected && start <= props.defaultSelected)) {
-		err = new Error("Default value validation has failed, Default value should be between start and end values.");
-	}
-	return err;
-};
-
-export var validation = {
-	resultListFrom(props, propName) {
-		let err = null;
-		if (props[propName] < 0) {
-			err = new Error("From value is invalid, it should be greater than or equal to 0.");
-		}
-		return err;
-	}
-};
+export const selectedSensor = new SelectedSensorFn();
 
 const SerializeDepends = function () {
 	const conjunctions = ["and", "or", "not"];
@@ -240,24 +165,54 @@ const SerializeDepends = function () {
 		const dependsList = [];
 		let compId = 0;
 
-		function initialize() {
-			queries = checkConjunctions(depends, 0);
-			return {
-				queries,
-				dependsList
-			};
+		function addDependList(depend) {
+			function addDep(dep) {
+				if (dependsList.indexOf(dep) < 0) {
+					dependsList.push(dep);
+				}
+			}
+
+			if (typeof depend === "string") {
+				addDep(depend);
+			} else {
+				depend.forEach((single) => {
+					addDep(single);
+				});
+			}
 		}
 
 		function checkConjunctions(depend, parentId) {
-			for (const conjunction in depend) {
-				compId++;
+			Object.keys(depend).forEach((conjunction) => {
+				compId += 1;
 				const res = addConjunction(conjunction, parentId, depend[conjunction], compId);
 				queries.push(res);
 				if (conjunctions.indexOf(conjunction) < 0) {
 					addDependList(conjunction);
 				}
-			}
+			});
 			return queries;
+		}
+
+		function addLeaf(depend, parentId) {
+			compId += 1;
+			const res = {
+				parentId,
+				componentId: compId,
+				leaf: false,
+				components: null
+			};
+			if (Object.prototype.toString.call(depend) === "[object Array]") {
+				res.components = depend;
+				res.leaf = true;
+				addDependList(depend);
+			}			else if (typeof depend === "string") {
+				res.components = depend;
+				res.leaf = true;
+				addDependList(depend);
+			} else {
+				checkConjunctions(depend, parentId);
+			}
+			return res;
 		}
 
 		function addConjunction(conjunction, parentId, depend, currentCompId) {
@@ -276,113 +231,23 @@ const SerializeDepends = function () {
 			};
 		}
 
-		function addLeaf(depend, parentId) {
-			compId++;
-			const res = {
-				parentId,
-				componentId: compId,
-				leaf: false,
-				components: null
+		function initialize() {
+			queries = checkConjunctions(depends, 0);
+			return {
+				queries,
+				dependsList
 			};
-			if (Object.prototype.toString.call(depend) === "[object Array]") {
-				res.components = depend;
-				res.leaf = true;
-				addDependList(depend);
-			}			else if (typeof depend === "string") {
-				res.components = depend;
-				res.leaf = true;
-				addDependList(depend);
-			}			else {
-				checkConjunctions(depend, parentId);
-			}
-			return res;
 		}
 
-		function addDependList(depend) {
-			if (typeof depend === "string") {
-				addDep(depend);
-			} else {
-				depend.forEach((single) => {
-					addDep(single);
-				});
-			}
-			function addDep(dep) {
-				if (dependsList.indexOf(dep) < 0) {
-					dependsList.push(dep);
-				}
-			}
-		}
 		return initialize();
 	};
+
 	this.createQuery = function (serializeResult, dependsQuery) {
 		let serializeResultQuery = serializeResult.queries.map((query) => {
-			query = query || {};
 			query.checked = false;
 			delete query.query;
 			return query;
 		});
-
-
-		function initialize() {
-			return checkAndMake();
-		}
-
-		function checkAndMake() {
-			let uncheckedQueryFound = false;
-			serializeResultQuery.forEach((dependParent) => {
-				if (!dependParent.checked && canWeProceed(dependParent.componentId)) {
-					dependParent.checked = true;
-					uncheckedQueryFound = true;
-					setQuery(dependParent);
-				}
-			});
-			if (uncheckedQueryFound) {
-				return checkAndMake();
-			}
-			return finalQuery();
-		}
-
-		function finalQuery() {
-			let query = {};
-			let aggs = null;
-			serializeResultQuery.forEach((sub) => {
-				if (sub.parentId === 0) {
-					if (sub.conjunction !== "aggs") {
-						query = Object.assign(query, sub.query);
-					}					else if (sub.conjunction === "aggs") {
-						aggs = sub.query;
-					}
-				}
-			});
-			let fullQuery = null;
-			if (query && Object.keys(query).length) {
-				fullQuery = {
-					body: {
-						query: {
-							bool: query
-						}
-					}
-				};
-			}
-			if (aggs) {
-				if (fullQuery) {
-					fullQuery.body.aggs = aggs;
-				} else {
-					fullQuery = {
-						body: {
-							aggs
-						}
-					};
-				}
-			}
-			return fullQuery;
-		}
-
-		function canWeProceed(componentId) {
-			const children = serializeResultQuery.filter(query => !query.checked && query.parentId === componentId);
-			const flag = !children.length;
-			return flag;
-		}
 
 		function setQuery(depend) {
 			let subQuery = [];
@@ -423,6 +288,84 @@ const SerializeDepends = function () {
 			}
 		}
 
+		function canWeProceed(componentId) {
+			const children = serializeResultQuery.filter(query => !query.checked && query.parentId === componentId);
+			const flag = !children.length;
+			return flag;
+		}
+
+		function finalQuery() {
+			let query = {};
+			let aggs = null;
+			serializeResultQuery.forEach((sub) => {
+				if (sub.parentId === 0) {
+					if (sub.conjunction !== "aggs") {
+						query = Object.assign(query, sub.query);
+					}					else if (sub.conjunction === "aggs") {
+						aggs = sub.query;
+					}
+				}
+			});
+			let fullQuery = null;
+			if (query && Object.keys(query).length) {
+				fullQuery = {
+					body: {
+						query: {
+							bool: query
+						}
+					}
+				};
+			}
+			if (aggs) {
+				if (fullQuery) {
+					fullQuery.body.aggs = aggs;
+				} else {
+					fullQuery = {
+						body: {
+							aggs
+						}
+					};
+				}
+			}
+			return fullQuery;
+		}
+
+		function checkAndMake() {
+			let uncheckedQueryFound = false;
+			serializeResultQuery.forEach((dependParent) => {
+				if (!dependParent.checked && canWeProceed(dependParent.componentId)) {
+					dependParent.checked = true;
+					uncheckedQueryFound = true;
+					setQuery(dependParent);
+				}
+			});
+			if (uncheckedQueryFound) {
+				return checkAndMake();
+			}
+			return finalQuery();
+		}
+
+		function initialize() {
+			return checkAndMake();
+		}
+
+		function getOperation(conjunction) {
+			let operation = null;
+			switch (conjunction) {
+				case "and":
+					operation = "must";
+					break;
+				case "or":
+					operation = "should";
+					break;
+				case "not":
+					operation = "must_not";
+					break;
+				default: operation = "must";
+			}
+			return operation;
+		}
+
 		function createBoolQuery(conjunction, queryArray) {
 			if (!queryArray) {
 				return null;
@@ -448,28 +391,13 @@ const SerializeDepends = function () {
 			};
 		}
 
-		function getOperation(conjunction) {
-			let operation = null;
-			switch (conjunction) {
-			case "and":
-				operation = "must";
-				break;
-			case "or":
-				operation = "should";
-				break;
-			case "not":
-				operation = "must_not";
-				break;
-			}
-			return operation;
-		}
 		return initialize();
 	};
 };
 
-export var serializeDepends = new SerializeDepends();
+export const serializeDepends = new SerializeDepends();
 
-export var prepareResultData = function (data, res) {
+export const prepareResultData = function (data, res) {
 	const response = {
 		err: null,
 		res: null
@@ -491,7 +419,7 @@ export var prepareResultData = function (data, res) {
 	return response;
 };
 
-export var combineStreamData = function (currentData, newData) {
+export const combineStreamData = function (currentData, newData) {
 	if (newData) {
 		if (newData._deleted) {
 			const hits = currentData.filter(hit => hit._id !== newData._id);
@@ -505,15 +433,15 @@ export var combineStreamData = function (currentData, newData) {
 	return currentData;
 };
 
-export var updateStats = function (total, newData) {
+export const updateStats = function (total, newData) {
 	if (newData) {
 		if (newData._deleted) {
 			total -= 1;
-		} else if (newData._updated) {
-			total = total;
-		} else {
+		} else if (!newData._updated) {
 			total += 1;
 		}
 	}
 	return total;
 };
+
+export * from "./utils";

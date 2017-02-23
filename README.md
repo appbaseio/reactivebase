@@ -1,4 +1,4 @@
-[![Code Quality](https://www.bithound.io/github/appbaseio/reactivebase/badges/score.svg)](https://www.bithound.io/github/appbaseio/reactivebase) ![Tests Badge](https://img.shields.io/badge/tests%20passing-51%2F51-brightgreen.svg)
+[![Code Climate](https://codeclimate.com/github/appbaseio/reactivebase/badges/gpa.svg)](https://codeclimate.com/github/appbaseio/reactivebase) ![Tests Badge](https://img.shields.io/badge/tests%20passing-51%2F51-brightgreen.svg)
 
 # Data components for building reactive UIs
 
