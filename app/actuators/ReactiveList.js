@@ -1,18 +1,20 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
-import JsonPrint from '../addons/JsonPrint';
-import PoweredBy from '../sensors/PoweredBy';
-import InitialLoader from '../addons/InitialLoader';
-import NoResults from '../addons/NoResults';
-import ResultStats from '../addons/ResultStats';
-var helper = require('../middleware/helper.js');
-var $ = require('jquery');
-var _ = require('lodash');
-import * as TYPES from '../middleware/constants.js';
+/* eslint max-lines: 0 */
+import React, { Component } from "react";
+import classNames from "classnames";
+import { manager } from "../middleware/ChannelManager";
+import JsonPrint from "../addons/JsonPrint";
+import PoweredBy from "../sensors/PoweredBy";
+import InitialLoader from "../addons/InitialLoader";
+import NoResults from "../addons/NoResults";
+import ResultStats from "../addons/ResultStats";
+import * as TYPES from "../middleware/constants";
+
+const helper = require("../middleware/helper");
+const $ = require("jquery");
+const _ = require("lodash");
 
 export default class ReactiveList extends Component {
-	constructor(props, context) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			markers: [],
@@ -30,7 +32,7 @@ export default class ReactiveList extends Component {
 			showInitialLoader: false
 		};
 		if (this.props.sortOptions) {
-			let obj = this.props.sortOptions[0];
+			const obj = this.props.sortOptions[0];
 			this.sortObj = {
 				[obj.appbaseField]: {
 					order: obj.sortBy
@@ -43,7 +45,7 @@ export default class ReactiveList extends Component {
 				}
 			};
 		}
-		this.resultSortKey = 'ResultSort';
+		this.resultSortKey = "ResultSort";
 		this.channelId = null;
 		this.channelListener = null;
 		this.queryStartTime = 0;
@@ -59,25 +61,18 @@ export default class ReactiveList extends Component {
 		this.initialize();
 	}
 
-	initialize(executeChannel = false) {
-		this.createChannel(executeChannel);
-		if (this.props.requestOnScroll) {
-			this.listComponent();
-		}
-	}
-
 	componentWillUpdate() {
 		setTimeout(() => {
-			if (this.streamProp != this.props.stream) {
+			if (this.streamProp !== this.props.stream) {
 				this.streamProp = this.props.stream;
 				this.removeChannel();
 				this.initialize(true);
 			}
-			if (this.requestOnScroll != this.props.requestOnScroll) {
+			if (this.requestOnScroll !== this.props.requestOnScroll) {
 				this.requestOnScroll = this.props.requestOnScroll;
 				this.listComponent();
 			}
-			if (this.size != this.props.size) {
+			if (this.size !== this.props.size) {
 				this.size = this.props.size;
 				this.setState({
 					currentData: []
@@ -88,11 +83,6 @@ export default class ReactiveList extends Component {
 		}, 300);
 	}
 
-	// stop streaming request and remove listener when component will unmount
-	componentWillUnmount() {
-		this.removeChannel();
-	}
-
 	// check the height and set scroll if scroll not exists
 	componentDidUpdate() {
 		if (!this.state.showPlaceholder) {
@@ -100,21 +90,27 @@ export default class ReactiveList extends Component {
 		}
 	}
 
+	// stop streaming request and remove listener when component will unmount
+	componentWillUnmount() {
+		this.removeChannel();
+	}
+
 	applyScroll() {
-		let resultElement = $('.rbc.rbc-reactivelist');
-		let scrollElement = $('.rbc-reactivelist-scroll-container');
-		let padding = 45;
-		if (resultElement && resultElement.length && scrollElement && scrollElement.length) {
-			scrollElement.css('height', 'auto');
-			setTimeout(checkHeight, 1000);
-		}
+		const resultElement = $(".rbc.rbc-reactivelist");
+		const scrollElement = $(".rbc-reactivelist-scroll-container");
+		const padding = 45;
 
 		function checkHeight() {
-			let flag = resultElement.get(0).scrollHeight - padding > resultElement.height() ? true : false;
-			let scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height() ? true : false;
+			const flag = resultElement.get(0).scrollHeight - padding > resultElement.height();
+			const scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height();
 			if (!flag && !scrollFlag && scrollElement.length) {
-				scrollElement.css('height', resultElement.height() - 100);
+				scrollElement.css("height", resultElement.height() - 100);
 			}
+		}
+
+		if (resultElement && resultElement.length && scrollElement && scrollElement.length) {
+			scrollElement.css("height", "auto");
+			setTimeout(checkHeight, 1000);
 		}
 	}
 
@@ -134,19 +130,19 @@ export default class ReactiveList extends Component {
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel(executeChannel = false) {
 		// Set the react - add self aggs query as well with react
-		let react = this.props.react ? this.props.react : {};
-		if (react && react.and && typeof react.and === 'string') {
+		const react = this.props.react ? this.props.react : {};
+		if (react && react.and && typeof react.and === "string") {
 			react.and = [react.and];
 		}
-		react.and.push('streamChanges');
+		react.and.push("streamChanges");
 		if (this.sortObj) {
 			this.enableSort(react);
 		}
 		// create a channel and listen the changes
-		var channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream);
 		this.channelId = channelObj.channelId;
 
-		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function(res) {
+		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
 			// implementation to prevent initialize query issue if old query response is late then the newer query
 			// then we will consider the response of new query and prevent to apply changes for old query response.
 			// if queryStartTime of channel response is greater than the previous one only then apply changes
@@ -156,15 +152,15 @@ export default class ReactiveList extends Component {
 					showPlaceholder: false
 				});
 				if (this.props.onData) {
-					let modifiedData = helper.prepareResultData(data);
+					const modifiedData = helper.prepareResultData(res.data);
 					this.props.onData(modifiedData.res, modifiedData.err);
 				}
 			}
 			if (res.appliedQuery) {
-				if (res.mode === 'historic' && res.startTime > this.queryStartTime) {
-					let visibleNoResults = res.appliedQuery && res.data && !res.data.error ? (res.data.hits && res.data.hits.total ? false : true) : false;
-					let resultStats = {
-						resultFound: res.appliedQuery && res.data && !res.data.error && res.data.hits && res.data.hits.total ? true : false
+				if (res.mode === "historic" && res.startTime > this.queryStartTime) {
+					const visibleNoResults = res.appliedQuery && res.data && !res.data.error ? (!(res.data.hits && res.data.hits.total)) : false;
+					const resultStats = {
+						resultFound: !!(res.appliedQuery && res.data && !res.data.error && res.data.hits && res.data.hits.total)
 					};
 					if (res.appliedQuery && res.data && !res.data.error) {
 						resultStats.total = res.data.hits.total;
@@ -172,12 +168,12 @@ export default class ReactiveList extends Component {
 					}
 					this.setState({
 						queryStart: false,
-						visibleNoResults: visibleNoResults,
-						resultStats: resultStats,
+						visibleNoResults,
+						resultStats,
 						showPlaceholder: false
 					});
 					this.afterChannelResponse(res);
-				} else if (res.mode === 'streaming') {
+				} else if (res.mode === "streaming") {
 					this.afterChannelResponse(res);
 					this.updateResultStats(res.data);
 				}
@@ -186,13 +182,13 @@ export default class ReactiveList extends Component {
 					showPlaceholder: true
 				});
 			}
-		}.bind(this));
+		});
 		this.listenLoadingChannel(channelObj);
 		if (executeChannel) {
 			setTimeout(() => {
-				var obj = {
-					key: 'streamChanges',
-					value: ''
+				const obj = {
+					key: "streamChanges",
+					value: ""
 				};
 				helper.selectedSensor.set(obj, true);
 			}, 100);
@@ -200,60 +196,62 @@ export default class ReactiveList extends Component {
 	}
 
 	updateResultStats(newData) {
-		let resultStats = this.state.resultStats;
+		const resultStats = this.state.resultStats;
 		resultStats.total = helper.updateStats(resultStats.total, newData);
 		this.setState({
-			resultStats: resultStats
+			resultStats
 		});
 	}
 
 	listenLoadingChannel(channelObj) {
-		this.loadListener = channelObj.emitter.addListener(channelObj.channelId + '-query', function(res) {
+		this.loadListener = channelObj.emitter.addListener(`${channelObj.channelId}-query`, (res) => {
 			if (res.appliedQuery) {
-				let showInitialLoader = this.props.requestOnScroll && res.appliedQuery.body && res.appliedQuery.body.from ? false : true;
+				const showInitialLoader = !(this.props.requestOnScroll && res.appliedQuery.body && res.appliedQuery.body.from);
 				this.setState({
 					queryStart: res.queryState,
-					showInitialLoader: showInitialLoader
+					showInitialLoader
 				});
 			}
-		}.bind(this));
+		});
 	}
 
 	afterChannelResponse(res) {
-		let data = res.data;
-		let rawData, markersData, newData = [],
+		const data = res.data;
+		let rawData,
+			markersData,
+			newData = [],
 			currentData = [];
 		this.streamFlag = false;
-		if (res.mode === 'streaming') {
-			this.channelMethod = 'streaming';
-			newData = res.data;
+		if (res.mode === "streaming") {
+			this.channelMethod = "streaming";
+			newData = data;
 			newData.stream = true;
 			currentData = this.state.currentData;
 			this.streamFlag = true;
 			markersData = this.setMarkersData(rawData);
-		} else if (res.mode === 'historic') {
+		} else if (res.mode === "historic") {
 			this.queryStartTime = res.startTime;
-			this.channelMethod = 'historic';
-			newData = res.data.hits && res.data.hits.hits ? res.data.hits.hits : [];
-			let normalizeCurrentData = this.normalizeCurrentData(res, this.state.currentData, newData);
+			this.channelMethod = "historic";
+			newData = data.hits && data.hits.hits ? data.hits.hits : [];
+			const normalizeCurrentData = this.normalizeCurrentData(res, this.state.currentData, newData);
 			newData = normalizeCurrentData.newData;
 			currentData = normalizeCurrentData.currentData;
 		}
 		this.setState({
-			rawData: rawData,
-			newData: newData,
-			currentData: currentData,
-			markersData: markersData,
+			rawData,
+			newData,
+			currentData,
+			markersData,
 			isLoading: false
-		}, function() {
+		}, () => {
 			// Pass the historic or streaming data in index method
 			res.allMarkers = rawData;
 			let modifiedData = JSON.parse(JSON.stringify(res));
 			modifiedData.newData = this.state.newData;
 			modifiedData.currentData = this.state.currentData;
 			delete modifiedData.data;
-			modifiedData = helper.prepareResultData(modifiedData, res.data);
-			let generatedData = this.props.onData ? this.props.onData(modifiedData.res, modifiedData.err) : this.defaultonData(modifiedData.res, modifiedData.err);
+			modifiedData = helper.prepareResultData(modifiedData, data);
+			const generatedData = this.props.onData ? this.props.onData(modifiedData.res, modifiedData.err) : this.defaultonData(modifiedData.res, modifiedData.err);
 			this.setState({
 				resultMarkup: this.wrapMarkup(generatedData),
 				currentData: this.combineCurrentData(newData)
@@ -261,75 +259,35 @@ export default class ReactiveList extends Component {
 			if (this.streamFlag) {
 				this.streamMarkerInterval();
 			}
-		}.bind(this));
+		});
 	}
 
 	wrapMarkup(generatedData) {
 		let markup = null;
-		if (Object.prototype.toString.call(generatedData) === '[object Array]') {
-			markup = generatedData.map((item, index) => {
-				return (<div key={index} className="rbc-list-item">{item}</div>);
-			});
+		if (Object.prototype.toString.call(generatedData) === "[object Array]") {
+			markup = generatedData.map((item, index) => (<div key={index} className="rbc-list-item">{item}</div>));
 		} else {
 			markup = generatedData;
 		}
 		return markup;
 	}
 
-	// Check if stream data exists in markersData
-	// and if exists the call streamToNormal.
-	streamMarkerInterval() {
-		let markersData = this.state.markersData;
-		let isStreamData = markersData.filter((hit) => hit.stream && hit.streamStart);
-		if (isStreamData.length) {
-			this.isStreamDataExists = true;
-			setTimeout(() => this.streamToNormal(), this.props.streamActiveTime * 1000);
-		} else {
-			this.isStreamDataExists = false;
-		}
-	}
-
-	// Check the difference between current time and attached stream time
-	// if difference is equal to streamActiveTime then delete stream and starStream property of marker
-	streamToNormal() {
-		let markersData = this.state.markersData;
-		let isStreamData = markersData.filter((hit) => hit.stream && hit.streamStart);
-		if (isStreamData.length) {
-			markersData = markersData.map((hit, index) => {
-				if (hit.stream && hit.streamStart) {
-					let currentTime = new Date();
-					let timeDiff = (currentTime.getTime() - hit.streamStart.getTime()) / 1000;
-					if (timeDiff >= this.props.streamActiveTime) {
-						delete hit.stream;
-						delete hit.streamStart;
-					}
-				}
-				return hit;
-			});
-			this.setState({
-				markersData: markersData
-			});
-		} else {
-			this.isStreamDataExists = false;
-		}
-	}
-
 	// normalize current data
 	normalizeCurrentData(res, rawData, newData) {
-		let appliedQuery = JSON.parse(JSON.stringify(res.appliedQuery));
+		const appliedQuery = JSON.parse(JSON.stringify(res.appliedQuery));
 		if (this.props.requestOnScroll && appliedQuery && appliedQuery.body) {
 			delete appliedQuery.body.from;
 			delete appliedQuery.body.size;
 		}
-		let isSameQuery = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery) ? true : false;
-		let currentData = isSameQuery ? (rawData ? rawData : []) : [];
+		const isSameQuery = JSON.stringify(appliedQuery) === JSON.stringify(this.appliedQuery);
+		const currentData = isSameQuery ? (rawData || []) : [];
 		if (!currentData.length) {
 			this.appliedQuery = appliedQuery;
 		} else {
 			newData = newData.filter((newRecord) => {
 				let notExits = true;
 				currentData.forEach((oldRecord) => {
-					if (newRecord._id + '-' + newRecord._type === oldRecord._id + '-' + oldRecord._type) {
+					if (`${newRecord._id}-${newRecord._type}` === `${oldRecord._id}-${oldRecord._type}`) {
 						notExits = false;
 					}
 				});
@@ -337,13 +295,13 @@ export default class ReactiveList extends Component {
 			});
 		}
 		if (!isSameQuery) {
-			$('.rbc.rbc-reactivelist').animate({
+			$(".rbc.rbc-reactivelist").animate({
 				scrollTop: 0
 			}, 100);
 		}
 		return {
-			currentData: currentData,
-			newData: newData
+			currentData,
+			newData
 		};
 	}
 
@@ -354,15 +312,14 @@ export default class ReactiveList extends Component {
 				return item;
 			});
 			return this.state.currentData.concat(newData);
-		} else {
-			return this.streamDataModify(this.state.currentData, newData, false);
 		}
+		return this.streamDataModify(this.state.currentData, newData, false);
 	}
 
 	// enable sort
 	enableSort(react) {
 		react.and.push(this.resultSortKey);
-		let sortObj = {
+		const sortObj = {
 			key: this.resultSortKey,
 			value: this.sortObj
 		};
@@ -371,9 +328,9 @@ export default class ReactiveList extends Component {
 
 	// append data if pagination is applied
 	appendData(data) {
-		let rawData = this.state.rawData;
-		let hits = rawData.hits.hits.concat(data.hits.hits);
-		rawData.hits.hits = _.uniqBy(hits, '_id');
+		const rawData = this.state.rawData;
+		const hits = rawData.hits.hits.concat(data.hits.hits);
+		rawData.hits.hits = _.uniqBy(hits, "_id");
 		return rawData;
 	}
 
@@ -383,17 +340,10 @@ export default class ReactiveList extends Component {
 			data.stream = streamFlag;
 			data.streamStart = new Date();
 			if (data._deleted) {
-				let hits = rawData.filter((hit) => {
-					return hit._id !== data._id;
-				});
+				const hits = rawData.filter(hit => hit._id !== data._id);
 				rawData = hits;
 			} else {
-				let prevData = rawData.filter((hit) => {
-					return hit._id === data._id;
-				});
-				let hits = rawData.filter((hit) => {
-					return hit._id !== data._id;
-				});
+				const hits = rawData.filter(hit => hit._id !== data._id);
 				rawData = hits;
 				rawData.unshift(data);
 			}
@@ -403,28 +353,33 @@ export default class ReactiveList extends Component {
 
 	// tranform the raw data to marker data
 	setMarkersData(hits) {
-		var self = this;
 		if (hits) {
 			return hits;
-		} else {
-			return [];
+		}
+		return [];
+	}
+
+	initialize(executeChannel = false) {
+		this.createChannel(executeChannel);
+		if (this.props.requestOnScroll) {
+			this.listComponent();
 		}
 	}
 
-	defaultonData(res, err) {
+	defaultonData(res) {
 		let result = null;
 		if (res) {
 			let combineData = res.currentData;
-			if (res.mode === 'historic') {
+			if (res.mode === "historic") {
 				combineData = res.currentData.concat(res.newData);
-			} else if (res.mode === 'streaming') {
+			} else if (res.mode === "streaming") {
 				combineData = helper.combineStreamData(res.currentData, res.newData);
 			}
 			if (combineData) {
-				result = combineData.map((markerData, index) => {
-					let marker = markerData._source;
+				result = combineData.map((markerData) => {
+					const marker = markerData._source;
 					return (
-						<div className="row" style={{'marginTop': '60px'}}>
+						<div className="row" style={{ marginTop: "60px" }}>
 							{this.itemMarkup(marker, markerData)}
 						</div>
 					);
@@ -438,77 +393,69 @@ export default class ReactiveList extends Component {
 		return (
 			<div
 				key={markerData._id}
-				style={{'padding': '12px', 'fontSize': '12px'}}
-				className="makerInfo">
-					<JsonPrint data={marker} />
+				style={{ padding: "12px", fontSize: "12px" }}
+				className="makerInfo"
+			>
+				<JsonPrint data={marker} />
 			</div>
 		);
 	}
 
 	nextPage() {
-		if(this.state.resultStats.total > this.state.currentData.length && !this.state.queryStart) {
-			start.call(this);
-		}
 		function start() {
 			this.setState({
 				isLoading: true
 			});
-			let channelOptionsObj = manager.channels[this.channelId].previousSelectedSensor['channel-options-' + this.channelId];
-			let obj = {
-				key: 'channel-options-' + this.channelId,
-				value: {
-					size: this.props.size,
-					from: channelOptionsObj.from + this.props.size
-				}
-			};
 			manager.nextPage(this.channelId);
+		}
+
+		if (this.state.resultStats.total > this.state.currentData.length && !this.state.queryStart) {
+			start.call(this);
 		}
 	}
 
 	listComponent() {
-		let listParentElement = this.refs.ListContainer;
-		let listChildElement = this.refs.resultListScrollContainer;
-		setScroll.call(this, listParentElement);
-		setScroll.call(this, listChildElement);
-
 		function setScroll(node) {
 			if (node) {
-				node.addEventListener('scroll', () => {
+				node.addEventListener("scroll", () => {
 					if (this.props.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight && this.state.resultStats.total > this.state.currentData.length && !this.state.queryStart) {
 						this.nextPage();
 					}
 				});
 			}
 		}
+
+		setScroll.call(this, this.listParentElement);
+		setScroll.call(this, this.listChildElement);
 	}
 
 	handleSortSelect(event) {
-		let index = event.target.value;
+		const index = event.target.value;
 		this.sortObj = {
 			[this.props.sortOptions[index].appbaseField]: {
 				order: this.props.sortOptions[index].sortBy
 			}
 		};
-		let obj = {
+		const obj = {
 			key: this.resultSortKey,
 			value: this.sortObj
 		};
-		helper.selectedSensor.set(obj, true, 'sortChange');
+		helper.selectedSensor.set(obj, true, "sortChange");
 	}
 
 	render() {
 		let title = null,
 			placeholder = null,
 			sortOptions = null;
-		let cx = classNames({
-			'rbc-title-active': this.props.title,
-			'rbc-title-inactive': !this.props.title,
-			'rbc-sort-active': this.props.sortOptions,
-			'rbc-sort-inactive': !this.props.sortOptions,
-			'rbc-stream-active': this.props.stream,
-			'rbc-stream-inactive': !this.props.stream,
-			'rbc-placeholder-active': this.props.placeholder,
-			'rbc-placeholder-inactive': !this.props.placeholder,
+		const cx = classNames({
+			"rbc-title-active": this.props.title,
+			"rbc-title-inactive": !this.props.title,
+			"rbc-sort-active": this.props.sortOptions,
+			"rbc-sort-inactive": !this.props.sortOptions,
+			"rbc-stream-active": this.props.stream,
+			"rbc-stream-inactive": !this.props.stream,
+			"rbc-placeholder-active": this.props.placeholder,
+			"rbc-placeholder-inactive": !this.props.placeholder,
 			"rbc-initialloader-active": this.props.initialLoader,
 			"rbc-initialloader-inactive": !this.props.initialLoader,
 			"rbc-resultstats-active": this.props.showResultStats,
@@ -525,9 +472,7 @@ export default class ReactiveList extends Component {
 		}
 
 		if (this.props.sortOptions) {
-			let options = this.props.sortOptions.map((item, index) => {
-				return <option value={index} key={index}>{item.label}</option>;
-			});
+			const options = this.props.sortOptions.map((item, index) => <option value={index} key={item.label}>{item.label}</option>);
 
 			sortOptions = (
 				<div className="rbc-sortoptions input-field col">
@@ -540,23 +485,23 @@ export default class ReactiveList extends Component {
 
 		return (
 			<div className="rbc-reactivelist-container">
-				<div ref="ListContainer" className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.props.componentStyle}>
+				<div ref={(div) => { this.listParentElement = div; }} className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{sortOptions}
-					{this.props.showResultStats && this.state.resultStats.resultFound ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total}></ResultStats>) : null}
-					<div ref="resultListScrollContainer" className="rbc-reactivelist-scroll-container col s12 col-xs-12">
+					{this.props.showResultStats && this.state.resultStats.resultFound ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
+					<div ref={(div) => { this.listChildElement = div; }} className="rbc-reactivelist-scroll-container col s12 col-xs-12">
 						{this.state.resultMarkup}
 					</div>
 					{
 						this.state.isLoading ?
-						<div className="rbc-loader"></div> :
+							<div className="rbc-loader" /> :
 						null
 					}
 					{this.state.showPlaceholder ? placeholder : null}
 				</div >
-				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults}></NoResults>) : null}
-				{this.props.initialLoader && this.state.queryStart && this.state.showInitialLoader ? (<InitialLoader defaultText={this.props.initialLoader}></InitialLoader>) : null}
-				<PoweredBy></PoweredBy>
+				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults} />) : null}
+				{this.props.initialLoader && this.state.queryStart && this.state.showInitialLoader ? (<InitialLoader defaultText={this.props.initialLoader} />) : null}
+				<PoweredBy />
 			</div>
 		);
 	}
@@ -566,12 +511,12 @@ ReactiveList.propTypes = {
 	componentId: React.PropTypes.string,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
-	sortBy: React.PropTypes.oneOf(['asc', 'desc']),
+	sortBy: React.PropTypes.oneOf(["asc", "desc"]),
 	sortOptions: React.PropTypes.arrayOf(
 		React.PropTypes.shape({
 			label: React.PropTypes.string,
-			field: React.PropTypes.string,
-			order: React.PropTypes.string,
+			appbaseField: React.PropTypes.string,
+			sortBy: React.PropTypes.string
 		})
 	),
 	from: helper.validation.resultListFrom,
