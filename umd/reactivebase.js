@@ -68024,7 +68024,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		componentId: _react2.default.PropTypes.string,
 		appbaseField: _react2.default.PropTypes.string,
 		title: _react2.default.PropTypes.string,
-		sortBy: _react2.default.PropTypes.oneOf(["asc", "desc"]),
+		sortBy: _react2.default.PropTypes.oneOf(["asc", "desc", "default"]),
 		sortOptions: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
 			label: _react2.default.PropTypes.string,
 			appbaseField: _react2.default.PropTypes.string,
@@ -68839,8 +68839,64 @@ return /******/ (function(modules) { // webpackBootstrap
 		_createClass(ReactivePaginatedList, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
+				this.paginationAtVal = this.props.paginationAt;
+				this.setQueryInfo();
+				this.setReact();
+				this.executePaginationUpdate();
+			}
+		}, {
+			key: 'componentWillUpdate',
+			value: function componentWillUpdate() {
+				var _this2 = this;
+
+				setTimeout(function () {
+					if (_this2.paginationAtVal !== _this2.props.paginationAt) {
+						_this2.paginationAtVal = _this2.props.paginationAt;
+						_this2.executePaginationUpdate();
+					}
+				}, 300);
+			}
+		}, {
+			key: 'customQuery',
+			value: function customQuery() {
+				return null;
+			}
+			// set the query type and input data
+
+		}, {
+			key: 'setQueryInfo',
+			value: function setQueryInfo() {
+				var valObj = {
+					queryType: 'match',
+					inputData: this.props.appbaseField,
+					customQuery: this.customQuery
+				};
+				var obj = {
+					key: 'paginationChanges',
+					value: valObj
+				};
+				helper.selectedSensor.setSensorInfo(obj);
+			}
+		}, {
+			key: 'setReact',
+			value: function setReact() {
 				this.react = this.props.react ? this.props.react : {};
 				this.react.pagination = {};
+				if (this.react && this.react.and && typeof this.react.and === "string") {
+					this.react.and = [this.react.and];
+				}
+				this.react.and.push("paginationChanges");
+			}
+		}, {
+			key: 'executePaginationUpdate',
+			value: function executePaginationUpdate() {
+				setTimeout(function () {
+					var obj = {
+						key: "paginationChanges",
+						value: Math.random()
+					};
+					helper.selectedSensor.set(obj, true);
+				}, 100);
 			}
 		}, {
 			key: 'paginationAt',
@@ -68891,7 +68947,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		appbaseField: _react2.default.PropTypes.string,
 		title: _react2.default.PropTypes.string,
 		paginationAt: _react2.default.PropTypes.string,
-		sortBy: _react2.default.PropTypes.oneOf(['asc', 'desc']),
+		sortBy: _react2.default.PropTypes.oneOf(['asc', 'desc', 'default']),
 		sortOptions: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
 			label: _react2.default.PropTypes.string,
 			field: _react2.default.PropTypes.string,
@@ -69365,7 +69421,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc rbc-datacontroller card thumbnail " + cx },
+					{ className: "rbc rbc-datacontroller card thumbnail " + cx, style: this.props.componentStyle },
 					this.props.showUI ? _react2.default.createElement(
 						"div",
 						null,
@@ -69388,7 +69444,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		title: _react2.default.PropTypes.string,
 		showUI: _react2.default.PropTypes.bool,
 		dataLabel: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
@@ -69399,7 +69456,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	// context type
 	DataController.contextTypes = {
 		appbaseRef: _react2.default.PropTypes.any.isRequired,
-		type: _react2.default.PropTypes.any.isRequired
+		type: _react2.default.PropTypes.any.isRequired,
+		componentStyle: {}
 	};
 
 	DataController.types = {
@@ -69408,7 +69466,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		title: TYPES.STRING,
 		showUI: TYPES.BOOL,
 		dataLabel: TYPES.STRING,
-		customQuery: TYPES.FUNCTION
+		customQuery: TYPES.FUNCTION,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
