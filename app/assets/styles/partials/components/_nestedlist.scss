@@ -49,7 +49,10 @@
 			}
 
 			.rbc-list-item {
-				padding: 5px;
+				background: transparent;
+				border: 0;
+				box-shadow: none;
+				padding: 0;
 				
 				.rbc-count {
 					margin: 0 10px 0 2px;

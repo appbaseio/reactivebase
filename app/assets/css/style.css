@@ -1661,7 +1661,10 @@ a {
         padding: 6px;
         margin: 0; }
       .rbc.rbc-nestedlist-container .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item {
-        padding: 5px; }
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        padding: 0; }
         .rbc.rbc-nestedlist-container .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item .rbc-count {
           margin: 0 10px 0 2px;
           top: -1px; }
