@@ -511,7 +511,7 @@ ReactiveList.propTypes = {
 	componentId: React.PropTypes.string,
 	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.string,
-	sortBy: React.PropTypes.oneOf(["asc", "desc"]),
+	sortBy: React.PropTypes.oneOf(["asc", "desc", "default"]),
 	sortOptions: React.PropTypes.arrayOf(
 		React.PropTypes.shape({
 			label: React.PropTypes.string,
