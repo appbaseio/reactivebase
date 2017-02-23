@@ -19,7 +19,7 @@
 		"no-param-reassign": 0,
 		"newline-per-chained-call": 0,
 		"max-lines": ["error", 300],
-		"indent": [2, "tab"],
+		"indent": [2, "tab", { "SwitchCase": 1 }],
 		"quotes": ["error", "double"],
 		"import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
 		"comma-dangle": ["error", "never"],
