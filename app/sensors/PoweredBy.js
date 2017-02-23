@@ -1,17 +1,10 @@
-import React, { Component } from 'react';
+import React from "react";
 
-export default class PoweredBy extends Component {
-	constructor(props, context) {
-		super(props);
-	}
-
-	// render
-	render() {
-		return (
-			<a href="https://appbase.io/" target="_blank" className={`rbc rbc-poweredby`}>
-				<img className="rbc-img-responsive rbc-poweredby-dark" src="https://cdn.rawgit.com/appbaseio/cdn/master/appbase/logos/rbc-dark-logo.svg" alt="Appbase dark"/>
-				<img className="rbc-img-responsive rbc-poweredby-light" src="https://cdn.rawgit.com/appbaseio/cdn/master/appbase/logos/rbc-logo.svg" alt="Poweredby appbase" />
-			</a>
-		);
-	}
+export default function Poweredby() {
+	return (
+		<a href="https://appbase.io/" target="_blank" rel="noopener noreferrer" className="rbc rbc-poweredby">
+			<img className="rbc-img-responsive rbc-poweredby-dark" src="https://cdn.rawgit.com/appbaseio/cdn/master/appbase/logos/rbc-dark-logo.svg" alt="Appbase dark" />
+			<img className="rbc-img-responsive rbc-poweredby-light" src="https://cdn.rawgit.com/appbaseio/cdn/master/appbase/logos/rbc-logo.svg" alt="Poweredby appbase" />
+		</a>
+	);
 }
