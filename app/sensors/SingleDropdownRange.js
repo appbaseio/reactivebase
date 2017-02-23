@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import Select from 'react-select';
-import { manager } from '../middleware/ChannelManager.js';
+import manager from '../middleware/ChannelManager';
 var helper = require('../middleware/helper.js');
 import * as TYPES from '../middleware/constants.js';
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Select from "react-select";
 import classNames from "classnames";
-import { manager } from "../middleware/ChannelManager";
+import manager from "../middleware/ChannelManager";
 import InitialLoader from "../addons/InitialLoader";
 
 const _ = require("lodash");

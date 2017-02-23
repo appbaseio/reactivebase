@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
+import manager from '../middleware/ChannelManager';
 import JsonPrint from '../addons/JsonPrint';
 import PoweredBy from '../sensors/PoweredBy';
 import InitialLoader from '../addons/InitialLoader';

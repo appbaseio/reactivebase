@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
+import manager from '../middleware/ChannelManager';
 var helper = require('../middleware/helper.js');
 var _ = require('lodash');
 import * as TYPES from '../middleware/constants.js';

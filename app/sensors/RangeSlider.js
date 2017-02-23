@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
+import manager from '../middleware/ChannelManager';
 import { HistoGramComponent } from '../addons/HistoGram.js';
 import Slider from 'rc-slider';
 import InitialLoader from '../addons/InitialLoader';

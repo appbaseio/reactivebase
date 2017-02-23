@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classNames from "classnames";
-import { manager } from "../middleware/ChannelManager";
+import manager from "../middleware/ChannelManager";
 import PoweredBy from "../sensors/PoweredBy";
 import InitialLoader from "../addons/InitialLoader";
 import NoResults from "../addons/NoResults";

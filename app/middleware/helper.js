@@ -5,7 +5,7 @@ const _ = require("lodash");
 let globalI = 0;
 export const sensorEmitter = new EventEmitter();
 
-export const watchForDependencyChange = function (react, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
+export const WatchForDependencyChange = function (react, previousSelectedSensor, cb, channelId, paginationCb, sortCb) {
 	globalI += 1;
 	this.random = globalI;
 	let selectedSensor = {};

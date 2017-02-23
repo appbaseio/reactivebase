@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { manager } from './ChannelManager.js';
+import manager from './ChannelManager';
 const Appbase = require('appbase-js');
 const helper = require('./helper.js');
 

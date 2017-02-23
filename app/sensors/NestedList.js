@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { manager } from '../middleware/ChannelManager.js';
+import manager from '../middleware/ChannelManager';
 import { StaticSearch } from '../addons/StaticSearch.js';
 import InitialLoader from '../addons/InitialLoader';
 var helper = require('../middleware/helper.js');
