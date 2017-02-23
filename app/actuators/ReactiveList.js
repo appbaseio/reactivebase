@@ -379,7 +379,7 @@ export default class ReactiveList extends Component {
 				result = combineData.map((markerData) => {
 					const marker = markerData._source;
 					return (
-						<div className="row" style={{ marginTop: "60px" }}>
+						<div className="row" style={{ marginTop: "20px" }}>
 							{this.itemMarkup(marker, markerData)}
 						</div>
 					);
