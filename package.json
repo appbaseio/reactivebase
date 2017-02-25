@@ -1,6 +1,6 @@
 {
   "name": "@appbaseio/reactivebase",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-alpha2",
   "description": "Data components for building reactive UIs",
   "main": "lib/app.js",
   "scripts": {
