@@ -123,7 +123,7 @@ export default class ReactiveElement extends Component {
 					showPlaceholder: false
 				});
 				if (this.props.onData) {
-					const modifiedData = helper.prepareResultData(res.data);
+					const modifiedData = helper.prepareResultData(res);
 					this.props.onData(modifiedData.res, modifiedData.err);
 				}
 			}

@@ -152,7 +152,7 @@ export default class ReactiveList extends Component {
 					showPlaceholder: false
 				});
 				if (this.props.onData) {
-					const modifiedData = helper.prepareResultData(res.data);
+					const modifiedData = helper.prepareResultData(res);
 					this.props.onData(modifiedData.res, modifiedData.err);
 				}
 			}
@@ -256,9 +256,6 @@ export default class ReactiveList extends Component {
 				resultMarkup: this.wrapMarkup(generatedData),
 				currentData: this.combineCurrentData(newData)
 			});
-			if (this.streamFlag) {
-				this.streamMarkerInterval();
-			}
 		});
 	}
 
