@@ -67590,7 +67590,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							showPlaceholder: false
 						});
 						if (_this3.props.onData) {
-							var modifiedData = helper.prepareResultData(res.data);
+							var modifiedData = helper.prepareResultData(res);
 							_this3.props.onData(modifiedData.res, modifiedData.err);
 						}
 					}
@@ -67701,9 +67701,6 @@ return /******/ (function(modules) { // webpackBootstrap
 						resultMarkup: _this5.wrapMarkup(generatedData),
 						currentData: _this5.combineCurrentData(newData)
 					});
-					if (_this5.streamFlag) {
-						_this5.streamMarkerInterval();
-					}
 				});
 			}
 		}, {
@@ -68516,7 +68513,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							showPlaceholder: false
 						});
 						if (_this3.props.onData) {
-							var modifiedData = helper.prepareResultData(res.data);
+							var modifiedData = helper.prepareResultData(res);
 							_this3.props.onData(modifiedData.res, modifiedData.err);
 						}
 					}
