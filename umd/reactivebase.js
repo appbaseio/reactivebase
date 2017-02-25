@@ -67569,8 +67569,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// Set the react - add self aggs query as well with react
 				var react = this.props.react ? this.props.react : {};
-				if (react && react.and && typeof react.and === "string") {
-					react.and = [react.and];
+				if (react && react.and) {
+					if (typeof react.and === "string") {
+						react.and = [react.and];
+					}
+				} else {
+					react.and = [];
 				}
 				react.and.push("streamChanges");
 				if (this.sortObj) {
@@ -68492,8 +68496,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// Set the react - add self aggs query as well with react
 				var react = this.props.react ? this.props.react : {};
-				if (react && react.and && typeof react.and === "string") {
-					react.and = [react.and];
+				if (react && react.and) {
+					if (typeof react.and === "string") {
+						react.and = [react.and];
+					}
+				} else {
+					react.and = [];
 				}
 				react.and.push("streamChanges");
 				if (this.sortObj) {
