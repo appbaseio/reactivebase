@@ -1,6 +1,7 @@
 .rbc.rbc-nestedlist-container {
 	padding: 0;
 	margin: 0;
+	
 	.rbc.rbc-nestedlist {
 		overflow: auto;
 		max-height: 500px;
@@ -44,7 +45,7 @@
 			overflow: auto;
 
 			&.row {
-				padding: 6px;
+				padding: 6px 10px;
 				margin: 0;
 			}
 
