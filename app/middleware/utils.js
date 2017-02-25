@@ -10,7 +10,7 @@ export const ResponsiveStory = function () {
 		$(".rbc.rbc-reactivelist, .rbc.rbc-reactiveelement").css({
 			maxHeight: height - 15 - paginationHeight()
 		});
-		$(".rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist").css({
+		$(".rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist, .rbc.rbc-tagcloud").css({
 			maxHeight: height - 15
 		});
 		$(".rbc-base > .row").css({
