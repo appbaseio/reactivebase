@@ -416,14 +416,18 @@ storiesOf("DataController", module)
 	.add("With UI", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataControllerDefault
 			title="DataController"
-			showUI
+			showUI={true}
+			dataLabel={
+				<p>★ A customizable UI widget ★</p>
+			}
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataControllerDefault
 			title={text("title", "DataController")}
-			dataLabel={text("dataLabel", "matchall")}
 			showUI={boolean("showUI", true)}
+			dataLabel={text("dataLabel", "★  A customizable UI widget ★")}
+			componentStyle={object("componentStyle",{"padding-bottom": "10px"} )}
 		/>
 	)));
 
