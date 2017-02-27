@@ -6,28 +6,30 @@ import { withKnobs, text, boolean, number, array, select, object } from "@kadira
 // importing READMEs first, to be used in playground for each component
 import withReadme from "storybook-readme/with-readme";
 
-import SingleListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleList.md";
-import MultiListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiList.md";
-import SingleDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleDropdownList.md";
-import MultiDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiDropdownList.md";
-import NestedListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/NestedList.md";
+import SingleListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/SingleList.md";
+import MultiListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiList.md";
+import SingleDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/SingleDropdownList.md";
+import MultiDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiDropdownList.md";
+import NestedListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/NestedList.md";
 
-import SingleRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleRange.md";
-import MultiRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiRange.md";
-import SingleDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/SingleDropdownRange.md";
-import MultiDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/MultiDropdownRange.md";
+import SingleRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/SingleRange.md";
+import MultiRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiRange.md";
+import SingleDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/SingleDropdownRange.md";
+import MultiDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiDropdownRange.md";
 
-import RangeSliderReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/RangeSlider.md";
-import NumberBoxReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/NumberBox.md";
-import ToggleButtonReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ToggleButton.md";
-import DatePickerReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DatePicker.md";
-import DateRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DateRange.md";
+import RangeSliderReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/RangeSlider.md";
+import NumberBoxReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/NumberBox.md";
+import ToggleButtonReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ToggleButton.md";
+import DatePickerReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/DatePicker.md";
+import DateRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/DateRange.md";
 
-import TextFieldReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/TextField.md";
-import DataSearchReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/DataSearch.md";
+import TextFieldReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/TextField.md";
+import DataSearchReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/DataSearch.md";
+import DataControllerReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/DataController.md";
 
-import ResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/ResultList.md";
-import PaginatedResultListReadme from "@appbaseio/reactivemaps-manual/docs/v1/components/PaginatedResultList.md";
+import ReactiveElementReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ReactiveElement.md";
+import ReactiveListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ReactiveList.md";
+import ReactivePaginatedListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ReactivePaginatedList.md";
 
 // importing individual component stories
 import SingleListDefault from "./SingleList.stories";
@@ -62,8 +64,11 @@ const moment = require("moment");
 require("../../node_modules/materialize-css/dist/css/materialize.min.css");
 require("../../dist/css/style.min.css");
 
-function removeFirstLine(str) {
-	return str.substring(str.indexOf("\n") + 1);
+function removeFirstLine(str, number=1) {
+	while (number--) {
+		str = str.substring(str.indexOf("\n") + 1);
+	}
+	return str;
 }
 
 storiesOf("SingleList", module)
@@ -410,10 +415,10 @@ storiesOf("DataSearch", module)
 
 storiesOf("DataController", module)
 	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(DataControllerReadme), () => (
 		<DataControllerDefault />
 	)))
-	.add("With UI", withReadme(removeFirstLine(DataSearchReadme), () => (
+	.add("With UI", withReadme(removeFirstLine(DataControllerReadme), () => (
 		<DataControllerDefault
 			title="DataController"
 			showUI={true}
@@ -422,7 +427,7 @@ storiesOf("DataController", module)
 			}
 		/>
 	)))
-	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
+	.add("Playground", withReadme(removeFirstLine(DataControllerReadme), () => (
 		<DataControllerDefault
 			title={text("title", "DataController")}
 			showUI={boolean("showUI", true)}
@@ -514,16 +519,16 @@ storiesOf("PoweredBy", module)
 
 storiesOf("ReactiveElement", module)
 	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(ReactiveElementReadme, 3), () => (
 		<ReactiveElement.Basic />
 	)))
-	.add("Stream", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("Stream", withReadme(removeFirstLine(ReactiveElementReadme, 3), () => (
 		<ReactiveElement.WithStream />
 	)))
-	.add("Theme", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("Theme", withReadme(removeFirstLine(ReactiveElementReadme, 3), () => (
 		<ReactiveElement.WithTheme />
 	)))
-	.add("Playground", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("Playground", withReadme(removeFirstLine(ReactiveElementReadme, 3), () => (
 		<ReactiveElement.Basic
 			title={text("title", "ReactiveElement")}
 			placeholder={text("placeholder", "Select city from the list")}
@@ -538,19 +543,19 @@ storiesOf("ReactiveElement", module)
 
 storiesOf("ReactiveList", module)
 	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault onData={null} requestOnScroll stream={false} />
 	)))
-	.add("With Custom Markup", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("With Custom Markup", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault requestOnScroll stream={false} />
 	)))
-	.add("Without Title", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("Without Title", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault title="" requestOnScroll stream={false} />
 	)))
-	.add("With Streaming Enabled", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("With Streaming Enabled", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault title="Meetups" stream />
 	)))
-	.add("With Sort Options", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("With Sort Options", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault
 			title="Meetups"
 			requestOnScroll
@@ -574,7 +579,7 @@ storiesOf("ReactiveList", module)
 			]}
 		/>
 	)))
-	.add("With Loader", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("With Loader", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault
 			title="Meetups"
 			requestOnScroll
@@ -582,7 +587,7 @@ storiesOf("ReactiveList", module)
 			initialLoader="Loading results.."
 		/>
 	)))
-	.add("Playground", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("Playground", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault
 			title={text("title", "ReactiveList: Results")}
 			from={number("from", 0)}
@@ -597,15 +602,15 @@ storiesOf("ReactiveList", module)
 
 storiesOf("ReactivePaginatedList", module)
 	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
+	.add("Basic", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
 		<ReactivePaginatedListDefault
 			onData={null}
 		/>
 	)))
-	.add("With Custom Markup", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
+	.add("With Custom Markup", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
 		<ReactivePaginatedListDefault />
 	)))
-	.add("With Sort Options", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
+	.add("With Sort Options", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
 		<ReactivePaginatedListDefault
 			sortOptions={[
 				{
@@ -626,14 +631,14 @@ storiesOf("ReactivePaginatedList", module)
 			]}
 		/>
 	)))
-	.add("With Loader", withReadme(removeFirstLine(ResultListReadme), () => (
+	.add("With Loader", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
 		<ReactivePaginatedListDefault
 			title="Meetups"
 			stream={false}
 			initialLoader="Loading results.."
 		/>
 	)))
-	.add("Playground", withReadme(removeFirstLine(PaginatedResultListReadme), () => (
+	.add("Playground", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
 		<ReactivePaginatedListDefault
 			title={text("title", "ReactivePaginatedList: Playground")}
 			from={number("from", 0)}
