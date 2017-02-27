@@ -2,7 +2,7 @@
 
 # Data components for building reactive UIs
 
-The UI component library that powers [Reactive Maps](https://github/appbaseio/reactivemaps) and [Reactive Search](https://github/appbaseio/reactivesearch).
+The UI component library that powers [Reactive Maps](https://github.com/appbaseio/reactivemaps) and [Reactive Search](https://github.com/appbaseio/reactivesearch).
 
 # How to Run
 
