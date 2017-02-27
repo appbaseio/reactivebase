@@ -49,7 +49,7 @@ export default class DataSearch extends Component {
 	}
 
 	// stop streaming request and remove listener when component will unmount
-	componentWillUnmount() {
+	componentWillUnmount() {	
 		if (this.channelId) {
 			manager.stopStream(this.channelId);
 		}

@@ -1,4 +1,4 @@
-/*eslint max-lines: 0*/
+/* eslint max-lines: 0 */
 import React from "react";
 import { storiesOf } from "@kadira/storybook";
 import { withKnobs, text, boolean, number, array, select, object } from "@kadira/storybook-addon-knobs";
@@ -416,14 +416,18 @@ storiesOf("DataController", module)
 	.add("With UI", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataControllerDefault
 			title="DataController"
-			showUI
+			showUI={true}
+			dataLabel={
+				<p>★ A customizable UI widget ★</p>
+			}
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataControllerDefault
 			title={text("title", "DataController")}
-			dataLabel={text("dataLabel", "matchall")}
 			showUI={boolean("showUI", true)}
+			dataLabel={text("dataLabel", "★  A customizable UI widget ★")}
+			componentStyle={object("componentStyle", { "padding-bottom": "10px" })}
 		/>
 	)));
 
@@ -440,7 +444,7 @@ storiesOf("DatePicker", module)
 	)))
 	.add("Default date", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
-			defaultSelected={moment().subtract(1, "days")}
+			defaultSelected={moment().subtract(1, "day")}
 		/>
 	)))
 	.add("Enable days from today only", withReadme(removeFirstLine(DatePickerReadme), () => (
@@ -459,8 +463,8 @@ storiesOf("DatePicker", module)
 	.add("Playground", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
 			title={text("title", "Date Picker")}
-			numberOfMonths={number("Number of months", 1)}
-			allowAllDates={boolean("allowAllDates: Enable days from today only", true)}
+			numberOfMonths={number("numberOfMonths", 1)}
+			allowAllDates={boolean("allowAllDates", true)}
 		/>
 	)));
 
@@ -498,8 +502,8 @@ storiesOf("DateRange", module)
 	.add("Playground", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault
 			title={text("title", "Date Range")}
-			numberOfMonths={number("Number of months", 2)}
-			allowAllDates={boolean("allowAllDates: Enable days from today only", true)}
+			numberOfMonths={number("numberOfMonths", 2)}
+			allowAllDates={boolean("allowAllDates", true)}
 		/>
 	)));
 
