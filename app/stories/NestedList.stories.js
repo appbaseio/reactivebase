@@ -36,7 +36,6 @@ export default class NestedListDefault extends Component {
 	itemMarkup(marker, markerData) {
 		return (
 			<a className="full_row single-record single_record_for_clone"
-				href="#"
 				key={markerData._id}>
 				<div className="text-container full_row" style={{"paddingLeft": "10px"}}>
 					<div className="text-head text-overflow full_row">

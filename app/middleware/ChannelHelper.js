@@ -41,25 +41,26 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 		if (aggsObj.sort === "count") {
 			order = "desc";
 			type = "_count";
-		} else if (aggsObj.sort === "asc") {
-			order = "asc";
-			type = "_term";
-		} else {
-			order = "desc";
+		} else if (aggsObj.sort === "asc" || aggsObj.sort === "desc") {
+			order = aggsObj.sort;
 			type = "_term";
 		}
-		const orderQuery = `{
-				"${type}" : "${order}"
-			}`;
-		return JSON.parse(`{
-				"${aggsObj.key}": {
-					"terms": {
-						"field": "${aggsObj.key}",
-						"size": ${aggsObj.size},
-						"order": ${orderQuery}
-					}
+		let query = {
+			[aggsObj.key]: {
+				"terms": {
+					"field": aggsObj.key
 				}
-			}`);
+			}
+		};
+		if(aggsObj.size) {
+			query[aggsObj.key].terms.size = aggsObj.size;
+		}
+		if(aggsObj.sort) {
+			query[aggsObj.key].terms.order = {
+				[type] : order
+			}
+		}
+		return query;
 	}
 
 	function generateQuery() {
