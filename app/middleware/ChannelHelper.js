@@ -32,32 +32,38 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 		const aggsObj = channelObj.react[depend];
 		let order,
 			type;
-		if (aggsObj.sortRef) {
-			const sortField = sortAvailable(aggsObj.sortRef);
-			if (sortField && sortField.aggSort) {
-				aggsObj.sort = sortField.aggSort;
-			}
+		let query;
+		if(aggsObj.customQuery) {
+			query = aggsObj.customQuery(aggsObj);
 		}
-		if (aggsObj.sort === "count") {
-			order = "desc";
-			type = "_count";
-		} else if (aggsObj.sort === "asc" || aggsObj.sort === "desc") {
-			order = aggsObj.sort;
-			type = "_term";
-		}
-		let query = {
-			[aggsObj.key]: {
-				"terms": {
-					"field": aggsObj.key
+		else {
+			if (aggsObj.sortRef) {
+				const sortField = sortAvailable(aggsObj.sortRef);
+				if (sortField && sortField.aggSort) {
+					aggsObj.sort = sortField.aggSort;
 				}
 			}
-		};
-		if(aggsObj.size) {
-			query[aggsObj.key].terms.size = aggsObj.size;
-		}
-		if(aggsObj.sort) {
-			query[aggsObj.key].terms.order = {
-				[type] : order
+			if (aggsObj.sort === "count") {
+				order = "desc";
+				type = "_count";
+			} else if (aggsObj.sort === "asc" || aggsObj.sort === "desc") {
+				order = aggsObj.sort;
+				type = "_term";
+			}
+			query = {
+				[aggsObj.key]: {
+					"terms": {
+						"field": aggsObj.key
+					}
+				}
+			};
+			if(aggsObj.size) {
+				query[aggsObj.key].terms.size = aggsObj.size;
+			}
+			if(aggsObj.sort) {
+				query[aggsObj.key].terms.order = {
+					[type] : order
+				}
 			}
 		}
 		return query;
