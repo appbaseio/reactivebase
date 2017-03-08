@@ -46,7 +46,7 @@
     "react-select": "^1.0.0-rc.3"
   },
   "devDependencies": {
-    "@appbaseio/reactivemaps-manual": "latest",
+    "@appbaseio/reactivemaps-manual": "1.0.0-alpha",
     "@kadira/storybook": "^2.34.0",
     "@kadira/storybook-addon-knobs": "^1.7.1",
     "@kadira/storybook-addon-options": "^1.0.1",
