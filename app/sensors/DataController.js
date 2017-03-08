@@ -14,7 +14,18 @@ export default class DataController extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		setTimeout(this.setValue.bind(this), 1000);
+		this.checkDefault();
+	}
+
+	componentWillUpdate() {
+		this.checkDefault();
+	}
+
+	checkDefault() {
+		if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
+			this.defaultSelected = this.props.defaultSelected;
+			setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
+		}
 	}
 
 	// set the query type and input data
@@ -33,10 +44,10 @@ export default class DataController extends Component {
 		helper.selectedSensor.setSensorInfo(obj);
 	}
 
-	setValue() {
+	setValue(value) {
 		const obj = {
 			key: this.props.componentId,
-			value: this.value
+			value: value
 		};
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
@@ -87,19 +98,21 @@ DataController.propTypes = {
 		React.PropTypes.element
 	]),
 	customQuery: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	defaultSelected: React.PropTypes.any
 };
 
 // Default props value
 DataController.defaultProps = {
-	showUI: false
+	showUI: false,
+	defaultSelected: "default",
+	componentStyle: {}
 };
 
 // context type
 DataController.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	componentStyle: {}
+	type: React.PropTypes.any.isRequired
 };
 
 DataController.types = {
