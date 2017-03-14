@@ -343,7 +343,10 @@ export default class DropdownList extends Component {
 DropdownList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	size: helper.sizeValidation,
 	multipleSelect: React.PropTypes.bool,
 	showCount: React.PropTypes.bool,

@@ -20,7 +20,10 @@ export default class SingleList extends Component {
 SingleList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	defaultSelected: React.PropTypes.string,
 	size: React.PropTypes.number,
 	showCount: React.PropTypes.bool,

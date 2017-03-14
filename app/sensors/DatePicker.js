@@ -133,7 +133,10 @@ export default class DatePicker extends Component {
 DatePicker.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	placeholder: React.PropTypes.string,
 	defaultSelected: momentPropTypes.momentObj,
 	focused: React.PropTypes.bool,

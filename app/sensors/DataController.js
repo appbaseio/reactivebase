@@ -91,7 +91,10 @@ export default class DataController extends Component {
 DataController.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	showUI: React.PropTypes.bool,
 	dataLabel: React.PropTypes.oneOfType([
 		React.PropTypes.string,
@@ -101,6 +104,11 @@ DataController.propTypes = {
 	componentStyle: React.PropTypes.object,
 	defaultSelected: React.PropTypes.any
 };
+
+title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	])
 
 // Default props value
 DataController.defaultProps = {

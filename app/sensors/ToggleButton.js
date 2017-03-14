@@ -156,7 +156,10 @@ export default class ToggleButton extends Component {
 ToggleButton.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
 	multiSelect: React.PropTypes.bool,

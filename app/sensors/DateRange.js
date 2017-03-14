@@ -167,7 +167,10 @@ export default class DateRange extends Component {
 DateRange.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	defaultSelected: React.PropTypes.shape({
 		start: momentPropTypes.momentObj,
 		end: momentPropTypes.momentObj

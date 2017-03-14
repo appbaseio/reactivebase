@@ -446,7 +446,10 @@ export default class NestedList extends Component {
 NestedList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.array.isRequired,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	showCount: React.PropTypes.bool,
 	showSearch: React.PropTypes.bool,
 	sortBy: React.PropTypes.oneOf(["count", "asc", "desc"]),

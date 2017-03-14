@@ -282,7 +282,10 @@ DataSearch.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	placeholder: React.PropTypes.string,
 	autocomplete: React.PropTypes.bool,
 	defaultSelected: React.PropTypes.string,

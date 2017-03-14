@@ -227,7 +227,10 @@ Tag.propTypes = {
 MultiRange.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
 	componentId: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func
