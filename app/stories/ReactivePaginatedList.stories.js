@@ -3,8 +3,6 @@ import { ReactiveBase, SingleList, ReactivePaginatedList } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
-require('./list.css');
-
 export default class ReactivePaginatedListDefault extends Component {
 	constructor(props) {
 		super(props);

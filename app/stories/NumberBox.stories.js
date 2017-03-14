@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {ReactiveBase, NumberBox, ReactiveList} from '../app.js';
 import {ResponsiveStory} from '../middleware/helper.js';
-require('./list.css');
 
 export default class NumberBoxDefault extends Component {
 	constructor(props) {

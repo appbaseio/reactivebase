@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ReactiveBase, DataController, ReactiveList } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
-require('./list.css');
 
 export default class DataControllerDefault extends Component {
 	constructor(props) {

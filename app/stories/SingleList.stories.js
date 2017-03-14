@@ -3,8 +3,6 @@ import { ReactiveBase, SingleList, ReactiveList } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
-require('./list.css');
-
 export default class SingleListDefault extends Component {
 	constructor(props) {
 		super(props);
@@ -79,7 +77,7 @@ export default class SingleListDefault extends Component {
 						<SingleList
 							componentId="CitySensor"
 							appbaseField={this.props.mapping.city}
-							title="SingleList"
+							title={<span className="pink">SingleList</span>}
 							size={100}
 							customQuery={this.customQuery}
 							{...this.props}

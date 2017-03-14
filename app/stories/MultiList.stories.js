@@ -3,8 +3,6 @@ import { ReactiveBase, MultiList, ReactiveList } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
-require('./list.css');
-
 export default class MultiListDefault extends Component {
 	constructor(props) {
 		super(props);
@@ -35,7 +33,7 @@ export default class MultiListDefault extends Component {
 		}
 		return result;
 	}
-	
+
 	itemMarkup(marker, markerData) {
 		return (
 			<a className="full_row single-record single_record_for_clone"

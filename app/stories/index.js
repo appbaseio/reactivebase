@@ -63,6 +63,7 @@ const moment = require("moment");
 
 require("../../node_modules/materialize-css/dist/css/materialize.min.css");
 require("../../dist/css/style.min.css");
+require('./list.css');
 
 function removeFirstLine(str, number=1) {
 	while (number--) {

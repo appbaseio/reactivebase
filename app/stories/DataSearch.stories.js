@@ -3,8 +3,6 @@ import { ReactiveBase, DataSearch, ReactiveList } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 import { Img } from './Img.js';
 
-require('./list.css');
-
 export default class DataSearchDefault extends Component {
 	constructor(props) {
 		super(props);
