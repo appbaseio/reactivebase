@@ -77,7 +77,7 @@ export default class SingleListDefault extends Component {
 						<SingleList
 							componentId="CitySensor"
 							appbaseField={this.props.mapping.city}
-							title={<span className="pink">SingleList</span>}
+							title="SingleList"
 							size={100}
 							customQuery={this.customQuery}
 							{...this.props}
