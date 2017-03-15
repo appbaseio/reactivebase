@@ -81,9 +81,8 @@ export const validation = {
 
 export const reactiveBaseValidation = (props, propName) => {
 	let err = null;
-	const propExists = props.credentials || props.username && props.password ? true : false;
-	if(!propExists) {
-		err = new Error("Either credentials or username and password is required.");
+	if(!props.credentials) {
+		err = new Error("ReactiveBase expects credentials as a prop instead of username:password.");
 	}
 	return err;
 }
