@@ -9,12 +9,17 @@ export default class ReactiveBase extends Component {
 		this.state = {};
 		this.type = this.props.type ? this.props.type : "*";
 
-		this.appbaseRef = new Appbase({
+		const appbaseAppAuth = {
 			url: "https://scalr.api.appbase.io",
-			appname: this.props.app,
-			username: this.props.username,
-			password: this.props.password
-		});
+			appname: this.props.app
+		};
+		if (this.props.credentials) {
+			appbaseAppAuth.credentials = this.props.credentials
+		} else {
+			appbaseAppAuth.username = this.props.username;
+			appbaseAppAuth.password = this.props.password;
+		}
+		this.appbaseRef = new Appbase(appbaseAppAuth);
 	}
 
 	getChildContext() {
@@ -35,8 +40,9 @@ export default class ReactiveBase extends Component {
 
 ReactiveBase.propTypes = {
 	app: React.PropTypes.string.isRequired,
-	username: React.PropTypes.string.isRequired,
-	password: React.PropTypes.string.isRequired,
+	username: helper.reactiveBaseValidation,
+	password: helper.reactiveBaseValidation,
+	credentials: helper.reactiveBaseValidation,
 	type: React.PropTypes.string,
 	theme: React.PropTypes.string
 };

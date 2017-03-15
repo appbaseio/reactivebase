@@ -78,3 +78,12 @@ export const validation = {
 		return err;
 	}
 };
+
+export const reactiveBaseValidation = (props, propName) => {
+	let err = null;
+	const propExists = props.credentials || props.username && props.password ? true : false;
+	if(!propExists) {
+		err = new Error("Either credentials or username and password is required.");
+	}
+	return err;
+}
