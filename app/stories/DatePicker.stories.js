@@ -73,8 +73,7 @@ export default class DatePickerDefault extends Component {
 		return (
 			<ReactiveBase
 				app="reactivemap-demo"
-				username="SL8fiQ1fg"
-				password="71ea4254-49ba-4685-8276-e44da225c141"
+				credentials="SL8fiQ1fg:71ea4254-49ba-4685-8276-e44da225c141"
 				type="meetup"
 			>
 				<div className="row">

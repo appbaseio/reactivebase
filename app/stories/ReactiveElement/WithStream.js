@@ -71,8 +71,7 @@ export default class WithStream extends Component {
 		return (
 			<ReactiveBase
 				app="meetup2"
-				username="qz4ZD8xq1"
-				password="a0edfc7f-5611-46f6-8fe1-d4db234631f3"
+				credentials="qz4ZD8xq1:a0edfc7f-5611-46f6-8fe1-d4db234631f3"
 				type="meetup"
 			>
 				<div className="row reverse-labels">
