@@ -88,7 +88,7 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 	}
 
 	function combineQuery(dependsQuery) {
-		const query = helper.serializeDepends.createQuery(channelObj.serializeDepends, dependsQuery);
+		let query = helper.serializeDepends.createQuery(channelObj.serializeDepends, dependsQuery);
 		if (query && query.body) {
 			if (sortObj && sortObj.length) {
 				query.body.sort = sortObj;
