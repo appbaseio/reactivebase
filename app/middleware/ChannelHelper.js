@@ -99,6 +99,8 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 					query.body[reqOption] = requestOptions[reqOption];
 				});
 			}
+		} else {
+			query = {};
 		}
 		return query;
 	}
