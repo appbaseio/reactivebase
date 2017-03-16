@@ -248,6 +248,7 @@ MultiRange.contextTypes = {
 MultiRange.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,

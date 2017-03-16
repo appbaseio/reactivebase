@@ -57,6 +57,7 @@ SingleList.contextTypes = {
 SingleList.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.KEYWORD,
 	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	defaultSelected: TYPES.STRING,

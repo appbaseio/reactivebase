@@ -459,6 +459,7 @@ RangeSlider.contextTypes = {
 RangeSlider.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
 	react: TYPES.OBJECT,
 	range: TYPES.OBJECT,
