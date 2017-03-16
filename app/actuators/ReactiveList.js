@@ -105,7 +105,10 @@ export default class ReactiveList extends Component {
 			const scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height();
 			if (!flag && !scrollFlag && scrollElement.length) {
 				const headerHeight = resultElement.find('.rbc-title').height();
-				scrollElement.css("height", resultElement.height() - 60 - headerHeight);
+				const finalHeight = resultElement.height() - 60 - headerHeight;
+				if(finalHeight > 0) {
+					scrollElement.css("height", finalHeight);
+				}
 			}
 		}
 

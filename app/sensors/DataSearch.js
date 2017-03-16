@@ -139,6 +139,7 @@ export default class DataSearch extends Component {
 
 	// default query
 	defaultSearchQuery(value) {
+		let finalQuery = null;
 		if (value) {
 			if (this.fieldType === "string") {
 				return {
@@ -155,13 +156,14 @@ export default class DataSearch extends Component {
 					}
 				});
 			});
-			return {
+			finalQuery = {
 				bool: {
 					should: query,
 					minimum_should_match: 1
 				}
 			};
 		}
+		return finalQuery;
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
