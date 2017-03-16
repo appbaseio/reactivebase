@@ -101,7 +101,10 @@ export default class TextField extends Component {
 TextField.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	defaultSelected: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
 	customQuery: React.PropTypes.func
@@ -119,6 +122,7 @@ TextField.contextTypes = {
 TextField.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.STRING,
 	title: TYPES.STRING,
 	defaultSelected: TYPES.STRING,
 	placeholder: TYPES.STRING,

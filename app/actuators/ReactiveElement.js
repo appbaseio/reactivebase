@@ -320,7 +320,10 @@ export default class ReactiveElement extends Component {
 
 ReactiveElement.propTypes = {
 	componentId: React.PropTypes.string,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	from: helper.validation.resultListFrom,
 	onData: React.PropTypes.func,
 	size: helper.sizeValidation,

@@ -144,7 +144,10 @@ export default class NumberBox extends Component {
 NumberBox.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	data: React.PropTypes.shape({
 		start: helper.validateThreshold,
 		end: helper.validateThreshold,
@@ -164,6 +167,7 @@ NumberBox.contextTypes = {
 NumberBox.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.NUMBER,

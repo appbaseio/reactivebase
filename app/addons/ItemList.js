@@ -30,7 +30,11 @@ export default class ItemList extends Component {
 
 	defaultSelection() {
 		if (this.props.defaultSelected) {
-			this.handleClick(this.props.defaultSelected);
+			if(this.props.defaultSelected === this.props.selectAllLabel) {
+				this.handleListClickAll(this.props.selectAllLabel);
+			} else {
+				this.handleClick(this.props.defaultSelected);
+			}
 		}
 	}
 

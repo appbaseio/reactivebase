@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ReactiveBase, MultiDropdownRange, ReactiveList } from '../app.js';
 import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
-require('./list.css');
 
 export default class MultiDropdownRangeDefault extends Component {
 	constructor(props) {
@@ -59,8 +58,7 @@ export default class MultiDropdownRangeDefault extends Component {
 		return (
 			<ReactiveBase
 				app="car-store"
-				username="cf7QByt5e"
-				password="d2d60548-82a9-43cc-8b40-93cbbe75c34c"
+				credentials="cf7QByt5e:d2d60548-82a9-43cc-8b40-93cbbe75c34c"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">

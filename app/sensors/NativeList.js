@@ -375,7 +375,10 @@ export default class NativeList extends Component {
 NativeList.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
 	componentId: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	size: helper.sizeValidation,
 	showCount: React.PropTypes.bool,
 	multipleSelect: React.PropTypes.bool,

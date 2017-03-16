@@ -49,7 +49,7 @@ export default class DataSearch extends Component {
 	}
 
 	// stop streaming request and remove listener when component will unmount
-	componentWillUnmount() {	
+	componentWillUnmount() {
 		if (this.channelId) {
 			manager.stopStream(this.channelId);
 		}
@@ -139,6 +139,7 @@ export default class DataSearch extends Component {
 
 	// default query
 	defaultSearchQuery(value) {
+		let finalQuery = null;
 		if (value) {
 			if (this.fieldType === "string") {
 				return {
@@ -155,13 +156,14 @@ export default class DataSearch extends Component {
 					}
 				});
 			});
-			return {
+			finalQuery = {
 				bool: {
 					should: query,
 					minimum_should_match: 1
 				}
 			};
 		}
+		return finalQuery;
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
@@ -282,7 +284,10 @@ DataSearch.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	placeholder: React.PropTypes.string,
 	autocomplete: React.PropTypes.bool,
 	defaultSelected: React.PropTypes.string,
@@ -305,6 +310,7 @@ DataSearch.contextTypes = {
 DataSearch.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.STRING,
 	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,

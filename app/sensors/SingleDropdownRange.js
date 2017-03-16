@@ -119,7 +119,10 @@ export default class SingleDropdownRange extends Component {
 SingleDropdownRange.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.string,
@@ -138,6 +141,7 @@ SingleDropdownRange.contextTypes = {
 SingleDropdownRange.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.NUMBER,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.STRING,
 	title: TYPES.STRING,

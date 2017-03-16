@@ -96,15 +96,19 @@ export default class ReactiveList extends Component {
 	}
 
 	applyScroll() {
-		const resultElement = $(".rbc.rbc-reactivelist");
-		const scrollElement = $(".rbc-reactivelist-scroll-container");
+		const resultElement = $(this.listParentElement);
+		const scrollElement = $(this.listChildElement);
 		const padding = 45;
 
 		function checkHeight() {
 			const flag = resultElement.get(0).scrollHeight - padding > resultElement.height();
 			const scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height();
 			if (!flag && !scrollFlag && scrollElement.length) {
-				scrollElement.css("height", resultElement.height() - 100);
+				const headerHeight = resultElement.find('.rbc-title').height();
+				const finalHeight = resultElement.height() - 60 - headerHeight;
+				if(finalHeight > 0) {
+					scrollElement.css("height", finalHeight);
+				}
 			}
 		}
 
@@ -511,7 +515,10 @@ export default class ReactiveList extends Component {
 ReactiveList.propTypes = {
 	componentId: React.PropTypes.string,
 	appbaseField: React.PropTypes.string,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	sortBy: React.PropTypes.oneOf(["asc", "desc", "default"]),
 	sortOptions: React.PropTypes.arrayOf(
 		React.PropTypes.shape({

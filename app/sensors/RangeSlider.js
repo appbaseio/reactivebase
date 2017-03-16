@@ -406,7 +406,10 @@ export default class RangeSlider extends Component {
 RangeSlider.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	range: React.PropTypes.shape({
 		start: helper.validateThreshold,
 		end: helper.validateThreshold
@@ -456,6 +459,7 @@ RangeSlider.contextTypes = {
 RangeSlider.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
 	react: TYPES.OBJECT,
 	range: TYPES.OBJECT,

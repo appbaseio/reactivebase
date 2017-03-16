@@ -117,8 +117,10 @@ var lib_config = {
 				test: /node_modules\/JSONStream\/index\.js$/,
 				loaders: ['shebang', 'babel']
 			}
-		]
+		],
+		noParse: ['ws']
 	},
+	externals: ['ws']
 };
 
 // for examples build

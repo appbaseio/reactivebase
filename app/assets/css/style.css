@@ -162,7 +162,6 @@ a {
     font-weight: bold;
     font-family: "Lato Bold";
     letter-spacing: 1px;
-    text-transform: uppercase;
     margin: 0; }
   .rbc .rbc-search-container {
     height: 48px; }
@@ -1297,6 +1296,8 @@ a {
     outline: none; }
     .rbc.rbc-datasearch .Select-control:hover, .rbc.rbc-datasearch .Select-control:focus {
       outline: none; }
+    .rbc.rbc-datasearch .Select-control .Select-clear {
+      background: whitesmoke; }
     .rbc.rbc-datasearch .Select-control .Select-arrow-zone {
       position: absolute;
       right: 6px;

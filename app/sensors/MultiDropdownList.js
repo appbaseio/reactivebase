@@ -18,6 +18,7 @@ MultiDropdownList.propTypes = {
 MultiDropdownList.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.KEYWORD,
 	defaultSelected: TYPES.ARRAY,
 	react: TYPES.OBJECT,
 	title: TYPES.STRING,

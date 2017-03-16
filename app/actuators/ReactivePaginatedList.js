@@ -99,7 +99,10 @@ export default class ReactivePaginatedList extends Component {
 ReactivePaginatedList.propTypes = {
 	componentId: React.PropTypes.string,
 	appbaseField: React.PropTypes.string,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	paginationAt: React.PropTypes.string,
 	sortBy: React.PropTypes.oneOf(['asc', 'desc', 'default']),
 	sortOptions: React.PropTypes.arrayOf(

@@ -20,7 +20,10 @@ export default class MultiList extends Component {
 MultiList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	appbaseField: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	defaultSelected: React.PropTypes.array,
 	size: React.PropTypes.number,
 	showCount: React.PropTypes.bool,
@@ -54,6 +57,7 @@ MultiList.contextTypes = {
 MultiList.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.KEYWORD,
 	title: TYPES.STRING,
 	react: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
