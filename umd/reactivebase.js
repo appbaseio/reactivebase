@@ -2037,6 +2037,8 @@ return /******/ (function(modules) { // webpackBootstrap
 						query.body[reqOption] = requestOptions[reqOption];
 					});
 				}
+			} else {
+				query = {};
 			}
 			return query;
 		}
