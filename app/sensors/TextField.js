@@ -122,6 +122,7 @@ TextField.contextTypes = {
 TextField.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.STRING,
 	title: TYPES.STRING,
 	defaultSelected: TYPES.STRING,
 	placeholder: TYPES.STRING,

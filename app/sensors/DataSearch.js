@@ -49,7 +49,7 @@ export default class DataSearch extends Component {
 	}
 
 	// stop streaming request and remove listener when component will unmount
-	componentWillUnmount() {	
+	componentWillUnmount() {
 		if (this.channelId) {
 			manager.stopStream(this.channelId);
 		}
@@ -310,6 +310,7 @@ DataSearch.contextTypes = {
 DataSearch.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.STRING,
 	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,

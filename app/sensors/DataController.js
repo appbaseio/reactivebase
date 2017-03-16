@@ -126,6 +126,7 @@ DataController.contextTypes = {
 DataController.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.STRING,
 	title: TYPES.STRING,
 	showUI: TYPES.BOOL,
 	dataLabel: TYPES.STRING,

@@ -163,6 +163,7 @@ MultiDropdownRange.contextTypes = {
 MultiDropdownRange.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
+	appbaseFieldType: TYPES.NUMBER,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
 	title: TYPES.STRING,

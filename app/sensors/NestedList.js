@@ -483,6 +483,7 @@ NestedList.contextTypes = {
 NestedList.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.ARRAY,
+	appbaseFieldType: TYPES.STRING,
 	title: TYPES.STRING,
 	react: TYPES.OBJECT,
 	size: TYPES.NUMBER,
