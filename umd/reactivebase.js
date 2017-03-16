@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-dom"));
+		module.exports = factory(require("react"), require("react-dom"), require("ws"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react-dom"], factory);
+		define(["react", "react-dom", "ws"], factory);
 	else if(typeof exports === 'object')
-		exports["UmdReactiveBase"] = factory(require("react"), require("react-dom"));
+		exports["UmdReactiveBase"] = factory(require("react"), require("react-dom"), require("ws"));
 	else
-		root["UmdReactiveBase"] = factory(root["React"], root["ReactDOM"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_10__) {
+		root["UmdReactiveBase"] = factory(root["React"], root["ReactDOM"], root["ws"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_383__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -277,7 +277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleList.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.string,
 		size: _react2.default.PropTypes.number,
 		showCount: _react2.default.PropTypes.bool,
@@ -308,6 +308,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleList.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.KEYWORD,
 		react: TYPES.OBJECT,
 		title: TYPES.STRING,
 		defaultSelected: TYPES.STRING,
@@ -811,7 +812,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	NativeList.propTypes = {
 		appbaseField: _react2.default.PropTypes.string.isRequired,
 		componentId: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		size: helper.sizeValidation,
 		showCount: _react2.default.PropTypes.bool,
 		multipleSelect: _react2.default.PropTypes.bool,
@@ -960,13 +961,27 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function defaultUpdate() {
 				var _this2 = this;
 
-				this.setState({
-					selectedItems: this.props.defaultSelected,
-					defaultSelectall: this.props.defaultSelectall
-				}, function () {
-					_this2.updateAction.bind(_this2);
-					_this2.props.onSelect(_this2.state.selectedItems);
-				});
+				var defaultSelectAll = this.props.defaultSelected.indexOf(this.props.selectAllLabel) > -1 ? true : false;
+				if (defaultSelectAll) {
+					this.setDefaultSelectAll();
+				} else {
+					this.setState({
+						selectedItems: this.props.defaultSelected,
+						defaultSelectall: this.props.defaultSelectall
+					}, function () {
+						_this2.updateAction.bind(_this2);
+						_this2.props.onSelect(_this2.state.selectedItems);
+					});
+				}
+			}
+		}, {
+			key: "setDefaultSelectAll",
+			value: function setDefaultSelectAll() {
+				if (this.props.items && this.props.items.length) {
+					setTimeout(this.handleListClickAll.bind(this, this.props.selectAllLabel, true), 1000);
+				} else {
+					setTimeout(this.setDefaultSelectAll.bind(this), 1000);
+				}
 			}
 
 			// remove selected types if not in the list
@@ -1454,7 +1469,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'defaultSelection',
 			value: function defaultSelection() {
 				if (this.props.defaultSelected) {
-					this.handleClick(this.props.defaultSelected);
+					if (this.props.defaultSelected === this.props.selectAllLabel) {
+						this.handleListClickAll(this.props.selectAllLabel);
+					} else {
+						this.handleClick(this.props.defaultSelected);
+					}
 				}
 			}
 		}, {
@@ -2604,6 +2623,14 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			return err;
 		}
+	};
+
+	var reactiveBaseValidation = exports.reactiveBaseValidation = function reactiveBaseValidation(props, propName) {
+		var err = null;
+		if (!props.credentials) {
+			err = new Error("ReactiveBase expects credentials as a prop instead of username:password.");
+		}
+		return err;
 	};
 
 /***/ },
@@ -30487,6 +30514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	var STRING = exports.STRING = "string";
+	var KEYWORD = exports.KEYWORD = "keyword";
 	var NUMBER = exports.NUMBER = "number";
 	var BOOLEAN = exports.BOOLEAN = "boolean";
 	var ARRAY = exports.ARRAY = "array";
@@ -30556,7 +30584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiList.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.array,
 		size: _react2.default.PropTypes.number,
 		showCount: _react2.default.PropTypes.bool,
@@ -30587,6 +30615,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiList.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.KEYWORD,
 		title: TYPES.STRING,
 		react: TYPES.OBJECT,
 		defaultSelected: TYPES.ARRAY,
@@ -30642,6 +30671,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleDropdownList.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.KEYWORD,
 		title: TYPES.STRING,
 		react: TYPES.OBJECT,
 		defaultSelected: TYPES.ARRAY,
@@ -31110,7 +31140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	DropdownList.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		size: helper.sizeValidation,
 		multipleSelect: _react2.default.PropTypes.bool,
 		showCount: _react2.default.PropTypes.bool,
@@ -33611,6 +33641,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiDropdownList.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.KEYWORD,
 		defaultSelected: TYPES.ARRAY,
 		react: TYPES.OBJECT,
 		title: TYPES.STRING,
@@ -34125,7 +34156,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	RangeSlider.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		range: _react2.default.PropTypes.shape({
 			start: helper.validateThreshold,
 			end: helper.validateThreshold
@@ -34172,6 +34203,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	RangeSlider.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		title: TYPES.STRING,
 		react: TYPES.OBJECT,
 		range: TYPES.OBJECT,
@@ -41672,7 +41704,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	TextField.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.string,
 		placeholder: _react2.default.PropTypes.string,
 		customQuery: _react2.default.PropTypes.func
@@ -41690,6 +41722,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	TextField.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.STRING,
 		title: TYPES.STRING,
 		defaultSelected: TYPES.STRING,
 		placeholder: TYPES.STRING,
@@ -41917,6 +41950,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function defaultSearchQuery(value) {
 				var _this3 = this;
 
+				var finalQuery = null;
 				if (value) {
 					var _ret = function () {
 						if (_this3.fieldType === "string") {
@@ -41932,18 +41966,17 @@ return /******/ (function(modules) { // webpackBootstrap
 								match_phrase_prefix: _defineProperty({}, field, value)
 							});
 						});
-						return {
-							v: {
-								bool: {
-									should: query,
-									minimum_should_match: 1
-								}
+						finalQuery = {
+							bool: {
+								should: query,
+								minimum_should_match: 1
 							}
 						};
 					}();
 
 					if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
 				}
+				return finalQuery;
 			}
 
 			// Create a channel which passes the react and receive results whenever react changes
@@ -42079,7 +42112,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	DataSearch.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string)]),
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		placeholder: _react2.default.PropTypes.string,
 		autocomplete: _react2.default.PropTypes.bool,
 		defaultSelected: _react2.default.PropTypes.string,
@@ -42102,6 +42135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	DataSearch.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.STRING,
 		react: TYPES.OBJECT,
 		title: TYPES.STRING,
 		placeholder: TYPES.STRING,
@@ -42326,7 +42360,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleRange.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		data: _react2.default.PropTypes.any.isRequired,
 		defaultSelected: _react2.default.PropTypes.string,
 		customQuery: _react2.default.PropTypes.func
@@ -42346,6 +42380,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleRange.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		title: TYPES.STRING,
 		data: TYPES.OBJECT,
 		defaultSelected: TYPES.STRING,
@@ -42685,7 +42720,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiRange.propTypes = {
 		appbaseField: _react2.default.PropTypes.string.isRequired,
 		componentId: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		data: _react2.default.PropTypes.any.isRequired,
 		defaultSelected: _react2.default.PropTypes.array,
 		customQuery: _react2.default.PropTypes.func
@@ -42703,6 +42738,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiRange.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		title: TYPES.STRING,
 		data: TYPES.OBJECT,
 		defaultSelected: TYPES.ARRAY,
@@ -42908,7 +42944,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleDropdownRange.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		placeholder: _react2.default.PropTypes.string,
 		data: _react2.default.PropTypes.any.isRequired,
 		defaultSelected: _react2.default.PropTypes.string,
@@ -42927,6 +42963,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleDropdownRange.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		data: TYPES.OBJECT,
 		defaultSelected: TYPES.STRING,
 		title: TYPES.STRING,
@@ -43159,7 +43196,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiDropdownRange.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		placeholder: _react2.default.PropTypes.string,
 		data: _react2.default.PropTypes.any.isRequired,
 		defaultSelected: _react2.default.PropTypes.array,
@@ -43178,6 +43215,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiDropdownRange.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		data: TYPES.OBJECT,
 		defaultSelected: TYPES.ARRAY,
 		title: TYPES.STRING,
@@ -43429,7 +43467,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	ToggleButton.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		data: _react2.default.PropTypes.any.isRequired,
 		defaultSelected: _react2.default.PropTypes.array,
 		multiSelect: _react2.default.PropTypes.bool,
@@ -43450,6 +43488,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	ToggleButton.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.KEYWORD,
 		title: TYPES.STRING,
 		data: TYPES.OBJECT,
 		defaultSelected: TYPES.ARRAY,
@@ -43675,7 +43714,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	DatePicker.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		placeholder: _react2.default.PropTypes.string,
 		defaultSelected: momentPropTypes.momentObj,
 		focused: _react2.default.PropTypes.bool,
@@ -43703,6 +43742,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	DatePicker.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		title: TYPES.STRING,
 		placeholder: TYPES.STRING,
 		defaultSelected: TYPES.OBJECT,
@@ -66456,7 +66496,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	DateRange.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.shape({
 			start: momentPropTypes.momentObj,
 			end: momentPropTypes.momentObj
@@ -66486,6 +66526,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	DateRange.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.STRING,
 		title: TYPES.STRING,
 		defaultSelected: TYPES.OBJECT,
 		numberOfMonths: TYPES.NUMBER,
@@ -67073,7 +67114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	NestedList.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.array.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		showCount: _react2.default.PropTypes.bool,
 		showSearch: _react2.default.PropTypes.bool,
 		sortBy: _react2.default.PropTypes.oneOf(["count", "asc", "desc"]),
@@ -67104,6 +67145,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	NestedList.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.ARRAY,
+		appbaseFieldType: TYPES.STRING,
 		title: TYPES.STRING,
 		react: TYPES.OBJECT,
 		size: TYPES.NUMBER,
@@ -67354,7 +67396,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	NumberBox.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		data: _react2.default.PropTypes.shape({
 			start: helper.validateThreshold,
 			end: helper.validateThreshold,
@@ -67374,6 +67416,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	NumberBox.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		title: TYPES.STRING,
 		data: TYPES.OBJECT,
 		defaultSelected: TYPES.NUMBER,
@@ -67543,15 +67586,19 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "applyScroll",
 			value: function applyScroll() {
-				var resultElement = $(".rbc.rbc-reactivelist");
-				var scrollElement = $(".rbc-reactivelist-scroll-container");
+				var resultElement = $(this.listParentElement);
+				var scrollElement = $(this.listChildElement);
 				var padding = 45;
 
 				function checkHeight() {
 					var flag = resultElement.get(0).scrollHeight - padding > resultElement.height();
 					var scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height();
 					if (!flag && !scrollFlag && scrollElement.length) {
-						scrollElement.css("height", resultElement.height() - 100);
+						var headerHeight = resultElement.find('.rbc-title').height();
+						var finalHeight = resultElement.height() - 60 - headerHeight;
+						if (finalHeight > 0) {
+							scrollElement.css("height", finalHeight);
+						}
 					}
 				}
 
@@ -68041,7 +68088,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	ReactiveList.propTypes = {
 		componentId: _react2.default.PropTypes.string,
 		appbaseField: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		sortBy: _react2.default.PropTypes.oneOf(["asc", "desc", "default"]),
 		sortOptions: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
 			label: _react2.default.PropTypes.string,
@@ -68763,7 +68810,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	ReactiveElement.propTypes = {
 		componentId: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		from: helper.validation.resultListFrom,
 		onData: _react2.default.PropTypes.func,
 		size: helper.sizeValidation,
@@ -68967,7 +69014,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	ReactivePaginatedList.propTypes = {
 		componentId: _react2.default.PropTypes.string,
 		appbaseField: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		paginationAt: _react2.default.PropTypes.string,
 		sortBy: _react2.default.PropTypes.oneOf(['asc', 'desc', 'default']),
 		sortOptions: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
@@ -69379,7 +69426,20 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "componentDidMount",
 			value: function componentDidMount() {
 				this.setQueryInfo();
-				setTimeout(this.setValue.bind(this), 1000);
+				this.checkDefault();
+			}
+		}, {
+			key: "componentWillUpdate",
+			value: function componentWillUpdate() {
+				this.checkDefault();
+			}
+		}, {
+			key: "checkDefault",
+			value: function checkDefault() {
+				if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
+					this.defaultSelected = this.props.defaultSelected;
+					setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
+				}
 			}
 
 			// set the query type and input data
@@ -69402,10 +69462,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}, {
 			key: "setValue",
-			value: function setValue() {
+			value: function setValue(value) {
 				var obj = {
 					key: this.props.componentId,
-					value: this.value
+					value: value
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
@@ -69463,28 +69523,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	DataController.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		showUI: _react2.default.PropTypes.bool,
 		dataLabel: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		customQuery: _react2.default.PropTypes.func,
-		componentStyle: _react2.default.PropTypes.object
+		componentStyle: _react2.default.PropTypes.object,
+		defaultSelected: _react2.default.PropTypes.any
 	};
+
+	title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]);
 
 	// Default props value
 	DataController.defaultProps = {
-		showUI: false
+		showUI: false,
+		defaultSelected: "default",
+		componentStyle: {}
 	};
 
 	// context type
 	DataController.contextTypes = {
 		appbaseRef: _react2.default.PropTypes.any.isRequired,
-		type: _react2.default.PropTypes.any.isRequired,
-		componentStyle: {}
+		type: _react2.default.PropTypes.any.isRequired
 	};
 
 	DataController.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.STRING,
 		title: TYPES.STRING,
 		showUI: TYPES.BOOL,
 		dataLabel: TYPES.STRING,
@@ -69533,12 +69598,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			_this.state = {};
 			_this.type = _this.props.type ? _this.props.type : "*";
-
 			_this.appbaseRef = new Appbase({
 				url: "https://scalr.api.appbase.io",
 				appname: _this.props.app,
-				username: _this.props.username,
-				password: _this.props.password
+				credentials: _this.props.credentials,
+				type: _this.type
 			});
 			return _this;
 		}
@@ -69570,8 +69634,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	ReactiveBase.propTypes = {
 		app: _react2.default.PropTypes.string.isRequired,
-		username: _react2.default.PropTypes.string.isRequired,
-		password: _react2.default.PropTypes.string.isRequired,
+		credentials: helper.reactiveBaseValidation,
 		type: _react2.default.PropTypes.string,
 		theme: _react2.default.PropTypes.string
 	};
@@ -69615,12 +69678,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			return new appbaseClient(args);
 		}
 
-		if (typeof args.appname !== 'string' || args.appname === '') {
-			throw new Error('Appname not present is options.');
-		}
-
 		if (typeof args.url !== 'string' || args.url === '') {
-			throw new Error('URL not present is options.');
+			throw new Error('URL not present in options.');
 		}
 
 		var parsedUrl = URL.parse(args.url);
@@ -69628,18 +69687,28 @@ return /******/ (function(modules) { // webpackBootstrap
 		this.url = parsedUrl.host;
 		this.protocol = parsedUrl.protocol;
 		this.credentials = parsedUrl.auth;
-		this.appname = args.appname;
+		this.appname = args.appname || args.app;
+
+		if (typeof this.appname !== 'string' || this.appname === '') {
+			throw new Error('App name is not present in options.');
+		}
 
 		if (typeof this.protocol !== 'string' || this.protocol === '') {
-			throw new Error('Protocol not present in url. URL should be of the form https://scalr.api.appbase.io');
+			throw new Error('Protocol is not present in url. URL should be of the form https://scalr.api.appbase.io');
 		}
 
 		if (typeof args.username === 'string' && args.username !== '' && typeof args.password === 'string' && args.password !== '') {
 			this.credentials = args.username + ':' + args.password;
 		}
 
+		// credentials can be provided as a part of the URL, as username, password args or
+		// as a credentials argument directly
+		if (typeof args.credentials === 'string' && args.credentials !== '') {
+			this.credentials = args.credentials;
+		}
+
 		if (typeof this.credentials !== 'string' || this.credentials === '') {
-			throw new Error('Authentication information not present.');
+			throw new Error('Authentication information is not present. Did you add credentials?');
 		}
 
 		if (parsedUrl.protocol === 'https:') {
@@ -71143,7 +71212,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var WebSocket = __webpack_require__(383);
+	var WebSocket = typeof window !== 'undefined' ? window.WebSocket : __webpack_require__(383);
 	var EventEmitter = __webpack_require__(384).EventEmitter;
 
 	var betterWs = function betterWs(url) {
@@ -71191,50 +71260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 383 */
 /***/ function(module, exports) {
 
-	
-	/**
-	 * Module dependencies.
-	 */
-
-	var global = (function() { return this; })();
-
-	/**
-	 * WebSocket constructor.
-	 */
-
-	var WebSocket = global.WebSocket || global.MozWebSocket;
-
-	/**
-	 * Module exports.
-	 */
-
-	module.exports = WebSocket ? ws : null;
-
-	/**
-	 * WebSocket constructor.
-	 *
-	 * The third `opts` options object gets ignored in web browsers, since it's
-	 * non-standard, and throws a TypeError if passed to the constructor.
-	 * See: https://github.com/einaros/ws/issues/227
-	 *
-	 * @param {String} uri
-	 * @param {Array} protocols (optional)
-	 * @param {Object) opts (optional)
-	 * @api public
-	 */
-
-	function ws(uri, protocols, opts) {
-	  var instance;
-	  if (protocols) {
-	    instance = new WebSocket(uri, protocols);
-	  } else {
-	    instance = new WebSocket(uri);
-	  }
-	  return instance;
-	}
-
-	if (WebSocket) ws.prototype = WebSocket.prototype;
-
+	module.exports = __WEBPACK_EXTERNAL_MODULE_383__;
 
 /***/ },
 /* 384 */
@@ -82771,12 +82797,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		});
 		if (valid !== true) {
 			throw valid;
-			return;
 		}
 
 		if (args.type === undefined || !(typeof args.type === 'string' || args.type.constructor === Array) || args.type === '' || args.type.length === 0) {
 			throw new Error("fields missing: type");
-			return;
 		}
 
 		valid = helpers.validate(args.body, {
@@ -82784,7 +82808,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		});
 		if (valid !== true) {
 			throw valid;
-			return;
 		}
 
 		if (args.type.constructor === Array) {
@@ -82810,7 +82833,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.webhooks.push(webhook);
 		} else {
 			throw new Error('fields missing: second argument(webhook) is necessary');
-			return;
 		}
 
 		this.populateBody();
