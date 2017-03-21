@@ -2,6 +2,7 @@ $input-bg: darken($light-grey, 2%);
 .rbc.rbc-datasearch {
 	margin-top: 10px;
 	padding: 0;
+	z-index: 100;
 
 	.is-focused:not(.is-open)>.Select-control {
 		box-shadow: none;
