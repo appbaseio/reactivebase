@@ -686,6 +686,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					});
 					this.setState({ items: items });
 				}
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -823,7 +826,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		customQuery: _react2.default.PropTypes.func,
 		initialLoader: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number, _react2.default.PropTypes.array]),
-		react: _react2.default.PropTypes.object
+		react: _react2.default.PropTypes.object,
+		onValueChange: _react2.default.PropTypes.func
 	};
 
 	// Default props value
@@ -30895,6 +30899,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					key: this.props.componentId + "-sort",
 					value: this.sortObj
 				};
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, true, "sortChange");
 			}
 
@@ -31152,7 +31159,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		initialLoader: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.array]),
 		customQuery: _react2.default.PropTypes.func,
-		react: _react2.default.PropTypes.object
+		react: _react2.default.PropTypes.object,
+		onValueChange: _react2.default.PropTypes.func
 	};
 
 	// Default props value
@@ -33779,6 +33787,9 @@ return /******/ (function(modules) { // webpackBootstrap
 									}
 								};
 								setTimeout(function () {
+									if (_this2.props.onValueChange) {
+										_this2.props.onValueChange(obj.value);
+									}
 									helper.selectedSensor.set(obj, true);
 								}, 1000);
 							})();
@@ -33799,6 +33810,9 @@ return /******/ (function(modules) { // webpackBootstrap
 									}
 								};
 								setTimeout(function () {
+									if (_this2.props.onValueChange) {
+										_this2.props.onValueChange(obj.value);
+									}
 									helper.selectedSensor.set(obj, true);
 								}, 1000);
 							})();
@@ -33835,6 +33849,9 @@ return /******/ (function(modules) { // webpackBootstrap
 								key: _this2.props.componentId,
 								value: currentRange
 							};
+							if (_this2.props.onValueChange) {
+								_this2.props.onValueChange(_obj.value);
+							}
 							helper.selectedSensor.set(_obj, true);
 						}
 						_this2.setRangeValue();
@@ -33856,6 +33873,9 @@ return /******/ (function(modules) { // webpackBootstrap
 									to: nextProps.defaultSelected.end - _rem
 								}
 							};
+							if (_this2.props.onValueChange) {
+								_this2.props.onValueChange(_obj2.value);
+							}
 							helper.selectedSensor.set(_obj2, true);
 						}
 					}
@@ -33920,6 +33940,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					key: this.props.componentId + "-internal",
 					value: this.props.range
 				};
+				if (this.props.onValueChange) {
+					this.props.onValueChange(objValue.value);
+				}
 				helper.selectedSensor.set(objValue, true);
 			}
 		}, {
@@ -34088,6 +34111,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					key: this.props.componentId,
 					value: realValues
 				};
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, true);
 				this.setState({
 					currentValues: values,
@@ -34175,7 +34201,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		showHistogram: _react2.default.PropTypes.bool,
 		customQuery: _react2.default.PropTypes.func,
 		initialLoader: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
-		react: _react2.default.PropTypes.object
+		react: _react2.default.PropTypes.object,
+		onValueChange: _react2.default.PropTypes.func
 	};
 
 	RangeSlider.defaultProps = {
@@ -41660,6 +41687,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -41709,7 +41739,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.string,
 		placeholder: _react2.default.PropTypes.string,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func
 	};
 
 	// Default props value
@@ -42053,7 +42084,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					key: this.props.componentId,
 					value: inputVal
 				};
-
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
 				helper.selectedSensor.set(obj, isExecuteQuery);
@@ -42119,6 +42152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		autocomplete: _react2.default.PropTypes.bool,
 		defaultSelected: _react2.default.PropTypes.string,
 		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func,
 		react: _react2.default.PropTypes.object
 	};
 
@@ -42284,6 +42318,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 		}, {
@@ -42365,7 +42402,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		data: _react2.default.PropTypes.any.isRequired,
 		defaultSelected: _react2.default.PropTypes.string,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func
 	};
 
 	// Default props value
@@ -42577,6 +42615,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 		}, {
@@ -42725,7 +42766,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		data: _react2.default.PropTypes.any.isRequired,
 		defaultSelected: _react2.default.PropTypes.array,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func
 	};
 
 	// Default props value
@@ -42889,6 +42931,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -42950,7 +42995,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		placeholder: _react2.default.PropTypes.string,
 		data: _react2.default.PropTypes.any.isRequired,
 		defaultSelected: _react2.default.PropTypes.string,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func
 	};
 
 	// Default props value
@@ -43140,6 +43186,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -43263,6 +43312,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var helper = __webpack_require__(13);
 
+	var _ = __webpack_require__(23);
+
 	var ToggleButton = function (_Component) {
 		_inherits(ToggleButton, _Component);
 
@@ -43291,6 +43342,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				this.setQueryInfo();
 				if (this.defaultSelected) {
+					this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
 					var records = this.props.data.filter(function (record) {
 						return _this2.defaultSelected.indexOf(record.label) > -1;
 					});
@@ -43308,6 +43360,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				if (this.defaultSelected != this.props.defaultSelected) {
 					this.defaultSelected = this.props.defaultSelected;
+					this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
 					var records = this.props.data.filter(function (record) {
 						return _this3.defaultSelected.indexOf(record.label) > -1;
 					});
@@ -43395,6 +43448,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 		}, {
@@ -43471,9 +43527,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		appbaseField: _react2.default.PropTypes.string.isRequired,
 		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		data: _react2.default.PropTypes.any.isRequired,
-		defaultSelected: _react2.default.PropTypes.array,
+		defaultSelected: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.array, _react2.default.PropTypes.string]),
 		multiSelect: _react2.default.PropTypes.bool,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func
 	};
 
 	// Default props value
@@ -43630,6 +43687,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -43723,7 +43783,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		numberOfMonths: _react2.default.PropTypes.number,
 		allowAllDates: _react2.default.PropTypes.bool,
 		extra: _react2.default.PropTypes.any,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func
 	};
 
 	// Default props value
@@ -59323,8 +59384,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function createMomentChecker(type, typeValidator, validator, momentType) {
 
-	  function propValidator(isRequired, props, propName, componentName, location, propFullName) {
-
+	  function propValidator(
+	    isRequired, // Bound parameter to indicate with the propType is required
+	    predicate, // Bound parameter to allow user to add dynamic validation
+	    props,
+	    propName,
+	    componentName,
+	    location,
+	    propFullName
+	  ) {
 	    if (isRequired) {
 	      var locationName = ReactPropTypeLocationNames[ location ];
 	      componentName = componentName || ANONYMOUS;
@@ -59359,12 +59427,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	      );
 	    }
 
+	    if (predicate && ! predicate(propValue)) {
+	      var predicateName = predicate.name || ANONYMOUS;
+	      return new Error(
+	        'Invalid ' + location + ' `' + propName + '` of type `' + propType + '` ' +
+	        'supplied to `' + componentName + '`. Failed to succeed with predicate `' +
+	        predicateName + '`.'
+	      );
+	    }
+
 	    return null;
 
 	  }
 
-	  var requiredPropValidator = propValidator.bind(null, false);
-	  requiredPropValidator.isRequired = propValidator.bind(null, true);
+	  var requiredPropValidator = propValidator.bind(null, false, null);
+	  requiredPropValidator.isRequired = propValidator.bind(null, true, null);
+	  requiredPropValidator.withPredicate = function predicateApplication(predicate) {
+	    if (typeof predicate !== 'function') {
+	      throw new Error('`predicate` must be a function');
+	    }
+	    var basePropValidator = propValidator.bind(null, false, predicate);
+	    basePropValidator.isRequired = propValidator.bind(null, true, predicate);
+	    return basePropValidator;
+	  };
 
 	  return requiredPropValidator;
 
@@ -66425,6 +66510,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -66506,7 +66594,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		numberOfMonths: _react2.default.PropTypes.number,
 		allowAllDates: _react2.default.PropTypes.bool,
 		extra: _react2.default.PropTypes.any,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func
 	};
 
 	// Default props value
@@ -66934,6 +67023,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					key: this.props.componentId,
 					value: value
 				};
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -67125,7 +67217,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		customQuery: _react2.default.PropTypes.func,
 		placeholder: _react2.default.PropTypes.string,
 		initialLoader: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
-		react: _react2.default.PropTypes.object
+		react: _react2.default.PropTypes.object,
+		onValueChange: _react2.default.PropTypes.func
 	};
 
 	// Default props value
@@ -67354,6 +67447,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					key: componentId,
 					value: inputVal
 				};
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, true);
 			}
 		}, {
@@ -67406,7 +67502,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		}),
 		defaultSelected: helper.valueValidation,
 		labelPosition: _react2.default.PropTypes.oneOf(["top", "bottom", "left", "right"]),
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func
 	};
 
 	// context type
@@ -67666,7 +67763,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 					if (res.appliedQuery) {
 						if (res.mode === "historic" && res.startTime > _this3.queryStartTime) {
-							var visibleNoResults = res.appliedQuery && res.data && !res.data.error ? !(res.data.hits && res.data.hits.total) : false;
+							var visibleNoResults = res.appliedQuery && Object.keys(res.appliedQuery).length && res.data && !res.data.error ? !(res.data.hits && res.data.hits.total) : false;
 							var resultStats = {
 								resultFound: !!(res.appliedQuery && res.data && !res.data.error && res.data.hits && res.data.hits.total)
 							};
@@ -68055,7 +68152,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc-reactivelist-container" },
+					{ ref: function ref(div) {
+							_this8.resultListContainer = div;
+						}, className: "rbc-reactivelist-container" },
 					_react2.default.createElement(
 						"div",
 						{ ref: function ref(div) {
@@ -68076,7 +68175,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					),
 					this.props.noResults && this.state.visibleNoResults ? _react2.default.createElement(_NoResults2.default, { defaultText: this.props.noResults }) : null,
 					this.props.initialLoader && this.state.queryStart && this.state.showInitialLoader ? _react2.default.createElement(_InitialLoader2.default, { defaultText: this.props.initialLoader }) : null,
-					_react2.default.createElement(_PoweredBy2.default, null)
+					_react2.default.createElement(_PoweredBy2.default, { container: this.resultListContainer })
 				);
 			}
 		}]);
@@ -68239,13 +68338,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function Poweredby() {
-		return _react2.default.createElement(
+	var $ = __webpack_require__(15);
+
+	function Poweredby(props) {
+		var showMarkup = true;
+		var markup = _react2.default.createElement(
 			"a",
 			{ href: "https://appbase.io/", target: "_blank", rel: "noopener noreferrer", className: "rbc rbc-poweredby" },
 			_react2.default.createElement("img", { className: "rbc-img-responsive rbc-poweredby-dark", src: "https://cdn.rawgit.com/appbaseio/cdn/master/appbase/logos/rbc-dark-logo.svg", alt: "Appbase dark" }),
 			_react2.default.createElement("img", { className: "rbc-img-responsive rbc-poweredby-light", src: "https://cdn.rawgit.com/appbaseio/cdn/master/appbase/logos/rbc-logo.svg", alt: "Poweredby appbase" })
 		);
+		if (props.container) {
+			showMarkup = $(props.container).height() < 300 ? false : true;
+		}
+		return showMarkup ? markup : null;
 	}
 
 /***/ },
@@ -68302,7 +68408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	NoResults.propTypes = {
-		defaultText: _react2.default.PropTypes.string
+		defaultText: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element])
 	};
 
 	// Default props value
@@ -68754,6 +68860,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "render",
 			value: function render() {
+				var _this6 = this;
+
 				var title = null,
 				    placeholder = null;
 				var cx = (0, _classnames2.default)({
@@ -68788,7 +68896,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc-reactiveelement-container" },
+					{ ref: function ref(div) {
+							_this6.resultListContainer = div;
+						}, className: "rbc-reactiveelement-container" },
 					_react2.default.createElement(
 						"div",
 						{ className: "rbc rbc-reactiveelement card thumbnail " + cx, style: this.props.componentStyle },
@@ -68799,7 +68909,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					),
 					this.props.noResults && this.state.visibleNoResults ? _react2.default.createElement(_NoResults2.default, { defaultText: this.props.noResults.text }) : null,
 					this.props.initialLoader && this.state.queryStart ? _react2.default.createElement(_InitialLoader2.default, { defaultText: this.props.initialLoader.text }) : null,
-					_react2.default.createElement(_PoweredBy2.default, null)
+					_react2.default.createElement(_PoweredBy2.default, { container: this.resultListContainer })
 				);
 			}
 		}]);
@@ -69165,7 +69275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function listenGlobal() {
 				this.globalListener = _ChannelManager2.default.emitter.addListener('global', function (res) {
 					if (res.react && Object.keys(res.react).indexOf(this.props.componentId) > -1) {
-						var totalHits = res.channelResponse.data.hits.total;
+						var totalHits = res.channelResponse && res.channelResponse.data && res.channelResponse.data.hits ? res.channelResponse.data.hits.total : 0;
 						var maxPageNumber = Math.ceil(totalHits / res.queryOptions.size) < 1 ? 1 : Math.ceil(totalHits / res.queryOptions.size);
 						var size = res.queryOptions.size ? res.queryOptions.size : 20;
 						var currentPage = Math.round(res.queryOptions.from / size) + 1;
@@ -69469,6 +69579,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					key: this.props.componentId,
 					value: value
 				};
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
 				helper.selectedSensor.set(obj, isExecuteQuery);
@@ -69529,6 +69642,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		showUI: _react2.default.PropTypes.bool,
 		dataLabel: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func,
 		componentStyle: _react2.default.PropTypes.object,
 		defaultSelected: _react2.default.PropTypes.any
 	};
