@@ -166,7 +166,7 @@ export default class ReactiveList extends Component {
 			}
 			if (res.appliedQuery) {
 				if (res.mode === "historic" && res.startTime > this.queryStartTime) {
-					const visibleNoResults = res.appliedQuery && res.data && !res.data.error ? (!(res.data.hits && res.data.hits.total)) : false;
+					const visibleNoResults = res.appliedQuery && Object.keys(res.appliedQuery).length && res.data && !res.data.error ? (!(res.data.hits && res.data.hits.total)) : false;
 					const resultStats = {
 						resultFound: !!(res.appliedQuery && res.data && !res.data.error && res.data.hits && res.data.hits.total)
 					};
