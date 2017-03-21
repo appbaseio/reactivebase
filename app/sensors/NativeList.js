@@ -266,6 +266,9 @@ export default class NativeList extends Component {
 			});
 			this.setState({ items });
 		}
+		if(this.props.onValueChange) {
+			this.props.onValueChange(obj.value);
+		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -396,7 +399,8 @@ NativeList.propTypes = {
 		React.PropTypes.number,
 		React.PropTypes.array
 	]),
-	react: React.PropTypes.object
+	react: React.PropTypes.object,
+	onValueChange: React.PropTypes.func
 };
 
 // Default props value

@@ -228,7 +228,9 @@ export default class DataSearch extends Component {
 			key: this.props.componentId,
 			value: inputVal
 		};
-
+		if(this.props.onValueChange) {
+			this.props.onValueChange(obj.value);
+		}
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
@@ -292,6 +294,7 @@ DataSearch.propTypes = {
 	autocomplete: React.PropTypes.bool,
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
+	onValueChange: React.PropTypes.func,
 	react: React.PropTypes.object
 };
 

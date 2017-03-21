@@ -113,6 +113,9 @@ export default class NumberBox extends Component {
 			key: componentId,
 			value: inputVal
 		};
+		if(this.props.onValueChange) {
+			this.props.onValueChange(obj.value);
+		}
 		helper.selectedSensor.set(obj, true);
 	}
 
@@ -155,7 +158,8 @@ NumberBox.propTypes = {
 	}),
 	defaultSelected: helper.valueValidation,
 	labelPosition: React.PropTypes.oneOf(["top", "bottom", "left", "right"]),
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	onValueChange: React.PropTypes.func
 };
 
 // context type

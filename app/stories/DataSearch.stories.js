@@ -94,6 +94,8 @@ export default class DataSearchDefault extends Component {
 							react={{
 								"and": "VenueSensor"
 							}}
+							initialLoader="Loading results.."
+							noResults="No results found!"
 						/>
 					</div>
 				</div>

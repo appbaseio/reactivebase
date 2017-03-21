@@ -70,6 +70,9 @@ export default class TextField extends Component {
 
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
+		if(this.props.onValueChange) {
+			this.props.onValueChange(obj.value);
+		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -107,7 +110,8 @@ TextField.propTypes = {
 	]),
 	defaultSelected: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	onValueChange: React.PropTypes.func
 };
 
 // Default props value

@@ -49,6 +49,9 @@ export default class DataController extends Component {
 			key: this.props.componentId,
 			value: value
 		};
+		if(this.props.onValueChange) {
+			this.props.onValueChange(obj.value);
+		}
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
 		helper.selectedSensor.set(obj, isExecuteQuery);
@@ -101,6 +104,7 @@ DataController.propTypes = {
 		React.PropTypes.element
 	]),
 	customQuery: React.PropTypes.func,
+	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	defaultSelected: React.PropTypes.any
 };
