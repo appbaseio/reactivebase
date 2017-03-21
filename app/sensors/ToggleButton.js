@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classNames from "classnames";
 const helper = require("../middleware/helper.js");
 import * as TYPES from "../middleware/constants.js";
+const _ = require("lodash");
 
 export default class ToggleButton extends Component {
 	constructor(props, context) {
@@ -19,6 +20,7 @@ export default class ToggleButton extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		if (this.defaultSelected) {
+			this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
 			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 			if (records && records.length) {
 				records.forEach((singleRecord) => {
@@ -31,6 +33,7 @@ export default class ToggleButton extends Component {
 	componentWillUpdate() {
 		if (this.defaultSelected != this.props.defaultSelected) {
 			this.defaultSelected = this.props.defaultSelected;
+			this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
 			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 			if (records && records.length) {
 				records.forEach((singleRecord) => {
@@ -108,6 +111,9 @@ export default class ToggleButton extends Component {
 		};
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
+		if(this.props.onValueChange) {
+			this.props.onValueChange(obj.value);
+		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -161,9 +167,13 @@ ToggleButton.propTypes = {
 		React.PropTypes.element
 	]),
 	data: React.PropTypes.any.isRequired,
-	defaultSelected: React.PropTypes.array,
+	defaultSelected: React.PropTypes.oneOfType([
+		React.PropTypes.array,
+		React.PropTypes.string
+	]),
 	multiSelect: React.PropTypes.bool,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	onValueChange: React.PropTypes.func
 };
 
 // Default props value

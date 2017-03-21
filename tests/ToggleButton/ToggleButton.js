@@ -10,8 +10,8 @@ function testComponent(cb) {
 	const component = renderer.create(
 		<ReactiveBase
 				app={config.ReactiveBase.app}
-				username={config.ReactiveBase.username}
-				password={config.ReactiveBase.password}
+				credentials={`${config.ReactiveBase.username}:${config.ReactiveBase.password}`}
+
 				type={config.ReactiveBase.type}
 			>
 			<div className="row">

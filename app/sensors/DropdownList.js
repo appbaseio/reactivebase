@@ -145,6 +145,9 @@ export default class DropdownList extends Component {
 			key: `${this.props.componentId}-sort`,
 			value: this.sortObj
 		};
+		if(this.props.onValueChange) {
+			this.props.onValueChange(obj.value);
+		}
 		helper.selectedSensor.set(obj, true, "sortChange");
 	}
 
@@ -362,7 +365,8 @@ DropdownList.propTypes = {
 		React.PropTypes.array
 	]),
 	customQuery: React.PropTypes.func,
-	react: React.PropTypes.object
+	react: React.PropTypes.object,
+	onValueChange: React.PropTypes.func
 };
 
 // Default props value

@@ -117,6 +117,9 @@ export default class DateRange extends Component {
 		};
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
+		if(this.props.onValueChange) {
+			this.props.onValueChange(obj.value);
+		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -178,7 +181,8 @@ DateRange.propTypes = {
 	numberOfMonths: React.PropTypes.number,
 	allowAllDates: React.PropTypes.bool,
 	extra: React.PropTypes.any,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	onValueChange: React.PropTypes.func
 };
 
 // Default props value

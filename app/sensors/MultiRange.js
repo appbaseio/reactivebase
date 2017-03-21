@@ -126,6 +126,9 @@ export default class MultiRange extends Component {
 
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
+		if(this.props.onValueChange) {
+			this.props.onValueChange(obj.value);
+		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -233,7 +236,8 @@ MultiRange.propTypes = {
 	]),
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
-	customQuery: React.PropTypes.func
+	customQuery: React.PropTypes.func,
+	onValueChange: React.PropTypes.func
 };
 
 // Default props value

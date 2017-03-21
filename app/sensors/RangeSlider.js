@@ -68,6 +68,9 @@ export default class RangeSlider extends Component {
 						}
 					};
 					setTimeout(() => {
+						if(this.props.onValueChange) {
+							this.props.onValueChange(obj.value);
+						}
 						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				} else {
@@ -86,6 +89,9 @@ export default class RangeSlider extends Component {
 						}
 					};
 					setTimeout(() => {
+						if(this.props.onValueChange) {
+							this.props.onValueChange(obj.value);
+						}
 						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				}
@@ -123,6 +129,9 @@ export default class RangeSlider extends Component {
 						key: this.props.componentId,
 						value: currentRange
 					};
+					if(this.props.onValueChange) {
+						this.props.onValueChange(obj.value);
+					}
 					helper.selectedSensor.set(obj, true);
 				}
 				this.setRangeValue();
@@ -144,6 +153,9 @@ export default class RangeSlider extends Component {
 							to: nextProps.defaultSelected.end - rem
 						}
 					};
+					if(this.props.onValueChange) {
+						this.props.onValueChange(obj.value);
+					}
 					helper.selectedSensor.set(obj, true);
 				}
 			}
@@ -201,6 +213,9 @@ export default class RangeSlider extends Component {
 			key: `${this.props.componentId}-internal`,
 			value: this.props.range
 		};
+		if(this.props.onValueChange) {
+			this.props.onValueChange(objValue.value);
+		}
 		helper.selectedSensor.set(objValue, true);
 	}
 
@@ -348,6 +363,9 @@ export default class RangeSlider extends Component {
 			key: this.props.componentId,
 			value: realValues
 		};
+		if(this.props.onValueChange) {
+			this.props.onValueChange(obj.value);
+		}
 		helper.selectedSensor.set(obj, true);
 		this.setState({
 			currentValues: values,
@@ -429,7 +447,8 @@ RangeSlider.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
-	react: React.PropTypes.object
+	react: React.PropTypes.object,
+	onValueChange: React.PropTypes.func
 };
 
 RangeSlider.defaultProps = {
