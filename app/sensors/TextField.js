@@ -47,7 +47,7 @@ export default class TextField extends Component {
 	// build query for this sensor only
 	customQuery(value) {
 		return {
-			term: {
+			[this.type]: {
 				[this.props.appbaseField]: value
 			}
 		};
