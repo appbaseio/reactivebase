@@ -29,7 +29,6 @@ import DataControllerReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/com
 
 import ReactiveElementReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ReactiveElement.md";
 import ReactiveListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ReactiveList.md";
-import ReactivePaginatedListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ReactivePaginatedList.md";
 
 // importing individual component stories
 import SingleListDefault from "./SingleList.stories";
@@ -57,7 +56,6 @@ import PoweredByDefault from "./PoweredBy.stories";
 
 import ReactiveElement from "./ReactiveElement";
 import ReactiveListDefault from "./ReactiveList.stories";
-import ReactivePaginatedListDefault from "./ReactivePaginatedList.stories";
 
 const moment = require("moment");
 
@@ -608,53 +606,5 @@ storiesOf("ReactiveList", module)
 			pagination={boolean("requestOnScroll", true)}
 			paginationAt={select("paginationAt", { bottom: "bottom", top: "top", both: "both" }, "bottom")}
 			stream={boolean("stream", false)}
-		/>
-	)));
-
-storiesOf("ReactivePaginatedList", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
-		<ReactivePaginatedListDefault
-			onData={null}
-		/>
-	)))
-	.add("With Custom Markup", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
-		<ReactivePaginatedListDefault />
-	)))
-	.add("With Sort Options", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
-		<ReactivePaginatedListDefault
-			sortOptions={[
-				{
-					label: "Most Recent RSVP",
-					appbaseField: "mtime",
-					sortBy: "desc"
-				},
-				{
-					label: "Guests - High to Low",
-					appbaseField: "guests",
-					sortBy: "desc"
-				},
-				{
-					label: "Guests - Low to High",
-					appbaseField: "guests",
-					sortBy: "asc"
-				}
-			]}
-		/>
-	)))
-	.add("With Loader", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
-		<ReactivePaginatedListDefault
-			title="Meetups"
-			stream={false}
-			initialLoader="Loading results.."
-		/>
-	)))
-	.add("Playground", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
-		<ReactivePaginatedListDefault
-			title={text("title", "ReactivePaginatedList: Playground")}
-			from={number("from", 0)}
-			size={number("size", 5)}
-			sortBy={select("sortBy", { asc: "asc", desc: "desc", default: "default" }, "default")}
-			paginationAt={select("paginationAt", { bottom: "bottom", top: "top", both: "both" }, "bottom")}
 		/>
 	)));

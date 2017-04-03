@@ -17,7 +17,6 @@ import NestedList from "./sensors/NestedList";
 import NumberBox from "./sensors/NumberBox";
 import ReactiveList from "./actuators/ReactiveList";
 import ReactiveElement from "./actuators/ReactiveElement";
-import ReactivePaginatedList from "./actuators/ReactivePaginatedList";
 import PoweredBy from "./sensors/PoweredBy";
 import DataController from "./sensors/DataController";
 
@@ -53,7 +52,6 @@ module.exports = {
 	ReactiveBase,
 	ReactiveList,
 	ReactiveElement,
-	ReactivePaginatedList,
 	AppbaseChannelManager: manager,
 	AppbaseSensorHelper: helper,
 	PoweredBy,
