@@ -16,7 +16,10 @@ export default class InitialLoader extends Component {
 }
 
 InitialLoader.propTypes = {
-	defaultText: React.PropTypes.string,
+	defaultText: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	])
 };
 
 // Default props value

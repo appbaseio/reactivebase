@@ -9,8 +9,9 @@ export const ResponsiveStory = function () {
 
 	const handleResponsive = () => {
 		var height = $(window).height();
+		const resultHeight = height - 15;
 		$(".rbc.rbc-reactivelist, .rbc.rbc-reactiveelement").css({
-			maxHeight: height - 15 - paginationHeight()
+			maxHeight: resultHeight
 		});
 		const $component = [$(".rbc.rbc-singlelist"), $(".rbc.rbc-multilist"), $(".rbc.rbc-nestedlist"), $(".rbc.rbc-tagcloud")];
 		$component.forEach((item) => {

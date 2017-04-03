@@ -91,7 +91,6 @@ export default class SingleListDefault extends Component {
 							from={0}
 							size={20}
 							onData={this.onData}
-							requestOnScroll={true}
 							react={{
 								'and': ["CitySensor"]
 							}}

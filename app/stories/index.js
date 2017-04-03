@@ -546,21 +546,29 @@ storiesOf("ReactiveElement", module)
 storiesOf("ReactiveList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault onData={null} requestOnScroll stream={false} />
+		<ReactiveListDefault onData={null} stream={false} />
 	)))
 	.add("With Custom Markup", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault requestOnScroll stream={false} />
+		<ReactiveListDefault stream={false} />
 	)))
 	.add("Without Title", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault title="" requestOnScroll stream={false} />
+		<ReactiveListDefault title="" stream={false} />
 	)))
 	.add("With Streaming Enabled", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault title="Meetups" stream />
 	)))
+	.add("With pagination", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+		<ReactiveListDefault pagination title="Meetups" stream />
+	)))
+	.add("With pagination at top", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+		<ReactiveListDefault pagination paginationAt="top" title="Meetups" stream />
+	)))
+	.add("With pagination at both", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+		<ReactiveListDefault pagination paginationAt="both" title="Meetups" stream />
+	)))
 	.add("With Sort Options", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault
 			title="Meetups"
-			requestOnScroll
 			stream={false}
 			sortOptions={[
 				{
@@ -597,7 +605,8 @@ storiesOf("ReactiveList", module)
 			initialLoader={text("initialLoader", "Loading results..")}
 			noResults={text("noResults", "No results found!")}
 			showResultStats={boolean("showResultStats", true)}
-			requestOnScroll={boolean("requestOnScroll", true)}
+			pagination={boolean("requestOnScroll", true)}
+			paginationAt={select("paginationAt", { bottom: "bottom", top: "top", both: "both" }, "bottom")}
 			stream={boolean("stream", false)}
 		/>
 	)));
