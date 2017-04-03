@@ -4,6 +4,7 @@ import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
 import * as TYPES from "../middleware/constants";
 
+const _ = require("lodash");
 const helper = require("../middleware/helper");
 
 export default class DataSearch extends Component {
@@ -105,21 +106,40 @@ export default class DataSearch extends Component {
 		}
 	}
 
+	getValue(field, hit) {
+		let val;
+		if(_.has(hit, field)) {
+			val = hit[field];
+		} else if(field.indexOf(".") > -1) {
+			let prefix = "";
+			const fieldSplit = field.split(".");
+			fieldSplit.forEach((item, index) => {
+				prefix += item;
+				if(_.isArray(_.get(hit, prefix))) {
+					prefix += "[0]";
+				}
+				if(fieldSplit.length-1 !== index) {
+					prefix += ".";
+				} else {
+					val = _.get(hit, prefix);
+				}
+			});
+		}
+		return val;
+	}
+
 	// set data after get the result
 	setData(data) {
 		let options = [];
-		let searchField = null;
-		if (this.fieldType === "string") {
-			searchField = `hit._source.${this.props.appbaseField}.trim()`;
-		}
 		data.hits.hits.map((hit) => {
-			if (searchField) {
-				options.push({ value: eval(searchField), label: eval(searchField) });
+			if (this.fieldType === "string") {
+				const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
+				options.push({ value: tempField, label: tempField });
 			} else if (this.fieldType === "object") {
 				this.props.appbaseField.map((field) => {
-					const tempField = `hit._source.${field}`;
-					if (eval(tempField)) {
-						options.push({ value: eval(tempField), label: eval(tempField) });
+					const tempField = this.getValue(field, hit._source);
+					if (tempField) {
+						options.push({ value: tempField, label: tempField });
 					}
 				});
 			}
