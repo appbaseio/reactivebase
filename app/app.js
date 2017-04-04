@@ -13,7 +13,6 @@ import MultiDropdownRange from "./sensors/MultiDropdownRange";
 import ToggleButton from "./sensors/ToggleButton";
 import DatePicker from "./sensors/DatePicker";
 import DateRange from "./sensors/DateRange";
-import NestedList from "./sensors/NestedList";
 import NumberBox from "./sensors/NumberBox";
 import ReactiveList from "./actuators/ReactiveList";
 import ReactiveElement from "./actuators/ReactiveElement";
@@ -47,7 +46,6 @@ module.exports = {
 	ToggleButton,
 	DatePicker,
 	DateRange,
-	NestedList,
 	NumberBox,
 	ReactiveBase,
 	ReactiveList,

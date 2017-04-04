@@ -10,7 +10,6 @@ import SingleListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/compone
 import MultiListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiList.md";
 import SingleDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/SingleDropdownList.md";
 import MultiDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiDropdownList.md";
-import NestedListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/NestedList.md";
 
 import SingleRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/SingleRange.md";
 import MultiRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiRange.md";
@@ -35,7 +34,6 @@ import SingleListDefault from "./SingleList.stories";
 import MultiListDefault from "./MultiList.stories";
 import SingleDropdownListDefault from "./SingleDropdownList.stories";
 import MultiDropdownListDefault from "./MultiDropdownList.stories";
-import NestedListDefault from "./NestedList.stories";
 
 import SingleRangeDefault from "./SingleRange.stories";
 import MultiRangeDefault from "./MultiRange.stories";
@@ -191,33 +189,6 @@ storiesOf("MultiDropdownList", module)
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
 			placeholder={text("placeholder", "Select Cities")}
-		/>
-	)));
-
-storiesOf("NestedList", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(NestedListReadme), () => (
-		<NestedListDefault />
-	)))
-	.add("With Title", withReadme(removeFirstLine(NestedListReadme), () => (
-		<NestedListDefault
-			title={text("title", "Car Category")}
-		/>
-	)))
-	.add("Default selection", withReadme(removeFirstLine(NestedListReadme), () => (
-		<NestedListDefault
-			defaultSelected={["bmw", "x series"]}
-		/>
-	)))
-	.add("Playground", withReadme(removeFirstLine(NestedListReadme), () => (
-		<NestedListDefault
-			title={text("title", "NestedList: Car Filter")}
-			size={number("size", 100)}
-			sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "count")}
-			defaultSelected={array("defaultSelected", ["bmw", "x series"])}
-			showCount={boolean("showCount", true)}
-			showSearch={boolean("showSearch", true)}
-			placeholder={text("placeholder", "Search Cars")}
 		/>
 	)));
 
