@@ -215,7 +215,7 @@ export default class MultiRange extends Component {
 
 function Tag(props) {
 	return (
-		<span onClick={() => props.onClick(props.value)} className="rbc-tag-item col">
+		<span onClick={() => props.onClick(props.value)} className="rbc-tag-item col" style={this.props.componentStyle}>
 			<a className="close">×</a>
 			<span>{props.value}</span>
 		</span>
@@ -237,7 +237,8 @@ MultiRange.propTypes = {
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
-	onValueChange: React.PropTypes.func
+	onValueChange: React.PropTypes.func,
+	componentStyle: React.PropTypes.object
 };
 
 // Default props value
@@ -256,5 +257,6 @@ MultiRange.types = {
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
-	customQuery: TYPES.FUNCTION
+	customQuery: TYPES.FUNCTION,
+	componentStyle: TYPES.OBJECT
 };

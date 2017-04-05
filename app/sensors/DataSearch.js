@@ -271,7 +271,7 @@ export default class DataSearch extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-datasearch col s12 col-xs-12 card thumbnail ${cx}`}>
+			<div className={`rbc rbc-datasearch col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{title}
 				{
 					this.props.autocomplete ?
@@ -315,13 +315,15 @@ DataSearch.propTypes = {
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	react: React.PropTypes.object
+	react: React.PropTypes.object,
+	componentStyle: React.PropTypes.object
 };
 
 // Default props value
 DataSearch.defaultProps = {
 	placeholder: "Search",
-	autocomplete: true
+	autocomplete: true,
+	componentStyle: {}
 };
 
 // context type
@@ -339,5 +341,6 @@ DataSearch.types = {
 	placeholder: TYPES.STRING,
 	autocomplete: TYPES.BOOLEAN,
 	defaultSelected: TYPES.STRING,
-	customQuery: TYPES.FUNCTION
+	customQuery: TYPES.FUNCTION,
+	componentStyle: TYPES.OBJECT
 };

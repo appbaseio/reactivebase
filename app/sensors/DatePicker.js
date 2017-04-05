@@ -113,7 +113,7 @@ export default class DatePicker extends Component {
 			"rbc-title-inactive": !this.props.title
 		});
 		return (
-			<div className={`rbc rbc-datepicker col s12 col-xs-12 card thumbnail ${cx}`}>
+			<div className={`rbc rbc-datepicker col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{title}
 				<div className="col s12 col-xs-12">
 					<SingleDatePicker
@@ -147,7 +147,8 @@ DatePicker.propTypes = {
 	allowAllDates: React.PropTypes.bool,
 	extra: React.PropTypes.any,
 	customQuery: React.PropTypes.func,
-	onValueChange: React.PropTypes.func
+	onValueChange: React.PropTypes.func,
+	componentStyle: React.PropTypes.object
 };
 
 // Default props value
@@ -156,7 +157,8 @@ DatePicker.defaultProps = {
 	numberOfMonths: 1,
 	focused: true,
 	allowAllDates: true,
-	defaultSelected: null
+	defaultSelected: null,
+	componentStyle: {}
 };
 
 // context type
@@ -176,5 +178,6 @@ DatePicker.types = {
 	numberOfMonths: TYPES.NUMBER,
 	allowAllDates: TYPES.BOOLEAN,
 	extra: TYPES.OBJECT,
-	customQuery: TYPES.FUNCTION
+	customQuery: TYPES.FUNCTION,
+	componentStyle: TYPES.OBJECT
 };

@@ -319,7 +319,7 @@ export default class DropdownList extends Component {
 		});
 
 		return (
-			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`}>
+			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">
@@ -366,7 +366,8 @@ DropdownList.propTypes = {
 	]),
 	customQuery: React.PropTypes.func,
 	react: React.PropTypes.object,
-	onValueChange: React.PropTypes.func
+	onValueChange: React.PropTypes.func,
+	componentStyle: React.PropTypes.object
 };
 
 // Default props value

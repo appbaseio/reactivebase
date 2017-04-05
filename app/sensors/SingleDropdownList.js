@@ -12,7 +12,8 @@ export default function SingleDropdownList(props) {
 }
 
 SingleDropdownList.propTypes = {
-	defaultSelected: React.PropTypes.string
+	defaultSelected: React.PropTypes.string,
+	componentStyle: React.PropTypes.object
 };
 
 SingleDropdownList.types = {
@@ -28,5 +29,6 @@ SingleDropdownList.types = {
 	placeholder: TYPES.STRING,
 	selectAllLabel: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	initialLoader: TYPES.OBJECT
+	initialLoader: TYPES.OBJECT,
+	componentStyle: TYPES.OBJECT
 };
