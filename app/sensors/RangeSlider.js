@@ -401,7 +401,7 @@ export default class RangeSlider extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-rangeslider card thumbnail col s12 col-xs-12 ${cx}`}>
+			<div className={`rbc rbc-rangeslider card thumbnail col s12 col-xs-12 ${cx}`} style={this.props.componentStyle}>
 				{title}
 				{histogram}
 				<div className="rbc-rangeslider-container col s12 col-xs-12">
@@ -448,7 +448,8 @@ RangeSlider.propTypes = {
 		React.PropTypes.element
 	]),
 	react: React.PropTypes.object,
-	onValueChange: React.PropTypes.func
+	onValueChange: React.PropTypes.func,
+	componentStyle: React.PropTypes.object
 };
 
 RangeSlider.defaultProps = {
@@ -466,7 +467,8 @@ RangeSlider.defaultProps = {
 		end: 10
 	},
 	stepValue: 1,
-	showHistogram: true
+	showHistogram: true,
+	componentStyle: {}
 };
 
 // context type
@@ -487,5 +489,6 @@ RangeSlider.types = {
 	stepValue: TYPES.NUMBER,
 	showHistogram: TYPES.BOOLEAN,
 	customQuery: TYPES.FUNCTION,
-	initialLoader: TYPES.OBJECT
+	initialLoader: TYPES.OBJECT,
+	componentStyle: TYPES.OBJECT
 };

@@ -73,7 +73,7 @@ export default class DateRangeDefault extends Component {
 		return (
 			<ReactiveBase
 				app="reactivemap-demo"
-				credentials="SL8fiQ1fg:71ea4254-49ba-4685-8276-e44da225c141"
+				credentials="IvfKUzoER:8330c43a-e453-4d43-9a66-a4986b3714c6"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">

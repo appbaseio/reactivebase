@@ -147,7 +147,7 @@ export default class Pagination extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-pagination col s12 col-xs-12 card thumbnail ${cx} ${this.props.className}`}>
+			<div className={`rbc rbc-pagination col s12 col-xs-12 ${cx} ${this.props.className}`}>
 				{title}
 				<div className="col s12 col-xs-12">
 					{this.renderPageNumber()}

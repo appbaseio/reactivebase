@@ -7,6 +7,7 @@ import PoweredBy from "../sensors/PoweredBy";
 import InitialLoader from "../addons/InitialLoader";
 import NoResults from "../addons/NoResults";
 import ResultStats from "../addons/ResultStats";
+import Pagination from '../addons/Pagination';
 import * as TYPES from "../middleware/constants";
 
 const helper = require("../middleware/helper");
@@ -29,7 +30,8 @@ export default class ReactiveList extends Component {
 				took: 0
 			},
 			showPlaceholder: true,
-			showInitialLoader: false
+			showInitialLoader: false,
+			requestOnScroll: !this.props.pagination
 		};
 		if (this.props.sortOptions) {
 			const obj = this.props.sortOptions[0];
@@ -56,7 +58,6 @@ export default class ReactiveList extends Component {
 
 	componentDidMount() {
 		this.streamProp = this.props.stream;
-		this.requestOnScroll = this.props.requestOnScroll;
 		this.size = this.props.size;
 		this.initialize();
 	}
@@ -68,10 +69,6 @@ export default class ReactiveList extends Component {
 				this.removeChannel();
 				this.initialize(true);
 			}
-			if (this.requestOnScroll !== this.props.requestOnScroll) {
-				this.requestOnScroll = this.props.requestOnScroll;
-				this.listComponent();
-			}
 			if (this.size !== this.props.size) {
 				this.size = this.props.size;
 				this.setState({
@@ -80,7 +77,24 @@ export default class ReactiveList extends Component {
 				this.removeChannel();
 				this.initialize(true);
 			}
+			if (this.props.pagination && this.paginationAtVal !== this.props.paginationAt) {
+				this.paginationAtVal = this.props.paginationAt;
+				this.executePaginationUpdate();
+			}
 		}, 300);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.pagination !== this.pagination) {
+			this.pagination = nextProps.pagination;
+			this.setState({
+				requestOnScroll: !nextProps.pagination
+			}, () => {
+				this.removeChannel();
+				this.initialize(true);
+			});
+
+		}
 	}
 
 	// check the height and set scroll if scroll not exists
@@ -100,11 +114,13 @@ export default class ReactiveList extends Component {
 		const scrollElement = $(this.listChildElement);
 		const padding = 45;
 
-		function checkHeight() {
+		const getHeight = item => item.height() ? item.height() : 0;
+
+		const checkHeight = () => {
 			const flag = resultElement.get(0).scrollHeight - padding > resultElement.height();
 			const scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height();
-			if (!flag && !scrollFlag && scrollElement.length) {
-				const headerHeight = resultElement.find('.rbc-title').height();
+			if (!flag && !scrollFlag && scrollElement.length && !this.props.pagination) {
+				const headerHeight = getHeight(resultElement.find('.rbc-title')) + (getHeight(resultElement.find('.rbc-pagination')) * resultElement.find('.rbc-pagination').length);
 				const finalHeight = resultElement.height() - 60 - headerHeight;
 				if(finalHeight > 0) {
 					scrollElement.css("height", finalHeight);
@@ -114,7 +130,7 @@ export default class ReactiveList extends Component {
 
 		if (resultElement && resultElement.length && scrollElement && scrollElement.length) {
 			scrollElement.css("height", "auto");
-			setTimeout(checkHeight, 1000);
+			setTimeout(checkHeight.bind(this), 1000);
 		}
 	}
 
@@ -143,6 +159,10 @@ export default class ReactiveList extends Component {
 			react.and = [];
 		}
 		react.and.push("streamChanges");
+		if(this.props.pagination) {
+			react.and.push("paginationChanges");
+			react.pagination = null;
+		}
 		if (this.sortObj) {
 			this.enableSort(react);
 		}
@@ -214,7 +234,7 @@ export default class ReactiveList extends Component {
 	listenLoadingChannel(channelObj) {
 		this.loadListener = channelObj.emitter.addListener(`${channelObj.channelId}-query`, (res) => {
 			if (res.appliedQuery) {
-				const showInitialLoader = !(this.props.requestOnScroll && res.appliedQuery.body && res.appliedQuery.body.from);
+				const showInitialLoader = !(this.state.requestOnScroll && res.appliedQuery.body && res.appliedQuery.body.from);
 				this.setState({
 					queryStart: res.queryState,
 					showInitialLoader
@@ -280,7 +300,7 @@ export default class ReactiveList extends Component {
 	// normalize current data
 	normalizeCurrentData(res, rawData, newData) {
 		const appliedQuery = JSON.parse(JSON.stringify(res.appliedQuery));
-		if (this.props.requestOnScroll && appliedQuery && appliedQuery.body) {
+		if (this.state.requestOnScroll && appliedQuery && appliedQuery.body) {
 			delete appliedQuery.body.from;
 			delete appliedQuery.body.size;
 		}
@@ -366,9 +386,51 @@ export default class ReactiveList extends Component {
 
 	initialize(executeChannel = false) {
 		this.createChannel(executeChannel);
-		if (this.props.requestOnScroll) {
+		if (this.state.requestOnScroll) {
 			this.listComponent();
+		} else {
+			this.setQueryForPagination();
 		}
+	}
+
+	setQueryForPagination() {
+		const valObj = {
+			queryType: 'match',
+			inputData: this.props.appbaseField,
+			customQuery: () => null
+		};
+		const obj = {
+			key: 'paginationChanges',
+			value: valObj
+		};
+		helper.selectedSensor.setSensorInfo(obj);
+	}
+
+	executePaginationUpdate() {
+		setTimeout(() => {
+			const obj = {
+				key: "paginationChanges",
+				value: Math.random()
+			};
+			helper.selectedSensor.set(obj, true);
+		}, 100);
+	}
+
+	paginationAt(method) {
+		let pageinationComp;
+		if (this.props.pagination && (this.props.paginationAt === method || this.props.paginationAt === 'both')) {
+			pageinationComp = (
+				<div className="rbc-pagination-container col s12 col-xs-12">
+					<Pagination
+						className={`rbc-pagination-${method}`}
+						componentId="pagination"
+						onPageChange={this.props.onPageChange}
+						title={this.props.paginationTitle} 
+					/>
+				</div>
+			);
+		}
+		return pageinationComp;
 	}
 
 	defaultonData(res) {
@@ -423,7 +485,7 @@ export default class ReactiveList extends Component {
 		function setScroll(node) {
 			if (node) {
 				node.addEventListener("scroll", () => {
-					if (this.props.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight && this.state.resultStats.total > this.state.currentData.length && !this.state.queryStart) {
+					if (this.state.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight && this.state.resultStats.total > this.state.currentData.length && !this.state.queryStart) {
 						this.nextPage();
 					}
 				});
@@ -466,7 +528,9 @@ export default class ReactiveList extends Component {
 			"rbc-resultstats-active": this.props.showResultStats,
 			"rbc-resultstats-inactive": !this.props.showResultStats,
 			"rbc-noresults-active": this.props.noResults,
-			"rbc-noresults-inactive": !this.props.noResults
+			"rbc-noresults-inactive": !this.props.noResults,
+			"rbc-pagination-active": this.props.pagination,
+			"rbc-pagination-inactive": !this.props.pagination
 		});
 
 		if (this.props.title) {
@@ -494,6 +558,7 @@ export default class ReactiveList extends Component {
 					{title}
 					{sortOptions}
 					{this.props.showResultStats && this.state.resultStats.resultFound ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
+					{this.paginationAt('top')}
 					<div ref={(div) => { this.listChildElement = div; }} className="rbc-reactivelist-scroll-container col s12 col-xs-12">
 						{this.state.resultMarkup}
 					</div>
@@ -503,7 +568,8 @@ export default class ReactiveList extends Component {
 						null
 					}
 					{this.state.showPlaceholder ? placeholder : null}
-				</div >
+					{this.paginationAt('bottom')}
+				</div>
 				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults} />) : null}
 				{this.props.initialLoader && this.state.queryStart && this.state.showInitialLoader ? (<InitialLoader defaultText={this.props.initialLoader} />) : null}
 				<PoweredBy container={this.resultListContainer} />
@@ -530,7 +596,6 @@ ReactiveList.propTypes = {
 	from: helper.validation.resultListFrom,
 	onData: React.PropTypes.func,
 	size: helper.sizeValidation,
-	requestOnScroll: React.PropTypes.bool,
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
 	initialLoader: React.PropTypes.oneOfType([
@@ -547,16 +612,19 @@ ReactiveList.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
-	react: React.PropTypes.object
+	react: React.PropTypes.object,
+	paginationAt: React.PropTypes.string,
+	pagination: React.PropTypes.bool
 };
 
 ReactiveList.defaultProps = {
 	from: 0,
 	size: 20,
-	requestOnScroll: true,
 	stream: false,
 	componentStyle: {},
-	showResultStats: true
+	showResultStats: true,
+	pagination: false,
+	paginationAt: 'bottom'
 };
 
 // context type
@@ -575,12 +643,13 @@ ReactiveList.types = {
 	from: TYPES.NUMBER,
 	onData: TYPES.FUNCTION,
 	size: TYPES.NUMBER,
-	requestOnScroll: TYPES.BOOLEAN,
 	stream: TYPES.BOOLEAN,
 	componentStyle: TYPES.OBJECT,
 	initialLoader: TYPES.STRING,
 	noResults: TYPES.FUNC,
 	showResultStats: TYPES.BOOLEAN,
 	onResultStats: TYPES.FUNCTION,
-	placeholder: TYPES.STRING
+	placeholder: TYPES.STRING,
+	pagination: TYPES.BOOLEAN,
+	paginationAt: TYPES.STRING
 };

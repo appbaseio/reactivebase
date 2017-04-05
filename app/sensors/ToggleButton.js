@@ -147,7 +147,7 @@ export default class ToggleButton extends Component {
 			"rbc-multiselect-inactive": !this.props.multiSelect
 		});
 		return (
-			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.defaultStyle}>
+			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail ${cx}`}  style={this.props.componentStyle}>
 				<div className="row">
 					{title}
 					<div className="rbc-buttongroup col s12 col-xs-12">
@@ -173,12 +173,14 @@ ToggleButton.propTypes = {
 	]),
 	multiSelect: React.PropTypes.bool,
 	customQuery: React.PropTypes.func,
-	onValueChange: React.PropTypes.func
+	onValueChange: React.PropTypes.func,
+	componentStyle: React.PropTypes.object
 };
 
 // Default props value
 ToggleButton.defaultProps = {
-	multiSelect: true
+	multiSelect: true,
+	componentStyle: {}
 };
 
 // context type
@@ -195,5 +197,6 @@ ToggleButton.types = {
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
 	multiSelect: TYPES.BOOLEAN,
-	customQuery: TYPES.FUNCTION
+	customQuery: TYPES.FUNCTION,
+	componentStyle: TYPES.OBJECT
 };

@@ -35,7 +35,8 @@ SingleList.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
-	react: React.PropTypes.object
+	react: React.PropTypes.object,
+	componentStyle: React.PropTypes.object
 };
 
 // Default props value
@@ -45,7 +46,8 @@ SingleList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	placeholder: "Search"
+	placeholder: "Search",
+	componentStyle: {}
 };
 
 // context type
@@ -67,5 +69,6 @@ SingleList.types = {
 	showSearch: TYPES.BOOLEAN,
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	initialLoader: TYPES.OBJECT
+	initialLoader: TYPES.OBJECT,
+	componentStyle: TYPES.OBJECT
 };

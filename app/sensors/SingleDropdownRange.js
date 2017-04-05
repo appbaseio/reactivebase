@@ -100,7 +100,7 @@ export default class SingleDropdownRange extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-singledropdownrange col s12 col-xs-12 card thumbnail ${cx}`}>
+			<div className={`rbc rbc-singledropdownrange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">
@@ -130,11 +130,14 @@ SingleDropdownRange.propTypes = {
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
-	onValueChange: React.PropTypes.func
+	onValueChange: React.PropTypes.func,
+	componentStyle: React.PropTypes.object
 };
 
 // Default props value
-SingleDropdownRange.defaultProps = {};
+SingleDropdownRange.defaultProps = {
+	componentStyle: {}
+};
 
 // context type
 SingleDropdownRange.contextTypes = {
@@ -150,5 +153,6 @@ SingleDropdownRange.types = {
 	defaultSelected: TYPES.STRING,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
-	customQuery: TYPES.FUNCTION
+	customQuery: TYPES.FUNCTION,
+	componentStyle: TYPES.OBJECT
 };

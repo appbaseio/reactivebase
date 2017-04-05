@@ -71,14 +71,16 @@ export default class DataController extends Component {
 		const cx = classNames({
 			"rbc-title-active": this.props.title,
 			"rbc-title-inactive": !this.props.title,
-			"rbc-querylabel-active": this.props.dataLabel,
-			"rbc-querylabel-inactive": !this.props.dataLabel
+			"rbc-datalabel-active": this.props.dataLabel,
+			"rbc-datalabel-inactive": !this.props.dataLabel,
+			"rbc-visible-active": this.props.visible,
+			"rbc-visible-inactive": !this.props.visible
 		});
 
 		return (
 			<div className={`rbc rbc-datacontroller card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{
-				this.props.showUI ?
+				this.props.visible ?
 				(
 					<div>
 						{title}
@@ -98,7 +100,7 @@ DataController.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
-	showUI: React.PropTypes.bool,
+	visible: React.PropTypes.bool,
 	dataLabel: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -116,7 +118,7 @@ title: React.PropTypes.oneOfType([
 
 // Default props value
 DataController.defaultProps = {
-	showUI: false,
+	visible: false,
 	defaultSelected: "default",
 	componentStyle: {}
 };
@@ -132,7 +134,7 @@ DataController.types = {
 	appbaseField: TYPES.STRING,
 	appbaseFieldType: TYPES.STRING,
 	title: TYPES.STRING,
-	showUI: TYPES.BOOL,
+	visible: TYPES.BOOL,
 	dataLabel: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT

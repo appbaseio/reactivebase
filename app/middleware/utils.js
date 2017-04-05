@@ -1,18 +1,25 @@
 const $ = require("jquery");
 
 export const ResponsiveStory = function () {
-	function paginationHeight() {
+	const paginationHeight = () => {
 		return $(".rbc-pagination").length * 85;
 	}
 
-	function handleResponsive() {
-		const height = $(window).height();
+	const getHeight = item => item.height() ? item.height() : 0;
+
+	const handleResponsive = () => {
+		var height = $(window).height();
+		const resultHeight = height - 15;
 		$(".rbc.rbc-reactivelist, .rbc.rbc-reactiveelement").css({
-			maxHeight: height - 15 - paginationHeight()
+			maxHeight: resultHeight
 		});
-		$(".rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist, .rbc.rbc-tagcloud").css({
-			maxHeight: height - 15
-		});
+		const $component = [$(".rbc.rbc-singlelist"), $(".rbc.rbc-multilist"), $(".rbc.rbc-nestedlist"), $(".rbc.rbc-tagcloud")];
+		$component.forEach((item) => {
+			if(item.length) {
+				const itemHeader = getHeight(item.find(".rbc-title")) + getHeight(item.find(".rbc-search-container"))
+				item.find(".rbc-list-container").css({maxHeight: height - itemHeader - 35})
+			}
+		})
 		$(".rbc-base > .row").css({
 			"margin-bottom": 0
 		});

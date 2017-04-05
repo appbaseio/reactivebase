@@ -219,7 +219,7 @@ export default class ItemCheckboxList extends Component {
 			<div className="rbc-list-container col s12 col-xs-12">
 				{
 					TagItemsArray.length ?
-						<div className="row">
+						<div className="row rbc-tag-container">
 							{TagItemsArray}
 						</div> :
 					null

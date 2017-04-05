@@ -10,7 +10,6 @@ import SingleListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/compone
 import MultiListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiList.md";
 import SingleDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/SingleDropdownList.md";
 import MultiDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiDropdownList.md";
-import NestedListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/NestedList.md";
 
 import SingleRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/SingleRange.md";
 import MultiRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiRange.md";
@@ -29,14 +28,12 @@ import DataControllerReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/com
 
 import ReactiveElementReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ReactiveElement.md";
 import ReactiveListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ReactiveList.md";
-import ReactivePaginatedListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ReactivePaginatedList.md";
 
 // importing individual component stories
 import SingleListDefault from "./SingleList.stories";
 import MultiListDefault from "./MultiList.stories";
 import SingleDropdownListDefault from "./SingleDropdownList.stories";
 import MultiDropdownListDefault from "./MultiDropdownList.stories";
-import NestedListDefault from "./NestedList.stories";
 
 import SingleRangeDefault from "./SingleRange.stories";
 import MultiRangeDefault from "./MultiRange.stories";
@@ -57,7 +54,6 @@ import PoweredByDefault from "./PoweredBy.stories";
 
 import ReactiveElement from "./ReactiveElement";
 import ReactiveListDefault from "./ReactiveList.stories";
-import ReactivePaginatedListDefault from "./ReactivePaginatedList.stories";
 
 const moment = require("moment");
 
@@ -193,33 +189,6 @@ storiesOf("MultiDropdownList", module)
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
 			placeholder={text("placeholder", "Select Cities")}
-		/>
-	)));
-
-storiesOf("NestedList", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(NestedListReadme), () => (
-		<NestedListDefault />
-	)))
-	.add("With Title", withReadme(removeFirstLine(NestedListReadme), () => (
-		<NestedListDefault
-			title={text("title", "Car Category")}
-		/>
-	)))
-	.add("Default selection", withReadme(removeFirstLine(NestedListReadme), () => (
-		<NestedListDefault
-			defaultSelected={["bmw", "x series"]}
-		/>
-	)))
-	.add("Playground", withReadme(removeFirstLine(NestedListReadme), () => (
-		<NestedListDefault
-			title={text("title", "NestedList: Car Filter")}
-			size={number("size", 100)}
-			sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "count")}
-			defaultSelected={array("defaultSelected", ["bmw", "x series"])}
-			showCount={boolean("showCount", true)}
-			showSearch={boolean("showSearch", true)}
-			placeholder={text("placeholder", "Search Cars")}
 		/>
 	)));
 
@@ -422,7 +391,7 @@ storiesOf("DataController", module)
 	.add("With UI", withReadme(removeFirstLine(DataControllerReadme), () => (
 		<DataControllerDefault
 			title="DataController"
-			showUI={true}
+			visible={true}
 			dataLabel={
 				<p>★ A customizable UI widget ★</p>
 			}
@@ -431,7 +400,7 @@ storiesOf("DataController", module)
 	.add("Playground", withReadme(removeFirstLine(DataControllerReadme), () => (
 		<DataControllerDefault
 			title={text("title", "DataController")}
-			showUI={boolean("showUI", true)}
+			visible={boolean("visible", true)}
 			dataLabel={text("dataLabel", "★  A customizable UI widget ★")}
 			defaultSelected={text("defaultSelected", "default")}
 			componentStyle={object("componentStyle", { "padding-bottom": "10px" })}
@@ -546,21 +515,29 @@ storiesOf("ReactiveElement", module)
 storiesOf("ReactiveList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault onData={null} requestOnScroll stream={false} />
+		<ReactiveListDefault onData={null} stream={false} />
 	)))
 	.add("With Custom Markup", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault requestOnScroll stream={false} />
+		<ReactiveListDefault stream={false} />
 	)))
 	.add("Without Title", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault title="" requestOnScroll stream={false} />
+		<ReactiveListDefault title="" stream={false} />
 	)))
 	.add("With Streaming Enabled", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault title="Meetups" stream />
 	)))
+	.add("With pagination", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+		<ReactiveListDefault pagination title="Meetups" stream />
+	)))
+	.add("With pagination at top", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+		<ReactiveListDefault pagination paginationAt="top" title="Meetups" stream />
+	)))
+	.add("With pagination at both", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+		<ReactiveListDefault pagination paginationAt="both" title="Meetups" stream />
+	)))
 	.add("With Sort Options", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault
 			title="Meetups"
-			requestOnScroll
 			stream={false}
 			sortOptions={[
 				{
@@ -597,55 +574,8 @@ storiesOf("ReactiveList", module)
 			initialLoader={text("initialLoader", "Loading results..")}
 			noResults={text("noResults", "No results found!")}
 			showResultStats={boolean("showResultStats", true)}
-			requestOnScroll={boolean("requestOnScroll", true)}
-			stream={boolean("stream", false)}
-		/>
-	)));
-
-storiesOf("ReactivePaginatedList", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
-		<ReactivePaginatedListDefault
-			onData={null}
-		/>
-	)))
-	.add("With Custom Markup", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
-		<ReactivePaginatedListDefault />
-	)))
-	.add("With Sort Options", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
-		<ReactivePaginatedListDefault
-			sortOptions={[
-				{
-					label: "Most Recent RSVP",
-					appbaseField: "mtime",
-					sortBy: "desc"
-				},
-				{
-					label: "Guests - High to Low",
-					appbaseField: "guests",
-					sortBy: "desc"
-				},
-				{
-					label: "Guests - Low to High",
-					appbaseField: "guests",
-					sortBy: "asc"
-				}
-			]}
-		/>
-	)))
-	.add("With Loader", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
-		<ReactivePaginatedListDefault
-			title="Meetups"
-			stream={false}
-			initialLoader="Loading results.."
-		/>
-	)))
-	.add("Playground", withReadme(removeFirstLine(ReactivePaginatedListReadme, 3), () => (
-		<ReactivePaginatedListDefault
-			title={text("title", "ReactivePaginatedList: Playground")}
-			from={number("from", 0)}
-			size={number("size", 5)}
-			sortBy={select("sortBy", { asc: "asc", desc: "desc", default: "default" }, "default")}
+			pagination={boolean("requestOnScroll", true)}
 			paginationAt={select("paginationAt", { bottom: "bottom", top: "top", both: "both" }, "bottom")}
+			stream={boolean("stream", false)}
 		/>
 	)));

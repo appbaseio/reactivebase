@@ -68,7 +68,7 @@ export default class DataSearchDefault extends Component {
 		return (
 			<ReactiveBase
 				app="reactivemap_demo"
-				credentials="y4pVxY2Ok:c92481e2-c07f-4473-8326-082919282c18"
+				credentials="kvHgC64RP:e96d86fb-a1bc-465e-8756-02661ffebc05"
 				type="meetupdata1"
 			>
 				<div className="row">
