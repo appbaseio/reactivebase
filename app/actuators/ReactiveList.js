@@ -114,11 +114,13 @@ export default class ReactiveList extends Component {
 		const scrollElement = $(this.listChildElement);
 		const padding = 45;
 
-		function checkHeight() {
+		const getHeight = item => item.height() ? item.height() : 0;
+
+		const checkHeight = () => {
 			const flag = resultElement.get(0).scrollHeight - padding > resultElement.height();
 			const scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height();
-			if (!flag && !scrollFlag && scrollElement.length) {
-				const headerHeight = resultElement.find('.rbc-title').height() + (resultElement.find('.rbc-pagination').height() * resultElement.find('.rbc-pagination').length);
+			if (!flag && !scrollFlag && scrollElement.length && !this.props.pagination) {
+				const headerHeight = getHeight(resultElement.find('.rbc-title')) + (getHeight(resultElement.find('.rbc-pagination')) * resultElement.find('.rbc-pagination').length);
 				const finalHeight = resultElement.height() - 60 - headerHeight;
 				if(finalHeight > 0) {
 					scrollElement.css("height", finalHeight);
@@ -128,7 +130,7 @@ export default class ReactiveList extends Component {
 
 		if (resultElement && resultElement.length && scrollElement && scrollElement.length) {
 			scrollElement.css("height", "auto");
-			setTimeout(checkHeight, 1000);
+			setTimeout(checkHeight.bind(this), 1000);
 		}
 	}
 
