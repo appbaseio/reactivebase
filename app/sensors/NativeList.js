@@ -64,11 +64,12 @@ export default class NativeList extends Component {
 				}
 			};
 		} else if (value) {
-			query = {
+			const listQuery = {
 				[this.type]: {
 					[this.props.appbaseField]: value
 				}
 			};
+			query = this.props.multipleSelect ? (value.length ? listQuery : null) : listQuery;
 		}
 		return query;
 	}
