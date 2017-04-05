@@ -111,6 +111,12 @@ export default class DateRange extends Component {
 		this.setState({
 			currentValue: inputVal
 		});
+		if(inputVal.startDate && inputVal.endDate) {
+			this.setValue(inputVal);
+		}
+	}
+
+	setValue(inputVal) {
 		const obj = {
 			key: this.props.componentId,
 			value: inputVal
