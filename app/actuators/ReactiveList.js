@@ -526,7 +526,9 @@ export default class ReactiveList extends Component {
 			"rbc-resultstats-active": this.props.showResultStats,
 			"rbc-resultstats-inactive": !this.props.showResultStats,
 			"rbc-noresults-active": this.props.noResults,
-			"rbc-noresults-inactive": !this.props.noResults
+			"rbc-noresults-inactive": !this.props.noResults,
+			"rbc-pagination-active": this.props.pagination,
+			"rbc-pagination-inactive": !this.props.pagination
 		});
 
 		if (this.props.title) {
