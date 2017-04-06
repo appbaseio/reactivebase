@@ -126,6 +126,9 @@ $map in $themes {
 			}
 			.rbc-list-item {
 				border-bottom-color: map-get($map, color);
+				&:last-child {
+					border-bottom-color: transparent;
+				}
 			}
 		}
 		.rbc.rbc-reactiveelement, .rbc.rbc-reactivelist {
