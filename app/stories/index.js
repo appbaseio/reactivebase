@@ -515,7 +515,7 @@ storiesOf("ReactiveElement", module)
 storiesOf("ReactiveList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault onData={null} stream={false} />
+		<ReactiveListDefault onAllData={null} stream={false} />
 	)))
 	.add("With Custom Markup", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault stream={false} />

@@ -10,7 +10,7 @@ export default class WithTheme extends Component {
 	constructor(props) {
 		super(props);
 		this.cityQuery = this.cityQuery.bind(this);
-		this.onData = this.onData.bind(this);
+		this.onAllData = this.onAllData.bind(this);
 		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
 	}
 
@@ -26,7 +26,7 @@ export default class WithTheme extends Component {
 		ResponsiveStory();
 	}
 
-	onData(res, err) {
+	onAllData(res, err) {
 		let result = null;
 		if(res && res.appliedQuery) {
 			let combineData = res.currentData;
@@ -81,7 +81,7 @@ export default class WithTheme extends Component {
 							componentId="SearchResult"
 							from={0}
 							size={1000}
-							onData={this.onData}
+							onAllData={this.onAllData}
 							placeholder="Select a city from the input filter..."
 							title="Reactive Element: Dark Theme"
 							{...this.props}

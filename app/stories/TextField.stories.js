@@ -5,7 +5,7 @@ import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 export default class TextFieldDefault extends Component {
 	constructor(props) {
 		super(props);
-		this.onData = this.onData.bind(this);
+		this.onAllData = this.onAllData.bind(this);
 		this.nameQuery = this.nameQuery.bind(this);
 	}
 
@@ -23,7 +23,7 @@ export default class TextFieldDefault extends Component {
 		} else return null;
 	}
 
-	onData(res, err) {
+	onAllData(res, err) {
 		let result = null;
 		if(res) {
 			let combineData = res.currentData;
@@ -89,7 +89,7 @@ export default class TextFieldDefault extends Component {
 							title="Cars"
 							from={0}
 							size={20}
-							onData={this.onData}
+							onAllData={this.onAllData}
 							react={{
 								"and": "NameTextSensor"
 							}}

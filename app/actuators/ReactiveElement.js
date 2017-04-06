@@ -59,7 +59,7 @@ export default class ReactiveElement extends Component {
 	}
 
 	// default markup
-	defaultonData(res) {
+	defaultonAllData(res) {
 		let result = null;
 		if (res && res.appliedQuery) {
 			result = (
@@ -126,9 +126,9 @@ export default class ReactiveElement extends Component {
 					queryStart: false,
 					showPlaceholder: false
 				});
-				if (this.props.onData) {
+				if (this.props.onAllData) {
 					const modifiedData = helper.prepareResultData(res);
-					this.props.onData(modifiedData.res, modifiedData.err);
+					this.props.onAllData(modifiedData.res, modifiedData.err);
 				}
 			}
 			if (res.appliedQuery) {
@@ -222,7 +222,7 @@ export default class ReactiveElement extends Component {
 			modifiedData.currentData = this.state.currentData;
 			delete modifiedData.data;
 			modifiedData = helper.prepareResultData(modifiedData, res.data);
-			const generatedData = this.props.onData ? this.props.onData(modifiedData.res, modifiedData.err) : this.defaultonData(modifiedData.res, modifiedData.err);
+			const generatedData = this.props.onAllData ? this.props.onAllData(modifiedData.res, modifiedData.err) : this.defaultonAllData(modifiedData.res, modifiedData.err);
 			this.setState({
 				resultMarkup: generatedData,
 				currentData: this.combineCurrentData(newData)
@@ -325,7 +325,7 @@ ReactiveElement.propTypes = {
 		React.PropTypes.element
 	]),
 	from: helper.validation.resultListFrom,
-	onData: React.PropTypes.func,
+	onAllData: React.PropTypes.func,
 	size: helper.sizeValidation,
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
@@ -366,7 +366,7 @@ ReactiveElement.types = {
 	react: TYPES.OBJECT,
 	from: TYPES.NUMBER,
 	size: TYPES.NUMBER,
-	onData: TYPES.FUNCTION,
+	onAllData: TYPES.FUNCTION,
 	stream: TYPES.BOOLEAN,
 	componentStyle: TYPES.OBJECT,
 	initialLoader: TYPES.STRING,
