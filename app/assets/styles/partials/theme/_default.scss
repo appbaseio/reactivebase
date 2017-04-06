@@ -91,8 +91,11 @@ $map in $themes {
 			}
 		}
 		.rbc.rbc-pagination {
-			.rbc-pagination-active {
-				background-color: map-get($map, color);
+			.rbc-pagination-active, .rbc-pagination-active {
+				a {
+					background-color: map-get($map, color);
+					border-color: map-get($map, color);
+				}
 			}
 		}
 		.rbc.rbc-singlerange,
