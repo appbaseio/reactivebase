@@ -66434,6 +66434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var moment = __webpack_require__(199);
+	var _ = __webpack_require__(23);
 	var momentPropTypes = __webpack_require__(309);
 	var helper = __webpack_require__(13);
 
@@ -66545,7 +66546,37 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "customQuery",
 			value: function customQuery(value) {
 				var query = null;
-				if (value) {
+				if (value && value.startDate && value.endDate) {
+					query = this.generateQuery(value);
+				}
+				return query;
+			}
+		}, {
+			key: "generateQuery",
+			value: function generateQuery(value) {
+				var query = void 0;
+				if (_.isArray(this.props.appbaseField) && this.props.appbaseField.length === 2) {
+					query = {
+						bool: {
+							must: [{
+								"range": _defineProperty({}, this.props.appbaseField[0], {
+									"lte": moment(value.startDate).format("YYYYMMDD")
+								})
+							}, {
+								"range": _defineProperty({}, this.props.appbaseField[1], {
+									"gte": moment(value.endDate).format("YYYYMMDD")
+								})
+							}]
+						}
+					};
+				} else if (_.isArray(this.props.appbaseField)) {
+					query = {
+						range: _defineProperty({}, this.props.appbaseField[0], {
+							gte: moment(value.startDate).format("YYYYMMDD"),
+							lte: moment(value.endDate).format("YYYYMMDD")
+						})
+					};
+				} else {
 					query = {
 						range: _defineProperty({}, this.props.appbaseField, {
 							gte: value.startDate,
@@ -66652,7 +66683,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	DateRange.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
-		appbaseField: _react2.default.PropTypes.string,
+		appbaseField: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.array]),
 		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.shape({
 			start: momentPropTypes.momentObj,
@@ -67234,9 +67265,9 @@ return /******/ (function(modules) { // webpackBootstrap
 							queryStart: false,
 							showPlaceholder: false
 						});
-						if (_this5.props.onData) {
+						if (_this5.props.onAllData) {
 							var modifiedData = helper.prepareResultData(res);
-							_this5.props.onData(modifiedData.res, modifiedData.err);
+							_this5.props.onAllData(modifiedData.res, modifiedData.err);
 						}
 					}
 					if (res.appliedQuery) {
@@ -67341,7 +67372,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					modifiedData.currentData = _this7.state.currentData;
 					delete modifiedData.data;
 					modifiedData = helper.prepareResultData(modifiedData, data);
-					var generatedData = _this7.props.onData ? _this7.props.onData(modifiedData.res, modifiedData.err) : _this7.defaultonData(modifiedData.res, modifiedData.err);
+					var generatedData = _this7.props.onAllData ? _this7.props.onAllData(modifiedData.res, modifiedData.err) : _this7.defaultonAllData(modifiedData.res, modifiedData.err);
 					_this7.setState({
 						resultMarkup: _this7.wrapMarkup(generatedData),
 						currentData: _this7.combineCurrentData(newData)
@@ -67352,7 +67383,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "wrapMarkup",
 			value: function wrapMarkup(generatedData) {
 				var markup = null;
-				if (Object.prototype.toString.call(generatedData) === "[object Array]") {
+				if (_.isArray(generatedData)) {
 					markup = generatedData.map(function (item, index) {
 						return _react2.default.createElement(
 							"div",
@@ -67532,8 +67563,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				return pageinationComp;
 			}
 		}, {
-			key: "defaultonData",
-			value: function defaultonData(res) {
+			key: "defaultonAllData",
+			value: function defaultonAllData(res) {
 				var _this8 = this;
 
 				var result = null;
@@ -67547,7 +67578,11 @@ return /******/ (function(modules) { // webpackBootstrap
 					if (combineData) {
 						result = combineData.map(function (markerData) {
 							var marker = markerData._source;
-							return _react2.default.createElement(
+							return _this8.props.onData ? _react2.default.createElement(
+								"div",
+								{ className: "rbc-list-item" },
+								_this8.props.onData(markerData)
+							) : _react2.default.createElement(
 								"div",
 								{ className: "row", style: { marginTop: "20px" } },
 								_this8.itemMarkup(marker, markerData)
@@ -67726,7 +67761,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			sortBy: _react2.default.PropTypes.string
 		})),
 		from: helper.validation.resultListFrom,
-		onData: _react2.default.PropTypes.func,
+		onAllData: _react2.default.PropTypes.func,
 		size: helper.sizeValidation,
 		stream: _react2.default.PropTypes.bool,
 		componentStyle: _react2.default.PropTypes.object,
@@ -67764,6 +67799,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		sortBy: TYPES.STRING,
 		sortOptions: TYPES.OBJECT,
 		from: TYPES.NUMBER,
+		onAllData: TYPES.FUNCTION,
 		onData: TYPES.FUNCTION,
 		size: TYPES.NUMBER,
 		stream: TYPES.BOOLEAN,
@@ -68440,8 +68476,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// default markup
 
 		}, {
-			key: "defaultonData",
-			value: function defaultonData(res) {
+			key: "defaultonAllData",
+			value: function defaultonAllData(res) {
 				var result = null;
 				if (res && res.appliedQuery) {
 					result = _react2.default.createElement(
@@ -68524,9 +68560,9 @@ return /******/ (function(modules) { // webpackBootstrap
 							queryStart: false,
 							showPlaceholder: false
 						});
-						if (_this3.props.onData) {
+						if (_this3.props.onAllData) {
 							var modifiedData = helper.prepareResultData(res);
-							_this3.props.onData(modifiedData.res, modifiedData.err);
+							_this3.props.onAllData(modifiedData.res, modifiedData.err);
 						}
 					}
 					if (res.appliedQuery) {
@@ -68627,7 +68663,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					modifiedData.currentData = _this5.state.currentData;
 					delete modifiedData.data;
 					modifiedData = helper.prepareResultData(modifiedData, res.data);
-					var generatedData = _this5.props.onData ? _this5.props.onData(modifiedData.res, modifiedData.err) : _this5.defaultonData(modifiedData.res, modifiedData.err);
+					var generatedData = _this5.props.onAllData ? _this5.props.onAllData(modifiedData.res, modifiedData.err) : _this5.defaultonAllData(modifiedData.res, modifiedData.err);
 					_this5.setState({
 						resultMarkup: generatedData,
 						currentData: _this5.combineCurrentData(newData)
@@ -68756,7 +68792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		componentId: _react2.default.PropTypes.string,
 		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		from: helper.validation.resultListFrom,
-		onData: _react2.default.PropTypes.func,
+		onAllData: _react2.default.PropTypes.func,
 		size: helper.sizeValidation,
 		stream: _react2.default.PropTypes.bool,
 		componentStyle: _react2.default.PropTypes.object,
@@ -68788,7 +68824,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		react: TYPES.OBJECT,
 		from: TYPES.NUMBER,
 		size: TYPES.NUMBER,
-		onData: TYPES.FUNCTION,
+		onAllData: TYPES.FUNCTION,
 		stream: TYPES.BOOLEAN,
 		componentStyle: TYPES.OBJECT,
 		initialLoader: TYPES.STRING,
