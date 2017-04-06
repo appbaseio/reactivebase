@@ -4,6 +4,7 @@ import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
 
 const moment = require("moment");
+const _ = require("lodash");
 const momentPropTypes = require("react-moment-proptypes");
 const helper = require("../middleware/helper");
 
@@ -93,7 +94,42 @@ export default class DateRange extends Component {
 	// build query for this sensor only
 	customQuery(value) {
 		let query = null;
-		if (value) {
+		if (value && value.startDate && value.endDate) {
+			query = this.generateQuery(value);
+		}
+		return query;
+	}
+
+	generateQuery(value) {
+		let query;
+		if(_.isArray(this.props.appbaseField) && this.props.appbaseField.length === 2) {
+			query = {
+				bool: {
+					must: [{
+						"range": {
+							[this.props.appbaseField[0]]: {
+								"lte": moment(value.startDate).format("YYYYMMDD")
+							}
+						}
+					}, {
+						"range": {
+							[this.props.appbaseField[1]]: {
+								"gte": moment(value.endDate).format("YYYYMMDD")
+							}
+						}
+					}]
+				}
+			};
+		} else if(_.isArray(this.props.appbaseField)) {
+			query = {
+				range: {
+					[this.props.appbaseField[0]]: {
+						gte: moment(value.startDate).format("YYYYMMDD"),
+						lte: moment(value.endDate).format("YYYYMMDD")
+					}
+				}
+			};
+		} else {
 			query = {
 				range: {
 					[this.props.appbaseField]: {
@@ -175,7 +211,10 @@ export default class DateRange extends Component {
 
 DateRange.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string,
+	appbaseField: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.array
+	]),
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
