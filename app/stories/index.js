@@ -515,7 +515,7 @@ storiesOf("ReactiveElement", module)
 storiesOf("ReactiveList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault onData={null} stream={false} />
+		<ReactiveListDefault onAllData={null} stream={false} />
 	)))
 	.add("With Custom Markup", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault stream={false} />
@@ -527,13 +527,13 @@ storiesOf("ReactiveList", module)
 		<ReactiveListDefault title="Meetups" stream />
 	)))
 	.add("With pagination", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault pagination title="Meetups" stream />
+		<ReactiveListDefault pagination title="Meetups" />
 	)))
 	.add("With pagination at top", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault pagination paginationAt="top" title="Meetups" stream />
+		<ReactiveListDefault pagination paginationAt="top" title="Meetups" />
 	)))
 	.add("With pagination at both", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault pagination paginationAt="both" title="Meetups" stream />
+		<ReactiveListDefault pagination paginationAt="both" title="Meetups" />
 	)))
 	.add("With Sort Options", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault

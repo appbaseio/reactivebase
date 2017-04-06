@@ -9,7 +9,7 @@ require("./list.css");
 export default class DatePickerDefault extends Component {
 	constructor(props) {
 		super(props);
-		this.onData = this.onData.bind(this);
+		this.onAllData = this.onAllData.bind(this);
 		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
 	}
 
@@ -17,7 +17,7 @@ export default class DatePickerDefault extends Component {
 		ResponsiveStory();
 	}
 
-	onData(res) {
+	onAllData(res) {
 		let result = null;
 		if (res) {
 			let combineData = res.currentData;
@@ -93,7 +93,7 @@ export default class DatePickerDefault extends Component {
 							title="Results"
 							from={0}
 							size={20}
-							onData={this.onData}
+							onAllData={this.onAllData}
 							requestOnScroll={true}
 							react={{
 								and: "DateSensor"

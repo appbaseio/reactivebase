@@ -5,14 +5,14 @@ import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
 export default class MultiRangeDefault extends Component {
 	constructor(props) {
 		super(props);
-		this.onData = this.onData.bind(this);
+		this.onAllData = this.onAllData.bind(this);
 	}
 
 	componentDidMount() {
 		ResponsiveStory();
 	}
 
-	onData(res, err) {
+	onAllData(res, err) {
 		let result = null;
 		if(res) {
 			let combineData = res.currentData;
@@ -84,7 +84,7 @@ export default class MultiRangeDefault extends Component {
 							sortBy="asc"
 							from={0}
 							size={20}
-							onData={this.onData}
+							onAllData={this.onAllData}
 							react={{
 								"and": "PriceSensor"
 							}}

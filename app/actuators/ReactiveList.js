@@ -179,9 +179,9 @@ export default class ReactiveList extends Component {
 					queryStart: false,
 					showPlaceholder: false
 				});
-				if (this.props.onData) {
+				if (this.props.onAllData) {
 					const modifiedData = helper.prepareResultData(res);
-					this.props.onData(modifiedData.res, modifiedData.err);
+					this.props.onAllData(modifiedData.res, modifiedData.err);
 				}
 			}
 			if (res.appliedQuery) {
@@ -279,7 +279,7 @@ export default class ReactiveList extends Component {
 			modifiedData.currentData = this.state.currentData;
 			delete modifiedData.data;
 			modifiedData = helper.prepareResultData(modifiedData, data);
-			const generatedData = this.props.onData ? this.props.onData(modifiedData.res, modifiedData.err) : this.defaultonData(modifiedData.res, modifiedData.err);
+			const generatedData = this.props.onAllData ? this.props.onAllData(modifiedData.res, modifiedData.err) : this.defaultonAllData(modifiedData.res, modifiedData.err);
 			this.setState({
 				resultMarkup: this.wrapMarkup(generatedData),
 				currentData: this.combineCurrentData(newData)
@@ -289,8 +289,13 @@ export default class ReactiveList extends Component {
 
 	wrapMarkup(generatedData) {
 		let markup = null;
-		if (Object.prototype.toString.call(generatedData) === "[object Array]") {
-			markup = generatedData.map((item, index) => (<div key={index} className="rbc-list-item">{item}</div>));
+		if (_.isArray(generatedData)) {
+			markup = generatedData.map((item, index) => (
+					<div key={index} className="rbc-list-item">
+						{item}
+					</div>
+				)
+			);
 		} else {
 			markup = generatedData;
 		}
@@ -433,7 +438,7 @@ export default class ReactiveList extends Component {
 		return pageinationComp;
 	}
 
-	defaultonData(res) {
+	defaultonAllData(res) {
 		let result = null;
 		if (res) {
 			let combineData = res.currentData;
@@ -445,11 +450,15 @@ export default class ReactiveList extends Component {
 			if (combineData) {
 				result = combineData.map((markerData) => {
 					const marker = markerData._source;
-					return (
+					return this.props.onData ? (
+							<div className="rbc-list-item">
+								{this.props.onData(markerData)}
+							</div>
+						) : (
 						<div className="row" style={{ marginTop: "20px" }}>
 							{this.itemMarkup(marker, markerData)}
 						</div>
-					);
+					)
 				});
 			}
 		}
@@ -594,7 +603,7 @@ ReactiveList.propTypes = {
 		})
 	),
 	from: helper.validation.resultListFrom,
-	onData: React.PropTypes.func,
+	onAllData: React.PropTypes.func,
 	size: helper.sizeValidation,
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
@@ -641,6 +650,7 @@ ReactiveList.types = {
 	sortBy: TYPES.STRING,
 	sortOptions: TYPES.OBJECT,
 	from: TYPES.NUMBER,
+	onAllData: TYPES.FUNCTION,
 	onData: TYPES.FUNCTION,
 	size: TYPES.NUMBER,
 	stream: TYPES.BOOLEAN,

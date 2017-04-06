@@ -274,8 +274,9 @@ a {
   .rbc-red .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
     color: red; }
 
-.rbc-red .rbc.rbc-pagination .rbc-pagination-active {
-  background-color: red; }
+.rbc-red .rbc.rbc-pagination .rbc-pagination-active a, .rbc-red .rbc.rbc-pagination .rbc-pagination-active a {
+  background-color: red;
+  border-color: red; }
 
 .rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
@@ -296,6 +297,8 @@ a {
 
 .rbc-red .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: red; }
+  .rbc-red .rbc.rbc-reactivelist .rbc-list-item:last-child {
+    border-bottom-color: transparent; }
 
 .rbc-red .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-red .rbc.rbc-reactivelist .rbc-placeholder {
   color: #777; }
@@ -451,8 +454,9 @@ a {
   .rbc-orange .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
     color: orange; }
 
-.rbc-orange .rbc.rbc-pagination .rbc-pagination-active {
-  background-color: orange; }
+.rbc-orange .rbc.rbc-pagination .rbc-pagination-active a, .rbc-orange .rbc.rbc-pagination .rbc-pagination-active a {
+  background-color: orange;
+  border-color: orange; }
 
 .rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
@@ -473,6 +477,8 @@ a {
 
 .rbc-orange .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: orange; }
+  .rbc-orange .rbc.rbc-reactivelist .rbc-list-item:last-child {
+    border-bottom-color: transparent; }
 
 .rbc-orange .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-orange .rbc.rbc-reactivelist .rbc-placeholder {
   color: #777; }
@@ -628,8 +634,9 @@ a {
   .rbc-yellow .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
     color: yellow; }
 
-.rbc-yellow .rbc.rbc-pagination .rbc-pagination-active {
-  background-color: yellow; }
+.rbc-yellow .rbc.rbc-pagination .rbc-pagination-active a, .rbc-yellow .rbc.rbc-pagination .rbc-pagination-active a {
+  background-color: yellow;
+  border-color: yellow; }
 
 .rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
@@ -650,6 +657,8 @@ a {
 
 .rbc-yellow .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: yellow; }
+  .rbc-yellow .rbc.rbc-reactivelist .rbc-list-item:last-child {
+    border-bottom-color: transparent; }
 
 .rbc-yellow .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-yellow .rbc.rbc-reactivelist .rbc-placeholder {
   color: #777; }
@@ -805,8 +814,9 @@ a {
   .rbc-green .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
     color: green; }
 
-.rbc-green .rbc.rbc-pagination .rbc-pagination-active {
-  background-color: green; }
+.rbc-green .rbc.rbc-pagination .rbc-pagination-active a, .rbc-green .rbc.rbc-pagination .rbc-pagination-active a {
+  background-color: green;
+  border-color: green; }
 
 .rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
@@ -827,6 +837,8 @@ a {
 
 .rbc-green .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: green; }
+  .rbc-green .rbc.rbc-reactivelist .rbc-list-item:last-child {
+    border-bottom-color: transparent; }
 
 .rbc-green .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-green .rbc.rbc-reactivelist .rbc-placeholder {
   color: #777; }
@@ -982,8 +994,9 @@ a {
   .rbc-blue .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
     color: #1893e7; }
 
-.rbc-blue .rbc.rbc-pagination .rbc-pagination-active {
-  background-color: #1893e7; }
+.rbc-blue .rbc.rbc-pagination .rbc-pagination-active a, .rbc-blue .rbc.rbc-pagination .rbc-pagination-active a {
+  background-color: #1893e7;
+  border-color: #1893e7; }
 
 .rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
@@ -1004,6 +1017,8 @@ a {
 
 .rbc-blue .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: #1893e7; }
+  .rbc-blue .rbc.rbc-reactivelist .rbc-list-item:last-child {
+    border-bottom-color: transparent; }
 
 .rbc-blue .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-blue .rbc.rbc-reactivelist .rbc-placeholder {
   color: #777; }
@@ -1159,8 +1174,9 @@ a {
   .rbc-dark .rbc.rbc-nestedlist .rbc-list-container .rbc-list-item.rbc-item-active {
     color: #ccc; }
 
-.rbc-dark .rbc.rbc-pagination .rbc-pagination-active {
-  background-color: #ccc; }
+.rbc-dark .rbc.rbc-pagination .rbc-pagination-active a, .rbc-dark .rbc.rbc-pagination .rbc-pagination-active a {
+  background-color: #ccc;
+  border-color: #ccc; }
 
 .rbc-dark .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-dark .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
@@ -1181,6 +1197,8 @@ a {
 
 .rbc-dark .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: #ccc; }
+  .rbc-dark .rbc.rbc-reactivelist .rbc-list-item:last-child {
+    border-bottom-color: transparent; }
 
 .rbc-dark .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-dark .rbc.rbc-reactivelist .rbc-placeholder {
   color: #eee; }

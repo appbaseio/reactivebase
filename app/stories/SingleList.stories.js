@@ -6,7 +6,7 @@ import { Img } from './Img.js';
 export default class SingleListDefault extends Component {
 	constructor(props) {
 		super(props);
-		this.onData = this.onData.bind(this);
+		this.onAllData = this.onAllData.bind(this);
 		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
 	}
 
@@ -14,7 +14,7 @@ export default class SingleListDefault extends Component {
 		ResponsiveStory();
 	}
 
-	onData(res, err) {
+	onAllData(res, err) {
 		let result = null;
 		if(res) {
 			let combineData = res.currentData;
@@ -90,7 +90,7 @@ export default class SingleListDefault extends Component {
 							sortBy="asc"
 							from={0}
 							size={20}
-							onData={this.onData}
+							onAllData={this.onAllData}
 							react={{
 								'and': ["CitySensor"]
 							}}
