@@ -91,10 +91,12 @@ export default class DataSearch extends Component {
 			value: {
 				queryType: "multi_match",
 				inputData: this.props.appbaseField,
-				customQuery: this.defaultSearchQuery,
-				externalQuery: this.highlightQuery()
+				customQuery: this.defaultSearchQuery
 			}
 		};
+		if(this.props.highlight) {
+			searchObj.value.externalQuery = this.highlightQuery();
+		}
 		helper.selectedSensor.setSensorInfo(searchObj);
 	}
 
@@ -145,31 +147,44 @@ export default class DataSearch extends Component {
 		return val;
 	}
 
+	setLabel(value) {
+		if(value.indexOf("<em>") > -1) {
+			const prefixvalue = value.substring(0, value.indexOf("<em>"));
+			const postfixvalue = value.substring(value.indexOf("</em>")+5, value.length);
+			const emvalue = value.substring(value.indexOf("<em>")+4, value.indexOf("</em>"));
+			value = (<p>{prefixvalue} <em>{emvalue}</em> {postfixvalue} </p>);
+		}
+		return value;
+	}
 	// set data after get the result
 	setData(data) {
 		let options = [];
 		const appbaseField = _.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
 		data.hits.hits.map((hit) => {
-			if(hit && hit.highlight) {
-				Object.keys(hit.highlight).forEach(item => {
-					appbaseField.forEach(field => {
-						if(item === field) {
-							options.push({ value: this.getValue(field, hit._source), label: (<p dangerouslySetInnerHTML={{__html: hit.highlight[item].join(" ")}}></p>) });
+			if(this.props.highlight) {
+				if(hit && hit.highlight) {
+					Object.keys(hit.highlight).forEach(item => {
+						appbaseField.forEach(field => {
+							if(item === field) {
+								options.push({ value: this.getValue(field, hit._source), label: this.setLabel(hit.highlight[item].join(" ")) });
+							}
+						});
+					})
+				}
+			}
+			else {
+				if (this.fieldType === "string") {
+					const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
+					options.push({ value: tempField, label: tempField });
+				} else if (this.fieldType === "object") {
+					this.props.appbaseField.map((field) => {
+						const tempField = this.getValue(field, hit._source);
+						if (tempField) {
+							options.push({ value: tempField, label: tempField });
 						}
 					});
-				})
+				}
 			}
-			// if (this.fieldType === "string") {
-			// 	const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
-			// 	options.push({ value: tempField, label: tempField });
-			// } else if (this.fieldType === "object") {
-			// 	this.props.appbaseField.map((field) => {
-			// 		const tempField = this.getValue(field, hit._source);
-			// 		if (tempField) {
-			// 			options.push({ value: tempField, label: tempField });
-			// 		}
-			// 	});
-			// }
 		});
 		if (this.state.currentValue && this.state.currentValue.trim() !== "") {
 			options.unshift({
@@ -347,14 +362,16 @@ DataSearch.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	react: React.PropTypes.object,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	highlight: React.PropTypes.bool
 };
 
 // Default props value
 DataSearch.defaultProps = {
 	placeholder: "Search",
 	autocomplete: true,
-	componentStyle: {}
+	componentStyle: {},
+	highlight: false
 };
 
 // context type
@@ -373,5 +390,6 @@ DataSearch.types = {
 	autocomplete: TYPES.BOOLEAN,
 	defaultSelected: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT
+	componentStyle: TYPES.OBJECT,
+	highlight: TYPES.BOOLEAN
 };

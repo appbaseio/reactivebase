@@ -367,6 +367,13 @@ storiesOf("DataSearch", module)
 			placeholder="Search Venue"
 		/>
 	)))
+	.add("With Highlight", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venue"
+			highlight={true}
+		/>
+	)))
 	.add("Without Autocomplete", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
