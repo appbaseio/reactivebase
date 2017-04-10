@@ -145,6 +145,16 @@ html {
 	font-size: 10px;
 }
 
+.rbc-highlight-table th, .rbc-highlight-table td{
+	padding: 5px;
+	vertical-align: top;
+}
+
+.rbc-highlight-table th {
+	font-weight: lighter;
+	color: #aaa;
+}
+
 .animate {
 	-webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
 	-moz-animation: fadein 2s; /* Firefox < 16 */

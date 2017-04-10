@@ -48,6 +48,7 @@ import DateRangeDefault from "./DateRange.stories";
 
 import TextFieldDefault from "./TextField.stories";
 import DataSearchDefault from "./DataSearch.stories";
+import DataSearchHighlight from "./DataSearchHighlight.stories";
 
 import DataControllerDefault from "./DataController.stories";
 import PoweredByDefault from "./PoweredBy.stories";
@@ -367,13 +368,6 @@ storiesOf("DataSearch", module)
 			placeholder="Search Venue"
 		/>
 	)))
-	.add("With Highlight", withReadme(removeFirstLine(DataSearchReadme), () => (
-		<DataSearchDefault
-			title="DataSearch"
-			placeholder="Search Venue"
-			highlight={true}
-		/>
-	)))
 	.add("Without Autocomplete", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
@@ -389,6 +383,13 @@ storiesOf("DataSearch", module)
 		/>
 	)));
 
+storiesOf("DataSearchHighlight",  module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchHighlight
+			title="DataSearch"
+		/>
+	)))
 
 storiesOf("DataController", module)
 	.addDecorator(withKnobs)

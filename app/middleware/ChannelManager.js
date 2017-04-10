@@ -1,5 +1,6 @@
 import * as ChannelHelper from "./ChannelHelper";
 
+const _ = require("lodash");
 const { EventEmitter } = require("fbemitter");
 const helper = require("./helper");
 
@@ -15,6 +16,22 @@ class ChannelManager {
 		this.nextPage = this.nextPage.bind(this);
 		this.paginationChanges = this.paginationChanges.bind(this);
 		this.sortChanges = this.sortChanges.bind(this);
+	}
+
+	highlightModify(data, queryObj) {
+		if(queryObj && queryObj.body && queryObj.body.highlight && data && data.hits && data.hits.hits && data.hits.hits.length) {
+			data.hits.hits = data.hits.hits.map((item) => {
+				if(item.highlight) {
+					item._originalSource = _.cloneDeep(item._source);
+					Object.keys(item.highlight).forEach((highlightItem) => {
+						const highlightValue = item.highlight[highlightItem][0];
+						_.set(item._source, highlightItem, highlightValue);
+					});
+				}
+				return item;
+			});
+		}
+		return data;
 	}
 
 	// Receive: This method will be executed whenever dependency value changes
@@ -78,7 +95,7 @@ class ChannelManager {
 				setQueryState(channelResponse);
 				appbaseRef.search(searchQueryObj).on("data", (data) => {
 					channelResponse.mode = "historic";
-					channelResponse.data = data;
+					channelResponse.data = this.highlightModify(data, channelResponse.appliedQuery);
 					self.emitter.emit(channelId, channelResponse);
 					const globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
 					self.emitter.emit("global", {
