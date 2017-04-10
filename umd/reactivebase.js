@@ -1955,6 +1955,16 @@ return /******/ (function(modules) { // webpackBootstrap
 			return sortInfo;
 		}
 
+		// check if external query part is availbale (i.e. highlight)
+		function isExternalQuery(depend) {
+			var finalValue = null;
+			var sensorInfo = helper.selectedSensor.get(depend, "sensorInfo");
+			if (sensorInfo && sensorInfo.externalQuery) {
+				finalValue = sensorInfo.externalQuery;
+			}
+			return finalValue;
+		}
+
 		// build single query or if default query present in sensor itself use that
 		function singleQuery(depend) {
 			var sensorInfo = helper.selectedSensor.get(depend, "sensorInfo");
@@ -2013,9 +2023,15 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (depend === "aggs") {
 					dependsQuery[depend] = aggsQuery(depend);
 				} else if (depend && depend.indexOf("channel-options-") > -1) {
-					requestOptions = previousSelectedSensor[depend];
+					requestOptions = requestOptions ? requestOptions : {};
+					requestOptions = Object.assign(requestOptions, previousSelectedSensor[depend]);
 				} else {
 					dependsQuery[depend] = singleQuery(depend);
+					var externalQuery = isExternalQuery(depend);
+					if (externalQuery) {
+						requestOptions = requestOptions ? requestOptions : {};
+						requestOptions = Object.assign(requestOptions, externalQuery);
+					}
 				}
 				var sortField = sortAvailable(depend);
 				if (sortField && !("aggSort" in sortField)) {
@@ -41819,8 +41835,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -41903,6 +41917,23 @@ return /******/ (function(modules) { // webpackBootstrap
 					this.channelListener.remove();
 				}
 			}
+		}, {
+			key: "highlightQuery",
+			value: function highlightQuery() {
+				var fields = {};
+				if (typeof this.props.appbaseField === "String") {
+					fields[this.props.appbaseField] = {};
+				} else if (_.isArray(this.props.appbaseField)) {
+					this.props.appbaseField.forEach(function (item) {
+						fields[item] = {};
+					});
+				}
+				return {
+					"highlight": {
+						"fields": fields
+					}
+				};
+			}
 
 			// set the query type and input data
 
@@ -41926,6 +41957,9 @@ return /******/ (function(modules) { // webpackBootstrap
 						customQuery: this.defaultSearchQuery
 					}
 				};
+				if (this.props.highlight) {
+					searchObj.value.externalQuery = this.highlightQuery();
+				}
 				helper.selectedSensor.setSensorInfo(searchObj);
 			}
 
@@ -41981,7 +42015,30 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				return val;
 			}
-
+		}, {
+			key: "setLabel",
+			value: function setLabel(value) {
+				if (value.indexOf("<em>") > -1) {
+					var prefixvalue = value.substring(0, value.indexOf("<em>"));
+					var postfixvalue = value.substring(value.indexOf("</em>") + 5, value.length);
+					var emvalue = value.substring(value.indexOf("<em>") + 4, value.indexOf("</em>"));
+					value = _react2.default.createElement(
+						"p",
+						null,
+						prefixvalue,
+						" ",
+						_react2.default.createElement(
+							"em",
+							null,
+							emvalue
+						),
+						" ",
+						postfixvalue,
+						" "
+					);
+				}
+				return value;
+			}
 			// set data after get the result
 
 		}, {
@@ -41990,17 +42047,30 @@ return /******/ (function(modules) { // webpackBootstrap
 				var _this2 = this;
 
 				var options = [];
+				var appbaseField = _.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
 				data.hits.hits.map(function (hit) {
-					if (_this2.fieldType === "string") {
-						var tempField = _this2.getValue(_this2.props.appbaseField.trim(), hit._source);
-						options.push({ value: tempField, label: tempField });
-					} else if (_this2.fieldType === "object") {
-						_this2.props.appbaseField.map(function (field) {
-							var tempField = _this2.getValue(field, hit._source);
-							if (tempField) {
-								options.push({ value: tempField, label: tempField });
-							}
-						});
+					if (_this2.props.highlight) {
+						if (hit && hit.highlight) {
+							Object.keys(hit.highlight).forEach(function (item) {
+								appbaseField.forEach(function (field) {
+									if (item === field) {
+										options.push({ value: _this2.getValue(field, hit._source), label: _this2.setLabel(hit.highlight[item].join(" ")) });
+									}
+								});
+							});
+						}
+					} else {
+						if (_this2.fieldType === "string") {
+							var tempField = _this2.getValue(_this2.props.appbaseField.trim(), hit._source);
+							options.push({ value: tempField, label: tempField });
+						} else if (_this2.fieldType === "object") {
+							_this2.props.appbaseField.map(function (field) {
+								var tempField = _this2.getValue(field, hit._source);
+								if (tempField) {
+									options.push({ value: tempField, label: tempField });
+								}
+							});
+						}
 					}
 				});
 				if (this.state.currentValue && this.state.currentValue.trim() !== "") {
@@ -42021,33 +42091,33 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "defaultSearchQuery",
 			value: function defaultSearchQuery(value) {
-				var _this3 = this;
-
-				var finalQuery = null;
+				var finalQuery = null,
+				    fields = void 0;
 				if (value) {
-					var _ret2 = function () {
-						if (_this3.fieldType === "string") {
-							return {
-								v: {
-									match_phrase_prefix: _defineProperty({}, _this3.props.appbaseField, value)
+					if (this.fieldType === "string") {
+						fields = [this.props.appbaseField];
+					} else {
+						fields = this.props.appbaseField;
+					}
+					finalQuery = {
+						"bool": {
+							"should": [{
+								"multi_match": {
+									"query": value,
+									fields: fields,
+									"type": "phrase_prefix"
 								}
-							};
+							}, {
+								"multi_match": {
+									"query": value,
+									fields: fields,
+									"type": "boolean",
+									"minimum_should_match": "50%"
+								}
+							}],
+							"minimum_should_match": "1"
 						}
-						var query = [];
-						_this3.props.appbaseField.map(function (field) {
-							query.push({
-								match_phrase_prefix: _defineProperty({}, field, value)
-							});
-						});
-						finalQuery = {
-							bool: {
-								should: query,
-								minimum_should_match: 1
-							}
-						};
-					}();
-
-					if ((typeof _ret2 === "undefined" ? "undefined" : _typeof(_ret2)) === "object") return _ret2.v;
+					};
 				}
 				return finalQuery;
 			}
@@ -42057,7 +42127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "createChannel",
 			value: function createChannel() {
-				var _this4 = this;
+				var _this3 = this;
 
 				var react = this.props.react ? this.props.react : {};
 				if (react && react.and && typeof react.and === "string") {
@@ -42072,16 +42142,16 @@ return /******/ (function(modules) { // webpackBootstrap
 					var data = res.data;
 					var rawData = void 0;
 					if (res.mode === "streaming") {
-						rawData = _this4.state.rawData;
+						rawData = _this3.state.rawData;
 						rawData.hits.hits.push(res.data);
 					} else if (res.mode === "historic") {
 						rawData = data;
 					}
-					_this4.setState({
+					_this3.setState({
 						rawData: rawData
 					});
-					if (_this4.props.autocomplete) {
-						_this4.setData(rawData);
+					if (_this3.props.autocomplete) {
+						_this3.setData(rawData);
 					}
 				});
 			}
@@ -42194,14 +42264,16 @@ return /******/ (function(modules) { // webpackBootstrap
 		customQuery: _react2.default.PropTypes.func,
 		onValueChange: _react2.default.PropTypes.func,
 		react: _react2.default.PropTypes.object,
-		componentStyle: _react2.default.PropTypes.object
+		componentStyle: _react2.default.PropTypes.object,
+		highlight: _react2.default.PropTypes.bool
 	};
 
 	// Default props value
 	DataSearch.defaultProps = {
 		placeholder: "Search",
 		autocomplete: true,
-		componentStyle: {}
+		componentStyle: {},
+		highlight: false
 	};
 
 	// context type
@@ -42220,7 +42292,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		autocomplete: TYPES.BOOLEAN,
 		defaultSelected: TYPES.STRING,
 		customQuery: TYPES.FUNCTION,
-		componentStyle: TYPES.OBJECT
+		componentStyle: TYPES.OBJECT,
+		highlight: TYPES.BOOLEAN
 	};
 
 /***/ },
