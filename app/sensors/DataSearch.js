@@ -200,9 +200,7 @@ export default class DataSearch extends Component {
 					}, {
 						"multi_match": {
 							"query": value,
-							fields,
-							"type": "boolean",
-							"minimum_should_match": "50%"
+							fields
 						}
 					}],
 					"minimum_should_match": "1"
