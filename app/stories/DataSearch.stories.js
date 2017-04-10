@@ -90,6 +90,7 @@ export default class DataSearchDefault extends Component {
 							sortBy="asc"
 							from={0}
 							size={20}
+							stream={true}
 							onAllData={this.onAllData}
 							react={{
 								"and": "VenueSensor"

@@ -203,6 +203,9 @@ a {
   .rbc Select {
     line-height: 22px; }
 
+.rbc-highlight {
+  background: yellow; }
+
 .rbc-red .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
   color: red; }
 

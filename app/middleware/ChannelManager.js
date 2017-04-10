@@ -1,5 +1,6 @@
 import * as ChannelHelper from "./ChannelHelper";
 
+const _ = require("lodash");
 const { EventEmitter } = require("fbemitter");
 const helper = require("./helper");
 
@@ -17,6 +18,23 @@ class ChannelManager {
 		this.sortChanges = this.sortChanges.bind(this);
 	}
 
+	highlightModify(data, queryObj) {
+		if(queryObj && queryObj.body && queryObj.body.highlight && data && data.hits && data.hits.hits && data.hits.hits.length) {
+			data.hits.hits = data.hits.hits.map(this.highlightItem);
+		}
+		return data;
+	}
+
+	highlightItem(item) {
+		if(item.highlight) {
+			Object.keys(item.highlight).forEach((highlightItem) => {
+				const highlightValue = item.highlight[highlightItem][0];
+				_.set(item._source, highlightItem, highlightValue);
+			});
+		}
+		return item;
+	}
+
 	// Receive: This method will be executed whenever dependency value changes
 	// It receives which dependency changes and which channeldId should be affected.
 	receive(depend, channelId, queryOptions = null) {
@@ -31,6 +49,7 @@ class ChannelManager {
 		}
 
 		function activateStream(currentChannelId, currentQueryObj, appbaseRef) {
+			console.log("streaming activate");
 			if (this.streamRef[currentChannelId]) {
 				this.streamRef[currentChannelId].stop();
 			}
@@ -42,6 +61,7 @@ class ChannelManager {
 				delete streamQueryObj.body.sort;
 			}
 			this.streamRef[currentChannelId] = appbaseRef.searchStream(streamQueryObj).on("data", (data) => {
+				data = this.highlightItem(data, currentQueryObj);
 				const obj = {
 					mode: "streaming",
 					data,
@@ -78,7 +98,7 @@ class ChannelManager {
 				setQueryState(channelResponse);
 				appbaseRef.search(searchQueryObj).on("data", (data) => {
 					channelResponse.mode = "historic";
-					channelResponse.data = data;
+					channelResponse.data = this.highlightModify(data, channelResponse.appliedQuery);
 					self.emitter.emit(channelId, channelResponse);
 					const globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
 					self.emitter.emit("global", {

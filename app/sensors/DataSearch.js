@@ -70,6 +70,8 @@ export default class DataSearch extends Component {
 		}
 		return {
 			"highlight": {
+				"pre_tags": [`<span class="rbc-highlight">`],
+				"post_tags": ["</span>"],
 				"fields": fields
 			}
 		};
@@ -85,6 +87,9 @@ export default class DataSearch extends Component {
 				customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery
 			}
 		};
+		if (this.props.highlight) {
+			obj.value.externalQuery = this.highlightQuery();
+		}
 		helper.selectedSensor.setSensorInfo(obj);
 		const searchObj = {
 			key: this.searchInputId,
@@ -94,9 +99,6 @@ export default class DataSearch extends Component {
 				customQuery: this.defaultSearchQuery
 			}
 		};
-		if(this.props.highlight) {
-			searchObj.value.externalQuery = this.highlightQuery();
-		}
 		helper.selectedSensor.setSensorInfo(searchObj);
 	}
 
@@ -125,7 +127,7 @@ export default class DataSearch extends Component {
 		}
 	}
 
-	getValue(field, hit) {
+	getValue(field, hit, index = 0) {
 		let val;
 		if (_.has(hit, field)) {
 			val = hit[field];
@@ -135,7 +137,7 @@ export default class DataSearch extends Component {
 			fieldSplit.forEach((item, index) => {
 				prefix += item;
 				if (_.isArray(_.get(hit, prefix))) {
-					prefix += "[0]";
+					prefix += "[" + index + "]";
 				}
 				if (fieldSplit.length - 1 !== index) {
 					prefix += ".";
@@ -152,29 +154,16 @@ export default class DataSearch extends Component {
 		let options = [];
 		const appbaseField = _.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
 		data.hits.hits.map((hit) => {
-			if(this.props.highlight) {
-				if(hit && hit.highlight) {
-					Object.keys(hit.highlight).forEach(item => {
-						appbaseField.forEach(field => {
-							if(item === field) {
-								options.push({ value: this.getValue(field, hit._source), label: (<p dangerouslySetInnerHTML={{__html: hit.highlight[item].join(", ")}}></p>)});
-							}
-						});
-					})
-				}
-			}
-			else {
-				if (this.fieldType === "string") {
-					const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
-					options.push({ value: tempField, label: tempField });
-				} else if (this.fieldType === "object") {
-					this.props.appbaseField.map((field) => {
-						const tempField = this.getValue(field, hit._source);
-						if (tempField) {
-							options.push({ value: tempField, label: tempField });
-						}
-					});
-				}
+			if (this.fieldType === "string") {
+				const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
+				options.push({ value: tempField, label: tempField });
+			} else if (this.fieldType === "object") {
+				this.props.appbaseField.map((field) => {
+					const tempField = this.getValue(field, hit._source);
+					if (tempField) {
+						options.push({ value: tempField, label: tempField });
+					}
+				});
 			}
 		});
 		if (this.state.currentValue && this.state.currentValue.trim() !== "") {
