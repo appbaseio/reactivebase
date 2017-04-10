@@ -222,17 +222,13 @@ a {
   border-color: red; }
 
 .rbc-red .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
-.rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-span {
-  background-color: #a4d6f9;
-  border-color: #5cb5f4; }
-
 .rbc-red .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
 .rbc-red .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-red .rbc.rbc-daterange .CalendarMonth__day--selected-span,
 .rbc-red .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-red .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
-  background: #bce1fa;
-  border-color: #8ccbf7;
-  color: red; }
+  background-color: #ff4d4d;
+  border-color: red; }
 
 .rbc-red .rbc.rbc-datepicker .DateInput__display-text--focused,
 .rbc-red .rbc.rbc-daterange .DateInput__display-text--focused {
@@ -402,17 +398,13 @@ a {
   border-color: orange; }
 
 .rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
-.rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-span {
-  background-color: #a4d6f9;
-  border-color: #5cb5f4; }
-
 .rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
 .rbc-orange .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-orange .rbc.rbc-daterange .CalendarMonth__day--selected-span,
 .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-orange .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
-  background: #bce1fa;
-  border-color: #8ccbf7;
-  color: orange; }
+  background-color: #ffc04d;
+  border-color: orange; }
 
 .rbc-orange .rbc.rbc-datepicker .DateInput__display-text--focused,
 .rbc-orange .rbc.rbc-daterange .DateInput__display-text--focused {
@@ -582,17 +574,13 @@ a {
   border-color: yellow; }
 
 .rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
-.rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-span {
-  background-color: #a4d6f9;
-  border-color: #5cb5f4; }
-
 .rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
 .rbc-yellow .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--selected-span,
 .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-yellow .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
-  background: #bce1fa;
-  border-color: #8ccbf7;
-  color: yellow; }
+  background-color: #ffff4d;
+  border-color: yellow; }
 
 .rbc-yellow .rbc.rbc-datepicker .DateInput__display-text--focused,
 .rbc-yellow .rbc.rbc-daterange .DateInput__display-text--focused {
@@ -762,17 +750,13 @@ a {
   border-color: green; }
 
 .rbc-green .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
-.rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-span {
-  background-color: #a4d6f9;
-  border-color: #5cb5f4; }
-
 .rbc-green .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
 .rbc-green .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-green .rbc.rbc-daterange .CalendarMonth__day--selected-span,
 .rbc-green .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-green .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
-  background: #bce1fa;
-  border-color: #8ccbf7;
-  color: green; }
+  background-color: #00cd00;
+  border-color: green; }
 
 .rbc-green .rbc.rbc-datepicker .DateInput__display-text--focused,
 .rbc-green .rbc.rbc-daterange .DateInput__display-text--focused {
@@ -942,17 +926,13 @@ a {
   border-color: #1893e7; }
 
 .rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
-.rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-span {
-  background-color: #a4d6f9;
-  border-color: #5cb5f4; }
-
 .rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
 .rbc-blue .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-blue .rbc.rbc-daterange .CalendarMonth__day--selected-span,
 .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-blue .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
-  background: #bce1fa;
-  border-color: #8ccbf7;
-  color: #1893e7; }
+  background-color: #5db3ee;
+  border-color: #1893e7; }
 
 .rbc-blue .rbc.rbc-datepicker .DateInput__display-text--focused,
 .rbc-blue .rbc.rbc-daterange .DateInput__display-text--focused {
@@ -1122,17 +1102,13 @@ a {
   border-color: #ccc; }
 
 .rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--selected-span,
-.rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-span {
-  background-color: #a4d6f9;
-  border-color: #5cb5f4; }
-
 .rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--after-hovered-start,
 .rbc-dark .rbc.rbc-datepicker .CalendarMonth__day--hovered-span,
+.rbc-dark .rbc.rbc-daterange .CalendarMonth__day--selected-span,
 .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--after-hovered-start,
 .rbc-dark .rbc.rbc-daterange .CalendarMonth__day--hovered-span {
-  background: #bce1fa;
-  border-color: #8ccbf7;
-  color: #ccc; }
+  background-color: #f2f2f2;
+  border-color: #ccc; }
 
 .rbc-dark .rbc.rbc-datepicker .DateInput__display-text--focused,
 .rbc-dark .rbc.rbc-daterange .DateInput__display-text--focused {

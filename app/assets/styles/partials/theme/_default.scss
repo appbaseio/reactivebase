@@ -29,15 +29,11 @@ $map in $themes {
 				background: map-get($map, color);
 				border-color: map-get($map, color);
 			}
-			.CalendarMonth__day--selected-span {
-				background-color: lighten($secondary-color, 5%);
-				border-color: darken($secondary-color, 10%);
-			}
+			.CalendarMonth__day--selected-span,
 			.CalendarMonth__day--after-hovered-start,
 			.CalendarMonth__day--hovered-span {
-				background: lighten($secondary-color, 10%);
-				border-color: $secondary-color;
-				color: map-get($map, color);
+				background-color: lighten(map-get($map, color), 15%);
+				border-color: map-get($map, color);
 			}
 			.DateInput__display-text--focused {
 				background: rgba(map-get($map, color), 0.24);
