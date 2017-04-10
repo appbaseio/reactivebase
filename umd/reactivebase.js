@@ -1685,6 +1685,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+	var _ = __webpack_require__(23);
+
 	var _require = __webpack_require__(16);
 
 	var EventEmitter = _require.EventEmitter;
@@ -1707,14 +1709,33 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.sortChanges = this.sortChanges.bind(this);
 		}
 
-		// Receive: This method will be executed whenever dependency value changes
-		// It receives which dependency changes and which channeldId should be affected.
-
-
 		_createClass(ChannelManager, [{
+			key: "highlightModify",
+			value: function highlightModify(data, queryObj) {
+				if (queryObj && queryObj.body && queryObj.body.highlight && data && data.hits && data.hits.hits && data.hits.hits.length) {
+					data.hits.hits = data.hits.hits.map(this.highlightItem);
+				}
+				return data;
+			}
+		}, {
+			key: "highlightItem",
+			value: function highlightItem(item) {
+				if (item.highlight) {
+					Object.keys(item.highlight).forEach(function (highlightItem) {
+						var highlightValue = item.highlight[highlightItem][0];
+						_.set(item._source, highlightItem, highlightValue);
+					});
+				}
+				return item;
+			}
+
+			// Receive: This method will be executed whenever dependency value changes
+			// It receives which dependency changes and which channeldId should be affected.
+
+		}, {
 			key: "receive",
 			value: function receive(depend, channelId) {
-				var _this = this;
+				var _this2 = this;
 
 				var queryOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
@@ -1729,6 +1750,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 
 				function activateStream(currentChannelId, currentQueryObj, appbaseRef) {
+					var _this = this;
+
+					console.log("streaming activate");
 					if (this.streamRef[currentChannelId]) {
 						this.streamRef[currentChannelId].stop();
 					}
@@ -1740,6 +1764,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						delete streamQueryObj.body.sort;
 					}
 					this.streamRef[currentChannelId] = appbaseRef.searchStream(streamQueryObj).on("data", function (data) {
+						data = _this.highlightItem(data, currentQueryObj);
 						var obj = {
 							mode: "streaming",
 							data: data,
@@ -1769,15 +1794,15 @@ return /******/ (function(modules) { // webpackBootstrap
 							startTime: new Date().getTime(),
 							appliedQuery: queryObj
 						};
-						var appbaseRef = _this.appbaseRef[channelId];
+						var appbaseRef = _this2.appbaseRef[channelId];
 						if (appbaseRef) {
 							// apply search query and emit historic queryResult
 							var searchQueryObj = queryObj;
-							searchQueryObj.type = _this.type[channelId] === "*" ? "" : _this.type[channelId];
+							searchQueryObj.type = _this2.type[channelId] === "*" ? "" : _this2.type[channelId];
 							setQueryState(channelResponse);
 							appbaseRef.search(searchQueryObj).on("data", function (data) {
 								channelResponse.mode = "historic";
-								channelResponse.data = data;
+								channelResponse.data = _this2.highlightModify(data, channelResponse.appliedQuery);
 								self.emitter.emit(channelId, channelResponse);
 								var globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
 								self.emitter.emit("global", {
@@ -1795,7 +1820,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							});
 							// apply searchStream query and emit streaming data
 							if (channelObj.stream) {
-								activateStream.call(_this, channelId, queryObj, appbaseRef);
+								activateStream.call(_this2, channelId, queryObj, appbaseRef);
 							}
 						} else {
 							console.error("appbaseRef is not set for " + channelId);
@@ -1878,7 +1903,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function create(appbaseRef, type, react) {
 				var size = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 100;
 
-				var _this2 = this;
+				var _this3 = this;
 
 				var from = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
 				var stream = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
@@ -1913,7 +1938,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				setTimeout(function () {
 					if ("aggs" in react) {
-						_this2.receive("aggs", channelId);
+						_this3.receive("aggs", channelId);
 					}
 				}, 100);
 				return {
@@ -41930,6 +41955,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				return {
 					"highlight": {
+						"pre_tags": ["<span class=\"rbc-highlight\">"],
+						"post_tags": ["</span>"],
 						"fields": fields
 					}
 				};
@@ -41948,6 +41975,9 @@ return /******/ (function(modules) { // webpackBootstrap
 						customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery
 					}
 				};
+				if (this.props.highlight) {
+					obj.value.externalQuery = this.highlightQuery();
+				}
 				helper.selectedSensor.setSensorInfo(obj);
 				var searchObj = {
 					key: this.searchInputId,
@@ -41957,9 +41987,6 @@ return /******/ (function(modules) { // webpackBootstrap
 						customQuery: this.defaultSearchQuery
 					}
 				};
-				if (this.props.highlight) {
-					searchObj.value.externalQuery = this.highlightQuery();
-				}
 				helper.selectedSensor.setSensorInfo(searchObj);
 			}
 
@@ -41993,6 +42020,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "getValue",
 			value: function getValue(field, hit) {
+				var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
 				var val = void 0;
 				if (_.has(hit, field)) {
 					val = hit[field];
@@ -42003,7 +42032,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						fieldSplit.forEach(function (item, index) {
 							prefix += item;
 							if (_.isArray(_.get(hit, prefix))) {
-								prefix += "[0]";
+								prefix += "[" + index + "]";
 							}
 							if (fieldSplit.length - 1 !== index) {
 								prefix += ".";
@@ -42026,28 +42055,16 @@ return /******/ (function(modules) { // webpackBootstrap
 				var options = [];
 				var appbaseField = _.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
 				data.hits.hits.map(function (hit) {
-					if (_this2.props.highlight) {
-						if (hit && hit.highlight) {
-							Object.keys(hit.highlight).forEach(function (item) {
-								appbaseField.forEach(function (field) {
-									if (item === field) {
-										options.push({ value: _this2.getValue(field, hit._source), label: _react2.default.createElement("p", { dangerouslySetInnerHTML: { __html: hit.highlight[item].join(", ") } }) });
-									}
-								});
-							});
-						}
-					} else {
-						if (_this2.fieldType === "string") {
-							var tempField = _this2.getValue(_this2.props.appbaseField.trim(), hit._source);
-							options.push({ value: tempField, label: tempField });
-						} else if (_this2.fieldType === "object") {
-							_this2.props.appbaseField.map(function (field) {
-								var tempField = _this2.getValue(field, hit._source);
-								if (tempField) {
-									options.push({ value: tempField, label: tempField });
-								}
-							});
-						}
+					if (_this2.fieldType === "string") {
+						var tempField = _this2.getValue(_this2.props.appbaseField.trim(), hit._source);
+						options.push({ value: tempField, label: tempField });
+					} else if (_this2.fieldType === "object") {
+						_this2.props.appbaseField.map(function (field) {
+							var tempField = _this2.getValue(field, hit._source);
+							if (tempField) {
+								options.push({ value: tempField, label: tempField });
+							}
+						});
 					}
 				});
 				if (this.state.currentValue && this.state.currentValue.trim() !== "") {
