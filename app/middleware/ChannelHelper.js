@@ -12,6 +12,16 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 		return sortInfo;
 	}
 
+	// check if external query part is availbale (i.e. highlight)
+	function isExternalQuery(depend) {
+		let finalValue = null;
+		const sensorInfo = helper.selectedSensor.get(depend, "sensorInfo");
+		if(sensorInfo && sensorInfo.externalQuery) {
+			finalValue = sensorInfo.externalQuery;
+		}
+		return finalValue;
+	}
+
 	// build single query or if default query present in sensor itself use that
 	function singleQuery(depend) {
 		const sensorInfo = helper.selectedSensor.get(depend, "sensorInfo");
@@ -75,9 +85,15 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 			if (depend === "aggs") {
 				dependsQuery[depend] = aggsQuery(depend);
 			} else if (depend && depend.indexOf("channel-options-") > -1) {
-				requestOptions = previousSelectedSensor[depend];
+				requestOptions = requestOptions ? requestOptions : {};
+				requestOptions = Object.assign(requestOptions, previousSelectedSensor[depend]);
 			} else {
 				dependsQuery[depend] = singleQuery(depend);
+				const externalQuery = isExternalQuery(depend);
+				if(externalQuery) {
+					requestOptions = requestOptions ? requestOptions : {};
+					requestOptions = Object.assign(requestOptions, externalQuery);
+				}
 			}
 			const sortField = sortAvailable(depend);
 			if (sortField && !("aggSort" in sortField)) {
