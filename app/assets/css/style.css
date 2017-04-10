@@ -1351,6 +1351,8 @@ a {
       transition: none; }
     .rbc.rbc-datasearch .Select-input:hover, .rbc.rbc-datasearch .Select-input:focus {
       outline: none; }
+  .rbc.rbc-datasearch .Select-menu-outer .Select-option em {
+    font-family: "Lato Bold"; }
   .rbc.rbc-datasearch .rbc-search-container {
     padding: 0;
     position: relative; }

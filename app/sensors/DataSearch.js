@@ -148,18 +148,28 @@ export default class DataSearch extends Component {
 	// set data after get the result
 	setData(data) {
 		let options = [];
+		const appbaseField = _.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
 		data.hits.hits.map((hit) => {
-			if (this.fieldType === "string") {
-				const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
-				options.push({ value: tempField, label: tempField });
-			} else if (this.fieldType === "object") {
-				this.props.appbaseField.map((field) => {
-					const tempField = this.getValue(field, hit._source);
-					if (tempField) {
-						options.push({ value: tempField, label: tempField });
-					}
-				});
+			if(hit && hit.highlight) {
+				Object.keys(hit.highlight).forEach(item => {
+					appbaseField.forEach(field => {
+						if(item === field) {
+							options.push({ value: this.getValue(field, hit._source), label: (<p dangerouslySetInnerHTML={{__html: hit.highlight[item].join(" ")}}></p>) });
+						}
+					});
+				})
 			}
+			// if (this.fieldType === "string") {
+			// 	const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
+			// 	options.push({ value: tempField, label: tempField });
+			// } else if (this.fieldType === "object") {
+			// 	this.props.appbaseField.map((field) => {
+			// 		const tempField = this.getValue(field, hit._source);
+			// 		if (tempField) {
+			// 			options.push({ value: tempField, label: tempField });
+			// 		}
+			// 	});
+			// }
 		});
 		if (this.state.currentValue && this.state.currentValue.trim() !== "") {
 			options.unshift({
