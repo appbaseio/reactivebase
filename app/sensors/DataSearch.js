@@ -61,7 +61,7 @@ export default class DataSearch extends Component {
 
 	highlightQuery() {
 		const fields = {};
-		if (typeof this.props.appbaseField === "String") {
+		if (typeof this.props.appbaseField === "string") {
 			fields[this.props.appbaseField] = {};
 		} else if (_.isArray(this.props.appbaseField)) {
 			this.props.appbaseField.forEach((item) => {
@@ -147,15 +147,6 @@ export default class DataSearch extends Component {
 		return val;
 	}
 
-	setLabel(value) {
-		if(value.indexOf("<em>") > -1) {
-			const prefixvalue = value.substring(0, value.indexOf("<em>"));
-			const postfixvalue = value.substring(value.indexOf("</em>")+5, value.length);
-			const emvalue = value.substring(value.indexOf("<em>")+4, value.indexOf("</em>"));
-			value = (<p>{prefixvalue} <em>{emvalue}</em> {postfixvalue} </p>);
-		}
-		return value;
-	}
 	// set data after get the result
 	setData(data) {
 		let options = [];
@@ -166,7 +157,7 @@ export default class DataSearch extends Component {
 					Object.keys(hit.highlight).forEach(item => {
 						appbaseField.forEach(field => {
 							if(item === field) {
-								options.push({ value: this.getValue(field, hit._source), label: this.setLabel(hit.highlight[item].join(" ")) });
+								options.push({ value: this.getValue(field, hit._source), label: (<p dangerouslySetInnerHTML={{__html: hit.highlight[item].join(", ")}}></p>)});
 							}
 						});
 					})
