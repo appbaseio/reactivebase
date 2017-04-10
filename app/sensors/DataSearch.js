@@ -59,6 +59,22 @@ export default class DataSearch extends Component {
 		}
 	}
 
+	highlightQuery() {
+		const fields = {};
+		if (typeof this.props.appbaseField === "String") {
+			fields[this.props.appbaseField] = {};
+		} else if (_.isArray(this.props.appbaseField)) {
+			this.props.appbaseField.forEach((item) => {
+				fields[item] = {};
+			})
+		}
+		return {
+			"highlight": {
+				"fields": fields
+			}
+		};
+	}
+
 	// set the query type and input data
 	setQueryInfo() {
 		const obj = {
@@ -78,6 +94,9 @@ export default class DataSearch extends Component {
 				customQuery: this.defaultSearchQuery
 			}
 		};
+		if(this.props.highlight) {
+			searchObj.value.externalQuery = this.highlightQuery();
+		}
 		helper.selectedSensor.setSensorInfo(searchObj);
 	}
 
@@ -108,17 +127,17 @@ export default class DataSearch extends Component {
 
 	getValue(field, hit) {
 		let val;
-		if(_.has(hit, field)) {
+		if (_.has(hit, field)) {
 			val = hit[field];
-		} else if(field.indexOf(".") > -1) {
+		} else if (field.indexOf(".") > -1) {
 			let prefix = "";
 			const fieldSplit = field.split(".");
 			fieldSplit.forEach((item, index) => {
 				prefix += item;
-				if(_.isArray(_.get(hit, prefix))) {
+				if (_.isArray(_.get(hit, prefix))) {
 					prefix += "[0]";
 				}
-				if(fieldSplit.length-1 !== index) {
+				if (fieldSplit.length - 1 !== index) {
 					prefix += ".";
 				} else {
 					val = _.get(hit, prefix);
@@ -128,20 +147,43 @@ export default class DataSearch extends Component {
 		return val;
 	}
 
+	setLabel(value) {
+		if(value.indexOf("<em>") > -1) {
+			const prefixvalue = value.substring(0, value.indexOf("<em>"));
+			const postfixvalue = value.substring(value.indexOf("</em>")+5, value.length);
+			const emvalue = value.substring(value.indexOf("<em>")+4, value.indexOf("</em>"));
+			value = (<p>{prefixvalue} <em>{emvalue}</em> {postfixvalue} </p>);
+		}
+		return value;
+	}
 	// set data after get the result
 	setData(data) {
 		let options = [];
+		const appbaseField = _.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
 		data.hits.hits.map((hit) => {
-			if (this.fieldType === "string") {
-				const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
-				options.push({ value: tempField, label: tempField });
-			} else if (this.fieldType === "object") {
-				this.props.appbaseField.map((field) => {
-					const tempField = this.getValue(field, hit._source);
-					if (tempField) {
-						options.push({ value: tempField, label: tempField });
-					}
-				});
+			if(this.props.highlight) {
+				if(hit && hit.highlight) {
+					Object.keys(hit.highlight).forEach(item => {
+						appbaseField.forEach(field => {
+							if(item === field) {
+								options.push({ value: this.getValue(field, hit._source), label: this.setLabel(hit.highlight[item].join(" ")) });
+							}
+						});
+					})
+				}
+			}
+			else {
+				if (this.fieldType === "string") {
+					const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
+					options.push({ value: tempField, label: tempField });
+				} else if (this.fieldType === "object") {
+					this.props.appbaseField.map((field) => {
+						const tempField = this.getValue(field, hit._source);
+						if (tempField) {
+							options.push({ value: tempField, label: tempField });
+						}
+					});
+				}
 			}
 		});
 		if (this.state.currentValue && this.state.currentValue.trim() !== "") {
@@ -159,27 +201,31 @@ export default class DataSearch extends Component {
 
 	// default query
 	defaultSearchQuery(value) {
-		let finalQuery = null;
+		let finalQuery = null,
+			fields;
 		if (value) {
 			if (this.fieldType === "string") {
-				return {
-					match_phrase_prefix: {
-						[this.props.appbaseField]: value
-					}
-				};
+				fields = [this.props.appbaseField];
+			} else {
+				fields = this.props.appbaseField;
 			}
-			const query = [];
-			this.props.appbaseField.map((field) => {
-				query.push({
-					match_phrase_prefix: {
-						[field]: value
-					}
-				});
-			});
 			finalQuery = {
-				bool: {
-					should: query,
-					minimum_should_match: 1
+				"bool": {
+					"should": [{
+						"multi_match": {
+							"query": value,
+							fields,
+							"type": "phrase_prefix"
+						}
+					}, {
+						"multi_match": {
+							"query": value,
+							fields,
+							"type": "boolean",
+							"minimum_should_match": "50%"
+						}
+					}],
+					"minimum_should_match": "1"
 				}
 			};
 		}
@@ -248,7 +294,7 @@ export default class DataSearch extends Component {
 			key: this.props.componentId,
 			value: inputVal
 		};
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		// pass the selected sensor value with componentId as key,
@@ -316,14 +362,16 @@ DataSearch.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	react: React.PropTypes.object,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	highlight: React.PropTypes.bool
 };
 
 // Default props value
 DataSearch.defaultProps = {
 	placeholder: "Search",
 	autocomplete: true,
-	componentStyle: {}
+	componentStyle: {},
+	highlight: false
 };
 
 // context type
@@ -342,5 +390,6 @@ DataSearch.types = {
 	autocomplete: TYPES.BOOLEAN,
 	defaultSelected: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT
+	componentStyle: TYPES.OBJECT,
+	highlight: TYPES.BOOLEAN
 };

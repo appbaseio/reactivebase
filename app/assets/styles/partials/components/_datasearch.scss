@@ -76,6 +76,12 @@ $input-bg: darken($light-grey, 2%);
 		}
 	}
 
+	.Select-menu-outer .Select-option {
+		em {
+			font-family: $font-bold;
+		}
+	}
+
 	.rbc-search-container {
 		padding: 0;
 		position: relative;
