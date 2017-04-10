@@ -33,8 +33,8 @@ export default class DataSearchHighlight extends Component {
 	render() {
 		return (
 			<ReactiveBase
-				app="hacker-news"
-				credentials="Nt7ZtBrAn:5656435e-0273-497e-a741-9a5a2085ae84"
+				app="hn"
+				credentials="Uzq9SU9vM:7298de2f-1884-4d38-8dfd-f7fa14060198"
 				type="post"
 			>
 				<div className="row">

@@ -20,18 +20,19 @@ class ChannelManager {
 
 	highlightModify(data, queryObj) {
 		if(queryObj && queryObj.body && queryObj.body.highlight && data && data.hits && data.hits.hits && data.hits.hits.length) {
-			data.hits.hits = data.hits.hits.map((item) => {
-				if(item.highlight) {
-					item._originalSource = _.cloneDeep(item._source);
-					Object.keys(item.highlight).forEach((highlightItem) => {
-						const highlightValue = item.highlight[highlightItem][0];
-						_.set(item._source, highlightItem, highlightValue);
-					});
-				}
-				return item;
-			});
+			data.hits.hits = data.hits.hits.map(this.highlightItem);
 		}
 		return data;
+	}
+
+	highlightItem(item) {
+		if(item.highlight) {
+			Object.keys(item.highlight).forEach((highlightItem) => {
+				const highlightValue = item.highlight[highlightItem][0];
+				_.set(item._source, highlightItem, highlightValue);
+			});
+		}
+		return item;
 	}
 
 	// Receive: This method will be executed whenever dependency value changes
@@ -48,6 +49,7 @@ class ChannelManager {
 		}
 
 		function activateStream(currentChannelId, currentQueryObj, appbaseRef) {
+			console.log("streaming activate");
 			if (this.streamRef[currentChannelId]) {
 				this.streamRef[currentChannelId].stop();
 			}
@@ -59,6 +61,7 @@ class ChannelManager {
 				delete streamQueryObj.body.sort;
 			}
 			this.streamRef[currentChannelId] = appbaseRef.searchStream(streamQueryObj).on("data", (data) => {
+				data = this.highlightItem(data, currentQueryObj);
 				const obj = {
 					mode: "streaming",
 					data,
