@@ -41921,7 +41921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "highlightQuery",
 			value: function highlightQuery() {
 				var fields = {};
-				if (typeof this.props.appbaseField === "String") {
+				if (typeof this.props.appbaseField === "string") {
 					fields[this.props.appbaseField] = {};
 				} else if (_.isArray(this.props.appbaseField)) {
 					this.props.appbaseField.forEach(function (item) {
@@ -42015,30 +42015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				return val;
 			}
-		}, {
-			key: "setLabel",
-			value: function setLabel(value) {
-				if (value.indexOf("<em>") > -1) {
-					var prefixvalue = value.substring(0, value.indexOf("<em>"));
-					var postfixvalue = value.substring(value.indexOf("</em>") + 5, value.length);
-					var emvalue = value.substring(value.indexOf("<em>") + 4, value.indexOf("</em>"));
-					value = _react2.default.createElement(
-						"p",
-						null,
-						prefixvalue,
-						" ",
-						_react2.default.createElement(
-							"em",
-							null,
-							emvalue
-						),
-						" ",
-						postfixvalue,
-						" "
-					);
-				}
-				return value;
-			}
+
 			// set data after get the result
 
 		}, {
@@ -42054,7 +42031,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							Object.keys(hit.highlight).forEach(function (item) {
 								appbaseField.forEach(function (field) {
 									if (item === field) {
-										options.push({ value: _this2.getValue(field, hit._source), label: _this2.setLabel(hit.highlight[item].join(" ")) });
+										options.push({ value: _this2.getValue(field, hit._source), label: _react2.default.createElement("p", { dangerouslySetInnerHTML: { __html: hit.highlight[item].join(", ") } }) });
 									}
 								});
 							});
