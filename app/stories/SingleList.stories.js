@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { ReactiveBase, SingleList, ReactiveList } from "../app.js";
-import { ResponsiveStory, combineStreamData } from "../middleware/helper.js";
+import { ResponsiveStory } from "../middleware/helper.js";
 import { Img } from "./Img.js";
 
 export default class SingleListDefault extends Component {
 	constructor(props) {
 		super(props);
-		this.onAllData = this.onAllData.bind(this);
 		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
 	}
 
@@ -14,26 +13,8 @@ export default class SingleListDefault extends Component {
 		ResponsiveStory();
 	}
 
-	onAllData(res, err) {
-		let result = null;
-		if (res) {
-			let combineData = res.currentData;
-			if (res.mode === "historic") {
-				combineData = res.currentData.concat(res.newData);
-			}			else if (res.mode === "streaming") {
-				combineData = combineStreamData(res.currentData, res.newData);
-			}
-			if (combineData) {
-				result = combineData.map((markerData, index) => {
-					const marker = markerData._source;
-					return this.itemMarkup(marker, markerData);
-				});
-			}
-		}
-		return result;
-	}
-
-	itemMarkup(marker, markerData) {
+	onData(markerData) {
+		const marker = markerData._source;
 		return (
 			<a
 				className="full_row single-record single_record_for_clone"
@@ -89,7 +70,7 @@ export default class SingleListDefault extends Component {
 							sortBy="asc"
 							from={0}
 							size={20}
-							onAllData={this.onAllData}
+							onData={this.onData}
 							react={{
 								and: ["CitySensor"]
 							}}

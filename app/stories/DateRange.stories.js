@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ReactiveBase, DateRange, ReactiveList } from "../app";
-import { ResponsiveStory, combineStreamData } from "../middleware/helper";
+import { ResponsiveStory } from "../middleware/helper";
 import { Img } from "./Img";
 
 require("./list.css");
@@ -9,7 +9,6 @@ const moment = require("moment");
 export default class DateRangeDefault extends Component {
 	constructor(props) {
 		super(props);
-		this.onAllData = this.onAllData.bind(this);
 		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
 	}
 
@@ -17,26 +16,8 @@ export default class DateRangeDefault extends Component {
 		ResponsiveStory();
 	}
 
-	onAllData(res) {
-		let result = null;
-		if (res) {
-			let combineData = res.currentData;
-			if (res.mode === "historic") {
-				combineData = res.currentData.concat(res.newData);
-			} else if (res.mode === "streaming") {
-				combineData = combineStreamData(res.currentData, res.newData);
-			}
-			if (combineData) {
-				result = combineData.map((markerData) => {
-					const marker = markerData._source;
-					return this.itemMarkup(marker, markerData);
-				});
-			}
-		}
-		return result;
-	}
-
-	itemMarkup(marker, markerData) {
+	onData(markerData) {
+		const marker = markerData._source;
 		return (
 			<a
 				className="full_row single-record single_record_for_clone"
@@ -92,8 +73,7 @@ export default class DateRangeDefault extends Component {
 							title="Results"
 							from={0}
 							size={20}
-							onAllData={this.onAllData}
-							requestOnScroll={true}
+							onData={this.onData}
 							react={{
 								and: "DateRangeSensor"
 							}}

@@ -6,7 +6,6 @@ import moment from "moment";
 export default class DataSearchHighlight extends Component {
 	constructor(props) {
 		super(props);
-		this.onData = this.onData.bind(this);
 	}
 
 	componentDidMount() {
