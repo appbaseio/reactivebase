@@ -2702,20 +2702,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		return err;
 	};
 
-	var dataSearchHighlightValidation = exports.dataSearchHighlightValidation = function dataSearchHighlightValidation(props, propName) {
-		var err = null;
-		if ("highlight" in props) {
-			if (typeof props.highlight !== "boolean") {
-				err = new Error("Highlight prop expects boolean value.");
-			} else {
-				if (props.highlight && !("highlightFields" in props)) {
-					err = new Error("HighlightFields prop is required when using highlight.");
-				}
-			}
-		}
-		return err;
-	};
-
 /***/ },
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
@@ -41998,10 +41984,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "highlightQuery",
 			value: function highlightQuery() {
 				var fields = {};
-				if (typeof this.props.highlightFields === "string") {
-					fields[this.props.highlightFields] = {};
-				} else if (_.isArray(this.props.highlightFields)) {
-					this.props.highlightFields.forEach(function (item) {
+				var highlightFields = this.props.highlightFields ? this.props.highlightFields : this.props.appbaseField;
+				if (typeof highlightFields === "string") {
+					fields[highlightFields] = {};
+				} else if (_.isArray(highlightFields)) {
+					highlightFields.forEach(function (item) {
 						fields[item] = {};
 					});
 				}
@@ -42027,7 +42014,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery
 					}
 				};
-				if (this.props.highlight && this.props.highlightFields) {
+				if (this.props.highlight) {
 					obj.value.externalQuery = this.highlightQuery();
 				}
 				helper.selectedSensor.setSensorInfo(obj);
@@ -42309,7 +42296,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		onValueChange: _react2.default.PropTypes.func,
 		react: _react2.default.PropTypes.object,
 		componentStyle: _react2.default.PropTypes.object,
-		highlight: helper.dataSearchHighlightValidation,
+		highlight: _react2.default.PropTypes.bool,
 		highlightFields: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string)])
 	};
 
