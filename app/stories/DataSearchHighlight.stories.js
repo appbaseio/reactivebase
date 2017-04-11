@@ -44,7 +44,6 @@ export default class DataSearchHighlight extends Component {
 							placeholder="Search posts by title, text or author..."
 							autocomplete={false}
 							highlight={true}
-							highlightFields="text"
 						/>
 					</div>
 
