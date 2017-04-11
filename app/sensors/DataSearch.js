@@ -66,13 +66,13 @@ export default class DataSearch extends Component {
 		} else if (_.isArray(this.props.appbaseField)) {
 			this.props.appbaseField.forEach((item) => {
 				fields[item] = {};
-			})
+			});
 		}
 		return {
-			"highlight": {
-				"pre_tags": [`<span class="rbc-highlight">`],
-				"post_tags": ["</span>"],
-				"fields": fields
+			highlight: {
+				pre_tags: ["<span class=\"rbc-highlight\">"],
+				post_tags: ["</span>"],
+				fields
 			}
 		};
 	}
@@ -137,7 +137,7 @@ export default class DataSearch extends Component {
 			fieldSplit.forEach((item, index) => {
 				prefix += item;
 				if (_.isArray(_.get(hit, prefix))) {
-					prefix += "[" + index + "]";
+					prefix += `[${index}]`;
 				}
 				if (fieldSplit.length - 1 !== index) {
 					prefix += ".";
@@ -190,20 +190,20 @@ export default class DataSearch extends Component {
 				fields = this.props.appbaseField;
 			}
 			finalQuery = {
-				"bool": {
-					"should": [{
-						"multi_match": {
-							"query": value,
+				bool: {
+					should: [{
+						multi_match: {
+							query: value,
 							fields,
-							"type": "phrase_prefix"
+							type: "phrase_prefix"
 						}
 					}, {
-						"multi_match": {
-							"query": value,
+						multi_match: {
+							query: value,
 							fields
 						}
 					}],
-					"minimum_should_match": "1"
+					minimum_should_match: "1"
 				}
 			};
 		}

@@ -68,7 +68,7 @@ export default class RangeSlider extends Component {
 						}
 					};
 					setTimeout(() => {
-						if(this.props.onValueChange) {
+						if (this.props.onValueChange) {
 							this.props.onValueChange(obj.value);
 						}
 						helper.selectedSensor.set(obj, true);
@@ -89,7 +89,7 @@ export default class RangeSlider extends Component {
 						}
 					};
 					setTimeout(() => {
-						if(this.props.onValueChange) {
+						if (this.props.onValueChange) {
 							this.props.onValueChange(obj.value);
 						}
 						helper.selectedSensor.set(obj, true);
@@ -129,7 +129,7 @@ export default class RangeSlider extends Component {
 						key: this.props.componentId,
 						value: currentRange
 					};
-					if(this.props.onValueChange) {
+					if (this.props.onValueChange) {
 						this.props.onValueChange(obj.value);
 					}
 					helper.selectedSensor.set(obj, true);
@@ -153,7 +153,7 @@ export default class RangeSlider extends Component {
 							to: nextProps.defaultSelected.end - rem
 						}
 					};
-					if(this.props.onValueChange) {
+					if (this.props.onValueChange) {
 						this.props.onValueChange(obj.value);
 					}
 					helper.selectedSensor.set(obj, true);
@@ -213,7 +213,7 @@ export default class RangeSlider extends Component {
 			key: `${this.props.componentId}-internal`,
 			value: this.props.range
 		};
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(objValue.value);
 		}
 		helper.selectedSensor.set(objValue, true);
@@ -363,7 +363,7 @@ export default class RangeSlider extends Component {
 			key: this.props.componentId,
 			value: realValues
 		};
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		helper.selectedSensor.set(obj, true);

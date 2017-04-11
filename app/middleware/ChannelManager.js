@@ -19,14 +19,14 @@ class ChannelManager {
 	}
 
 	highlightModify(data, queryObj) {
-		if(queryObj && queryObj.body && queryObj.body.highlight && data && data.hits && data.hits.hits && data.hits.hits.length) {
+		if (queryObj && queryObj.body && queryObj.body.highlight && data && data.hits && data.hits.hits && data.hits.hits.length) {
 			data.hits.hits = data.hits.hits.map(this.highlightItem);
 		}
 		return data;
 	}
 
 	highlightItem(item) {
-		if(item.highlight) {
+		if (item.highlight) {
 			Object.keys(item.highlight).forEach((highlightItem) => {
 				const highlightValue = item.highlight[highlightItem][0];
 				_.set(item._source, highlightItem, highlightValue);

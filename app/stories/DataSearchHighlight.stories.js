@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { ReactiveBase, DataSearch, ReactiveList, SingleDropdownList } from '../app.js';
-import { ResponsiveStory } from '../middleware/helper.js';
+import React, { Component } from "react";
+import { ReactiveBase, DataSearch, ReactiveList, SingleDropdownList } from "../app.js";
+import { ResponsiveStory } from "../middleware/helper.js";
 import moment from "moment";
 
 export default class DataSearchHighlight extends Component {
@@ -18,16 +18,16 @@ export default class DataSearchHighlight extends Component {
 		return (
 			<table className="rbc-highlight-table">
 				<tr>
-					<th>title</th><td dangerouslySetInnerHTML={{__html: res.title}}></td>
+					<th>title</th><td dangerouslySetInnerHTML={{ __html: res.title }} />
 				</tr>
 				<tr>
-					<th>text</th><td dangerouslySetInnerHTML={{__html: res.text}}></td>
+					<th>text</th><td dangerouslySetInnerHTML={{ __html: res.text }} />
 				</tr>
 				<tr>
-					<th>by</th><td dangerouslySetInnerHTML={{__html: res.by}}></td>
+					<th>by</th><td dangerouslySetInnerHTML={{ __html: res.by }} />
 				</tr>
 			</table>
-		)
+		);
 	}
 
 	render() {
@@ -68,7 +68,7 @@ export default class DataSearchHighlight extends Component {
 
 DataSearchHighlight.defaultProps = {
 	mapping: {
-		topic: 'group.group_topics.topic_name_raw',
-		venue: 'venue_name_ngrams'
+		topic: "group.group_topics.topic_name_raw",
+		venue: "venue_name_ngrams"
 	}
 };

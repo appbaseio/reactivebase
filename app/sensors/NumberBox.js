@@ -113,7 +113,7 @@ export default class NumberBox extends Component {
 			key: componentId,
 			value: inputVal
 		};
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		helper.selectedSensor.set(obj, true);

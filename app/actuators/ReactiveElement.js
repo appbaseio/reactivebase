@@ -103,7 +103,7 @@ export default class ReactiveElement extends Component {
 		// Set the react - add self aggs query as well with react
 		const react = this.props.react ? this.props.react : {};
 		if (react && react.and) {
-			if(typeof react.and === "string") {
+			if (typeof react.and === "string") {
 				react.and = [react.and];
 			}
 		} else {
@@ -303,7 +303,7 @@ export default class ReactiveElement extends Component {
 		}
 
 		return (
-			<div ref={(div) => { this.resultListContainer = div }} className="rbc-reactiveelement-container">
+			<div ref={(div) => { this.resultListContainer = div; }} className="rbc-reactiveelement-container">
 				<div className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{this.state.resultStats && this.state.resultStats.resultFound && this.props.showResultStats ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}

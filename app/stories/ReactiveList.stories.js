@@ -39,7 +39,7 @@ export default class ReactiveListDefault extends Component {
 	itemMarkup(marker, markerData) {
 		return (
 			<a
-				className={"full_row single-record single_record_for_clone " + (markerData.stream ? "animate" : "")}
+				className={`full_row single-record single_record_for_clone ${markerData.stream ? "animate" : ""}`}
 				href={marker.event ? marker.event.event_url : ""}
 				target="_blank"
 				rel="noreferrer noopener"
@@ -70,7 +70,7 @@ export default class ReactiveListDefault extends Component {
 	cityQuery(value) {
 		if (value) {
 			const field = "group.group_city.group_city_simple";
-			const query = JSON.parse(`{"${field}":` + JSON.stringify(value) + "}");
+			const query = JSON.parse(`{"${field}":${JSON.stringify(value)}}`);
 			return { terms: query };
 		}
 		return null;

@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { ReactiveBase, SingleDropdownList, ReactiveList } from '../app.js';
-import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
-import { Img } from './Img.js';
+import React, { Component } from "react";
+import { ReactiveBase, SingleDropdownList, ReactiveList } from "../app.js";
+import { ResponsiveStory, combineStreamData } from "../middleware/helper.js";
+import { Img } from "./Img.js";
 
 export default class SingleDropdownListDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.onAllData = this.onAllData.bind(this);
-		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
+		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
 	}
 
 	componentDidMount() {
@@ -18,14 +18,14 @@ export default class SingleDropdownListDefault extends Component {
 		let result = null;
 		if (res) {
 			let combineData = res.currentData;
-			if (res.mode === 'historic') {
+			if (res.mode === "historic") {
 				combineData = res.currentData.concat(res.newData);
-			} else if (res.mode === 'streaming') {
+			} else if (res.mode === "streaming") {
 				combineData = combineStreamData(res.currentData, res.newData);
 			}
 			if (combineData) {
 				result = combineData.map((markerData, index) => {
-					let marker = markerData._source;
+					const marker = markerData._source;
 					return this.itemMarkup(marker, markerData);
 				});
 			}
@@ -35,26 +35,26 @@ export default class SingleDropdownListDefault extends Component {
 
 	itemMarkup(marker, markerData) {
 		return (
-			<a className="full_row single-record single_record_for_clone"
-				href={marker.event ? marker.event.event_url : ''}
+			<a
+				className="full_row single-record single_record_for_clone"
+				href={marker.event ? marker.event.event_url : ""}
 				target="_blank"
-				key={markerData._id}>
+				key={markerData._id}
+			>
 				<div className="img-container">
 					<Img key={markerData._id} src={marker.member ? marker.member.photo : this.DEFAULT_IMAGE} />
 				</div>
 				<div className="text-container full_row">
 					<div className="text-head text-overflow full_row">
 						<span className="text-head-info text-overflow">
-							{marker.member ? marker.member.member_name : ''} is going to {marker.event ? marker.event.event_name : ''}
+							{marker.member ? marker.member.member_name : ""} is going to {marker.event ? marker.event.event_name : ""}
 						</span>
-						<span className="text-head-city">{marker.group ? marker.group.group_city : ''}</span>
+						<span className="text-head-city">{marker.group ? marker.group.group_city : ""}</span>
 					</div>
 					<div className="text-description text-overflow full_row">
 						<ul className="highlight_tags">
 							{
-								marker.group.group_topics.map(function(tag,i){
-									return (<li key={i}>{tag.topic_name}</li>)
-								})
+								marker.group.group_topics.map((tag, i) => (<li key={i}>{tag.topic_name}</li>))
 							}
 						</ul>
 					</div>
@@ -90,7 +90,7 @@ export default class SingleDropdownListDefault extends Component {
 							size={20}
 							onAllData={this.onAllData}
 							react={{
-								"and": "CitySensor"
+								and: "CitySensor"
 							}}
 						/>
 					</div>
@@ -102,7 +102,7 @@ export default class SingleDropdownListDefault extends Component {
 
 SingleDropdownListDefault.defaultProps = {
 	mapping: {
-		city: 'group.group_city.raw',
-		topic: 'group.group_topics.topic_name_raw'
+		city: "group.group_city.raw",
+		topic: "group.group_topics.topic_name_raw"
 	}
 };

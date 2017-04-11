@@ -267,7 +267,7 @@ export default class NativeList extends Component {
 			});
 			this.setState({ items });
 		}
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		helper.selectedSensor.set(obj, isExecuteQuery);

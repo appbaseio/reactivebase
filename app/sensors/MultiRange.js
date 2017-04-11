@@ -126,7 +126,7 @@ export default class MultiRange extends Component {
 
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		helper.selectedSensor.set(obj, isExecuteQuery);

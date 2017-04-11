@@ -30,7 +30,7 @@ export const WatchForDependencyChange = function (react, previousSelectedSensor,
 	// initialize the process
 	this.init = function () {
 		react.forEach((depend) => {
-			if(!(depend.indexOf('channel-options-') > -1 || depend.indexOf('aggs') > -1)) {
+			if (!(depend.indexOf("channel-options-") > -1 || depend.indexOf("aggs") > -1)) {
 				checkDependExists(depend);
 				if (typeof selectedSensor[depend] === "object") {
 					const newData = _(selectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
@@ -51,7 +51,7 @@ export const WatchForDependencyChange = function (react, previousSelectedSensor,
 			let foundDepend = false;
 
 			Object.keys(data).forEach((item) => {
-				if (item.indexOf('channel-options-') < 0 && react.indexOf(item) > -1) {
+				if (item.indexOf("channel-options-") < 0 && react.indexOf(item) > -1) {
 					foundDepend = true;
 				}
 			});

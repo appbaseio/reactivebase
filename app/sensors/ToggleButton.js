@@ -111,7 +111,7 @@ export default class ToggleButton extends Component {
 		};
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
@@ -147,7 +147,7 @@ export default class ToggleButton extends Component {
 			"rbc-multiselect-inactive": !this.props.multiSelect
 		});
 		return (
-			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail ${cx}`}  style={this.props.componentStyle}>
+			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				<div className="row">
 					{title}
 					<div className="rbc-buttongroup col s12 col-xs-12">

@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import { ReactiveBase, MultiList, ReactiveElement } from '../../app.js';
-import { ResponsiveStory, combineStreamData } from '../../middleware/helper.js';
-import {GetTopTopics} from './helper';
-import { Img } from '../Img.js';
+import React, { Component } from "react";
+import { ReactiveBase, MultiList, ReactiveElement } from "../../app.js";
+import { ResponsiveStory, combineStreamData } from "../../middleware/helper.js";
+import { GetTopTopics } from "./helper";
+import { Img } from "../Img.js";
 
-require('../list.css');
+require("../list.css");
 
 export default class WithStream extends Component {
 	constructor(props) {
 		super(props);
 		this.cityQuery = this.cityQuery.bind(this);
 		this.onAllData = this.onAllData.bind(this);
-		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
+		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
 	}
 
 	cityQuery(value) {
-		if(value) {
-			let field = 'group.group_city.group_city_simple';
-			let query = JSON.parse(`{"${field}":` + JSON.stringify(value) + '}');
+		if (value) {
+			const field = "group.group_city.group_city_simple";
+			const query = JSON.parse(`{"${field}":${JSON.stringify(value)}}`);
 			return { terms: query };
-		} else return null;
+		} return null;
 	}
 
 	componentDidMount() {
@@ -28,23 +28,22 @@ export default class WithStream extends Component {
 
 	onAllData(res, err) {
 		let result = null;
-		if(res && res.appliedQuery) {
+		if (res && res.appliedQuery) {
 			let combineData = res.currentData;
-			if(res.mode === 'historic') {
+			if (res.mode === "historic") {
 				combineData = res.currentData.concat(res.newData);
-			}
-			else if(res.mode === 'streaming') {
+			}			else if (res.mode === "streaming") {
 				combineData = combineStreamData(res.currentData, res.newData);
 			}
 			if (combineData) {
 				combineData = GetTopTopics(combineData);
-				let resultMarkup = combineData.map((data, index) => {
-					if(index < 5) {
+				const resultMarkup = combineData.map((data, index) => {
+					if (index < 5) {
 						return this.itemMarkup(data, index);
 					}
 				});
 				result = (
-					<div className="trendingTopics col s12 col-xs-12" style={{"padding": "10px", "paddingBottom": "60px"}}>
+					<div className="trendingTopics col s12 col-xs-12" style={{ padding: "10px", paddingBottom: "60px" }}>
 						<table className="table">
 							<tbody>
 								{resultMarkup}
@@ -86,7 +85,7 @@ export default class WithStream extends Component {
 							stream={true}
 							{...this.props}
 							react={{
-								"and": "CitySensor"
+								and: "CitySensor"
 							}}
 						/>
 					</div>

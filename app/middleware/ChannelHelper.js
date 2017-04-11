@@ -2,7 +2,7 @@ const helper = require("./helper");
 
 // queryBuild
 // Builds the query by using react object and values of sensor
-export const queryBuild = function(channelObj, previousSelectedSensor) {
+export const queryBuild = function (channelObj, previousSelectedSensor) {
 	const sortObj = [];
 	let requestOptions = null;
 
@@ -16,7 +16,7 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 	function isExternalQuery(depend) {
 		let finalValue = null;
 		const sensorInfo = helper.selectedSensor.get(depend, "sensorInfo");
-		if(sensorInfo && sensorInfo.externalQuery) {
+		if (sensorInfo && sensorInfo.externalQuery) {
 			finalValue = sensorInfo.externalQuery;
 		}
 		return finalValue;
@@ -43,10 +43,9 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 		let order,
 			type;
 		let query;
-		if(aggsObj.customQuery) {
+		if (aggsObj.customQuery) {
 			query = aggsObj.customQuery(aggsObj);
-		}
-		else {
+		}		else {
 			if (aggsObj.sortRef) {
 				const sortField = sortAvailable(aggsObj.sortRef);
 				if (sortField && sortField.aggSort) {
@@ -62,18 +61,18 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 			}
 			query = {
 				[aggsObj.key]: {
-					"terms": {
-						"field": aggsObj.key
+					terms: {
+						field: aggsObj.key
 					}
 				}
 			};
-			if(aggsObj.size) {
+			if (aggsObj.size) {
 				query[aggsObj.key].terms.size = aggsObj.size;
 			}
-			if(aggsObj.sort) {
+			if (aggsObj.sort) {
 				query[aggsObj.key].terms.order = {
-					[type] : order
-				}
+					[type]: order
+				};
 			}
 		}
 		return query;
@@ -85,13 +84,13 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 			if (depend === "aggs") {
 				dependsQuery[depend] = aggsQuery(depend);
 			} else if (depend && depend.indexOf("channel-options-") > -1) {
-				requestOptions = requestOptions ? requestOptions : {};
+				requestOptions = requestOptions || {};
 				requestOptions = Object.assign(requestOptions, previousSelectedSensor[depend]);
 			} else {
 				dependsQuery[depend] = singleQuery(depend);
 				const externalQuery = isExternalQuery(depend);
-				if(externalQuery) {
-					requestOptions = requestOptions ? requestOptions : {};
+				if (externalQuery) {
+					requestOptions = requestOptions || {};
 					requestOptions = Object.assign(requestOptions, externalQuery);
 				}
 			}
@@ -128,4 +127,4 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 	}
 
 	return initialize();
-}
+};
