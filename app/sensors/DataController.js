@@ -47,9 +47,9 @@ export default class DataController extends Component {
 	setValue(value) {
 		const obj = {
 			key: this.props.componentId,
-			value: value
+			value
 		};
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		// pass the selected sensor value with componentId as key,
@@ -111,10 +111,10 @@ DataController.propTypes = {
 	defaultSelected: React.PropTypes.any
 };
 
-title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
-	])
+React.PropTypes.oneOfType([
+	React.PropTypes.string,
+	React.PropTypes.element
+]);
 
 // Default props value
 DataController.defaultProps = {

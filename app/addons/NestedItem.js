@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import NestedList from '../sensors/NestedList';
+import React, { Component } from "react";
+import { render } from "react-dom";
+import NestedList from "../sensors/NestedList";
 
 export default class NestedItem extends Component {
 	constructor(props) {
@@ -45,10 +45,10 @@ export default class NestedItem extends Component {
 	}
 
 	render() {
-		let items = this.props.items;
-		let itemsComponent = [];
+		const items = this.props.items;
+		const itemsComponent = [];
 		// Build the array of components for each item
-		items.forEach(function(item) {
+		items.forEach((item) => {
 			itemsComponent.push(<ItemRow
 				{...this.props}
 				key={item.key}
@@ -56,8 +56,9 @@ export default class NestedItem extends Component {
 				doc_count={item.doc_count}
 				countField={this.props.showCount}
 				handleClick={this.handleClick}
-				selectedItem={this.state.selectedItem}/>)
-		}.bind(this));
+				selectedItem={this.state.selectedItem}
+			/>);
+		});
 		return (
 			<div className="rbc-list-container col s12 col-xs-12">
 				{itemsComponent}
@@ -110,11 +111,11 @@ class ItemRow extends Component {
 		if (this.props.value === this.props.selectedItem && this.props.appbaseField[1]) {
 			list = (
 				<NestedList
-						componentId={"nested-"+this.props.value}
-						appbaseField={[this.props.appbaseField[1]]}
-						react={this.props.react}
-					></NestedList>
-			)
+					componentId={`nested-${this.props.value}`}
+					appbaseField={[this.props.appbaseField[1]]}
+					react={this.props.react}
+				/>
+			);
 		}
 		return list;
 	}

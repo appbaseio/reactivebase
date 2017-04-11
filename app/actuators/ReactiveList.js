@@ -1,13 +1,13 @@
 /* eslint max-lines: 0 */
 import React, { Component } from "react";
 import classNames from "classnames";
-import manager from '../middleware/ChannelManager';
+import manager from "../middleware/ChannelManager";
 import JsonPrint from "../addons/JsonPrint";
 import PoweredBy from "../sensors/PoweredBy";
 import InitialLoader from "../addons/InitialLoader";
 import NoResults from "../addons/NoResults";
 import ResultStats from "../addons/ResultStats";
-import Pagination from '../addons/Pagination';
+import Pagination from "../addons/Pagination";
 import * as TYPES from "../middleware/constants";
 
 const helper = require("../middleware/helper");
@@ -93,7 +93,6 @@ export default class ReactiveList extends Component {
 				this.removeChannel();
 				this.initialize(true);
 			});
-
 		}
 	}
 
@@ -120,13 +119,13 @@ export default class ReactiveList extends Component {
 			const flag = resultElement.get(0).scrollHeight - padding > resultElement.height();
 			const scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height();
 			if (!flag && !scrollFlag && scrollElement.length && !this.props.pagination) {
-				const headerHeight = getHeight(resultElement.find('.rbc-title')) + (getHeight(resultElement.find('.rbc-pagination')) * resultElement.find('.rbc-pagination').length);
+				const headerHeight = getHeight(resultElement.find(".rbc-title")) + (getHeight(resultElement.find(".rbc-pagination")) * resultElement.find(".rbc-pagination").length);
 				const finalHeight = resultElement.height() - 60 - headerHeight;
-				if(finalHeight > 0) {
+				if (finalHeight > 0) {
 					scrollElement.css("height", finalHeight);
 				}
 			}
-		}
+		};
 
 		if (resultElement && resultElement.length && scrollElement && scrollElement.length) {
 			scrollElement.css("height", "auto");
@@ -152,14 +151,14 @@ export default class ReactiveList extends Component {
 		// Set the react - add self aggs query as well with react
 		const react = this.props.react ? this.props.react : {};
 		if (react && react.and) {
-			if(typeof react.and === "string") {
+			if (typeof react.and === "string") {
 				react.and = [react.and];
 			}
 		} else {
 			react.and = [];
 		}
 		react.and.push("streamChanges");
-		if(this.props.pagination) {
+		if (this.props.pagination) {
 			react.and.push("paginationChanges");
 			react.pagination = null;
 		}
@@ -167,7 +166,7 @@ export default class ReactiveList extends Component {
 			this.enableSort(react);
 		}
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.context.app);
 		this.channelId = channelObj.channelId;
 
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
@@ -291,9 +290,9 @@ export default class ReactiveList extends Component {
 		let markup = null;
 		if (_.isArray(generatedData)) {
 			markup = generatedData.map((item, index) => (
-					<div key={index} className="rbc-list-item">
-						{item}
-					</div>
+				<div key={index} className="rbc-list-item">
+					{item}
+				</div>
 				)
 			);
 		} else {
@@ -400,12 +399,12 @@ export default class ReactiveList extends Component {
 
 	setQueryForPagination() {
 		const valObj = {
-			queryType: 'match',
+			queryType: "match",
 			inputData: this.props.appbaseField,
 			customQuery: () => null
 		};
 		const obj = {
-			key: 'paginationChanges',
+			key: "paginationChanges",
 			value: valObj
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -423,14 +422,14 @@ export default class ReactiveList extends Component {
 
 	paginationAt(method) {
 		let pageinationComp;
-		if (this.props.pagination && (this.props.paginationAt === method || this.props.paginationAt === 'both')) {
+		if (this.props.pagination && (this.props.paginationAt === method || this.props.paginationAt === "both")) {
 			pageinationComp = (
 				<div className="rbc-pagination-container col s12 col-xs-12">
 					<Pagination
 						className={`rbc-pagination-${method}`}
 						componentId="pagination"
 						onPageChange={this.props.onPageChange}
-						title={this.props.paginationTitle} 
+						title={this.props.paginationTitle}
 					/>
 				</div>
 			);
@@ -451,14 +450,14 @@ export default class ReactiveList extends Component {
 				result = combineData.map((markerData) => {
 					const marker = markerData._source;
 					return this.props.onData ? (
-							<div className="rbc-list-item">
-								{this.props.onData(markerData)}
-							</div>
-						) : (
-						<div className="row" style={{ marginTop: "20px" }}>
-							{this.itemMarkup(marker, markerData)}
+						<div className="rbc-list-item">
+							{this.props.onData(markerData)}
 						</div>
-					)
+						) : (
+							<div className="row" style={{ marginTop: "20px" }}>
+								{this.itemMarkup(marker, markerData)}
+							</div>
+					);
 				});
 			}
 		}
@@ -562,12 +561,12 @@ export default class ReactiveList extends Component {
 		}
 
 		return (
-			<div ref={(div) => { this.resultListContainer = div }} className="rbc-reactivelist-container">
+			<div ref={(div) => { this.resultListContainer = div; }} className="rbc-reactivelist-container">
 				<div ref={(div) => { this.listParentElement = div; }} className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{sortOptions}
 					{this.props.showResultStats && this.state.resultStats.resultFound ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
-					{this.paginationAt('top')}
+					{this.paginationAt("top")}
 					<div ref={(div) => { this.listChildElement = div; }} className="rbc-reactivelist-scroll-container col s12 col-xs-12">
 						{this.state.resultMarkup}
 					</div>
@@ -577,7 +576,7 @@ export default class ReactiveList extends Component {
 						null
 					}
 					{this.state.showPlaceholder ? placeholder : null}
-					{this.paginationAt('bottom')}
+					{this.paginationAt("bottom")}
 				</div>
 				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults} />) : null}
 				{this.props.initialLoader && this.state.queryStart && this.state.showInitialLoader ? (<InitialLoader defaultText={this.props.initialLoader} />) : null}
@@ -633,13 +632,14 @@ ReactiveList.defaultProps = {
 	componentStyle: {},
 	showResultStats: true,
 	pagination: false,
-	paginationAt: 'bottom'
+	paginationAt: "bottom"
 };
 
 // context type
 ReactiveList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	app: React.PropTypes.any.isRequired
 };
 
 ReactiveList.types = {

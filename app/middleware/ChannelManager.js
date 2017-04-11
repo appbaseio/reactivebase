@@ -12,6 +12,7 @@ class ChannelManager {
 		this.queryOptions = {};
 		this.appbaseRef = {};
 		this.type = {};
+		this.app = {};
 		this.receive = this.receive.bind(this);
 		this.nextPage = this.nextPage.bind(this);
 		this.paginationChanges = this.paginationChanges.bind(this);
@@ -19,14 +20,14 @@ class ChannelManager {
 	}
 
 	highlightModify(data, queryObj) {
-		if(queryObj && queryObj.body && queryObj.body.highlight && data && data.hits && data.hits.hits && data.hits.hits.length) {
+		if (queryObj && queryObj.body && queryObj.body.highlight && data && data.hits && data.hits.hits && data.hits.hits.length) {
 			data.hits.hits = data.hits.hits.map(this.highlightItem);
 		}
 		return data;
 	}
 
 	highlightItem(item) {
-		if(item.highlight) {
+		if (item.highlight) {
 			Object.keys(item.highlight).forEach((highlightItem) => {
 				const highlightValue = item.highlight[highlightItem][0];
 				_.set(item._source, highlightItem, highlightValue);
@@ -95,6 +96,7 @@ class ChannelManager {
 				// apply search query and emit historic queryResult
 				const searchQueryObj = queryObj;
 				searchQueryObj.type = this.type[channelId] === "*" ? "" : this.type[channelId];
+				searchQueryObj.preference = this.app[channelId];
 				setQueryState(channelResponse);
 				appbaseRef.search(searchQueryObj).on("data", (data) => {
 					channelResponse.mode = "historic";
@@ -167,12 +169,16 @@ class ChannelManager {
 		const queryOptions = JSON.parse(JSON.stringify(this.channels[channelId].previousSelectedSensor));
 		const options = {
 			size: this.queryOptions[channelId].size,
-			from: (this.queryOptions[channelId].size * (pageNumber - 1)) + 1
+			from: this.getFrom(pageNumber, channelId)
 		};
 		queryOptions[`channel-options-${channelId}`] = JSON.parse(JSON.stringify(options));
 		// queryOptions["channel-options-"+channelId].from += 1;
 		this.queryOptions[channelId] = options;
 		this.receive(`channel-options-${channelId}`, channelId, queryOptions);
+	}
+
+	getFrom(pageNumber, channelId) {
+		return pageNumber !== 1 ? (this.queryOptions[channelId].size * (pageNumber - 1)) + 1 : 0;
 	}
 
 	// sort changes
@@ -182,7 +188,7 @@ class ChannelManager {
 
 	// Create the channel by passing react
 	// if react are same it will create single channel for them
-	create(appbaseRef, type, react, size = 100, from = 0, stream = false) {
+	create(appbaseRef, type, react, size = 100, from = 0, stream = false, app="xyz123") {
 		const channelId = btoa(JSON.stringify(react));
 		const optionValues = {
 			size,
@@ -190,6 +196,7 @@ class ChannelManager {
 		};
 		this.queryOptions[channelId] = optionValues;
 		this.type[channelId] = type;
+		this.app[channelId] = app;
 		this.appbaseRef[channelId] = appbaseRef;
 		react[`channel-options-${channelId}`] = optionValues;
 		const previousSelectedSensor = {

@@ -145,7 +145,7 @@ export default class DropdownList extends Component {
 			key: `${this.props.componentId}-sort`,
 			value: this.sortObj
 		};
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		helper.selectedSensor.set(obj, true, "sortChange");

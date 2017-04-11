@@ -60,9 +60,9 @@ const moment = require("moment");
 
 require("../../node_modules/materialize-css/dist/css/materialize.min.css");
 require("../../dist/css/style.min.css");
-require('./list.css');
+require("./list.css");
 
-function removeFirstLine(str, number=1) {
+function removeFirstLine(str, number = 1) {
 	while (number--) {
 		str = str.substring(str.indexOf("\n") + 1);
 	}
@@ -383,13 +383,13 @@ storiesOf("DataSearch", module)
 		/>
 	)));
 
-storiesOf("DataSearchHighlight",  module)
+storiesOf("DataSearchHighlight", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchHighlight
 			title="DataSearch"
 		/>
-	)))
+	)));
 
 storiesOf("DataController", module)
 	.addDecorator(withKnobs)

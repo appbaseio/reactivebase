@@ -126,7 +126,7 @@ export default class MultiRange extends Component {
 
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
@@ -194,7 +194,7 @@ export default class MultiRange extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-multirange col s12 col-xs-12 card thumbnail ${cx}`}>
+			<div className={`rbc rbc-multirange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12 rbc-list-container">
@@ -213,9 +213,9 @@ export default class MultiRange extends Component {
 	}
 }
 
-function Tag(props) {
+const Tag = (props) => {
 	return (
-		<span onClick={() => props.onClick(props.value)} className="rbc-tag-item col" style={this.props.componentStyle}>
+		<span onClick={() => props.onClick(props.value)} className="rbc-tag-item col">
 			<a className="close">×</a>
 			<span>{props.value}</span>
 		</span>

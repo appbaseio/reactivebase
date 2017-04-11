@@ -1,73 +1,53 @@
-import React, { Component } from 'react';
-import { ReactiveBase, ToggleButton, ReactiveList } from '../app.js';
-import { ResponsiveStory, combineStreamData } from '../middleware/helper.js';
-import { Img } from './Img.js';
+import React, { Component } from "react";
+import { ReactiveBase, ToggleButton, ReactiveList } from "../app.js";
+import { ResponsiveStory } from "../middleware/helper.js";
+import { Img } from "./Img.js";
 
 export default class ToggleButtonDefault extends Component {
 	constructor(props) {
 		super(props);
 
 		this.toggleData = [{
-			"label": "Social",
-			"value": "Social"
+			label: "Social",
+			value: "Social"
 		}, {
-			"label": "Travel",
-			"value": "Travel"
+			label: "Travel",
+			value: "Travel"
 		}, {
-			"label": "Outdoors",
-			"value": "Outdoors"
+			label: "Outdoors",
+			value: "Outdoors"
 		}];
 
-		this.onAllData = this.onAllData.bind(this);
-		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
+		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
 	}
 
 	componentDidMount() {
 		ResponsiveStory();
 	}
 
-	onAllData(res, err) {
-		let result = null;
-		if(res) {
-			let combineData = res.currentData;
-			if(res.mode === 'historic') {
-				combineData = res.currentData.concat(res.newData);
-			}
-			else if(res.mode === 'streaming') {
-				combineData = combineStreamData(res.currentData, res.newData);
-			}
-			if (combineData) {
-				result = combineData.map((markerData, index) => {
-					let marker = markerData._source;
-					return this.itemMarkup(marker, markerData);
-				});
-			}
-		}
-		return result;
-	}
-
-	itemMarkup(marker, markerData) {
+	onData(markerData) {
+		const marker = markerData._source;
 		return (
-			<a className="full_row single-record single_record_for_clone"
-				href={marker.event ? marker.event.event_url : ''}
+			<a
+				className="full_row single-record single_record_for_clone"
+				href={marker.event ? marker.event.event_url : ""}
 				target="_blank"
-				key={markerData._id}>
+				key={markerData._id}
+			>
 				<div className="img-container">
 					<Img key={markerData._id} src={marker.member ? marker.member.photo : this.DEFAULT_IMAGE} />
 				</div>
 				<div className="text-container full_row">
 					<div className="text-head text-overflow full_row">
 						<span className="text-head-info text-overflow">
-							{marker.member ? marker.member.member_name : ''} is going to {marker.event ? marker.event.event_name : ''}
+							{marker.member ? marker.member.member_name : ""} is going to {marker.event ? marker.event.event_name : ""}
 						</span>
-						<span className="text-head-city">{marker.group ? marker.group.group_city : ''}</span>
+						<span className="text-head-city">{marker.group ? marker.group.group_city : ""}</span>
 					</div>
 					<div className="text-description text-overflow full_row">
 						<ul className="highlight_tags">
 							{
-								marker.group.group_topics.map(function(tag,i){
-									return (<li key={i}>{tag.topic_name}</li>)
-								})
+								marker.group.group_topics.map((tag, i) => (<li key={i}>{tag.topic_name}</li>))
 							}
 						</ul>
 					</div>
@@ -101,9 +81,9 @@ export default class ToggleButtonDefault extends Component {
 							sortBy="asc"
 							from={0}
 							size={20}
-							onAllData={this.onAllData}
+							onData={this.onData}
 							react={{
-								"and": "MeetupTops"
+								and: "MeetupTops"
 							}}
 						/>
 					</div>
@@ -115,6 +95,6 @@ export default class ToggleButtonDefault extends Component {
 
 ToggleButtonDefault.defaultProps = {
 	mapping: {
-		topic: 'group.group_topics.topic_name_raw.raw'
+		topic: "group.group_topics.topic_name_raw.raw"
 	}
 };

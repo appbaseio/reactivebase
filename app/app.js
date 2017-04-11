@@ -26,7 +26,7 @@ import ResultStats from "./addons/ResultStats";
 
 // middleware
 import ReactiveBase from "./middleware/ReactiveBase";
-import manager from './middleware/ChannelManager';
+import manager from "./middleware/ChannelManager";
 import * as TYPES from "./middleware/constants";
 
 const helper = require("./middleware/helper");

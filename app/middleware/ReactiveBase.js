@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import manager from './ChannelManager';
-const Appbase = require('appbase-js');
-const helper = require('./helper.js');
+import React, { Component } from "react";
+import manager from "./ChannelManager";
+const Appbase = require("appbase-js");
+const helper = require("./helper.js");
 
 export default class ReactiveBase extends Component {
 	constructor(props, context) {
@@ -19,13 +19,14 @@ export default class ReactiveBase extends Component {
 	getChildContext() {
 		return {
 			appbaseRef: this.appbaseRef,
-			type: this.type
+			type: this.type,
+			app: this.props.app
 		};
 	}
 
 	render() {
 		return (
-			<section className={"rbc-base col s12 col-xs-12 "+this.props.theme} style={{"padding": 0}}>
+			<section className={`rbc-base col s12 col-xs-12 ${this.props.theme}`} style={{ padding: 0 }}>
 				{this.props.children}
 			</section>
 		);
@@ -42,9 +43,10 @@ ReactiveBase.propTypes = {
 // Default props value
 ReactiveBase.defaultProps = {
 	theme: "rbc-blue"
-}
+};
 
 ReactiveBase.childContextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	app: React.PropTypes.any
 };

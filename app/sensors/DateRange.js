@@ -102,25 +102,25 @@ export default class DateRange extends Component {
 
 	generateQuery(value) {
 		let query;
-		if(_.isArray(this.props.appbaseField) && this.props.appbaseField.length === 2) {
+		if (_.isArray(this.props.appbaseField) && this.props.appbaseField.length === 2) {
 			query = {
 				bool: {
 					must: [{
-						"range": {
+						range: {
 							[this.props.appbaseField[0]]: {
-								"lte": moment(value.startDate).format("YYYYMMDD")
+								lte: moment(value.startDate).format("YYYYMMDD")
 							}
 						}
 					}, {
-						"range": {
+						range: {
 							[this.props.appbaseField[1]]: {
-								"gte": moment(value.endDate).format("YYYYMMDD")
+								gte: moment(value.endDate).format("YYYYMMDD")
 							}
 						}
 					}]
 				}
 			};
-		} else if(_.isArray(this.props.appbaseField)) {
+		} else if (_.isArray(this.props.appbaseField)) {
 			query = {
 				range: {
 					[this.props.appbaseField[0]]: {
@@ -147,7 +147,7 @@ export default class DateRange extends Component {
 		this.setState({
 			currentValue: inputVal
 		});
-		if(inputVal.startDate && inputVal.endDate) {
+		if (inputVal.startDate && inputVal.endDate) {
 			this.setValue(inputVal);
 		}
 	}
@@ -159,7 +159,7 @@ export default class DateRange extends Component {
 		};
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		helper.selectedSensor.set(obj, isExecuteQuery);

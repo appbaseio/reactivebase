@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import { render } from 'react-dom';
+import React, { Component } from "react";
+import classNames from "classnames";
+import { render } from "react-dom";
 
 export default class ItemList extends Component {
 	constructor(props) {
@@ -30,7 +30,7 @@ export default class ItemList extends Component {
 
 	defaultSelection() {
 		if (this.props.defaultSelected) {
-			if(this.props.defaultSelected === this.props.selectAllLabel) {
+			if (this.props.defaultSelected === this.props.selectAllLabel) {
 				this.handleListClickAll(this.props.selectAllLabel);
 			} else {
 				this.handleClick(this.props.defaultSelected);
@@ -39,13 +39,13 @@ export default class ItemList extends Component {
 	}
 
 	handleListClickAll(value) {
-		let selectedItems = this.props.items.map((item) => item.key);
+		const selectedItems = this.props.items.map(item => item.key);
 		this.props.selectAll(value, selectedItems);
 		this.setState({
 			selectedItem: value
-		}, function() {
+		}, () => {
 			this.props.onSelect(selectedItems, value);
-		}.bind(this));
+		});
 	}
 
 	// Handler function is called when the list item is clicked
@@ -60,11 +60,11 @@ export default class ItemList extends Component {
 	}
 
 	renderItemsComponent() {
-		let items = this.props.items;
-		let itemsComponent = [];
+		const items = this.props.items;
+		const itemsComponent = [];
 		// Build the array of components for each item
-		items.forEach(function(item) {
-			let visibleFlag = !item.hasOwnProperty('visible') ? true : (item.visible ? true : false);
+		items.forEach((item) => {
+			const visibleFlag = !item.hasOwnProperty("visible") ? true : (!!item.visible);
 			itemsComponent.push(<ItemRow
 				key={item.key}
 				value={item.key}
@@ -72,20 +72,22 @@ export default class ItemList extends Component {
 				countField={this.props.showCount}
 				handleClick={this.handleClick}
 				visible={visibleFlag}
-				selectedItem={this.state.selectedItem}/>)
-		}.bind(this));
+				selectedItem={this.state.selectedItem}
+			/>);
+		});
 
 		// include select all if set from parent
 		if (this.props.selectAllLabel && items && items.length) {
 			itemsComponent.unshift(
 				<ItemRow
-					key='selectall'
+					key="selectall"
 					visible={true}
 					value={this.props.selectAllLabel}
 					countField={false}
 					handleClick={this.handleListClickAll}
 					selectedItem={this.state.selectedItem}
-					ref={"refselectall"} />
+					ref={"refselectall"}
+				/>
 			);
 		}
 
@@ -141,19 +143,21 @@ class ItemRow extends Component {
 	}
 
 	render() {
-		let cx = classNames({
-			'rbc-count-active': this.props.countField,
-			'rbc-count-inactive': !this.props.countField,
-			'rbc-item-show': this.props.visible,
-			'rbc-item-hide': !this.props.visible
+		const cx = classNames({
+			"rbc-count-active": this.props.countField,
+			"rbc-count-inactive": !this.props.countField,
+			"rbc-item-show": this.props.visible,
+			"rbc-item-hide": !this.props.visible
 		});
 		// let activeClass = this.props.value === this.props.selectedItem ? 'active' : '';
 		return (
 			<div className={`rbc-list-item row ${cx}`} onClick={() => this.props.handleClick(this.props.value)}>
-				<input type="radio"
+				<input
+					type="radio"
 					className="rbc-radio-item"
 					checked={this.props.value === this.props.selectedItem}
-					value={this.props.value} />
+					value={this.props.value}
+				/>
 				<label className="rbc-label">{this.props.value} {this.renderCount()}</label>
 			</div>
 		);

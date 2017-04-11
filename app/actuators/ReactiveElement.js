@@ -103,7 +103,7 @@ export default class ReactiveElement extends Component {
 		// Set the react - add self aggs query as well with react
 		const react = this.props.react ? this.props.react : {};
 		if (react && react.and) {
-			if(typeof react.and === "string") {
+			if (typeof react.and === "string") {
 				react.and = [react.and];
 			}
 		} else {
@@ -114,7 +114,7 @@ export default class ReactiveElement extends Component {
 			this.enableSort(react);
 		}
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.context.app);
 		this.channelId = channelObj.channelId;
 
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
@@ -303,7 +303,7 @@ export default class ReactiveElement extends Component {
 		}
 
 		return (
-			<div ref={(div) => { this.resultListContainer = div }} className="rbc-reactiveelement-container">
+			<div ref={(div) => { this.resultListContainer = div; }} className="rbc-reactiveelement-container">
 				<div className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{this.state.resultStats && this.state.resultStats.resultFound && this.props.showResultStats ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
@@ -357,7 +357,8 @@ ReactiveElement.defaultProps = {
 // context type
 ReactiveElement.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	app: React.PropTypes.any.isRequired
 };
 
 ReactiveElement.types = {

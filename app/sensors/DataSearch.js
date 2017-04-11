@@ -61,18 +61,18 @@ export default class DataSearch extends Component {
 
 	highlightQuery() {
 		const fields = {};
-		if (typeof this.props.appbaseField === "string") {
-			fields[this.props.appbaseField] = {};
-		} else if (_.isArray(this.props.appbaseField)) {
-			this.props.appbaseField.forEach((item) => {
+		if (typeof this.props.highlightFields === "string") {
+			fields[this.props.highlightFields] = {};
+		} else if (_.isArray(this.props.highlightFields)) {
+			this.props.highlightFields.forEach((item) => {
 				fields[item] = {};
-			})
+			});
 		}
 		return {
-			"highlight": {
-				"pre_tags": [`<span class="rbc-highlight">`],
-				"post_tags": ["</span>"],
-				"fields": fields
+			highlight: {
+				pre_tags: ["<span class=\"rbc-highlight\">"],
+				post_tags: ["</span>"],
+				fields
 			}
 		};
 	}
@@ -87,7 +87,7 @@ export default class DataSearch extends Component {
 				customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery
 			}
 		};
-		if (this.props.highlight) {
+		if (this.props.highlight && this.props.highlightFields) {
 			obj.value.externalQuery = this.highlightQuery();
 		}
 		helper.selectedSensor.setSensorInfo(obj);
@@ -137,7 +137,7 @@ export default class DataSearch extends Component {
 			fieldSplit.forEach((item, index) => {
 				prefix += item;
 				if (_.isArray(_.get(hit, prefix))) {
-					prefix += "[" + index + "]";
+					prefix += `[${index}]`;
 				}
 				if (fieldSplit.length - 1 !== index) {
 					prefix += ".";
@@ -190,22 +190,20 @@ export default class DataSearch extends Component {
 				fields = this.props.appbaseField;
 			}
 			finalQuery = {
-				"bool": {
-					"should": [{
-						"multi_match": {
-							"query": value,
+				bool: {
+					should: [{
+						multi_match: {
+							query: value,
 							fields,
-							"type": "phrase_prefix"
+							type: "phrase_prefix"
 						}
 					}, {
-						"multi_match": {
-							"query": value,
-							fields,
-							"type": "boolean",
-							"minimum_should_match": "50%"
+						multi_match: {
+							query: value,
+							fields
 						}
 					}],
-					"minimum_should_match": "1"
+					minimum_should_match: "1"
 				}
 			};
 		}
@@ -343,7 +341,11 @@ DataSearch.propTypes = {
 	onValueChange: React.PropTypes.func,
 	react: React.PropTypes.object,
 	componentStyle: React.PropTypes.object,
-	highlight: React.PropTypes.bool
+	highlight: helper.dataSearchHighlightValidation,
+	highlightFields: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.arrayOf(React.PropTypes.string)
+	])
 };
 
 // Default props value

@@ -1,53 +1,35 @@
-import React, {Component} from 'react';
-import {ReactiveBase, NumberBox, ReactiveList} from '../app.js';
-import {ResponsiveStory} from '../middleware/helper.js';
+import React, { Component } from "react";
+import { ReactiveBase, NumberBox, ReactiveList } from "../app.js";
+import { ResponsiveStory } from "../middleware/helper.js";
 
 export default class NumberBoxDefault extends Component {
 	constructor(props) {
 		super(props);
-		this.onAllData = this.onAllData.bind(this);
 	}
 
 	componentDidMount() {
 		ResponsiveStory();
 	}
 
-	onAllData(res, err) {
-		let result = null;
-		if(res) {
-			let combineData = res.currentData;
-			if(res.mode === 'historic') {
-				combineData = res.currentData.concat(res.newData);
-			}
-			else if(res.mode === 'streaming') {
-				combineData = combineStreamData(res.currentData, res.newData);
-			}
-			if (combineData) {
-				result = combineData.map((markerData, index) => {
-					let marker = markerData._source;
-					return this.itemMarkup(marker, markerData);
-				});
-			}
-		}
-		return result;
-	}
-
-	itemMarkup(marker, markerData) {
+	onData(markerData) {
+		const marker = markerData._source;
 		return (
 			<a className="full_row single-record single_record_for_clone" href="#" key={markerData._id}>
-				<div className="text-container full_row" style={{
-					'paddingLeft': '10px'
-				}}>
+				<div
+					className="text-container full_row" style={{
+						paddingLeft: "10px"
+					}}
+				>
 					<div className="text-head text-overflow full_row">
 						<span className="text-head-info text-overflow">
-							{ marker.name ? marker.name : '' } - { marker.brand ? marker.brand: '' }
+							{ marker.name ? marker.name : "" } - { marker.brand ? marker.brand : "" }
 						</span>
 						<span className="text-head-city">
-							{ marker.brand ? marker.brand : '' }</span>
+							{ marker.brand ? marker.brand : "" }</span>
 					</div>
 					<div className="text-description text-overflow full_row">
 						<ul className="highlight_tags">
-							{ marker.price ? `Priced at $${marker.price}` : 'Free Test Drive' }
+							{ marker.price ? `Priced at $${marker.price}` : "Free Test Drive" }
 						</ul>
 					</div>
 				</div>
@@ -72,14 +54,15 @@ export default class NumberBoxDefault extends Component {
 					</div>
 
 					<div className="col s6 col-xs-6">
-						<ReactiveList componentId="SearchResult"
+						<ReactiveList
+							componentId="SearchResult"
 							appbaseField={this.props.mapping.rating}
 							title="Cars"
 							from={0}
 							size={20}
-							onAllData={this.onAllData}
+							onData={this.onData}
 							react={{
-								"and": "CarRatingSensor"
+								and: "CarRatingSensor"
 							}}
 						/>
 					</div>
@@ -91,6 +74,6 @@ export default class NumberBoxDefault extends Component {
 
 NumberBoxDefault.defaultProps = {
 	mapping: {
-		rating: 'rating'
+		rating: "rating"
 	}
 };

@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
-import { ReactiveBase, MultiList, ReactiveElement } from '../../app.js';
-import { ResponsiveStory, combineStreamData } from '../../middleware/helper.js';
-import { Img } from '../Img.js';
+import React, { Component } from "react";
+import { ReactiveBase, MultiList, ReactiveElement } from "../../app.js";
+import { ResponsiveStory, combineStreamData } from "../../middleware/helper.js";
+import { Img } from "../Img.js";
 
-require('../list.css');
+require("../list.css");
 
 export default class Basic extends Component {
 	constructor(props) {
 		super(props);
 		this.cityQuery = this.cityQuery.bind(this);
-		this.DEFAULT_IMAGE = 'http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg';
+		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
 	}
 
 	cityQuery(value) {
-		if(value) {
-			let field = 'group.group_city.group_city_simple';
-			let query = JSON.parse(`{"${field}":` + JSON.stringify(value) + '}');
+		if (value) {
+			const field = "group.group_city.group_city_simple";
+			const query = JSON.parse(`{"${field}":${JSON.stringify(value)}}`);
 			return { terms: query };
-		} else return null;
+		} return null;
 	}
 
 	componentDidMount() {
@@ -41,7 +41,7 @@ export default class Basic extends Component {
 							placeholder="Select a city from the input filter..."
 							{...this.props}
 							react={{
-								"and": "CitySensor"
+								and: "CitySensor"
 							}}
 						/>
 					</div>
