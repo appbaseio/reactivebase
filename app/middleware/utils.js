@@ -91,3 +91,18 @@ export const reactiveBaseValidation = (props, propName) => {
 	}
 	return err;
 };
+
+export const dataSearchHighlightValidation = (props, propName) => {
+	let err = null;
+	if("highlight" in props) {
+		if (typeof props.highlight !== "boolean") {
+			err = new Error("Highlight prop expects boolean value.");
+		}
+		else {
+			if(props.highlight && !("highlightFields" in props)) {
+				err = new Error("HighlightFields prop is required when using highlight.");
+			}
+		}
+	}
+	return err;
+};
