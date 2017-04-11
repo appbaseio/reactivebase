@@ -114,7 +114,7 @@ export default class ReactiveElement extends Component {
 			this.enableSort(react);
 		}
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.context.app);
 		this.channelId = channelObj.channelId;
 
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
@@ -357,7 +357,8 @@ ReactiveElement.defaultProps = {
 // context type
 ReactiveElement.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	app: React.PropTypes.any.isRequired
 };
 
 ReactiveElement.types = {

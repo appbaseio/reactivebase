@@ -19,7 +19,8 @@ export default class ReactiveBase extends Component {
 	getChildContext() {
 		return {
 			appbaseRef: this.appbaseRef,
-			type: this.type
+			type: this.type,
+			app: this.props.app
 		};
 	}
 
@@ -46,5 +47,6 @@ ReactiveBase.defaultProps = {
 
 ReactiveBase.childContextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	app: React.PropTypes.any
 };
