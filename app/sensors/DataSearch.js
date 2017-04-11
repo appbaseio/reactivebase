@@ -61,10 +61,11 @@ export default class DataSearch extends Component {
 
 	highlightQuery() {
 		const fields = {};
-		if (typeof this.props.highlightFields === "string") {
-			fields[this.props.highlightFields] = {};
-		} else if (_.isArray(this.props.highlightFields)) {
-			this.props.highlightFields.forEach((item) => {
+		const highlightFields = this.props.highlightFields ? this.props.highlightFields : this.props.appbaseField;
+		if (typeof highlightFields === "string") {
+			fields[highlightFields] = {};
+		} else if (_.isArray(highlightFields)) {
+			highlightFields.forEach((item) => {
 				fields[item] = {};
 			});
 		}
@@ -87,7 +88,7 @@ export default class DataSearch extends Component {
 				customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery
 			}
 		};
-		if (this.props.highlight && this.props.highlightFields) {
+		if (this.props.highlight) {
 			obj.value.externalQuery = this.highlightQuery();
 		}
 		helper.selectedSensor.setSensorInfo(obj);
@@ -341,7 +342,7 @@ DataSearch.propTypes = {
 	onValueChange: React.PropTypes.func,
 	react: React.PropTypes.object,
 	componentStyle: React.PropTypes.object,
-	highlight: helper.dataSearchHighlightValidation,
+	highlight: React.PropTypes.bool,
 	highlightFields: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
