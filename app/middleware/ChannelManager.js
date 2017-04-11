@@ -188,7 +188,7 @@ class ChannelManager {
 
 	// Create the channel by passing react
 	// if react are same it will create single channel for them
-	create(appbaseRef, type, react, size = 100, from = 0, stream = false, app="xyz123") {
+	create(appbaseRef, type, react, size = 100, from = 0, stream = false, app="reactivebase") {
 		const channelId = btoa(JSON.stringify(react));
 		const optionValues = {
 			size,
