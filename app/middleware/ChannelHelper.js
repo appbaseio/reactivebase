@@ -2,7 +2,7 @@ const helper = require("./helper");
 
 // queryBuild
 // Builds the query by using react object and values of sensor
-export const queryBuild = function (channelObj, previousSelectedSensor) {
+export const queryBuild = function(channelObj, previousSelectedSensor) {
 	const sortObj = [];
 	let requestOptions = null;
 
@@ -45,7 +45,7 @@ export const queryBuild = function (channelObj, previousSelectedSensor) {
 		let query;
 		if (aggsObj.customQuery) {
 			query = aggsObj.customQuery(aggsObj);
-		}		else {
+		} else {
 			if (aggsObj.sortRef) {
 				const sortField = sortAvailable(aggsObj.sortRef);
 				if (sortField && sortField.aggSort) {

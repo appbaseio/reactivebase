@@ -31,12 +31,14 @@ export default class RangeSlider extends Component {
 			}
 		};
 		this.maxSize = 100;
+		this.queryStartTime = 0;
 		this.type = "range";
 		this.channelId = null;
 		this.channelListener = null;
 		this.handleValuesChange = this.handleValuesChange.bind(this);
 		this.handleResults = this.handleResults.bind(this);
 		this.customQuery = this.customQuery.bind(this);
+		this.histogramQuery = this.histogramQuery.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -233,6 +235,17 @@ export default class RangeSlider extends Component {
 		}
 	}
 
+	histogramQuery() {
+		return {
+			[this.props.appbaseField]: {
+				"histogram": {
+					"field": this.props.appbaseField,
+					"interval": this.props.interval ? this.props.interval : Math.ceil((this.props.range.end - this.props.range.start)/10)
+				}
+			}
+		};
+	}
+
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
 		// Set the react - add self aggs query as well with react
@@ -240,7 +253,8 @@ export default class RangeSlider extends Component {
 		react.aggs = {
 			key: this.props.appbaseField,
 			sort: "asc",
-			size: 1000
+			size: 1000,
+			customQuery: this.histogramQuery
 		};
 		if (react && react.and && typeof react.and === "string") {
 			react.and = [react.and];
@@ -257,7 +271,8 @@ export default class RangeSlider extends Component {
 					queryStart: false
 				});
 			}
-			if (res.appliedQuery) {
+			if (res.appliedQuery && res.startTime > this.queryStartTime) {
+				this.queryStartTime = res.startTime ? res.startTime : 0;
 				const data = res.data;
 				let rawData;
 				if (res.mode === "streaming") {
@@ -306,21 +321,18 @@ export default class RangeSlider extends Component {
 	}
 
 	countCalc(min, max, newItems) {
-		const counts = [];
-		const storeItems = {};
-		newItems.forEach((item) => {
-			item.key = Math.floor(item.key);
-			if (!(item.key in storeItems)) {
-				storeItems[item.key] = item.doc_count;
-			} else {
-				storeItems[item.key] += item.doc_count;
-			}
-		});
-		for (let i = min; i <= max; i += 1) {
-			const val = storeItems[i] ? storeItems[i] : 0;
-			counts.push(val);
-		}
-		return counts;
+		// const counts = [];
+		// const storeItems = {};
+		// newItems.forEach((item) => {
+		// 	item.key = Math.floor(item.key);
+		// 	if (!(item.key in storeItems)) {
+		// 		storeItems[item.key] = item.doc_count;
+		// 	} else {
+		// 		storeItems[item.key] += item.doc_count;
+		// 	}
+		// });
+		// return counts;
+		return newItems.map(item => item.doc_count);
 	}
 
 	addItemsToList(newItems) {
@@ -449,7 +461,8 @@ RangeSlider.propTypes = {
 	]),
 	react: React.PropTypes.object,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	interval: React.PropTypes.number
 };
 
 RangeSlider.defaultProps = {
@@ -490,5 +503,6 @@ RangeSlider.types = {
 	showHistogram: TYPES.BOOLEAN,
 	customQuery: TYPES.FUNCTION,
 	initialLoader: TYPES.OBJECT,
-	componentStyle: TYPES.OBJECT
+	componentStyle: TYPES.OBJECT,
+	interval: TYPES.NUMBER
 };
