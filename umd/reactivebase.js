@@ -1922,7 +1922,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var _this3 = this;
 
 				var stream = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
-				var app = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : "xyz123";
+				var app = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : "reactivebase";
 
 				var channelId = btoa(JSON.stringify(react));
 				var optionValues = {
@@ -67306,13 +67306,19 @@ return /******/ (function(modules) { // webpackBootstrap
 						var headerHeight = getHeight(resultElement.find(".rbc-title")) + getHeight(resultElement.find(".rbc-pagination")) * resultElement.find(".rbc-pagination").length;
 						var finalHeight = resultElement.height() - 60 - headerHeight;
 						if (finalHeight > 0) {
-							scrollElement.css("height", finalHeight);
+							scrollElement.css({
+								height: scrollElement.height() + 15,
+								"padding-bottom": 20
+							});
 						}
 					}
 				};
 
 				if (resultElement && resultElement.length && scrollElement && scrollElement.length) {
-					scrollElement.css("height", "auto");
+					scrollElement.css({
+						"height": "auto",
+						"padding-bottom": 0
+					});
 					setTimeout(checkHeight.bind(this), 1000);
 				}
 			}
@@ -67683,11 +67689,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					if (combineData) {
 						result = combineData.map(function (markerData) {
 							var marker = markerData._source;
-							return _this8.props.onData ? _react2.default.createElement(
-								"div",
-								{ className: "rbc-list-item" },
-								_this8.props.onData(markerData)
-							) : _react2.default.createElement(
+							return _this8.props.onData ? _this8.props.onData(markerData) : _react2.default.createElement(
 								"div",
 								{ className: "row", style: { marginTop: "20px" } },
 								_this8.itemMarkup(marker, markerData)
