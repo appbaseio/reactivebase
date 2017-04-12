@@ -122,13 +122,19 @@ export default class ReactiveList extends Component {
 				const headerHeight = getHeight(resultElement.find(".rbc-title")) + (getHeight(resultElement.find(".rbc-pagination")) * resultElement.find(".rbc-pagination").length);
 				const finalHeight = resultElement.height() - 60 - headerHeight;
 				if (finalHeight > 0) {
-					scrollElement.css("height", finalHeight);
+					scrollElement.css({
+						height: scrollElement.height() + 15,
+						"padding-bottom": 20
+					});
 				}
 			}
 		};
 
 		if (resultElement && resultElement.length && scrollElement && scrollElement.length) {
-			scrollElement.css("height", "auto");
+			scrollElement.css({
+				"height": "auto", 
+				"padding-bottom": 0
+			});
 			setTimeout(checkHeight.bind(this), 1000);
 		}
 	}
@@ -449,11 +455,9 @@ export default class ReactiveList extends Component {
 			if (combineData) {
 				result = combineData.map((markerData) => {
 					const marker = markerData._source;
-					return this.props.onData ? (
-						<div className="rbc-list-item">
-							{this.props.onData(markerData)}
-						</div>
-						) : (
+					return this.props.onData 
+						?	this.props.onData(markerData)
+						: (
 							<div className="row" style={{ marginTop: "20px" }}>
 								{this.itemMarkup(marker, markerData)}
 							</div>
