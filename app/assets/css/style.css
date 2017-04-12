@@ -296,8 +296,6 @@ a {
 
 .rbc-red .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: red; }
-  .rbc-red .rbc.rbc-reactivelist .rbc-list-item:last-child {
-    border-bottom-color: transparent; }
 
 .rbc-red .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-red .rbc.rbc-reactivelist .rbc-placeholder {
   color: #777; }
@@ -472,8 +470,6 @@ a {
 
 .rbc-orange .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: orange; }
-  .rbc-orange .rbc.rbc-reactivelist .rbc-list-item:last-child {
-    border-bottom-color: transparent; }
 
 .rbc-orange .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-orange .rbc.rbc-reactivelist .rbc-placeholder {
   color: #777; }
@@ -648,8 +644,6 @@ a {
 
 .rbc-yellow .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: yellow; }
-  .rbc-yellow .rbc.rbc-reactivelist .rbc-list-item:last-child {
-    border-bottom-color: transparent; }
 
 .rbc-yellow .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-yellow .rbc.rbc-reactivelist .rbc-placeholder {
   color: #777; }
@@ -824,8 +818,6 @@ a {
 
 .rbc-green .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: green; }
-  .rbc-green .rbc.rbc-reactivelist .rbc-list-item:last-child {
-    border-bottom-color: transparent; }
 
 .rbc-green .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-green .rbc.rbc-reactivelist .rbc-placeholder {
   color: #777; }
@@ -1000,8 +992,6 @@ a {
 
 .rbc-blue .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: #1893e7; }
-  .rbc-blue .rbc.rbc-reactivelist .rbc-list-item:last-child {
-    border-bottom-color: transparent; }
 
 .rbc-blue .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-blue .rbc.rbc-reactivelist .rbc-placeholder {
   color: #777; }
@@ -1176,8 +1166,6 @@ a {
 
 .rbc-dark .rbc.rbc-reactivelist .rbc-list-item {
   border-bottom-color: #ccc; }
-  .rbc-dark .rbc.rbc-reactivelist .rbc-list-item:last-child {
-    border-bottom-color: transparent; }
 
 .rbc-dark .rbc.rbc-reactiveelement .rbc-placeholder, .rbc-dark .rbc.rbc-reactivelist .rbc-placeholder {
   color: #eee; }

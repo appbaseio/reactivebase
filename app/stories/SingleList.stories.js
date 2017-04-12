@@ -70,6 +70,7 @@ export default class SingleListDefault extends Component {
 							sortBy="asc"
 							from={0}
 							size={20}
+							size={2}
 							onData={this.onData}
 							react={{
 								and: ["CitySensor"]
