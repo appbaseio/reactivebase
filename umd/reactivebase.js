@@ -31713,6 +31713,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					inputValue: this.state.inputValue
 				});
 			}
+			debugger
 			this.hasScrolledToOption = false;
 		},
 
@@ -43827,8 +43828,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (value) {
 					query = {
 						range: _defineProperty({}, this.props.appbaseField, {
-							gte: value,
-							lt: moment(value).add(1, "days")
+							gte: new Date(moment(value).subtract(24, "hours").format("YYYY-MM-DD")).getTime(),
+							lte: new Date(moment(value).format("YYYY-MM-DD")).getTime()
 						})
 					};
 				}
@@ -66665,11 +66666,11 @@ return /******/ (function(modules) { // webpackBootstrap
 						bool: {
 							must: [{
 								range: _defineProperty({}, this.props.appbaseField[0], {
-									lte: moment(value.startDate).format("YYYYMMDD")
+									lte: moment(value.startDate).unix() * 1000
 								})
 							}, {
 								range: _defineProperty({}, this.props.appbaseField[1], {
-									gte: moment(value.endDate).format("YYYYMMDD")
+									gte: moment(value.endDate).unix() * 1000
 								})
 							}]
 						}
@@ -66677,15 +66678,15 @@ return /******/ (function(modules) { // webpackBootstrap
 				} else if (_.isArray(this.props.appbaseField)) {
 					query = {
 						range: _defineProperty({}, this.props.appbaseField[0], {
-							gte: moment(value.startDate).format("YYYYMMDD"),
-							lte: moment(value.endDate).format("YYYYMMDD")
+							gte: moment(value.startDate).unix() * 1000,
+							lte: moment(value.endDate).unix() * 1000
 						})
 					};
 				} else {
 					query = {
 						range: _defineProperty({}, this.props.appbaseField, {
-							gte: value.startDate,
-							lte: value.endDate
+							gte: moment(value.startDate).unix() * 1000,
+							lte: moment(value.endDate).unix() * 1000
 						})
 					};
 				}
