@@ -56,8 +56,8 @@ export default class DatePicker extends Component {
 			query = {
 				range: {
 					[this.props.appbaseField]: {
-						gte: value,
-						lt: moment(value).add(1, "days")
+						gte: new Date(moment(value).subtract(24, "hours").format("YYYY-MM-DD")).getTime(),
+						lte: new Date(moment(value).format("YYYY-MM-DD")).getTime()
 					}
 				}
 			};
