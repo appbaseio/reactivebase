@@ -108,13 +108,13 @@ export default class DateRange extends Component {
 					must: [{
 						range: {
 							[this.props.appbaseField[0]]: {
-								lte: moment(value.startDate).format("YYYYMMDD")
+								lte: moment(value.startDate).unix()*1000
 							}
 						}
 					}, {
 						range: {
 							[this.props.appbaseField[1]]: {
-								gte: moment(value.endDate).format("YYYYMMDD")
+								gte: moment(value.endDate).unix()*1000
 							}
 						}
 					}]
@@ -124,8 +124,8 @@ export default class DateRange extends Component {
 			query = {
 				range: {
 					[this.props.appbaseField[0]]: {
-						gte: moment(value.startDate).format("YYYYMMDD"),
-						lte: moment(value.endDate).format("YYYYMMDD")
+						gte: moment(value.startDate).unix()*1000,
+						lte: moment(value.endDate).unix()*1000
 					}
 				}
 			};
@@ -133,8 +133,8 @@ export default class DateRange extends Component {
 			query = {
 				range: {
 					[this.props.appbaseField]: {
-						gte: value.startDate,
-						lte: value.endDate
+						gte: moment(value.startDate).unix()*1000,
+						lte: moment(value.endDate).unix()*1000
 					}
 				}
 			};
