@@ -312,7 +312,7 @@ export default class ReactiveElement extends Component {
 				</div>
 				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults.text} />) : null}
 				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader.text} />) : null}
-				<PoweredBy container=".rbc-reactiveelement-container" />
+				<PoweredBy container="rbc-reactiveelement-container" />
 			</div>
 		);
 	}
