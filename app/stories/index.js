@@ -48,6 +48,7 @@ import DateRangeDefault from "./DateRange.stories";
 
 import TextFieldDefault from "./TextField.stories";
 import DataSearchDefault from "./DataSearch.stories";
+import DataSearchHighlight from "./DataSearchHighlight.stories";
 
 import DataControllerDefault from "./DataController.stories";
 import PoweredByDefault from "./PoweredBy.stories";
@@ -59,9 +60,9 @@ const moment = require("moment");
 
 require("../../node_modules/materialize-css/dist/css/materialize.min.css");
 require("../../dist/css/style.min.css");
-require('./list.css');
+require("./list.css");
 
-function removeFirstLine(str, number=1) {
+function removeFirstLine(str, number = 1) {
 	while (number--) {
 		str = str.substring(str.indexOf("\n") + 1);
 	}
@@ -382,6 +383,13 @@ storiesOf("DataSearch", module)
 		/>
 	)));
 
+storiesOf("DataSearchHighlight", module)
+	.addDecorator(withKnobs)
+	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchHighlight
+			title="DataSearch"
+		/>
+	)));
 
 storiesOf("DataController", module)
 	.addDecorator(withKnobs)
@@ -391,7 +399,7 @@ storiesOf("DataController", module)
 	.add("With UI", withReadme(removeFirstLine(DataControllerReadme), () => (
 		<DataControllerDefault
 			title="DataController"
-			showUI={true}
+			visible={true}
 			dataLabel={
 				<p>★ A customizable UI widget ★</p>
 			}
@@ -400,7 +408,7 @@ storiesOf("DataController", module)
 	.add("Playground", withReadme(removeFirstLine(DataControllerReadme), () => (
 		<DataControllerDefault
 			title={text("title", "DataController")}
-			showUI={boolean("showUI", true)}
+			visible={boolean("visible", true)}
 			dataLabel={text("dataLabel", "★  A customizable UI widget ★")}
 			defaultSelected={text("defaultSelected", "default")}
 			componentStyle={object("componentStyle", { "padding-bottom": "10px" })}
@@ -515,7 +523,7 @@ storiesOf("ReactiveElement", module)
 storiesOf("ReactiveList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault onData={null} stream={false} />
+		<ReactiveListDefault onAllData={null} stream={false} />
 	)))
 	.add("With Custom Markup", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault stream={false} />
@@ -527,13 +535,13 @@ storiesOf("ReactiveList", module)
 		<ReactiveListDefault title="Meetups" stream />
 	)))
 	.add("With pagination", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault pagination title="Meetups" stream />
+		<ReactiveListDefault pagination title="Meetups" />
 	)))
 	.add("With pagination at top", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault pagination paginationAt="top" title="Meetups" stream />
+		<ReactiveListDefault pagination paginationAt="top" title="Meetups" />
 	)))
 	.add("With pagination at both", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault pagination paginationAt="both" title="Meetups" stream />
+		<ReactiveListDefault pagination paginationAt="both" title="Meetups" />
 	)))
 	.add("With Sort Options", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault

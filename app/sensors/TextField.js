@@ -70,7 +70,7 @@ export default class TextField extends Component {
 
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
@@ -91,7 +91,7 @@ export default class TextField extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-textfield col s12 col-xs-12 card thumbnail ${cx}`}>
+			<div className={`rbc rbc-textfield col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{title}
 				<div className="rbc-input-container col s12 col-xs-12">
 					<input className="rbc-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue} />
@@ -111,11 +111,14 @@ TextField.propTypes = {
 	defaultSelected: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
-	onValueChange: React.PropTypes.func
+	onValueChange: React.PropTypes.func,
+	componentStyle: React.PropTypes.object
 };
 
 // Default props value
-TextField.defaultProps = {};
+TextField.defaultProps = {
+	componentStyle: {}
+};
 
 // context type
 TextField.contextTypes = {
@@ -130,5 +133,6 @@ TextField.types = {
 	title: TYPES.STRING,
 	defaultSelected: TYPES.STRING,
 	placeholder: TYPES.STRING,
-	customQuery: TYPES.FUNCTION
+	customQuery: TYPES.FUNCTION,
+	componentStyle: TYPES.OBJECT
 };

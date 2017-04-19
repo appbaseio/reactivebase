@@ -1,32 +1,30 @@
 const $ = require("jquery");
 
 export const ResponsiveStory = function () {
-	const paginationHeight = () => {
-		return $(".rbc-pagination").length * 85;
-	}
+	const paginationHeight = () => $(".rbc-pagination").length * 85;
 
 	const getHeight = item => item.height() ? item.height() : 0;
 
 	const handleResponsive = () => {
-		var height = $(window).height();
+		const height = $(window).height();
 		const resultHeight = height - 15;
 		$(".rbc.rbc-reactivelist, .rbc.rbc-reactiveelement").css({
 			maxHeight: resultHeight
 		});
 		const $component = [$(".rbc.rbc-singlelist"), $(".rbc.rbc-multilist"), $(".rbc.rbc-nestedlist"), $(".rbc.rbc-tagcloud")];
 		$component.forEach((item) => {
-			if(item.length) {
-				const itemHeader = getHeight(item.find(".rbc-title")) + getHeight(item.find(".rbc-search-container"))
-				item.find(".rbc-list-container").css({maxHeight: height - itemHeader - 35})
+			if (item.length) {
+				const itemHeader = getHeight(item.find(".rbc-title")) + getHeight(item.find(".rbc-search-container"));
+				item.find(".rbc-list-container").css({ maxHeight: height - itemHeader - 35 });
 			}
-		})
+		});
 		$(".rbc-base > .row").css({
 			"margin-bottom": 0
 		});
 		$(".rbc-reactivemap .rbc-container").css({
 			maxHeight: height
 		});
-	}
+	};
 
 	handleResponsive();
 
@@ -88,8 +86,9 @@ export const validation = {
 
 export const reactiveBaseValidation = (props, propName) => {
 	let err = null;
-	if(!props.credentials) {
+	if (!props.credentials) {
 		err = new Error("ReactiveBase expects credentials as a prop instead of username:password.");
 	}
 	return err;
-}
+};
+

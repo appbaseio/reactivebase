@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ReactiveBase, DatePicker, ReactiveList } from "../app";
-import { ResponsiveStory, combineStreamData } from "../middleware/helper";
+import { ResponsiveStory } from "../middleware/helper";
 import { Img } from "./Img";
 
 const moment = require("moment");
@@ -9,7 +9,6 @@ require("./list.css");
 export default class DatePickerDefault extends Component {
 	constructor(props) {
 		super(props);
-		this.onData = this.onData.bind(this);
 		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
 	}
 
@@ -17,26 +16,8 @@ export default class DatePickerDefault extends Component {
 		ResponsiveStory();
 	}
 
-	onData(res) {
-		let result = null;
-		if (res) {
-			let combineData = res.currentData;
-			if (res.mode === "historic") {
-				combineData = res.currentData.concat(res.newData);
-			} else if (res.mode === "streaming") {
-				combineData = combineStreamData(res.currentData, res.newData);
-			}
-			if (combineData) {
-				result = combineData.map((markerData) => {
-					const marker = markerData._source;
-					return this.itemMarkup(marker, markerData);
-				});
-			}
-		}
-		return result;
-	}
-
-	itemMarkup(marker, markerData) {
+	onData(markerData) {
+		const marker = markerData._source;
 		return (
 			<a
 				className="full_row single-record single_record_for_clone"
@@ -73,7 +54,7 @@ export default class DatePickerDefault extends Component {
 		return (
 			<ReactiveBase
 				app="reactivemap-demo"
-				credentials="SL8fiQ1fg:71ea4254-49ba-4685-8276-e44da225c141"
+				credentials="IvfKUzoER:8330c43a-e453-4d43-9a66-a4986b3714c6"
 				type="meetup"
 			>
 				<div className="row">
@@ -94,7 +75,6 @@ export default class DatePickerDefault extends Component {
 							from={0}
 							size={20}
 							onData={this.onData}
-							requestOnScroll={true}
 							react={{
 								and: "DateSensor"
 							}}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 export default class InitialLoader extends Component {
 	constructor(props, context) {
@@ -8,7 +8,7 @@ export default class InitialLoader extends Component {
 	// render
 	render() {
 		return (
-			<div className={`rbc rbc-initialloader`}>
+			<div className={"rbc rbc-initialloader"}>
 				{this.props.defaultText}
 			</div>
 		);

@@ -1,5 +1,6 @@
 import * as ChannelHelper from "./ChannelHelper";
 
+const _ = require("lodash");
 const { EventEmitter } = require("fbemitter");
 const helper = require("./helper");
 
@@ -11,10 +12,28 @@ class ChannelManager {
 		this.queryOptions = {};
 		this.appbaseRef = {};
 		this.type = {};
+		this.app = {};
 		this.receive = this.receive.bind(this);
 		this.nextPage = this.nextPage.bind(this);
 		this.paginationChanges = this.paginationChanges.bind(this);
 		this.sortChanges = this.sortChanges.bind(this);
+	}
+
+	highlightModify(data, queryObj) {
+		if (queryObj && queryObj.body && queryObj.body.highlight && data && data.hits && data.hits.hits && data.hits.hits.length) {
+			data.hits.hits = data.hits.hits.map(this.highlightItem);
+		}
+		return data;
+	}
+
+	highlightItem(item) {
+		if (item.highlight) {
+			Object.keys(item.highlight).forEach((highlightItem) => {
+				const highlightValue = item.highlight[highlightItem][0];
+				_.set(item._source, highlightItem, highlightValue);
+			});
+		}
+		return item;
 	}
 
 	// Receive: This method will be executed whenever dependency value changes
@@ -31,6 +50,7 @@ class ChannelManager {
 		}
 
 		function activateStream(currentChannelId, currentQueryObj, appbaseRef) {
+			console.log("streaming activate");
 			if (this.streamRef[currentChannelId]) {
 				this.streamRef[currentChannelId].stop();
 			}
@@ -42,6 +62,7 @@ class ChannelManager {
 				delete streamQueryObj.body.sort;
 			}
 			this.streamRef[currentChannelId] = appbaseRef.searchStream(streamQueryObj).on("data", (data) => {
+				data = this.highlightItem(data, currentQueryObj);
 				const obj = {
 					mode: "streaming",
 					data,
@@ -75,10 +96,11 @@ class ChannelManager {
 				// apply search query and emit historic queryResult
 				const searchQueryObj = queryObj;
 				searchQueryObj.type = this.type[channelId] === "*" ? "" : this.type[channelId];
+				searchQueryObj.preference = this.app[channelId];
 				setQueryState(channelResponse);
 				appbaseRef.search(searchQueryObj).on("data", (data) => {
 					channelResponse.mode = "historic";
-					channelResponse.data = data;
+					channelResponse.data = this.highlightModify(data, channelResponse.appliedQuery);
 					self.emitter.emit(channelId, channelResponse);
 					const globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
 					self.emitter.emit("global", {
@@ -147,12 +169,16 @@ class ChannelManager {
 		const queryOptions = JSON.parse(JSON.stringify(this.channels[channelId].previousSelectedSensor));
 		const options = {
 			size: this.queryOptions[channelId].size,
-			from: (this.queryOptions[channelId].size * (pageNumber - 1)) + 1
+			from: this.getFrom(pageNumber, channelId)
 		};
 		queryOptions[`channel-options-${channelId}`] = JSON.parse(JSON.stringify(options));
 		// queryOptions["channel-options-"+channelId].from += 1;
 		this.queryOptions[channelId] = options;
 		this.receive(`channel-options-${channelId}`, channelId, queryOptions);
+	}
+
+	getFrom(pageNumber, channelId) {
+		return pageNumber !== 1 ? (this.queryOptions[channelId].size * (pageNumber - 1)) + 1 : 0;
 	}
 
 	// sort changes
@@ -162,7 +188,7 @@ class ChannelManager {
 
 	// Create the channel by passing react
 	// if react are same it will create single channel for them
-	create(appbaseRef, type, react, size = 100, from = 0, stream = false) {
+	create(appbaseRef, type, react, size = 100, from = 0, stream = false, app="reactivebase") {
 		const channelId = btoa(JSON.stringify(react));
 		const optionValues = {
 			size,
@@ -170,6 +196,7 @@ class ChannelManager {
 		};
 		this.queryOptions[channelId] = optionValues;
 		this.type[channelId] = type;
+		this.app[channelId] = app;
 		this.appbaseRef[channelId] = appbaseRef;
 		react[`channel-options-${channelId}`] = optionValues;
 		const previousSelectedSensor = {

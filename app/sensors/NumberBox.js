@@ -113,7 +113,7 @@ export default class NumberBox extends Component {
 			key: componentId,
 			value: inputVal
 		};
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		helper.selectedSensor.set(obj, true);
@@ -128,7 +128,7 @@ export default class NumberBox extends Component {
 			"rbc-title-inactive": !title
 		});
 		return (
-			<div className={`rbc rbc-numberbox col s12 col-xs-12 card thumbnail ${cx} rbc-label-${labelPosition}`}>
+			<div className={`rbc rbc-numberbox col s12 col-xs-12 card thumbnail ${cx} rbc-label-${labelPosition}`} style={this.props.componentStyle}>
 				<div className="row">
 					{ComponentTitle}
 					<NumberComponent
@@ -159,7 +159,12 @@ NumberBox.propTypes = {
 	defaultSelected: helper.valueValidation,
 	labelPosition: React.PropTypes.oneOf(["top", "bottom", "left", "right"]),
 	customQuery: React.PropTypes.func,
-	onValueChange: React.PropTypes.func
+	onValueChange: React.PropTypes.func,
+	componentStyle: React.PropTypes.object
+};
+
+NumberBox.defaultProps = {
+	componentStyle: {}
 };
 
 // context type
@@ -176,5 +181,6 @@ NumberBox.types = {
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.NUMBER,
 	labelPosition: TYPES.STRING,
-	customQuery: TYPES.FUNCTION
+	customQuery: TYPES.FUNCTION,
+	componentStyle: TYPES.OBJECT
 };

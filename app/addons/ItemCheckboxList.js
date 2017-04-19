@@ -22,8 +22,8 @@ export default class ItemCheckboxList extends Component {
 	}
 
 	defaultUpdate() {
-		const defaultSelectAll = this.props.defaultSelected.indexOf(this.props.selectAllLabel) > -1 ? true : false;
-		if(defaultSelectAll) {
+		const defaultSelectAll = this.props.defaultSelected.indexOf(this.props.selectAllLabel) > -1;
+		if (defaultSelectAll) {
 			this.setDefaultSelectAll();
 		} else {
 			this.setState({
@@ -37,7 +37,7 @@ export default class ItemCheckboxList extends Component {
 	}
 
 	setDefaultSelectAll() {
-		if(this.props.items && this.props.items.length) {
+		if (this.props.items && this.props.items.length) {
 			setTimeout(this.handleListClickAll.bind(this, this.props.selectAllLabel, true), 1000);
 		} else {
 			setTimeout(this.setDefaultSelectAll.bind(this), 1000);

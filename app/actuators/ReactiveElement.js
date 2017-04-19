@@ -59,7 +59,7 @@ export default class ReactiveElement extends Component {
 	}
 
 	// default markup
-	defaultonData(res) {
+	defaultonAllData(res) {
 		let result = null;
 		if (res && res.appliedQuery) {
 			result = (
@@ -103,7 +103,7 @@ export default class ReactiveElement extends Component {
 		// Set the react - add self aggs query as well with react
 		const react = this.props.react ? this.props.react : {};
 		if (react && react.and) {
-			if(typeof react.and === "string") {
+			if (typeof react.and === "string") {
 				react.and = [react.and];
 			}
 		} else {
@@ -114,7 +114,7 @@ export default class ReactiveElement extends Component {
 			this.enableSort(react);
 		}
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.context.app);
 		this.channelId = channelObj.channelId;
 
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
@@ -126,9 +126,9 @@ export default class ReactiveElement extends Component {
 					queryStart: false,
 					showPlaceholder: false
 				});
-				if (this.props.onData) {
+				if (this.props.onAllData) {
 					const modifiedData = helper.prepareResultData(res);
-					this.props.onData(modifiedData.res, modifiedData.err);
+					this.props.onAllData(modifiedData.res, modifiedData.err);
 				}
 			}
 			if (res.appliedQuery) {
@@ -222,7 +222,7 @@ export default class ReactiveElement extends Component {
 			modifiedData.currentData = this.state.currentData;
 			delete modifiedData.data;
 			modifiedData = helper.prepareResultData(modifiedData, res.data);
-			const generatedData = this.props.onData ? this.props.onData(modifiedData.res, modifiedData.err) : this.defaultonData(modifiedData.res, modifiedData.err);
+			const generatedData = this.props.onAllData ? this.props.onAllData(modifiedData.res, modifiedData.err) : this.defaultonAllData(modifiedData.res, modifiedData.err);
 			this.setState({
 				resultMarkup: generatedData,
 				currentData: this.combineCurrentData(newData)
@@ -312,7 +312,7 @@ export default class ReactiveElement extends Component {
 				</div>
 				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults.text} />) : null}
 				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader.text} />) : null}
-				<PoweredBy container="rbc-reactiveelement-container" />
+				<PoweredBy container=".rbc-reactiveelement-container" />
 			</div>
 		);
 	}
@@ -325,7 +325,7 @@ ReactiveElement.propTypes = {
 		React.PropTypes.element
 	]),
 	from: helper.validation.resultListFrom,
-	onData: React.PropTypes.func,
+	onAllData: React.PropTypes.func,
 	size: helper.sizeValidation,
 	stream: React.PropTypes.bool,
 	componentStyle: React.PropTypes.object,
@@ -357,7 +357,8 @@ ReactiveElement.defaultProps = {
 // context type
 ReactiveElement.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	app: React.PropTypes.any.isRequired
 };
 
 ReactiveElement.types = {
@@ -366,7 +367,7 @@ ReactiveElement.types = {
 	react: TYPES.OBJECT,
 	from: TYPES.NUMBER,
 	size: TYPES.NUMBER,
-	onData: TYPES.FUNCTION,
+	onAllData: TYPES.FUNCTION,
 	stream: TYPES.BOOLEAN,
 	componentStyle: TYPES.OBJECT,
 	initialLoader: TYPES.STRING,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 export default class NoResults extends Component {
 	constructor(props, context) {
@@ -8,7 +8,7 @@ export default class NoResults extends Component {
 	// render
 	render() {
 		return (
-			<div className={`rbc rbc-noresults`}>
+			<div className={"rbc rbc-noresults"}>
 				{this.props.defaultText}
 			</div>
 		);

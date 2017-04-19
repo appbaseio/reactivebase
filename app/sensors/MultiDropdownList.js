@@ -12,7 +12,8 @@ export default function MultiDropdownList(props) {
 }
 
 MultiDropdownList.propTypes = {
-	defaultSelected: React.PropTypes.array
+	defaultSelected: React.PropTypes.array,
+	componentStyle: React.PropTypes.object
 };
 
 MultiDropdownList.types = {
@@ -28,5 +29,6 @@ MultiDropdownList.types = {
 	placeholder: TYPES.STRING,
 	selectAllLabel: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	initialLoader: TYPES.OBJECT
+	initialLoader: TYPES.OBJECT,
+	componentStyle: TYPES.OBJECT
 };

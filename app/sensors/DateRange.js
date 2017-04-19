@@ -4,6 +4,7 @@ import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
 
 const moment = require("moment");
+const _ = require("lodash");
 const momentPropTypes = require("react-moment-proptypes");
 const helper = require("../middleware/helper");
 
@@ -93,12 +94,47 @@ export default class DateRange extends Component {
 	// build query for this sensor only
 	customQuery(value) {
 		let query = null;
-		if (value) {
+		if (value && value.startDate && value.endDate) {
+			query = this.generateQuery(value);
+		}
+		return query;
+	}
+
+	generateQuery(value) {
+		let query;
+		if (_.isArray(this.props.appbaseField) && this.props.appbaseField.length === 2) {
+			query = {
+				bool: {
+					must: [{
+						range: {
+							[this.props.appbaseField[0]]: {
+								lte: moment(value.startDate).unix()*1000
+							}
+						}
+					}, {
+						range: {
+							[this.props.appbaseField[1]]: {
+								gte: moment(value.endDate).unix()*1000
+							}
+						}
+					}]
+				}
+			};
+		} else if (_.isArray(this.props.appbaseField)) {
+			query = {
+				range: {
+					[this.props.appbaseField[0]]: {
+						gte: moment(value.startDate).unix()*1000,
+						lte: moment(value.endDate).unix()*1000
+					}
+				}
+			};
+		} else {
 			query = {
 				range: {
 					[this.props.appbaseField]: {
-						gte: value.startDate,
-						lte: value.endDate
+						gte: moment(value.startDate).unix()*1000,
+						lte: moment(value.endDate).unix()*1000
 					}
 				}
 			};
@@ -111,13 +147,19 @@ export default class DateRange extends Component {
 		this.setState({
 			currentValue: inputVal
 		});
+		if (inputVal.startDate && inputVal.endDate) {
+			this.setValue(inputVal);
+		}
+	}
+
+	setValue(inputVal) {
 		const obj = {
 			key: this.props.componentId,
 			value: inputVal
 		};
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		helper.selectedSensor.set(obj, isExecuteQuery);
@@ -147,7 +189,7 @@ export default class DateRange extends Component {
 			"rbc-title-inactive": !this.props.title
 		});
 		return (
-			<div className={`rbc rbc-daterange col s12 col-xs-12 card thumbnail ${cx}`}>
+			<div className={`rbc rbc-daterange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{title}
 				<div className="rbc-daterange-component col s12 col-xs-12">
 					<DateRangePicker
@@ -169,7 +211,10 @@ export default class DateRange extends Component {
 
 DateRange.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string,
+	appbaseField: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.array
+	]),
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -182,7 +227,8 @@ DateRange.propTypes = {
 	allowAllDates: React.PropTypes.bool,
 	extra: React.PropTypes.any,
 	customQuery: React.PropTypes.func,
-	onValueChange: React.PropTypes.func
+	onValueChange: React.PropTypes.func,
+	componentStyle: React.PropTypes.object
 };
 
 // Default props value
@@ -210,5 +256,6 @@ DateRange.types = {
 	numberOfMonths: TYPES.NUMBER,
 	allowAllDates: TYPES.BOOLEAN,
 	extra: TYPES.OBJECT,
-	customQuery: TYPES.FUNCTION
+	customQuery: TYPES.FUNCTION,
+	componentStyle: TYPES.OBJECT
 };

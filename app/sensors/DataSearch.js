@@ -59,6 +59,25 @@ export default class DataSearch extends Component {
 		}
 	}
 
+	highlightQuery() {
+		const fields = {};
+		const highlightFields = this.props.highlightFields ? this.props.highlightFields : this.props.appbaseField;
+		if (typeof highlightFields === "string") {
+			fields[highlightFields] = {};
+		} else if (_.isArray(highlightFields)) {
+			highlightFields.forEach((item) => {
+				fields[item] = {};
+			});
+		}
+		return {
+			highlight: {
+				pre_tags: ["<span class=\"rbc-highlight\">"],
+				post_tags: ["</span>"],
+				fields
+			}
+		};
+	}
+
 	// set the query type and input data
 	setQueryInfo() {
 		const obj = {
@@ -69,6 +88,9 @@ export default class DataSearch extends Component {
 				customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery
 			}
 		};
+		if (this.props.highlight) {
+			obj.value.externalQuery = this.highlightQuery();
+		}
 		helper.selectedSensor.setSensorInfo(obj);
 		const searchObj = {
 			key: this.searchInputId,
@@ -106,19 +128,19 @@ export default class DataSearch extends Component {
 		}
 	}
 
-	getValue(field, hit) {
+	getValue(field, hit, index = 0) {
 		let val;
-		if(_.has(hit, field)) {
+		if (_.has(hit, field)) {
 			val = hit[field];
-		} else if(field.indexOf(".") > -1) {
+		} else if (field.indexOf(".") > -1) {
 			let prefix = "";
 			const fieldSplit = field.split(".");
 			fieldSplit.forEach((item, index) => {
 				prefix += item;
-				if(_.isArray(_.get(hit, prefix))) {
-					prefix += "[0]";
+				if (_.isArray(_.get(hit, prefix))) {
+					prefix += `[${index}]`;
 				}
-				if(fieldSplit.length-1 !== index) {
+				if (fieldSplit.length - 1 !== index) {
 					prefix += ".";
 				} else {
 					val = _.get(hit, prefix);
@@ -131,6 +153,7 @@ export default class DataSearch extends Component {
 	// set data after get the result
 	setData(data) {
 		let options = [];
+		const appbaseField = _.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
 		data.hits.hits.map((hit) => {
 			if (this.fieldType === "string") {
 				const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
@@ -159,27 +182,29 @@ export default class DataSearch extends Component {
 
 	// default query
 	defaultSearchQuery(value) {
-		let finalQuery = null;
+		let finalQuery = null,
+			fields;
 		if (value) {
 			if (this.fieldType === "string") {
-				return {
-					match_phrase_prefix: {
-						[this.props.appbaseField]: value
-					}
-				};
+				fields = [this.props.appbaseField];
+			} else {
+				fields = this.props.appbaseField;
 			}
-			const query = [];
-			this.props.appbaseField.map((field) => {
-				query.push({
-					match_phrase_prefix: {
-						[field]: value
-					}
-				});
-			});
 			finalQuery = {
 				bool: {
-					should: query,
-					minimum_should_match: 1
+					should: [{
+						multi_match: {
+							query: value,
+							fields,
+							type: "phrase_prefix"
+						}
+					}, {
+						multi_match: {
+							query: value,
+							fields
+						}
+					}],
+					minimum_should_match: "1"
 				}
 			};
 		}
@@ -248,7 +273,7 @@ export default class DataSearch extends Component {
 			key: this.props.componentId,
 			value: inputVal
 		};
-		if(this.props.onValueChange) {
+		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
 		// pass the selected sensor value with componentId as key,
@@ -271,7 +296,7 @@ export default class DataSearch extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-datasearch col s12 col-xs-12 card thumbnail ${cx}`}>
+			<div className={`rbc rbc-datasearch col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{title}
 				{
 					this.props.autocomplete ?
@@ -315,13 +340,21 @@ DataSearch.propTypes = {
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	react: React.PropTypes.object
+	react: React.PropTypes.object,
+	componentStyle: React.PropTypes.object,
+	highlight: React.PropTypes.bool,
+	highlightFields: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.arrayOf(React.PropTypes.string)
+	])
 };
 
 // Default props value
 DataSearch.defaultProps = {
 	placeholder: "Search",
-	autocomplete: true
+	autocomplete: true,
+	componentStyle: {},
+	highlight: false
 };
 
 // context type
@@ -339,5 +372,7 @@ DataSearch.types = {
 	placeholder: TYPES.STRING,
 	autocomplete: TYPES.BOOLEAN,
 	defaultSelected: TYPES.STRING,
-	customQuery: TYPES.FUNCTION
+	customQuery: TYPES.FUNCTION,
+	componentStyle: TYPES.OBJECT,
+	highlight: TYPES.BOOLEAN
 };

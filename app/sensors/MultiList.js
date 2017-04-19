@@ -35,7 +35,8 @@ MultiList.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
-	react: React.PropTypes.object
+	react: React.PropTypes.object,
+	componentStyle: React.PropTypes.object
 };
 
 // Default props value
@@ -67,5 +68,6 @@ MultiList.types = {
 	showSearch: TYPES.BOOLEAN,
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	initialLoader: TYPES.OBJECT
+	initialLoader: TYPES.OBJECT,
+	componentStyle: TYPES.OBJECT
 };

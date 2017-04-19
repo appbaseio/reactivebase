@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ReactiveBase, MultiList, ReactiveList } from "../app";
-import { ResponsiveStory, combineStreamData } from "../middleware/helper";
+import { ResponsiveStory } from "../middleware/helper";
 import { Img } from "./Img";
 
 require("./list.css");
@@ -9,7 +9,6 @@ export default class ReactiveListDefault extends Component {
 	constructor(props) {
 		super(props);
 		this.cityQuery = this.cityQuery.bind(this);
-		this.onData = this.onData.bind(this);
 		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
 	}
 
@@ -17,29 +16,11 @@ export default class ReactiveListDefault extends Component {
 		ResponsiveStory();
 	}
 
-	onData(res) {
-		let result = null;
-		if (res) {
-			let combineData = res.currentData;
-			if (res.mode === "historic") {
-				combineData = res.currentData.concat(res.newData);
-			} else if (res.mode === "streaming") {
-				combineData = combineStreamData(res.currentData, res.newData);
-			}
-			if (combineData) {
-				result = combineData.map((markerData) => {
-					const marker = markerData._source;
-					return this.itemMarkup(marker, markerData);
-				});
-			}
-		}
-		return result;
-	}
-
-	itemMarkup(marker, markerData) {
+	onData(markerData) {
+		const marker = markerData._source;
 		return (
 			<a
-				className={"full_row single-record single_record_for_clone " + (markerData.stream ? "animate" : "")}
+				className={`full_row single-record single_record_for_clone ${markerData.stream ? "animate" : ""}`}
 				href={marker.event ? marker.event.event_url : ""}
 				target="_blank"
 				rel="noreferrer noopener"
@@ -70,7 +51,7 @@ export default class ReactiveListDefault extends Component {
 	cityQuery(value) {
 		if (value) {
 			const field = "group.group_city.group_city_simple";
-			const query = JSON.parse(`{"${field}":` + JSON.stringify(value) + "}");
+			const query = JSON.parse(`{"${field}":${JSON.stringify(value)}}`);
 			return { terms: query };
 		}
 		return null;
