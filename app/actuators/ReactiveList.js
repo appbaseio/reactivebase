@@ -423,7 +423,7 @@ export default class ReactiveList extends Component {
 						className={`rbc-pagination-${method}`}
 						componentId="pagination"
 						onPageChange={this.props.onPageChange}
-						title={this.props.paginationTitle} 
+						title={this.props.paginationTitle}
 					/>
 				</div>
 			);
@@ -549,7 +549,7 @@ export default class ReactiveList extends Component {
 		}
 
 		return (
-			<div ref={(div) => { this.resultListContainer = div }} className="rbc-reactivelist-container">
+			<div className="rbc-reactivelist-container">
 				<div ref={(div) => { this.listParentElement = div; }} className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{sortOptions}
@@ -568,7 +568,7 @@ export default class ReactiveList extends Component {
 				</div>
 				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults} />) : null}
 				{this.props.initialLoader && this.state.queryStart && this.state.showInitialLoader ? (<InitialLoader defaultText={this.props.initialLoader} />) : null}
-				<PoweredBy container={this.resultListContainer} />
+				<PoweredBy container=".rbc-reactivelist-container" />
 			</div>
 		);
 	}

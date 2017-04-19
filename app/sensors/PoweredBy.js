@@ -10,7 +10,8 @@ export default function Poweredby(props) {
 		</a>
 	);
 	if(props.container) {
-		showMarkup = $(props.container).height() < 300 ? false : true;
+		const height = $(props.container).height() || 0;
+		showMarkup = height > 300;
 	}
 	return showMarkup ? markup :null;
 }
