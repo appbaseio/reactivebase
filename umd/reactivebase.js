@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-dom"));
+		module.exports = factory(require("react"), require("react-dom"), require("ws"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react-dom"], factory);
+		define(["react", "react-dom", "ws"], factory);
 	else if(typeof exports === 'object')
-		exports["UmdReactiveBase"] = factory(require("react"), require("react-dom"));
+		exports["UmdReactiveBase"] = factory(require("react"), require("react-dom"), require("ws"));
 	else
-		root["UmdReactiveBase"] = factory(root["React"], root["ReactDOM"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_10__) {
+		root["UmdReactiveBase"] = factory(root["React"], root["ReactDOM"], root["ws"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_394__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -116,35 +116,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 
-	var _DateRange = __webpack_require__(369);
+	var _DateRange = __webpack_require__(375);
 
 	var _DateRange2 = _interopRequireDefault(_DateRange);
 
-	var _NestedList = __webpack_require__(370);
-
-	var _NestedList2 = _interopRequireDefault(_NestedList);
-
-	var _NumberBox = __webpack_require__(371);
+	var _NumberBox = __webpack_require__(376);
 
 	var _NumberBox2 = _interopRequireDefault(_NumberBox);
 
-	var _ReactiveList = __webpack_require__(372);
+	var _ReactiveList = __webpack_require__(377);
 
 	var _ReactiveList2 = _interopRequireDefault(_ReactiveList);
 
-	var _ReactiveElement = __webpack_require__(377);
+	var _ReactiveElement = __webpack_require__(383);
 
 	var _ReactiveElement2 = _interopRequireDefault(_ReactiveElement);
 
-	var _ReactivePaginatedList = __webpack_require__(378);
-
-	var _ReactivePaginatedList2 = _interopRequireDefault(_ReactivePaginatedList);
-
-	var _PoweredBy = __webpack_require__(374);
+	var _PoweredBy = __webpack_require__(379);
 
 	var _PoweredBy2 = _interopRequireDefault(_PoweredBy);
 
-	var _DataController = __webpack_require__(380);
+	var _DataController = __webpack_require__(384);
 
 	var _DataController2 = _interopRequireDefault(_DataController);
 
@@ -152,15 +144,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _InitialLoader2 = _interopRequireDefault(_InitialLoader);
 
-	var _NoResults = __webpack_require__(375);
+	var _NoResults = __webpack_require__(380);
 
 	var _NoResults2 = _interopRequireDefault(_NoResults);
 
-	var _ResultStats = __webpack_require__(376);
+	var _ResultStats = __webpack_require__(381);
 
 	var _ResultStats2 = _interopRequireDefault(_ResultStats);
 
-	var _ReactiveBase = __webpack_require__(381);
+	var _ReactiveBase = __webpack_require__(385);
 
 	var _ReactiveBase2 = _interopRequireDefault(_ReactiveBase);
 
@@ -198,12 +190,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		ToggleButton: _ToggleButton2.default,
 		DatePicker: _DatePicker2.default,
 		DateRange: _DateRange2.default,
-		NestedList: _NestedList2.default,
 		NumberBox: _NumberBox2.default,
 		ReactiveBase: _ReactiveBase2.default,
 		ReactiveList: _ReactiveList2.default,
 		ReactiveElement: _ReactiveElement2.default,
-		ReactivePaginatedList: _ReactivePaginatedList2.default,
 		AppbaseChannelManager: _ChannelManager2.default,
 		AppbaseSensorHelper: helper,
 		PoweredBy: _PoweredBy2.default,
@@ -277,7 +267,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleList.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.string,
 		size: _react2.default.PropTypes.number,
 		showCount: _react2.default.PropTypes.bool,
@@ -286,7 +276,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		placeholder: _react2.default.PropTypes.string,
 		customQuery: _react2.default.PropTypes.func,
 		initialLoader: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
-		react: _react2.default.PropTypes.object
+		react: _react2.default.PropTypes.object,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
@@ -296,7 +287,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		size: 100,
 		showSearch: false,
 		title: null,
-		placeholder: "Search"
+		placeholder: "Search",
+		componentStyle: {}
 	};
 
 	// context type
@@ -308,6 +300,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleList.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.KEYWORD,
 		react: TYPES.OBJECT,
 		title: TYPES.STRING,
 		defaultSelected: TYPES.STRING,
@@ -317,7 +310,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		showSearch: TYPES.BOOLEAN,
 		placeholder: TYPES.STRING,
 		customQuery: TYPES.FUNCTION,
-		initialLoader: TYPES.OBJECT
+		initialLoader: TYPES.OBJECT,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
@@ -446,7 +440,8 @@ return /******/ (function(modules) { // webpackBootstrap
 						}
 					};
 				} else if (value) {
-					query = _defineProperty({}, this.type, _defineProperty({}, this.props.appbaseField, value));
+					var listQuery = _defineProperty({}, this.type, _defineProperty({}, this.props.appbaseField, value));
+					query = this.props.multipleSelect ? value.length ? listQuery : null : listQuery;
 				}
 				return query;
 			}
@@ -685,6 +680,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					});
 					this.setState({ items: items });
 				}
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -793,7 +791,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc col s12 col-xs-12 card thumbnail " + cx },
+					{ className: "rbc col s12 col-xs-12 card thumbnail " + cx, style: this.props.componentStyle },
 					title,
 					searchComponent,
 					listComponent,
@@ -811,7 +809,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	NativeList.propTypes = {
 		appbaseField: _react2.default.PropTypes.string.isRequired,
 		componentId: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		size: helper.sizeValidation,
 		showCount: _react2.default.PropTypes.bool,
 		multipleSelect: _react2.default.PropTypes.bool,
@@ -822,7 +820,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		customQuery: _react2.default.PropTypes.func,
 		initialLoader: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number, _react2.default.PropTypes.array]),
-		react: _react2.default.PropTypes.object
+		react: _react2.default.PropTypes.object,
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
@@ -834,7 +834,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		showSearch: false,
 		title: null,
 		placeholder: "Search",
-		selectAllLabel: null
+		selectAllLabel: null,
+		componentStyle: {}
 	};
 
 	// context type
@@ -960,13 +961,27 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function defaultUpdate() {
 				var _this2 = this;
 
-				this.setState({
-					selectedItems: this.props.defaultSelected,
-					defaultSelectall: this.props.defaultSelectall
-				}, function () {
-					_this2.updateAction.bind(_this2);
-					_this2.props.onSelect(_this2.state.selectedItems);
-				});
+				var defaultSelectAll = this.props.defaultSelected.indexOf(this.props.selectAllLabel) > -1;
+				if (defaultSelectAll) {
+					this.setDefaultSelectAll();
+				} else {
+					this.setState({
+						selectedItems: this.props.defaultSelected,
+						defaultSelectall: this.props.defaultSelectall
+					}, function () {
+						_this2.updateAction.bind(_this2);
+						_this2.props.onSelect(_this2.state.selectedItems);
+					});
+				}
+			}
+		}, {
+			key: "setDefaultSelectAll",
+			value: function setDefaultSelectAll() {
+				if (this.props.items && this.props.items.length) {
+					setTimeout(this.handleListClickAll.bind(this, this.props.selectAllLabel, true), 1000);
+				} else {
+					setTimeout(this.setDefaultSelectAll.bind(this), 1000);
+				}
 			}
 
 			// remove selected types if not in the list
@@ -1168,7 +1183,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					{ className: "rbc-list-container col s12 col-xs-12" },
 					TagItemsArray.length ? _react2.default.createElement(
 						"div",
-						{ className: "row" },
+						{ className: "row rbc-tag-container" },
 						TagItemsArray
 					) : null,
 					_react2.default.createElement(
@@ -1390,7 +1405,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -1435,7 +1450,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 
 		_createClass(ItemList, [{
-			key: 'componentWillUpdate',
+			key: "componentWillUpdate",
 			value: function componentWillUpdate() {
 				if (this.defaultSelected != this.props.defaultSelected) {
 					this.defaultSelected = this.props.defaultSelected;
@@ -1443,7 +1458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}
 		}, {
-			key: 'componentDidUpdate',
+			key: "componentDidUpdate",
 			value: function componentDidUpdate() {
 				if (this.props.items.length && this.defaultAllowed) {
 					this.defaultAllowed = false;
@@ -1451,15 +1466,21 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}
 		}, {
-			key: 'defaultSelection',
+			key: "defaultSelection",
 			value: function defaultSelection() {
 				if (this.props.defaultSelected) {
-					this.handleClick(this.props.defaultSelected);
+					if (this.props.defaultSelected === this.props.selectAllLabel) {
+						this.handleListClickAll(this.props.selectAllLabel);
+					} else {
+						this.handleClick(this.props.defaultSelected);
+					}
 				}
 			}
 		}, {
-			key: 'handleListClickAll',
+			key: "handleListClickAll",
 			value: function handleListClickAll(value) {
+				var _this2 = this;
+
 				var selectedItems = this.props.items.map(function (item) {
 					return item.key;
 				});
@@ -1467,14 +1488,14 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.setState({
 					selectedItem: value
 				}, function () {
-					this.props.onSelect(selectedItems, value);
-				}.bind(this));
+					_this2.props.onSelect(selectedItems, value);
+				});
 			}
 
 			// Handler function is called when the list item is clicked
 
 		}, {
-			key: 'handleClick',
+			key: "handleClick",
 			value: function handleClick(value) {
 				// Pass the previously selected value to be removed from the query
 				this.props.onRemove(this.state.selectedItem);
@@ -1485,43 +1506,47 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 			}
 		}, {
-			key: 'renderItemsComponent',
+			key: "renderItemsComponent",
 			value: function renderItemsComponent() {
+				var _this3 = this;
+
 				var items = this.props.items;
 				var itemsComponent = [];
 				// Build the array of components for each item
 				items.forEach(function (item) {
-					var visibleFlag = !item.hasOwnProperty('visible') ? true : item.visible ? true : false;
+					var visibleFlag = !item.hasOwnProperty("visible") ? true : !!item.visible;
 					itemsComponent.push(_react2.default.createElement(ItemRow, {
 						key: item.key,
 						value: item.key,
 						doc_count: item.doc_count,
-						countField: this.props.showCount,
-						handleClick: this.handleClick,
+						countField: _this3.props.showCount,
+						handleClick: _this3.handleClick,
 						visible: visibleFlag,
-						selectedItem: this.state.selectedItem }));
-				}.bind(this));
+						selectedItem: _this3.state.selectedItem
+					}));
+				});
 
 				// include select all if set from parent
 				if (this.props.selectAllLabel && items && items.length) {
 					itemsComponent.unshift(_react2.default.createElement(ItemRow, {
-						key: 'selectall',
+						key: "selectall",
 						visible: true,
 						value: this.props.selectAllLabel,
 						countField: false,
 						handleClick: this.handleListClickAll,
 						selectedItem: this.state.selectedItem,
-						ref: "refselectall" }));
+						ref: "refselectall"
+					}));
 				}
 
 				return itemsComponent;
 			}
 		}, {
-			key: 'render',
+			key: "render",
 			value: function render() {
 				return _react2.default.createElement(
-					'div',
-					{ className: 'rbc-list-container col s12 col-xs-12' },
+					"div",
+					{ className: "rbc-list-container col s12 col-xs-12" },
 					this.renderItemsComponent()
 				);
 			}
@@ -1542,44 +1567,44 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 
 		_createClass(ItemRow, [{
-			key: 'renderItem',
+			key: "renderItem",
 			value: function renderItem() {
 				var count = void 0;
 				// Check if user wants to show count field
 				if (this.props.countField) {
 					count = _react2.default.createElement(
-						'span',
-						{ className: 'rbc-count' },
-						' (',
+						"span",
+						{ className: "rbc-count" },
+						" (",
 						this.props.doc_count,
-						') '
+						") "
 					);
 				}
 				var item = _react2.default.createElement(
-					'a',
-					{ href: 'javascript:void(0)', className: "col s12 col-xs-12" },
+					"a",
+					{ href: "javascript:void(0)", className: "col s12 col-xs-12" },
 					_react2.default.createElement(
-						'span',
+						"span",
 						null,
-						' ',
+						" ",
 						this.props.value,
-						' '
+						" "
 					),
 					count
 				);
 				if (this.props.value === this.props.selectedItem) {
 					item = _react2.default.createElement(
-						'a',
-						{ href: 'javascript:void(0)', className: "col s12 col-xs-12" },
+						"a",
+						{ href: "javascript:void(0)", className: "col s12 col-xs-12" },
 						_react2.default.createElement(
-							'strong',
+							"strong",
 							null,
 							_react2.default.createElement(
-								'span',
+								"span",
 								null,
-								' ',
+								" ",
 								this.props.value,
-								' '
+								" "
 							),
 							count
 						)
@@ -1588,47 +1613,49 @@ return /******/ (function(modules) { // webpackBootstrap
 				return item;
 			}
 		}, {
-			key: 'renderCount',
+			key: "renderCount",
 			value: function renderCount() {
 				var count = void 0;
 				// Check if user wants to show count field
 				if (this.props.countField) {
 					count = _react2.default.createElement(
-						'span',
-						{ className: 'rbc-count' },
-						' ',
+						"span",
+						{ className: "rbc-count" },
+						" ",
 						this.props.doc_count,
-						' '
+						" "
 					);
 				}
 				return count;
 			}
 		}, {
-			key: 'render',
+			key: "render",
 			value: function render() {
-				var _this3 = this;
+				var _this5 = this;
 
 				var cx = (0, _classnames2.default)({
-					'rbc-count-active': this.props.countField,
-					'rbc-count-inactive': !this.props.countField,
-					'rbc-item-show': this.props.visible,
-					'rbc-item-hide': !this.props.visible
+					"rbc-count-active": this.props.countField,
+					"rbc-count-inactive": !this.props.countField,
+					"rbc-item-show": this.props.visible,
+					"rbc-item-hide": !this.props.visible
 				});
 				// let activeClass = this.props.value === this.props.selectedItem ? 'active' : '';
 				return _react2.default.createElement(
-					'div',
-					{ className: 'rbc-list-item row ' + cx, onClick: function onClick() {
-							return _this3.props.handleClick(_this3.props.value);
+					"div",
+					{ className: "rbc-list-item row " + cx, onClick: function onClick() {
+							return _this5.props.handleClick(_this5.props.value);
 						} },
-					_react2.default.createElement('input', { type: 'radio',
-						className: 'rbc-radio-item',
+					_react2.default.createElement("input", {
+						type: "radio",
+						className: "rbc-radio-item",
 						checked: this.props.value === this.props.selectedItem,
-						value: this.props.value }),
+						value: this.props.value
+					}),
 					_react2.default.createElement(
-						'label',
-						{ className: 'rbc-label' },
+						"label",
+						{ className: "rbc-label" },
 						this.props.value,
-						' ',
+						" ",
 						this.renderCount()
 					)
 				);
@@ -1666,6 +1693,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+	var _ = __webpack_require__(23);
+
 	var _require = __webpack_require__(16),
 	    EventEmitter = _require.EventEmitter;
 
@@ -1681,20 +1710,40 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.queryOptions = {};
 			this.appbaseRef = {};
 			this.type = {};
+			this.app = {};
 			this.receive = this.receive.bind(this);
 			this.nextPage = this.nextPage.bind(this);
 			this.paginationChanges = this.paginationChanges.bind(this);
 			this.sortChanges = this.sortChanges.bind(this);
 		}
 
-		// Receive: This method will be executed whenever dependency value changes
-		// It receives which dependency changes and which channeldId should be affected.
-
-
 		_createClass(ChannelManager, [{
+			key: "highlightModify",
+			value: function highlightModify(data, queryObj) {
+				if (queryObj && queryObj.body && queryObj.body.highlight && data && data.hits && data.hits.hits && data.hits.hits.length) {
+					data.hits.hits = data.hits.hits.map(this.highlightItem);
+				}
+				return data;
+			}
+		}, {
+			key: "highlightItem",
+			value: function highlightItem(item) {
+				if (item.highlight) {
+					Object.keys(item.highlight).forEach(function (highlightItem) {
+						var highlightValue = item.highlight[highlightItem][0];
+						_.set(item._source, highlightItem, highlightValue);
+					});
+				}
+				return item;
+			}
+
+			// Receive: This method will be executed whenever dependency value changes
+			// It receives which dependency changes and which channeldId should be affected.
+
+		}, {
 			key: "receive",
 			value: function receive(depend, channelId) {
-				var _this = this;
+				var _this2 = this;
 
 				var queryOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
@@ -1709,6 +1758,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 
 				function activateStream(currentChannelId, currentQueryObj, appbaseRef) {
+					var _this = this;
+
+					console.log("streaming activate");
 					if (this.streamRef[currentChannelId]) {
 						this.streamRef[currentChannelId].stop();
 					}
@@ -1720,6 +1772,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						delete streamQueryObj.body.sort;
 					}
 					this.streamRef[currentChannelId] = appbaseRef.searchStream(streamQueryObj).on("data", function (data) {
+						data = _this.highlightItem(data, currentQueryObj);
 						var obj = {
 							mode: "streaming",
 							data: data,
@@ -1744,43 +1797,42 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 
 				if (validQuery) {
-					(function () {
-						var channelResponse = {
-							startTime: new Date().getTime(),
-							appliedQuery: queryObj
-						};
-						var appbaseRef = _this.appbaseRef[channelId];
-						if (appbaseRef) {
-							// apply search query and emit historic queryResult
-							var searchQueryObj = queryObj;
-							searchQueryObj.type = _this.type[channelId] === "*" ? "" : _this.type[channelId];
-							setQueryState(channelResponse);
-							appbaseRef.search(searchQueryObj).on("data", function (data) {
-								channelResponse.mode = "historic";
-								channelResponse.data = data;
-								self.emitter.emit(channelId, channelResponse);
-								var globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
-								self.emitter.emit("global", {
-									channelResponse: channelResponse,
-									react: channelObj.react,
-									queryOptions: globalQueryOptions
-								});
-							}).on("error", function (error) {
-								var channelError = {
-									appliedQuery: channelResponse.appliedQuery,
-									error: error,
-									startTime: channelResponse.startTime
-								};
-								self.emitter.emit(channelId, channelError);
+					var channelResponse = {
+						startTime: new Date().getTime(),
+						appliedQuery: queryObj
+					};
+					var appbaseRef = this.appbaseRef[channelId];
+					if (appbaseRef) {
+						// apply search query and emit historic queryResult
+						var searchQueryObj = queryObj;
+						searchQueryObj.type = this.type[channelId] === "*" ? "" : this.type[channelId];
+						searchQueryObj.preference = this.app[channelId];
+						setQueryState(channelResponse);
+						appbaseRef.search(searchQueryObj).on("data", function (data) {
+							channelResponse.mode = "historic";
+							channelResponse.data = _this2.highlightModify(data, channelResponse.appliedQuery);
+							self.emitter.emit(channelId, channelResponse);
+							var globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
+							self.emitter.emit("global", {
+								channelResponse: channelResponse,
+								react: channelObj.react,
+								queryOptions: globalQueryOptions
 							});
-							// apply searchStream query and emit streaming data
-							if (channelObj.stream) {
-								activateStream.call(_this, channelId, queryObj, appbaseRef);
-							}
-						} else {
-							console.error("appbaseRef is not set for " + channelId);
+						}).on("error", function (error) {
+							var channelError = {
+								appliedQuery: channelResponse.appliedQuery,
+								error: error,
+								startTime: channelResponse.startTime
+							};
+							self.emitter.emit(channelId, channelError);
+						});
+						// apply searchStream query and emit streaming data
+						if (channelObj.stream) {
+							activateStream.call(this, channelId, queryObj, appbaseRef);
 						}
-					})();
+					} else {
+						console.error("appbaseRef is not set for " + channelId);
+					}
 				} else {
 					var obj = {
 						mode: "historic",
@@ -1834,12 +1886,17 @@ return /******/ (function(modules) { // webpackBootstrap
 				var queryOptions = JSON.parse(JSON.stringify(this.channels[channelId].previousSelectedSensor));
 				var options = {
 					size: this.queryOptions[channelId].size,
-					from: this.queryOptions[channelId].size * (pageNumber - 1) + 1
+					from: this.getFrom(pageNumber, channelId)
 				};
 				queryOptions["channel-options-" + channelId] = JSON.parse(JSON.stringify(options));
 				// queryOptions["channel-options-"+channelId].from += 1;
 				this.queryOptions[channelId] = options;
 				this.receive("channel-options-" + channelId, channelId, queryOptions);
+			}
+		}, {
+			key: "getFrom",
+			value: function getFrom(pageNumber, channelId) {
+				return pageNumber !== 1 ? this.queryOptions[channelId].size * (pageNumber - 1) + 1 : 0;
 			}
 
 			// sort changes
@@ -1857,11 +1914,12 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "create",
 			value: function create(appbaseRef, type, react) {
 				var size = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 100;
-
-				var _this2 = this;
-
 				var from = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
+
+				var _this3 = this;
+
 				var stream = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
+				var app = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : "reactivebase";
 
 				var channelId = btoa(JSON.stringify(react));
 				var optionValues = {
@@ -1870,6 +1928,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 				this.queryOptions[channelId] = optionValues;
 				this.type[channelId] = type;
+				this.app[channelId] = app;
 				this.appbaseRef[channelId] = appbaseRef;
 				react["channel-options-" + channelId] = optionValues;
 				var previousSelectedSensor = _defineProperty({}, "channel-options-" + channelId, optionValues);
@@ -1893,7 +1952,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				setTimeout(function () {
 					if ("aggs" in react) {
-						_this2.receive("aggs", channelId);
+						_this3.receive("aggs", channelId);
 					}
 				}, 100);
 				return {
@@ -1935,6 +1994,16 @@ return /******/ (function(modules) { // webpackBootstrap
 			return sortInfo;
 		}
 
+		// check if external query part is availbale (i.e. highlight)
+		function isExternalQuery(depend) {
+			var finalValue = null;
+			var sensorInfo = helper.selectedSensor.get(depend, "sensorInfo");
+			if (sensorInfo && sensorInfo.externalQuery) {
+				finalValue = sensorInfo.externalQuery;
+			}
+			return finalValue;
+		}
+
 		// build single query or if default query present in sensor itself use that
 		function singleQuery(depend) {
 			var sensorInfo = helper.selectedSensor.get(depend, "sensorInfo");
@@ -1955,29 +2024,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			var aggsObj = channelObj.react[depend];
 			var order = void 0,
 			    type = void 0;
-			if (aggsObj.sortRef) {
-				var sortField = sortAvailable(aggsObj.sortRef);
-				if (sortField && sortField.aggSort) {
-					aggsObj.sort = sortField.aggSort;
+			var query = void 0;
+			if (aggsObj.customQuery) {
+				query = aggsObj.customQuery(aggsObj);
+			} else {
+				if (aggsObj.sortRef) {
+					var sortField = sortAvailable(aggsObj.sortRef);
+					if (sortField && sortField.aggSort) {
+						aggsObj.sort = sortField.aggSort;
+					}
 				}
-			}
-			if (aggsObj.sort === "count") {
-				order = "desc";
-				type = "_count";
-			} else if (aggsObj.sort === "asc" || aggsObj.sort === "desc") {
-				order = aggsObj.sort;
-				type = "_term";
-			}
-			var query = _defineProperty({}, aggsObj.key, {
-				"terms": {
-					"field": aggsObj.key
+				if (aggsObj.sort === "count") {
+					order = "desc";
+					type = "_count";
+				} else if (aggsObj.sort === "asc" || aggsObj.sort === "desc") {
+					order = aggsObj.sort;
+					type = "_term";
 				}
-			});
-			if (aggsObj.size) {
-				query[aggsObj.key].terms.size = aggsObj.size;
-			}
-			if (aggsObj.sort) {
-				query[aggsObj.key].terms.order = _defineProperty({}, type, order);
+				query = _defineProperty({}, aggsObj.key, {
+					terms: {
+						field: aggsObj.key
+					}
+				});
+				if (aggsObj.size) {
+					query[aggsObj.key].terms.size = aggsObj.size;
+				}
+				if (aggsObj.sort) {
+					query[aggsObj.key].terms.order = _defineProperty({}, type, order);
+				}
 			}
 			return query;
 		}
@@ -1988,9 +2062,15 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (depend === "aggs") {
 					dependsQuery[depend] = aggsQuery(depend);
 				} else if (depend && depend.indexOf("channel-options-") > -1) {
-					requestOptions = previousSelectedSensor[depend];
+					requestOptions = requestOptions || {};
+					requestOptions = Object.assign(requestOptions, previousSelectedSensor[depend]);
 				} else {
 					dependsQuery[depend] = singleQuery(depend);
+					var externalQuery = isExternalQuery(depend);
+					if (externalQuery) {
+						requestOptions = requestOptions || {};
+						requestOptions = Object.assign(requestOptions, externalQuery);
+					}
 				}
 				var sortField = sortAvailable(depend);
 				if (sortField && !("aggSort" in sortField)) {
@@ -2012,6 +2092,8 @@ return /******/ (function(modules) { // webpackBootstrap
 						query.body[reqOption] = requestOptions[reqOption];
 					});
 				}
+			} else {
+				query = {};
 			}
 			return query;
 		}
@@ -2085,15 +2167,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		// initialize the process
 		this.init = function () {
 			react.forEach(function (depend) {
-				checkDependExists(depend);
-				if (_typeof(selectedSensor[depend]) === "object") {
-					var newData = _(selectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
-					var oldData = _(previousSelectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
-					if (JSON.stringify(newData) !== JSON.stringify(oldData)) {
+				if (!(depend.indexOf("channel-options-") > -1 || depend.indexOf("aggs") > -1)) {
+					checkDependExists(depend);
+					if (_typeof(selectedSensor[depend]) === "object") {
+						var newData = _(selectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
+						var oldData = _(previousSelectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
+						if (JSON.stringify(newData) !== JSON.stringify(oldData)) {
+							applyDependChange(react, depend);
+						}
+					} else if (selectedSensor[depend] !== previousSelectedSensor[depend]) {
 						applyDependChange(react, depend);
 					}
-				} else if (selectedSensor[depend] !== previousSelectedSensor[depend]) {
-					applyDependChange(react, depend);
 				}
 			});
 		};
@@ -2104,7 +2188,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var foundDepend = false;
 
 				Object.keys(data).forEach(function (item) {
-					if (react.indexOf(item) > -1) {
+					if (item.indexOf("channel-options-") < 0 && react.indexOf(item) > -1) {
 						foundDepend = true;
 					}
 				});
@@ -2519,17 +2603,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	var $ = __webpack_require__(15);
 
 	var ResponsiveStory = exports.ResponsiveStory = function ResponsiveStory() {
-		function paginationHeight() {
+		var paginationHeight = function paginationHeight() {
 			return $(".rbc-pagination").length * 85;
-		}
+		};
 
-		function handleResponsive() {
+		var getHeight = function getHeight(item) {
+			return item.height() ? item.height() : 0;
+		};
+
+		var handleResponsive = function handleResponsive() {
 			var height = $(window).height();
+			var resultHeight = height - 15;
 			$(".rbc.rbc-reactivelist, .rbc.rbc-reactiveelement").css({
-				maxHeight: height - 15 - paginationHeight()
+				maxHeight: resultHeight
 			});
-			$(".rbc.rbc-singlelist, .rbc.rbc-multilist, .rbc.rbc-nestedlist, .rbc.rbc-tagcloud").css({
-				maxHeight: height - 15
+			var $component = [$(".rbc.rbc-singlelist"), $(".rbc.rbc-multilist"), $(".rbc.rbc-nestedlist"), $(".rbc.rbc-tagcloud")];
+			$component.forEach(function (item) {
+				if (item.length) {
+					var itemHeader = getHeight(item.find(".rbc-title")) + getHeight(item.find(".rbc-search-container"));
+					item.find(".rbc-list-container").css({ maxHeight: height - itemHeader - 35 });
+				}
 			});
 			$(".rbc-base > .row").css({
 				"margin-bottom": 0
@@ -2537,7 +2630,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			$(".rbc-reactivemap .rbc-container").css({
 				maxHeight: height
 			});
-		}
+		};
 
 		handleResponsive();
 
@@ -2597,22 +2690,30 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	};
 
+	var reactiveBaseValidation = exports.reactiveBaseValidation = function reactiveBaseValidation(props, propName) {
+		var err = null;
+		if (!props.credentials) {
+			err = new Error("ReactiveBase expects credentials as a prop instead of username:password.");
+		}
+		return err;
+	};
+
 /***/ },
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * jQuery JavaScript Library v3.1.1
+	 * jQuery JavaScript Library v3.2.1
 	 * https://jquery.com/
 	 *
 	 * Includes Sizzle.js
 	 * https://sizzlejs.com/
 	 *
-	 * Copyright jQuery Foundation and other contributors
+	 * Copyright JS Foundation and other contributors
 	 * Released under the MIT license
 	 * https://jquery.org/license
 	 *
-	 * Date: 2016-09-22T22:30Z
+	 * Date: 2017-03-20T18:59Z
 	 */
 	( function( global, factory ) {
 
@@ -2691,7 +2792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	var
-		version = "3.1.1",
+		version = "3.2.1",
 
 		// Define a local copy of jQuery
 		jQuery = function( selector, context ) {
@@ -2839,11 +2940,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 					// Recurse if we're merging plain objects or arrays
 					if ( deep && copy && ( jQuery.isPlainObject( copy ) ||
-						( copyIsArray = jQuery.isArray( copy ) ) ) ) {
+						( copyIsArray = Array.isArray( copy ) ) ) ) {
 
 						if ( copyIsArray ) {
 							copyIsArray = false;
-							clone = src && jQuery.isArray( src ) ? src : [];
+							clone = src && Array.isArray( src ) ? src : [];
 
 						} else {
 							clone = src && jQuery.isPlainObject( src ) ? src : {};
@@ -2881,8 +2982,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		isFunction: function( obj ) {
 			return jQuery.type( obj ) === "function";
 		},
-
-		isArray: Array.isArray,
 
 		isWindow: function( obj ) {
 			return obj != null && obj === obj.window;
@@ -2956,10 +3055,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		// Microsoft forgot to hump their vendor prefix (#9572)
 		camelCase: function( string ) {
 			return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
-		},
-
-		nodeName: function( elem, name ) {
-			return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 		},
 
 		each: function( obj, callback ) {
@@ -5446,6 +5541,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var rneedsContext = jQuery.expr.match.needsContext;
 
+
+
+	function nodeName( elem, name ) {
+
+	  return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
+
+	};
 	var rsingleTag = ( /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i );
 
 
@@ -5797,7 +5899,18 @@ return /******/ (function(modules) { // webpackBootstrap
 			return siblings( elem.firstChild );
 		},
 		contents: function( elem ) {
-			return elem.contentDocument || jQuery.merge( [], elem.childNodes );
+	        if ( nodeName( elem, "iframe" ) ) {
+	            return elem.contentDocument;
+	        }
+
+	        // Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
+	        // Treat the template element as a regular one in browsers that
+	        // don't support it.
+	        if ( nodeName( elem, "template" ) ) {
+	            elem = elem.content || elem;
+	        }
+
+	        return jQuery.merge( [], elem.childNodes );
 		}
 	}, function( name, fn ) {
 		jQuery.fn[ name ] = function( until, selector ) {
@@ -5895,7 +6008,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			fire = function() {
 
 				// Enforce single-firing
-				locked = options.once;
+				locked = locked || options.once;
 
 				// Execute callbacks for all pending executions,
 				// respecting firingIndex overrides and runtime changes
@@ -6064,7 +6177,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		throw ex;
 	}
 
-	function adoptValue( value, resolve, reject ) {
+	function adoptValue( value, resolve, reject, noValue ) {
 		var method;
 
 		try {
@@ -6080,9 +6193,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			// Other non-thenables
 			} else {
 
-				// Support: Android 4.0 only
-				// Strict mode functions invoked without .call/.apply get global-object context
-				resolve.call( undefined, value );
+				// Control `resolve` arguments by letting Array#slice cast boolean `noValue` to integer:
+				// * false: [ value ].slice( 0 ) => resolve( value )
+				// * true: [ value ].slice( 1 ) => resolve()
+				resolve.apply( undefined, [ value ].slice( noValue ) );
 			}
 
 		// For Promises/A+, convert exceptions into rejections
@@ -6092,7 +6206,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			// Support: Android 4.0 only
 			// Strict mode functions invoked without .call/.apply get global-object context
-			reject.call( undefined, value );
+			reject.apply( undefined, [ value ] );
 		}
 	}
 
@@ -6417,7 +6531,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			// Single- and empty arguments are adopted like Promise.resolve
 			if ( remaining <= 1 ) {
-				adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject );
+				adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject,
+					!remaining );
 
 				// Use .then() to unwrap secondary thenables (cf. gh-3000)
 				if ( master.state() === "pending" ||
@@ -6488,15 +6603,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		// A counter to track how many items to wait for before
 		// the ready event fires. See #6781
 		readyWait: 1,
-
-		// Hold (or release) the ready event
-		holdReady: function( hold ) {
-			if ( hold ) {
-				jQuery.readyWait++;
-			} else {
-				jQuery.ready( true );
-			}
-		},
 
 		// Handle when the DOM is ready
 		ready: function( wait ) {
@@ -6733,7 +6839,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			if ( key !== undefined ) {
 
 				// Support array or space separated string of keys
-				if ( jQuery.isArray( key ) ) {
+				if ( Array.isArray( key ) ) {
 
 					// If key is an array of keys...
 					// We always set camelCase keys, so remove that.
@@ -6959,7 +7065,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// Speed up dequeue by getting out quickly if this is just a lookup
 				if ( data ) {
-					if ( !queue || jQuery.isArray( data ) ) {
+					if ( !queue || Array.isArray( data ) ) {
 						queue = dataPriv.access( elem, type, jQuery.makeArray( data ) );
 					} else {
 						queue.push( data );
@@ -7336,7 +7442,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			ret = [];
 		}
 
-		if ( tag === undefined || tag && jQuery.nodeName( context, tag ) ) {
+		if ( tag === undefined || tag && nodeName( context, tag ) ) {
 			return jQuery.merge( [ context ], ret );
 		}
 
@@ -7943,7 +8049,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// For checkbox, fire native event so checked state will be right
 				trigger: function() {
-					if ( this.type === "checkbox" && this.click && jQuery.nodeName( this, "input" ) ) {
+					if ( this.type === "checkbox" && this.click && nodeName( this, "input" ) ) {
 						this.click();
 						return false;
 					}
@@ -7951,7 +8057,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// For cross-browser consistency, don't fire native .click() on links
 				_default: function( event ) {
-					return jQuery.nodeName( event.target, "a" );
+					return nodeName( event.target, "a" );
 				}
 			},
 
@@ -8228,11 +8334,12 @@ return /******/ (function(modules) { // webpackBootstrap
 		rscriptTypeMasked = /^true\/(.*)/,
 		rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
 
+	// Prefer a tbody over its parent table for containing new rows
 	function manipulationTarget( elem, content ) {
-		if ( jQuery.nodeName( elem, "table" ) &&
-			jQuery.nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
+		if ( nodeName( elem, "table" ) &&
+			nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
 
-			return elem.getElementsByTagName( "tbody" )[ 0 ] || elem;
+			return jQuery( ">tbody", elem )[ 0 ] || elem;
 		}
 
 		return elem;
@@ -8762,12 +8869,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function curCSS( elem, name, computed ) {
 		var width, minWidth, maxWidth, ret,
+
+			// Support: Firefox 51+
+			// Retrieving style before computed somehow
+			// fixes an issue with getting wrong values
+			// on detached elements
 			style = elem.style;
 
 		computed = computed || getStyles( elem );
 
-		// Support: IE <=9 only
-		// getPropertyValue is only needed for .css('filter') (#12537)
+		// getPropertyValue is needed for:
+		//   .css('filter') (IE 9 only, #12537)
+		//   .css('--customProperty) (#3144)
 		if ( computed ) {
 			ret = computed.getPropertyValue( name ) || computed[ name ];
 
@@ -8833,6 +8946,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		// except "table", "table-cell", or "table-caption"
 		// See here for display values: https://developer.mozilla.org/en-US/docs/CSS/display
 		rdisplayswap = /^(none|table(?!-c[ea]).+)/,
+		rcustomProp = /^--/,
 		cssShow = { position: "absolute", visibility: "hidden", display: "block" },
 		cssNormalTransform = {
 			letterSpacing: "0",
@@ -8860,6 +8974,16 @@ return /******/ (function(modules) { // webpackBootstrap
 				return name;
 			}
 		}
+	}
+
+	// Return a property mapped along what jQuery.cssProps suggests or to
+	// a vendor prefixed property.
+	function finalPropName( name ) {
+		var ret = jQuery.cssProps[ name ];
+		if ( !ret ) {
+			ret = jQuery.cssProps[ name ] = vendorPropName( name ) || name;
+		}
+		return ret;
 	}
 
 	function setPositiveNumber( elem, value, subtract ) {
@@ -8922,43 +9046,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function getWidthOrHeight( elem, name, extra ) {
 
-		// Start with offset property, which is equivalent to the border-box value
-		var val,
-			valueIsBorderBox = true,
+		// Start with computed style
+		var valueIsBorderBox,
 			styles = getStyles( elem ),
+			val = curCSS( elem, name, styles ),
 			isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
 
-		// Support: IE <=11 only
-		// Running getBoundingClientRect on a disconnected node
-		// in IE throws an error.
-		if ( elem.getClientRects().length ) {
-			val = elem.getBoundingClientRect()[ name ];
+		// Computed unit is not pixels. Stop here and return.
+		if ( rnumnonpx.test( val ) ) {
+			return val;
 		}
 
-		// Some non-html elements return undefined for offsetWidth, so check for null/undefined
-		// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
-		// MathML - https://bugzilla.mozilla.org/show_bug.cgi?id=491668
-		if ( val <= 0 || val == null ) {
+		// Check for style in case a browser which returns unreliable values
+		// for getComputedStyle silently falls back to the reliable elem.style
+		valueIsBorderBox = isBorderBox &&
+			( support.boxSizingReliable() || val === elem.style[ name ] );
 
-			// Fall back to computed then uncomputed css if necessary
-			val = curCSS( elem, name, styles );
-			if ( val < 0 || val == null ) {
-				val = elem.style[ name ];
-			}
-
-			// Computed unit is not pixels. Stop here and return.
-			if ( rnumnonpx.test( val ) ) {
-				return val;
-			}
-
-			// Check for style in case a browser which returns unreliable values
-			// for getComputedStyle silently falls back to the reliable elem.style
-			valueIsBorderBox = isBorderBox &&
-				( support.boxSizingReliable() || val === elem.style[ name ] );
-
-			// Normalize "", auto, and prepare for extra
-			val = parseFloat( val ) || 0;
+		// Fall back to offsetWidth/Height when value is "auto"
+		// This happens for inline elements with no explicit setting (gh-3571)
+		if ( val === "auto" ) {
+			val = elem[ "offset" + name[ 0 ].toUpperCase() + name.slice( 1 ) ];
 		}
+
+		// Normalize "", auto, and prepare for extra
+		val = parseFloat( val ) || 0;
 
 		// Use the active box-sizing model to add/subtract irrelevant styles
 		return ( val +
@@ -9023,10 +9134,15 @@ return /******/ (function(modules) { // webpackBootstrap
 			// Make sure that we're working with the right name
 			var ret, type, hooks,
 				origName = jQuery.camelCase( name ),
+				isCustomProp = rcustomProp.test( name ),
 				style = elem.style;
 
-			name = jQuery.cssProps[ origName ] ||
-				( jQuery.cssProps[ origName ] = vendorPropName( origName ) || origName );
+			// Make sure that we're working with the right name. We don't
+			// want to query the value if it is a CSS custom property
+			// since they are user-defined.
+			if ( !isCustomProp ) {
+				name = finalPropName( origName );
+			}
 
 			// Gets hook for the prefixed version, then unprefixed version
 			hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
@@ -9062,7 +9178,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				if ( !hooks || !( "set" in hooks ) ||
 					( value = hooks.set( elem, value, extra ) ) !== undefined ) {
 
-					style[ name ] = value;
+					if ( isCustomProp ) {
+						style.setProperty( name, value );
+					} else {
+						style[ name ] = value;
+					}
 				}
 
 			} else {
@@ -9081,11 +9201,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		css: function( elem, name, extra, styles ) {
 			var val, num, hooks,
-				origName = jQuery.camelCase( name );
+				origName = jQuery.camelCase( name ),
+				isCustomProp = rcustomProp.test( name );
 
-			// Make sure that we're working with the right name
-			name = jQuery.cssProps[ origName ] ||
-				( jQuery.cssProps[ origName ] = vendorPropName( origName ) || origName );
+			// Make sure that we're working with the right name. We don't
+			// want to modify the value if it is a CSS custom property
+			// since they are user-defined.
+			if ( !isCustomProp ) {
+				name = finalPropName( origName );
+			}
 
 			// Try prefixed name followed by the unprefixed name
 			hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
@@ -9110,6 +9234,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				num = parseFloat( val );
 				return extra === true || isFinite( num ) ? num || 0 : val;
 			}
+
 			return val;
 		}
 	} );
@@ -9209,7 +9334,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					map = {},
 					i = 0;
 
-				if ( jQuery.isArray( name ) ) {
+				if ( Array.isArray( name ) ) {
 					styles = getStyles( elem );
 					len = name.length;
 
@@ -9347,13 +9472,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	var
-		fxNow, timerId,
+		fxNow, inProgress,
 		rfxtypes = /^(?:toggle|show|hide)$/,
 		rrun = /queueHooks$/;
 
-	function raf() {
-		if ( timerId ) {
-			window.requestAnimationFrame( raf );
+	function schedule() {
+		if ( inProgress ) {
+			if ( document.hidden === false && window.requestAnimationFrame ) {
+				window.requestAnimationFrame( schedule );
+			} else {
+				window.setTimeout( schedule, jQuery.fx.interval );
+			}
+
 			jQuery.fx.tick();
 		}
 	}
@@ -9580,7 +9710,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			name = jQuery.camelCase( index );
 			easing = specialEasing[ name ];
 			value = props[ index ];
-			if ( jQuery.isArray( value ) ) {
+			if ( Array.isArray( value ) ) {
 				easing = value[ 1 ];
 				value = props[ index ] = value[ 0 ];
 			}
@@ -9639,12 +9769,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				deferred.notifyWith( elem, [ animation, percent, remaining ] );
 
+				// If there's more to do, yield
 				if ( percent < 1 && length ) {
 					return remaining;
-				} else {
-					deferred.resolveWith( elem, [ animation ] );
-					return false;
 				}
+
+				// If this was an empty animation, synthesize a final progress notification
+				if ( !length ) {
+					deferred.notifyWith( elem, [ animation, 1, 0 ] );
+				}
+
+				// Resolve the animation and report its conclusion
+				deferred.resolveWith( elem, [ animation ] );
+				return false;
 			},
 			animation = deferred.promise( {
 				elem: elem,
@@ -9709,6 +9846,13 @@ return /******/ (function(modules) { // webpackBootstrap
 			animation.opts.start.call( elem, animation );
 		}
 
+		// Attach callbacks from options
+		animation
+			.progress( animation.opts.progress )
+			.done( animation.opts.done, animation.opts.complete )
+			.fail( animation.opts.fail )
+			.always( animation.opts.always );
+
 		jQuery.fx.timer(
 			jQuery.extend( tick, {
 				elem: elem,
@@ -9717,11 +9861,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			} )
 		);
 
-		// attach callbacks from options
-		return animation.progress( animation.opts.progress )
-			.done( animation.opts.done, animation.opts.complete )
-			.fail( animation.opts.fail )
-			.always( animation.opts.always );
+		return animation;
 	}
 
 	jQuery.Animation = jQuery.extend( Animation, {
@@ -9772,8 +9912,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			easing: fn && easing || easing && !jQuery.isFunction( easing ) && easing
 		};
 
-		// Go to the end state if fx are off or if document is hidden
-		if ( jQuery.fx.off || document.hidden ) {
+		// Go to the end state if fx are off
+		if ( jQuery.fx.off ) {
 			opt.duration = 0;
 
 		} else {
@@ -9965,7 +10105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		for ( ; i < timers.length; i++ ) {
 			timer = timers[ i ];
 
-			// Checks the timer has not already been removed
+			// Run the timer and safely remove it when done (allowing for external removal)
 			if ( !timer() && timers[ i ] === timer ) {
 				timers.splice( i--, 1 );
 			}
@@ -9979,30 +10119,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	jQuery.fx.timer = function( timer ) {
 		jQuery.timers.push( timer );
-		if ( timer() ) {
-			jQuery.fx.start();
-		} else {
-			jQuery.timers.pop();
-		}
+		jQuery.fx.start();
 	};
 
 	jQuery.fx.interval = 13;
 	jQuery.fx.start = function() {
-		if ( !timerId ) {
-			timerId = window.requestAnimationFrame ?
-				window.requestAnimationFrame( raf ) :
-				window.setInterval( jQuery.fx.tick, jQuery.fx.interval );
+		if ( inProgress ) {
+			return;
 		}
+
+		inProgress = true;
+		schedule();
 	};
 
 	jQuery.fx.stop = function() {
-		if ( window.cancelAnimationFrame ) {
-			window.cancelAnimationFrame( timerId );
-		} else {
-			window.clearInterval( timerId );
-		}
-
-		timerId = null;
+		inProgress = null;
 	};
 
 	jQuery.fx.speeds = {
@@ -10119,7 +10250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			type: {
 				set: function( elem, value ) {
 					if ( !support.radioValue && value === "radio" &&
-						jQuery.nodeName( elem, "input" ) ) {
+						nodeName( elem, "input" ) ) {
 						var val = elem.value;
 						elem.setAttribute( "type", value );
 						if ( val ) {
@@ -10550,7 +10681,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				} else if ( typeof val === "number" ) {
 					val += "";
 
-				} else if ( jQuery.isArray( val ) ) {
+				} else if ( Array.isArray( val ) ) {
 					val = jQuery.map( val, function( value ) {
 						return value == null ? "" : value + "";
 					} );
@@ -10609,7 +10740,7 @@ return /******/ (function(modules) { // webpackBootstrap
 								// Don't return options that are disabled or in a disabled optgroup
 								!option.disabled &&
 								( !option.parentNode.disabled ||
-									!jQuery.nodeName( option.parentNode, "optgroup" ) ) ) {
+									!nodeName( option.parentNode, "optgroup" ) ) ) {
 
 							// Get the specific value for the option
 							value = jQuery( option ).val();
@@ -10661,7 +10792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	jQuery.each( [ "radio", "checkbox" ], function() {
 		jQuery.valHooks[ this ] = {
 			set: function( elem, value ) {
-				if ( jQuery.isArray( value ) ) {
+				if ( Array.isArray( value ) ) {
 					return ( elem.checked = jQuery.inArray( jQuery( elem ).val(), value ) > -1 );
 				}
 			}
@@ -10956,7 +11087,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function buildParams( prefix, obj, traditional, add ) {
 		var name;
 
-		if ( jQuery.isArray( obj ) ) {
+		if ( Array.isArray( obj ) ) {
 
 			// Serialize array item.
 			jQuery.each( obj, function( i, v ) {
@@ -11008,7 +11139,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 
 		// If an array was passed in, assume that it is an array of form elements.
-		if ( jQuery.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
+		if ( Array.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
 
 			// Serialize the form elements
 			jQuery.each( a, function() {
@@ -11054,7 +11185,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					return null;
 				}
 
-				if ( jQuery.isArray( val ) ) {
+				if ( Array.isArray( val ) ) {
 					return jQuery.map( val, function( val ) {
 						return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
 					} );
@@ -12479,13 +12610,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 
-	/**
-	 * Gets a window from an element
-	 */
-	function getWindow( elem ) {
-		return jQuery.isWindow( elem ) ? elem : elem.nodeType === 9 && elem.defaultView;
-	}
-
 	jQuery.offset = {
 		setOffset: function( elem, options, i ) {
 			var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calculatePosition,
@@ -12550,13 +12674,14 @@ return /******/ (function(modules) { // webpackBootstrap
 					} );
 			}
 
-			var docElem, win, rect, doc,
+			var doc, docElem, rect, win,
 				elem = this[ 0 ];
 
 			if ( !elem ) {
 				return;
 			}
 
+			// Return zeros for disconnected and hidden (display: none) elements (gh-2310)
 			// Support: IE <=11 only
 			// Running getBoundingClientRect on a
 			// disconnected node in IE throws an error
@@ -12566,20 +12691,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			rect = elem.getBoundingClientRect();
 
-			// Make sure element is not hidden (display: none)
-			if ( rect.width || rect.height ) {
-				doc = elem.ownerDocument;
-				win = getWindow( doc );
-				docElem = doc.documentElement;
+			doc = elem.ownerDocument;
+			docElem = doc.documentElement;
+			win = doc.defaultView;
 
-				return {
-					top: rect.top + win.pageYOffset - docElem.clientTop,
-					left: rect.left + win.pageXOffset - docElem.clientLeft
-				};
-			}
-
-			// Return zeros for disconnected and hidden elements (gh-2310)
-			return rect;
+			return {
+				top: rect.top + win.pageYOffset - docElem.clientTop,
+				left: rect.left + win.pageXOffset - docElem.clientLeft
+			};
 		},
 
 		position: function() {
@@ -12605,7 +12724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// Get correct offsets
 				offset = this.offset();
-				if ( !jQuery.nodeName( offsetParent[ 0 ], "html" ) ) {
+				if ( !nodeName( offsetParent[ 0 ], "html" ) ) {
 					parentOffset = offsetParent.offset();
 				}
 
@@ -12652,7 +12771,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		jQuery.fn[ method ] = function( val ) {
 			return access( this, function( elem, method, val ) {
-				var win = getWindow( elem );
+
+				// Coalesce documents and windows
+				var win;
+				if ( jQuery.isWindow( elem ) ) {
+					win = elem;
+				} else if ( elem.nodeType === 9 ) {
+					win = elem.defaultView;
+				}
 
 				if ( val === undefined ) {
 					return win ? win[ prop ] : elem[ method ];
@@ -12761,7 +12887,16 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	} );
 
+	jQuery.holdReady = function( hold ) {
+		if ( hold ) {
+			jQuery.readyWait++;
+		} else {
+			jQuery.ready( true );
+		}
+	};
+	jQuery.isArray = Array.isArray;
 	jQuery.parseJSON = JSON.parse;
+	jQuery.nodeName = nodeName;
 
 
 
@@ -12814,7 +12949,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	if ( !noGlobal ) {
 		window.jQuery = window.$ = jQuery;
 	}
-
 
 
 
@@ -13376,7 +13510,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var undefined;
 
 	  /** Used as the semantic version number. */
-	  var VERSION = '4.17.2';
+	  var VERSION = '4.17.4';
 
 	  /** Used as the size to enable large array optimizations. */
 	  var LARGE_ARRAY_SIZE = 200;
@@ -14931,9 +15065,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Shortcut fusion is an optimization to merge iteratee calls; this avoids
 	     * the creation of intermediate arrays and can greatly reduce the number of
 	     * iteratee executions. Sections of a chain sequence qualify for shortcut
-	     * fusion if the section is applied to an array of at least `200` elements
-	     * and any iteratees accept only one argument. The heuristic for whether a
-	     * section qualifies for shortcut fusion is subject to change.
+	     * fusion if the section is applied to an array and iteratees accept only
+	     * one argument. The heuristic for whether a section qualifies for shortcut
+	     * fusion is subject to change.
 	     *
 	     * Chaining is supported in custom builds as long as the `_#value` method is
 	     * directly or indirectly included in the build.
@@ -15092,8 +15226,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * By default, the template delimiters used by lodash are like those in
-	     * embedded Ruby (ERB). Change the following template settings to use
-	     * alternative delimiters.
+	     * embedded Ruby (ERB) as well as ES2015 template strings. Change the
+	     * following template settings to use alternative delimiters.
 	     *
 	     * @static
 	     * @memberOf _
@@ -15240,8 +15374,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          resIndex = 0,
 	          takeCount = nativeMin(length, this.__takeCount__);
 
-	      if (!isArr || arrLength < LARGE_ARRAY_SIZE ||
-	          (arrLength == length && takeCount == length)) {
+	      if (!isArr || (!isRight && arrLength == length && takeCount == length)) {
 	        return baseWrapperValue(array, this.__actions__);
 	      }
 	      var result = [];
@@ -15355,7 +15488,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    function hashHas(key) {
 	      var data = this.__data__;
-	      return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
+	      return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
 	    }
 
 	    /**
@@ -15826,24 +15959,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    function arrayShuffle(array) {
 	      return shuffleSelf(copyArray(array));
-	    }
-
-	    /**
-	     * Used by `_.defaults` to customize its `_.assignIn` use.
-	     *
-	     * @private
-	     * @param {*} objValue The destination value.
-	     * @param {*} srcValue The source value.
-	     * @param {string} key The key of the property to assign.
-	     * @param {Object} object The parent object of `objValue`.
-	     * @returns {*} Returns the value to assign.
-	     */
-	    function assignInDefaults(objValue, srcValue, key, object) {
-	      if (objValue === undefined ||
-	          (eq(objValue, objectProto[key]) && !hasOwnProperty.call(object, key))) {
-	        return srcValue;
-	      }
-	      return objValue;
 	    }
 
 	    /**
@@ -16458,8 +16573,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (value == null) {
 	        return value === undefined ? undefinedTag : nullTag;
 	      }
-	      value = Object(value);
-	      return (symToStringTag && symToStringTag in value)
+	      return (symToStringTag && symToStringTag in Object(value))
 	        ? getRawTag(value)
 	        : objectToString(value);
 	    }
@@ -16663,7 +16777,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (value === other) {
 	        return true;
 	      }
-	      if (value == null || other == null || (!isObject(value) && !isObjectLike(other))) {
+	      if (value == null || other == null || (!isObjectLike(value) && !isObjectLike(other))) {
 	        return value !== value && other !== other;
 	      }
 	      return baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
@@ -16686,17 +16800,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
 	      var objIsArr = isArray(object),
 	          othIsArr = isArray(other),
-	          objTag = arrayTag,
-	          othTag = arrayTag;
+	          objTag = objIsArr ? arrayTag : getTag(object),
+	          othTag = othIsArr ? arrayTag : getTag(other);
 
-	      if (!objIsArr) {
-	        objTag = getTag(object);
-	        objTag = objTag == argsTag ? objectTag : objTag;
-	      }
-	      if (!othIsArr) {
-	        othTag = getTag(other);
-	        othTag = othTag == argsTag ? objectTag : othTag;
-	      }
+	      objTag = objTag == argsTag ? objectTag : objTag;
+	      othTag = othTag == argsTag ? objectTag : othTag;
+
 	      var objIsObj = objTag == objectTag,
 	          othIsObj = othTag == objectTag,
 	          isSameTag = objTag == othTag;
@@ -17144,7 +17253,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @returns {Object} Returns the new object.
 	     */
 	    function basePick(object, paths) {
-	      object = Object(object);
 	      return basePickBy(object, paths, function(value, path) {
 	        return hasIn(object, path);
 	      });
@@ -18537,8 +18645,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var args = arguments,
 	              value = args[0];
 
-	          if (wrapper && args.length == 1 &&
-	              isArray(value) && value.length >= LARGE_ARRAY_SIZE) {
+	          if (wrapper && args.length == 1 && isArray(value)) {
 	            return wrapper.plant(value).value();
 	          }
 	          var index = 0,
@@ -18845,7 +18952,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var func = Math[methodName];
 	      return function(number, precision) {
 	        number = toNumber(number);
-	        precision = nativeMin(toInteger(precision), 292);
+	        precision = precision == null ? 0 : nativeMin(toInteger(precision), 292);
 	        if (precision) {
 	          // Shift with exponential notation to avoid floating-point issues.
 	          // See [MDN](https://mdn.io/round#Examples) for more details.
@@ -18950,7 +19057,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      thisArg = newData[2];
 	      partials = newData[3];
 	      holders = newData[4];
-	      arity = newData[9] = newData[9] == null
+	      arity = newData[9] = newData[9] === undefined
 	        ? (isBindKey ? 0 : func.length)
 	        : nativeMax(newData[9] - length, 0);
 
@@ -18968,6 +19075,63 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	      var setter = data ? baseSetData : setData;
 	      return setWrapToString(setter(result, newData), func, bitmask);
+	    }
+
+	    /**
+	     * Used by `_.defaults` to customize its `_.assignIn` use to assign properties
+	     * of source objects to the destination object for all destination properties
+	     * that resolve to `undefined`.
+	     *
+	     * @private
+	     * @param {*} objValue The destination value.
+	     * @param {*} srcValue The source value.
+	     * @param {string} key The key of the property to assign.
+	     * @param {Object} object The parent object of `objValue`.
+	     * @returns {*} Returns the value to assign.
+	     */
+	    function customDefaultsAssignIn(objValue, srcValue, key, object) {
+	      if (objValue === undefined ||
+	          (eq(objValue, objectProto[key]) && !hasOwnProperty.call(object, key))) {
+	        return srcValue;
+	      }
+	      return objValue;
+	    }
+
+	    /**
+	     * Used by `_.defaultsDeep` to customize its `_.merge` use to merge source
+	     * objects into destination objects that are passed thru.
+	     *
+	     * @private
+	     * @param {*} objValue The destination value.
+	     * @param {*} srcValue The source value.
+	     * @param {string} key The key of the property to merge.
+	     * @param {Object} object The parent object of `objValue`.
+	     * @param {Object} source The parent object of `srcValue`.
+	     * @param {Object} [stack] Tracks traversed source values and their merged
+	     *  counterparts.
+	     * @returns {*} Returns the value to assign.
+	     */
+	    function customDefaultsMerge(objValue, srcValue, key, object, source, stack) {
+	      if (isObject(objValue) && isObject(srcValue)) {
+	        // Recursively merge objects and arrays (susceptible to call stack limits).
+	        stack.set(srcValue, objValue);
+	        baseMerge(objValue, srcValue, undefined, customDefaultsMerge, stack);
+	        stack['delete'](srcValue);
+	      }
+	      return objValue;
+	    }
+
+	    /**
+	     * Used by `_.omit` to customize its `_.cloneDeep` use to only clone plain
+	     * objects.
+	     *
+	     * @private
+	     * @param {*} value The value to inspect.
+	     * @param {string} key The key of the property to inspect.
+	     * @returns {*} Returns the uncloned value or `undefined` to defer cloning to `_.cloneDeep`.
+	     */
+	    function customOmitClone(value) {
+	      return isPlainObject(value) ? undefined : value;
 	    }
 
 	    /**
@@ -19141,9 +19305,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
 	      var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
-	          objProps = keys(object),
+	          objProps = getAllKeys(object),
 	          objLength = objProps.length,
-	          othProps = keys(other),
+	          othProps = getAllKeys(other),
 	          othLength = othProps.length;
 
 	      if (objLength != othLength && !isPartial) {
@@ -19381,7 +19545,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {Object} object The object to query.
 	     * @returns {Array} Returns the array of symbols.
 	     */
-	    var getSymbols = nativeGetSymbols ? overArg(nativeGetSymbols, Object) : stubArray;
+	    var getSymbols = !nativeGetSymbols ? stubArray : function(object) {
+	      if (object == null) {
+	        return [];
+	      }
+	      object = Object(object);
+	      return arrayFilter(nativeGetSymbols(object), function(symbol) {
+	        return propertyIsEnumerable.call(object, symbol);
+	      });
+	    };
 
 	    /**
 	     * Creates an array of the own and inherited enumerable symbols of `object`.
@@ -19865,29 +20037,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      data[1] = newBitmask;
 
 	      return data;
-	    }
-
-	    /**
-	     * Used by `_.defaultsDeep` to customize its `_.merge` use.
-	     *
-	     * @private
-	     * @param {*} objValue The destination value.
-	     * @param {*} srcValue The source value.
-	     * @param {string} key The key of the property to merge.
-	     * @param {Object} object The parent object of `objValue`.
-	     * @param {Object} source The parent object of `srcValue`.
-	     * @param {Object} [stack] Tracks traversed source values and their merged
-	     *  counterparts.
-	     * @returns {*} Returns the value to assign.
-	     */
-	    function mergeDefaults(objValue, srcValue, key, object, source, stack) {
-	      if (isObject(objValue) && isObject(srcValue)) {
-	        // Recursively merge objects and arrays (susceptible to call stack limits).
-	        stack.set(srcValue, objValue);
-	        baseMerge(objValue, srcValue, undefined, mergeDefaults, stack);
-	        stack['delete'](srcValue);
-	      }
-	      return objValue;
 	    }
 
 	    /**
@@ -21632,7 +21781,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     *
 	     * var users = [
 	     *   { 'user': 'barney',  'active': false },
-	     *   { 'user': 'fred',    'active': false},
+	     *   { 'user': 'fred',    'active': false },
 	     *   { 'user': 'pebbles', 'active': true }
 	     * ];
 	     *
@@ -24201,7 +24350,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (typeof func != 'function') {
 	        throw new TypeError(FUNC_ERROR_TEXT);
 	      }
-	      start = start === undefined ? 0 : nativeMax(toInteger(start), 0);
+	      start = start == null ? 0 : nativeMax(toInteger(start), 0);
 	      return baseRest(function(args) {
 	        var array = args[start],
 	            otherArgs = castSlice(args, 0, start);
@@ -24871,7 +25020,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * date objects, error objects, maps, numbers, `Object` objects, regexes,
 	     * sets, strings, symbols, and typed arrays. `Object` objects are compared
 	     * by their own, not inherited, enumerable properties. Functions and DOM
-	     * nodes are **not** supported.
+	     * nodes are compared by strict equality, i.e. `===`.
 	     *
 	     * @static
 	     * @memberOf _
@@ -25891,7 +26040,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * // => 3
 	     */
 	    function toSafeInteger(value) {
-	      return baseClamp(toInteger(value), -MAX_SAFE_INTEGER, MAX_SAFE_INTEGER);
+	      return value
+	        ? baseClamp(toInteger(value), -MAX_SAFE_INTEGER, MAX_SAFE_INTEGER)
+	        : (value === 0 ? value : 0);
 	    }
 
 	    /**
@@ -26145,7 +26296,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * // => { 'a': 1, 'b': 2 }
 	     */
 	    var defaults = baseRest(function(args) {
-	      args.push(undefined, assignInDefaults);
+	      args.push(undefined, customDefaultsAssignIn);
 	      return apply(assignInWith, undefined, args);
 	    });
 
@@ -26169,7 +26320,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * // => { 'a': { 'b': 2, 'c': 3 } }
 	     */
 	    var defaultsDeep = baseRest(function(args) {
-	      args.push(undefined, mergeDefaults);
+	      args.push(undefined, customDefaultsMerge);
 	      return apply(mergeWith, undefined, args);
 	    });
 
@@ -26831,7 +26982,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      });
 	      copyObject(object, getAllKeysIn(object), result);
 	      if (isDeep) {
-	        result = baseClone(result, CLONE_DEEP_FLAG | CLONE_FLAT_FLAG | CLONE_SYMBOLS_FLAG);
+	        result = baseClone(result, CLONE_DEEP_FLAG | CLONE_FLAT_FLAG | CLONE_SYMBOLS_FLAG, customOmitClone);
 	      }
 	      var length = paths.length;
 	      while (length--) {
@@ -27980,7 +28131,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    function startsWith(string, target, position) {
 	      string = toString(string);
-	      position = baseClamp(toInteger(position), 0, string.length);
+	      position = position == null
+	        ? 0
+	        : baseClamp(toInteger(position), 0, string.length);
+
 	      target = baseToString(target);
 	      return string.slice(position, position + target.length) == target;
 	    }
@@ -28099,9 +28253,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        options = undefined;
 	      }
 	      string = toString(string);
-	      options = assignInWith({}, options, settings, assignInDefaults);
+	      options = assignInWith({}, options, settings, customDefaultsAssignIn);
 
-	      var imports = assignInWith({}, options.imports, settings.imports, assignInDefaults),
+	      var imports = assignInWith({}, options.imports, settings.imports, customDefaultsAssignIn),
 	          importsKeys = keys(imports),
 	          importsValues = baseValues(imports, importsKeys);
 
@@ -30185,14 +30339,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // Add `LazyWrapper` methods for `_.drop` and `_.take` variants.
 	    arrayEach(['drop', 'take'], function(methodName, index) {
 	      LazyWrapper.prototype[methodName] = function(n) {
-	        var filtered = this.__filtered__;
-	        if (filtered && !index) {
-	          return new LazyWrapper(this);
-	        }
 	        n = n === undefined ? 1 : nativeMax(toInteger(n), 0);
 
-	        var result = this.clone();
-	        if (filtered) {
+	        var result = (this.__filtered__ && !index)
+	          ? new LazyWrapper(this)
+	          : this.clone();
+
+	        if (result.__filtered__) {
 	          result.__takeCount__ = nativeMin(n, result.__takeCount__);
 	        } else {
 	          result.__views__.push({
@@ -30450,7 +30603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -30482,32 +30635,36 @@ return /******/ (function(modules) { // webpackBootstrap
 			var _this = _possibleConstructorReturn(this, (StaticSearch.__proto__ || Object.getPrototypeOf(StaticSearch)).call(this, props));
 
 			_this.state = {
-				searchValue: ''
+				searchValue: ""
 			};
 			_this.handleChange = _this.handleChange.bind(_this);
 			return _this;
 		}
 
 		_createClass(StaticSearch, [{
-			key: 'handleChange',
+			key: "handleChange",
 			value: function handleChange(event) {
+				var _this2 = this;
+
 				var value = event.target.value;
 				this.setState({
 					searchValue: value
 				}, function () {
-					this.props.changeCallback(this.state.searchValue);
-				}.bind(this));
+					_this2.props.changeCallback(_this2.state.searchValue);
+				});
 			}
 		}, {
-			key: 'render',
+			key: "render",
 			value: function render() {
 				return _react2.default.createElement(
-					'div',
-					{ className: 'rbc-search-container col s12 col-xs-12' },
-					_react2.default.createElement('input', { type: 'text', className: 'rbc-input col s12 col-xs-12 form-control',
+					"div",
+					{ className: "rbc-search-container col s12 col-xs-12" },
+					_react2.default.createElement("input", {
+						type: "text", className: "rbc-input col s12 col-xs-12 form-control",
 						value: this.state.searchValue,
 						placeholder: this.props.placeholder,
-						onChange: this.handleChange })
+						onChange: this.handleChange
+					})
 				);
 			}
 		}]);
@@ -30569,7 +30726,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	InitialLoader.propTypes = {
-		defaultText: _react2.default.PropTypes.string
+		defaultText: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element])
 	};
 
 	// Default props value
@@ -30587,6 +30744,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	var STRING = exports.STRING = "string";
+	var KEYWORD = exports.KEYWORD = "keyword";
 	var NUMBER = exports.NUMBER = "number";
 	var BOOLEAN = exports.BOOLEAN = "boolean";
 	var ARRAY = exports.ARRAY = "array";
@@ -30656,7 +30814,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiList.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.array,
 		size: _react2.default.PropTypes.number,
 		showCount: _react2.default.PropTypes.bool,
@@ -30665,7 +30823,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		placeholder: _react2.default.PropTypes.string,
 		customQuery: _react2.default.PropTypes.func,
 		initialLoader: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
-		react: _react2.default.PropTypes.object
+		react: _react2.default.PropTypes.object,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
@@ -30687,6 +30846,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiList.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.KEYWORD,
 		title: TYPES.STRING,
 		react: TYPES.OBJECT,
 		defaultSelected: TYPES.ARRAY,
@@ -30696,7 +30856,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		showSearch: TYPES.BOOLEAN,
 		placeholder: TYPES.STRING,
 		customQuery: TYPES.FUNCTION,
-		initialLoader: TYPES.OBJECT
+		initialLoader: TYPES.OBJECT,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
@@ -30736,12 +30897,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	SingleDropdownList.propTypes = {
-		defaultSelected: _react2.default.PropTypes.string
+		defaultSelected: _react2.default.PropTypes.string,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	SingleDropdownList.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.KEYWORD,
 		title: TYPES.STRING,
 		react: TYPES.OBJECT,
 		defaultSelected: TYPES.ARRAY,
@@ -30751,7 +30914,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		placeholder: TYPES.STRING,
 		selectAllLabel: TYPES.STRING,
 		customQuery: TYPES.FUNCTION,
-		initialLoader: TYPES.OBJECT
+		initialLoader: TYPES.OBJECT,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
@@ -30963,6 +31127,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					key: this.props.componentId + "-sort",
 					value: this.sortObj
 				};
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, true, "sortChange");
 			}
 
@@ -31175,7 +31342,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc col s12 col-xs-12 card thumbnail " + cx },
+					{ className: "rbc col s12 col-xs-12 card thumbnail " + cx, style: this.props.componentStyle },
 					_react2.default.createElement(
 						"div",
 						{ className: "row" },
@@ -31210,7 +31377,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	DropdownList.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		size: helper.sizeValidation,
 		multipleSelect: _react2.default.PropTypes.bool,
 		showCount: _react2.default.PropTypes.bool,
@@ -31220,7 +31387,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		initialLoader: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.array]),
 		customQuery: _react2.default.PropTypes.func,
-		react: _react2.default.PropTypes.object
+		react: _react2.default.PropTypes.object,
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
@@ -33705,12 +33874,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	MultiDropdownList.propTypes = {
-		defaultSelected: _react2.default.PropTypes.array
+		defaultSelected: _react2.default.PropTypes.array,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	MultiDropdownList.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.KEYWORD,
 		defaultSelected: TYPES.ARRAY,
 		react: TYPES.OBJECT,
 		title: TYPES.STRING,
@@ -33720,7 +33891,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		placeholder: TYPES.STRING,
 		selectAllLabel: TYPES.STRING,
 		customQuery: TYPES.FUNCTION,
-		initialLoader: TYPES.OBJECT
+		initialLoader: TYPES.OBJECT,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
@@ -33803,12 +33975,14 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			};
 			_this.maxSize = 100;
+			_this.queryStartTime = 0;
 			_this.type = "range";
 			_this.channelId = null;
 			_this.channelListener = null;
 			_this.handleValuesChange = _this.handleValuesChange.bind(_this);
 			_this.handleResults = _this.handleResults.bind(_this);
 			_this.customQuery = _this.customQuery.bind(_this);
+			_this.histogramQuery = _this.histogramQuery.bind(_this);
 			return _this;
 		}
 
@@ -33831,44 +34005,46 @@ return /******/ (function(modules) { // webpackBootstrap
 					if (nextProps.defaultSelected.start !== _this2.state.values.min || nextProps.defaultSelected.end !== _this2.state.values.max && nextProps.range.start <= nextProps.defaultSelected.start && nextProps.range.end >= nextProps.defaultSelected.end) {
 						var rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
 						if (rem) {
-							(function () {
-								_this2.setState({
-									values: {
-										min: _this2.state.values.min,
-										max: nextProps.defaultSelected.end - rem
-									}
-								});
-								var obj = {
-									key: _this2.props.componentId,
-									value: {
-										from: _this2.state.values.min,
-										to: nextProps.defaultSelected.end - rem
-									}
-								};
-								setTimeout(function () {
-									helper.selectedSensor.set(obj, true);
-								}, 1000);
-							})();
+							_this2.setState({
+								values: {
+									min: _this2.state.values.min,
+									max: nextProps.defaultSelected.end - rem
+								}
+							});
+							var obj = {
+								key: _this2.props.componentId,
+								value: {
+									from: _this2.state.values.min,
+									to: nextProps.defaultSelected.end - rem
+								}
+							};
+							setTimeout(function () {
+								if (_this2.props.onValueChange) {
+									_this2.props.onValueChange(obj.value);
+								}
+								helper.selectedSensor.set(obj, true);
+							}, 1000);
 						} else {
-							(function () {
-								var values = {};
-								values.min = nextProps.defaultSelected.start;
-								values.max = nextProps.defaultSelected.end;
-								_this2.setState({
-									values: values,
-									currentValues: values
-								});
-								var obj = {
-									key: _this2.props.componentId,
-									value: {
-										from: values.min,
-										to: values.max
-									}
-								};
-								setTimeout(function () {
-									helper.selectedSensor.set(obj, true);
-								}, 1000);
-							})();
+							var values = {};
+							values.min = nextProps.defaultSelected.start;
+							values.max = nextProps.defaultSelected.end;
+							_this2.setState({
+								values: values,
+								currentValues: values
+							});
+							var _obj = {
+								key: _this2.props.componentId,
+								value: {
+									from: values.min,
+									to: values.max
+								}
+							};
+							setTimeout(function () {
+								if (_this2.props.onValueChange) {
+									_this2.props.onValueChange(_obj.value);
+								}
+								helper.selectedSensor.set(_obj, true);
+							}, 1000);
 						}
 					}
 					// check range
@@ -33879,30 +34055,33 @@ return /******/ (function(modules) { // webpackBootstrap
 								endThreshold: nextProps.range.end
 							});
 						} else {
-							var values = {
+							var _values = {
 								min: _this2.state.values.min,
 								max: _this2.state.values.max
 							};
 							if (_this2.state.values.min < nextProps.range.start) {
-								values.min = nextProps.range.start;
+								_values.min = nextProps.range.start;
 							}
 							if (_this2.state.values.max > nextProps.range.end) {
-								values.max = nextProps.range.end;
+								_values.max = nextProps.range.end;
 							}
 							_this2.setState({
 								startThreshold: nextProps.range.start,
 								endThreshold: nextProps.range.end,
-								values: values
+								values: _values
 							});
 							var currentRange = {
-								from: values.min,
-								to: values.max
+								from: _values.min,
+								to: _values.max
 							};
-							var obj = {
+							var _obj2 = {
 								key: _this2.props.componentId,
 								value: currentRange
 							};
-							helper.selectedSensor.set(obj, true);
+							if (_this2.props.onValueChange) {
+								_this2.props.onValueChange(_obj2.value);
+							}
+							helper.selectedSensor.set(_obj2, true);
 						}
 						_this2.setRangeValue();
 					}
@@ -33916,14 +34095,17 @@ return /******/ (function(modules) { // webpackBootstrap
 									max: nextProps.defaultSelected.end - _rem
 								}
 							});
-							var _obj = {
+							var _obj3 = {
 								key: _this2.props.componentId,
 								value: {
 									from: _this2.state.values.min,
 									to: nextProps.defaultSelected.end - _rem
 								}
 							};
-							helper.selectedSensor.set(_obj, true);
+							if (_this2.props.onValueChange) {
+								_this2.props.onValueChange(_obj3.value);
+							}
+							helper.selectedSensor.set(_obj3, true);
 						}
 					}
 				}, 300);
@@ -33987,6 +34169,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					key: this.props.componentId + "-internal",
 					value: this.props.range
 				};
+				if (this.props.onValueChange) {
+					this.props.onValueChange(objValue.value);
+				}
 				helper.selectedSensor.set(objValue, true);
 			}
 		}, {
@@ -34002,6 +34187,16 @@ return /******/ (function(modules) { // webpackBootstrap
 					};
 				}
 			}
+		}, {
+			key: "histogramQuery",
+			value: function histogramQuery() {
+				return _defineProperty({}, this.props.appbaseField, {
+					"histogram": {
+						"field": this.props.appbaseField,
+						"interval": this.props.interval ? this.props.interval : Math.ceil((this.props.range.end - this.props.range.start) / 10)
+					}
+				});
+			}
 
 			// Create a channel which passes the react and receive results whenever react changes
 
@@ -34015,7 +34210,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				react.aggs = {
 					key: this.props.appbaseField,
 					sort: "asc",
-					size: 1000
+					size: 1000,
+					customQuery: this.histogramQuery
 				};
 				if (react && react.and && typeof react.and === "string") {
 					react.and = [react.and];
@@ -34032,7 +34228,8 @@ return /******/ (function(modules) { // webpackBootstrap
 							queryStart: false
 						});
 					}
-					if (res.appliedQuery) {
+					if (res.appliedQuery && res.startTime > _this3.queryStartTime) {
+						_this3.queryStartTime = res.startTime ? res.startTime : 0;
 						var data = res.data;
 						var rawData = void 0;
 						if (res.mode === "streaming") {
@@ -34090,21 +34287,20 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "countCalc",
 			value: function countCalc(min, max, newItems) {
-				var counts = [];
-				var storeItems = {};
-				newItems.forEach(function (item) {
-					item.key = Math.floor(item.key);
-					if (!(item.key in storeItems)) {
-						storeItems[item.key] = item.doc_count;
-					} else {
-						storeItems[item.key] += item.doc_count;
-					}
+				// const counts = [];
+				// const storeItems = {};
+				// newItems.forEach((item) => {
+				// 	item.key = Math.floor(item.key);
+				// 	if (!(item.key in storeItems)) {
+				// 		storeItems[item.key] = item.doc_count;
+				// 	} else {
+				// 		storeItems[item.key] += item.doc_count;
+				// 	}
+				// });
+				// return counts;
+				return newItems.map(function (item) {
+					return item.doc_count;
 				});
-				for (var i = min; i <= max; i += 1) {
-					var val = storeItems[i] ? storeItems[i] : 0;
-					counts.push(val);
-				}
-				return counts;
 			}
 		}, {
 			key: "addItemsToList",
@@ -34116,20 +34312,18 @@ return /******/ (function(modules) { // webpackBootstrap
 				var min = this.state.startThreshold ? this.state.startThreshold : newItems[0].key;
 				var max = this.state.endThreshold ? this.state.endThreshold : newItems[itemLength - 1].key;
 				if (itemLength > 1) {
-					(function () {
-						var rangeValue = {
-							counts: _this5.countCalc(min, max, newItems),
-							startThreshold: min,
-							endThreshold: max,
-							values: {
-								min: _this5.state.values.min,
-								max: _this5.state.values.max
-							}
-						};
-						_this5.setState(rangeValue, function () {
-							_this5.handleResults(null, rangeValue.values);
-						});
-					})();
+					var rangeValue = {
+						counts: this.countCalc(min, max, newItems),
+						startThreshold: min,
+						endThreshold: max,
+						values: {
+							min: this.state.values.min,
+							max: this.state.values.max
+						}
+					};
+					this.setState(rangeValue, function () {
+						_this5.handleResults(null, rangeValue.values);
+					});
 				}
 			}
 
@@ -34155,6 +34349,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					key: this.props.componentId,
 					value: realValues
 				};
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, true);
 				this.setState({
 					currentValues: values,
@@ -34195,7 +34392,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc rbc-rangeslider card thumbnail col s12 col-xs-12 " + cx },
+					{ className: "rbc rbc-rangeslider card thumbnail col s12 col-xs-12 " + cx, style: this.props.componentStyle },
 					title,
 					histogram,
 					_react2.default.createElement(
@@ -34225,7 +34422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	RangeSlider.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		range: _react2.default.PropTypes.shape({
 			start: helper.validateThreshold,
 			end: helper.validateThreshold
@@ -34242,7 +34439,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		showHistogram: _react2.default.PropTypes.bool,
 		customQuery: _react2.default.PropTypes.func,
 		initialLoader: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
-		react: _react2.default.PropTypes.object
+		react: _react2.default.PropTypes.object,
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object,
+		interval: _react2.default.PropTypes.number
 	};
 
 	RangeSlider.defaultProps = {
@@ -34260,7 +34460,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			end: 10
 		},
 		stepValue: 1,
-		showHistogram: true
+		showHistogram: true,
+		componentStyle: {}
 	};
 
 	// context type
@@ -34272,6 +34473,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	RangeSlider.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		title: TYPES.STRING,
 		react: TYPES.OBJECT,
 		range: TYPES.OBJECT,
@@ -34280,7 +34482,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		stepValue: TYPES.NUMBER,
 		showHistogram: TYPES.BOOLEAN,
 		customQuery: TYPES.FUNCTION,
-		initialLoader: TYPES.OBJECT
+		initialLoader: TYPES.OBJECT,
+		componentStyle: TYPES.OBJECT,
+		interval: TYPES.NUMBER
 	};
 
 /***/ },
@@ -37202,8 +37406,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 148 */
 /***/ function(module, exports) {
 
+	/*
+	object-assign
+	(c) Sindre Sorhus
+	@license MIT
+	*/
+
 	'use strict';
 	/* eslint-disable no-unused-vars */
+	var getOwnPropertySymbols = Object.getOwnPropertySymbols;
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
@@ -37224,7 +37435,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			// Detect buggy property enumeration order in older V8 versions.
 
 			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-			var test1 = new String('abc');  // eslint-disable-line
+			var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
 			test1[5] = 'de';
 			if (Object.getOwnPropertyNames(test1)[0] === '5') {
 				return false;
@@ -37253,7 +37464,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 
 			return true;
-		} catch (e) {
+		} catch (err) {
 			// We don't expect any of the above to throw, but better to be safe.
 			return false;
 		}
@@ -37273,8 +37484,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}
 
-			if (Object.getOwnPropertySymbols) {
-				symbols = Object.getOwnPropertySymbols(from);
+			if (getOwnPropertySymbols) {
+				symbols = getOwnPropertySymbols(from);
 				for (var i = 0; i < symbols.length; i++) {
 					if (propIsEnumerable.call(from, symbols[i])) {
 						to[symbols[i]] = from[symbols[i]];
@@ -37747,6 +37958,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return '';
 	}
 
+	function returnDocument() {
+	  return window.document;
+	}
+
 	var ALL_HANDLERS = ['onClick', 'onMouseDown', 'onTouchStart', 'onMouseEnter', 'onMouseLeave', 'onFocus', 'onBlur'];
 
 	var Trigger = _react2["default"].createClass({
@@ -37774,6 +37989,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    focusDelay: _react.PropTypes.number,
 	    blurDelay: _react.PropTypes.number,
 	    getPopupContainer: _react.PropTypes.func,
+	    getDocument: _react.PropTypes.func,
 	    destroyPopupOnHide: _react.PropTypes.bool,
 	    mask: _react.PropTypes.bool,
 	    maskClosable: _react.PropTypes.bool,
@@ -37791,8 +38007,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return instance.state.popupVisible;
 	    },
 	    getContainer: function getContainer(instance) {
+	      var props = instance.props;
+
 	      var popupContainer = document.createElement('div');
-	      var mountNode = instance.props.getPopupContainer ? instance.props.getPopupContainer((0, _reactDom.findDOMNode)(instance)) : document.body;
+	      // Make sure default popup container will never cause scrollbar appearing
+	      // https://github.com/react-component/trigger/issues/41
+	      popupContainer.style.position = 'absolute';
+	      popupContainer.style.top = '0';
+	      popupContainer.style.left = '0';
+	      popupContainer.style.width = '100%';
+	      var mountNode = props.getPopupContainer ? props.getPopupContainer((0, _reactDom.findDOMNode)(instance)) : props.getDocument().body;
 	      mountNode.appendChild(popupContainer);
 	      return popupContainer;
 	    }
@@ -37802,6 +38026,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return {
 	      prefixCls: 'rc-trigger-popup',
 	      getPopupClassNameFromAlign: returnEmptyString,
+	      getDocument: returnDocument,
 	      onPopupVisibleChange: noop,
 	      afterPopupVisibleChange: noop,
 	      onPopupAlign: noop,
@@ -37864,30 +38089,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        props.afterPopupVisibleChange(state.popupVisible);
 	      }
 	    });
-	    if (this.isClickToHide()) {
-	      if (state.popupVisible) {
-	        if (!this.clickOutsideHandler) {
-	          this.clickOutsideHandler = (0, _addEventListener2["default"])(document, 'mousedown', this.onDocumentClick);
-	          this.touchOutsideHandler = (0, _addEventListener2["default"])(document, 'touchstart', this.onDocumentClick);
-	        }
-	        return;
+
+	    if (state.popupVisible) {
+	      var currentDocument = void 0;
+	      if (!this.clickOutsideHandler && this.isClickToHide()) {
+	        currentDocument = props.getDocument();
+	        this.clickOutsideHandler = (0, _addEventListener2["default"])(currentDocument, 'mousedown', this.onDocumentClick);
 	      }
+	      // always hide on mobile
+	      if (!this.touchOutsideHandler) {
+	        currentDocument = currentDocument || props.getDocument();
+	        this.touchOutsideHandler = (0, _addEventListener2["default"])(currentDocument, 'touchstart', this.onDocumentClick);
+	      }
+	      return;
 	    }
-	    if (this.clickOutsideHandler) {
-	      this.clickOutsideHandler.remove();
-	      this.touchOutsideHandler.remove();
-	      this.clickOutsideHandler = null;
-	      this.touchOutsideHandler = null;
-	    }
+
+	    this.clearOutsideHandler();
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
 	    this.clearDelayTimer();
-	    if (this.clickOutsideHandler) {
-	      this.clickOutsideHandler.remove();
-	      this.touchOutsideHandler.remove();
-	      this.clickOutsideHandler = null;
-	      this.touchOutsideHandler = null;
-	    }
+	    this.clearOutsideHandler();
 	  },
 	  onMouseEnter: function onMouseEnter(e) {
 	    this.fireEvents('onMouseEnter', e);
@@ -38070,6 +38291,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this.delayTimer = null;
 	    }
 	  },
+	  clearOutsideHandler: function clearOutsideHandler() {
+	    if (this.clickOutsideHandler) {
+	      this.clickOutsideHandler.remove();
+	      this.clickOutsideHandler = null;
+	    }
+
+	    if (this.touchOutsideHandler) {
+	      this.touchOutsideHandler.remove();
+	      this.touchOutsideHandler = null;
+	    }
+	  },
 	  createTwoChains: function createTwoChains(event) {
 	    var childPros = this.props.children.props;
 	    var props = this.props;
@@ -38143,7 +38375,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var children = props.children;
 	    var child = _react2["default"].Children.only(children);
 	    var newChildProps = {};
-
 	    if (this.isClickToHide() || this.isClickToShow()) {
 	      newChildProps.onClick = this.onClick;
 	      newChildProps.onMouseDown = this.onMouseDown;
@@ -39874,6 +40105,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _react = __webpack_require__(3);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -39914,6 +40147,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  propTypes: {
 	    component: _react2["default"].PropTypes.any,
+	    componentProps: _react2["default"].PropTypes.object,
 	    animation: _react2["default"].PropTypes.object,
 	    transitionName: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.string, _react2["default"].PropTypes.object]),
 	    transitionEnter: _react2["default"].PropTypes.bool,
@@ -39931,6 +40165,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return {
 	      animation: {},
 	      component: 'span',
+	      componentProps: {},
 	      transitionEnter: true,
 	      transitionLeave: true,
 	      transitionAppear: false,
@@ -40178,10 +40413,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (Component) {
 	      var passedProps = props;
 	      if (typeof Component === 'string') {
-	        passedProps = {
+	        passedProps = _extends({
 	          className: props.className,
 	          style: props.style
-	        };
+	        }, props.componentProps);
 	      }
 	      return _react2["default"].createElement(
 	        Component,
@@ -40328,7 +40563,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _react = __webpack_require__(3);
 
@@ -40460,8 +40695,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var prefixes = ['-webkit-', '-moz-', '-o-', 'ms-', ''];
 
 	function getStyleProperty(node, name) {
-	  var style = window.getComputedStyle(node);
-
+	  // old ff need null, https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle
+	  var style = window.getComputedStyle(node, null);
 	  var ret = '';
 	  for (var i = 0; i < prefixes.length; i++) {
 	    ret = style.getPropertyValue(prefixes[i] + name);
@@ -41469,7 +41704,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -41504,16 +41739,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			_this.style = {
 				barContainer: {
-					position: 'relative',
-					height: '50px',
-					width: '100%'
+					position: "relative",
+					height: "50px",
+					width: "100%"
 				}
 			};
 			return _this;
 		}
 
 		_createClass(HistoGramComponent, [{
-			key: 'createBars',
+			key: "createBars",
 			value: function createBars() {
 				var max = _.max(this.props.data);
 				var dataLength = this.props.data.length;
@@ -41541,12 +41776,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				return bars;
 			}
 		}, {
-			key: 'render',
+			key: "render",
 			value: function render() {
 				var bars = this.createBars();
 				return _react2.default.createElement(
-					'div',
-					{ className: 'rbc-bar-container col s12 col-xs-12', style: this.style.barContainer },
+					"div",
+					{ className: "rbc-bar-container col s12 col-xs-12", style: this.style.barContainer },
 					bars
 				);
 			}
@@ -41565,30 +41800,32 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			_this2.style = {
 				bar: {
-					display: 'block',
-					width: '100%',
-					height: '100%'
+					display: "block",
+					width: "100%",
+					height: "100%"
 				}
 			};
 			return _this2;
 		}
 
 		_createClass(Bar, [{
-			key: 'render',
+			key: "render",
 			value: function render() {
 				var element = this.props.element;
 				var barStyle = {
-					height: element.height + '%',
-					width: element.width + '%',
-					display: 'inline-block',
-					background: '#efefef',
-					position: 'relative'
+					height: element.height + "%",
+					width: element.width + "%",
+					display: "inline-block",
+					background: "#efefef",
+					position: "relative"
 				};
 				return _react2.default.createElement(
-					'span',
-					{ className: 'rbc-bar-item', style: barStyle },
-					_react2.default.createElement('span', { className: 'bar', style: this.style.bar,
-						title: element.count })
+					"span",
+					{ className: "rbc-bar-item", style: barStyle },
+					_react2.default.createElement("span", {
+						className: "bar", style: this.style.bar,
+						title: element.count
+					})
 				);
 			}
 		}]);
@@ -41695,9 +41932,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "customQuery",
 			value: function customQuery(value) {
-				return {
-					term: _defineProperty({}, this.props.appbaseField, value)
-				};
+				return _defineProperty({}, this.type, _defineProperty({}, this.props.appbaseField, value));
 			}
 
 			// handle the input change and pass the value inside sensor info
@@ -41721,6 +41956,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -41747,7 +41985,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc rbc-textfield col s12 col-xs-12 card thumbnail " + cx },
+					{ className: "rbc rbc-textfield col s12 col-xs-12 card thumbnail " + cx, style: this.props.componentStyle },
 					title,
 					_react2.default.createElement(
 						"div",
@@ -41767,14 +42005,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	TextField.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.string,
 		placeholder: _react2.default.PropTypes.string,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
-	TextField.defaultProps = {};
+	TextField.defaultProps = {
+		componentStyle: {}
+	};
 
 	// context type
 	TextField.contextTypes = {
@@ -41785,10 +42027,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	TextField.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.STRING,
 		title: TYPES.STRING,
 		defaultSelected: TYPES.STRING,
 		placeholder: TYPES.STRING,
-		customQuery: TYPES.FUNCTION
+		customQuery: TYPES.FUNCTION,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
@@ -41831,14 +42075,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var _ = __webpack_require__(23);
 	var helper = __webpack_require__(13);
 
 	var DataSearch = function (_Component) {
@@ -41914,6 +42157,26 @@ return /******/ (function(modules) { // webpackBootstrap
 					this.channelListener.remove();
 				}
 			}
+		}, {
+			key: "highlightQuery",
+			value: function highlightQuery() {
+				var fields = {};
+				var highlightFields = this.props.highlightFields ? this.props.highlightFields : this.props.appbaseField;
+				if (typeof highlightFields === "string") {
+					fields[highlightFields] = {};
+				} else if (_.isArray(highlightFields)) {
+					highlightFields.forEach(function (item) {
+						fields[item] = {};
+					});
+				}
+				return {
+					highlight: {
+						pre_tags: ["<span class=\"rbc-highlight\">"],
+						post_tags: ["</span>"],
+						fields: fields
+					}
+				};
+			}
 
 			// set the query type and input data
 
@@ -41928,6 +42191,9 @@ return /******/ (function(modules) { // webpackBootstrap
 						customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery
 					}
 				};
+				if (this.props.highlight) {
+					obj.value.externalQuery = this.highlightQuery();
+				}
 				helper.selectedSensor.setSensorInfo(obj);
 				var searchObj = {
 					key: this.searchInputId,
@@ -41967,6 +42233,31 @@ return /******/ (function(modules) { // webpackBootstrap
 					});
 				}
 			}
+		}, {
+			key: "getValue",
+			value: function getValue(field, hit) {
+				var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+				var val = void 0;
+				if (_.has(hit, field)) {
+					val = hit[field];
+				} else if (field.indexOf(".") > -1) {
+					var prefix = "";
+					var fieldSplit = field.split(".");
+					fieldSplit.forEach(function (item, index) {
+						prefix += item;
+						if (_.isArray(_.get(hit, prefix))) {
+							prefix += "[" + index + "]";
+						}
+						if (fieldSplit.length - 1 !== index) {
+							prefix += ".";
+						} else {
+							val = _.get(hit, prefix);
+						}
+					});
+				}
+				return val;
+			}
 
 			// set data after get the result
 
@@ -41976,18 +42267,16 @@ return /******/ (function(modules) { // webpackBootstrap
 				var _this2 = this;
 
 				var options = [];
-				var searchField = null;
-				if (this.fieldType === "string") {
-					searchField = "hit._source." + this.props.appbaseField + ".trim()";
-				}
+				var appbaseField = _.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
 				data.hits.hits.map(function (hit) {
-					if (searchField) {
-						options.push({ value: eval(searchField), label: eval(searchField) });
+					if (_this2.fieldType === "string") {
+						var tempField = _this2.getValue(_this2.props.appbaseField.trim(), hit._source);
+						options.push({ value: tempField, label: tempField });
 					} else if (_this2.fieldType === "object") {
 						_this2.props.appbaseField.map(function (field) {
-							var tempField = "hit._source." + field;
-							if (eval(tempField)) {
-								options.push({ value: eval(tempField), label: eval(tempField) });
+							var tempField = _this2.getValue(field, hit._source);
+							if (tempField) {
+								options.push({ value: tempField, label: tempField });
 							}
 						});
 					}
@@ -42010,35 +42299,33 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "defaultSearchQuery",
 			value: function defaultSearchQuery(value) {
-				var _this3 = this;
-
+				var finalQuery = null,
+				    fields = void 0;
 				if (value) {
-					var _ret = function () {
-						if (_this3.fieldType === "string") {
-							return {
-								v: {
-									match_phrase_prefix: _defineProperty({}, _this3.props.appbaseField, value)
+					if (this.fieldType === "string") {
+						fields = [this.props.appbaseField];
+					} else {
+						fields = this.props.appbaseField;
+					}
+					finalQuery = {
+						bool: {
+							should: [{
+								multi_match: {
+									query: value,
+									fields: fields,
+									type: "phrase_prefix"
 								}
-							};
+							}, {
+								multi_match: {
+									query: value,
+									fields: fields
+								}
+							}],
+							minimum_should_match: "1"
 						}
-						var query = [];
-						_this3.props.appbaseField.map(function (field) {
-							query.push({
-								match_phrase_prefix: _defineProperty({}, field, value)
-							});
-						});
-						return {
-							v: {
-								bool: {
-									should: query,
-									minimum_should_match: 1
-								}
-							}
-						};
-					}();
-
-					if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
+					};
 				}
+				return finalQuery;
 			}
 
 			// Create a channel which passes the react and receive results whenever react changes
@@ -42046,7 +42333,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "createChannel",
 			value: function createChannel() {
-				var _this4 = this;
+				var _this3 = this;
 
 				var react = this.props.react ? this.props.react : {};
 				if (react && react.and && typeof react.and === "string") {
@@ -42061,16 +42348,16 @@ return /******/ (function(modules) { // webpackBootstrap
 					var data = res.data;
 					var rawData = void 0;
 					if (res.mode === "streaming") {
-						rawData = _this4.state.rawData;
+						rawData = _this3.state.rawData;
 						rawData.hits.hits.push(res.data);
 					} else if (res.mode === "historic") {
 						rawData = data;
 					}
-					_this4.setState({
+					_this3.setState({
 						rawData: rawData
 					});
-					if (_this4.props.autocomplete) {
-						_this4.setData(rawData);
+					if (_this3.props.autocomplete) {
+						_this3.setData(rawData);
 					}
 				});
 			}
@@ -42113,7 +42400,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					key: this.props.componentId,
 					value: inputVal
 				};
-
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
 				helper.selectedSensor.set(obj, isExecuteQuery);
@@ -42140,7 +42429,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc rbc-datasearch col s12 col-xs-12 card thumbnail " + cx },
+					{ className: "rbc rbc-datasearch col s12 col-xs-12 card thumbnail " + cx, style: this.props.componentStyle },
 					title,
 					this.props.autocomplete ? _react2.default.createElement(_reactSelect2.default, _extends({
 						isLoading: this.state.isLoadingOptions,
@@ -42174,18 +42463,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	DataSearch.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string)]),
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		placeholder: _react2.default.PropTypes.string,
 		autocomplete: _react2.default.PropTypes.bool,
 		defaultSelected: _react2.default.PropTypes.string,
 		customQuery: _react2.default.PropTypes.func,
-		react: _react2.default.PropTypes.object
+		onValueChange: _react2.default.PropTypes.func,
+		react: _react2.default.PropTypes.object,
+		componentStyle: _react2.default.PropTypes.object,
+		highlight: _react2.default.PropTypes.bool,
+		highlightFields: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string)])
 	};
 
 	// Default props value
 	DataSearch.defaultProps = {
 		placeholder: "Search",
-		autocomplete: true
+		autocomplete: true,
+		componentStyle: {},
+		highlight: false
 	};
 
 	// context type
@@ -42197,12 +42492,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	DataSearch.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.STRING,
 		react: TYPES.OBJECT,
 		title: TYPES.STRING,
 		placeholder: TYPES.STRING,
 		autocomplete: TYPES.BOOLEAN,
 		defaultSelected: TYPES.STRING,
-		customQuery: TYPES.FUNCTION
+		customQuery: TYPES.FUNCTION,
+		componentStyle: TYPES.OBJECT,
+		highlight: TYPES.BOOLEAN
 	};
 
 /***/ },
@@ -42343,6 +42641,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 		}, {
@@ -42397,7 +42698,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc rbc-singlerange col s12 col-xs-12 card thumbnail " + cx, style: this.props.defaultStyle },
+					{ className: "rbc rbc-singlerange col s12 col-xs-12 card thumbnail " + cx, style: this.props.componentStyle },
 					_react2.default.createElement(
 						"div",
 						{ className: "row" },
@@ -42421,15 +42722,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleRange.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		data: _react2.default.PropTypes.any.isRequired,
 		defaultSelected: _react2.default.PropTypes.string,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
 	SingleRange.defaultProps = {
-		title: null
+		title: null,
+		componentStyle: {}
 	};
 
 	// context type
@@ -42441,10 +42745,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleRange.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		title: TYPES.STRING,
 		data: TYPES.OBJECT,
 		defaultSelected: TYPES.STRING,
-		customQuery: TYPES.FUNCTION
+		customQuery: TYPES.FUNCTION,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
@@ -42635,6 +42941,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 		}, {
@@ -42727,7 +43036,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc rbc-multirange col s12 col-xs-12 card thumbnail " + cx },
+					{ className: "rbc rbc-multirange col s12 col-xs-12 card thumbnail " + cx, style: this.props.componentStyle },
 					_react2.default.createElement(
 						"div",
 						{ className: "row" },
@@ -42753,7 +43062,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = MultiRange;
 
 
-	function Tag(props) {
+	var Tag = function Tag(props) {
 		return _react2.default.createElement(
 			"span",
 			{ onClick: function onClick() {
@@ -42770,7 +43079,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				props.value
 			)
 		);
-	}
+	};
 
 	Tag.propTypes = {
 		onClick: _react2.default.PropTypes.func.isRequired,
@@ -42780,10 +43089,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiRange.propTypes = {
 		appbaseField: _react2.default.PropTypes.string.isRequired,
 		componentId: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		data: _react2.default.PropTypes.any.isRequired,
 		defaultSelected: _react2.default.PropTypes.array,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
@@ -42798,10 +43109,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiRange.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		title: TYPES.STRING,
 		data: TYPES.OBJECT,
 		defaultSelected: TYPES.ARRAY,
-		customQuery: TYPES.FUNCTION
+		customQuery: TYPES.FUNCTION,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
@@ -42946,6 +43259,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -42972,7 +43288,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc rbc-singledropdownrange col s12 col-xs-12 card thumbnail " + cx },
+					{ className: "rbc rbc-singledropdownrange col s12 col-xs-12 card thumbnail " + cx, style: this.props.componentStyle },
 					_react2.default.createElement(
 						"div",
 						{ className: "row" },
@@ -43003,15 +43319,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleDropdownRange.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		placeholder: _react2.default.PropTypes.string,
 		data: _react2.default.PropTypes.any.isRequired,
 		defaultSelected: _react2.default.PropTypes.string,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
-	SingleDropdownRange.defaultProps = {};
+	SingleDropdownRange.defaultProps = {
+		componentStyle: {}
+	};
 
 	// context type
 	SingleDropdownRange.contextTypes = {
@@ -43022,11 +43342,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	SingleDropdownRange.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		data: TYPES.OBJECT,
 		defaultSelected: TYPES.STRING,
 		title: TYPES.STRING,
 		placeholder: TYPES.STRING,
-		customQuery: TYPES.FUNCTION
+		customQuery: TYPES.FUNCTION,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
@@ -43196,6 +43518,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -43222,7 +43547,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc rbc-multidropdownrange col s12 col-xs-12 card thumbnail " + cx },
+					{ className: "rbc rbc-multidropdownrange col s12 col-xs-12 card thumbnail " + cx, style: this.props.componentStyle },
 					_react2.default.createElement(
 						"div",
 						{ className: "row" },
@@ -43254,11 +43579,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiDropdownRange.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		placeholder: _react2.default.PropTypes.string,
 		data: _react2.default.PropTypes.any.isRequired,
 		defaultSelected: _react2.default.PropTypes.array,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
@@ -43273,11 +43599,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	MultiDropdownRange.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		data: TYPES.OBJECT,
 		defaultSelected: TYPES.ARRAY,
 		title: TYPES.STRING,
 		placeholder: TYPES.STRING,
-		customQuery: TYPES.FUNCION
+		customQuery: TYPES.FUNCION,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
@@ -43318,6 +43646,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var helper = __webpack_require__(13);
 
+	var _ = __webpack_require__(23);
+
 	var ToggleButton = function (_Component) {
 		_inherits(ToggleButton, _Component);
 
@@ -43346,6 +43676,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				this.setQueryInfo();
 				if (this.defaultSelected) {
+					this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
 					var records = this.props.data.filter(function (record) {
 						return _this2.defaultSelected.indexOf(record.label) > -1;
 					});
@@ -43363,6 +43694,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				if (this.defaultSelected != this.props.defaultSelected) {
 					this.defaultSelected = this.props.defaultSelected;
+					this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
 					var records = this.props.data.filter(function (record) {
 						return _this3.defaultSelected.indexOf(record.label) > -1;
 					});
@@ -43450,6 +43782,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 		}, {
@@ -43500,7 +43835,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc rbc-togglebutton col s12 col-xs-12 card thumbnail " + cx, style: this.props.defaultStyle },
+					{ className: "rbc rbc-togglebutton col s12 col-xs-12 card thumbnail " + cx, style: this.props.componentStyle },
 					_react2.default.createElement(
 						"div",
 						{ className: "row" },
@@ -43524,16 +43859,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	ToggleButton.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		data: _react2.default.PropTypes.any.isRequired,
-		defaultSelected: _react2.default.PropTypes.array,
+		defaultSelected: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.array, _react2.default.PropTypes.string]),
 		multiSelect: _react2.default.PropTypes.bool,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
 	ToggleButton.defaultProps = {
-		multiSelect: true
+		multiSelect: true,
+		componentStyle: {}
 	};
 
 	// context type
@@ -43545,11 +43883,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	ToggleButton.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.KEYWORD,
 		title: TYPES.STRING,
 		data: TYPES.OBJECT,
 		defaultSelected: TYPES.ARRAY,
 		multiSelect: TYPES.BOOLEAN,
-		customQuery: TYPES.FUNCTION
+		customQuery: TYPES.FUNCTION,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
@@ -43593,7 +43933,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var moment = __webpack_require__(198);
-	var momentPropTypes = __webpack_require__(315);
+	var momentPropTypes = __webpack_require__(322);
 	var helper = __webpack_require__(13);
 
 	var DatePicker = function (_Component) {
@@ -43662,8 +44002,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (value) {
 					query = {
 						range: _defineProperty({}, this.props.appbaseField, {
-							gte: value,
-							lt: moment(value).add(1, "days")
+							gte: new Date(moment(value).subtract(24, "hours").format("YYYY-MM-DD")).getTime(),
+							lte: new Date(moment(value).format("YYYY-MM-DD")).getTime()
 						})
 					};
 				}
@@ -43684,6 +44024,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -43736,7 +44079,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc rbc-datepicker col s12 col-xs-12 card thumbnail " + cx },
+					{ className: "rbc rbc-datepicker col s12 col-xs-12 card thumbnail " + cx, style: this.props.componentStyle },
 					title,
 					_react2.default.createElement(
 						"div",
@@ -43770,14 +44113,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	DatePicker.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		placeholder: _react2.default.PropTypes.string,
 		defaultSelected: momentPropTypes.momentObj,
 		focused: _react2.default.PropTypes.bool,
 		numberOfMonths: _react2.default.PropTypes.number,
 		allowAllDates: _react2.default.PropTypes.bool,
 		extra: _react2.default.PropTypes.any,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
@@ -43786,7 +44131,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		numberOfMonths: 1,
 		focused: true,
 		allowAllDates: true,
-		defaultSelected: null
+		defaultSelected: null,
+		componentStyle: {}
 	};
 
 	// context type
@@ -43798,6 +44144,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	DatePicker.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		title: TYPES.STRING,
 		placeholder: TYPES.STRING,
 		defaultSelected: TYPES.OBJECT,
@@ -43805,7 +44152,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		numberOfMonths: TYPES.NUMBER,
 		allowAllDates: TYPES.BOOLEAN,
 		extra: TYPES.OBJECT,
-		customQuery: TYPES.FUNCTION
+		customQuery: TYPES.FUNCTION,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
@@ -43813,27 +44161,27 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var DateRangePicker = __webpack_require__(197).default;
-	var DateRangePickerInput = __webpack_require__(317).default;
-	var DateRangePickerInputController = __webpack_require__(314).default;
-	var SingleDatePicker = __webpack_require__(365).default;
-	var SingleDatePickerInput = __webpack_require__(366).default;
-	var DayPicker = __webpack_require__(351).default;
-	var DayPickerRangeController = __webpack_require__(322).default;
-	var CalendarMonthGrid = __webpack_require__(357).default;
-	var CalendarMonth = __webpack_require__(358).default;
-	var CalendarDay = __webpack_require__(359).default;
+	var DateRangePickerInput = __webpack_require__(324).default;
+	var DateRangePickerInputController = __webpack_require__(321).default;
+	var SingleDatePicker = __webpack_require__(371).default;
+	var SingleDatePickerInput = __webpack_require__(372).default;
+	var DayPicker = __webpack_require__(359).default;
+	var DayPickerRangeController = __webpack_require__(329).default;
+	var CalendarMonthGrid = __webpack_require__(363).default;
+	var CalendarMonth = __webpack_require__(364).default;
+	var CalendarDay = __webpack_require__(365).default;
 
-	var DateRangePickerShape = __webpack_require__(363).default;
-	var SingleDatePickerShape = __webpack_require__(367).default;
+	var DateRangePickerShape = __webpack_require__(369).default;
+	var SingleDatePickerShape = __webpack_require__(373).default;
 
-	var isInclusivelyAfterDay = __webpack_require__(312).default;
-	var isInclusivelyBeforeDay = __webpack_require__(321).default;
-	var isNextDay = __webpack_require__(349).default;
-	var isSameDay = __webpack_require__(313).default;
+	var isInclusivelyAfterDay = __webpack_require__(319).default;
+	var isInclusivelyBeforeDay = __webpack_require__(328).default;
+	var isNextDay = __webpack_require__(357).default;
+	var isSameDay = __webpack_require__(320).default;
 
-	var toISODateString = __webpack_require__(368).default;
-	var toLocalizedDateString = __webpack_require__(320).default;
-	var toMomentObject = __webpack_require__(319).default;
+	var toISODateString = __webpack_require__(374).default;
+	var toLocalizedDateString = __webpack_require__(327).default;
+	var toMomentObject = __webpack_require__(326).default;
 
 
 	module.exports = {
@@ -44397,7 +44745,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 9 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(308);
+		module.exports = __webpack_require__(315);
 
 	/***/ },
 	/* 10 */
@@ -44412,37 +44760,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 14 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(309);
+		module.exports = __webpack_require__(316);
 
 	/***/ },
 	/* 15 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(310);
+		module.exports = __webpack_require__(317);
 
 	/***/ },
 	/* 16 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(311);
+		module.exports = __webpack_require__(318);
 
 	/***/ },
 	/* 17 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(312);
+		module.exports = __webpack_require__(319);
 
 	/***/ },
 	/* 18 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(314);
+		module.exports = __webpack_require__(321);
 
 	/***/ },
 	/* 19 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(322);
+		module.exports = __webpack_require__(329);
 
 	/***/ },
 	/* 20 */
@@ -44501,7 +44849,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 21 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(363);
+		module.exports = __webpack_require__(369);
 
 	/***/ }
 	/******/ ]);
@@ -44511,7 +44859,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
-	//! version : 2.17.1
+	//! version : 2.18.1
 	//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 	//! license : MIT
 	//! momentjs.com
@@ -44551,6 +44899,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return false;
 	    }
 	    return true;
+	}
+
+	function isUndefined(input) {
+	    return input === void 0;
 	}
 
 	function isNumber(input) {
@@ -44609,7 +44961,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        userInvalidated : false,
 	        iso             : false,
 	        parsedDateParts : [],
-	        meridiem        : null
+	        meridiem        : null,
+	        rfc2822         : false,
+	        weekdayMismatch : false
 	    };
 	}
 
@@ -44685,10 +45039,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return m;
 	}
 
-	function isUndefined(input) {
-	    return input === void 0;
-	}
-
 	// Plugins that add properties should also add the key here (null value),
 	// so we can properly clone ourselves.
 	var momentProperties = hooks.momentProperties = [];
@@ -44728,7 +45078,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    if (momentProperties.length > 0) {
-	        for (i in momentProperties) {
+	        for (i = 0; i < momentProperties.length; i++) {
 	            prop = momentProperties[i];
 	            val = from[prop];
 	            if (!isUndefined(val)) {
@@ -44865,8 +45215,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    this._config = config;
 	    // Lenient ordinal parsing accepts just a number in addition to
-	    // number + (possibly) stuff coming from _ordinalParseLenient.
-	    this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + (/\d{1,2}/).source);
+	    // number + (possibly) stuff coming from _dayOfMonthOrdinalParse.
+	    // TODO: Remove "ordinalParse" fallback in next major release.
+	    this._dayOfMonthOrdinalParseLenient = new RegExp(
+	        (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
+	            '|' + (/\d{1,2}/).source);
 	}
 
 	function mergeConfigs(parentConfig, childConfig) {
@@ -44964,7 +45317,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	var defaultOrdinal = '%d';
-	var defaultOrdinalParse = /\d{1,2}/;
+	var defaultDayOfMonthOrdinalParse = /\d{1,2}/;
 
 	function ordinal (number) {
 	    return this._ordinal.replace('%d', number);
@@ -44974,6 +45327,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    future : 'in %s',
 	    past   : '%s ago',
 	    s  : 'a few seconds',
+	    ss : '%d seconds',
 	    m  : 'a minute',
 	    mm : '%d minutes',
 	    h  : 'an hour',
@@ -45156,7 +45510,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return function (mom) {
 	        var output = '', i;
 	        for (i = 0; i < length; i++) {
-	            output += array[i] instanceof Function ? array[i].call(mom, format) : array[i];
+	            output += isFunction(array[i]) ? array[i].call(mom, format) : array[i];
 	        }
 	        return output;
 	    };
@@ -45359,7 +45713,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
 	function localeMonths (m, format) {
 	    if (!m) {
-	        return this._months;
+	        return isArray(this._months) ? this._months :
+	            this._months['standalone'];
 	    }
 	    return isArray(this._months) ? this._months[m.month()] :
 	        this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format) ? 'format' : 'standalone'][m.month()];
@@ -45368,7 +45723,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
 	function localeMonthsShort (m, format) {
 	    if (!m) {
-	        return this._monthsShort;
+	        return isArray(this._monthsShort) ? this._monthsShort :
+	            this._monthsShort['standalone'];
 	    }
 	    return isArray(this._monthsShort) ? this._monthsShort[m.month()] :
 	        this._monthsShort[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
@@ -45635,11 +45991,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function createDate (y, m, d, h, M, s, ms) {
-	    //can't just apply() to create a date:
-	    //http://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
+	    // can't just apply() to create a date:
+	    // https://stackoverflow.com/q/181348
 	    var date = new Date(y, m, d, h, M, s, ms);
 
-	    //the date constructor remaps years 0-99 to 1900-1999
+	    // the date constructor remaps years 0-99 to 1900-1999
 	    if (y < 100 && y >= 0 && isFinite(date.getFullYear())) {
 	        date.setFullYear(y);
 	    }
@@ -45649,7 +46005,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function createUTCDate (y) {
 	    var date = new Date(Date.UTC.apply(null, arguments));
 
-	    //the Date.UTC function remaps years 0-99 to 1900-1999
+	    // the Date.UTC function remaps years 0-99 to 1900-1999
 	    if (y < 100 && y >= 0 && isFinite(date.getUTCFullYear())) {
 	        date.setUTCFullYear(y);
 	    }
@@ -45666,7 +46022,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return -fwdlw + fwd - 1;
 	}
 
-	//http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
+	// https://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
 	function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
 	    var localWeekday = (7 + weekday - dow) % 7,
 	        weekOffset = firstWeekOffset(year, dow, doy),
@@ -45867,7 +46223,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
 	function localeWeekdays (m, format) {
 	    if (!m) {
-	        return this._weekdays;
+	        return isArray(this._weekdays) ? this._weekdays :
+	            this._weekdays['standalone'];
 	    }
 	    return isArray(this._weekdays) ? this._weekdays[m.day()] :
 	        this._weekdays[this._weekdays.isFormat.test(format) ? 'format' : 'standalone'][m.day()];
@@ -46187,8 +46544,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	addRegexToken('A',  matchMeridiem);
 	addRegexToken('H',  match1to2);
 	addRegexToken('h',  match1to2);
+	addRegexToken('k',  match1to2);
 	addRegexToken('HH', match1to2, match2);
 	addRegexToken('hh', match1to2, match2);
+	addRegexToken('kk', match1to2, match2);
 
 	addRegexToken('hmm', match3to4);
 	addRegexToken('hmmss', match5to6);
@@ -46196,6 +46555,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	addRegexToken('Hmmss', match5to6);
 
 	addParseToken(['H', 'HH'], HOUR);
+	addParseToken(['k', 'kk'], function (input, array, config) {
+	    var kInput = toInt(input);
+	    array[HOUR] = kInput === 24 ? 0 : kInput;
+	});
 	addParseToken(['a', 'A'], function (input, array, config) {
 	    config._isPm = config._locale.isPM(input);
 	    config._meridiem = input;
@@ -46266,7 +46629,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    longDateFormat: defaultLongDateFormat,
 	    invalidDate: defaultInvalidDate,
 	    ordinal: defaultOrdinal,
-	    ordinalParse: defaultOrdinalParse,
+	    dayOfMonthOrdinalParse: defaultDayOfMonthOrdinalParse,
 	    relativeTime: defaultRelativeTime,
 
 	    months: defaultLocaleMonths,
@@ -46577,6 +46940,77 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	}
 
+	// RFC 2822 regex: For details see https://tools.ietf.org/html/rfc2822#section-3.3
+	var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:\d\d)?\d\d\s)(\d\d:\d\d)(\:\d\d)?(\s(?:UT|GMT|[ECMP][SD]T|[A-IK-Za-ik-z]|[+-]\d{4}))$/;
+
+	// date and time from ref 2822 format
+	function configFromRFC2822(config) {
+	    var string, match, dayFormat,
+	        dateFormat, timeFormat, tzFormat;
+	    var timezones = {
+	        ' GMT': ' +0000',
+	        ' EDT': ' -0400',
+	        ' EST': ' -0500',
+	        ' CDT': ' -0500',
+	        ' CST': ' -0600',
+	        ' MDT': ' -0600',
+	        ' MST': ' -0700',
+	        ' PDT': ' -0700',
+	        ' PST': ' -0800'
+	    };
+	    var military = 'YXWVUTSRQPONZABCDEFGHIKLM';
+	    var timezone, timezoneIndex;
+
+	    string = config._i
+	        .replace(/\([^\)]*\)|[\n\t]/g, ' ') // Remove comments and folding whitespace
+	        .replace(/(\s\s+)/g, ' ') // Replace multiple-spaces with a single space
+	        .replace(/^\s|\s$/g, ''); // Remove leading and trailing spaces
+	    match = basicRfcRegex.exec(string);
+
+	    if (match) {
+	        dayFormat = match[1] ? 'ddd' + ((match[1].length === 5) ? ', ' : ' ') : '';
+	        dateFormat = 'D MMM ' + ((match[2].length > 10) ? 'YYYY ' : 'YY ');
+	        timeFormat = 'HH:mm' + (match[4] ? ':ss' : '');
+
+	        // TODO: Replace the vanilla JS Date object with an indepentent day-of-week check.
+	        if (match[1]) { // day of week given
+	            var momentDate = new Date(match[2]);
+	            var momentDay = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][momentDate.getDay()];
+
+	            if (match[1].substr(0,3) !== momentDay) {
+	                getParsingFlags(config).weekdayMismatch = true;
+	                config._isValid = false;
+	                return;
+	            }
+	        }
+
+	        switch (match[5].length) {
+	            case 2: // military
+	                if (timezoneIndex === 0) {
+	                    timezone = ' +0000';
+	                } else {
+	                    timezoneIndex = military.indexOf(match[5][1].toUpperCase()) - 12;
+	                    timezone = ((timezoneIndex < 0) ? ' -' : ' +') +
+	                        (('' + timezoneIndex).replace(/^-?/, '0')).match(/..$/)[0] + '00';
+	                }
+	                break;
+	            case 4: // Zone
+	                timezone = timezones[match[5]];
+	                break;
+	            default: // UT or +/-9999
+	                timezone = timezones[' GMT'];
+	        }
+	        match[5] = timezone;
+	        config._i = match.splice(1).join('');
+	        tzFormat = ' ZZ';
+	        config._f = dayFormat + dateFormat + timeFormat + tzFormat;
+	        configFromStringAndFormat(config);
+	        getParsingFlags(config).rfc2822 = true;
+	    } else {
+	        config._isValid = false;
+	    }
+	}
+
 	// date from iso format or fallback
 	function configFromString(config) {
 	    var matched = aspNetJsonRegex.exec(config._i);
@@ -46589,13 +47023,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    configFromISO(config);
 	    if (config._isValid === false) {
 	        delete config._isValid;
-	        hooks.createFromInputFallback(config);
+	    } else {
+	        return;
 	    }
+
+	    configFromRFC2822(config);
+	    if (config._isValid === false) {
+	        delete config._isValid;
+	    } else {
+	        return;
+	    }
+
+	    // Final attempt, use Input Fallback
+	    hooks.createFromInputFallback(config);
 	}
 
 	hooks.createFromInputFallback = deprecate(
-	    'value provided is not in a recognized ISO format. moment construction falls back to js Date(), ' +
-	    'which is not reliable across all browsers and versions. Non ISO date formats are ' +
+	    'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
+	    'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
 	    'discouraged and will be removed in an upcoming major release. Please refer to ' +
 	    'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
 	    function (config) {
@@ -46642,10 +47087,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    //if the day of the year is set, figure out what it is
-	    if (config._dayOfYear) {
+	    if (config._dayOfYear != null) {
 	        yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
 
-	        if (config._dayOfYear > daysInYear(yearToUse)) {
+	        if (config._dayOfYear > daysInYear(yearToUse) || config._dayOfYear === 0) {
 	            getParsingFlags(config)._overflowDayOfYear = true;
 	        }
 
@@ -46749,6 +47194,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	// constant that refers to the ISO standard
 	hooks.ISO_8601 = function () {};
 
+	// constant that refers to the RFC 2822 form
+	hooks.RFC_2822 = function () {};
+
 	// date from string and format string
 	function configFromStringAndFormat(config) {
 	    // TODO: Move this to another part of the creation flow to prevent circular deps
@@ -46756,7 +47204,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        configFromISO(config);
 	        return;
 	    }
-
+	    if (config._f === hooks.RFC_2822) {
+	        configFromRFC2822(config);
+	        return;
+	    }
 	    config._a = [];
 	    getParsingFlags(config).empty = true;
 
@@ -46948,7 +47399,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function configFromInput(config) {
 	    var input = config._i;
-	    if (input === undefined) {
+	    if (isUndefined(input)) {
 	        config._d = new Date(hooks.now());
 	    } else if (isDate(input)) {
 	        config._d = new Date(input.valueOf());
@@ -46959,7 +47410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return parseInt(obj, 10);
 	        });
 	        configFromArray(config);
-	    } else if (typeof(input) === 'object') {
+	    } else if (isObject(input)) {
 	        configFromObject(config);
 	    } else if (isNumber(input)) {
 	        // from milliseconds
@@ -47060,6 +47511,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return Date.now ? Date.now() : +(new Date());
 	};
 
+	var ordering = ['year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond'];
+
+	function isDurationValid(m) {
+	    for (var key in m) {
+	        if (!(ordering.indexOf(key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
+	            return false;
+	        }
+	    }
+
+	    var unitHasDecimal = false;
+	    for (var i = 0; i < ordering.length; ++i) {
+	        if (m[ordering[i]]) {
+	            if (unitHasDecimal) {
+	                return false; // only allow non-integers for smallest unit
+	            }
+	            if (parseFloat(m[ordering[i]]) !== toInt(m[ordering[i]])) {
+	                unitHasDecimal = true;
+	            }
+	        }
+	    }
+
+	    return true;
+	}
+
+	function isValid$1() {
+	    return this._isValid;
+	}
+
+	function createInvalid$1() {
+	    return createDuration(NaN);
+	}
+
 	function Duration (duration) {
 	    var normalizedInput = normalizeObjectUnits(duration),
 	        years = normalizedInput.year || 0,
@@ -47071,6 +47554,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        minutes = normalizedInput.minute || 0,
 	        seconds = normalizedInput.second || 0,
 	        milliseconds = normalizedInput.millisecond || 0;
+
+	    this._isValid = isDurationValid(normalizedInput);
 
 	    // representation for dateAddRemove
 	    this._milliseconds = +milliseconds +
@@ -47195,7 +47680,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// a second time. In case it wants us to change the offset again
 	// _changeInProgress == true case, then we have to adjust, because
 	// there is no such time in the given timezone.
-	function getSetOffset (input, keepLocalTime) {
+	function getSetOffset (input, keepLocalTime, keepMinutes) {
 	    var offset = this._offset || 0,
 	        localAdjust;
 	    if (!this.isValid()) {
@@ -47207,7 +47692,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (input === null) {
 	                return this;
 	            }
-	        } else if (Math.abs(input) < 16) {
+	        } else if (Math.abs(input) < 16 && !keepMinutes) {
 	            input = input * 60;
 	        }
 	        if (!this._isUTC && keepLocalTime) {
@@ -47265,7 +47750,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function setOffsetToParsedOffset () {
 	    if (this._tzm != null) {
-	        this.utcOffset(this._tzm);
+	        this.utcOffset(this._tzm, false, true);
 	    } else if (typeof this._i === 'string') {
 	        var tZone = offsetFromString(matchOffset, this._i);
 	        if (tZone != null) {
@@ -47397,6 +47882,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	createDuration.fn = Duration.prototype;
+	createDuration.invalid = createInvalid$1;
 
 	function parseIso (inp, sign) {
 	    // We'd normally use ~~inp for this, but unfortunately it also
@@ -47633,18 +48119,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
 	}
 
-	function toISOString () {
+	function toISOString() {
+	    if (!this.isValid()) {
+	        return null;
+	    }
 	    var m = this.clone().utc();
-	    if (0 < m.year() && m.year() <= 9999) {
-	        if (isFunction(Date.prototype.toISOString)) {
-	            // native implementation is ~50x faster, use it when we can
-	            return this.toDate().toISOString();
-	        } else {
-	            return formatMoment(m, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
-	        }
-	    } else {
+	    if (m.year() < 0 || m.year() > 9999) {
 	        return formatMoment(m, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
 	    }
+	    if (isFunction(Date.prototype.toISOString)) {
+	        // native implementation is ~50x faster, use it when we can
+	        return this.toDate().toISOString();
+	    }
+	    return formatMoment(m, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
 	}
 
 	/**
@@ -47664,7 +48151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        zone = 'Z';
 	    }
 	    var prefix = '[' + func + '("]';
-	    var year = (0 < this.year() && this.year() <= 9999) ? 'YYYY' : 'YYYYYY';
+	    var year = (0 <= this.year() && this.year() <= 9999) ? 'YYYY' : 'YYYYYY';
 	    var datetime = '-MM-DD[T]HH:mm:ss.SSS';
 	    var suffix = zone + '[")]';
 
@@ -47832,7 +48319,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.isValid() ? this.toISOString() : null;
 	}
 
-	function isValid$1 () {
+	function isValid$2 () {
 	    return isValid(this);
 	}
 
@@ -47992,7 +48479,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	addRegexToken('D',  match1to2);
 	addRegexToken('DD', match1to2, match2);
 	addRegexToken('Do', function (isStrict, locale) {
-	    return isStrict ? locale._ordinalParse : locale._ordinalParseLenient;
+	    // TODO: Remove "ordinalParse" fallback in next major release.
+	    return isStrict ?
+	      (locale._dayOfMonthOrdinalParse || locale._ordinalParse) :
+	      locale._dayOfMonthOrdinalParseLenient;
 	});
 
 	addParseToken(['D', 'DD'], DATE);
@@ -48172,7 +48662,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	proto.isSame            = isSame;
 	proto.isSameOrAfter     = isSameOrAfter;
 	proto.isSameOrBefore    = isSameOrBefore;
-	proto.isValid           = isValid$1;
+	proto.isValid           = isValid$2;
 	proto.lang              = lang;
 	proto.locale            = locale;
 	proto.localeData        = localeData;
@@ -48397,7 +48887,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	getSetGlobalLocale('en', {
-	    ordinalParse: /\d{1,2}(th|st|nd|rd)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
 	    ordinal : function (number) {
 	        var b = number % 10,
 	            output = (toInt(number % 100 / 10) === 1) ? 'th' :
@@ -48518,6 +49008,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function as (units) {
+	    if (!this.isValid()) {
+	        return NaN;
+	    }
 	    var days;
 	    var months;
 	    var milliseconds = this._milliseconds;
@@ -48546,6 +49039,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// TODO: Use this.as('ms')?
 	function valueOf$1 () {
+	    if (!this.isValid()) {
+	        return NaN;
+	    }
 	    return (
 	        this._milliseconds +
 	        this._days * 864e5 +
@@ -48571,12 +49067,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function get$2 (units) {
 	    units = normalizeUnits(units);
-	    return this[units + 's']();
+	    return this.isValid() ? this[units + 's']() : NaN;
 	}
 
 	function makeGetter(name) {
 	    return function () {
-	        return this._data[name];
+	        return this.isValid() ? this._data[name] : NaN;
 	    };
 	}
 
@@ -48594,11 +49090,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var round = Math.round;
 	var thresholds = {
-	    s: 45,  // seconds to minute
-	    m: 45,  // minutes to hour
-	    h: 22,  // hours to day
-	    d: 26,  // days to month
-	    M: 11   // months to year
+	    ss: 44,         // a few seconds to seconds
+	    s : 45,         // seconds to minute
+	    m : 45,         // minutes to hour
+	    h : 22,         // hours to day
+	    d : 26,         // days to month
+	    M : 11          // months to year
 	};
 
 	// helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
@@ -48615,16 +49112,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var months   = round(duration.as('M'));
 	    var years    = round(duration.as('y'));
 
-	    var a = seconds < thresholds.s && ['s', seconds]  ||
-	            minutes <= 1           && ['m']           ||
-	            minutes < thresholds.m && ['mm', minutes] ||
-	            hours   <= 1           && ['h']           ||
-	            hours   < thresholds.h && ['hh', hours]   ||
-	            days    <= 1           && ['d']           ||
-	            days    < thresholds.d && ['dd', days]    ||
-	            months  <= 1           && ['M']           ||
-	            months  < thresholds.M && ['MM', months]  ||
-	            years   <= 1           && ['y']           || ['yy', years];
+	    var a = seconds <= thresholds.ss && ['s', seconds]  ||
+	            seconds < thresholds.s   && ['ss', seconds] ||
+	            minutes <= 1             && ['m']           ||
+	            minutes < thresholds.m   && ['mm', minutes] ||
+	            hours   <= 1             && ['h']           ||
+	            hours   < thresholds.h   && ['hh', hours]   ||
+	            days    <= 1             && ['d']           ||
+	            days    < thresholds.d   && ['dd', days]    ||
+	            months  <= 1             && ['M']           ||
+	            months  < thresholds.M   && ['MM', months]  ||
+	            years   <= 1             && ['y']           || ['yy', years];
 
 	    a[2] = withoutSuffix;
 	    a[3] = +posNegDuration > 0;
@@ -48653,10 +49151,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return thresholds[threshold];
 	    }
 	    thresholds[threshold] = limit;
+	    if (threshold === 's') {
+	        thresholds.ss = limit - 1;
+	    }
 	    return true;
 	}
 
 	function humanize (withSuffix) {
+	    if (!this.isValid()) {
+	        return this.localeData().invalidDate();
+	    }
+
 	    var locale = this.localeData();
 	    var output = relativeTime$1(this, !withSuffix, locale);
 
@@ -48677,6 +49182,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // This is because there is no context-free conversion between hours and days
 	    // (think of clock changes)
 	    // and also not between days and months (28-31 days per month)
+	    if (!this.isValid()) {
+	        return this.localeData().invalidDate();
+	    }
+
 	    var seconds = abs$1(this._milliseconds) / 1000;
 	    var days         = abs$1(this._days);
 	    var months       = abs$1(this._months);
@@ -48721,6 +49230,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var proto$2 = Duration.prototype;
 
+	proto$2.isValid        = isValid$1;
 	proto$2.abs            = abs;
 	proto$2.add            = add$1;
 	proto$2.subtract       = subtract$1;
@@ -48776,7 +49286,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Side effect imports
 
 
-	hooks.version = '2.17.1';
+	hooks.version = '2.18.1';
 
 	setHookCallback(createLocal);
 
@@ -48824,217 +49334,231 @@ return /******/ (function(modules) { // webpackBootstrap
 		"./ar": 201,
 		"./ar-dz": 202,
 		"./ar-dz.js": 202,
-		"./ar-ly": 203,
-		"./ar-ly.js": 203,
-		"./ar-ma": 204,
-		"./ar-ma.js": 204,
-		"./ar-sa": 205,
-		"./ar-sa.js": 205,
-		"./ar-tn": 206,
-		"./ar-tn.js": 206,
+		"./ar-kw": 203,
+		"./ar-kw.js": 203,
+		"./ar-ly": 204,
+		"./ar-ly.js": 204,
+		"./ar-ma": 205,
+		"./ar-ma.js": 205,
+		"./ar-sa": 206,
+		"./ar-sa.js": 206,
+		"./ar-tn": 207,
+		"./ar-tn.js": 207,
 		"./ar.js": 201,
-		"./az": 207,
-		"./az.js": 207,
-		"./be": 208,
-		"./be.js": 208,
-		"./bg": 209,
-		"./bg.js": 209,
-		"./bn": 210,
-		"./bn.js": 210,
-		"./bo": 211,
-		"./bo.js": 211,
-		"./br": 212,
-		"./br.js": 212,
-		"./bs": 213,
-		"./bs.js": 213,
-		"./ca": 214,
-		"./ca.js": 214,
-		"./cs": 215,
-		"./cs.js": 215,
-		"./cv": 216,
-		"./cv.js": 216,
-		"./cy": 217,
-		"./cy.js": 217,
-		"./da": 218,
-		"./da.js": 218,
-		"./de": 219,
-		"./de-at": 220,
-		"./de-at.js": 220,
-		"./de.js": 219,
-		"./dv": 221,
-		"./dv.js": 221,
-		"./el": 222,
-		"./el.js": 222,
-		"./en-au": 223,
-		"./en-au.js": 223,
-		"./en-ca": 224,
-		"./en-ca.js": 224,
-		"./en-gb": 225,
-		"./en-gb.js": 225,
-		"./en-ie": 226,
-		"./en-ie.js": 226,
-		"./en-nz": 227,
-		"./en-nz.js": 227,
-		"./eo": 228,
-		"./eo.js": 228,
-		"./es": 229,
-		"./es-do": 230,
-		"./es-do.js": 230,
-		"./es.js": 229,
-		"./et": 231,
-		"./et.js": 231,
-		"./eu": 232,
-		"./eu.js": 232,
-		"./fa": 233,
-		"./fa.js": 233,
-		"./fi": 234,
-		"./fi.js": 234,
-		"./fo": 235,
-		"./fo.js": 235,
-		"./fr": 236,
-		"./fr-ca": 237,
-		"./fr-ca.js": 237,
-		"./fr-ch": 238,
-		"./fr-ch.js": 238,
-		"./fr.js": 236,
-		"./fy": 239,
-		"./fy.js": 239,
-		"./gd": 240,
-		"./gd.js": 240,
-		"./gl": 241,
-		"./gl.js": 241,
-		"./he": 242,
-		"./he.js": 242,
-		"./hi": 243,
-		"./hi.js": 243,
-		"./hr": 244,
-		"./hr.js": 244,
-		"./hu": 245,
-		"./hu.js": 245,
-		"./hy-am": 246,
-		"./hy-am.js": 246,
-		"./id": 247,
-		"./id.js": 247,
-		"./is": 248,
-		"./is.js": 248,
-		"./it": 249,
-		"./it.js": 249,
-		"./ja": 250,
-		"./ja.js": 250,
-		"./jv": 251,
-		"./jv.js": 251,
-		"./ka": 252,
-		"./ka.js": 252,
-		"./kk": 253,
-		"./kk.js": 253,
-		"./km": 254,
-		"./km.js": 254,
-		"./ko": 255,
-		"./ko.js": 255,
-		"./ky": 256,
-		"./ky.js": 256,
-		"./lb": 257,
-		"./lb.js": 257,
-		"./lo": 258,
-		"./lo.js": 258,
-		"./lt": 259,
-		"./lt.js": 259,
-		"./lv": 260,
-		"./lv.js": 260,
-		"./me": 261,
-		"./me.js": 261,
-		"./mi": 262,
-		"./mi.js": 262,
-		"./mk": 263,
-		"./mk.js": 263,
-		"./ml": 264,
-		"./ml.js": 264,
-		"./mr": 265,
-		"./mr.js": 265,
-		"./ms": 266,
-		"./ms-my": 267,
-		"./ms-my.js": 267,
-		"./ms.js": 266,
-		"./my": 268,
-		"./my.js": 268,
-		"./nb": 269,
-		"./nb.js": 269,
-		"./ne": 270,
-		"./ne.js": 270,
-		"./nl": 271,
-		"./nl-be": 272,
-		"./nl-be.js": 272,
-		"./nl.js": 271,
-		"./nn": 273,
-		"./nn.js": 273,
-		"./pa-in": 274,
-		"./pa-in.js": 274,
-		"./pl": 275,
-		"./pl.js": 275,
-		"./pt": 276,
-		"./pt-br": 277,
-		"./pt-br.js": 277,
-		"./pt.js": 276,
-		"./ro": 278,
-		"./ro.js": 278,
-		"./ru": 279,
-		"./ru.js": 279,
-		"./se": 280,
-		"./se.js": 280,
-		"./si": 281,
-		"./si.js": 281,
-		"./sk": 282,
-		"./sk.js": 282,
-		"./sl": 283,
-		"./sl.js": 283,
-		"./sq": 284,
-		"./sq.js": 284,
-		"./sr": 285,
-		"./sr-cyrl": 286,
-		"./sr-cyrl.js": 286,
-		"./sr.js": 285,
-		"./ss": 287,
-		"./ss.js": 287,
-		"./sv": 288,
-		"./sv.js": 288,
-		"./sw": 289,
-		"./sw.js": 289,
-		"./ta": 290,
-		"./ta.js": 290,
-		"./te": 291,
-		"./te.js": 291,
-		"./tet": 292,
-		"./tet.js": 292,
-		"./th": 293,
-		"./th.js": 293,
-		"./tl-ph": 294,
-		"./tl-ph.js": 294,
-		"./tlh": 295,
-		"./tlh.js": 295,
-		"./tr": 296,
-		"./tr.js": 296,
-		"./tzl": 297,
-		"./tzl.js": 297,
-		"./tzm": 298,
-		"./tzm-latn": 299,
-		"./tzm-latn.js": 299,
-		"./tzm.js": 298,
-		"./uk": 300,
-		"./uk.js": 300,
-		"./uz": 301,
-		"./uz.js": 301,
-		"./vi": 302,
-		"./vi.js": 302,
-		"./x-pseudo": 303,
-		"./x-pseudo.js": 303,
-		"./yo": 304,
-		"./yo.js": 304,
-		"./zh-cn": 305,
-		"./zh-cn.js": 305,
-		"./zh-hk": 306,
-		"./zh-hk.js": 306,
-		"./zh-tw": 307,
-		"./zh-tw.js": 307
+		"./az": 208,
+		"./az.js": 208,
+		"./be": 209,
+		"./be.js": 209,
+		"./bg": 210,
+		"./bg.js": 210,
+		"./bn": 211,
+		"./bn.js": 211,
+		"./bo": 212,
+		"./bo.js": 212,
+		"./br": 213,
+		"./br.js": 213,
+		"./bs": 214,
+		"./bs.js": 214,
+		"./ca": 215,
+		"./ca.js": 215,
+		"./cs": 216,
+		"./cs.js": 216,
+		"./cv": 217,
+		"./cv.js": 217,
+		"./cy": 218,
+		"./cy.js": 218,
+		"./da": 219,
+		"./da.js": 219,
+		"./de": 220,
+		"./de-at": 221,
+		"./de-at.js": 221,
+		"./de-ch": 222,
+		"./de-ch.js": 222,
+		"./de.js": 220,
+		"./dv": 223,
+		"./dv.js": 223,
+		"./el": 224,
+		"./el.js": 224,
+		"./en-au": 225,
+		"./en-au.js": 225,
+		"./en-ca": 226,
+		"./en-ca.js": 226,
+		"./en-gb": 227,
+		"./en-gb.js": 227,
+		"./en-ie": 228,
+		"./en-ie.js": 228,
+		"./en-nz": 229,
+		"./en-nz.js": 229,
+		"./eo": 230,
+		"./eo.js": 230,
+		"./es": 231,
+		"./es-do": 232,
+		"./es-do.js": 232,
+		"./es.js": 231,
+		"./et": 233,
+		"./et.js": 233,
+		"./eu": 234,
+		"./eu.js": 234,
+		"./fa": 235,
+		"./fa.js": 235,
+		"./fi": 236,
+		"./fi.js": 236,
+		"./fo": 237,
+		"./fo.js": 237,
+		"./fr": 238,
+		"./fr-ca": 239,
+		"./fr-ca.js": 239,
+		"./fr-ch": 240,
+		"./fr-ch.js": 240,
+		"./fr.js": 238,
+		"./fy": 241,
+		"./fy.js": 241,
+		"./gd": 242,
+		"./gd.js": 242,
+		"./gl": 243,
+		"./gl.js": 243,
+		"./gom-latn": 244,
+		"./gom-latn.js": 244,
+		"./he": 245,
+		"./he.js": 245,
+		"./hi": 246,
+		"./hi.js": 246,
+		"./hr": 247,
+		"./hr.js": 247,
+		"./hu": 248,
+		"./hu.js": 248,
+		"./hy-am": 249,
+		"./hy-am.js": 249,
+		"./id": 250,
+		"./id.js": 250,
+		"./is": 251,
+		"./is.js": 251,
+		"./it": 252,
+		"./it.js": 252,
+		"./ja": 253,
+		"./ja.js": 253,
+		"./jv": 254,
+		"./jv.js": 254,
+		"./ka": 255,
+		"./ka.js": 255,
+		"./kk": 256,
+		"./kk.js": 256,
+		"./km": 257,
+		"./km.js": 257,
+		"./kn": 258,
+		"./kn.js": 258,
+		"./ko": 259,
+		"./ko.js": 259,
+		"./ky": 260,
+		"./ky.js": 260,
+		"./lb": 261,
+		"./lb.js": 261,
+		"./lo": 262,
+		"./lo.js": 262,
+		"./lt": 263,
+		"./lt.js": 263,
+		"./lv": 264,
+		"./lv.js": 264,
+		"./me": 265,
+		"./me.js": 265,
+		"./mi": 266,
+		"./mi.js": 266,
+		"./mk": 267,
+		"./mk.js": 267,
+		"./ml": 268,
+		"./ml.js": 268,
+		"./mr": 269,
+		"./mr.js": 269,
+		"./ms": 270,
+		"./ms-my": 271,
+		"./ms-my.js": 271,
+		"./ms.js": 270,
+		"./my": 272,
+		"./my.js": 272,
+		"./nb": 273,
+		"./nb.js": 273,
+		"./ne": 274,
+		"./ne.js": 274,
+		"./nl": 275,
+		"./nl-be": 276,
+		"./nl-be.js": 276,
+		"./nl.js": 275,
+		"./nn": 277,
+		"./nn.js": 277,
+		"./pa-in": 278,
+		"./pa-in.js": 278,
+		"./pl": 279,
+		"./pl.js": 279,
+		"./pt": 280,
+		"./pt-br": 281,
+		"./pt-br.js": 281,
+		"./pt.js": 280,
+		"./ro": 282,
+		"./ro.js": 282,
+		"./ru": 283,
+		"./ru.js": 283,
+		"./sd": 284,
+		"./sd.js": 284,
+		"./se": 285,
+		"./se.js": 285,
+		"./si": 286,
+		"./si.js": 286,
+		"./sk": 287,
+		"./sk.js": 287,
+		"./sl": 288,
+		"./sl.js": 288,
+		"./sq": 289,
+		"./sq.js": 289,
+		"./sr": 290,
+		"./sr-cyrl": 291,
+		"./sr-cyrl.js": 291,
+		"./sr.js": 290,
+		"./ss": 292,
+		"./ss.js": 292,
+		"./sv": 293,
+		"./sv.js": 293,
+		"./sw": 294,
+		"./sw.js": 294,
+		"./ta": 295,
+		"./ta.js": 295,
+		"./te": 296,
+		"./te.js": 296,
+		"./tet": 297,
+		"./tet.js": 297,
+		"./th": 298,
+		"./th.js": 298,
+		"./tl-ph": 299,
+		"./tl-ph.js": 299,
+		"./tlh": 300,
+		"./tlh.js": 300,
+		"./tr": 301,
+		"./tr.js": 301,
+		"./tzl": 302,
+		"./tzl.js": 302,
+		"./tzm": 303,
+		"./tzm-latn": 304,
+		"./tzm-latn.js": 304,
+		"./tzm.js": 303,
+		"./uk": 305,
+		"./uk.js": 305,
+		"./ur": 306,
+		"./ur.js": 306,
+		"./uz": 307,
+		"./uz-latn": 308,
+		"./uz-latn.js": 308,
+		"./uz.js": 307,
+		"./vi": 309,
+		"./vi.js": 309,
+		"./x-pseudo": 310,
+		"./x-pseudo.js": 310,
+		"./yo": 311,
+		"./yo.js": 311,
+		"./zh-cn": 312,
+		"./zh-cn.js": 312,
+		"./zh-hk": 313,
+		"./zh-hk.js": 313,
+		"./zh-tw": 314,
+		"./zh-tw.js": 314
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -49113,7 +49637,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : '\'n jaar',
 	        yy : '%d jaar'
 	    },
-	    ordinalParse: /\d{1,2}(ste|de)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
 	    ordinal : function (number) {
 	        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de'); // Thanks to Joris Röling : https://github.com/jjupiter
 	    },
@@ -49344,6 +49868,70 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
+	//! locale : Arabic (Kuwait) [ar-kw]
+	//! author : Nusret Parlak: https://github.com/nusretparlak
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var arKw = moment.defineLocale('ar-kw', {
+	    months : 'يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر'.split('_'),
+	    monthsShort : 'يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر'.split('_'),
+	    weekdays : 'الأحد_الإتنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
+	    weekdaysShort : 'احد_اتنين_ثلاثاء_اربعاء_خميس_جمعة_سبت'.split('_'),
+	    weekdaysMin : 'ح_ن_ث_ر_خ_ج_س'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[اليوم على الساعة] LT',
+	        nextDay: '[غدا على الساعة] LT',
+	        nextWeek: 'dddd [على الساعة] LT',
+	        lastDay: '[أمس على الساعة] LT',
+	        lastWeek: 'dddd [على الساعة] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'في %s',
+	        past : 'منذ %s',
+	        s : 'ثوان',
+	        m : 'دقيقة',
+	        mm : '%d دقائق',
+	        h : 'ساعة',
+	        hh : '%d ساعات',
+	        d : 'يوم',
+	        dd : '%d أيام',
+	        M : 'شهر',
+	        MM : '%d أشهر',
+	        y : 'سنة',
+	        yy : '%d سنوات'
+	    },
+	    week : {
+	        dow : 0, // Sunday is the first day of the week.
+	        doy : 12  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return arKw;
+
+	})));
+
+
+/***/ },
+/* 204 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
 	//! locale : Arabic (Lybia) [ar-ly]
 	//! author : Ali Hmer: https://github.com/kikoanis
 
@@ -49471,7 +50059,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 204 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -49536,7 +50124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 205 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -49646,7 +50234,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 206 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -49710,7 +50298,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 207 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -49798,7 +50386,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return 'axşam';
 	        }
 	    },
-	    ordinalParse: /\d{1,2}-(ıncı|inci|nci|üncü|ncı|uncu)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}-(ıncı|inci|nci|üncü|ncı|uncu)/,
 	    ordinal : function (number) {
 	        if (number === 0) {  // special case for zero
 	            return number + '-ıncı';
@@ -49820,7 +50408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 208 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -49932,7 +50520,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return 'вечара';
 	        }
 	    },
-	    ordinalParse: /\d{1,2}-(і|ы|га)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}-(і|ы|га)/,
 	    ordinal: function (number, period) {
 	        switch (period) {
 	            case 'M':
@@ -49959,7 +50547,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 209 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50022,7 +50610,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'година',
 	        yy : '%d години'
 	    },
-	    ordinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
 	    ordinal : function (number) {
 	        var lastDigit = number % 10,
 	            last2Digits = number % 100;
@@ -50054,7 +50642,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 210 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50178,7 +50766,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 211 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50302,7 +50890,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 212 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50398,7 +50986,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'ur bloaz',
 	        yy : specialMutationForYears
 	    },
-	    ordinalParse: /\d{1,2}(añ|vet)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(añ|vet)/,
 	    ordinal : function (number) {
 	        var output = (number === 1) ? 'añ' : 'vet';
 	        return number + output;
@@ -50415,7 +51003,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 213 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50549,7 +51137,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y      : 'godinu',
 	        yy     : translate
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -50563,7 +51151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 214 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50578,8 +51166,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	var ca = moment.defineLocale('ca', {
-	    months : 'gener_febrer_març_abril_maig_juny_juliol_agost_setembre_octubre_novembre_desembre'.split('_'),
-	    monthsShort : 'gen._febr._mar._abr._mai._jun._jul._ag._set._oct._nov._des.'.split('_'),
+	    months : {
+	        standalone: 'gener_febrer_març_abril_maig_juny_juliol_agost_setembre_octubre_novembre_desembre'.split('_'),
+	        format: 'de gener_de febrer_de març_d\'abril_de maig_de juny_de juliol_d\'agost_de setembre_d\'octubre_de novembre_de desembre'.split('_'),
+	        isFormat: /D[oD]?(\s)+MMMM/
+	    },
+	    monthsShort : 'gen._febr._març_abr._maig_juny_jul._ag._set._oct._nov._des.'.split('_'),
 	    monthsParseExact : true,
 	    weekdays : 'diumenge_dilluns_dimarts_dimecres_dijous_divendres_dissabte'.split('_'),
 	    weekdaysShort : 'dg._dl._dt._dc._dj._dv._ds.'.split('_'),
@@ -50589,9 +51181,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        LT : 'H:mm',
 	        LTS : 'H:mm:ss',
 	        L : 'DD/MM/YYYY',
-	        LL : 'D MMMM YYYY',
-	        LLL : 'D MMMM YYYY H:mm',
-	        LLLL : 'dddd D MMMM YYYY H:mm'
+	        LL : '[el] D MMMM [de] YYYY',
+	        ll : 'D MMM YYYY',
+	        LLL : '[el] D MMMM [de] YYYY [a les] H:mm',
+	        lll : 'D MMM YYYY, H:mm',
+	        LLLL : '[el] dddd D MMMM [de] YYYY [a les] H:mm',
+	        llll : 'ddd D MMM YYYY, H:mm'
 	    },
 	    calendar : {
 	        sameDay : function () {
@@ -50626,7 +51221,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'un any',
 	        yy : '%d anys'
 	    },
-	    ordinalParse: /\d{1,2}(r|n|t|è|a)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(r|n|t|è|a)/,
 	    ordinal : function (number, period) {
 	        var output = (number === 1) ? 'r' :
 	            (number === 2) ? 'n' :
@@ -50649,7 +51244,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 215 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50812,7 +51407,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : translate,
 	        yy : translate
 	    },
-	    ordinalParse : /\d{1,2}\./,
+	    dayOfMonthOrdinalParse : /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -50826,7 +51421,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50880,7 +51475,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'пӗр ҫул',
 	        yy : '%d ҫул'
 	    },
-	    ordinalParse: /\d{1,2}-мӗш/,
+	    dayOfMonthOrdinalParse: /\d{1,2}-мӗш/,
 	    ordinal : '%d-мӗш',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -50894,7 +51489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 217 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50948,7 +51543,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y: 'blwyddyn',
 	        yy: '%d flynedd'
 	    },
-	    ordinalParse: /\d{1,2}(fed|ain|af|il|ydd|ed|eg)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(fed|ain|af|il|ydd|ed|eg)/,
 	    // traditional ordinal numbers above 31 are not commonly used in colloquial Welsh
 	    ordinal: function (number) {
 	        var b = number,
@@ -50980,7 +51575,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51006,14 +51601,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        L : 'DD/MM/YYYY',
 	        LL : 'D. MMMM YYYY',
 	        LLL : 'D. MMMM YYYY HH:mm',
-	        LLLL : 'dddd [d.] D. MMMM YYYY HH:mm'
+	        LLLL : 'dddd [d.] D. MMMM YYYY [kl.] HH:mm'
 	    },
 	    calendar : {
-	        sameDay : '[I dag kl.] LT',
-	        nextDay : '[I morgen kl.] LT',
-	        nextWeek : 'dddd [kl.] LT',
-	        lastDay : '[I går kl.] LT',
-	        lastWeek : '[sidste] dddd [kl] LT',
+	        sameDay : '[i dag kl.] LT',
+	        nextDay : '[i morgen kl.] LT',
+	        nextWeek : 'på dddd [kl.] LT',
+	        lastDay : '[i går kl.] LT',
+	        lastWeek : '[i] dddd[s kl.] LT',
 	        sameElse : 'L'
 	    },
 	    relativeTime : {
@@ -51031,7 +51626,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'et år',
 	        yy : '%d år'
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -51045,7 +51640,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51114,7 +51709,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : processRelativeTime,
 	        yy : processRelativeTime
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -51128,7 +51723,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51198,7 +51793,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : processRelativeTime,
 	        yy : processRelativeTime
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -51212,7 +51807,90 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 221 */
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : German (Switzerland) [de-ch]
+	//! author : sschueller : https://github.com/sschueller
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	// based on: https://www.bk.admin.ch/dokumentation/sprachen/04915/05016/index.html?lang=de#
+
+	function processRelativeTime(number, withoutSuffix, key, isFuture) {
+	    var format = {
+	        'm': ['eine Minute', 'einer Minute'],
+	        'h': ['eine Stunde', 'einer Stunde'],
+	        'd': ['ein Tag', 'einem Tag'],
+	        'dd': [number + ' Tage', number + ' Tagen'],
+	        'M': ['ein Monat', 'einem Monat'],
+	        'MM': [number + ' Monate', number + ' Monaten'],
+	        'y': ['ein Jahr', 'einem Jahr'],
+	        'yy': [number + ' Jahre', number + ' Jahren']
+	    };
+	    return withoutSuffix ? format[key][0] : format[key][1];
+	}
+
+	var deCh = moment.defineLocale('de-ch', {
+	    months : 'Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
+	    monthsShort : 'Jan._Febr._März_April_Mai_Juni_Juli_Aug._Sept._Okt._Nov._Dez.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
+	    weekdaysShort : 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),
+	    weekdaysMin : 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT: 'HH.mm',
+	        LTS: 'HH.mm.ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D. MMMM YYYY',
+	        LLL : 'D. MMMM YYYY HH.mm',
+	        LLLL : 'dddd, D. MMMM YYYY HH.mm'
+	    },
+	    calendar : {
+	        sameDay: '[heute um] LT [Uhr]',
+	        sameElse: 'L',
+	        nextDay: '[morgen um] LT [Uhr]',
+	        nextWeek: 'dddd [um] LT [Uhr]',
+	        lastDay: '[gestern um] LT [Uhr]',
+	        lastWeek: '[letzten] dddd [um] LT [Uhr]'
+	    },
+	    relativeTime : {
+	        future : 'in %s',
+	        past : 'vor %s',
+	        s : 'ein paar Sekunden',
+	        m : processRelativeTime,
+	        mm : '%d Minuten',
+	        h : processRelativeTime,
+	        hh : '%d Stunden',
+	        d : processRelativeTime,
+	        dd : processRelativeTime,
+	        M : processRelativeTime,
+	        MM : processRelativeTime,
+	        y : processRelativeTime,
+	        yy : processRelativeTime
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return deCh;
+
+	})));
+
+
+/***/ },
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51317,7 +51995,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 222 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51339,7 +52017,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    monthsNominativeEl : 'Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος'.split('_'),
 	    monthsGenitiveEl : 'Ιανουαρίου_Φεβρουαρίου_Μαρτίου_Απριλίου_Μαΐου_Ιουνίου_Ιουλίου_Αυγούστου_Σεπτεμβρίου_Οκτωβρίου_Νοεμβρίου_Δεκεμβρίου'.split('_'),
 	    months : function (momentToFormat, format) {
-	        if (/D/.test(format.substring(0, format.indexOf('MMMM')))) { // if there is a day number before 'MMMM'
+	        if (!momentToFormat) {
+	            return this._monthsNominativeEl;
+	        } else if (/D/.test(format.substring(0, format.indexOf('MMMM')))) { // if there is a day number before 'MMMM'
 	            return this._monthsGenitiveEl[momentToFormat.month()];
 	        } else {
 	            return this._monthsNominativeEl[momentToFormat.month()];
@@ -51406,7 +52086,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'ένας χρόνος',
 	        yy : '%d χρόνια'
 	    },
-	    ordinalParse: /\d{1,2}η/,
+	    dayOfMonthOrdinalParse: /\d{1,2}η/,
 	    ordinal: '%dη',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -51420,7 +52100,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 223 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51471,7 +52151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'a year',
 	        yy : '%d years'
 	    },
-	    ordinalParse: /\d{1,2}(st|nd|rd|th)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
 	    ordinal : function (number) {
 	        var b = number % 10,
 	            output = (~~(number % 100 / 10) === 1) ? 'th' :
@@ -51492,7 +52172,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 224 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51543,7 +52223,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'a year',
 	        yy : '%d years'
 	    },
-	    ordinalParse: /\d{1,2}(st|nd|rd|th)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
 	    ordinal : function (number) {
 	        var b = number % 10,
 	            output = (~~(number % 100 / 10) === 1) ? 'th' :
@@ -51560,7 +52240,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 225 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51611,7 +52291,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'a year',
 	        yy : '%d years'
 	    },
-	    ordinalParse: /\d{1,2}(st|nd|rd|th)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
 	    ordinal : function (number) {
 	        var b = number % 10,
 	            output = (~~(number % 100 / 10) === 1) ? 'th' :
@@ -51632,7 +52312,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 226 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51683,7 +52363,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'a year',
 	        yy : '%d years'
 	    },
-	    ordinalParse: /\d{1,2}(st|nd|rd|th)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
 	    ordinal : function (number) {
 	        var b = number % 10,
 	            output = (~~(number % 100 / 10) === 1) ? 'th' :
@@ -51704,7 +52384,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 227 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51755,7 +52435,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'a year',
 	        yy : '%d years'
 	    },
-	    ordinalParse: /\d{1,2}(st|nd|rd|th)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
 	    ordinal : function (number) {
 	        var b = number % 10,
 	            output = (~~(number % 100 / 10) === 1) ? 'th' :
@@ -51776,14 +52456,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 228 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : Esperanto [eo]
 	//! author : Colin Dean : https://github.com/colindean
-	//! komento: Mi estas malcerta se mi korekte traktis akuzativojn en tiu traduko.
-	//!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
+	//! author : Mia Nordentoft Imperatori : https://github.com/miestasmia
+	//! comment : miestasmia corrected the translation by colindean
 
 	;(function (global, factory) {
 	    true ? factory(__webpack_require__(198)) :
@@ -51795,16 +52475,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	var eo = moment.defineLocale('eo', {
 	    months : 'januaro_februaro_marto_aprilo_majo_junio_julio_aŭgusto_septembro_oktobro_novembro_decembro'.split('_'),
 	    monthsShort : 'jan_feb_mar_apr_maj_jun_jul_aŭg_sep_okt_nov_dec'.split('_'),
-	    weekdays : 'Dimanĉo_Lundo_Mardo_Merkredo_Ĵaŭdo_Vendredo_Sabato'.split('_'),
-	    weekdaysShort : 'Dim_Lun_Mard_Merk_Ĵaŭ_Ven_Sab'.split('_'),
-	    weekdaysMin : 'Di_Lu_Ma_Me_Ĵa_Ve_Sa'.split('_'),
+	    weekdays : 'dimanĉo_lundo_mardo_merkredo_ĵaŭdo_vendredo_sabato'.split('_'),
+	    weekdaysShort : 'dim_lun_mard_merk_ĵaŭ_ven_sab'.split('_'),
+	    weekdaysMin : 'di_lu_ma_me_ĵa_ve_sa'.split('_'),
 	    longDateFormat : {
 	        LT : 'HH:mm',
 	        LTS : 'HH:mm:ss',
 	        L : 'YYYY-MM-DD',
-	        LL : 'D[-an de] MMMM, YYYY',
-	        LLL : 'D[-an de] MMMM, YYYY HH:mm',
-	        LLLL : 'dddd, [la] D[-an de] MMMM, YYYY HH:mm'
+	        LL : 'D[-a de] MMMM, YYYY',
+	        LLL : 'D[-a de] MMMM, YYYY HH:mm',
+	        LLLL : 'dddd, [la] D[-a de] MMMM, YYYY HH:mm'
 	    },
 	    meridiemParse: /[ap]\.t\.m/i,
 	    isPM: function (input) {
@@ -51826,7 +52506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        sameElse : 'L'
 	    },
 	    relativeTime : {
-	        future : 'je %s',
+	        future : 'post %s',
 	        past : 'antaŭ %s',
 	        s : 'sekundoj',
 	        m : 'minuto',
@@ -51840,7 +52520,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'jaro',
 	        yy : '%d jaroj'
 	    },
-	    ordinalParse: /\d{1,2}a/,
+	    dayOfMonthOrdinalParse: /\d{1,2}a/,
 	    ordinal : '%da',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -51854,7 +52534,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 229 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51874,7 +52554,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var es = moment.defineLocale('es', {
 	    months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
 	    monthsShort : function (m, format) {
-	        if (/-MMM-/.test(format)) {
+	        if (!m) {
+	            return monthsShortDot;
+	        } else if (/-MMM-/.test(format)) {
 	            return monthsShort[m.month()];
 	        } else {
 	            return monthsShortDot[m.month()];
@@ -51926,7 +52608,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'un año',
 	        yy : '%d años'
 	    },
-	    ordinalParse : /\d{1,2}º/,
+	    dayOfMonthOrdinalParse : /\d{1,2}º/,
 	    ordinal : '%dº',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -51940,7 +52622,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 230 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51959,7 +52641,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var esDo = moment.defineLocale('es-do', {
 	    months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
 	    monthsShort : function (m, format) {
-	        if (/-MMM-/.test(format)) {
+	        if (!m) {
+	            return monthsShortDot;
+	        } else if (/-MMM-/.test(format)) {
 	            return monthsShort[m.month()];
 	        } else {
 	            return monthsShortDot[m.month()];
@@ -52011,7 +52695,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'un año',
 	        yy : '%d años'
 	    },
-	    ordinalParse : /\d{1,2}º/,
+	    dayOfMonthOrdinalParse : /\d{1,2}º/,
 	    ordinal : '%dº',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -52025,7 +52709,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 231 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52096,7 +52780,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y      : processRelativeTime,
 	        yy     : processRelativeTime
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -52110,7 +52794,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 232 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52167,7 +52851,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'urte bat',
 	        yy : '%d urte'
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -52181,7 +52865,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 233 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52257,7 +52941,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    relativeTime : {
 	        future : 'در %s',
 	        past : '%s پیش',
-	        s : 'چندین ثانیه',
+	        s : 'چند ثانیه',
 	        m : 'یک دقیقه',
 	        mm : '%d دقیقه',
 	        h : 'یک ساعت',
@@ -52279,7 +52963,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return symbolMap[match];
 	        }).replace(/,/g, '،');
 	    },
-	    ordinalParse: /\d{1,2}م/,
+	    dayOfMonthOrdinalParse: /\d{1,2}م/,
 	    ordinal : '%dم',
 	    week : {
 	        dow : 6, // Saturday is the first day of the week.
@@ -52293,7 +52977,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 234 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52391,7 +53075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : translate,
 	        yy : translate
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -52405,7 +53089,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 235 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52456,7 +53140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'eitt ár',
 	        yy : '%d ár'
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -52470,7 +53154,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 236 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52501,12 +53185,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        LLLL : 'dddd D MMMM YYYY HH:mm'
 	    },
 	    calendar : {
-	        sameDay: '[Aujourd\'hui à] LT',
-	        nextDay: '[Demain à] LT',
-	        nextWeek: 'dddd [à] LT',
-	        lastDay: '[Hier à] LT',
-	        lastWeek: 'dddd [dernier à] LT',
-	        sameElse: 'L'
+	        sameDay : '[Aujourd’hui à] LT',
+	        nextDay : '[Demain à] LT',
+	        nextWeek : 'dddd [à] LT',
+	        lastDay : '[Hier à] LT',
+	        lastWeek : 'dddd [dernier à] LT',
+	        sameElse : 'L'
 	    },
 	    relativeTime : {
 	        future : 'dans %s',
@@ -52523,9 +53207,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'un an',
 	        yy : '%d ans'
 	    },
-	    ordinalParse: /\d{1,2}(er|)/,
-	    ordinal : function (number) {
-	        return number + (number === 1 ? 'er' : '');
+	    dayOfMonthOrdinalParse: /\d{1,2}(er|)/,
+	    ordinal : function (number, period) {
+	        switch (period) {
+	            // TODO: Return 'e' when day of month > 1. Move this case inside
+	            // block for masculine words below.
+	            // See https://github.com/moment/moment/issues/3375
+	            case 'D':
+	                return number + (number === 1 ? 'er' : '');
+
+	            // Words with masculine grammatical gender: mois, trimestre, jour
+	            default:
+	            case 'M':
+	            case 'Q':
+	            case 'DDD':
+	            case 'd':
+	                return number + (number === 1 ? 'er' : 'e');
+
+	            // Words with feminine grammatical gender: semaine
+	            case 'w':
+	            case 'W':
+	                return number + (number === 1 ? 're' : 'e');
+	        }
 	    },
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -52539,7 +53242,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 237 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52570,12 +53273,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        LLLL : 'dddd D MMMM YYYY HH:mm'
 	    },
 	    calendar : {
-	        sameDay: '[Aujourd\'hui à] LT',
-	        nextDay: '[Demain à] LT',
-	        nextWeek: 'dddd [à] LT',
-	        lastDay: '[Hier à] LT',
-	        lastWeek: 'dddd [dernier à] LT',
-	        sameElse: 'L'
+	        sameDay : '[Aujourd’hui à] LT',
+	        nextDay : '[Demain à] LT',
+	        nextWeek : 'dddd [à] LT',
+	        lastDay : '[Hier à] LT',
+	        lastWeek : 'dddd [dernier à] LT',
+	        sameElse : 'L'
 	    },
 	    relativeTime : {
 	        future : 'dans %s',
@@ -52592,9 +53295,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'un an',
 	        yy : '%d ans'
 	    },
-	    ordinalParse: /\d{1,2}(er|e)/,
-	    ordinal : function (number) {
-	        return number + (number === 1 ? 'er' : 'e');
+	    dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
+	    ordinal : function (number, period) {
+	        switch (period) {
+	            // Words with masculine grammatical gender: mois, trimestre, jour
+	            default:
+	            case 'M':
+	            case 'Q':
+	            case 'D':
+	            case 'DDD':
+	            case 'd':
+	                return number + (number === 1 ? 'er' : 'e');
+
+	            // Words with feminine grammatical gender: semaine
+	            case 'w':
+	            case 'W':
+	                return number + (number === 1 ? 're' : 'e');
+	        }
 	    }
 	});
 
@@ -52604,7 +53321,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 238 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52635,12 +53352,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        LLLL : 'dddd D MMMM YYYY HH:mm'
 	    },
 	    calendar : {
-	        sameDay: '[Aujourd\'hui à] LT',
-	        nextDay: '[Demain à] LT',
-	        nextWeek: 'dddd [à] LT',
-	        lastDay: '[Hier à] LT',
-	        lastWeek: 'dddd [dernier à] LT',
-	        sameElse: 'L'
+	        sameDay : '[Aujourd’hui à] LT',
+	        nextDay : '[Demain à] LT',
+	        nextWeek : 'dddd [à] LT',
+	        lastDay : '[Hier à] LT',
+	        lastWeek : 'dddd [dernier à] LT',
+	        sameElse : 'L'
 	    },
 	    relativeTime : {
 	        future : 'dans %s',
@@ -52657,9 +53374,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'un an',
 	        yy : '%d ans'
 	    },
-	    ordinalParse: /\d{1,2}(er|e)/,
-	    ordinal : function (number) {
-	        return number + (number === 1 ? 'er' : 'e');
+	    dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
+	    ordinal : function (number, period) {
+	        switch (period) {
+	            // Words with masculine grammatical gender: mois, trimestre, jour
+	            default:
+	            case 'M':
+	            case 'Q':
+	            case 'D':
+	            case 'DDD':
+	            case 'd':
+	                return number + (number === 1 ? 'er' : 'e');
+
+	            // Words with feminine grammatical gender: semaine
+	            case 'w':
+	            case 'W':
+	                return number + (number === 1 ? 're' : 'e');
+	        }
 	    },
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -52673,7 +53404,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 239 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52693,7 +53424,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var fy = moment.defineLocale('fy', {
 	    months : 'jannewaris_febrewaris_maart_april_maaie_juny_july_augustus_septimber_oktober_novimber_desimber'.split('_'),
 	    monthsShort : function (m, format) {
-	        if (/-MMM-/.test(format)) {
+	        if (!m) {
+	            return monthsShortWithDots;
+	        } else if (/-MMM-/.test(format)) {
 	            return monthsShortWithoutDots[m.month()];
 	        } else {
 	            return monthsShortWithDots[m.month()];
@@ -52735,7 +53468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'ien jier',
 	        yy : '%d jierren'
 	    },
-	    ordinalParse: /\d{1,2}(ste|de)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
 	    ordinal : function (number) {
 	        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
 	    },
@@ -52751,7 +53484,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 240 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52815,7 +53548,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'bliadhna',
 	        yy : '%d bliadhna'
 	    },
-	    ordinalParse : /\d{1,2}(d|na|mh)/,
+	    dayOfMonthOrdinalParse : /\d{1,2}(d|na|mh)/,
 	    ordinal : function (number) {
 	        var output = number === 1 ? 'd' : number % 10 === 2 ? 'na' : 'mh';
 	        return number + output;
@@ -52832,7 +53565,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 241 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52900,7 +53633,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'un ano',
 	        yy : '%d anos'
 	    },
-	    ordinalParse : /\d{1,2}º/,
+	    dayOfMonthOrdinalParse : /\d{1,2}º/,
 	    ordinal : '%dº',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -52914,7 +53647,134 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 242 */
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Konkani Latin script [gom-latn]
+	//! author : The Discoverer : https://github.com/WikiDiscoverer
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	function processRelativeTime(number, withoutSuffix, key, isFuture) {
+	    var format = {
+	        's': ['thodde secondanim', 'thodde second'],
+	        'm': ['eka mintan', 'ek minute'],
+	        'mm': [number + ' mintanim', number + ' mintam'],
+	        'h': ['eka horan', 'ek hor'],
+	        'hh': [number + ' horanim', number + ' hor'],
+	        'd': ['eka disan', 'ek dis'],
+	        'dd': [number + ' disanim', number + ' dis'],
+	        'M': ['eka mhoinean', 'ek mhoino'],
+	        'MM': [number + ' mhoineanim', number + ' mhoine'],
+	        'y': ['eka vorsan', 'ek voros'],
+	        'yy': [number + ' vorsanim', number + ' vorsam']
+	    };
+	    return withoutSuffix ? format[key][0] : format[key][1];
+	}
+
+	var gomLatn = moment.defineLocale('gom-latn', {
+	    months : 'Janer_Febrer_Mars_Abril_Mai_Jun_Julai_Agost_Setembr_Otubr_Novembr_Dezembr'.split('_'),
+	    monthsShort : 'Jan._Feb._Mars_Abr._Mai_Jun_Jul._Ago._Set._Otu._Nov._Dez.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'Aitar_Somar_Mongllar_Budvar_Brestar_Sukrar_Son\'var'.split('_'),
+	    weekdaysShort : 'Ait._Som._Mon._Bud._Bre._Suk._Son.'.split('_'),
+	    weekdaysMin : 'Ai_Sm_Mo_Bu_Br_Su_Sn'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'A h:mm [vazta]',
+	        LTS : 'A h:mm:ss [vazta]',
+	        L : 'DD-MM-YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY A h:mm [vazta]',
+	        LLLL : 'dddd, MMMM[achea] Do, YYYY, A h:mm [vazta]',
+	        llll: 'ddd, D MMM YYYY, A h:mm [vazta]'
+	    },
+	    calendar : {
+	        sameDay: '[Aiz] LT',
+	        nextDay: '[Faleam] LT',
+	        nextWeek: '[Ieta to] dddd[,] LT',
+	        lastDay: '[Kal] LT',
+	        lastWeek: '[Fatlo] dddd[,] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : '%s',
+	        past : '%s adim',
+	        s : processRelativeTime,
+	        m : processRelativeTime,
+	        mm : processRelativeTime,
+	        h : processRelativeTime,
+	        hh : processRelativeTime,
+	        d : processRelativeTime,
+	        dd : processRelativeTime,
+	        M : processRelativeTime,
+	        MM : processRelativeTime,
+	        y : processRelativeTime,
+	        yy : processRelativeTime
+	    },
+	    dayOfMonthOrdinalParse : /\d{1,2}(er)/,
+	    ordinal : function (number, period) {
+	        switch (period) {
+	            // the ordinal 'er' only applies to day of the month
+	            case 'D':
+	                return number + 'er';
+	            default:
+	            case 'M':
+	            case 'Q':
+	            case 'DDD':
+	            case 'd':
+	            case 'w':
+	            case 'W':
+	                return number;
+	        }
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    },
+	    meridiemParse: /rati|sokalli|donparam|sanje/,
+	    meridiemHour : function (hour, meridiem) {
+	        if (hour === 12) {
+	            hour = 0;
+	        }
+	        if (meridiem === 'rati') {
+	            return hour < 4 ? hour : hour + 12;
+	        } else if (meridiem === 'sokalli') {
+	            return hour;
+	        } else if (meridiem === 'donparam') {
+	            return hour > 12 ? hour : hour + 12;
+	        } else if (meridiem === 'sanje') {
+	            return hour + 12;
+	        }
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 4) {
+	            return 'rati';
+	        } else if (hour < 12) {
+	            return 'sokalli';
+	        } else if (hour < 16) {
+	            return 'donparam';
+	        } else if (hour < 20) {
+	            return 'sanje';
+	        } else {
+	            return 'rati';
+	        }
+	    }
+	});
+
+	return gomLatn;
+
+	})));
+
+
+/***/ },
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53018,7 +53878,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 243 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53147,7 +54007,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 244 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53283,7 +54143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y      : 'godinu',
 	        yy     : translate
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -53297,7 +54157,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 245 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53397,7 +54257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : translate,
 	        yy : translate
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -53411,7 +54271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 246 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53484,7 +54344,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return 'երեկոյան';
 	        }
 	    },
-	    ordinalParse: /\d{1,2}|\d{1,2}-(ին|րդ)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}|\d{1,2}-(ին|րդ)/,
 	    ordinal: function (number, period) {
 	        switch (period) {
 	            case 'DDD':
@@ -53511,7 +54371,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 247 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53599,7 +54459,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 248 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53717,7 +54577,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : translate,
 	        yy : translate
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -53731,7 +54591,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 249 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53749,9 +54609,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var it = moment.defineLocale('it', {
 	    months : 'gennaio_febbraio_marzo_aprile_maggio_giugno_luglio_agosto_settembre_ottobre_novembre_dicembre'.split('_'),
 	    monthsShort : 'gen_feb_mar_apr_mag_giu_lug_ago_set_ott_nov_dic'.split('_'),
-	    weekdays : 'Domenica_Lunedì_Martedì_Mercoledì_Giovedì_Venerdì_Sabato'.split('_'),
-	    weekdaysShort : 'Dom_Lun_Mar_Mer_Gio_Ven_Sab'.split('_'),
-	    weekdaysMin : 'Do_Lu_Ma_Me_Gi_Ve_Sa'.split('_'),
+	    weekdays : 'domenica_lunedì_martedì_mercoledì_giovedì_venerdì_sabato'.split('_'),
+	    weekdaysShort : 'dom_lun_mar_mer_gio_ven_sab'.split('_'),
+	    weekdaysMin : 'do_lu_ma_me_gi_ve_sa'.split('_'),
 	    longDateFormat : {
 	        LT : 'HH:mm',
 	        LTS : 'HH:mm:ss',
@@ -53792,7 +54652,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'un anno',
 	        yy : '%d anni'
 	    },
-	    ordinalParse : /\d{1,2}º/,
+	    dayOfMonthOrdinalParse : /\d{1,2}º/,
 	    ordinal: '%dº',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -53806,7 +54666,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 250 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53827,12 +54687,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    weekdaysShort : '日_月_火_水_木_金_土'.split('_'),
 	    weekdaysMin : '日_月_火_水_木_金_土'.split('_'),
 	    longDateFormat : {
-	        LT : 'Ah時m分',
-	        LTS : 'Ah時m分s秒',
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
 	        L : 'YYYY/MM/DD',
 	        LL : 'YYYY年M月D日',
-	        LLL : 'YYYY年M月D日Ah時m分',
-	        LLLL : 'YYYY年M月D日Ah時m分 dddd'
+	        LLL : 'YYYY年M月D日 HH:mm',
+	        LLLL : 'YYYY年M月D日 HH:mm dddd',
+	        l : 'YYYY/MM/DD',
+	        ll : 'YYYY年M月D日',
+	        lll : 'YYYY年M月D日 HH:mm',
+	        llll : 'YYYY年M月D日 HH:mm dddd'
 	    },
 	    meridiemParse: /午前|午後/i,
 	    isPM : function (input) {
@@ -53853,7 +54717,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        lastWeek : '[前週]dddd LT',
 	        sameElse : 'L'
 	    },
-	    ordinalParse : /\d{1,2}日/,
+	    dayOfMonthOrdinalParse : /\d{1,2}日/,
 	    ordinal : function (number, period) {
 	        switch (period) {
 	            case 'd':
@@ -53887,7 +54751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 251 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53975,7 +54839,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 252 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54026,10 +54890,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        past : function (s) {
 	            if ((/(წამი|წუთი|საათი|დღე|თვე)/).test(s)) {
-	                return s.replace(/(ი|ე)$/, 'ის წინ');
+	                return s.replace(/(ი|ე)$/, 'ის უკან');
 	            }
 	            if ((/წელი/).test(s)) {
-	                return s.replace(/წელი$/, 'წლის წინ');
+	                return s.replace(/წელი$/, 'წლის უკან');
 	            }
 	        },
 	        s : 'რამდენიმე წამი',
@@ -54044,7 +54908,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'წელი',
 	        yy : '%d წელი'
 	    },
-	    ordinalParse: /0|1-ლი|მე-\d{1,2}|\d{1,2}-ე/,
+	    dayOfMonthOrdinalParse: /0|1-ლი|მე-\d{1,2}|\d{1,2}-ე/,
 	    ordinal : function (number) {
 	        if (number === 0) {
 	            return number;
@@ -54069,7 +54933,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 253 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54143,7 +55007,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'бір жыл',
 	        yy : '%d жыл'
 	    },
-	    ordinalParse: /\d{1,2}-(ші|шы)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}-(ші|шы)/,
 	    ordinal : function (number) {
 	        var a = number % 10,
 	            b = number >= 100 ? 100 : null;
@@ -54161,7 +55025,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 254 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54224,7 +55088,138 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 255 */
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Kannada [kn]
+	//! author : Rajeev Naik : https://github.com/rajeevnaikte
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var symbolMap = {
+	    '1': '೧',
+	    '2': '೨',
+	    '3': '೩',
+	    '4': '೪',
+	    '5': '೫',
+	    '6': '೬',
+	    '7': '೭',
+	    '8': '೮',
+	    '9': '೯',
+	    '0': '೦'
+	};
+	var numberMap = {
+	    '೧': '1',
+	    '೨': '2',
+	    '೩': '3',
+	    '೪': '4',
+	    '೫': '5',
+	    '೬': '6',
+	    '೭': '7',
+	    '೮': '8',
+	    '೯': '9',
+	    '೦': '0'
+	};
+
+	var kn = moment.defineLocale('kn', {
+	    months : 'ಜನವರಿ_ಫೆಬ್ರವರಿ_ಮಾರ್ಚ್_ಏಪ್ರಿಲ್_ಮೇ_ಜೂನ್_ಜುಲೈ_ಆಗಸ್ಟ್_ಸೆಪ್ಟೆಂಬರ್_ಅಕ್ಟೋಬರ್_ನವೆಂಬರ್_ಡಿಸೆಂಬರ್'.split('_'),
+	    monthsShort : 'ಜನ_ಫೆಬ್ರ_ಮಾರ್ಚ್_ಏಪ್ರಿಲ್_ಮೇ_ಜೂನ್_ಜುಲೈ_ಆಗಸ್ಟ್_ಸೆಪ್ಟೆಂಬ_ಅಕ್ಟೋಬ_ನವೆಂಬ_ಡಿಸೆಂಬ'.split('_'),
+	    monthsParseExact: true,
+	    weekdays : 'ಭಾನುವಾರ_ಸೋಮವಾರ_ಮಂಗಳವಾರ_ಬುಧವಾರ_ಗುರುವಾರ_ಶುಕ್ರವಾರ_ಶನಿವಾರ'.split('_'),
+	    weekdaysShort : 'ಭಾನು_ಸೋಮ_ಮಂಗಳ_ಬುಧ_ಗುರು_ಶುಕ್ರ_ಶನಿ'.split('_'),
+	    weekdaysMin : 'ಭಾ_ಸೋ_ಮಂ_ಬು_ಗು_ಶು_ಶ'.split('_'),
+	    longDateFormat : {
+	        LT : 'A h:mm',
+	        LTS : 'A h:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY, A h:mm',
+	        LLLL : 'dddd, D MMMM YYYY, A h:mm'
+	    },
+	    calendar : {
+	        sameDay : '[ಇಂದು] LT',
+	        nextDay : '[ನಾಳೆ] LT',
+	        nextWeek : 'dddd, LT',
+	        lastDay : '[ನಿನ್ನೆ] LT',
+	        lastWeek : '[ಕೊನೆಯ] dddd, LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s ನಂತರ',
+	        past : '%s ಹಿಂದೆ',
+	        s : 'ಕೆಲವು ಕ್ಷಣಗಳು',
+	        m : 'ಒಂದು ನಿಮಿಷ',
+	        mm : '%d ನಿಮಿಷ',
+	        h : 'ಒಂದು ಗಂಟೆ',
+	        hh : '%d ಗಂಟೆ',
+	        d : 'ಒಂದು ದಿನ',
+	        dd : '%d ದಿನ',
+	        M : 'ಒಂದು ತಿಂಗಳು',
+	        MM : '%d ತಿಂಗಳು',
+	        y : 'ಒಂದು ವರ್ಷ',
+	        yy : '%d ವರ್ಷ'
+	    },
+	    preparse: function (string) {
+	        return string.replace(/[೧೨೩೪೫೬೭೮೯೦]/g, function (match) {
+	            return numberMap[match];
+	        });
+	    },
+	    postformat: function (string) {
+	        return string.replace(/\d/g, function (match) {
+	            return symbolMap[match];
+	        });
+	    },
+	    meridiemParse: /ರಾತ್ರಿ|ಬೆಳಿಗ್ಗೆ|ಮಧ್ಯಾಹ್ನ|ಸಂಜೆ/,
+	    meridiemHour : function (hour, meridiem) {
+	        if (hour === 12) {
+	            hour = 0;
+	        }
+	        if (meridiem === 'ರಾತ್ರಿ') {
+	            return hour < 4 ? hour : hour + 12;
+	        } else if (meridiem === 'ಬೆಳಿಗ್ಗೆ') {
+	            return hour;
+	        } else if (meridiem === 'ಮಧ್ಯಾಹ್ನ') {
+	            return hour >= 10 ? hour : hour + 12;
+	        } else if (meridiem === 'ಸಂಜೆ') {
+	            return hour + 12;
+	        }
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 4) {
+	            return 'ರಾತ್ರಿ';
+	        } else if (hour < 10) {
+	            return 'ಬೆಳಿಗ್ಗೆ';
+	        } else if (hour < 17) {
+	            return 'ಮಧ್ಯಾಹ್ನ';
+	        } else if (hour < 20) {
+	            return 'ಸಂಜೆ';
+	        } else {
+	            return 'ರಾತ್ರಿ';
+	        }
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(ನೇ)/,
+	    ordinal : function (number) {
+	        return number + 'ನೇ';
+	    },
+	    week : {
+	        dow : 0, // Sunday is the first day of the week.
+	        doy : 6  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return kn;
+
+	})));
+
+
+/***/ },
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54246,12 +55241,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    weekdaysShort : '일_월_화_수_목_금_토'.split('_'),
 	    weekdaysMin : '일_월_화_수_목_금_토'.split('_'),
 	    longDateFormat : {
-	        LT : 'A h시 m분',
-	        LTS : 'A h시 m분 s초',
+	        LT : 'A h:mm',
+	        LTS : 'A h:mm:ss',
 	        L : 'YYYY.MM.DD',
 	        LL : 'YYYY년 MMMM D일',
-	        LLL : 'YYYY년 MMMM D일 A h시 m분',
-	        LLLL : 'YYYY년 MMMM D일 dddd A h시 m분'
+	        LLL : 'YYYY년 MMMM D일 A h:mm',
+	        LLLL : 'YYYY년 MMMM D일 dddd A h:mm',
+	        l : 'YYYY.MM.DD',
+	        ll : 'YYYY년 MMMM D일',
+	        lll : 'YYYY년 MMMM D일 A h:mm',
+	        llll : 'YYYY년 MMMM D일 dddd A h:mm'
 	    },
 	    calendar : {
 	        sameDay : '오늘 LT',
@@ -54266,7 +55265,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        past : '%s 전',
 	        s : '몇 초',
 	        ss : '%d초',
-	        m : '일분',
+	        m : '1분',
 	        mm : '%d분',
 	        h : '한 시간',
 	        hh : '%d시간',
@@ -54277,7 +55276,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : '일 년',
 	        yy : '%d년'
 	    },
-	    ordinalParse : /\d{1,2}일/,
+	    dayOfMonthOrdinalParse : /\d{1,2}일/,
 	    ordinal : '%d일',
 	    meridiemParse : /오전|오후/,
 	    isPM : function (token) {
@@ -54294,7 +55293,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 256 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54369,7 +55368,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'бир жыл',
 	        yy : '%d жыл'
 	    },
-	    ordinalParse: /\d{1,2}-(чи|чы|чү|чу)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}-(чи|чы|чү|чу)/,
 	    ordinal : function (number) {
 	        var a = number % 10,
 	            b = number >= 100 ? 100 : null;
@@ -54387,7 +55386,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 257 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54515,7 +55514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : processRelativeTime,
 	        yy : '%d Joer'
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal: '%d.',
 	    week: {
 	        dow: 1, // Monday is the first day of the week.
@@ -54529,7 +55528,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 258 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54592,7 +55591,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : '1 ປີ',
 	        yy : '%d ປີ'
 	    },
-	    ordinalParse: /(ທີ່)\d{1,2}/,
+	    dayOfMonthOrdinalParse: /(ທີ່)\d{1,2}/,
 	    ordinal : function (number) {
 	        return 'ທີ່' + number;
 	    }
@@ -54604,7 +55603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 259 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54710,7 +55709,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : translateSingular,
 	        yy : translate
 	    },
-	    ordinalParse: /\d{1,2}-oji/,
+	    dayOfMonthOrdinalParse: /\d{1,2}-oji/,
 	    ordinal : function (number) {
 	        return number + '-oji';
 	    },
@@ -54726,7 +55725,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 260 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54814,7 +55813,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : relativeTimeWithSingular,
 	        yy : relativeTimeWithPlural
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -54828,7 +55827,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 261 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54930,7 +55929,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y      : 'godinu',
 	        yy     : translator.translate
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -54944,7 +55943,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 262 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54999,7 +55998,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y: 'he tau',
 	        yy: '%d tau'
 	    },
-	    ordinalParse: /\d{1,2}º/,
+	    dayOfMonthOrdinalParse: /\d{1,2}º/,
 	    ordinal: '%dº',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -55013,7 +56012,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 263 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55076,7 +56075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'година',
 	        yy : '%d години'
 	    },
-	    ordinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
 	    ordinal : function (number) {
 	        var lastDigit = number % 10,
 	            last2Digits = number % 100;
@@ -55108,7 +56107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 264 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55194,7 +56193,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 265 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55358,7 +56357,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 266 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55445,7 +56444,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 267 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55533,7 +56532,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 268 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55634,7 +56633,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 269 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55688,7 +56687,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'ett år',
 	        yy : '%d år'
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -55702,7 +56701,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 270 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55830,7 +56829,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 271 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55854,7 +56853,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var nl = moment.defineLocale('nl', {
 	    months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
 	    monthsShort : function (m, format) {
-	        if (/-MMM-/.test(format)) {
+	        if (!m) {
+	            return monthsShortWithDots;
+	        } else if (/-MMM-/.test(format)) {
 	            return monthsShortWithoutDots[m.month()];
 	        } else {
 	            return monthsShortWithDots[m.month()];
@@ -55905,7 +56906,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'één jaar',
 	        yy : '%d jaar'
 	    },
-	    ordinalParse: /\d{1,2}(ste|de)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
 	    ordinal : function (number) {
 	        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
 	    },
@@ -55921,7 +56922,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 272 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55945,7 +56946,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var nlBe = moment.defineLocale('nl-be', {
 	    months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
 	    monthsShort : function (m, format) {
-	        if (/-MMM-/.test(format)) {
+	        if (!m) {
+	            return monthsShortWithDots;
+	        } else if (/-MMM-/.test(format)) {
 	            return monthsShortWithoutDots[m.month()];
 	        } else {
 	            return monthsShortWithDots[m.month()];
@@ -55996,7 +56999,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'één jaar',
 	        yy : '%d jaar'
 	    },
-	    ordinalParse: /\d{1,2}(ste|de)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
 	    ordinal : function (number) {
 	        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
 	    },
@@ -56012,7 +57015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 273 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56063,7 +57066,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'eit år',
 	        yy : '%d år'
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -56077,7 +57080,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 274 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56206,7 +57209,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 275 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56245,7 +57248,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var pl = moment.defineLocale('pl', {
 	    months : function (momentToFormat, format) {
-	        if (format === '') {
+	        if (!momentToFormat) {
+	            return monthsNominative;
+	        } else if (format === '') {
 	            // Hack: if format empty we know this is used to generate
 	            // RegExp by moment. Give then back both valid forms of months
 	            // in RegExp ready format.
@@ -56302,7 +57307,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'rok',
 	        yy : translate
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -56316,7 +57321,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 276 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56335,7 +57340,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    monthsShort : 'Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez'.split('_'),
 	    weekdays : 'Domingo_Segunda-Feira_Terça-Feira_Quarta-Feira_Quinta-Feira_Sexta-Feira_Sábado'.split('_'),
 	    weekdaysShort : 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
-	    weekdaysMin : 'Dom_2ª_3ª_4ª_5ª_6ª_Sáb'.split('_'),
+	    weekdaysMin : 'Do_2ª_3ª_4ª_5ª_6ª_Sá'.split('_'),
 	    weekdaysParseExact : true,
 	    longDateFormat : {
 	        LT : 'HH:mm',
@@ -56372,7 +57377,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'um ano',
 	        yy : '%d anos'
 	    },
-	    ordinalParse: /\d{1,2}º/,
+	    dayOfMonthOrdinalParse: /\d{1,2}º/,
 	    ordinal : '%dº',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -56386,7 +57391,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 277 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56405,7 +57410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    monthsShort : 'Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez'.split('_'),
 	    weekdays : 'Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado'.split('_'),
 	    weekdaysShort : 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
-	    weekdaysMin : 'Dom_2ª_3ª_4ª_5ª_6ª_Sáb'.split('_'),
+	    weekdaysMin : 'Do_2ª_3ª_4ª_5ª_6ª_Sá'.split('_'),
 	    weekdaysParseExact : true,
 	    longDateFormat : {
 	        LT : 'HH:mm',
@@ -56442,7 +57447,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'um ano',
 	        yy : '%d anos'
 	    },
-	    ordinalParse: /\d{1,2}º/,
+	    dayOfMonthOrdinalParse: /\d{1,2}º/,
 	    ordinal : '%dº'
 	});
 
@@ -56452,7 +57457,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 278 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56532,7 +57537,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 279 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56692,7 +57697,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return 'вечера';
 	        }
 	    },
-	    ordinalParse: /\d{1,2}-(й|го|я)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}-(й|го|я)/,
 	    ordinal: function (number, period) {
 	        switch (period) {
 	            case 'M':
@@ -56720,7 +57725,110 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 280 */
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Sindhi [sd]
+	//! author : Narain Sagar : https://github.com/narainsagar
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var months = [
+	    'جنوري',
+	    'فيبروري',
+	    'مارچ',
+	    'اپريل',
+	    'مئي',
+	    'جون',
+	    'جولاءِ',
+	    'آگسٽ',
+	    'سيپٽمبر',
+	    'آڪٽوبر',
+	    'نومبر',
+	    'ڊسمبر'
+	];
+	var days = [
+	    'آچر',
+	    'سومر',
+	    'اڱارو',
+	    'اربع',
+	    'خميس',
+	    'جمع',
+	    'ڇنڇر'
+	];
+
+	var sd = moment.defineLocale('sd', {
+	    months : months,
+	    monthsShort : months,
+	    weekdays : days,
+	    weekdaysShort : days,
+	    weekdaysMin : days,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd، D MMMM YYYY HH:mm'
+	    },
+	    meridiemParse: /صبح|شام/,
+	    isPM : function (input) {
+	        return 'شام' === input;
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 12) {
+	            return 'صبح';
+	        }
+	        return 'شام';
+	    },
+	    calendar : {
+	        sameDay : '[اڄ] LT',
+	        nextDay : '[سڀاڻي] LT',
+	        nextWeek : 'dddd [اڳين هفتي تي] LT',
+	        lastDay : '[ڪالهه] LT',
+	        lastWeek : '[گزريل هفتي] dddd [تي] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s پوء',
+	        past : '%s اڳ',
+	        s : 'چند سيڪنڊ',
+	        m : 'هڪ منٽ',
+	        mm : '%d منٽ',
+	        h : 'هڪ ڪلاڪ',
+	        hh : '%d ڪلاڪ',
+	        d : 'هڪ ڏينهن',
+	        dd : '%d ڏينهن',
+	        M : 'هڪ مهينو',
+	        MM : '%d مهينا',
+	        y : 'هڪ سال',
+	        yy : '%d سال'
+	    },
+	    preparse: function (string) {
+	        return string.replace(/،/g, ',');
+	    },
+	    postformat: function (string) {
+	        return string.replace(/,/g, '،');
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return sd;
+
+	})));
+
+
+/***/ },
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56772,7 +57880,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'okta jahki',
 	        yy : '%d jagit'
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -56786,7 +57894,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 281 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56839,7 +57947,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'වසර',
 	        yy : 'වසර %d'
 	    },
-	    ordinalParse: /\d{1,2} වැනි/,
+	    dayOfMonthOrdinalParse: /\d{1,2} වැනි/,
 	    ordinal : function (number) {
 	        return number + ' වැනි';
 	    },
@@ -56862,7 +57970,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 282 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57003,7 +58111,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : translate,
 	        yy : translate
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -57017,7 +58125,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 283 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57170,7 +58278,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y      : processRelativeTime,
 	        yy     : processRelativeTime
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -57184,7 +58292,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 284 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57245,7 +58353,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'një vit',
 	        yy : '%d vite'
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -57259,7 +58367,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 285 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57360,7 +58468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y      : 'godinu',
 	        yy     : translator.translate
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -57374,7 +58482,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 286 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57475,7 +58583,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y      : 'годину',
 	        yy     : translator.translate
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -57489,7 +58597,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 287 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57569,7 +58677,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return hour + 12;
 	        }
 	    },
-	    ordinalParse: /\d{1,2}/,
+	    dayOfMonthOrdinalParse: /\d{1,2}/,
 	    ordinal : '%d',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -57583,7 +58691,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 288 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57636,7 +58744,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'ett år',
 	        yy : '%d år'
 	    },
-	    ordinalParse: /\d{1,2}(e|a)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(e|a)/,
 	    ordinal : function (number) {
 	        var b = number % 10,
 	            output = (~~(number % 100 / 10) === 1) ? 'e' :
@@ -57657,7 +58765,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 289 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57721,7 +58829,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 290 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57797,7 +58905,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'ஒரு வருடம்',
 	        yy : '%d ஆண்டுகள்'
 	    },
-	    ordinalParse: /\d{1,2}வது/,
+	    dayOfMonthOrdinalParse: /\d{1,2}வது/,
 	    ordinal : function (number) {
 	        return number + 'வது';
 	    },
@@ -57856,7 +58964,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 291 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57908,7 +59016,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'ఒక సంవత్సరం',
 	        yy : '%d సంవత్సరాలు'
 	    },
-	    ordinalParse : /\d{1,2}వ/,
+	    dayOfMonthOrdinalParse : /\d{1,2}వ/,
 	    ordinal : '%dవ',
 	    meridiemParse: /రాత్రి|ఉదయం|మధ్యాహ్నం|సాయంత్రం/,
 	    meridiemHour : function (hour, meridiem) {
@@ -57950,7 +59058,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 292 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58002,7 +59110,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'tinan ida',
 	        yy : 'tinan %d'
 	    },
-	    ordinalParse: /\d{1,2}(st|nd|rd|th)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
 	    ordinal : function (number) {
 	        var b = number % 10,
 	            output = (~~(number % 100 / 10) === 1) ? 'th' :
@@ -58023,7 +59131,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 293 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58048,7 +59156,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    longDateFormat : {
 	        LT : 'H:mm',
 	        LTS : 'H:mm:ss',
-	        L : 'YYYY/MM/DD',
+	        L : 'DD/MM/YYYY',
 	        LL : 'D MMMM YYYY',
 	        LLL : 'D MMMM YYYY เวลา H:mm',
 	        LLLL : 'วันddddที่ D MMMM YYYY เวลา H:mm'
@@ -58095,7 +59203,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 294 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58146,7 +59254,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'isang taon',
 	        yy : '%d taon'
 	    },
-	    ordinalParse: /\d{1,2}/,
+	    dayOfMonthOrdinalParse: /\d{1,2}/,
 	    ordinal : function (number) {
 	        return number;
 	    },
@@ -58162,7 +59270,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 295 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58273,7 +59381,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'wa’ DIS',
 	        yy : translate
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -58287,7 +59395,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 296 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58360,7 +59468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'bir yıl',
 	        yy : '%d yıl'
 	    },
-	    ordinalParse: /\d{1,2}'(inci|nci|üncü|ncı|uncu|ıncı)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}'(inci|nci|üncü|ncı|uncu|ıncı)/,
 	    ordinal : function (number) {
 	        if (number === 0) {  // special case for zero
 	            return number + '\'ıncı';
@@ -58382,7 +59490,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 297 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58447,7 +59555,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : processRelativeTime,
 	        yy : processRelativeTime
 	    },
-	    ordinalParse: /\d{1,2}\./,
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
 	    ordinal : '%d.',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -58478,7 +59586,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 298 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58541,7 +59649,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 299 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58604,7 +59712,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 300 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58646,8 +59754,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        'nominative': 'неділя_понеділок_вівторок_середа_четвер_п’ятниця_субота'.split('_'),
 	        'accusative': 'неділю_понеділок_вівторок_середу_четвер_п’ятницю_суботу'.split('_'),
 	        'genitive': 'неділі_понеділка_вівторка_середи_четверга_п’ятниці_суботи'.split('_')
-	    },
-	    nounCase = (/(\[[ВвУу]\]) ?dddd/).test(format) ?
+	    };
+
+	    if (!m) {
+	        return weekdays['nominative'];
+	    }
+
+	    var nounCase = (/(\[[ВвУу]\]) ?dddd/).test(format) ?
 	        'accusative' :
 	        ((/\[?(?:минулої|наступної)? ?\] ?dddd/).test(format) ?
 	            'genitive' :
@@ -58728,7 +59841,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return 'вечора';
 	        }
 	    },
-	    ordinalParse: /\d{1,2}-(й|го)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}-(й|го)/,
 	    ordinal: function (number, period) {
 	        switch (period) {
 	            case 'M':
@@ -58755,7 +59868,111 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 301 */
+/* 306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Urdu [ur]
+	//! author : Sawood Alam : https://github.com/ibnesayeed
+	//! author : Zack : https://github.com/ZackVision
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var months = [
+	    'جنوری',
+	    'فروری',
+	    'مارچ',
+	    'اپریل',
+	    'مئی',
+	    'جون',
+	    'جولائی',
+	    'اگست',
+	    'ستمبر',
+	    'اکتوبر',
+	    'نومبر',
+	    'دسمبر'
+	];
+	var days = [
+	    'اتوار',
+	    'پیر',
+	    'منگل',
+	    'بدھ',
+	    'جمعرات',
+	    'جمعہ',
+	    'ہفتہ'
+	];
+
+	var ur = moment.defineLocale('ur', {
+	    months : months,
+	    monthsShort : months,
+	    weekdays : days,
+	    weekdaysShort : days,
+	    weekdaysMin : days,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd، D MMMM YYYY HH:mm'
+	    },
+	    meridiemParse: /صبح|شام/,
+	    isPM : function (input) {
+	        return 'شام' === input;
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 12) {
+	            return 'صبح';
+	        }
+	        return 'شام';
+	    },
+	    calendar : {
+	        sameDay : '[آج بوقت] LT',
+	        nextDay : '[کل بوقت] LT',
+	        nextWeek : 'dddd [بوقت] LT',
+	        lastDay : '[گذشتہ روز بوقت] LT',
+	        lastWeek : '[گذشتہ] dddd [بوقت] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s بعد',
+	        past : '%s قبل',
+	        s : 'چند سیکنڈ',
+	        m : 'ایک منٹ',
+	        mm : '%d منٹ',
+	        h : 'ایک گھنٹہ',
+	        hh : '%d گھنٹے',
+	        d : 'ایک دن',
+	        dd : '%d دن',
+	        M : 'ایک ماہ',
+	        MM : '%d ماہ',
+	        y : 'ایک سال',
+	        yy : '%d سال'
+	    },
+	    preparse: function (string) {
+	        return string.replace(/،/g, ',');
+	    },
+	    postformat: function (string) {
+	        return string.replace(/,/g, '،');
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return ur;
+
+	})));
+
+
+/***/ },
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58818,7 +60035,70 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 302 */
+/* 308 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Uzbek Latin [uz-latn]
+	//! author : Rasulbek Mirzayev : github.com/Rasulbeeek
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var uzLatn = moment.defineLocale('uz-latn', {
+	    months : 'Yanvar_Fevral_Mart_Aprel_May_Iyun_Iyul_Avgust_Sentabr_Oktabr_Noyabr_Dekabr'.split('_'),
+	    monthsShort : 'Yan_Fev_Mar_Apr_May_Iyun_Iyul_Avg_Sen_Okt_Noy_Dek'.split('_'),
+	    weekdays : 'Yakshanba_Dushanba_Seshanba_Chorshanba_Payshanba_Juma_Shanba'.split('_'),
+	    weekdaysShort : 'Yak_Dush_Sesh_Chor_Pay_Jum_Shan'.split('_'),
+	    weekdaysMin : 'Ya_Du_Se_Cho_Pa_Ju_Sha'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'D MMMM YYYY, dddd HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Bugun soat] LT [da]',
+	        nextDay : '[Ertaga] LT [da]',
+	        nextWeek : 'dddd [kuni soat] LT [da]',
+	        lastDay : '[Kecha soat] LT [da]',
+	        lastWeek : '[O\'tgan] dddd [kuni soat] LT [da]',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'Yaqin %s ichida',
+	        past : 'Bir necha %s oldin',
+	        s : 'soniya',
+	        m : 'bir daqiqa',
+	        mm : '%d daqiqa',
+	        h : 'bir soat',
+	        hh : '%d soat',
+	        d : 'bir kun',
+	        dd : '%d kun',
+	        M : 'bir oy',
+	        MM : '%d oy',
+	        y : 'bir yil',
+	        yy : '%d yil'
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return uzLatn;
+
+	})));
+
+
+/***/ },
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58886,7 +60166,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'một năm',
 	        yy : '%d năm'
 	    },
-	    ordinalParse: /\d{1,2}/,
+	    dayOfMonthOrdinalParse: /\d{1,2}/,
 	    ordinal : function (number) {
 	        return number;
 	    },
@@ -58902,7 +60182,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 303 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58954,7 +60234,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'á ~ýéár',
 	        yy : '%d ý~éárs'
 	    },
-	    ordinalParse: /\d{1,2}(th|st|nd|rd)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
 	    ordinal : function (number) {
 	        var b = number % 10,
 	            output = (~~(number % 100 / 10) === 1) ? 'th' :
@@ -58975,7 +60255,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 304 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -59026,7 +60306,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y : 'ọdún kan',
 	        yy : 'ọdún %d'
 	    },
-	    ordinalParse : /ọjọ́\s\d{1,2}/,
+	    dayOfMonthOrdinalParse : /ọjọ́\s\d{1,2}/,
 	    ordinal : 'ọjọ́ %d',
 	    week : {
 	        dow : 1, // Monday is the first day of the week.
@@ -59040,7 +60320,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 305 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -59062,16 +60342,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    weekdaysShort : '周日_周一_周二_周三_周四_周五_周六'.split('_'),
 	    weekdaysMin : '日_一_二_三_四_五_六'.split('_'),
 	    longDateFormat : {
-	        LT : 'Ah点mm分',
-	        LTS : 'Ah点m分s秒',
-	        L : 'YYYY-MM-DD',
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'YYYY年MMMD日',
 	        LL : 'YYYY年MMMD日',
 	        LLL : 'YYYY年MMMD日Ah点mm分',
 	        LLLL : 'YYYY年MMMD日ddddAh点mm分',
-	        l : 'YYYY-MM-DD',
+	        l : 'YYYY年MMMD日',
 	        ll : 'YYYY年MMMD日',
-	        lll : 'YYYY年MMMD日Ah点mm分',
-	        llll : 'YYYY年MMMD日ddddAh点mm分'
+	        lll : 'YYYY年MMMD日 HH:mm',
+	        llll : 'YYYY年MMMD日dddd HH:mm'
 	    },
 	    meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
 	    meridiemHour: function (hour, meridiem) {
@@ -59105,30 +60385,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    },
 	    calendar : {
-	        sameDay : function () {
-	            return this.minutes() === 0 ? '[今天]Ah[点整]' : '[今天]LT';
-	        },
-	        nextDay : function () {
-	            return this.minutes() === 0 ? '[明天]Ah[点整]' : '[明天]LT';
-	        },
-	        lastDay : function () {
-	            return this.minutes() === 0 ? '[昨天]Ah[点整]' : '[昨天]LT';
-	        },
-	        nextWeek : function () {
-	            var startOfWeek, prefix;
-	            startOfWeek = moment().startOf('week');
-	            prefix = this.diff(startOfWeek, 'days') >= 7 ? '[下]' : '[本]';
-	            return this.minutes() === 0 ? prefix + 'dddAh点整' : prefix + 'dddAh点mm';
-	        },
-	        lastWeek : function () {
-	            var startOfWeek, prefix;
-	            startOfWeek = moment().startOf('week');
-	            prefix = this.unix() < startOfWeek.unix()  ? '[上]' : '[本]';
-	            return this.minutes() === 0 ? prefix + 'dddAh点整' : prefix + 'dddAh点mm';
-	        },
-	        sameElse : 'LL'
+	        sameDay : '[今天]LT',
+	        nextDay : '[明天]LT',
+	        nextWeek : '[下]ddddLT',
+	        lastDay : '[昨天]LT',
+	        lastWeek : '[上]ddddLT',
+	        sameElse : 'L'
 	    },
-	    ordinalParse: /\d{1,2}(日|月|周)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(日|月|周)/,
 	    ordinal : function (number, period) {
 	        switch (period) {
 	            case 'd':
@@ -59172,7 +60436,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 306 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -59195,16 +60459,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    weekdaysShort : '週日_週一_週二_週三_週四_週五_週六'.split('_'),
 	    weekdaysMin : '日_一_二_三_四_五_六'.split('_'),
 	    longDateFormat : {
-	        LT : 'Ah點mm分',
-	        LTS : 'Ah點m分s秒',
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
 	        L : 'YYYY年MMMD日',
 	        LL : 'YYYY年MMMD日',
-	        LLL : 'YYYY年MMMD日Ah點mm分',
-	        LLLL : 'YYYY年MMMD日ddddAh點mm分',
+	        LLL : 'YYYY年MMMD日 HH:mm',
+	        LLLL : 'YYYY年MMMD日dddd HH:mm',
 	        l : 'YYYY年MMMD日',
 	        ll : 'YYYY年MMMD日',
-	        lll : 'YYYY年MMMD日Ah點mm分',
-	        llll : 'YYYY年MMMD日ddddAh點mm分'
+	        lll : 'YYYY年MMMD日 HH:mm',
+	        llll : 'YYYY年MMMD日dddd HH:mm'
 	    },
 	    meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
 	    meridiemHour : function (hour, meridiem) {
@@ -59243,7 +60507,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        lastWeek : '[上]ddddLT',
 	        sameElse : 'L'
 	    },
-	    ordinalParse: /\d{1,2}(日|月|週)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(日|月|週)/,
 	    ordinal : function (number, period) {
 	        switch (period) {
 	            case 'd' :
@@ -59282,7 +60546,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 307 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -59304,16 +60568,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    weekdaysShort : '週日_週一_週二_週三_週四_週五_週六'.split('_'),
 	    weekdaysMin : '日_一_二_三_四_五_六'.split('_'),
 	    longDateFormat : {
-	        LT : 'Ah點mm分',
-	        LTS : 'Ah點m分s秒',
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
 	        L : 'YYYY年MMMD日',
 	        LL : 'YYYY年MMMD日',
-	        LLL : 'YYYY年MMMD日Ah點mm分',
-	        LLLL : 'YYYY年MMMD日ddddAh點mm分',
+	        LLL : 'YYYY年MMMD日 HH:mm',
+	        LLLL : 'YYYY年MMMD日dddd HH:mm',
 	        l : 'YYYY年MMMD日',
 	        ll : 'YYYY年MMMD日',
-	        lll : 'YYYY年MMMD日Ah點mm分',
-	        llll : 'YYYY年MMMD日ddddAh點mm分'
+	        lll : 'YYYY年MMMD日 HH:mm',
+	        llll : 'YYYY年MMMD日dddd HH:mm'
 	    },
 	    meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
 	    meridiemHour : function (hour, meridiem) {
@@ -59352,7 +60616,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        lastWeek : '[上]ddddLT',
 	        sameElse : 'L'
 	    },
-	    ordinalParse: /\d{1,2}(日|月|週)/,
+	    dayOfMonthOrdinalParse: /\d{1,2}(日|月|週)/,
 	    ordinal : function (number, period) {
 	        switch (period) {
 	            case 'd' :
@@ -59391,7 +60655,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 308 */
+/* 315 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -59410,7 +60674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 309 */
+/* 316 */
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -59422,7 +60686,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 310 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59646,7 +60910,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 311 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -59654,22 +60918,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports['default'] = getResponsiveContainerStyles;
 
-	var _constants = __webpack_require__(308);
+	var _constants = __webpack_require__(315);
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	function getResponsiveContainerStyles(anchorDirection, currentOffset, containerEdge, margin) {
-	  var newStyles = {};
-
 	  var windowWidth = typeof window !== 'undefined' && window.innerWidth;
 	  var calculatedOffset = anchorDirection === _constants.ANCHOR_LEFT ? windowWidth - containerEdge : containerEdge;
 	  var calculatedMargin = margin || 0;
 
-	  newStyles[anchorDirection] = Math.min(currentOffset + calculatedOffset - calculatedMargin, 0);
-
-	  return newStyles;
+	  return _defineProperty({}, anchorDirection, Math.min(currentOffset + calculatedOffset - calculatedMargin, 0));
 	}
 
 /***/ },
-/* 312 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -59681,7 +60943,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _moment2 = _interopRequireDefault(_moment);
 
-	var _isSameDay = __webpack_require__(313);
+	var _isSameDay = __webpack_require__(320);
 
 	var _isSameDay2 = _interopRequireDefault(_isSameDay);
 
@@ -59693,7 +60955,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 313 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -59713,7 +60975,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 314 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -60143,7 +61405,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 3 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(315);
+		module.exports = __webpack_require__(322);
 
 	/***/ },
 	/* 4 */
@@ -60159,7 +61421,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 9 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(308);
+		module.exports = __webpack_require__(315);
 
 	/***/ },
 	/* 10 */,
@@ -60172,7 +61434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 17 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(312);
+		module.exports = __webpack_require__(319);
 
 	/***/ },
 	/* 18 */,
@@ -60184,35 +61446,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 24 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(317);
+		module.exports = __webpack_require__(324);
 
 	/***/ },
 	/* 25 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(319);
+		module.exports = __webpack_require__(326);
 
 	/***/ },
 	/* 26 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(320);
+		module.exports = __webpack_require__(327);
 
 	/***/ },
 	/* 27 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(321);
+		module.exports = __webpack_require__(328);
 
 	/***/ }
 	/******/ ]);
 
 /***/ },
-/* 315 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var moment = __webpack_require__(198);
-	var momentValidationWrapper = __webpack_require__(316);
+	var momentValidationWrapper = __webpack_require__(323);
 
 	moment.createFromInputFallback = function(config) {
 	  config._d = new Date(config._i);
@@ -60226,6 +61488,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  childContext : 'child context',
 	};
 
+	function createInvalidRequiredErrorMessage(propName, componentName, value) {
+	  return new Error(
+	    'The prop `' + propName + '` is marked as required in `' + componentName + '`, but its value is `' + value + '`.'
+	  );
+	}
+
 	function createMomentChecker(type, typeValidator, validator, momentType) {
 
 	  function propValidator(
@@ -60237,23 +61505,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    location,
 	    propFullName
 	  ) {
-	    if (isRequired) {
-	      var locationName = ReactPropTypeLocationNames[ location ];
-	      componentName = componentName || ANONYMOUS;
-	      propFullName = propFullName || propName;
-	      if (!props.hasOwnProperty(propName)) {
-	        return new Error(
-	          'Required ' + locationName + ' `' + propFullName +
-	          '` was not specified in `' +
-	          componentName + '`.'
-	        );
-	      }
-	    }
-
 	    var propValue = props[ propName ];
 	    var propType = typeof propValue;
 
-	    if (typeof propValue === 'undefined' || propValue === null) {
+	    var isPropValueUndefined = typeof propValue === 'undefined';
+	    var isPropValueNull = propValue === null;
+
+	    if (isRequired) {
+	      componentName = componentName || ANONYMOUS;
+	      propFullName = propFullName || propName;
+	      if (isPropValueUndefined) {
+	        return createInvalidRequiredErrorMessage(propFullName, componentName, 'undefined');
+	      } else if (isPropValueNull) {
+	        return createInvalidRequiredErrorMessage(propFullName, componentName, 'null');
+	      }
+	    }
+
+	    if (isPropValueUndefined || isPropValueNull) {
 	      return null;
 	    }
 
@@ -60338,7 +61606,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 316 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var moment = __webpack_require__(198);
@@ -60358,7 +61626,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 317 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -60541,10 +61809,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		    return onClearDates;
 		  }(),
 
+		  startDate: '',
+		  endDate: '',
+
 		  isStartDateFocused: false,
 		  isEndDateFocused: false,
 		  showClearDates: false,
 		  disabled: false,
+		  required: false,
 		  showCaret: false,
 
 		  // i18n
@@ -60696,7 +61968,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/***/ 9:
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(308);
+		module.exports = __webpack_require__(315);
 
 	/***/ },
 
@@ -60757,7 +62029,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/***/ 22:
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(318);
+		module.exports = __webpack_require__(325);
 
 	/***/ },
 
@@ -60818,7 +62090,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/******/ });
 
 /***/ },
-/* 318 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -61131,14 +62403,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	/***/ 14:
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(309);
+		module.exports = __webpack_require__(316);
 
 	/***/ }
 
 	/******/ });
 
 /***/ },
-/* 319 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -61150,7 +62422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _moment2 = _interopRequireDefault(_moment);
 
-	var _constants = __webpack_require__(308);
+	var _constants = __webpack_require__(315);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -61162,7 +62434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 320 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -61174,11 +62446,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _moment2 = _interopRequireDefault(_moment);
 
-	var _toMomentObject = __webpack_require__(319);
+	var _toMomentObject = __webpack_require__(326);
 
 	var _toMomentObject2 = _interopRequireDefault(_toMomentObject);
 
-	var _constants = __webpack_require__(308);
+	var _constants = __webpack_require__(315);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -61190,7 +62462,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 321 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -61202,7 +62474,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _moment2 = _interopRequireDefault(_moment);
 
-	var _isSameDay = __webpack_require__(313);
+	var _isSameDay = __webpack_require__(320);
 
 	var _isSameDay2 = _interopRequireDefault(_isSameDay);
 
@@ -61214,7 +62486,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 322 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -61390,6 +62662,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 
 		var defaultProps = {
+		  startDate: undefined, // TODO: use null
+		  endDate: undefined, // TODO: use null
 		  onDatesChange: function () {
 		    function onDatesChange() {}
 
@@ -61905,7 +63179,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 3 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(315);
+		module.exports = __webpack_require__(322);
 
 	/***/ },
 	/* 4 */
@@ -61920,13 +63194,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 8 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(323);
+		module.exports = __webpack_require__(330);
 
 	/***/ },
 	/* 9 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(308);
+		module.exports = __webpack_require__(315);
 
 	/***/ },
 	/* 10 */,
@@ -61936,7 +63210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 14 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(309);
+		module.exports = __webpack_require__(316);
 
 	/***/ },
 	/* 15 */,
@@ -61944,7 +63218,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 17 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(312);
+		module.exports = __webpack_require__(319);
 
 	/***/ },
 	/* 18 */,
@@ -61966,37 +63240,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 34 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(324);
+		module.exports = __webpack_require__(331);
 
 	/***/ },
 	/* 35 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(349);
+		module.exports = __webpack_require__(357);
 
 	/***/ },
 	/* 36 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(313);
+		module.exports = __webpack_require__(320);
 
 	/***/ },
 	/* 37 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(350);
+		module.exports = __webpack_require__(358);
 
 	/***/ },
 	/* 38 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(351);
+		module.exports = __webpack_require__(359);
 
 	/***/ }
 	/******/ ]);
 
 /***/ },
-/* 323 */
+/* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -62005,23 +63279,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(3);
 
-	var _constants = __webpack_require__(308);
+	var _constants = __webpack_require__(315);
 
 	exports['default'] = _react.PropTypes.oneOf([_constants.HORIZONTAL_ORIENTATION, _constants.VERTICAL_ORIENTATION]);
 
 /***/ },
-/* 324 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var define = __webpack_require__(325);
-	var ES = __webpack_require__(329);
+	var define = __webpack_require__(332);
+	var ES = __webpack_require__(336);
 
-	var implementation = __webpack_require__(346);
-	var getPolyfill = __webpack_require__(347);
+	var implementation = __webpack_require__(354);
+	var getPolyfill = __webpack_require__(355);
 	var polyfill = getPolyfill();
-	var shim = __webpack_require__(348);
+	var shim = __webpack_require__(356);
 
 	var slice = Array.prototype.slice;
 
@@ -62041,13 +63315,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 325 */
+/* 332 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var keys = __webpack_require__(326);
-	var foreach = __webpack_require__(328);
+	var keys = __webpack_require__(333);
+	var foreach = __webpack_require__(335);
 	var hasSymbols = typeof Symbol === 'function' && typeof Symbol() === 'symbol';
 
 	var toStr = Object.prototype.toString;
@@ -62103,7 +63377,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 326 */
+/* 333 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62112,7 +63386,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var has = Object.prototype.hasOwnProperty;
 	var toStr = Object.prototype.toString;
 	var slice = Array.prototype.slice;
-	var isArgs = __webpack_require__(327);
+	var isArgs = __webpack_require__(334);
 	var isEnumerable = Object.prototype.propertyIsEnumerable;
 	var hasDontEnumBug = !isEnumerable.call({ toString: null }, 'toString');
 	var hasProtoEnumBug = isEnumerable.call(function () {}, 'prototype');
@@ -62249,7 +63523,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 327 */
+/* 334 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -62272,7 +63546,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 328 */
+/* 335 */
 /***/ function(module, exports) {
 
 	
@@ -62300,7 +63574,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 329 */
+/* 336 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62309,24 +63583,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
 	var symbolToStr = hasSymbols ? Symbol.prototype.toString : toStr;
 
-	var $isNaN = __webpack_require__(330);
-	var $isFinite = __webpack_require__(331);
+	var $isNaN = __webpack_require__(337);
+	var $isFinite = __webpack_require__(338);
 	var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
 
-	var assign = __webpack_require__(332);
-	var sign = __webpack_require__(333);
-	var mod = __webpack_require__(334);
-	var isPrimitive = __webpack_require__(335);
-	var toPrimitive = __webpack_require__(336);
+	var assign = __webpack_require__(339);
+	var sign = __webpack_require__(340);
+	var mod = __webpack_require__(341);
+	var isPrimitive = __webpack_require__(342);
+	var toPrimitive = __webpack_require__(343);
 	var parseInteger = parseInt;
-	var bind = __webpack_require__(341);
+	var bind = __webpack_require__(348);
 	var strSlice = bind.call(Function.call, String.prototype.slice);
 	var isBinary = bind.call(Function.call, RegExp.prototype.test, /^0b[01]+$/i);
 	var isOctal = bind.call(Function.call, RegExp.prototype.test, /^0o[0-7]+$/i);
 	var nonWS = ['\u0085', '\u200b', '\ufffe'].join('');
 	var nonWSregex = new RegExp('[' + nonWS + ']', 'g');
 	var hasNonWS = bind.call(Function.call, RegExp.prototype.test, nonWSregex);
-	var invalidHexLiteral = /^[\-\+]0x[0-9a-f]+$/i;
+	var invalidHexLiteral = /^[-+]0x[0-9a-f]+$/i;
 	var isInvalidHexLiteral = bind.call(Function.call, RegExp.prototype.test, invalidHexLiteral);
 
 	// whitespace from: http://es5.github.io/#x15.5.4.20
@@ -62342,9 +63616,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		return replace(value, trimRegex, '');
 	};
 
-	var ES5 = __webpack_require__(343);
+	var ES5 = __webpack_require__(350);
 
-	var hasRegExpMatcher = __webpack_require__(345);
+	var hasRegExpMatcher = __webpack_require__(352);
 
 	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-abstract-operations
 	var ES6 = assign(assign({}, ES5), {
@@ -62531,6 +63805,77 @@ return /******/ (function(modules) { // webpackBootstrap
 			return (x === y) || ($isNaN(x) && $isNaN(y));
 		},
 
+		/**
+		 * 7.3.2 GetV (V, P)
+		 * 1. Assert: IsPropertyKey(P) is true.
+		 * 2. Let O be ToObject(V).
+		 * 3. ReturnIfAbrupt(O).
+		 * 4. Return O.[[Get]](P, V).
+		 */
+		GetV: function GetV(V, P) {
+			// 7.3.2.1
+			if (!this.IsPropertyKey(P)) {
+				throw new TypeError('Assertion failed: IsPropertyKey(P) is not true');
+			}
+
+			// 7.3.2.2-3
+			var O = this.ToObject(V);
+
+			// 7.3.2.4
+			return O[P];
+		},
+
+		/**
+		 * 7.3.9 - http://www.ecma-international.org/ecma-262/6.0/#sec-getmethod
+		 * 1. Assert: IsPropertyKey(P) is true.
+		 * 2. Let func be GetV(O, P).
+		 * 3. ReturnIfAbrupt(func).
+		 * 4. If func is either undefined or null, return undefined.
+		 * 5. If IsCallable(func) is false, throw a TypeError exception.
+		 * 6. Return func.
+		 */
+		GetMethod: function GetMethod(O, P) {
+			// 7.3.9.1
+			if (!this.IsPropertyKey(P)) {
+				throw new TypeError('Assertion failed: IsPropertyKey(P) is not true');
+			}
+
+			// 7.3.9.2
+			var func = this.GetV(O, P);
+
+			// 7.3.9.4
+			if (func == null) {
+				return undefined;
+			}
+
+			// 7.3.9.5
+			if (!this.IsCallable(func)) {
+				throw new TypeError(P + 'is not a function');
+			}
+
+			// 7.3.9.6
+			return func;
+		},
+
+		/**
+		 * 7.3.1 Get (O, P) - http://www.ecma-international.org/ecma-262/6.0/#sec-get-o-p
+		 * 1. Assert: Type(O) is Object.
+		 * 2. Assert: IsPropertyKey(P) is true.
+		 * 3. Return O.[[Get]](P, O).
+		 */
+		Get: function Get(O, P) {
+			// 7.3.1.1
+			if (this.Type(O) !== 'Object') {
+				throw new TypeError('Assertion failed: Type(O) is not Object');
+			}
+			// 7.3.1.2
+			if (!this.IsPropertyKey(P)) {
+				throw new TypeError('Assertion failed: IsPropertyKey(P) is not true');
+			}
+			// 7.3.1.3
+			return O[P];
+		},
+
 		Type: function Type(x) {
 			if (typeof x === 'symbol') {
 				return 'Symbol';
@@ -62567,7 +63912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 330 */
+/* 337 */
 /***/ function(module, exports) {
 
 	module.exports = Number.isNaN || function isNaN(a) {
@@ -62576,7 +63921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 331 */
+/* 338 */
 /***/ function(module, exports) {
 
 	var $isNaN = Number.isNaN || function (a) { return a !== a; };
@@ -62585,7 +63930,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 332 */
+/* 339 */
 /***/ function(module, exports) {
 
 	var has = Object.prototype.hasOwnProperty;
@@ -62600,7 +63945,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 333 */
+/* 340 */
 /***/ function(module, exports) {
 
 	module.exports = function sign(number) {
@@ -62609,7 +63954,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 334 */
+/* 341 */
 /***/ function(module, exports) {
 
 	module.exports = function mod(number, modulo) {
@@ -62619,7 +63964,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 335 */
+/* 342 */
 /***/ function(module, exports) {
 
 	module.exports = function isPrimitive(value) {
@@ -62628,17 +63973,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 336 */
+/* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
 
-	var isPrimitive = __webpack_require__(337);
-	var isCallable = __webpack_require__(338);
-	var isDate = __webpack_require__(339);
-	var isSymbol = __webpack_require__(340);
+	var isPrimitive = __webpack_require__(344);
+	var isCallable = __webpack_require__(345);
+	var isDate = __webpack_require__(346);
+	var isSymbol = __webpack_require__(347);
 
 	var ordinaryToPrimitive = function OrdinaryToPrimitive(O, hint) {
 		if (typeof O === 'undefined' || O === null) {
@@ -62708,7 +64053,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 337 */
+/* 344 */
 /***/ function(module, exports) {
 
 	module.exports = function isPrimitive(value) {
@@ -62717,7 +64062,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 338 */
+/* 345 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -62762,7 +64107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 339 */
+/* 346 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -62788,7 +64133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 340 */
+/* 347 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -62821,16 +64166,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 341 */
+/* 348 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var implementation = __webpack_require__(342);
+	var implementation = __webpack_require__(349);
 
 	module.exports = Function.prototype.bind || implementation;
 
 
 /***/ },
-/* 342 */
+/* 349 */
 /***/ function(module, exports) {
 
 	var ERROR_MESSAGE = 'Function.prototype.bind called on incompatible ';
@@ -62884,19 +64229,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 343 */
+/* 350 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var $isNaN = __webpack_require__(330);
-	var $isFinite = __webpack_require__(331);
+	var $isNaN = __webpack_require__(337);
+	var $isFinite = __webpack_require__(338);
 
-	var sign = __webpack_require__(333);
-	var mod = __webpack_require__(334);
+	var sign = __webpack_require__(340);
+	var mod = __webpack_require__(341);
 
-	var IsCallable = __webpack_require__(338);
-	var toPrimitive = __webpack_require__(344);
+	var IsCallable = __webpack_require__(345);
+	var toPrimitive = __webpack_require__(351);
 
 	// https://es5.github.io/#x9
 	var ES5 = {
@@ -62976,16 +64321,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 344 */
+/* 351 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var toStr = Object.prototype.toString;
 
-	var isPrimitive = __webpack_require__(337);
+	var isPrimitive = __webpack_require__(344);
 
-	var isCallable = __webpack_require__(338);
+	var isCallable = __webpack_require__(345);
 
 	// https://es5.github.io/#x8.12
 	var ES5internalSlots = {
@@ -63019,18 +64364,26 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 345 */
-/***/ function(module, exports) {
+/* 352 */
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+	var has = __webpack_require__(353);
 	var regexExec = RegExp.prototype.exec;
-	var tryRegexExec = function tryRegexExec(value) {
+	var gOPD = Object.getOwnPropertyDescriptor;
+
+	var tryRegexExecCall = function tryRegexExec(value) {
 		try {
+			var lastIndex = value.lastIndex;
+			value.lastIndex = 0;
+
 			regexExec.call(value);
 			return true;
 		} catch (e) {
 			return false;
+		} finally {
+			value.lastIndex = lastIndex;
 		}
 	};
 	var toStr = Object.prototype.toString;
@@ -63038,18 +64391,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	var hasToStringTag = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol';
 
 	module.exports = function isRegex(value) {
-		if (typeof value !== 'object') { return false; }
-		return hasToStringTag ? tryRegexExec(value) : toStr.call(value) === regexClass;
+		if (!value || typeof value !== 'object') {
+			return false;
+		}
+		if (!hasToStringTag) {
+			return toStr.call(value) === regexClass;
+		}
+
+		var descriptor = gOPD(value, 'lastIndex');
+		var hasLastIndexDataProperty = descriptor && has(descriptor, 'value');
+		if (!hasLastIndexDataProperty) {
+			return false;
+		}
+
+		return tryRegexExecCall(value);
 	};
 
 
 /***/ },
-/* 346 */
+/* 353 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var bind = __webpack_require__(348);
+
+	module.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);
+
+
+/***/ },
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var ES = __webpack_require__(329);
+	var ES = __webpack_require__(336);
 	var $isNaN = Number.isNaN || function (a) { return a !== a; };
 	var $isFinite = Number.isFinite || function (n) { return typeof n === 'number' && global.isFinite(n); };
 	var indexOf = Array.prototype.indexOf;
@@ -63078,12 +64452,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 347 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var implementation = __webpack_require__(346);
+	var implementation = __webpack_require__(354);
 
 	module.exports = function getPolyfill() {
 		return Array.prototype.includes || implementation;
@@ -63091,13 +64465,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 348 */
+/* 356 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var define = __webpack_require__(325);
-	var getPolyfill = __webpack_require__(347);
+	var define = __webpack_require__(332);
+	var getPolyfill = __webpack_require__(355);
 
 	module.exports = function shimArrayPrototypeIncludes() {
 		var polyfill = getPolyfill();
@@ -63109,7 +64483,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 349 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -63121,7 +64495,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _moment2 = _interopRequireDefault(_moment);
 
-	var _isSameDay = __webpack_require__(313);
+	var _isSameDay = __webpack_require__(320);
 
 	var _isSameDay2 = _interopRequireDefault(_isSameDay);
 
@@ -63134,7 +64508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 350 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -63143,12 +64517,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(3);
 
-	var _constants = __webpack_require__(308);
+	var _constants = __webpack_require__(315);
 
 	exports['default'] = _react.PropTypes.oneOf([_constants.START_DATE, _constants.END_DATE]);
 
 /***/ },
-/* 351 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -63214,6 +64588,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		  };
 		}();
 
+		exports.calculateDimension = calculateDimension;
+
 		var _react = __webpack_require__(1);
 
 		var _react2 = _interopRequireDefault(_react);
@@ -63258,16 +64634,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		function _interopRequireDefault(obj) {
 		  return obj && obj.__esModule ? obj : { 'default': obj };
-		}
-
-		function _toConsumableArray(arr) {
-		  if (Array.isArray(arr)) {
-		    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-		      arr2[i] = arr[i];
-		    }return arr2;
-		  } else {
-		    return Array.from(arr);
-		  }
 		}
 
 		function _classCallCheck(instance, Constructor) {
@@ -63401,6 +64767,57 @@ return /******/ (function(modules) { // webpackBootstrap
 		  monthFormat: 'MMMM YYYY'
 		};
 
+		function applyTransformStyles(el, transform) {
+		  var opacity = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
+		  var transformStyles = (0, _getTransformStyles2['default'])(transform);
+		  transformStyles.opacity = opacity;
+
+		  Object.keys(transformStyles).forEach(function (styleKey) {
+		    // eslint-disable-next-line no-param-reassign
+		    el.style[styleKey] = transformStyles[styleKey];
+		  });
+		}
+
+		function calculateDimension(el, axis) {
+		  var borderBox = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+		  var withMargin = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+		  if (!el) {
+		    return 0;
+		  }
+
+		  var axisStart = axis === 'width' ? 'Left' : 'Top';
+		  var axisEnd = axis === 'width' ? 'Right' : 'Bottom';
+
+		  // Only read styles if we need to
+		  var style = !borderBox || withMargin ? window.getComputedStyle(el) : {};
+
+		  // Offset includes border and padding
+		  var size = axis === 'width' ? el.offsetWidth : el.offsetHeight;
+
+		  // Get the inner size
+		  if (!borderBox) {
+		    size -= parseFloat(style['padding' + axisStart]) + parseFloat(style['padding' + axisEnd]) + parseFloat(style['border' + axisStart + 'Width']) + parseFloat(style['border' + axisEnd + 'Width']);
+		  }
+
+		  // Apply margin
+		  if (withMargin) {
+		    size += parseFloat(style['margin' + axisStart]) + parseFloat(style['margin' + axisEnd]);
+		  }
+
+		  return size;
+		}
+
+		function getMonthHeight(el) {
+		  var caption = el.querySelector('.js-CalendarMonth__caption');
+		  var grid = el.querySelector('.js-CalendarMonth__grid');
+
+		  // Need to separate out table children for FF
+		  // Add an additional +1 for the border
+		  return calculateDimension(caption, 'height', true, true) + calculateDimension(grid, 'height') + 1;
+		}
+
 		var DayPicker = function (_React$Component) {
 		  _inherits(DayPicker, _React$Component);
 
@@ -63528,76 +64945,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		    key: 'getMonthHeightByIndex',
 		    value: function () {
 		      function getMonthHeightByIndex(i) {
-		        return this.getMonthHeight(_reactDom2['default'].findDOMNode(this.refs.transitionContainer).querySelectorAll('.CalendarMonth')[i]);
+		        return getMonthHeight(_reactDom2['default'].findDOMNode(this.refs.transitionContainer).querySelectorAll('.CalendarMonth')[i]);
 		      }
 
 		      return getMonthHeightByIndex;
-		    }()
-		  }, {
-		    key: 'getMonthHeight',
-		    value: function () {
-		      function getMonthHeight(el) {
-		        var caption = el.querySelector('.js-CalendarMonth__caption');
-		        var grid = el.querySelector('.js-CalendarMonth__grid');
-
-		        // Need to separate out table children for FF
-		        // Add an additional +1 for the border
-		        return this.calculateDimension(caption, 'height', true, true) + this.calculateDimension(grid, 'height') + 1;
-		      }
-
-		      return getMonthHeight;
-		    }()
-		  }, {
-		    key: 'applyTransformStyles',
-		    value: function () {
-		      function applyTransformStyles(el, transform) {
-		        var opacity = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-
-		        var transformStyles = (0, _getTransformStyles2['default'])(transform);
-		        transformStyles.opacity = opacity;
-
-		        Object.keys(transformStyles).forEach(function (styleKey) {
-		          // eslint-disable-next-line no-param-reassign
-		          el.style[styleKey] = transformStyles[styleKey];
-		        });
-		      }
-
-		      return applyTransformStyles;
-		    }()
-		  }, {
-		    key: 'calculateDimension',
-		    value: function () {
-		      function calculateDimension(el, axis) {
-		        var borderBox = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-		        var withMargin = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-
-		        if (!el) {
-		          return 0;
-		        }
-
-		        var axisStart = axis === 'width' ? 'Left' : 'Top';
-		        var axisEnd = axis === 'width' ? 'Right' : 'Bottom';
-
-		        // Only read styles if we need to
-		        var style = !borderBox || withMargin ? window.getComputedStyle(el) : {};
-
-		        // Offset includes border and padding
-		        var size = axis === 'width' ? el.offsetWidth : el.offsetHeight;
-
-		        // Get the inner size
-		        if (!borderBox) {
-		          size -= parseFloat(style['padding' + axisStart]) + parseFloat(style['padding' + axisEnd]) + parseFloat(style['border' + axisStart + 'Width']) + parseFloat(style['border' + axisEnd + 'Width']);
-		        }
-
-		        // Apply margin
-		        if (withMargin) {
-		          size += parseFloat(style['margin' + axisStart]) + parseFloat(style['margin' + axisEnd]);
-		        }
-
-		        return size;
-		      }
-
-		      return calculateDimension;
 		    }()
 		  }, {
 		    key: 'isHorizontal',
@@ -63621,7 +64972,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		    key: 'initializeDayPickerWidth',
 		    value: function () {
 		      function initializeDayPickerWidth() {
-		        this.dayPickerWidth = this.calculateDimension(_reactDom2['default'].findDOMNode(this.refs.calendarMonthGrid).querySelector('.CalendarMonth'), 'width', true);
+		        this.dayPickerWidth = calculateDimension(_reactDom2['default'].findDOMNode(this.refs.calendarMonthGrid).querySelector('.CalendarMonth'), 'width', true);
 		      }
 
 		      return initializeDayPickerWidth;
@@ -63642,7 +64993,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		        }
 
 		        // clear the previous transforms
-		        this.applyTransformStyles(_reactDom2['default'].findDOMNode(this.refs.calendarMonthGrid).querySelector('.CalendarMonth'), 'none');
+		        applyTransformStyles(_reactDom2['default'].findDOMNode(this.refs.calendarMonthGrid).querySelector('.CalendarMonth'), 'none');
 
 		        this.setState({
 		          currentMonth: newMonth,
@@ -63657,21 +65008,18 @@ return /******/ (function(modules) { // webpackBootstrap
 		    key: 'adjustDayPickerHeight',
 		    value: function () {
 		      function adjustDayPickerHeight() {
-		        var _this2 = this;
-
 		        var transitionContainer = _reactDom2['default'].findDOMNode(this.refs.transitionContainer);
 		        var heights = [];
 
-		        // convert node list to array
-		        [].concat(_toConsumableArray(transitionContainer.querySelectorAll('.CalendarMonth'))).forEach(function (el) {
+		        Array.prototype.forEach.call(transitionContainer.querySelectorAll('.CalendarMonth'), function (el) {
 		          if (el.getAttribute('data-visible') === 'true') {
-		            heights.push(_this2.getMonthHeight(el));
+		            heights.push(getMonthHeight(el));
 		          }
 		        });
 
 		        var newMonthHeight = Math.max.apply(Math, heights) + MONTH_PADDING;
 
-		        if (newMonthHeight !== this.calculateDimension(transitionContainer, 'height')) {
+		        if (newMonthHeight !== calculateDimension(transitionContainer, 'height')) {
 		          this.monthHeight = newMonthHeight;
 		          transitionContainer.style.height = String(newMonthHeight) + 'px';
 		        }
@@ -63686,7 +65034,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		        var transformType = this.isVertical() ? 'translateY' : 'translateX';
 		        var transformValue = transformType + '(-' + String(translationValue) + 'px)';
 
-		        this.applyTransformStyles(_reactDom2['default'].findDOMNode(this.refs.transitionContainer).querySelector('.CalendarMonth'), transformValue, 1);
+		        applyTransformStyles(_reactDom2['default'].findDOMNode(this.refs.transitionContainer).querySelector('.CalendarMonth'), transformValue, 1);
 		      }
 
 		      return translateFirstDayPickerForAnimation;
@@ -63856,7 +65204,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 2 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(352);
+		module.exports = __webpack_require__(360);
 
 	/***/ },
 	/* 3 */,
@@ -63877,13 +65225,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 8 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(323);
+		module.exports = __webpack_require__(330);
 
 	/***/ },
 	/* 9 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(308);
+		module.exports = __webpack_require__(315);
 
 	/***/ },
 	/* 10 */
@@ -63897,7 +65245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 13 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(355);
+		module.exports = __webpack_require__(361);
 
 	/***/ },
 	/* 14 */,
@@ -63917,32 +65265,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 28 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(356);
+		module.exports = __webpack_require__(362);
 
 	/***/ },
 	/* 29 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(357);
+		module.exports = __webpack_require__(363);
 
 	/***/ },
 	/* 30 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(362);
+		module.exports = __webpack_require__(368);
 
 	/***/ }
 	/******/ ]);
 
 /***/ },
-/* 352 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(353);
-
-/***/ },
-/* 353 */
-/***/ function(module, exports, __webpack_require__) {
+/* 360 */
+/***/ function(module, exports) {
 
 	/**
 	 * Copyright 2013-present, Facebook, Inc.
@@ -63952,40 +65294,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
+	 * @providesModule shallowCompare
 	 */
-
-	'use strict';
-
-	var shallowEqual = __webpack_require__(354);
-
-	/**
-	 * Does a shallow comparison for props and state.
-	 * See ReactComponentWithPureRenderMixin
-	 * See also https://facebook.github.io/react/docs/shallow-compare.html
-	 */
-	function shallowCompare(instance, nextProps, nextState) {
-	  return !shallowEqual(instance.props, nextProps) || !shallowEqual(instance.state, nextState);
-	}
-
-	module.exports = shallowCompare;
-
-/***/ },
-/* 354 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks
-	 * 
-	 */
-
-	/*eslint-disable no-self-compare */
 
 	'use strict';
 
@@ -64039,10 +65349,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return true;
 	}
 
-	module.exports = shallowEqual;
+	/**
+	 * Does a shallow comparison for props and state.
+	 * See ReactComponentWithPureRenderMixin
+	 * See also https://facebook.github.io/react/docs/shallow-compare.html
+	 */
+	function shallowCompare(instance, nextProps, nextState) {
+	  return (
+	    !shallowEqual(instance.props, nextProps) ||
+	    !shallowEqual(instance.state, nextState)
+	  );
+	}
+
+	module.exports = shallowCompare;
+
 
 /***/ },
-/* 355 */
+/* 361 */
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -64059,7 +65382,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 356 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -64260,7 +65583,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/******/ });
 
 /***/ },
-/* 357 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -64467,7 +65790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		    return onMonthTransitionEnd;
 		  }(),
 
-		  transform: 'none',
+		  transformValue: 'none',
 
 		  // i18n
 		  monthFormat: 'MMMM YYYY' };
@@ -64634,13 +65957,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 2 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(352);
+		module.exports = __webpack_require__(360);
 
 	/***/ },
 	/* 3 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(315);
+		module.exports = __webpack_require__(322);
 
 	/***/ },
 	/* 4 */
@@ -64660,13 +65983,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 8 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(323);
+		module.exports = __webpack_require__(330);
 
 	/***/ },
 	/* 9 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(308);
+		module.exports = __webpack_require__(315);
 
 	/***/ },
 	/* 10 */
@@ -64678,25 +66001,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 11 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(358);
+		module.exports = __webpack_require__(364);
 
 	/***/ },
 	/* 12 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(361);
+		module.exports = __webpack_require__(367);
 
 	/***/ },
 	/* 13 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(355);
+		module.exports = __webpack_require__(361);
 
 	/***/ }
 	/******/ ]);
 
 /***/ },
-/* 358 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -64785,6 +66108,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		function _interopRequireDefault(obj) {
 		  return obj && obj.__esModule ? obj : { 'default': obj };
 		}
+
+		/* eslint react/no-array-index-key: 0 */
 
 		var propTypes = {
 		  month: _reactMomentProptypes2['default'].momentObj,
@@ -64923,7 +66248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 3 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(315);
+		module.exports = __webpack_require__(322);
 
 	/***/ },
 	/* 4 */
@@ -64941,31 +66266,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 6 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(359);
+		module.exports = __webpack_require__(365);
 
 	/***/ },
 	/* 7 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(360);
+		module.exports = __webpack_require__(366);
 
 	/***/ },
 	/* 8 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(323);
+		module.exports = __webpack_require__(330);
 
 	/***/ },
 	/* 9 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(308);
+		module.exports = __webpack_require__(315);
 
 	/***/ }
 	/******/ ]);
 
 /***/ },
-/* 359 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -65249,49 +66574,49 @@ return /******/ (function(modules) { // webpackBootstrap
 		          className: 'CalendarDay',
 		          onMouseEnter: function () {
 		            function onMouseEnter(e) {
-		              return _this3.handleDayMouseEnter(day, modifiers, e);
+		              _this3.handleDayMouseEnter(day, modifiers, e);
 		            }
 
 		            return onMouseEnter;
 		          }(),
 		          onMouseLeave: function () {
 		            function onMouseLeave(e) {
-		              return _this3.handleDayMouseLeave(day, modifiers, e);
+		              _this3.handleDayMouseLeave(day, modifiers, e);
 		            }
 
 		            return onMouseLeave;
 		          }(),
 		          onMouseDown: function () {
 		            function onMouseDown(e) {
-		              return _this3.handleDayMouseDown(day, modifiers, e);
+		              _this3.handleDayMouseDown(day, modifiers, e);
 		            }
 
 		            return onMouseDown;
 		          }(),
 		          onMouseUp: function () {
 		            function onMouseUp(e) {
-		              return _this3.handleDayMouseUp(day, modifiers, e);
+		              _this3.handleDayMouseUp(day, modifiers, e);
 		            }
 
 		            return onMouseUp;
 		          }(),
 		          onClick: function () {
 		            function onClick(e) {
-		              return _this3.handleDayClick(day, modifiers, e);
+		              _this3.handleDayClick(day, modifiers, e);
 		            }
 
 		            return onClick;
 		          }(),
 		          onTouchStart: function () {
 		            function onTouchStart(e) {
-		              return _this3.handleDayTouchStart(day, modifiers, e);
+		              _this3.handleDayTouchStart(day, modifiers, e);
 		            }
 
 		            return onTouchStart;
 		          }(),
 		          onTouchEnd: function () {
 		            function onTouchEnd(e) {
-		              return _this3.handleDayTouchEnd(day, modifiers, e);
+		              _this3.handleDayTouchEnd(day, modifiers, e);
 		            }
 
 		            return onTouchEnd;
@@ -65321,13 +66646,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 2 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(352);
+		module.exports = __webpack_require__(360);
 
 	/***/ },
 	/* 3 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(315);
+		module.exports = __webpack_require__(322);
 
 	/***/ },
 	/* 4 */
@@ -65339,7 +66664,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/******/ ]);
 
 /***/ },
-/* 360 */
+/* 366 */
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -65388,7 +66713,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 361 */
+/* 367 */
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -65400,7 +66725,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 362 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -65787,7 +67112,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/******/ });
 
 /***/ },
-/* 363 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -65796,19 +67121,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(3);
 
-	var _reactMomentProptypes = __webpack_require__(315);
+	var _reactMomentProptypes = __webpack_require__(322);
 
 	var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
 
-	var _FocusedInputShape = __webpack_require__(350);
+	var _FocusedInputShape = __webpack_require__(358);
 
 	var _FocusedInputShape2 = _interopRequireDefault(_FocusedInputShape);
 
-	var _OrientationShape = __webpack_require__(323);
+	var _OrientationShape = __webpack_require__(330);
 
 	var _OrientationShape2 = _interopRequireDefault(_OrientationShape);
 
-	var _AnchorDirectionShape = __webpack_require__(364);
+	var _AnchorDirectionShape = __webpack_require__(370);
 
 	var _AnchorDirectionShape2 = _interopRequireDefault(_AnchorDirectionShape);
 
@@ -65857,7 +67182,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 364 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -65866,12 +67191,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(3);
 
-	var _constants = __webpack_require__(308);
+	var _constants = __webpack_require__(315);
 
 	exports['default'] = _react.PropTypes.oneOf([_constants.ANCHOR_LEFT, _constants.ANCHOR_RIGHT]);
 
 /***/ },
-/* 365 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -66605,7 +67930,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 9 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(308);
+		module.exports = __webpack_require__(315);
 
 	/***/ },
 	/* 10 */,
@@ -66616,19 +67941,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 15 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(310);
+		module.exports = __webpack_require__(317);
 
 	/***/ },
 	/* 16 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(311);
+		module.exports = __webpack_require__(318);
 
 	/***/ },
 	/* 17 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(312);
+		module.exports = __webpack_require__(319);
 
 	/***/ },
 	/* 18 */,
@@ -66693,13 +68018,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 25 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(319);
+		module.exports = __webpack_require__(326);
 
 	/***/ },
 	/* 26 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(320);
+		module.exports = __webpack_require__(327);
 
 	/***/ },
 	/* 27 */,
@@ -66712,39 +68037,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 34 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(324);
+		module.exports = __webpack_require__(331);
 
 	/***/ },
 	/* 35 */,
 	/* 36 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(313);
+		module.exports = __webpack_require__(320);
 
 	/***/ },
 	/* 37 */,
 	/* 38 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(351);
+		module.exports = __webpack_require__(359);
 
 	/***/ },
 	/* 39 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(366);
+		module.exports = __webpack_require__(372);
 
 	/***/ },
 	/* 40 */
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(367);
+		module.exports = __webpack_require__(373);
 
 	/***/ }
 	/******/ ]);
 
 /***/ },
-/* 366 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -66880,11 +68205,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		  disabled: false,
 		  required: false,
 		  showCaret: false,
+		  showClearDate: false,
 
 		  onChange: function () {
 		    function onChange() {}
 
 		    return onChange;
+		  }(),
+		  onClearDate: function () {
+		    function onClearDate() {}
+
+		    return onClearDate;
 		  }(),
 		  onFocus: function () {
 		    function onFocus() {}
@@ -67078,14 +68409,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	/***/ 22:
 	/***/ function(module, exports) {
 
-		module.exports = __webpack_require__(318);
+		module.exports = __webpack_require__(325);
 
 	/***/ }
 
 	/******/ });
 
 /***/ },
-/* 367 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -67094,15 +68425,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(3);
 
-	var _reactMomentProptypes = __webpack_require__(315);
+	var _reactMomentProptypes = __webpack_require__(322);
 
 	var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
 
-	var _OrientationShape = __webpack_require__(323);
+	var _OrientationShape = __webpack_require__(330);
 
 	var _OrientationShape2 = _interopRequireDefault(_OrientationShape);
 
-	var _AnchorDirectionShape = __webpack_require__(364);
+	var _AnchorDirectionShape = __webpack_require__(370);
 
 	var _AnchorDirectionShape2 = _interopRequireDefault(_AnchorDirectionShape);
 
@@ -67150,7 +68481,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 368 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -67162,11 +68493,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _moment2 = _interopRequireDefault(_moment);
 
-	var _toMomentObject = __webpack_require__(319);
+	var _toMomentObject = __webpack_require__(326);
 
 	var _toMomentObject2 = _interopRequireDefault(_toMomentObject);
 
-	var _constants = __webpack_require__(308);
+	var _constants = __webpack_require__(315);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -67178,7 +68509,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 369 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -67218,7 +68549,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var moment = __webpack_require__(198);
-	var momentPropTypes = __webpack_require__(315);
+	var _ = __webpack_require__(23);
+	var momentPropTypes = __webpack_require__(322);
 	var helper = __webpack_require__(13);
 
 	var DateRange = function (_Component) {
@@ -67329,11 +68661,41 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "customQuery",
 			value: function customQuery(value) {
 				var query = null;
-				if (value) {
+				if (value && value.startDate && value.endDate) {
+					query = this.generateQuery(value);
+				}
+				return query;
+			}
+		}, {
+			key: "generateQuery",
+			value: function generateQuery(value) {
+				var query = void 0;
+				if (_.isArray(this.props.appbaseField) && this.props.appbaseField.length === 2) {
+					query = {
+						bool: {
+							must: [{
+								range: _defineProperty({}, this.props.appbaseField[0], {
+									lte: moment(value.startDate).unix() * 1000
+								})
+							}, {
+								range: _defineProperty({}, this.props.appbaseField[1], {
+									gte: moment(value.endDate).unix() * 1000
+								})
+							}]
+						}
+					};
+				} else if (_.isArray(this.props.appbaseField)) {
+					query = {
+						range: _defineProperty({}, this.props.appbaseField[0], {
+							gte: moment(value.startDate).unix() * 1000,
+							lte: moment(value.endDate).unix() * 1000
+						})
+					};
+				} else {
 					query = {
 						range: _defineProperty({}, this.props.appbaseField, {
-							gte: value.startDate,
-							lte: value.endDate
+							gte: moment(value.startDate).unix() * 1000,
+							lte: moment(value.endDate).unix() * 1000
 						})
 					};
 				}
@@ -67348,12 +68710,22 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.setState({
 					currentValue: inputVal
 				});
+				if (inputVal.startDate && inputVal.endDate) {
+					this.setValue(inputVal);
+				}
+			}
+		}, {
+			key: "setValue",
+			value: function setValue(inputVal) {
 				var obj = {
 					key: this.props.componentId,
 					value: inputVal
 				};
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
 			}
 
@@ -67396,7 +68768,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc rbc-daterange col s12 col-xs-12 card thumbnail " + cx },
+					{ className: "rbc rbc-daterange col s12 col-xs-12 card thumbnail " + cx, style: this.props.componentStyle },
 					title,
 					_react2.default.createElement(
 						"div",
@@ -67426,8 +68798,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	DateRange.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
-		appbaseField: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
+		appbaseField: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.array]),
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		defaultSelected: _react2.default.PropTypes.shape({
 			start: momentPropTypes.momentObj,
 			end: momentPropTypes.momentObj
@@ -67435,7 +68807,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		numberOfMonths: _react2.default.PropTypes.number,
 		allowAllDates: _react2.default.PropTypes.bool,
 		extra: _react2.default.PropTypes.any,
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
 	};
 
 	// Default props value
@@ -67457,637 +68831,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	DateRange.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.STRING,
 		title: TYPES.STRING,
 		defaultSelected: TYPES.OBJECT,
 		numberOfMonths: TYPES.NUMBER,
 		allowAllDates: TYPES.BOOLEAN,
 		extra: TYPES.OBJECT,
-		customQuery: TYPES.FUNCTION
-	};
-
-/***/ },
-/* 370 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(5);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _ChannelManager = __webpack_require__(11);
-
-	var _ChannelManager2 = _interopRequireDefault(_ChannelManager);
-
-	var _StaticSearch = __webpack_require__(25);
-
-	var _InitialLoader = __webpack_require__(26);
-
-	var _InitialLoader2 = _interopRequireDefault(_InitialLoader);
-
-	var _constants = __webpack_require__(27);
-
-	var TYPES = _interopRequireWildcard(_constants);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint max-lines: 0 */
-
-
-	var helper = __webpack_require__(13);
-	var _ = __webpack_require__(23);
-
-	var NestedList = function (_Component) {
-		_inherits(NestedList, _Component);
-
-		function NestedList(props) {
-			_classCallCheck(this, NestedList);
-
-			var _this = _possibleConstructorReturn(this, (NestedList.__proto__ || Object.getPrototypeOf(NestedList)).call(this, props));
-
-			_this.state = {
-				items: [],
-				storedItems: [],
-				rawData: {
-					hits: {
-						hits: []
-					}
-				},
-				subItems: [],
-				selectedValues: []
-			};
-			_this.nested = ["nestedParentaggs", "nestedChildaggs"];
-			_this.sortObj = {
-				aggSort: _this.props.sortBy
-			};
-			_this.channelId = null;
-			_this.channelListener = null;
-			_this.defaultSelected = _this.props.defaultSelected;
-			_this.filterBySearch = _this.filterBySearch.bind(_this);
-			_this.onItemSelect = _this.onItemSelect.bind(_this);
-			_this.customQuery = _this.customQuery.bind(_this);
-			_this.handleSelect = _this.handleSelect.bind(_this);
-			_this.type = "Term";
-			return _this;
-		}
-
-		// Get the items from Appbase when component is mounted
-
-
-		_createClass(NestedList, [{
-			key: "componentWillMount",
-			value: function componentWillMount() {
-				this.setQueryInfo();
-				this.createChannel();
-				this.createSubChannel();
-			}
-		}, {
-			key: "componentDidMount",
-			value: function componentDidMount() {
-				if (this.props.defaultSelected) {
-					this.defaultSelected = this.props.defaultSelected;
-					setTimeout(this.handleSelect.bind(this), 100);
-				}
-			}
-		}, {
-			key: "handleSelect",
-			value: function handleSelect() {
-				var _this2 = this;
-
-				if (this.props.defaultSelected) {
-					this.props.defaultSelected.forEach(function (value, index) {
-						_this2.onItemSelect(value, index);
-					});
-				}
-			}
-		}, {
-			key: "componentWillUpdate",
-			value: function componentWillUpdate() {
-				var _this3 = this;
-
-				setTimeout(function () {
-					if (!_.isEqual(_this3.defaultSelected, _this3.props.defaultSelected)) {
-						_this3.defaultSelected = _this3.props.defaultSelected;
-						var items = _this3.state.items;
-						items = items.map(function (item) {
-							item.key = item.key.toString();
-							item.status = !!(_this3.defaultSelected.length && _this3.defaultSelected.indexOf(item.key) > -1);
-							return item;
-						});
-						_this3.setState({
-							items: items,
-							storedItems: items
-						});
-						_this3.handleSelect(_this3.defaultSelected);
-					}
-					if (_this3.sortBy !== _this3.props.sortBy) {
-						_this3.sortBy = _this3.props.sortBy;
-						_this3.handleSortSelect();
-					}
-				}, 300);
-			}
-
-			// stop streaming request and remove listener when component will unmount
-
-		}, {
-			key: "componentWillUnmount",
-			value: function componentWillUnmount() {
-				if (this.channelId) {
-					_ChannelManager2.default.stopStream(this.channelId);
-				}
-				if (this.subChannelId) {
-					_ChannelManager2.default.stopStream(this.subChannelId);
-				}
-				if (this.channelListener) {
-					this.channelListener.remove();
-				}
-				if (this.subChannelListener) {
-					this.subChannelListener.remove();
-				}
-				if (this.loadListenerParent) {
-					this.loadListenerParent.remove();
-				}
-				if (this.loadListenerChild) {
-					this.loadListenerChild.remove();
-				}
-			}
-
-			// build query for this sensor only
-
-		}, {
-			key: "customQuery",
-			value: function customQuery(record) {
-				var query = null;
-				function generateRangeQuery(appbaseField) {
-					return record.map(function (singleRecord, index) {
-						return {
-							term: _defineProperty({}, appbaseField[index], singleRecord)
-						};
-					});
-				}
-				if (record) {
-					query = {
-						bool: {
-							must: generateRangeQuery(this.props.appbaseField)
-						}
-					};
-				}
-				return query;
-			}
-
-			// set the query type and input data
-
-		}, {
-			key: "setQueryInfo",
-			value: function setQueryInfo() {
-				var obj = {
-					key: this.props.componentId,
-					value: {
-						queryType: this.type,
-						inputData: this.props.appbaseField[0],
-						customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
-					}
-				};
-				helper.selectedSensor.setSensorInfo(obj);
-			}
-		}, {
-			key: "includeAggQuery",
-			value: function includeAggQuery() {
-				var _this4 = this;
-
-				this.nested.forEach(function (name) {
-					var obj = {
-						key: name,
-						value: _this4.sortObj
-					};
-					helper.selectedSensor.setSortInfo(obj);
-				});
-			}
-		}, {
-			key: "handleSortSelect",
-			value: function handleSortSelect() {
-				var _this5 = this;
-
-				this.sortObj = {
-					aggSort: this.props.sortBy
-				};
-				this.nested.forEach(function (name) {
-					var obj = {
-						key: name,
-						value: _this5.sortObj
-					};
-					helper.selectedSensor.set(obj, true, "sortChange");
-				});
-			}
-
-			// Create a channel which passes the react and receive results whenever react changes
-
-		}, {
-			key: "createChannel",
-			value: function createChannel() {
-				var _this6 = this;
-
-				// Set the react - add self aggs query as well with react
-				var react = this.props.react ? this.props.react : {};
-				react.aggs = {
-					key: this.props.appbaseField[0],
-					sort: this.props.sortBy,
-					size: this.props.size,
-					sortRef: this.nested[0]
-				};
-				if (react && react.and && typeof react.and === "string") {
-					react.and = [react.and];
-				} else {
-					react.and = react.and ? react.and : [];
-				}
-				react.and.push(this.nested[0]);
-				this.includeAggQuery();
-
-				// create a channel and listen the changes
-				var channelObj = _ChannelManager2.default.create(this.context.appbaseRef, this.context.type, react);
-				this.channelId = channelObj.channelId;
-				this.channelListener = channelObj.emitter.addListener(this.channelId, function (res) {
-					if (res.error) {
-						_this6.setState({
-							queryStart: false
-						});
-					}
-					if (res.appliedQuery) {
-						var data = res.data;
-						var rawData = void 0;
-						if (res.mode === "streaming") {
-							rawData = _this6.state.rawData;
-							rawData.hits.hits.push(res.data);
-						} else if (res.mode === "historic") {
-							rawData = data;
-						}
-						_this6.setState({
-							queryStart: false,
-							rawData: rawData
-						});
-						_this6.setData(rawData, 0);
-					}
-				});
-				this.listenLoadingChannel(channelObj, "loadListenerParent");
-			}
-		}, {
-			key: "listenLoadingChannel",
-			value: function listenLoadingChannel(channelObj, listener) {
-				var _this7 = this;
-
-				this[listener] = channelObj.emitter.addListener(channelObj.channelId + "-query", function (res) {
-					if (res.appliedQuery) {
-						_this7.setState({
-							queryStart: res.queryState
-						});
-					}
-				});
-			}
-
-			// Create a channel for sub category
-
-		}, {
-			key: "createSubChannel",
-			value: function createSubChannel() {
-				var _this8 = this;
-
-				this.setSubCategory();
-				var react = {
-					aggs: {
-						key: this.props.appbaseField[1],
-						sort: this.props.sortBy,
-						size: this.props.size,
-						sortRef: this.nested[1]
-					},
-					and: ["subCategory", this.nested[1]]
-				};
-				// create a channel and listen the changes
-				var subChannelObj = _ChannelManager2.default.create(this.context.appbaseRef, this.context.type, react);
-				this.subChannelId = subChannelObj.channelId;
-				this.subChannelListener = subChannelObj.emitter.addListener(this.subChannelId, function (res) {
-					if (res.error) {
-						_this8.setState({
-							queryStart: false
-						});
-					}
-					if (res.appliedQuery) {
-						var data = res.data;
-						var rawData = void 0;
-						if (res.mode === "streaming") {
-							rawData = _this8.state.subRawData;
-							rawData.hits.hits.push(res.data);
-						} else if (res.mode === "historic") {
-							rawData = data;
-						}
-						if (_this8.state.selectedValues.length) {
-							_this8.setState({
-								queryStart: false,
-								subRawData: rawData
-							});
-							_this8.setData(rawData, 1);
-						}
-					}
-				});
-				this.listenLoadingChannel(subChannelObj, "loadListenerChild");
-				var obj = {
-					key: "subCategory",
-					value: ""
-				};
-				helper.selectedSensor.set(obj, true);
-			}
-
-			// set the query type and input data
-
-		}, {
-			key: "setSubCategory",
-			value: function setSubCategory() {
-				var obj = {
-					key: "subCategory",
-					value: {
-						queryType: "term",
-						inputData: this.props.appbaseField[0]
-					}
-				};
-
-				helper.selectedSensor.setSensorInfo(obj);
-			}
-		}, {
-			key: "setData",
-			value: function setData(data, level) {
-				if (data && data.aggregations && data.aggregations[this.props.appbaseField[level]] && data.aggregations[this.props.appbaseField[level]].buckets) {
-					this.addItemsToList(data.aggregations[this.props.appbaseField[level]].buckets, level);
-				}
-			}
-		}, {
-			key: "addItemsToList",
-			value: function addItemsToList(newItems, level) {
-				var _this9 = this,
-				    _setState;
-
-				newItems = newItems.map(function (item) {
-					item.key = item.key.toString();
-					item.status = !!(_this9.defaultSelected && _this9.defaultSelected.indexOf(item.key) > -1);
-					return item;
-				});
-				var itemVar = level === 0 ? "items" : "subItems";
-				this.setState((_setState = {}, _defineProperty(_setState, itemVar, newItems), _defineProperty(_setState, "storedItems", newItems), _setState));
-			}
-
-			// set value
-
-		}, {
-			key: "setValue",
-			value: function setValue(value) {
-				var isExecuteQuery = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-				var obj = {
-					key: this.props.componentId,
-					value: value
-				};
-				helper.selectedSensor.set(obj, isExecuteQuery);
-			}
-
-			// filter
-
-		}, {
-			key: "filterBySearch",
-			value: function filterBySearch(value) {
-				if (value) {
-					var items = this.state.storedItems.filter(function (item) {
-						return item.key && item.key.toLowerCase().indexOf(value.toLowerCase()) > -1;
-					});
-					this.setState({
-						items: items
-					});
-				} else {
-					this.setState({
-						items: this.state.storedItems
-					});
-				}
-			}
-		}, {
-			key: "onItemSelect",
-			value: function onItemSelect(key, level) {
-				var selectedValues = this.state.selectedValues;
-				var stateItems = {};
-				if (selectedValues[level] === key) {
-					delete selectedValues[level];
-					stateItems = {
-						selectedValues: selectedValues
-					};
-				} else {
-					selectedValues[level] = key;
-					stateItems = {
-						selectedValues: selectedValues
-					};
-					if (level === 0) {
-						selectedValues.splice(1, 1);
-						if (key !== selectedValues[0]) {
-							stateItems.subItems = [];
-						}
-						var obj = {
-							key: "subCategory",
-							value: key
-						};
-						helper.selectedSensor.set(obj, true);
-					}
-				}
-				this.setValue(selectedValues, true);
-				this.setState(stateItems);
-			}
-		}, {
-			key: "renderChevron",
-			value: function renderChevron(level) {
-				return level === 0 ? _react2.default.createElement("i", { className: "fa fa-chevron-right" }) : "";
-			}
-		}, {
-			key: "countRender",
-			value: function countRender(docCount) {
-				var count = void 0;
-				if (this.props.showCount) {
-					count = _react2.default.createElement(
-						"span",
-						{ className: "rbc-count" },
-						" ",
-						docCount
-					);
-				}
-				return count;
-			}
-		}, {
-			key: "renderItems",
-			value: function renderItems(items, level) {
-				var _this10 = this;
-
-				return items.map(function (item, index) {
-					var cx = (0, _classnames2.default)({
-						"rbc-item-active": item.key === _this10.state.selectedValues[level],
-						"rbc-item-inactive": !(item.key === _this10.state.selectedValues[level])
-					});
-					return _react2.default.createElement(
-						"li",
-						{
-							key: index,
-							className: "rbc-list-container col s12 col-xs-12"
-						},
-						_react2.default.createElement(
-							"button",
-							{ className: "rbc-list-item " + cx, onClick: function onClick() {
-									return _this10.onItemSelect(item.key, level);
-								} },
-							_react2.default.createElement(
-								"span",
-								{ className: "rbc-label" },
-								item.key,
-								" ",
-								_this10.countRender(item.doc_count)
-							),
-							_this10.renderChevron(level)
-						),
-						_this10.renderList(item.key, level)
-					);
-				});
-			}
-		}, {
-			key: "renderList",
-			value: function renderList(key, level) {
-				var list = void 0;
-				if (key === this.state.selectedValues[level] && level === 0) {
-					list = _react2.default.createElement(
-						"ul",
-						{ className: "rbc-sublist-container rbc-indent col s12 col-xs-12" },
-						this.renderItems(this.state.subItems, 1)
-					);
-				}
-				return list;
-			}
-		}, {
-			key: "render",
-			value: function render() {
-				var searchComponent = null,
-				    title = null;
-
-				var listComponent = _react2.default.createElement(
-					"ul",
-					{ className: "row rbc-list-container" },
-					this.renderItems(this.state.items, 0)
-				);
-
-				// set static search
-				if (this.props.showSearch) {
-					searchComponent = _react2.default.createElement(_StaticSearch.StaticSearch, {
-						placeholder: this.props.placeholder,
-						changeCallback: this.filterBySearch
-					});
-				}
-
-				if (this.props.title) {
-					title = _react2.default.createElement(
-						"h4",
-						{ className: "rbc-title col s12 col-xs-12" },
-						this.props.title
-					);
-				}
-
-				var cx = (0, _classnames2.default)({
-					"rbc-search-active": this.props.showSearch,
-					"rbc-search-inactive": !this.props.showSearch,
-					"rbc-title-active": this.props.title,
-					"rbc-title-inactive": !this.props.title,
-					"rbc-placeholder-active": this.props.placeholder,
-					"rbc-placeholder-inactive": !this.props.placeholder,
-					"rbc-count-active": this.props.showCount,
-					"rbc-count-inactive": !this.props.showCount,
-					"rbc-initialloader-active": this.props.initialLoader,
-					"rbc-initialloader-inactive": !this.props.initialLoader
-				});
-
-				return _react2.default.createElement(
-					"div",
-					{ className: "rbc rbc-nestedlist-container card thumbnail col s12 col-xs-12" },
-					_react2.default.createElement(
-						"div",
-						{ className: "rbc rbc-nestedlist col s12 col-xs-12 " + cx },
-						title,
-						searchComponent,
-						listComponent
-					),
-					this.props.initialLoader && this.state.queryStart ? _react2.default.createElement(_InitialLoader2.default, { defaultText: this.props.initialLoader }) : null
-				);
-			}
-		}]);
-
-		return NestedList;
-	}(_react.Component);
-
-	exports.default = NestedList;
-
-
-	NestedList.propTypes = {
-		componentId: _react2.default.PropTypes.string.isRequired,
-		appbaseField: _react2.default.PropTypes.array.isRequired,
-		title: _react2.default.PropTypes.string,
-		showCount: _react2.default.PropTypes.bool,
-		showSearch: _react2.default.PropTypes.bool,
-		sortBy: _react2.default.PropTypes.oneOf(["count", "asc", "desc"]),
-		size: helper.sizeValidation,
-		defaultSelected: _react2.default.PropTypes.array,
-		customQuery: _react2.default.PropTypes.func,
-		placeholder: _react2.default.PropTypes.string,
-		initialLoader: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
-		react: _react2.default.PropTypes.object
-	};
-
-	// Default props value
-	NestedList.defaultProps = {
-		showCount: true,
-		sortBy: "count",
-		size: 100,
-		showSearch: false,
-		title: null,
-		placeholder: "Search"
-	};
-
-	// context type
-	NestedList.contextTypes = {
-		appbaseRef: _react2.default.PropTypes.any.isRequired,
-		type: _react2.default.PropTypes.any.isRequired
-	};
-
-	NestedList.types = {
-		componentId: TYPES.STRING,
-		appbaseField: TYPES.ARRAY,
-		title: TYPES.STRING,
-		react: TYPES.OBJECT,
-		size: TYPES.NUMBER,
-		sortBy: TYPES.STRING,
-		showCount: TYPES.BOOLEAN,
-		showSearch: TYPES.BOOLEAN,
-		defaultSelected: TYPES.ARRAY,
 		customQuery: TYPES.FUNCTION,
-		initialLoader: TYPES.OBJECT
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
-/* 371 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -68281,6 +69036,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					key: componentId,
 					value: inputVal
 				};
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				helper.selectedSensor.set(obj, true);
 			}
 		}, {
@@ -68299,7 +69057,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 				return _react2.default.createElement(
 					"div",
-					{ className: "rbc rbc-numberbox col s12 col-xs-12 card thumbnail " + cx + " rbc-label-" + labelPosition },
+					{ className: "rbc rbc-numberbox col s12 col-xs-12 card thumbnail " + cx + " rbc-label-" + labelPosition, style: this.props.componentStyle },
 					_react2.default.createElement(
 						"div",
 						{ className: "row" },
@@ -68325,7 +69083,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	NumberBox.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		data: _react2.default.PropTypes.shape({
 			start: helper.validateThreshold,
 			end: helper.validateThreshold,
@@ -68333,7 +69091,13 @@ return /******/ (function(modules) { // webpackBootstrap
 		}),
 		defaultSelected: helper.valueValidation,
 		labelPosition: _react2.default.PropTypes.oneOf(["top", "bottom", "left", "right"]),
-		customQuery: _react2.default.PropTypes.func
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
+	};
+
+	NumberBox.defaultProps = {
+		componentStyle: {}
 	};
 
 	// context type
@@ -68345,15 +69109,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	NumberBox.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
 		title: TYPES.STRING,
 		data: TYPES.OBJECT,
 		defaultSelected: TYPES.NUMBER,
 		labelPosition: TYPES.STRING,
-		customQuery: TYPES.FUNCTION
+		customQuery: TYPES.FUNCTION,
+		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
-/* 372 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -68376,11 +69142,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ChannelManager2 = _interopRequireDefault(_ChannelManager);
 
-	var _JsonPrint = __webpack_require__(373);
+	var _JsonPrint = __webpack_require__(378);
 
 	var _JsonPrint2 = _interopRequireDefault(_JsonPrint);
 
-	var _PoweredBy = __webpack_require__(374);
+	var _PoweredBy = __webpack_require__(379);
 
 	var _PoweredBy2 = _interopRequireDefault(_PoweredBy);
 
@@ -68388,13 +69154,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _InitialLoader2 = _interopRequireDefault(_InitialLoader);
 
-	var _NoResults = __webpack_require__(375);
+	var _NoResults = __webpack_require__(380);
 
 	var _NoResults2 = _interopRequireDefault(_NoResults);
 
-	var _ResultStats = __webpack_require__(376);
+	var _ResultStats = __webpack_require__(381);
 
 	var _ResultStats2 = _interopRequireDefault(_ResultStats);
+
+	var _Pagination = __webpack_require__(382);
+
+	var _Pagination2 = _interopRequireDefault(_Pagination);
 
 	var _constants = __webpack_require__(27);
 
@@ -68438,7 +69208,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					took: 0
 				},
 				showPlaceholder: true,
-				showInitialLoader: false
+				showInitialLoader: false,
+				requestOnScroll: !_this.props.pagination
 			};
 			if (_this.props.sortOptions) {
 				var obj = _this.props.sortOptions[0];
@@ -68464,7 +69235,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "componentDidMount",
 			value: function componentDidMount() {
 				this.streamProp = this.props.stream;
-				this.requestOnScroll = this.props.requestOnScroll;
 				this.size = this.props.size;
 				this.initialize();
 			}
@@ -68479,10 +69249,6 @@ return /******/ (function(modules) { // webpackBootstrap
 						_this2.removeChannel();
 						_this2.initialize(true);
 					}
-					if (_this2.requestOnScroll !== _this2.props.requestOnScroll) {
-						_this2.requestOnScroll = _this2.props.requestOnScroll;
-						_this2.listComponent();
-					}
 					if (_this2.size !== _this2.props.size) {
 						_this2.size = _this2.props.size;
 						_this2.setState({
@@ -68491,7 +69257,26 @@ return /******/ (function(modules) { // webpackBootstrap
 						_this2.removeChannel();
 						_this2.initialize(true);
 					}
+					if (_this2.props.pagination && _this2.paginationAtVal !== _this2.props.paginationAt) {
+						_this2.paginationAtVal = _this2.props.paginationAt;
+						_this2.executePaginationUpdate();
+					}
 				}, 300);
+			}
+		}, {
+			key: "componentWillReceiveProps",
+			value: function componentWillReceiveProps(nextProps) {
+				var _this3 = this;
+
+				if (nextProps.pagination !== this.pagination) {
+					this.pagination = nextProps.pagination;
+					this.setState({
+						requestOnScroll: !nextProps.pagination
+					}, function () {
+						_this3.removeChannel();
+						_this3.initialize(true);
+					});
+				}
 			}
 
 			// check the height and set scroll if scroll not exists
@@ -68514,21 +69299,37 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "applyScroll",
 			value: function applyScroll() {
-				var resultElement = $(".rbc.rbc-reactivelist");
-				var scrollElement = $(".rbc-reactivelist-scroll-container");
+				var _this4 = this;
+
+				var resultElement = $(this.listParentElement);
+				var scrollElement = $(this.listChildElement);
 				var padding = 45;
 
-				function checkHeight() {
+				var getHeight = function getHeight(item) {
+					return item.height() ? item.height() : 0;
+				};
+
+				var checkHeight = function checkHeight() {
 					var flag = resultElement.get(0).scrollHeight - padding > resultElement.height();
 					var scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height();
-					if (!flag && !scrollFlag && scrollElement.length) {
-						scrollElement.css("height", resultElement.height() - 100);
+					if (!flag && !scrollFlag && scrollElement.length && !_this4.props.pagination) {
+						var headerHeight = getHeight(resultElement.find(".rbc-title")) + getHeight(resultElement.find(".rbc-pagination")) * resultElement.find(".rbc-pagination").length;
+						var finalHeight = resultElement.height() - 60 - headerHeight;
+						if (finalHeight > 0) {
+							scrollElement.css({
+								height: scrollElement.height() + 15,
+								"padding-bottom": 20
+							});
+						}
 					}
-				}
+				};
 
 				if (resultElement && resultElement.length && scrollElement && scrollElement.length) {
-					scrollElement.css("height", "auto");
-					setTimeout(checkHeight, 1000);
+					scrollElement.css({
+						"height": "auto",
+						"padding-bottom": 0
+					});
+					setTimeout(checkHeight.bind(this), 1000);
 				}
 			}
 		}, {
@@ -68551,7 +69352,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "createChannel",
 			value: function createChannel() {
-				var _this3 = this;
+				var _this5 = this;
 
 				var executeChannel = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
@@ -68565,30 +69366,34 @@ return /******/ (function(modules) { // webpackBootstrap
 					react.and = [];
 				}
 				react.and.push("streamChanges");
+				if (this.props.pagination) {
+					react.and.push("paginationChanges");
+					react.pagination = null;
+				}
 				if (this.sortObj) {
 					this.enableSort(react);
 				}
 				// create a channel and listen the changes
-				var channelObj = _ChannelManager2.default.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream);
+				var channelObj = _ChannelManager2.default.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.context.app);
 				this.channelId = channelObj.channelId;
 
 				this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function (res) {
 					// implementation to prevent initialize query issue if old query response is late then the newer query
 					// then we will consider the response of new query and prevent to apply changes for old query response.
 					// if queryStartTime of channel response is greater than the previous one only then apply changes
-					if (res.error && res.startTime > _this3.queryStartTime) {
-						_this3.setState({
+					if (res.error && res.startTime > _this5.queryStartTime) {
+						_this5.setState({
 							queryStart: false,
 							showPlaceholder: false
 						});
-						if (_this3.props.onData) {
+						if (_this5.props.onAllData) {
 							var modifiedData = helper.prepareResultData(res);
-							_this3.props.onData(modifiedData.res, modifiedData.err);
+							_this5.props.onAllData(modifiedData.res, modifiedData.err);
 						}
 					}
 					if (res.appliedQuery) {
-						if (res.mode === "historic" && res.startTime > _this3.queryStartTime) {
-							var visibleNoResults = res.appliedQuery && res.data && !res.data.error ? !(res.data.hits && res.data.hits.total) : false;
+						if (res.mode === "historic" && res.startTime > _this5.queryStartTime) {
+							var visibleNoResults = res.appliedQuery && Object.keys(res.appliedQuery).length && res.data && !res.data.error ? !(res.data.hits && res.data.hits.total) : false;
 							var resultStats = {
 								resultFound: !!(res.appliedQuery && res.data && !res.data.error && res.data.hits && res.data.hits.total)
 							};
@@ -68596,19 +69401,19 @@ return /******/ (function(modules) { // webpackBootstrap
 								resultStats.total = res.data.hits.total;
 								resultStats.took = res.data.took;
 							}
-							_this3.setState({
+							_this5.setState({
 								queryStart: false,
 								visibleNoResults: visibleNoResults,
 								resultStats: resultStats,
 								showPlaceholder: false
 							});
-							_this3.afterChannelResponse(res);
+							_this5.afterChannelResponse(res);
 						} else if (res.mode === "streaming") {
-							_this3.afterChannelResponse(res);
-							_this3.updateResultStats(res.data);
+							_this5.afterChannelResponse(res);
+							_this5.updateResultStats(res.data);
 						}
 					} else {
-						_this3.setState({
+						_this5.setState({
 							showPlaceholder: true
 						});
 					}
@@ -68636,12 +69441,12 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "listenLoadingChannel",
 			value: function listenLoadingChannel(channelObj) {
-				var _this4 = this;
+				var _this6 = this;
 
 				this.loadListener = channelObj.emitter.addListener(channelObj.channelId + "-query", function (res) {
 					if (res.appliedQuery) {
-						var showInitialLoader = !(_this4.props.requestOnScroll && res.appliedQuery.body && res.appliedQuery.body.from);
-						_this4.setState({
+						var showInitialLoader = !(_this6.state.requestOnScroll && res.appliedQuery.body && res.appliedQuery.body.from);
+						_this6.setState({
 							queryStart: res.queryState,
 							showInitialLoader: showInitialLoader
 						});
@@ -68651,7 +69456,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "afterChannelResponse",
 			value: function afterChannelResponse(res) {
-				var _this5 = this;
+				var _this7 = this;
 
 				var data = res.data;
 				var rawData = void 0,
@@ -68684,14 +69489,14 @@ return /******/ (function(modules) { // webpackBootstrap
 					// Pass the historic or streaming data in index method
 					res.allMarkers = rawData;
 					var modifiedData = JSON.parse(JSON.stringify(res));
-					modifiedData.newData = _this5.state.newData;
-					modifiedData.currentData = _this5.state.currentData;
+					modifiedData.newData = _this7.state.newData;
+					modifiedData.currentData = _this7.state.currentData;
 					delete modifiedData.data;
 					modifiedData = helper.prepareResultData(modifiedData, data);
-					var generatedData = _this5.props.onData ? _this5.props.onData(modifiedData.res, modifiedData.err) : _this5.defaultonData(modifiedData.res, modifiedData.err);
-					_this5.setState({
-						resultMarkup: _this5.wrapMarkup(generatedData),
-						currentData: _this5.combineCurrentData(newData)
+					var generatedData = _this7.props.onAllData ? _this7.props.onAllData(modifiedData.res, modifiedData.err) : _this7.defaultonAllData(modifiedData.res, modifiedData.err);
+					_this7.setState({
+						resultMarkup: _this7.wrapMarkup(generatedData),
+						currentData: _this7.combineCurrentData(newData)
 					});
 				});
 			}
@@ -68699,7 +69504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "wrapMarkup",
 			value: function wrapMarkup(generatedData) {
 				var markup = null;
-				if (Object.prototype.toString.call(generatedData) === "[object Array]") {
+				if (_.isArray(generatedData)) {
 					markup = generatedData.map(function (item, index) {
 						return _react2.default.createElement(
 							"div",
@@ -68719,7 +69524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "normalizeCurrentData",
 			value: function normalizeCurrentData(res, rawData, newData) {
 				var appliedQuery = JSON.parse(JSON.stringify(res.appliedQuery));
-				if (this.props.requestOnScroll && appliedQuery && appliedQuery.body) {
+				if (this.state.requestOnScroll && appliedQuery && appliedQuery.body) {
 					delete appliedQuery.body.from;
 					delete appliedQuery.body.size;
 				}
@@ -68827,14 +69632,61 @@ return /******/ (function(modules) { // webpackBootstrap
 				var executeChannel = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
 				this.createChannel(executeChannel);
-				if (this.props.requestOnScroll) {
+				if (this.state.requestOnScroll) {
 					this.listComponent();
+				} else {
+					this.setQueryForPagination();
 				}
 			}
 		}, {
-			key: "defaultonData",
-			value: function defaultonData(res) {
-				var _this6 = this;
+			key: "setQueryForPagination",
+			value: function setQueryForPagination() {
+				var valObj = {
+					queryType: "match",
+					inputData: this.props.appbaseField,
+					customQuery: function customQuery() {
+						return null;
+					}
+				};
+				var obj = {
+					key: "paginationChanges",
+					value: valObj
+				};
+				helper.selectedSensor.setSensorInfo(obj);
+			}
+		}, {
+			key: "executePaginationUpdate",
+			value: function executePaginationUpdate() {
+				setTimeout(function () {
+					var obj = {
+						key: "paginationChanges",
+						value: Math.random()
+					};
+					helper.selectedSensor.set(obj, true);
+				}, 100);
+			}
+		}, {
+			key: "paginationAt",
+			value: function paginationAt(method) {
+				var pageinationComp = void 0;
+				if (this.props.pagination && (this.props.paginationAt === method || this.props.paginationAt === "both")) {
+					pageinationComp = _react2.default.createElement(
+						"div",
+						{ className: "rbc-pagination-container col s12 col-xs-12" },
+						_react2.default.createElement(_Pagination2.default, {
+							className: "rbc-pagination-" + method,
+							componentId: "pagination",
+							onPageChange: this.props.onPageChange,
+							title: this.props.paginationTitle
+						})
+					);
+				}
+				return pageinationComp;
+			}
+		}, {
+			key: "defaultonAllData",
+			value: function defaultonAllData(res) {
+				var _this8 = this;
 
 				var result = null;
 				if (res) {
@@ -68847,10 +69699,10 @@ return /******/ (function(modules) { // webpackBootstrap
 					if (combineData) {
 						result = combineData.map(function (markerData) {
 							var marker = markerData._source;
-							return _react2.default.createElement(
+							return _this8.props.onData ? _this8.props.onData(markerData) : _react2.default.createElement(
 								"div",
 								{ className: "row", style: { marginTop: "20px" } },
-								_this6.itemMarkup(marker, markerData)
+								_this8.itemMarkup(marker, markerData)
 							);
 						});
 					}
@@ -68888,12 +69740,12 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "listComponent",
 			value: function listComponent() {
 				function setScroll(node) {
-					var _this7 = this;
+					var _this9 = this;
 
 					if (node) {
 						node.addEventListener("scroll", function () {
-							if (_this7.props.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight && _this7.state.resultStats.total > _this7.state.currentData.length && !_this7.state.queryStart) {
-								_this7.nextPage();
+							if (_this9.state.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight && _this9.state.resultStats.total > _this9.state.currentData.length && !_this9.state.queryStart) {
+								_this9.nextPage();
 							}
 						});
 					}
@@ -68918,7 +69770,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "render",
 			value: function render() {
-				var _this8 = this;
+				var _this10 = this;
 
 				var title = null,
 				    placeholder = null,
@@ -68937,7 +69789,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					"rbc-resultstats-active": this.props.showResultStats,
 					"rbc-resultstats-inactive": !this.props.showResultStats,
 					"rbc-noresults-active": this.props.noResults,
-					"rbc-noresults-inactive": !this.props.noResults
+					"rbc-noresults-inactive": !this.props.noResults,
+					"rbc-pagination-active": this.props.pagination,
+					"rbc-pagination-inactive": !this.props.pagination
 				});
 
 				if (this.props.title) {
@@ -68981,24 +69835,26 @@ return /******/ (function(modules) { // webpackBootstrap
 					_react2.default.createElement(
 						"div",
 						{ ref: function ref(div) {
-								_this8.listParentElement = div;
+								_this10.listParentElement = div;
 							}, className: "rbc rbc-reactivelist card thumbnail " + cx, style: this.props.componentStyle },
 						title,
 						sortOptions,
 						this.props.showResultStats && this.state.resultStats.resultFound ? _react2.default.createElement(_ResultStats2.default, { onResultStats: this.props.onResultStats, took: this.state.resultStats.took, total: this.state.resultStats.total }) : null,
+						this.paginationAt("top"),
 						_react2.default.createElement(
 							"div",
 							{ ref: function ref(div) {
-									_this8.listChildElement = div;
+									_this10.listChildElement = div;
 								}, className: "rbc-reactivelist-scroll-container col s12 col-xs-12" },
 							this.state.resultMarkup
 						),
 						this.state.isLoading ? _react2.default.createElement("div", { className: "rbc-loader" }) : null,
-						this.state.showPlaceholder ? placeholder : null
+						this.state.showPlaceholder ? placeholder : null,
+						this.paginationAt("bottom")
 					),
 					this.props.noResults && this.state.visibleNoResults ? _react2.default.createElement(_NoResults2.default, { defaultText: this.props.noResults }) : null,
 					this.props.initialLoader && this.state.queryStart && this.state.showInitialLoader ? _react2.default.createElement(_InitialLoader2.default, { defaultText: this.props.initialLoader }) : null,
-					_react2.default.createElement(_PoweredBy2.default, null)
+					_react2.default.createElement(_PoweredBy2.default, { container: "rbc-reactivelist-container" })
 				);
 			}
 		}]);
@@ -69012,7 +69868,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	ReactiveList.propTypes = {
 		componentId: _react2.default.PropTypes.string,
 		appbaseField: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		sortBy: _react2.default.PropTypes.oneOf(["asc", "desc", "default"]),
 		sortOptions: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
 			label: _react2.default.PropTypes.string,
@@ -69020,9 +69876,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			sortBy: _react2.default.PropTypes.string
 		})),
 		from: helper.validation.resultListFrom,
-		onData: _react2.default.PropTypes.func,
+		onAllData: _react2.default.PropTypes.func,
 		size: helper.sizeValidation,
-		requestOnScroll: _react2.default.PropTypes.bool,
 		stream: _react2.default.PropTypes.bool,
 		componentStyle: _react2.default.PropTypes.object,
 		initialLoader: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
@@ -69030,22 +69885,26 @@ return /******/ (function(modules) { // webpackBootstrap
 		showResultStats: _react2.default.PropTypes.bool,
 		onResultStats: _react2.default.PropTypes.func,
 		placeholder: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
-		react: _react2.default.PropTypes.object
+		react: _react2.default.PropTypes.object,
+		paginationAt: _react2.default.PropTypes.string,
+		pagination: _react2.default.PropTypes.bool
 	};
 
 	ReactiveList.defaultProps = {
 		from: 0,
 		size: 20,
-		requestOnScroll: true,
 		stream: false,
 		componentStyle: {},
-		showResultStats: true
+		showResultStats: true,
+		pagination: false,
+		paginationAt: "bottom"
 	};
 
 	// context type
 	ReactiveList.contextTypes = {
 		appbaseRef: _react2.default.PropTypes.any.isRequired,
-		type: _react2.default.PropTypes.any.isRequired
+		type: _react2.default.PropTypes.any.isRequired,
+		app: _react2.default.PropTypes.any.isRequired
 	};
 
 	ReactiveList.types = {
@@ -69056,23 +69915,25 @@ return /******/ (function(modules) { // webpackBootstrap
 		sortBy: TYPES.STRING,
 		sortOptions: TYPES.OBJECT,
 		from: TYPES.NUMBER,
+		onAllData: TYPES.FUNCTION,
 		onData: TYPES.FUNCTION,
 		size: TYPES.NUMBER,
-		requestOnScroll: TYPES.BOOLEAN,
 		stream: TYPES.BOOLEAN,
 		componentStyle: TYPES.OBJECT,
 		initialLoader: TYPES.STRING,
 		noResults: TYPES.FUNC,
 		showResultStats: TYPES.BOOLEAN,
 		onResultStats: TYPES.FUNCTION,
-		placeholder: TYPES.STRING
+		placeholder: TYPES.STRING,
+		pagination: TYPES.BOOLEAN,
+		paginationAt: TYPES.STRING
 	};
 
 /***/ },
-/* 373 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -69107,7 +69968,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 
 		_createClass(JsonPrint, [{
-			key: 'render',
+			key: "render",
 			value: function render() {
 				var _this2 = this;
 
@@ -69118,20 +69979,20 @@ return /******/ (function(modules) { // webpackBootstrap
 					tree = JSON.stringify(this.props.data);
 				}
 				return _react2.default.createElement(
-					'div',
-					{ className: 'row rbc-json-print' },
+					"div",
+					{ className: "row rbc-json-print" },
 					_react2.default.createElement(
-						'span',
+						"span",
 						{
-							className: 'head ' + (this.state.open ? null : 'collapsed'),
+							className: "head " + (this.state.open ? null : "collapsed"),
 							onClick: function onClick() {
 								return _this2.setState({ open: !_this2.state.open });
 							}
 						},
-						'Object'
+						"Object"
 					),
 					_react2.default.createElement(
-						'pre',
+						"pre",
 						null,
 						tree
 					)
@@ -69145,7 +70006,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JsonPrint;
 
 /***/ },
-/* 374 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -69161,17 +70022,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function Poweredby() {
-		return _react2.default.createElement(
+	var $ = __webpack_require__(15);
+
+	function Poweredby(props) {
+		var showMarkup = true;
+		var markup = _react2.default.createElement(
 			"a",
 			{ href: "https://appbase.io/", target: "_blank", rel: "noopener noreferrer", className: "rbc rbc-poweredby" },
 			_react2.default.createElement("img", { className: "rbc-img-responsive rbc-poweredby-dark", src: "https://cdn.rawgit.com/appbaseio/cdn/master/appbase/logos/rbc-dark-logo.svg", alt: "Appbase dark" }),
 			_react2.default.createElement("img", { className: "rbc-img-responsive rbc-poweredby-light", src: "https://cdn.rawgit.com/appbaseio/cdn/master/appbase/logos/rbc-logo.svg", alt: "Poweredby appbase" })
 		);
+		if (props.container) {
+			var height = $("." + props.container).height() || 0;
+			showMarkup = height > 300;
+		}
+		return showMarkup ? markup : null;
 	}
 
 /***/ },
-/* 375 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -69224,7 +70093,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	NoResults.propTypes = {
-		defaultText: _react2.default.PropTypes.string
+		defaultText: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element])
 	};
 
 	// Default props value
@@ -69233,10 +70102,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 376 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -69270,20 +70139,19 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 
 		_createClass(ResultStats, [{
-			key: 'defaultText',
+			key: "defaultText",
 			value: function defaultText() {
 				if (this.props.onResultStats) {
 					return this.props.onResultStats(this.props.total, this.props.took);
-				} else {
-					return this.props.total + ' results found in ' + this.props.took + ' ms';
 				}
+				return this.props.total + " results found in " + this.props.took + " ms";
 			}
 		}, {
-			key: 'render',
+			key: "render",
 			value: function render() {
 				return _react2.default.createElement(
-					'div',
-					{ className: 'rbc rbc-resultstats col s12 col-xs-12' },
+					"div",
+					{ className: "rbc rbc-resultstats col s12 col-xs-12" },
 					this.defaultText()
 				);
 			}
@@ -69300,7 +70168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 377 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -69323,7 +70191,309 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ChannelManager2 = _interopRequireDefault(_ChannelManager);
 
-	var _PoweredBy = __webpack_require__(374);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var helper = __webpack_require__(13);
+
+	var Pagination = function (_Component) {
+		_inherits(Pagination, _Component);
+
+		function Pagination(props, context) {
+			_classCallCheck(this, Pagination);
+
+			var _this = _possibleConstructorReturn(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, props));
+
+			_this.state = {
+				currentValue: 1,
+				maxPageNumber: 1
+			};
+			_this.handleChange = _this.handleChange.bind(_this);
+			_this.prePage = _this.prePage.bind(_this);
+			_this.nextPage = _this.nextPage.bind(_this);
+			_this.firstPage = _this.firstPage.bind(_this);
+			_this.lastPage = _this.lastPage.bind(_this);
+			return _this;
+		}
+
+		// Set query information
+
+
+		_createClass(Pagination, [{
+			key: "componentDidMount",
+			value: function componentDidMount() {
+				this.setQueryInfo();
+				this.listenGlobal();
+			}
+
+			// stop streaming request and remove listener when component will unmount
+
+		}, {
+			key: "componentWillUnmount",
+			value: function componentWillUnmount() {
+				if (this.globalListener) {
+					this.globalListener.remove();
+				}
+			}
+
+			// set the query type and input data
+
+		}, {
+			key: "setQueryInfo",
+			value: function setQueryInfo() {
+				var obj = {
+					key: this.props.componentId,
+					value: this.state.currentValue
+				};
+				helper.selectedSensor.setPaginationInfo(obj);
+			}
+
+			// listen all results
+
+		}, {
+			key: "listenGlobal",
+			value: function listenGlobal() {
+				var _this2 = this;
+
+				this.globalListener = _ChannelManager2.default.emitter.addListener("global", function (res) {
+					if (res.react && Object.keys(res.react).indexOf(_this2.props.componentId) > -1) {
+						var totalHits = res.channelResponse && res.channelResponse.data && res.channelResponse.data.hits ? res.channelResponse.data.hits.total : 0;
+						var maxPageNumber = Math.ceil(totalHits / res.queryOptions.size) < 1 ? 1 : Math.ceil(totalHits / res.queryOptions.size);
+						var size = res.queryOptions.size ? res.queryOptions.size : 20;
+						var currentPage = Math.round(res.queryOptions.from / size) + 1;
+						_this2.setState({
+							totalHits: totalHits,
+							size: size,
+							maxPageNumber: maxPageNumber,
+							currentValue: currentPage
+						});
+					}
+				});
+			}
+
+			// handle the input change and pass the value inside sensor info
+
+		}, {
+			key: "handleChange",
+			value: function handleChange(inputVal) {
+				this.setState({
+					currentValue: inputVal
+				});
+				var obj = {
+					key: this.props.componentId,
+					value: inputVal
+				};
+
+				// pass the selected sensor value with componentId as key,
+				var isExecuteQuery = true;
+				helper.selectedSensor.set(obj, isExecuteQuery, "paginationChange");
+				if (this.props.onPageChange) {
+					this.props.onPageChange(inputVal);
+				}
+			}
+
+			// first page
+
+		}, {
+			key: "firstPage",
+			value: function firstPage() {
+				if (this.state.currentValue !== 1) {
+					this.handleChange.call(this, 1);
+				}
+			}
+
+			// last page
+
+		}, {
+			key: "lastPage",
+			value: function lastPage() {
+				if (this.state.currentValue !== this.state.maxPageNumber) {
+					this.handleChange.call(this, this.state.maxPageNumber);
+				}
+			}
+
+			// pre page
+
+		}, {
+			key: "prePage",
+			value: function prePage() {
+				var currentValue = this.state.currentValue > 1 ? this.state.currentValue - 1 : 1;
+				if (this.state.currentValue !== currentValue) {
+					this.handleChange.call(this, currentValue);
+				}
+			}
+
+			// next page
+
+		}, {
+			key: "nextPage",
+			value: function nextPage() {
+				var currentValue = this.state.currentValue < this.state.maxPageNumber ? this.state.currentValue + 1 : this.state.maxPageNumber;
+				if (this.state.currentValue !== currentValue) {
+					this.handleChange.call(this, currentValue);
+				}
+			}
+		}, {
+			key: "renderPageNumber",
+			value: function renderPageNumber() {
+				var _this3 = this;
+
+				var start = void 0,
+				    numbers = [];
+				for (var i = this.state.currentValue; i > 0; i--) {
+					if (i % 5 === 0 || i === 1) {
+						start = i;
+						break;
+					}
+				}
+
+				var _loop = function _loop(_i) {
+					var singleItem = _react2.default.createElement(
+						"li",
+						{ key: _i, className: "rbc-page-number " + (_this3.state.currentValue === _i ? "active rbc-pagination-active" : "waves-effect") },
+						_react2.default.createElement(
+							"a",
+							{ onClick: function onClick() {
+									return _this3.handleChange(_i);
+								} },
+							_i
+						)
+					);
+					if (_i <= _this3.state.maxPageNumber) {
+						numbers.push(singleItem);
+					}
+				};
+
+				for (var _i = start; _i <= start + 5; _i++) {
+					_loop(_i);
+				}
+				return _react2.default.createElement(
+					"ul",
+					{ className: "pagination" },
+					_react2.default.createElement(
+						"li",
+						{ className: this.state.currentValue === 1 ? "disabled" : "waves-effect" },
+						_react2.default.createElement(
+							"a",
+							{ className: "rbc-page-previous", onClick: this.firstPage },
+							_react2.default.createElement("i", { className: "fa fa-angle-double-left" })
+						)
+					),
+					_react2.default.createElement(
+						"li",
+						{ className: this.state.currentValue === 1 ? "disabled" : "waves-effect" },
+						_react2.default.createElement(
+							"a",
+							{ className: "rbc-page-previous", onClick: this.prePage },
+							_react2.default.createElement("i", { className: "fa fa-angle-left" })
+						)
+					),
+					numbers,
+					_react2.default.createElement(
+						"li",
+						{ className: this.state.currentValue === this.state.maxPageNumber ? "disabled" : "waves-effect" },
+						_react2.default.createElement(
+							"a",
+							{ className: "rbc-page-next", onClick: this.nextPage },
+							_react2.default.createElement("i", { className: "fa fa-angle-right" })
+						)
+					),
+					_react2.default.createElement(
+						"li",
+						{ className: this.state.currentValue === this.state.maxPageNumber ? "disabled" : "waves-effect" },
+						_react2.default.createElement(
+							"a",
+							{ className: "rbc-page-previous", onClick: this.lastPage },
+							_react2.default.createElement("i", { className: "fa fa-angle-double-right" })
+						)
+					)
+				);
+			}
+
+			// render
+
+		}, {
+			key: "render",
+			value: function render() {
+				var title = null;
+				var titleExists = false;
+				if (this.props.title) {
+					title = _react2.default.createElement(
+						"h4",
+						{ className: "rbc-title col s12 col-xs-12" },
+						this.props.title
+					);
+				}
+
+				var cx = (0, _classnames2.default)({
+					"rbc-title-active": this.props.title,
+					"rbc-title-inactive": !this.props.title
+				});
+
+				return _react2.default.createElement(
+					"div",
+					{ className: "rbc rbc-pagination col s12 col-xs-12 " + cx + " " + this.props.className },
+					title,
+					_react2.default.createElement(
+						"div",
+						{ className: "col s12 col-xs-12" },
+						this.renderPageNumber()
+					)
+				);
+			}
+		}]);
+
+		return Pagination;
+	}(_react.Component);
+
+	exports.default = Pagination;
+
+
+	Pagination.propTypes = {
+		componentId: _react2.default.PropTypes.string.isRequired,
+		title: _react2.default.PropTypes.string,
+		onPageChange: _react2.default.PropTypes.func
+	};
+
+	// Default props value
+	Pagination.defaultProps = {};
+
+	// context type
+	Pagination.contextTypes = {
+		appbaseRef: _react2.default.PropTypes.any.isRequired,
+		type: _react2.default.PropTypes.any.isRequired
+	};
+
+/***/ },
+/* 383 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(5);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _ChannelManager = __webpack_require__(11);
+
+	var _ChannelManager2 = _interopRequireDefault(_ChannelManager);
+
+	var _PoweredBy = __webpack_require__(379);
 
 	var _PoweredBy2 = _interopRequireDefault(_PoweredBy);
 
@@ -69331,11 +70501,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _InitialLoader2 = _interopRequireDefault(_InitialLoader);
 
-	var _NoResults = __webpack_require__(375);
+	var _NoResults = __webpack_require__(380);
 
 	var _NoResults2 = _interopRequireDefault(_NoResults);
 
-	var _ResultStats = __webpack_require__(376);
+	var _ResultStats = __webpack_require__(381);
 
 	var _ResultStats2 = _interopRequireDefault(_ResultStats);
 
@@ -69424,8 +70594,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			// default markup
 
 		}, {
-			key: "defaultonData",
-			value: function defaultonData(res) {
+			key: "defaultonAllData",
+			value: function defaultonAllData(res) {
 				var result = null;
 				if (res && res.appliedQuery) {
 					result = _react2.default.createElement(
@@ -69496,7 +70666,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					this.enableSort(react);
 				}
 				// create a channel and listen the changes
-				var channelObj = _ChannelManager2.default.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream);
+				var channelObj = _ChannelManager2.default.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.context.app);
 				this.channelId = channelObj.channelId;
 
 				this.channelListener = channelObj.emitter.addListener(channelObj.channelId, function (res) {
@@ -69508,9 +70678,9 @@ return /******/ (function(modules) { // webpackBootstrap
 							queryStart: false,
 							showPlaceholder: false
 						});
-						if (_this3.props.onData) {
+						if (_this3.props.onAllData) {
 							var modifiedData = helper.prepareResultData(res);
-							_this3.props.onData(modifiedData.res, modifiedData.err);
+							_this3.props.onAllData(modifiedData.res, modifiedData.err);
 						}
 					}
 					if (res.appliedQuery) {
@@ -69611,7 +70781,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					modifiedData.currentData = _this5.state.currentData;
 					delete modifiedData.data;
 					modifiedData = helper.prepareResultData(modifiedData, res.data);
-					var generatedData = _this5.props.onData ? _this5.props.onData(modifiedData.res, modifiedData.err) : _this5.defaultonData(modifiedData.res, modifiedData.err);
+					var generatedData = _this5.props.onAllData ? _this5.props.onAllData(modifiedData.res, modifiedData.err) : _this5.defaultonAllData(modifiedData.res, modifiedData.err);
 					_this5.setState({
 						resultMarkup: generatedData,
 						currentData: _this5.combineCurrentData(newData)
@@ -69721,7 +70891,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					),
 					this.props.noResults && this.state.visibleNoResults ? _react2.default.createElement(_NoResults2.default, { defaultText: this.props.noResults.text }) : null,
 					this.props.initialLoader && this.state.queryStart ? _react2.default.createElement(_InitialLoader2.default, { defaultText: this.props.initialLoader.text }) : null,
-					_react2.default.createElement(_PoweredBy2.default, null)
+					_react2.default.createElement(_PoweredBy2.default, { container: "rbc-reactiveelement-container" })
 				);
 			}
 		}]);
@@ -69734,9 +70904,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	ReactiveElement.propTypes = {
 		componentId: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		from: helper.validation.resultListFrom,
-		onData: _react2.default.PropTypes.func,
+		onAllData: _react2.default.PropTypes.func,
 		size: helper.sizeValidation,
 		stream: _react2.default.PropTypes.bool,
 		componentStyle: _react2.default.PropTypes.object,
@@ -69759,7 +70929,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	// context type
 	ReactiveElement.contextTypes = {
 		appbaseRef: _react2.default.PropTypes.any.isRequired,
-		type: _react2.default.PropTypes.any.isRequired
+		type: _react2.default.PropTypes.any.isRequired,
+		app: _react2.default.PropTypes.any.isRequired
 	};
 
 	ReactiveElement.types = {
@@ -69768,7 +70939,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		react: TYPES.OBJECT,
 		from: TYPES.NUMBER,
 		size: TYPES.NUMBER,
-		onData: TYPES.FUNCTION,
+		onAllData: TYPES.FUNCTION,
 		stream: TYPES.BOOLEAN,
 		componentStyle: TYPES.OBJECT,
 		initialLoader: TYPES.STRING,
@@ -69779,523 +70950,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 378 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _ReactiveList = __webpack_require__(372);
-
-	var _ReactiveList2 = _interopRequireDefault(_ReactiveList);
-
-	var _Pagination = __webpack_require__(379);
-
-	var _Pagination2 = _interopRequireDefault(_Pagination);
-
-	var _constants = __webpack_require__(27);
-
-	var TYPES = _interopRequireWildcard(_constants);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var helper = __webpack_require__(13);
-
-	var ReactivePaginatedList = function (_Component) {
-		_inherits(ReactivePaginatedList, _Component);
-
-		function ReactivePaginatedList(props, context) {
-			_classCallCheck(this, ReactivePaginatedList);
-
-			return _possibleConstructorReturn(this, (ReactivePaginatedList.__proto__ || Object.getPrototypeOf(ReactivePaginatedList)).call(this, props));
-		}
-
-		_createClass(ReactivePaginatedList, [{
-			key: 'componentWillMount',
-			value: function componentWillMount() {
-				this.paginationAtVal = this.props.paginationAt;
-				this.setQueryInfo();
-				this.setReact();
-				this.executePaginationUpdate();
-			}
-		}, {
-			key: 'componentWillUpdate',
-			value: function componentWillUpdate() {
-				var _this2 = this;
-
-				setTimeout(function () {
-					if (_this2.paginationAtVal !== _this2.props.paginationAt) {
-						_this2.paginationAtVal = _this2.props.paginationAt;
-						_this2.executePaginationUpdate();
-					}
-				}, 300);
-			}
-		}, {
-			key: 'customQuery',
-			value: function customQuery() {
-				return null;
-			}
-			// set the query type and input data
-
-		}, {
-			key: 'setQueryInfo',
-			value: function setQueryInfo() {
-				var valObj = {
-					queryType: 'match',
-					inputData: this.props.appbaseField,
-					customQuery: this.customQuery
-				};
-				var obj = {
-					key: 'paginationChanges',
-					value: valObj
-				};
-				helper.selectedSensor.setSensorInfo(obj);
-			}
-		}, {
-			key: 'setReact',
-			value: function setReact() {
-				this.react = this.props.react ? this.props.react : {};
-				this.react.pagination = {};
-				if (this.react && this.react.and && typeof this.react.and === "string") {
-					this.react.and = [this.react.and];
-				}
-				this.react.and.push("paginationChanges");
-			}
-		}, {
-			key: 'executePaginationUpdate',
-			value: function executePaginationUpdate() {
-				setTimeout(function () {
-					var obj = {
-						key: "paginationChanges",
-						value: Math.random()
-					};
-					helper.selectedSensor.set(obj, true);
-				}, 100);
-			}
-		}, {
-			key: 'paginationAt',
-			value: function paginationAt(method) {
-				var pageinationComp = void 0;
-
-				if (this.props.paginationAt === method || this.props.paginationAt === 'both') {
-					pageinationComp = _react2.default.createElement(
-						'div',
-						{ className: 'rbc-pagination-container col s12 col-xs-12' },
-						_react2.default.createElement(_Pagination2.default, {
-							className: 'rbc-pagination-' + method,
-							componentId: 'pagination',
-							onPageChange: this.props.onPageChange,
-							title: this.props.paginationTitle })
-					);
-				}
-				return pageinationComp;
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					{ className: 'row' },
-					this.paginationAt('top'),
-					_react2.default.createElement(
-						'div',
-						{ className: 'rbc-pagination-container col s12 col-xs-12' },
-						_react2.default.createElement(_ReactiveList2.default, _extends({}, this.props, {
-							requestOnScroll: false,
-							react: this.react
-						}))
-					),
-					this.paginationAt('bottom')
-				);
-			}
-		}]);
-
-		return ReactivePaginatedList;
-	}(_react.Component);
-
-	exports.default = ReactivePaginatedList;
-
-
-	ReactivePaginatedList.propTypes = {
-		componentId: _react2.default.PropTypes.string,
-		appbaseField: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
-		paginationAt: _react2.default.PropTypes.string,
-		sortBy: _react2.default.PropTypes.oneOf(['asc', 'desc', 'default']),
-		sortOptions: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
-			label: _react2.default.PropTypes.string,
-			field: _react2.default.PropTypes.string,
-			order: _react2.default.PropTypes.string
-		})),
-		from: helper.validation.resultListFrom,
-		onData: _react2.default.PropTypes.func,
-		onPageChange: _react2.default.PropTypes.func,
-		size: helper.sizeValidation,
-		stream: _react2.default.PropTypes.bool,
-		initialLoader: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number, _react2.default.PropTypes.element]),
-		noResults: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number, _react2.default.PropTypes.element]),
-		showResultStats: _react2.default.PropTypes.bool,
-		onResultStats: _react2.default.PropTypes.func,
-		placeholder: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number, _react2.default.PropTypes.element])
-	};
-
-	// Default props value
-	ReactivePaginatedList.defaultProps = {
-		from: 0,
-		size: 20,
-		paginationAt: 'bottom',
-		showResultStats: true
-	};
-
-	// context type
-	ReactivePaginatedList.contextTypes = {
-		appbaseRef: _react2.default.PropTypes.any.isRequired,
-		type: _react2.default.PropTypes.any.isRequired
-	};
-
-	ReactivePaginatedList.types = {
-		componentId: TYPES.STRING,
-		appbaseField: TYPES.STRING,
-		title: TYPES.STRING,
-		react: TYPES.OBJECT,
-		sortBy: TYPES.STRING,
-		sortOptions: TYPES.OBJECT,
-		from: TYPES.NUMBER,
-		size: TYPES.NUMBER,
-		paginationAt: TYPES.STRING,
-		onData: TYPES.FUNCTION,
-		onPageChange: TYPES.FUNCTION,
-		requestOnScroll: TYPES.BOOLEAN,
-		stream: TYPES.BOOLEAN,
-		componentStyle: TYPES.OBJECT,
-		initialLoader: TYPES.STRING,
-		noResults: TYPES.STRING,
-		showResultStats: TYPES.BOOLEAN,
-		onResultStats: TYPES.FUNCTION,
-		placeholder: TYPES.STRING
-	};
-
-/***/ },
-/* 379 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(5);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _ChannelManager = __webpack_require__(11);
-
-	var _ChannelManager2 = _interopRequireDefault(_ChannelManager);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var helper = __webpack_require__(13);
-
-	var Pagination = function (_Component) {
-		_inherits(Pagination, _Component);
-
-		function Pagination(props, context) {
-			_classCallCheck(this, Pagination);
-
-			var _this = _possibleConstructorReturn(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, props));
-
-			_this.state = {
-				currentValue: 1,
-				maxPageNumber: 1
-			};
-			_this.handleChange = _this.handleChange.bind(_this);
-			_this.prePage = _this.prePage.bind(_this);
-			_this.nextPage = _this.nextPage.bind(_this);
-			_this.firstPage = _this.firstPage.bind(_this);
-			_this.lastPage = _this.lastPage.bind(_this);
-			return _this;
-		}
-
-		// Set query information
-
-
-		_createClass(Pagination, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.setQueryInfo();
-				this.listenGlobal();
-			}
-
-			// stop streaming request and remove listener when component will unmount
-
-		}, {
-			key: 'componentWillUnmount',
-			value: function componentWillUnmount() {
-				if (this.globalListener) {
-					this.globalListener.remove();
-				}
-			}
-
-			// set the query type and input data
-
-		}, {
-			key: 'setQueryInfo',
-			value: function setQueryInfo() {
-				var obj = {
-					key: this.props.componentId,
-					value: this.state.currentValue
-				};
-				helper.selectedSensor.setPaginationInfo(obj);
-			}
-
-			// listen all results
-
-		}, {
-			key: 'listenGlobal',
-			value: function listenGlobal() {
-				this.globalListener = _ChannelManager2.default.emitter.addListener('global', function (res) {
-					if (res.react && Object.keys(res.react).indexOf(this.props.componentId) > -1) {
-						var totalHits = res.channelResponse.data.hits.total;
-						var maxPageNumber = Math.ceil(totalHits / res.queryOptions.size) < 1 ? 1 : Math.ceil(totalHits / res.queryOptions.size);
-						var size = res.queryOptions.size ? res.queryOptions.size : 20;
-						var currentPage = Math.round(res.queryOptions.from / size) + 1;
-						this.setState({
-							totalHits: totalHits,
-							size: size,
-							maxPageNumber: maxPageNumber,
-							currentValue: currentPage
-						});
-					}
-				}.bind(this));
-			}
-
-			// handle the input change and pass the value inside sensor info
-
-		}, {
-			key: 'handleChange',
-			value: function handleChange(inputVal) {
-				this.setState({
-					'currentValue': inputVal
-				});
-				var obj = {
-					key: this.props.componentId,
-					value: inputVal
-				};
-
-				// pass the selected sensor value with componentId as key,
-				var isExecuteQuery = true;
-				helper.selectedSensor.set(obj, isExecuteQuery, 'paginationChange');
-				if (this.props.onPageChange) {
-					this.props.onPageChange(inputVal);
-				}
-			}
-
-			// first page
-
-		}, {
-			key: 'firstPage',
-			value: function firstPage() {
-				if (this.state.currentValue !== 1) {
-					this.handleChange.call(this, 1);
-				}
-			}
-
-			// last page
-
-		}, {
-			key: 'lastPage',
-			value: function lastPage() {
-				if (this.state.currentValue !== this.state.maxPageNumber) {
-					this.handleChange.call(this, this.state.maxPageNumber);
-				}
-			}
-
-			// pre page
-
-		}, {
-			key: 'prePage',
-			value: function prePage() {
-				var currentValue = this.state.currentValue > 1 ? this.state.currentValue - 1 : 1;
-				if (this.state.currentValue !== currentValue) {
-					this.handleChange.call(this, currentValue);
-				}
-			}
-
-			// next page
-
-		}, {
-			key: 'nextPage',
-			value: function nextPage() {
-				var currentValue = this.state.currentValue < this.state.maxPageNumber ? this.state.currentValue + 1 : this.state.maxPageNumber;
-				if (this.state.currentValue !== currentValue) {
-					this.handleChange.call(this, currentValue);
-				}
-			}
-		}, {
-			key: 'renderPageNumber',
-			value: function renderPageNumber() {
-				var _this2 = this;
-
-				var start = void 0,
-				    numbers = [];
-				for (var i = this.state.currentValue; i > 0; i--) {
-					if (i % 5 === 0 || i === 1) {
-						start = i;
-						break;
-					}
-				}
-
-				var _loop = function _loop(_i) {
-					var singleItem = _react2.default.createElement(
-						'li',
-						{ key: _i, className: 'rbc-page-number ' + (_this2.state.currentValue === _i ? 'active rbc-pagination-active' : 'waves-effect') },
-						_react2.default.createElement(
-							'a',
-							{ onClick: function onClick() {
-									return _this2.handleChange(_i);
-								} },
-							_i
-						)
-					);
-					if (_i <= _this2.state.maxPageNumber) {
-						numbers.push(singleItem);
-					}
-				};
-
-				for (var _i = start; _i <= start + 5; _i++) {
-					_loop(_i);
-				}
-				return _react2.default.createElement(
-					'ul',
-					{ className: 'pagination' },
-					_react2.default.createElement(
-						'li',
-						{ className: this.state.currentValue === 1 ? 'disabled' : 'waves-effect' },
-						_react2.default.createElement(
-							'a',
-							{ className: 'rbc-page-previous', onClick: this.firstPage },
-							_react2.default.createElement('i', { className: 'fa fa-angle-double-left' })
-						)
-					),
-					_react2.default.createElement(
-						'li',
-						{ className: this.state.currentValue === 1 ? 'disabled' : 'waves-effect' },
-						_react2.default.createElement(
-							'a',
-							{ className: 'rbc-page-previous', onClick: this.prePage },
-							_react2.default.createElement('i', { className: 'fa fa-angle-left' })
-						)
-					),
-					numbers,
-					_react2.default.createElement(
-						'li',
-						{ className: this.state.currentValue === this.state.maxPageNumber ? 'disabled' : 'waves-effect' },
-						_react2.default.createElement(
-							'a',
-							{ className: 'rbc-page-next', onClick: this.nextPage },
-							_react2.default.createElement('i', { className: 'fa fa-angle-right' })
-						)
-					),
-					_react2.default.createElement(
-						'li',
-						{ className: this.state.currentValue === this.state.maxPageNumber ? 'disabled' : 'waves-effect' },
-						_react2.default.createElement(
-							'a',
-							{ className: 'rbc-page-previous', onClick: this.lastPage },
-							_react2.default.createElement('i', { className: 'fa fa-angle-double-right' })
-						)
-					)
-				);
-			}
-
-			// render
-
-		}, {
-			key: 'render',
-			value: function render() {
-				var title = null;
-				var titleExists = false;
-				if (this.props.title) {
-					title = _react2.default.createElement(
-						'h4',
-						{ className: 'rbc-title col s12 col-xs-12' },
-						this.props.title
-					);
-				}
-
-				var cx = (0, _classnames2.default)({
-					'rbc-title-active': this.props.title,
-					'rbc-title-inactive': !this.props.title
-				});
-
-				return _react2.default.createElement(
-					'div',
-					{ className: 'rbc rbc-pagination col s12 col-xs-12 card thumbnail ' + cx + ' ' + this.props.className },
-					title,
-					_react2.default.createElement(
-						'div',
-						{ className: 'col s12 col-xs-12' },
-						this.renderPageNumber()
-					)
-				);
-			}
-		}]);
-
-		return Pagination;
-	}(_react.Component);
-
-	exports.default = Pagination;
-
-
-	Pagination.propTypes = {
-		componentId: _react2.default.PropTypes.string.isRequired,
-		title: _react2.default.PropTypes.string,
-		onPageChange: _react2.default.PropTypes.func
-	};
-
-	// Default props value
-	Pagination.defaultProps = {};
-
-	// context type
-	Pagination.contextTypes = {
-		appbaseRef: _react2.default.PropTypes.any.isRequired,
-		type: _react2.default.PropTypes.any.isRequired
-	};
-
-/***/ },
-/* 380 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -70350,7 +71005,20 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "componentDidMount",
 			value: function componentDidMount() {
 				this.setQueryInfo();
-				setTimeout(this.setValue.bind(this), 1000);
+				this.checkDefault();
+			}
+		}, {
+			key: "componentWillUpdate",
+			value: function componentWillUpdate() {
+				this.checkDefault();
+			}
+		}, {
+			key: "checkDefault",
+			value: function checkDefault() {
+				if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
+					this.defaultSelected = this.props.defaultSelected;
+					setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
+				}
 			}
 
 			// set the query type and input data
@@ -70373,11 +71041,14 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}, {
 			key: "setValue",
-			value: function setValue() {
+			value: function setValue(value) {
 				var obj = {
 					key: this.props.componentId,
-					value: this.value
+					value: value
 				};
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
 				// pass the selected sensor value with componentId as key,
 				var isExecuteQuery = true;
 				helper.selectedSensor.set(obj, isExecuteQuery);
@@ -70408,14 +71079,16 @@ return /******/ (function(modules) { // webpackBootstrap
 				var cx = (0, _classnames2.default)({
 					"rbc-title-active": this.props.title,
 					"rbc-title-inactive": !this.props.title,
-					"rbc-querylabel-active": this.props.dataLabel,
-					"rbc-querylabel-inactive": !this.props.dataLabel
+					"rbc-datalabel-active": this.props.dataLabel,
+					"rbc-datalabel-inactive": !this.props.dataLabel,
+					"rbc-visible-active": this.props.visible,
+					"rbc-visible-inactive": !this.props.visible
 				});
 
 				return _react2.default.createElement(
 					"div",
 					{ className: "rbc rbc-datacontroller card thumbnail " + cx, style: this.props.componentStyle },
-					this.props.showUI ? _react2.default.createElement(
+					this.props.visible ? _react2.default.createElement(
 						"div",
 						null,
 						title,
@@ -70434,40 +71107,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	DataController.propTypes = {
 		componentId: _react2.default.PropTypes.string.isRequired,
 		appbaseField: _react2.default.PropTypes.string,
-		title: _react2.default.PropTypes.string,
-		showUI: _react2.default.PropTypes.bool,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
+		visible: _react2.default.PropTypes.bool,
 		dataLabel: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
 		customQuery: _react2.default.PropTypes.func,
-		componentStyle: _react2.default.PropTypes.object
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object,
+		defaultSelected: _react2.default.PropTypes.any
 	};
+
+	_react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]);
 
 	// Default props value
 	DataController.defaultProps = {
-		showUI: false
+		visible: false,
+		defaultSelected: "default",
+		componentStyle: {}
 	};
 
 	// context type
 	DataController.contextTypes = {
 		appbaseRef: _react2.default.PropTypes.any.isRequired,
-		type: _react2.default.PropTypes.any.isRequired,
-		componentStyle: {}
+		type: _react2.default.PropTypes.any.isRequired
 	};
 
 	DataController.types = {
 		componentId: TYPES.STRING,
 		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.STRING,
 		title: TYPES.STRING,
-		showUI: TYPES.BOOL,
+		visible: TYPES.BOOL,
 		dataLabel: TYPES.STRING,
 		customQuery: TYPES.FUNCTION,
 		componentStyle: TYPES.OBJECT
 	};
 
 /***/ },
-/* 381 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -70491,7 +71170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Appbase = __webpack_require__(382);
+	var Appbase = __webpack_require__(386);
 	var helper = __webpack_require__(13);
 
 	var ReactiveBase = function (_Component) {
@@ -70504,30 +71183,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			_this.state = {};
 			_this.type = _this.props.type ? _this.props.type : "*";
-
 			_this.appbaseRef = new Appbase({
 				url: "https://scalr.api.appbase.io",
 				appname: _this.props.app,
-				username: _this.props.username,
-				password: _this.props.password
+				credentials: _this.props.credentials,
+				type: _this.type
 			});
 			return _this;
 		}
 
 		_createClass(ReactiveBase, [{
-			key: 'getChildContext',
+			key: "getChildContext",
 			value: function getChildContext() {
 				return {
 					appbaseRef: this.appbaseRef,
-					type: this.type
+					type: this.type,
+					app: this.props.app
 				};
 			}
 		}, {
-			key: 'render',
+			key: "render",
 			value: function render() {
 				return _react2.default.createElement(
-					'section',
-					{ className: "rbc-base col s12 col-xs-12 " + this.props.theme, style: { "padding": 0 } },
+					"section",
+					{ className: "rbc-base col s12 col-xs-12 " + this.props.theme, style: { padding: 0 } },
 					this.props.children
 				);
 			}
@@ -70541,8 +71220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	ReactiveBase.propTypes = {
 		app: _react2.default.PropTypes.string.isRequired,
-		username: _react2.default.PropTypes.string.isRequired,
-		password: _react2.default.PropTypes.string.isRequired,
+		credentials: helper.reactiveBaseValidation,
 		type: _react2.default.PropTypes.string,
 		theme: _react2.default.PropTypes.string
 	};
@@ -70554,44 +71232,41 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	ReactiveBase.childContextTypes = {
 		appbaseRef: _react2.default.PropTypes.any.isRequired,
-		type: _react2.default.PropTypes.any.isRequired
+		type: _react2.default.PropTypes.any.isRequired,
+		app: _react2.default.PropTypes.any
 	};
 
 /***/ },
-/* 382 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var URL = __webpack_require__(383);
+	var URL = __webpack_require__(387);
 
-	var betterWs = __webpack_require__(389);
-	var streamingRequest = __webpack_require__(392);
-	var wsRequest = __webpack_require__(468);
+	var betterWs = __webpack_require__(393);
+	var streamingRequest = __webpack_require__(396);
+	var wsRequest = __webpack_require__(454);
 
-	var indexService = __webpack_require__(470);
-	var getService = __webpack_require__(472);
-	var updateService = __webpack_require__(473);
-	var deleteService = __webpack_require__(474);
-	var bulkService = __webpack_require__(475);
-	var searchService = __webpack_require__(476);
-	var getTypesService = __webpack_require__(477);
-	var addWebhookService = __webpack_require__(478);
+	var indexService = __webpack_require__(456);
+	var getService = __webpack_require__(458);
+	var updateService = __webpack_require__(459);
+	var deleteService = __webpack_require__(460);
+	var bulkService = __webpack_require__(461);
+	var searchService = __webpack_require__(462);
+	var getTypesService = __webpack_require__(463);
+	var addWebhookService = __webpack_require__(464);
 
-	var streamDocumentService = __webpack_require__(483);
-	var streamSearchService = __webpack_require__(484);
+	var streamDocumentService = __webpack_require__(469);
+	var streamSearchService = __webpack_require__(470);
 
 	var appbaseClient = function appbaseClient(args) {
 		if (!(this instanceof appbaseClient)) {
 			return new appbaseClient(args);
 		}
 
-		if (typeof args.appname !== 'string' || args.appname === '') {
-			throw new Error('Appname not present is options.');
-		}
-
 		if (typeof args.url !== 'string' || args.url === '') {
-			throw new Error('URL not present is options.');
+			throw new Error('URL not present in options.');
 		}
 
 		var parsedUrl = URL.parse(args.url);
@@ -70599,18 +71274,28 @@ return /******/ (function(modules) { // webpackBootstrap
 		this.url = parsedUrl.host;
 		this.protocol = parsedUrl.protocol;
 		this.credentials = parsedUrl.auth;
-		this.appname = args.appname;
+		this.appname = args.appname || args.app;
+
+		if (typeof this.appname !== 'string' || this.appname === '') {
+			throw new Error('App name is not present in options.');
+		}
 
 		if (typeof this.protocol !== 'string' || this.protocol === '') {
-			throw new Error('Protocol not present in url. URL should be of the form https://scalr.api.appbase.io');
+			throw new Error('Protocol is not present in url. URL should be of the form https://scalr.api.appbase.io');
 		}
 
 		if (typeof args.username === 'string' && args.username !== '' && typeof args.password === 'string' && args.password !== '') {
 			this.credentials = args.username + ':' + args.password;
 		}
 
+		// credentials can be provided as a part of the URL, as username, password args or
+		// as a credentials argument directly
+		if (typeof args.credentials === 'string' && args.credentials !== '') {
+			this.credentials = args.credentials;
+		}
+
 		if (typeof this.credentials !== 'string' || this.credentials === '') {
-			throw new Error('Authentication information not present.');
+			throw new Error('Authentication information is not present. Did you add credentials?');
 		}
 
 		if (parsedUrl.protocol === 'https:') {
@@ -70695,7 +71380,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 383 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -70721,8 +71406,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var punycode = __webpack_require__(384);
-	var util = __webpack_require__(385);
+	var punycode = __webpack_require__(388);
+	var util = __webpack_require__(389);
 
 	exports.parse = urlParse;
 	exports.resolve = urlResolve;
@@ -70797,7 +71482,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      'gopher:': true,
 	      'file:': true
 	    },
-	    querystring = __webpack_require__(386);
+	    querystring = __webpack_require__(390);
 
 	function urlParse(url, parseQueryString, slashesDenoteHost) {
 	  if (url && util.isObject(url) && url instanceof Url) return url;
@@ -71433,7 +72118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 384 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! https://mths.be/punycode v1.3.2 by @mathias */
@@ -71968,7 +72653,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)(module), (function() { return this; }())))
 
 /***/ },
-/* 385 */
+/* 389 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -71990,17 +72675,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 386 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.decode = exports.parse = __webpack_require__(387);
-	exports.encode = exports.stringify = __webpack_require__(388);
+	exports.decode = exports.parse = __webpack_require__(391);
+	exports.encode = exports.stringify = __webpack_require__(392);
 
 
 /***/ },
-/* 387 */
+/* 391 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -72086,7 +72771,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 388 */
+/* 392 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -72156,13 +72841,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 389 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var WebSocket = __webpack_require__(390);
-	var EventEmitter = __webpack_require__(391).EventEmitter;
+	var WebSocket = typeof window !== 'undefined' ? window.WebSocket : __webpack_require__(394);
+	var EventEmitter = __webpack_require__(395).EventEmitter;
 
 	var betterWs = function betterWs(url) {
 		var conn = new WebSocket(url);
@@ -72206,56 +72891,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 390 */
+/* 394 */
 /***/ function(module, exports) {
 
-	
-	/**
-	 * Module dependencies.
-	 */
-
-	var global = (function() { return this; })();
-
-	/**
-	 * WebSocket constructor.
-	 */
-
-	var WebSocket = global.WebSocket || global.MozWebSocket;
-
-	/**
-	 * Module exports.
-	 */
-
-	module.exports = WebSocket ? ws : null;
-
-	/**
-	 * WebSocket constructor.
-	 *
-	 * The third `opts` options object gets ignored in web browsers, since it's
-	 * non-standard, and throws a TypeError if passed to the constructor.
-	 * See: https://github.com/einaros/ws/issues/227
-	 *
-	 * @param {String} uri
-	 * @param {Array} protocols (optional)
-	 * @param {Object) opts (optional)
-	 * @api public
-	 */
-
-	function ws(uri, protocols, opts) {
-	  var instance;
-	  if (protocols) {
-	    instance = new WebSocket(uri, protocols);
-	  } else {
-	    instance = new WebSocket(uri);
-	  }
-	  return instance;
-	}
-
-	if (WebSocket) ws.prototype = WebSocket.prototype;
-
+	module.exports = __WEBPACK_EXTERNAL_MODULE_394__;
 
 /***/ },
-/* 391 */
+/* 395 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -72563,15 +73205,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 392 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var hyperquest = __webpack_require__(394);
-	var JSONStream = __webpack_require__(456);
-	var querystring = __webpack_require__(386);
-	var through2 = __webpack_require__(459);
+	var hyperquest = __webpack_require__(398);
+	var JSONStream = __webpack_require__(450);
+	var querystring = __webpack_require__(390);
+	var through2 = __webpack_require__(453);
 
 	var streamingRequest = function streamingRequest(client, args) {
 		this.client = client;
@@ -72671,10 +73313,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = streamingRequest;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 393 */
+/* 397 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -72860,14 +73502,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 394 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process, Buffer) {var url = __webpack_require__(383);
-	var http = __webpack_require__(399);
-	var https = __webpack_require__(437);
-	var through = __webpack_require__(438);
-	var duplexer = __webpack_require__(448);
+	/* WEBPACK VAR INJECTION */(function(process, Buffer) {var url = __webpack_require__(387);
+	var http = __webpack_require__(403);
+	var https = __webpack_require__(431);
+	var through = __webpack_require__(432);
+	var duplexer = __webpack_require__(442);
 
 	module.exports = hyperquest;
 
@@ -73016,10 +73658,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this;
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393), __webpack_require__(395).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397), __webpack_require__(399).Buffer))
 
 /***/ },
-/* 395 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -73032,9 +73674,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict'
 
-	var base64 = __webpack_require__(396)
-	var ieee754 = __webpack_require__(397)
-	var isArray = __webpack_require__(398)
+	var base64 = __webpack_require__(400)
+	var ieee754 = __webpack_require__(401)
+	var isArray = __webpack_require__(402)
 
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -74815,7 +75457,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 396 */
+/* 400 */
 /***/ function(module, exports) {
 
 	'use strict'
@@ -74935,7 +75577,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 397 */
+/* 401 */
 /***/ function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -75025,7 +75667,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 398 */
+/* 402 */
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -75036,13 +75678,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 399 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {var ClientRequest = __webpack_require__(400)
-	var extend = __webpack_require__(435)
-	var statusCodes = __webpack_require__(436)
-	var url = __webpack_require__(383)
+	/* WEBPACK VAR INJECTION */(function(global) {var ClientRequest = __webpack_require__(404)
+	var extend = __webpack_require__(429)
+	var statusCodes = __webpack_require__(430)
+	var url = __webpack_require__(387)
 
 	var http = exports
 
@@ -75121,14 +75763,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 400 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(401)
-	var inherits = __webpack_require__(402)
-	var response = __webpack_require__(403)
-	var stream = __webpack_require__(404)
-	var toArrayBuffer = __webpack_require__(434)
+	/* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(405)
+	var inherits = __webpack_require__(406)
+	var response = __webpack_require__(407)
+	var stream = __webpack_require__(408)
+	var toArrayBuffer = __webpack_require__(428)
 
 	var IncomingMessage = response.IncomingMessage
 	var rStates = response.readyStates
@@ -75164,8 +75806,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		var preferBinary
 		var useFetch = true
-		if (opts.mode === 'disable-fetch') {
-			// If the use of XHR should be preferred and includes preserving the 'content-type' header
+		if (opts.mode === 'disable-fetch' || 'timeout' in opts) {
+			// If the use of XHR should be preferred and includes preserving the 'content-type' header.
+			// Force XHR to be used since the Fetch API does not yet support timeouts.
 			useFetch = false
 			preferBinary = true
 		} else if (opts.mode === 'prefer-streaming') {
@@ -75223,7 +75866,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var opts = self._opts
 
 		var headersObj = self._headers
-		var body
+		var body = null
 		if (opts.method === 'POST' || opts.method === 'PUT' || opts.method === 'PATCH' || opts.method === 'MERGE') {
 			if (capability.blobConstructor) {
 				body = new global.Blob(self._body.map(function (buffer) {
@@ -75245,7 +75888,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			global.fetch(self._opts.url, {
 				method: self._opts.method,
 				headers: headers,
-				body: body,
+				body: body || undefined,
 				mode: 'cors',
 				credentials: opts.withCredentials ? 'include' : 'same-origin'
 			}).then(function (response) {
@@ -75274,6 +75917,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			if (self._mode === 'text' && 'overrideMimeType' in xhr)
 				xhr.overrideMimeType('text/plain; charset=x-user-defined')
+
+			if ('timeout' in opts) {
+				xhr.timeout = opts.timeout
+				xhr.ontimeout = function () {
+					self.emit('timeout')
+				}
+			}
 
 			Object.keys(headersObj).forEach(function (name) {
 				xhr.setRequestHeader(headersObj[name].name, headersObj[name].value)
@@ -75346,6 +75996,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			return
 
 		self._response = new IncomingMessage(self._xhr, self._fetchResponse, self._mode)
+		self._response.on('error', function(err) {
+			self.emit('error', err)
+		})
+
 		self.emit('response', self._response)
 	}
 
@@ -75407,10 +76061,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		'via'
 	]
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(395).Buffer, (function() { return this; }()), __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(399).Buffer, (function() { return this; }()), __webpack_require__(397)))
 
 /***/ },
-/* 401 */
+/* 405 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
@@ -75421,12 +76075,34 @@ return /******/ (function(modules) { // webpackBootstrap
 		exports.blobConstructor = true
 	} catch (e) {}
 
-	var xhr = new global.XMLHttpRequest()
-	// If XDomainRequest is available (ie only, where xhr might not work
-	// cross domain), use the page location. Otherwise use example.com
-	xhr.open('GET', global.XDomainRequest ? '/' : 'https://example.com')
+	// The xhr request to example.com may violate some restrictive CSP configurations,
+	// so if we're running in a browser that supports `fetch`, avoid calling getXHR()
+	// and assume support for certain features below.
+	var xhr
+	function getXHR () {
+		// Cache the xhr value
+		if (xhr !== undefined) return xhr
+
+		if (global.XMLHttpRequest) {
+			xhr = new global.XMLHttpRequest()
+			// If XDomainRequest is available (ie only, where xhr might not work
+			// cross domain), use the page location. Otherwise use example.com
+			// Note: this doesn't actually make an http request.
+			try {
+				xhr.open('GET', global.XDomainRequest ? '/' : 'https://example.com')
+			} catch(e) {
+				xhr = null
+			}
+		} else {
+			// Service workers don't have XHR
+			xhr = null
+		}
+		return xhr
+	}
 
 	function checkTypeSupport (type) {
+		var xhr = getXHR()
+		if (!xhr) return false
 		try {
 			xhr.responseType = type
 			return xhr.responseType === type
@@ -75439,17 +76115,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	var haveArrayBuffer = typeof global.ArrayBuffer !== 'undefined'
 	var haveSlice = haveArrayBuffer && isFunction(global.ArrayBuffer.prototype.slice)
 
-	exports.arraybuffer = haveArrayBuffer && checkTypeSupport('arraybuffer')
+	// If fetch is supported, then arraybuffer will be supported too. Skip calling
+	// checkTypeSupport(), since that calls getXHR().
+	exports.arraybuffer = exports.fetch || (haveArrayBuffer && checkTypeSupport('arraybuffer'))
+
 	// These next two tests unavoidably show warnings in Chrome. Since fetch will always
 	// be used if it's available, just return false for these to avoid the warnings.
 	exports.msstream = !exports.fetch && haveSlice && checkTypeSupport('ms-stream')
 	exports.mozchunkedarraybuffer = !exports.fetch && haveArrayBuffer &&
 		checkTypeSupport('moz-chunked-arraybuffer')
-	exports.overrideMimeType = isFunction(xhr.overrideMimeType)
+
+	// If fetch is supported, then overrideMimeType will be supported too. Skip calling
+	// getXHR().
+	exports.overrideMimeType = exports.fetch || (getXHR() ? isFunction(getXHR().overrideMimeType) : false)
+
 	exports.vbArray = isFunction(global.VBArray)
 
 	function isFunction (value) {
-	  return typeof value === 'function'
+		return typeof value === 'function'
 	}
 
 	xhr = null // Help gc
@@ -75457,7 +76140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 402 */
+/* 406 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -75486,12 +76169,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 403 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(401)
-	var inherits = __webpack_require__(402)
-	var stream = __webpack_require__(404)
+	/* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(405)
+	var inherits = __webpack_require__(406)
+	var stream = __webpack_require__(408)
 
 	var rStates = exports.readyStates = {
 		UNSENT: 0,
@@ -75544,6 +76227,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 					self.push(new Buffer(result.value))
 					read()
+				}).catch(function(err) {
+					self.emit('error', err)
 				})
 			}
 			read()
@@ -75670,33 +76355,33 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393), __webpack_require__(395).Buffer, (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397), __webpack_require__(399).Buffer, (function() { return this; }())))
 
 /***/ },
-/* 404 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {var Stream = (function (){
 	  try {
-	    return __webpack_require__(405); // hack to fix a circular dependency issue when used with browserify
+	    return __webpack_require__(409); // hack to fix a circular dependency issue when used with browserify
 	  } catch(_){}
 	}());
-	exports = module.exports = __webpack_require__(426);
+	exports = module.exports = __webpack_require__(419);
 	exports.Stream = Stream || exports;
 	exports.Readable = exports;
-	exports.Writable = __webpack_require__(431);
-	exports.Duplex = __webpack_require__(430);
-	exports.Transform = __webpack_require__(432);
-	exports.PassThrough = __webpack_require__(433);
+	exports.Writable = __webpack_require__(411);
+	exports.Duplex = __webpack_require__(418);
+	exports.Transform = __webpack_require__(425);
+	exports.PassThrough = __webpack_require__(427);
 
 	if (!process.browser && process.env.READABLE_STREAM === 'disable' && Stream) {
 	  module.exports = Stream;
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 405 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -75722,15 +76407,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = Stream;
 
-	var EE = __webpack_require__(391).EventEmitter;
-	var inherits = __webpack_require__(402);
+	var EE = __webpack_require__(395).EventEmitter;
+	var inherits = __webpack_require__(406);
 
 	inherits(Stream, EE);
-	Stream.Readable = __webpack_require__(406);
-	Stream.Writable = __webpack_require__(422);
+	Stream.Readable = __webpack_require__(408);
+	Stream.Writable = __webpack_require__(410);
 	Stream.Duplex = __webpack_require__(423);
 	Stream.Transform = __webpack_require__(424);
-	Stream.PassThrough = __webpack_require__(425);
+	Stream.PassThrough = __webpack_require__(426);
 
 	// Backwards-compat with node 0.4.x
 	Stream.Stream = Stream;
@@ -75829,30 +76514,1256 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 406 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var Stream = (function (){
-	  try {
-	    return __webpack_require__(405); // hack to fix a circular dependency issue when used with browserify
-	  } catch(_){}
-	}());
-	exports = module.exports = __webpack_require__(407);
-	exports.Stream = Stream || exports;
-	exports.Readable = exports;
-	exports.Writable = __webpack_require__(415);
-	exports.Duplex = __webpack_require__(414);
-	exports.Transform = __webpack_require__(420);
-	exports.PassThrough = __webpack_require__(421);
+	module.exports = __webpack_require__(411)
 
-	if (!process.browser && process.env.READABLE_STREAM === 'disable' && Stream) {
-	  module.exports = Stream;
-	}
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
 
 /***/ },
-/* 407 */
+/* 411 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process, setImmediate) {// A bit simpler than readable streams.
+	// Implement an async ._write(chunk, encoding, cb), and it'll handle all
+	// the drain event emission and buffering.
+
+	'use strict';
+
+	module.exports = Writable;
+
+	/*<replacement>*/
+	var processNextTick = __webpack_require__(414);
+	/*</replacement>*/
+
+	/*<replacement>*/
+	var asyncWrite = !process.browser && ['v0.10', 'v0.9.'].indexOf(process.version.slice(0, 5)) > -1 ? setImmediate : processNextTick;
+	/*</replacement>*/
+
+	/*<replacement>*/
+	var Duplex;
+	/*</replacement>*/
+
+	Writable.WritableState = WritableState;
+
+	/*<replacement>*/
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
+	/*</replacement>*/
+
+	/*<replacement>*/
+	var internalUtil = {
+	  deprecate: __webpack_require__(416)
+	};
+	/*</replacement>*/
+
+	/*<replacement>*/
+	var Stream;
+	(function () {
+	  try {
+	    Stream = __webpack_require__(409);
+	  } catch (_) {} finally {
+	    if (!Stream) Stream = __webpack_require__(395).EventEmitter;
+	  }
+	})();
+	/*</replacement>*/
+
+	var Buffer = __webpack_require__(399).Buffer;
+	/*<replacement>*/
+	var bufferShim = __webpack_require__(417);
+	/*</replacement>*/
+
+	util.inherits(Writable, Stream);
+
+	function nop() {}
+
+	function WriteReq(chunk, encoding, cb) {
+	  this.chunk = chunk;
+	  this.encoding = encoding;
+	  this.callback = cb;
+	  this.next = null;
+	}
+
+	function WritableState(options, stream) {
+	  Duplex = Duplex || __webpack_require__(418);
+
+	  options = options || {};
+
+	  // object stream flag to indicate whether or not this stream
+	  // contains buffers or objects.
+	  this.objectMode = !!options.objectMode;
+
+	  if (stream instanceof Duplex) this.objectMode = this.objectMode || !!options.writableObjectMode;
+
+	  // the point at which write() starts returning false
+	  // Note: 0 is a valid value, means that we always return false if
+	  // the entire buffer is not flushed immediately on write()
+	  var hwm = options.highWaterMark;
+	  var defaultHwm = this.objectMode ? 16 : 16 * 1024;
+	  this.highWaterMark = hwm || hwm === 0 ? hwm : defaultHwm;
+
+	  // cast to ints.
+	  this.highWaterMark = ~~this.highWaterMark;
+
+	  // drain event flag.
+	  this.needDrain = false;
+	  // at the start of calling end()
+	  this.ending = false;
+	  // when end() has been called, and returned
+	  this.ended = false;
+	  // when 'finish' is emitted
+	  this.finished = false;
+
+	  // should we decode strings into buffers before passing to _write?
+	  // this is here so that some node-core streams can optimize string
+	  // handling at a lower level.
+	  var noDecode = options.decodeStrings === false;
+	  this.decodeStrings = !noDecode;
+
+	  // Crypto is kind of old and crusty.  Historically, its default string
+	  // encoding is 'binary' so we have to make this configurable.
+	  // Everything else in the universe uses 'utf8', though.
+	  this.defaultEncoding = options.defaultEncoding || 'utf8';
+
+	  // not an actual buffer we keep track of, but a measurement
+	  // of how much we're waiting to get pushed to some underlying
+	  // socket or file.
+	  this.length = 0;
+
+	  // a flag to see when we're in the middle of a write.
+	  this.writing = false;
+
+	  // when true all writes will be buffered until .uncork() call
+	  this.corked = 0;
+
+	  // a flag to be able to tell if the onwrite cb is called immediately,
+	  // or on a later tick.  We set this to true at first, because any
+	  // actions that shouldn't happen until "later" should generally also
+	  // not happen before the first write call.
+	  this.sync = true;
+
+	  // a flag to know if we're processing previously buffered items, which
+	  // may call the _write() callback in the same tick, so that we don't
+	  // end up in an overlapped onwrite situation.
+	  this.bufferProcessing = false;
+
+	  // the callback that's passed to _write(chunk,cb)
+	  this.onwrite = function (er) {
+	    onwrite(stream, er);
+	  };
+
+	  // the callback that the user supplies to write(chunk,encoding,cb)
+	  this.writecb = null;
+
+	  // the amount that is being written when _write is called.
+	  this.writelen = 0;
+
+	  this.bufferedRequest = null;
+	  this.lastBufferedRequest = null;
+
+	  // number of pending user-supplied write callbacks
+	  // this must be 0 before 'finish' can be emitted
+	  this.pendingcb = 0;
+
+	  // emit prefinish if the only thing we're waiting for is _write cbs
+	  // This is relevant for synchronous Transform streams
+	  this.prefinished = false;
+
+	  // True if the error was already emitted and should not be thrown again
+	  this.errorEmitted = false;
+
+	  // count buffered requests
+	  this.bufferedRequestCount = 0;
+
+	  // allocate the first CorkedRequest, there is always
+	  // one allocated and free to use, and we maintain at most two
+	  this.corkedRequestsFree = new CorkedRequest(this);
+	}
+
+	WritableState.prototype.getBuffer = function getBuffer() {
+	  var current = this.bufferedRequest;
+	  var out = [];
+	  while (current) {
+	    out.push(current);
+	    current = current.next;
+	  }
+	  return out;
+	};
+
+	(function () {
+	  try {
+	    Object.defineProperty(WritableState.prototype, 'buffer', {
+	      get: internalUtil.deprecate(function () {
+	        return this.getBuffer();
+	      }, '_writableState.buffer is deprecated. Use _writableState.getBuffer ' + 'instead.')
+	    });
+	  } catch (_) {}
+	})();
+
+	// Test _writableState for inheritance to account for Duplex streams,
+	// whose prototype chain only points to Readable.
+	var realHasInstance;
+	if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.prototype[Symbol.hasInstance] === 'function') {
+	  realHasInstance = Function.prototype[Symbol.hasInstance];
+	  Object.defineProperty(Writable, Symbol.hasInstance, {
+	    value: function (object) {
+	      if (realHasInstance.call(this, object)) return true;
+
+	      return object && object._writableState instanceof WritableState;
+	    }
+	  });
+	} else {
+	  realHasInstance = function (object) {
+	    return object instanceof this;
+	  };
+	}
+
+	function Writable(options) {
+	  Duplex = Duplex || __webpack_require__(418);
+
+	  // Writable ctor is applied to Duplexes, too.
+	  // `realHasInstance` is necessary because using plain `instanceof`
+	  // would return false, as no `_writableState` property is attached.
+
+	  // Trying to use the custom `instanceof` for Writable here will also break the
+	  // Node.js LazyTransform implementation, which has a non-trivial getter for
+	  // `_writableState` that would lead to infinite recursion.
+	  if (!realHasInstance.call(Writable, this) && !(this instanceof Duplex)) {
+	    return new Writable(options);
+	  }
+
+	  this._writableState = new WritableState(options, this);
+
+	  // legacy.
+	  this.writable = true;
+
+	  if (options) {
+	    if (typeof options.write === 'function') this._write = options.write;
+
+	    if (typeof options.writev === 'function') this._writev = options.writev;
+	  }
+
+	  Stream.call(this);
+	}
+
+	// Otherwise people can pipe Writable streams, which is just wrong.
+	Writable.prototype.pipe = function () {
+	  this.emit('error', new Error('Cannot pipe, not readable'));
+	};
+
+	function writeAfterEnd(stream, cb) {
+	  var er = new Error('write after end');
+	  // TODO: defer error events consistently everywhere, not just the cb
+	  stream.emit('error', er);
+	  processNextTick(cb, er);
+	}
+
+	// Checks that a user-supplied chunk is valid, especially for the particular
+	// mode the stream is in. Currently this means that `null` is never accepted
+	// and undefined/non-string values are only allowed in object mode.
+	function validChunk(stream, state, chunk, cb) {
+	  var valid = true;
+	  var er = false;
+
+	  if (chunk === null) {
+	    er = new TypeError('May not write null values to stream');
+	  } else if (typeof chunk !== 'string' && chunk !== undefined && !state.objectMode) {
+	    er = new TypeError('Invalid non-string/buffer chunk');
+	  }
+	  if (er) {
+	    stream.emit('error', er);
+	    processNextTick(cb, er);
+	    valid = false;
+	  }
+	  return valid;
+	}
+
+	Writable.prototype.write = function (chunk, encoding, cb) {
+	  var state = this._writableState;
+	  var ret = false;
+	  var isBuf = Buffer.isBuffer(chunk);
+
+	  if (typeof encoding === 'function') {
+	    cb = encoding;
+	    encoding = null;
+	  }
+
+	  if (isBuf) encoding = 'buffer';else if (!encoding) encoding = state.defaultEncoding;
+
+	  if (typeof cb !== 'function') cb = nop;
+
+	  if (state.ended) writeAfterEnd(this, cb);else if (isBuf || validChunk(this, state, chunk, cb)) {
+	    state.pendingcb++;
+	    ret = writeOrBuffer(this, state, isBuf, chunk, encoding, cb);
+	  }
+
+	  return ret;
+	};
+
+	Writable.prototype.cork = function () {
+	  var state = this._writableState;
+
+	  state.corked++;
+	};
+
+	Writable.prototype.uncork = function () {
+	  var state = this._writableState;
+
+	  if (state.corked) {
+	    state.corked--;
+
+	    if (!state.writing && !state.corked && !state.finished && !state.bufferProcessing && state.bufferedRequest) clearBuffer(this, state);
+	  }
+	};
+
+	Writable.prototype.setDefaultEncoding = function setDefaultEncoding(encoding) {
+	  // node::ParseEncoding() requires lower case.
+	  if (typeof encoding === 'string') encoding = encoding.toLowerCase();
+	  if (!(['hex', 'utf8', 'utf-8', 'ascii', 'binary', 'base64', 'ucs2', 'ucs-2', 'utf16le', 'utf-16le', 'raw'].indexOf((encoding + '').toLowerCase()) > -1)) throw new TypeError('Unknown encoding: ' + encoding);
+	  this._writableState.defaultEncoding = encoding;
+	  return this;
+	};
+
+	function decodeChunk(state, chunk, encoding) {
+	  if (!state.objectMode && state.decodeStrings !== false && typeof chunk === 'string') {
+	    chunk = bufferShim.from(chunk, encoding);
+	  }
+	  return chunk;
+	}
+
+	// if we're already writing something, then just put this
+	// in the queue, and wait our turn.  Otherwise, call _write
+	// If we return false, then we need a drain event, so set that flag.
+	function writeOrBuffer(stream, state, isBuf, chunk, encoding, cb) {
+	  if (!isBuf) {
+	    chunk = decodeChunk(state, chunk, encoding);
+	    if (Buffer.isBuffer(chunk)) encoding = 'buffer';
+	  }
+	  var len = state.objectMode ? 1 : chunk.length;
+
+	  state.length += len;
+
+	  var ret = state.length < state.highWaterMark;
+	  // we must ensure that previous needDrain will not be reset to false.
+	  if (!ret) state.needDrain = true;
+
+	  if (state.writing || state.corked) {
+	    var last = state.lastBufferedRequest;
+	    state.lastBufferedRequest = new WriteReq(chunk, encoding, cb);
+	    if (last) {
+	      last.next = state.lastBufferedRequest;
+	    } else {
+	      state.bufferedRequest = state.lastBufferedRequest;
+	    }
+	    state.bufferedRequestCount += 1;
+	  } else {
+	    doWrite(stream, state, false, len, chunk, encoding, cb);
+	  }
+
+	  return ret;
+	}
+
+	function doWrite(stream, state, writev, len, chunk, encoding, cb) {
+	  state.writelen = len;
+	  state.writecb = cb;
+	  state.writing = true;
+	  state.sync = true;
+	  if (writev) stream._writev(chunk, state.onwrite);else stream._write(chunk, encoding, state.onwrite);
+	  state.sync = false;
+	}
+
+	function onwriteError(stream, state, sync, er, cb) {
+	  --state.pendingcb;
+	  if (sync) processNextTick(cb, er);else cb(er);
+
+	  stream._writableState.errorEmitted = true;
+	  stream.emit('error', er);
+	}
+
+	function onwriteStateUpdate(state) {
+	  state.writing = false;
+	  state.writecb = null;
+	  state.length -= state.writelen;
+	  state.writelen = 0;
+	}
+
+	function onwrite(stream, er) {
+	  var state = stream._writableState;
+	  var sync = state.sync;
+	  var cb = state.writecb;
+
+	  onwriteStateUpdate(state);
+
+	  if (er) onwriteError(stream, state, sync, er, cb);else {
+	    // Check if we're actually ready to finish, but don't emit yet
+	    var finished = needFinish(state);
+
+	    if (!finished && !state.corked && !state.bufferProcessing && state.bufferedRequest) {
+	      clearBuffer(stream, state);
+	    }
+
+	    if (sync) {
+	      /*<replacement>*/
+	      asyncWrite(afterWrite, stream, state, finished, cb);
+	      /*</replacement>*/
+	    } else {
+	      afterWrite(stream, state, finished, cb);
+	    }
+	  }
+	}
+
+	function afterWrite(stream, state, finished, cb) {
+	  if (!finished) onwriteDrain(stream, state);
+	  state.pendingcb--;
+	  cb();
+	  finishMaybe(stream, state);
+	}
+
+	// Must force callback to be called on nextTick, so that we don't
+	// emit 'drain' before the write() consumer gets the 'false' return
+	// value, and has a chance to attach a 'drain' listener.
+	function onwriteDrain(stream, state) {
+	  if (state.length === 0 && state.needDrain) {
+	    state.needDrain = false;
+	    stream.emit('drain');
+	  }
+	}
+
+	// if there's something in the buffer waiting, then process it
+	function clearBuffer(stream, state) {
+	  state.bufferProcessing = true;
+	  var entry = state.bufferedRequest;
+
+	  if (stream._writev && entry && entry.next) {
+	    // Fast case, write everything using _writev()
+	    var l = state.bufferedRequestCount;
+	    var buffer = new Array(l);
+	    var holder = state.corkedRequestsFree;
+	    holder.entry = entry;
+
+	    var count = 0;
+	    while (entry) {
+	      buffer[count] = entry;
+	      entry = entry.next;
+	      count += 1;
+	    }
+
+	    doWrite(stream, state, true, state.length, buffer, '', holder.finish);
+
+	    // doWrite is almost always async, defer these to save a bit of time
+	    // as the hot path ends with doWrite
+	    state.pendingcb++;
+	    state.lastBufferedRequest = null;
+	    if (holder.next) {
+	      state.corkedRequestsFree = holder.next;
+	      holder.next = null;
+	    } else {
+	      state.corkedRequestsFree = new CorkedRequest(state);
+	    }
+	  } else {
+	    // Slow case, write chunks one-by-one
+	    while (entry) {
+	      var chunk = entry.chunk;
+	      var encoding = entry.encoding;
+	      var cb = entry.callback;
+	      var len = state.objectMode ? 1 : chunk.length;
+
+	      doWrite(stream, state, false, len, chunk, encoding, cb);
+	      entry = entry.next;
+	      // if we didn't call the onwrite immediately, then
+	      // it means that we need to wait until it does.
+	      // also, that means that the chunk and cb are currently
+	      // being processed, so move the buffer counter past them.
+	      if (state.writing) {
+	        break;
+	      }
+	    }
+
+	    if (entry === null) state.lastBufferedRequest = null;
+	  }
+
+	  state.bufferedRequestCount = 0;
+	  state.bufferedRequest = entry;
+	  state.bufferProcessing = false;
+	}
+
+	Writable.prototype._write = function (chunk, encoding, cb) {
+	  cb(new Error('_write() is not implemented'));
+	};
+
+	Writable.prototype._writev = null;
+
+	Writable.prototype.end = function (chunk, encoding, cb) {
+	  var state = this._writableState;
+
+	  if (typeof chunk === 'function') {
+	    cb = chunk;
+	    chunk = null;
+	    encoding = null;
+	  } else if (typeof encoding === 'function') {
+	    cb = encoding;
+	    encoding = null;
+	  }
+
+	  if (chunk !== null && chunk !== undefined) this.write(chunk, encoding);
+
+	  // .end() fully uncorks
+	  if (state.corked) {
+	    state.corked = 1;
+	    this.uncork();
+	  }
+
+	  // ignore unnecessary end() calls.
+	  if (!state.ending && !state.finished) endWritable(this, state, cb);
+	};
+
+	function needFinish(state) {
+	  return state.ending && state.length === 0 && state.bufferedRequest === null && !state.finished && !state.writing;
+	}
+
+	function prefinish(stream, state) {
+	  if (!state.prefinished) {
+	    state.prefinished = true;
+	    stream.emit('prefinish');
+	  }
+	}
+
+	function finishMaybe(stream, state) {
+	  var need = needFinish(state);
+	  if (need) {
+	    if (state.pendingcb === 0) {
+	      prefinish(stream, state);
+	      state.finished = true;
+	      stream.emit('finish');
+	    } else {
+	      prefinish(stream, state);
+	    }
+	  }
+	  return need;
+	}
+
+	function endWritable(stream, state, cb) {
+	  state.ending = true;
+	  finishMaybe(stream, state);
+	  if (cb) {
+	    if (state.finished) processNextTick(cb);else stream.once('finish', cb);
+	  }
+	  state.ended = true;
+	  stream.writable = false;
+	}
+
+	// It seems a linked list but it is not
+	// there will be only 2 of these for each stream
+	function CorkedRequest(state) {
+	  var _this = this;
+
+	  this.next = null;
+	  this.entry = null;
+	  this.finish = function (err) {
+	    var entry = _this.entry;
+	    _this.entry = null;
+	    while (entry) {
+	      var cb = entry.callback;
+	      state.pendingcb--;
+	      cb(err);
+	      entry = entry.next;
+	    }
+	    if (state.corkedRequestsFree) {
+	      state.corkedRequestsFree.next = _this;
+	    } else {
+	      state.corkedRequestsFree = _this;
+	    }
+	  };
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397), __webpack_require__(412).setImmediate))
+
+/***/ },
+/* 412 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var apply = Function.prototype.apply;
+
+	// DOM APIs, for completeness
+
+	exports.setTimeout = function() {
+	  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+	};
+	exports.setInterval = function() {
+	  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+	};
+	exports.clearTimeout =
+	exports.clearInterval = function(timeout) {
+	  if (timeout) {
+	    timeout.close();
+	  }
+	};
+
+	function Timeout(id, clearFn) {
+	  this._id = id;
+	  this._clearFn = clearFn;
+	}
+	Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+	Timeout.prototype.close = function() {
+	  this._clearFn.call(window, this._id);
+	};
+
+	// Does not start the time, just sets up the members needed.
+	exports.enroll = function(item, msecs) {
+	  clearTimeout(item._idleTimeoutId);
+	  item._idleTimeout = msecs;
+	};
+
+	exports.unenroll = function(item) {
+	  clearTimeout(item._idleTimeoutId);
+	  item._idleTimeout = -1;
+	};
+
+	exports._unrefActive = exports.active = function(item) {
+	  clearTimeout(item._idleTimeoutId);
+
+	  var msecs = item._idleTimeout;
+	  if (msecs >= 0) {
+	    item._idleTimeoutId = setTimeout(function onTimeout() {
+	      if (item._onTimeout)
+	        item._onTimeout();
+	    }, msecs);
+	  }
+	};
+
+	// setimmediate attaches itself to the global object
+	__webpack_require__(413);
+	exports.setImmediate = setImmediate;
+	exports.clearImmediate = clearImmediate;
+
+
+/***/ },
+/* 413 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
+	    "use strict";
+
+	    if (global.setImmediate) {
+	        return;
+	    }
+
+	    var nextHandle = 1; // Spec says greater than zero
+	    var tasksByHandle = {};
+	    var currentlyRunningATask = false;
+	    var doc = global.document;
+	    var registerImmediate;
+
+	    function setImmediate(callback) {
+	      // Callback can either be a function or a string
+	      if (typeof callback !== "function") {
+	        callback = new Function("" + callback);
+	      }
+	      // Copy function arguments
+	      var args = new Array(arguments.length - 1);
+	      for (var i = 0; i < args.length; i++) {
+	          args[i] = arguments[i + 1];
+	      }
+	      // Store and register the task
+	      var task = { callback: callback, args: args };
+	      tasksByHandle[nextHandle] = task;
+	      registerImmediate(nextHandle);
+	      return nextHandle++;
+	    }
+
+	    function clearImmediate(handle) {
+	        delete tasksByHandle[handle];
+	    }
+
+	    function run(task) {
+	        var callback = task.callback;
+	        var args = task.args;
+	        switch (args.length) {
+	        case 0:
+	            callback();
+	            break;
+	        case 1:
+	            callback(args[0]);
+	            break;
+	        case 2:
+	            callback(args[0], args[1]);
+	            break;
+	        case 3:
+	            callback(args[0], args[1], args[2]);
+	            break;
+	        default:
+	            callback.apply(undefined, args);
+	            break;
+	        }
+	    }
+
+	    function runIfPresent(handle) {
+	        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
+	        // So if we're currently running a task, we'll need to delay this invocation.
+	        if (currentlyRunningATask) {
+	            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+	            // "too much recursion" error.
+	            setTimeout(runIfPresent, 0, handle);
+	        } else {
+	            var task = tasksByHandle[handle];
+	            if (task) {
+	                currentlyRunningATask = true;
+	                try {
+	                    run(task);
+	                } finally {
+	                    clearImmediate(handle);
+	                    currentlyRunningATask = false;
+	                }
+	            }
+	        }
+	    }
+
+	    function installNextTickImplementation() {
+	        registerImmediate = function(handle) {
+	            process.nextTick(function () { runIfPresent(handle); });
+	        };
+	    }
+
+	    function canUsePostMessage() {
+	        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
+	        // where `global.postMessage` means something completely different and can't be used for this purpose.
+	        if (global.postMessage && !global.importScripts) {
+	            var postMessageIsAsynchronous = true;
+	            var oldOnMessage = global.onmessage;
+	            global.onmessage = function() {
+	                postMessageIsAsynchronous = false;
+	            };
+	            global.postMessage("", "*");
+	            global.onmessage = oldOnMessage;
+	            return postMessageIsAsynchronous;
+	        }
+	    }
+
+	    function installPostMessageImplementation() {
+	        // Installs an event handler on `global` for the `message` event: see
+	        // * https://developer.mozilla.org/en/DOM/window.postMessage
+	        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+
+	        var messagePrefix = "setImmediate$" + Math.random() + "$";
+	        var onGlobalMessage = function(event) {
+	            if (event.source === global &&
+	                typeof event.data === "string" &&
+	                event.data.indexOf(messagePrefix) === 0) {
+	                runIfPresent(+event.data.slice(messagePrefix.length));
+	            }
+	        };
+
+	        if (global.addEventListener) {
+	            global.addEventListener("message", onGlobalMessage, false);
+	        } else {
+	            global.attachEvent("onmessage", onGlobalMessage);
+	        }
+
+	        registerImmediate = function(handle) {
+	            global.postMessage(messagePrefix + handle, "*");
+	        };
+	    }
+
+	    function installMessageChannelImplementation() {
+	        var channel = new MessageChannel();
+	        channel.port1.onmessage = function(event) {
+	            var handle = event.data;
+	            runIfPresent(handle);
+	        };
+
+	        registerImmediate = function(handle) {
+	            channel.port2.postMessage(handle);
+	        };
+	    }
+
+	    function installReadyStateChangeImplementation() {
+	        var html = doc.documentElement;
+	        registerImmediate = function(handle) {
+	            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+	            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+	            var script = doc.createElement("script");
+	            script.onreadystatechange = function () {
+	                runIfPresent(handle);
+	                script.onreadystatechange = null;
+	                html.removeChild(script);
+	                script = null;
+	            };
+	            html.appendChild(script);
+	        };
+	    }
+
+	    function installSetTimeoutImplementation() {
+	        registerImmediate = function(handle) {
+	            setTimeout(runIfPresent, 0, handle);
+	        };
+	    }
+
+	    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+	    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+	    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+
+	    // Don't get fooled by e.g. browserify environments.
+	    if ({}.toString.call(global.process) === "[object process]") {
+	        // For Node.js before 0.9
+	        installNextTickImplementation();
+
+	    } else if (canUsePostMessage()) {
+	        // For non-IE10 modern browsers
+	        installPostMessageImplementation();
+
+	    } else if (global.MessageChannel) {
+	        // For web workers, where supported
+	        installMessageChannelImplementation();
+
+	    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
+	        // For IE 6–8
+	        installReadyStateChangeImplementation();
+
+	    } else {
+	        // For older browsers
+	        installSetTimeoutImplementation();
+	    }
+
+	    attachTo.setImmediate = setImmediate;
+	    attachTo.clearImmediate = clearImmediate;
+	}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(397)))
+
+/***/ },
+/* 414 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	if (!process.version ||
+	    process.version.indexOf('v0.') === 0 ||
+	    process.version.indexOf('v1.') === 0 && process.version.indexOf('v1.8.') !== 0) {
+	  module.exports = nextTick;
+	} else {
+	  module.exports = process.nextTick;
+	}
+
+	function nextTick(fn, arg1, arg2, arg3) {
+	  if (typeof fn !== 'function') {
+	    throw new TypeError('"callback" argument must be a function');
+	  }
+	  var len = arguments.length;
+	  var args, i;
+	  switch (len) {
+	  case 0:
+	  case 1:
+	    return process.nextTick(fn);
+	  case 2:
+	    return process.nextTick(function afterTickOne() {
+	      fn.call(null, arg1);
+	    });
+	  case 3:
+	    return process.nextTick(function afterTickTwo() {
+	      fn.call(null, arg1, arg2);
+	    });
+	  case 4:
+	    return process.nextTick(function afterTickThree() {
+	      fn.call(null, arg1, arg2, arg3);
+	    });
+	  default:
+	    args = new Array(len - 1);
+	    i = 0;
+	    while (i < args.length) {
+	      args[i++] = arguments[i];
+	    }
+	    return process.nextTick(function afterTick() {
+	      fn.apply(null, args);
+	    });
+	  }
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+/***/ },
+/* 415 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	// NOTE: These type checking functions intentionally don't use `instanceof`
+	// because it is fragile and can be easily faked with `Object.create()`.
+
+	function isArray(arg) {
+	  if (Array.isArray) {
+	    return Array.isArray(arg);
+	  }
+	  return objectToString(arg) === '[object Array]';
+	}
+	exports.isArray = isArray;
+
+	function isBoolean(arg) {
+	  return typeof arg === 'boolean';
+	}
+	exports.isBoolean = isBoolean;
+
+	function isNull(arg) {
+	  return arg === null;
+	}
+	exports.isNull = isNull;
+
+	function isNullOrUndefined(arg) {
+	  return arg == null;
+	}
+	exports.isNullOrUndefined = isNullOrUndefined;
+
+	function isNumber(arg) {
+	  return typeof arg === 'number';
+	}
+	exports.isNumber = isNumber;
+
+	function isString(arg) {
+	  return typeof arg === 'string';
+	}
+	exports.isString = isString;
+
+	function isSymbol(arg) {
+	  return typeof arg === 'symbol';
+	}
+	exports.isSymbol = isSymbol;
+
+	function isUndefined(arg) {
+	  return arg === void 0;
+	}
+	exports.isUndefined = isUndefined;
+
+	function isRegExp(re) {
+	  return objectToString(re) === '[object RegExp]';
+	}
+	exports.isRegExp = isRegExp;
+
+	function isObject(arg) {
+	  return typeof arg === 'object' && arg !== null;
+	}
+	exports.isObject = isObject;
+
+	function isDate(d) {
+	  return objectToString(d) === '[object Date]';
+	}
+	exports.isDate = isDate;
+
+	function isError(e) {
+	  return (objectToString(e) === '[object Error]' || e instanceof Error);
+	}
+	exports.isError = isError;
+
+	function isFunction(arg) {
+	  return typeof arg === 'function';
+	}
+	exports.isFunction = isFunction;
+
+	function isPrimitive(arg) {
+	  return arg === null ||
+	         typeof arg === 'boolean' ||
+	         typeof arg === 'number' ||
+	         typeof arg === 'string' ||
+	         typeof arg === 'symbol' ||  // ES6 symbol
+	         typeof arg === 'undefined';
+	}
+	exports.isPrimitive = isPrimitive;
+
+	exports.isBuffer = Buffer.isBuffer;
+
+	function objectToString(o) {
+	  return Object.prototype.toString.call(o);
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(399).Buffer))
+
+/***/ },
+/* 416 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {
+	/**
+	 * Module exports.
+	 */
+
+	module.exports = deprecate;
+
+	/**
+	 * Mark that a method should not be used.
+	 * Returns a modified function which warns once by default.
+	 *
+	 * If `localStorage.noDeprecation = true` is set, then it is a no-op.
+	 *
+	 * If `localStorage.throwDeprecation = true` is set, then deprecated functions
+	 * will throw an Error when invoked.
+	 *
+	 * If `localStorage.traceDeprecation = true` is set, then deprecated functions
+	 * will invoke `console.trace()` instead of `console.error()`.
+	 *
+	 * @param {Function} fn - the function to deprecate
+	 * @param {String} msg - the string to print to the console when `fn` is invoked
+	 * @returns {Function} a new "deprecated" version of `fn`
+	 * @api public
+	 */
+
+	function deprecate (fn, msg) {
+	  if (config('noDeprecation')) {
+	    return fn;
+	  }
+
+	  var warned = false;
+	  function deprecated() {
+	    if (!warned) {
+	      if (config('throwDeprecation')) {
+	        throw new Error(msg);
+	      } else if (config('traceDeprecation')) {
+	        console.trace(msg);
+	      } else {
+	        console.warn(msg);
+	      }
+	      warned = true;
+	    }
+	    return fn.apply(this, arguments);
+	  }
+
+	  return deprecated;
+	}
+
+	/**
+	 * Checks `localStorage` for boolean values for the given `name`.
+	 *
+	 * @param {String} name
+	 * @returns {Boolean}
+	 * @api private
+	 */
+
+	function config (name) {
+	  // accessing global.localStorage can trigger a DOMException in sandboxed iframes
+	  try {
+	    if (!global.localStorage) return false;
+	  } catch (_) {
+	    return false;
+	  }
+	  var val = global.localStorage[name];
+	  if (null == val) return false;
+	  return String(val).toLowerCase() === 'true';
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 417 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+
+	var buffer = __webpack_require__(399);
+	var Buffer = buffer.Buffer;
+	var SlowBuffer = buffer.SlowBuffer;
+	var MAX_LEN = buffer.kMaxLength || 2147483647;
+	exports.alloc = function alloc(size, fill, encoding) {
+	  if (typeof Buffer.alloc === 'function') {
+	    return Buffer.alloc(size, fill, encoding);
+	  }
+	  if (typeof encoding === 'number') {
+	    throw new TypeError('encoding must not be number');
+	  }
+	  if (typeof size !== 'number') {
+	    throw new TypeError('size must be a number');
+	  }
+	  if (size > MAX_LEN) {
+	    throw new RangeError('size is too large');
+	  }
+	  var enc = encoding;
+	  var _fill = fill;
+	  if (_fill === undefined) {
+	    enc = undefined;
+	    _fill = 0;
+	  }
+	  var buf = new Buffer(size);
+	  if (typeof _fill === 'string') {
+	    var fillBuf = new Buffer(_fill, enc);
+	    var flen = fillBuf.length;
+	    var i = -1;
+	    while (++i < size) {
+	      buf[i] = fillBuf[i % flen];
+	    }
+	  } else {
+	    buf.fill(_fill);
+	  }
+	  return buf;
+	}
+	exports.allocUnsafe = function allocUnsafe(size) {
+	  if (typeof Buffer.allocUnsafe === 'function') {
+	    return Buffer.allocUnsafe(size);
+	  }
+	  if (typeof size !== 'number') {
+	    throw new TypeError('size must be a number');
+	  }
+	  if (size > MAX_LEN) {
+	    throw new RangeError('size is too large');
+	  }
+	  return new Buffer(size);
+	}
+	exports.from = function from(value, encodingOrOffset, length) {
+	  if (typeof Buffer.from === 'function' && (!global.Uint8Array || Uint8Array.from !== Buffer.from)) {
+	    return Buffer.from(value, encodingOrOffset, length);
+	  }
+	  if (typeof value === 'number') {
+	    throw new TypeError('"value" argument must not be a number');
+	  }
+	  if (typeof value === 'string') {
+	    return new Buffer(value, encodingOrOffset);
+	  }
+	  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
+	    var offset = encodingOrOffset;
+	    if (arguments.length === 1) {
+	      return new Buffer(value);
+	    }
+	    if (typeof offset === 'undefined') {
+	      offset = 0;
+	    }
+	    var len = length;
+	    if (typeof len === 'undefined') {
+	      len = value.byteLength - offset;
+	    }
+	    if (offset >= value.byteLength) {
+	      throw new RangeError('\'offset\' is out of bounds');
+	    }
+	    if (len > value.byteLength - offset) {
+	      throw new RangeError('\'length\' is out of bounds');
+	    }
+	    return new Buffer(value.slice(offset, offset + len));
+	  }
+	  if (Buffer.isBuffer(value)) {
+	    var out = new Buffer(value.length);
+	    value.copy(out, 0, 0, value.length);
+	    return out;
+	  }
+	  if (value) {
+	    if (Array.isArray(value) || (typeof ArrayBuffer !== 'undefined' && value.buffer instanceof ArrayBuffer) || 'length' in value) {
+	      return new Buffer(value);
+	    }
+	    if (value.type === 'Buffer' && Array.isArray(value.data)) {
+	      return new Buffer(value.data);
+	    }
+	  }
+
+	  throw new TypeError('First argument must be a string, Buffer, ' + 'ArrayBuffer, Array, or array-like object.');
+	}
+	exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
+	  if (typeof Buffer.allocUnsafeSlow === 'function') {
+	    return Buffer.allocUnsafeSlow(size);
+	  }
+	  if (typeof size !== 'number') {
+	    throw new TypeError('size must be a number');
+	  }
+	  if (size >= MAX_LEN) {
+	    throw new RangeError('size is too large');
+	  }
+	  return new SlowBuffer(size);
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 418 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// a duplex stream is just a stream that is both readable and writable.
+	// Since JS doesn't have multiple prototypal inheritance, this class
+	// prototypally inherits from Readable, and then parasitically from
+	// Writable.
+
+	'use strict';
+
+	/*<replacement>*/
+
+	var objectKeys = Object.keys || function (obj) {
+	  var keys = [];
+	  for (var key in obj) {
+	    keys.push(key);
+	  }return keys;
+	};
+	/*</replacement>*/
+
+	module.exports = Duplex;
+
+	/*<replacement>*/
+	var processNextTick = __webpack_require__(414);
+	/*</replacement>*/
+
+	/*<replacement>*/
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
+	/*</replacement>*/
+
+	var Readable = __webpack_require__(419);
+	var Writable = __webpack_require__(411);
+
+	util.inherits(Duplex, Readable);
+
+	var keys = objectKeys(Writable.prototype);
+	for (var v = 0; v < keys.length; v++) {
+	  var method = keys[v];
+	  if (!Duplex.prototype[method]) Duplex.prototype[method] = Writable.prototype[method];
+	}
+
+	function Duplex(options) {
+	  if (!(this instanceof Duplex)) return new Duplex(options);
+
+	  Readable.call(this, options);
+	  Writable.call(this, options);
+
+	  if (options && options.readable === false) this.readable = false;
+
+	  if (options && options.writable === false) this.writable = false;
+
+	  this.allowHalfOpen = true;
+	  if (options && options.allowHalfOpen === false) this.allowHalfOpen = false;
+
+	  this.once('end', onend);
+	}
+
+	// the no-half-open enforcer
+	function onend() {
+	  // if we allow half-open state, or if the writable side ended,
+	  // then we're ok.
+	  if (this.allowHalfOpen || this._writableState.ended) return;
+
+	  // no more data can be written.
+	  // But allow more writes to happen in this tick.
+	  processNextTick(onEndNT, this);
+	}
+
+	function onEndNT(self) {
+	  self.end();
+	}
+
+	function forEach(xs, f) {
+	  for (var i = 0, l = xs.length; i < l; i++) {
+	    f(xs[i], i);
+	  }
+	}
+
+/***/ },
+/* 419 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -75860,11 +77771,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Readable;
 
 	/*<replacement>*/
-	var processNextTick = __webpack_require__(408);
+	var processNextTick = __webpack_require__(414);
 	/*</replacement>*/
 
 	/*<replacement>*/
-	var isArray = __webpack_require__(409);
+	var isArray = __webpack_require__(402);
 	/*</replacement>*/
 
 	/*<replacement>*/
@@ -75874,7 +77785,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Readable.ReadableState = ReadableState;
 
 	/*<replacement>*/
-	var EE = __webpack_require__(391).EventEmitter;
+	var EE = __webpack_require__(395).EventEmitter;
 
 	var EElistenerCount = function (emitter, type) {
 	  return emitter.listeners(type).length;
@@ -75885,25 +77796,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Stream;
 	(function () {
 	  try {
-	    Stream = __webpack_require__(405);
+	    Stream = __webpack_require__(409);
 	  } catch (_) {} finally {
-	    if (!Stream) Stream = __webpack_require__(391).EventEmitter;
+	    if (!Stream) Stream = __webpack_require__(395).EventEmitter;
 	  }
 	})();
 	/*</replacement>*/
 
-	var Buffer = __webpack_require__(395).Buffer;
+	var Buffer = __webpack_require__(399).Buffer;
 	/*<replacement>*/
-	var bufferShim = __webpack_require__(410);
+	var bufferShim = __webpack_require__(417);
 	/*</replacement>*/
 
 	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
 	/*<replacement>*/
-	var debugUtil = __webpack_require__(412);
+	var debugUtil = __webpack_require__(420);
 	var debug = void 0;
 	if (debugUtil && debugUtil.debuglog) {
 	  debug = debugUtil.debuglog('stream');
@@ -75912,7 +77823,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	/*</replacement>*/
 
-	var BufferList = __webpack_require__(413);
+	var BufferList = __webpack_require__(421);
 	var StringDecoder;
 
 	util.inherits(Readable, Stream);
@@ -75932,7 +77843,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function ReadableState(options, stream) {
-	  Duplex = Duplex || __webpack_require__(414);
+	  Duplex = Duplex || __webpack_require__(418);
 
 	  options = options || {};
 
@@ -75949,7 +77860,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.highWaterMark = hwm || hwm === 0 ? hwm : defaultHwm;
 
 	  // cast to ints.
-	  this.highWaterMark = ~ ~this.highWaterMark;
+	  this.highWaterMark = ~~this.highWaterMark;
 
 	  // A linked list is used to store data chunks instead of an array because the
 	  // linked list can remove elements from the beginning faster than
@@ -75994,14 +77905,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.decoder = null;
 	  this.encoding = null;
 	  if (options.encoding) {
-	    if (!StringDecoder) StringDecoder = __webpack_require__(419).StringDecoder;
+	    if (!StringDecoder) StringDecoder = __webpack_require__(422).StringDecoder;
 	    this.decoder = new StringDecoder(options.encoding);
 	    this.encoding = options.encoding;
 	  }
 	}
 
 	function Readable(options) {
-	  Duplex = Duplex || __webpack_require__(414);
+	  Duplex = Duplex || __webpack_require__(418);
 
 	  if (!(this instanceof Readable)) return new Readable(options);
 
@@ -76104,7 +78015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// backwards compatibility.
 	Readable.prototype.setEncoding = function (enc) {
-	  if (!StringDecoder) StringDecoder = __webpack_require__(419).StringDecoder;
+	  if (!StringDecoder) StringDecoder = __webpack_require__(422).StringDecoder;
 	  this._readableState.decoder = new StringDecoder(enc);
 	  this._readableState.encoding = enc;
 	  return this;
@@ -76796,313 +78707,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  return -1;
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 408 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	if (!process.version ||
-	    process.version.indexOf('v0.') === 0 ||
-	    process.version.indexOf('v1.') === 0 && process.version.indexOf('v1.8.') !== 0) {
-	  module.exports = nextTick;
-	} else {
-	  module.exports = process.nextTick;
-	}
-
-	function nextTick(fn, arg1, arg2, arg3) {
-	  if (typeof fn !== 'function') {
-	    throw new TypeError('"callback" argument must be a function');
-	  }
-	  var len = arguments.length;
-	  var args, i;
-	  switch (len) {
-	  case 0:
-	  case 1:
-	    return process.nextTick(fn);
-	  case 2:
-	    return process.nextTick(function afterTickOne() {
-	      fn.call(null, arg1);
-	    });
-	  case 3:
-	    return process.nextTick(function afterTickTwo() {
-	      fn.call(null, arg1, arg2);
-	    });
-	  case 4:
-	    return process.nextTick(function afterTickThree() {
-	      fn.call(null, arg1, arg2, arg3);
-	    });
-	  default:
-	    args = new Array(len - 1);
-	    i = 0;
-	    while (i < args.length) {
-	      args[i++] = arguments[i];
-	    }
-	    return process.nextTick(function afterTick() {
-	      fn.apply(null, args);
-	    });
-	  }
-	}
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
-
-/***/ },
-/* 409 */
-/***/ function(module, exports) {
-
-	var toString = {}.toString;
-
-	module.exports = Array.isArray || function (arr) {
-	  return toString.call(arr) == '[object Array]';
-	};
-
-
-/***/ },
-/* 410 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
-
-	var buffer = __webpack_require__(395);
-	var Buffer = buffer.Buffer;
-	var SlowBuffer = buffer.SlowBuffer;
-	var MAX_LEN = buffer.kMaxLength || 2147483647;
-	exports.alloc = function alloc(size, fill, encoding) {
-	  if (typeof Buffer.alloc === 'function') {
-	    return Buffer.alloc(size, fill, encoding);
-	  }
-	  if (typeof encoding === 'number') {
-	    throw new TypeError('encoding must not be number');
-	  }
-	  if (typeof size !== 'number') {
-	    throw new TypeError('size must be a number');
-	  }
-	  if (size > MAX_LEN) {
-	    throw new RangeError('size is too large');
-	  }
-	  var enc = encoding;
-	  var _fill = fill;
-	  if (_fill === undefined) {
-	    enc = undefined;
-	    _fill = 0;
-	  }
-	  var buf = new Buffer(size);
-	  if (typeof _fill === 'string') {
-	    var fillBuf = new Buffer(_fill, enc);
-	    var flen = fillBuf.length;
-	    var i = -1;
-	    while (++i < size) {
-	      buf[i] = fillBuf[i % flen];
-	    }
-	  } else {
-	    buf.fill(_fill);
-	  }
-	  return buf;
-	}
-	exports.allocUnsafe = function allocUnsafe(size) {
-	  if (typeof Buffer.allocUnsafe === 'function') {
-	    return Buffer.allocUnsafe(size);
-	  }
-	  if (typeof size !== 'number') {
-	    throw new TypeError('size must be a number');
-	  }
-	  if (size > MAX_LEN) {
-	    throw new RangeError('size is too large');
-	  }
-	  return new Buffer(size);
-	}
-	exports.from = function from(value, encodingOrOffset, length) {
-	  if (typeof Buffer.from === 'function' && (!global.Uint8Array || Uint8Array.from !== Buffer.from)) {
-	    return Buffer.from(value, encodingOrOffset, length);
-	  }
-	  if (typeof value === 'number') {
-	    throw new TypeError('"value" argument must not be a number');
-	  }
-	  if (typeof value === 'string') {
-	    return new Buffer(value, encodingOrOffset);
-	  }
-	  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
-	    var offset = encodingOrOffset;
-	    if (arguments.length === 1) {
-	      return new Buffer(value);
-	    }
-	    if (typeof offset === 'undefined') {
-	      offset = 0;
-	    }
-	    var len = length;
-	    if (typeof len === 'undefined') {
-	      len = value.byteLength - offset;
-	    }
-	    if (offset >= value.byteLength) {
-	      throw new RangeError('\'offset\' is out of bounds');
-	    }
-	    if (len > value.byteLength - offset) {
-	      throw new RangeError('\'length\' is out of bounds');
-	    }
-	    return new Buffer(value.slice(offset, offset + len));
-	  }
-	  if (Buffer.isBuffer(value)) {
-	    var out = new Buffer(value.length);
-	    value.copy(out, 0, 0, value.length);
-	    return out;
-	  }
-	  if (value) {
-	    if (Array.isArray(value) || (typeof ArrayBuffer !== 'undefined' && value.buffer instanceof ArrayBuffer) || 'length' in value) {
-	      return new Buffer(value);
-	    }
-	    if (value.type === 'Buffer' && Array.isArray(value.data)) {
-	      return new Buffer(value.data);
-	    }
-	  }
-
-	  throw new TypeError('First argument must be a string, Buffer, ' + 'ArrayBuffer, Array, or array-like object.');
-	}
-	exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
-	  if (typeof Buffer.allocUnsafeSlow === 'function') {
-	    return Buffer.allocUnsafeSlow(size);
-	  }
-	  if (typeof size !== 'number') {
-	    throw new TypeError('size must be a number');
-	  }
-	  if (size >= MAX_LEN) {
-	    throw new RangeError('size is too large');
-	  }
-	  return new SlowBuffer(size);
-	}
-
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 411 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
-	//
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the
-	// "Software"), to deal in the Software without restriction, including
-	// without limitation the rights to use, copy, modify, merge, publish,
-	// distribute, sublicense, and/or sell copies of the Software, and to permit
-	// persons to whom the Software is furnished to do so, subject to the
-	// following conditions:
-	//
-	// The above copyright notice and this permission notice shall be included
-	// in all copies or substantial portions of the Software.
-	//
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-	// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-	// NOTE: These type checking functions intentionally don't use `instanceof`
-	// because it is fragile and can be easily faked with `Object.create()`.
-
-	function isArray(arg) {
-	  if (Array.isArray) {
-	    return Array.isArray(arg);
-	  }
-	  return objectToString(arg) === '[object Array]';
-	}
-	exports.isArray = isArray;
-
-	function isBoolean(arg) {
-	  return typeof arg === 'boolean';
-	}
-	exports.isBoolean = isBoolean;
-
-	function isNull(arg) {
-	  return arg === null;
-	}
-	exports.isNull = isNull;
-
-	function isNullOrUndefined(arg) {
-	  return arg == null;
-	}
-	exports.isNullOrUndefined = isNullOrUndefined;
-
-	function isNumber(arg) {
-	  return typeof arg === 'number';
-	}
-	exports.isNumber = isNumber;
-
-	function isString(arg) {
-	  return typeof arg === 'string';
-	}
-	exports.isString = isString;
-
-	function isSymbol(arg) {
-	  return typeof arg === 'symbol';
-	}
-	exports.isSymbol = isSymbol;
-
-	function isUndefined(arg) {
-	  return arg === void 0;
-	}
-	exports.isUndefined = isUndefined;
-
-	function isRegExp(re) {
-	  return objectToString(re) === '[object RegExp]';
-	}
-	exports.isRegExp = isRegExp;
-
-	function isObject(arg) {
-	  return typeof arg === 'object' && arg !== null;
-	}
-	exports.isObject = isObject;
-
-	function isDate(d) {
-	  return objectToString(d) === '[object Date]';
-	}
-	exports.isDate = isDate;
-
-	function isError(e) {
-	  return (objectToString(e) === '[object Error]' || e instanceof Error);
-	}
-	exports.isError = isError;
-
-	function isFunction(arg) {
-	  return typeof arg === 'function';
-	}
-	exports.isFunction = isFunction;
-
-	function isPrimitive(arg) {
-	  return arg === null ||
-	         typeof arg === 'boolean' ||
-	         typeof arg === 'number' ||
-	         typeof arg === 'string' ||
-	         typeof arg === 'symbol' ||  // ES6 symbol
-	         typeof arg === 'undefined';
-	}
-	exports.isPrimitive = isPrimitive;
-
-	exports.isBuffer = Buffer.isBuffer;
-
-	function objectToString(o) {
-	  return Object.prototype.toString.call(o);
-	}
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(395).Buffer))
-
-/***/ },
-/* 412 */
+/* 420 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 413 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Buffer = __webpack_require__(395).Buffer;
+	var Buffer = __webpack_require__(399).Buffer;
 	/*<replacement>*/
-	var bufferShim = __webpack_require__(410);
+	var bufferShim = __webpack_require__(417);
 	/*</replacement>*/
 
 	module.exports = BufferList;
@@ -77164,973 +78785,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 414 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// a duplex stream is just a stream that is both readable and writable.
-	// Since JS doesn't have multiple prototypal inheritance, this class
-	// prototypally inherits from Readable, and then parasitically from
-	// Writable.
-
-	'use strict';
-
-	/*<replacement>*/
-
-	var objectKeys = Object.keys || function (obj) {
-	  var keys = [];
-	  for (var key in obj) {
-	    keys.push(key);
-	  }return keys;
-	};
-	/*</replacement>*/
-
-	module.exports = Duplex;
-
-	/*<replacement>*/
-	var processNextTick = __webpack_require__(408);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
-	/*</replacement>*/
-
-	var Readable = __webpack_require__(407);
-	var Writable = __webpack_require__(415);
-
-	util.inherits(Duplex, Readable);
-
-	var keys = objectKeys(Writable.prototype);
-	for (var v = 0; v < keys.length; v++) {
-	  var method = keys[v];
-	  if (!Duplex.prototype[method]) Duplex.prototype[method] = Writable.prototype[method];
-	}
-
-	function Duplex(options) {
-	  if (!(this instanceof Duplex)) return new Duplex(options);
-
-	  Readable.call(this, options);
-	  Writable.call(this, options);
-
-	  if (options && options.readable === false) this.readable = false;
-
-	  if (options && options.writable === false) this.writable = false;
-
-	  this.allowHalfOpen = true;
-	  if (options && options.allowHalfOpen === false) this.allowHalfOpen = false;
-
-	  this.once('end', onend);
-	}
-
-	// the no-half-open enforcer
-	function onend() {
-	  // if we allow half-open state, or if the writable side ended,
-	  // then we're ok.
-	  if (this.allowHalfOpen || this._writableState.ended) return;
-
-	  // no more data can be written.
-	  // But allow more writes to happen in this tick.
-	  processNextTick(onEndNT, this);
-	}
-
-	function onEndNT(self) {
-	  self.end();
-	}
-
-	function forEach(xs, f) {
-	  for (var i = 0, l = xs.length; i < l; i++) {
-	    f(xs[i], i);
-	  }
-	}
-
-/***/ },
-/* 415 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process, setImmediate) {// A bit simpler than readable streams.
-	// Implement an async ._write(chunk, encoding, cb), and it'll handle all
-	// the drain event emission and buffering.
-
-	'use strict';
-
-	module.exports = Writable;
-
-	/*<replacement>*/
-	var processNextTick = __webpack_require__(408);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var asyncWrite = !process.browser && ['v0.10', 'v0.9.'].indexOf(process.version.slice(0, 5)) > -1 ? setImmediate : processNextTick;
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var Duplex;
-	/*</replacement>*/
-
-	Writable.WritableState = WritableState;
-
-	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var internalUtil = {
-	  deprecate: __webpack_require__(418)
-	};
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var Stream;
-	(function () {
-	  try {
-	    Stream = __webpack_require__(405);
-	  } catch (_) {} finally {
-	    if (!Stream) Stream = __webpack_require__(391).EventEmitter;
-	  }
-	})();
-	/*</replacement>*/
-
-	var Buffer = __webpack_require__(395).Buffer;
-	/*<replacement>*/
-	var bufferShim = __webpack_require__(410);
-	/*</replacement>*/
-
-	util.inherits(Writable, Stream);
-
-	function nop() {}
-
-	function WriteReq(chunk, encoding, cb) {
-	  this.chunk = chunk;
-	  this.encoding = encoding;
-	  this.callback = cb;
-	  this.next = null;
-	}
-
-	function WritableState(options, stream) {
-	  Duplex = Duplex || __webpack_require__(414);
-
-	  options = options || {};
-
-	  // object stream flag to indicate whether or not this stream
-	  // contains buffers or objects.
-	  this.objectMode = !!options.objectMode;
-
-	  if (stream instanceof Duplex) this.objectMode = this.objectMode || !!options.writableObjectMode;
-
-	  // the point at which write() starts returning false
-	  // Note: 0 is a valid value, means that we always return false if
-	  // the entire buffer is not flushed immediately on write()
-	  var hwm = options.highWaterMark;
-	  var defaultHwm = this.objectMode ? 16 : 16 * 1024;
-	  this.highWaterMark = hwm || hwm === 0 ? hwm : defaultHwm;
-
-	  // cast to ints.
-	  this.highWaterMark = ~ ~this.highWaterMark;
-
-	  // drain event flag.
-	  this.needDrain = false;
-	  // at the start of calling end()
-	  this.ending = false;
-	  // when end() has been called, and returned
-	  this.ended = false;
-	  // when 'finish' is emitted
-	  this.finished = false;
-
-	  // should we decode strings into buffers before passing to _write?
-	  // this is here so that some node-core streams can optimize string
-	  // handling at a lower level.
-	  var noDecode = options.decodeStrings === false;
-	  this.decodeStrings = !noDecode;
-
-	  // Crypto is kind of old and crusty.  Historically, its default string
-	  // encoding is 'binary' so we have to make this configurable.
-	  // Everything else in the universe uses 'utf8', though.
-	  this.defaultEncoding = options.defaultEncoding || 'utf8';
-
-	  // not an actual buffer we keep track of, but a measurement
-	  // of how much we're waiting to get pushed to some underlying
-	  // socket or file.
-	  this.length = 0;
-
-	  // a flag to see when we're in the middle of a write.
-	  this.writing = false;
-
-	  // when true all writes will be buffered until .uncork() call
-	  this.corked = 0;
-
-	  // a flag to be able to tell if the onwrite cb is called immediately,
-	  // or on a later tick.  We set this to true at first, because any
-	  // actions that shouldn't happen until "later" should generally also
-	  // not happen before the first write call.
-	  this.sync = true;
-
-	  // a flag to know if we're processing previously buffered items, which
-	  // may call the _write() callback in the same tick, so that we don't
-	  // end up in an overlapped onwrite situation.
-	  this.bufferProcessing = false;
-
-	  // the callback that's passed to _write(chunk,cb)
-	  this.onwrite = function (er) {
-	    onwrite(stream, er);
-	  };
-
-	  // the callback that the user supplies to write(chunk,encoding,cb)
-	  this.writecb = null;
-
-	  // the amount that is being written when _write is called.
-	  this.writelen = 0;
-
-	  this.bufferedRequest = null;
-	  this.lastBufferedRequest = null;
-
-	  // number of pending user-supplied write callbacks
-	  // this must be 0 before 'finish' can be emitted
-	  this.pendingcb = 0;
-
-	  // emit prefinish if the only thing we're waiting for is _write cbs
-	  // This is relevant for synchronous Transform streams
-	  this.prefinished = false;
-
-	  // True if the error was already emitted and should not be thrown again
-	  this.errorEmitted = false;
-
-	  // count buffered requests
-	  this.bufferedRequestCount = 0;
-
-	  // allocate the first CorkedRequest, there is always
-	  // one allocated and free to use, and we maintain at most two
-	  this.corkedRequestsFree = new CorkedRequest(this);
-	}
-
-	WritableState.prototype.getBuffer = function getBuffer() {
-	  var current = this.bufferedRequest;
-	  var out = [];
-	  while (current) {
-	    out.push(current);
-	    current = current.next;
-	  }
-	  return out;
-	};
-
-	(function () {
-	  try {
-	    Object.defineProperty(WritableState.prototype, 'buffer', {
-	      get: internalUtil.deprecate(function () {
-	        return this.getBuffer();
-	      }, '_writableState.buffer is deprecated. Use _writableState.getBuffer ' + 'instead.')
-	    });
-	  } catch (_) {}
-	})();
-
-	// Test _writableState for inheritance to account for Duplex streams,
-	// whose prototype chain only points to Readable.
-	var realHasInstance;
-	if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.prototype[Symbol.hasInstance] === 'function') {
-	  realHasInstance = Function.prototype[Symbol.hasInstance];
-	  Object.defineProperty(Writable, Symbol.hasInstance, {
-	    value: function (object) {
-	      if (realHasInstance.call(this, object)) return true;
-
-	      return object && object._writableState instanceof WritableState;
-	    }
-	  });
-	} else {
-	  realHasInstance = function (object) {
-	    return object instanceof this;
-	  };
-	}
-
-	function Writable(options) {
-	  Duplex = Duplex || __webpack_require__(414);
-
-	  // Writable ctor is applied to Duplexes, too.
-	  // `realHasInstance` is necessary because using plain `instanceof`
-	  // would return false, as no `_writableState` property is attached.
-
-	  // Trying to use the custom `instanceof` for Writable here will also break the
-	  // Node.js LazyTransform implementation, which has a non-trivial getter for
-	  // `_writableState` that would lead to infinite recursion.
-	  if (!realHasInstance.call(Writable, this) && !(this instanceof Duplex)) {
-	    return new Writable(options);
-	  }
-
-	  this._writableState = new WritableState(options, this);
-
-	  // legacy.
-	  this.writable = true;
-
-	  if (options) {
-	    if (typeof options.write === 'function') this._write = options.write;
-
-	    if (typeof options.writev === 'function') this._writev = options.writev;
-	  }
-
-	  Stream.call(this);
-	}
-
-	// Otherwise people can pipe Writable streams, which is just wrong.
-	Writable.prototype.pipe = function () {
-	  this.emit('error', new Error('Cannot pipe, not readable'));
-	};
-
-	function writeAfterEnd(stream, cb) {
-	  var er = new Error('write after end');
-	  // TODO: defer error events consistently everywhere, not just the cb
-	  stream.emit('error', er);
-	  processNextTick(cb, er);
-	}
-
-	// If we get something that is not a buffer, string, null, or undefined,
-	// and we're not in objectMode, then that's an error.
-	// Otherwise stream chunks are all considered to be of length=1, and the
-	// watermarks determine how many objects to keep in the buffer, rather than
-	// how many bytes or characters.
-	function validChunk(stream, state, chunk, cb) {
-	  var valid = true;
-	  var er = false;
-	  // Always throw error if a null is written
-	  // if we are not in object mode then throw
-	  // if it is not a buffer, string, or undefined.
-	  if (chunk === null) {
-	    er = new TypeError('May not write null values to stream');
-	  } else if (!Buffer.isBuffer(chunk) && typeof chunk !== 'string' && chunk !== undefined && !state.objectMode) {
-	    er = new TypeError('Invalid non-string/buffer chunk');
-	  }
-	  if (er) {
-	    stream.emit('error', er);
-	    processNextTick(cb, er);
-	    valid = false;
-	  }
-	  return valid;
-	}
-
-	Writable.prototype.write = function (chunk, encoding, cb) {
-	  var state = this._writableState;
-	  var ret = false;
-
-	  if (typeof encoding === 'function') {
-	    cb = encoding;
-	    encoding = null;
-	  }
-
-	  if (Buffer.isBuffer(chunk)) encoding = 'buffer';else if (!encoding) encoding = state.defaultEncoding;
-
-	  if (typeof cb !== 'function') cb = nop;
-
-	  if (state.ended) writeAfterEnd(this, cb);else if (validChunk(this, state, chunk, cb)) {
-	    state.pendingcb++;
-	    ret = writeOrBuffer(this, state, chunk, encoding, cb);
-	  }
-
-	  return ret;
-	};
-
-	Writable.prototype.cork = function () {
-	  var state = this._writableState;
-
-	  state.corked++;
-	};
-
-	Writable.prototype.uncork = function () {
-	  var state = this._writableState;
-
-	  if (state.corked) {
-	    state.corked--;
-
-	    if (!state.writing && !state.corked && !state.finished && !state.bufferProcessing && state.bufferedRequest) clearBuffer(this, state);
-	  }
-	};
-
-	Writable.prototype.setDefaultEncoding = function setDefaultEncoding(encoding) {
-	  // node::ParseEncoding() requires lower case.
-	  if (typeof encoding === 'string') encoding = encoding.toLowerCase();
-	  if (!(['hex', 'utf8', 'utf-8', 'ascii', 'binary', 'base64', 'ucs2', 'ucs-2', 'utf16le', 'utf-16le', 'raw'].indexOf((encoding + '').toLowerCase()) > -1)) throw new TypeError('Unknown encoding: ' + encoding);
-	  this._writableState.defaultEncoding = encoding;
-	  return this;
-	};
-
-	function decodeChunk(state, chunk, encoding) {
-	  if (!state.objectMode && state.decodeStrings !== false && typeof chunk === 'string') {
-	    chunk = bufferShim.from(chunk, encoding);
-	  }
-	  return chunk;
-	}
-
-	// if we're already writing something, then just put this
-	// in the queue, and wait our turn.  Otherwise, call _write
-	// If we return false, then we need a drain event, so set that flag.
-	function writeOrBuffer(stream, state, chunk, encoding, cb) {
-	  chunk = decodeChunk(state, chunk, encoding);
-
-	  if (Buffer.isBuffer(chunk)) encoding = 'buffer';
-	  var len = state.objectMode ? 1 : chunk.length;
-
-	  state.length += len;
-
-	  var ret = state.length < state.highWaterMark;
-	  // we must ensure that previous needDrain will not be reset to false.
-	  if (!ret) state.needDrain = true;
-
-	  if (state.writing || state.corked) {
-	    var last = state.lastBufferedRequest;
-	    state.lastBufferedRequest = new WriteReq(chunk, encoding, cb);
-	    if (last) {
-	      last.next = state.lastBufferedRequest;
-	    } else {
-	      state.bufferedRequest = state.lastBufferedRequest;
-	    }
-	    state.bufferedRequestCount += 1;
-	  } else {
-	    doWrite(stream, state, false, len, chunk, encoding, cb);
-	  }
-
-	  return ret;
-	}
-
-	function doWrite(stream, state, writev, len, chunk, encoding, cb) {
-	  state.writelen = len;
-	  state.writecb = cb;
-	  state.writing = true;
-	  state.sync = true;
-	  if (writev) stream._writev(chunk, state.onwrite);else stream._write(chunk, encoding, state.onwrite);
-	  state.sync = false;
-	}
-
-	function onwriteError(stream, state, sync, er, cb) {
-	  --state.pendingcb;
-	  if (sync) processNextTick(cb, er);else cb(er);
-
-	  stream._writableState.errorEmitted = true;
-	  stream.emit('error', er);
-	}
-
-	function onwriteStateUpdate(state) {
-	  state.writing = false;
-	  state.writecb = null;
-	  state.length -= state.writelen;
-	  state.writelen = 0;
-	}
-
-	function onwrite(stream, er) {
-	  var state = stream._writableState;
-	  var sync = state.sync;
-	  var cb = state.writecb;
-
-	  onwriteStateUpdate(state);
-
-	  if (er) onwriteError(stream, state, sync, er, cb);else {
-	    // Check if we're actually ready to finish, but don't emit yet
-	    var finished = needFinish(state);
-
-	    if (!finished && !state.corked && !state.bufferProcessing && state.bufferedRequest) {
-	      clearBuffer(stream, state);
-	    }
-
-	    if (sync) {
-	      /*<replacement>*/
-	      asyncWrite(afterWrite, stream, state, finished, cb);
-	      /*</replacement>*/
-	    } else {
-	        afterWrite(stream, state, finished, cb);
-	      }
-	  }
-	}
-
-	function afterWrite(stream, state, finished, cb) {
-	  if (!finished) onwriteDrain(stream, state);
-	  state.pendingcb--;
-	  cb();
-	  finishMaybe(stream, state);
-	}
-
-	// Must force callback to be called on nextTick, so that we don't
-	// emit 'drain' before the write() consumer gets the 'false' return
-	// value, and has a chance to attach a 'drain' listener.
-	function onwriteDrain(stream, state) {
-	  if (state.length === 0 && state.needDrain) {
-	    state.needDrain = false;
-	    stream.emit('drain');
-	  }
-	}
-
-	// if there's something in the buffer waiting, then process it
-	function clearBuffer(stream, state) {
-	  state.bufferProcessing = true;
-	  var entry = state.bufferedRequest;
-
-	  if (stream._writev && entry && entry.next) {
-	    // Fast case, write everything using _writev()
-	    var l = state.bufferedRequestCount;
-	    var buffer = new Array(l);
-	    var holder = state.corkedRequestsFree;
-	    holder.entry = entry;
-
-	    var count = 0;
-	    while (entry) {
-	      buffer[count] = entry;
-	      entry = entry.next;
-	      count += 1;
-	    }
-
-	    doWrite(stream, state, true, state.length, buffer, '', holder.finish);
-
-	    // doWrite is almost always async, defer these to save a bit of time
-	    // as the hot path ends with doWrite
-	    state.pendingcb++;
-	    state.lastBufferedRequest = null;
-	    if (holder.next) {
-	      state.corkedRequestsFree = holder.next;
-	      holder.next = null;
-	    } else {
-	      state.corkedRequestsFree = new CorkedRequest(state);
-	    }
-	  } else {
-	    // Slow case, write chunks one-by-one
-	    while (entry) {
-	      var chunk = entry.chunk;
-	      var encoding = entry.encoding;
-	      var cb = entry.callback;
-	      var len = state.objectMode ? 1 : chunk.length;
-
-	      doWrite(stream, state, false, len, chunk, encoding, cb);
-	      entry = entry.next;
-	      // if we didn't call the onwrite immediately, then
-	      // it means that we need to wait until it does.
-	      // also, that means that the chunk and cb are currently
-	      // being processed, so move the buffer counter past them.
-	      if (state.writing) {
-	        break;
-	      }
-	    }
-
-	    if (entry === null) state.lastBufferedRequest = null;
-	  }
-
-	  state.bufferedRequestCount = 0;
-	  state.bufferedRequest = entry;
-	  state.bufferProcessing = false;
-	}
-
-	Writable.prototype._write = function (chunk, encoding, cb) {
-	  cb(new Error('_write() is not implemented'));
-	};
-
-	Writable.prototype._writev = null;
-
-	Writable.prototype.end = function (chunk, encoding, cb) {
-	  var state = this._writableState;
-
-	  if (typeof chunk === 'function') {
-	    cb = chunk;
-	    chunk = null;
-	    encoding = null;
-	  } else if (typeof encoding === 'function') {
-	    cb = encoding;
-	    encoding = null;
-	  }
-
-	  if (chunk !== null && chunk !== undefined) this.write(chunk, encoding);
-
-	  // .end() fully uncorks
-	  if (state.corked) {
-	    state.corked = 1;
-	    this.uncork();
-	  }
-
-	  // ignore unnecessary end() calls.
-	  if (!state.ending && !state.finished) endWritable(this, state, cb);
-	};
-
-	function needFinish(state) {
-	  return state.ending && state.length === 0 && state.bufferedRequest === null && !state.finished && !state.writing;
-	}
-
-	function prefinish(stream, state) {
-	  if (!state.prefinished) {
-	    state.prefinished = true;
-	    stream.emit('prefinish');
-	  }
-	}
-
-	function finishMaybe(stream, state) {
-	  var need = needFinish(state);
-	  if (need) {
-	    if (state.pendingcb === 0) {
-	      prefinish(stream, state);
-	      state.finished = true;
-	      stream.emit('finish');
-	    } else {
-	      prefinish(stream, state);
-	    }
-	  }
-	  return need;
-	}
-
-	function endWritable(stream, state, cb) {
-	  state.ending = true;
-	  finishMaybe(stream, state);
-	  if (cb) {
-	    if (state.finished) processNextTick(cb);else stream.once('finish', cb);
-	  }
-	  state.ended = true;
-	  stream.writable = false;
-	}
-
-	// It seems a linked list but it is not
-	// there will be only 2 of these for each stream
-	function CorkedRequest(state) {
-	  var _this = this;
-
-	  this.next = null;
-	  this.entry = null;
-
-	  this.finish = function (err) {
-	    var entry = _this.entry;
-	    _this.entry = null;
-	    while (entry) {
-	      var cb = entry.callback;
-	      state.pendingcb--;
-	      cb(err);
-	      entry = entry.next;
-	    }
-	    if (state.corkedRequestsFree) {
-	      state.corkedRequestsFree.next = _this;
-	    } else {
-	      state.corkedRequestsFree = _this;
-	    }
-	  };
-	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393), __webpack_require__(416).setImmediate))
-
-/***/ },
-/* 416 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var apply = Function.prototype.apply;
-
-	// DOM APIs, for completeness
-
-	exports.setTimeout = function() {
-	  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
-	};
-	exports.setInterval = function() {
-	  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
-	};
-	exports.clearTimeout =
-	exports.clearInterval = function(timeout) {
-	  if (timeout) {
-	    timeout.close();
-	  }
-	};
-
-	function Timeout(id, clearFn) {
-	  this._id = id;
-	  this._clearFn = clearFn;
-	}
-	Timeout.prototype.unref = Timeout.prototype.ref = function() {};
-	Timeout.prototype.close = function() {
-	  this._clearFn.call(window, this._id);
-	};
-
-	// Does not start the time, just sets up the members needed.
-	exports.enroll = function(item, msecs) {
-	  clearTimeout(item._idleTimeoutId);
-	  item._idleTimeout = msecs;
-	};
-
-	exports.unenroll = function(item) {
-	  clearTimeout(item._idleTimeoutId);
-	  item._idleTimeout = -1;
-	};
-
-	exports._unrefActive = exports.active = function(item) {
-	  clearTimeout(item._idleTimeoutId);
-
-	  var msecs = item._idleTimeout;
-	  if (msecs >= 0) {
-	    item._idleTimeoutId = setTimeout(function onTimeout() {
-	      if (item._onTimeout)
-	        item._onTimeout();
-	    }, msecs);
-	  }
-	};
-
-	// setimmediate attaches itself to the global object
-	__webpack_require__(417);
-	exports.setImmediate = setImmediate;
-	exports.clearImmediate = clearImmediate;
-
-
-/***/ },
-/* 417 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
-	    "use strict";
-
-	    if (global.setImmediate) {
-	        return;
-	    }
-
-	    var nextHandle = 1; // Spec says greater than zero
-	    var tasksByHandle = {};
-	    var currentlyRunningATask = false;
-	    var doc = global.document;
-	    var registerImmediate;
-
-	    function setImmediate(callback) {
-	      // Callback can either be a function or a string
-	      if (typeof callback !== "function") {
-	        callback = new Function("" + callback);
-	      }
-	      // Copy function arguments
-	      var args = new Array(arguments.length - 1);
-	      for (var i = 0; i < args.length; i++) {
-	          args[i] = arguments[i + 1];
-	      }
-	      // Store and register the task
-	      var task = { callback: callback, args: args };
-	      tasksByHandle[nextHandle] = task;
-	      registerImmediate(nextHandle);
-	      return nextHandle++;
-	    }
-
-	    function clearImmediate(handle) {
-	        delete tasksByHandle[handle];
-	    }
-
-	    function run(task) {
-	        var callback = task.callback;
-	        var args = task.args;
-	        switch (args.length) {
-	        case 0:
-	            callback();
-	            break;
-	        case 1:
-	            callback(args[0]);
-	            break;
-	        case 2:
-	            callback(args[0], args[1]);
-	            break;
-	        case 3:
-	            callback(args[0], args[1], args[2]);
-	            break;
-	        default:
-	            callback.apply(undefined, args);
-	            break;
-	        }
-	    }
-
-	    function runIfPresent(handle) {
-	        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
-	        // So if we're currently running a task, we'll need to delay this invocation.
-	        if (currentlyRunningATask) {
-	            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
-	            // "too much recursion" error.
-	            setTimeout(runIfPresent, 0, handle);
-	        } else {
-	            var task = tasksByHandle[handle];
-	            if (task) {
-	                currentlyRunningATask = true;
-	                try {
-	                    run(task);
-	                } finally {
-	                    clearImmediate(handle);
-	                    currentlyRunningATask = false;
-	                }
-	            }
-	        }
-	    }
-
-	    function installNextTickImplementation() {
-	        registerImmediate = function(handle) {
-	            process.nextTick(function () { runIfPresent(handle); });
-	        };
-	    }
-
-	    function canUsePostMessage() {
-	        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
-	        // where `global.postMessage` means something completely different and can't be used for this purpose.
-	        if (global.postMessage && !global.importScripts) {
-	            var postMessageIsAsynchronous = true;
-	            var oldOnMessage = global.onmessage;
-	            global.onmessage = function() {
-	                postMessageIsAsynchronous = false;
-	            };
-	            global.postMessage("", "*");
-	            global.onmessage = oldOnMessage;
-	            return postMessageIsAsynchronous;
-	        }
-	    }
-
-	    function installPostMessageImplementation() {
-	        // Installs an event handler on `global` for the `message` event: see
-	        // * https://developer.mozilla.org/en/DOM/window.postMessage
-	        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
-
-	        var messagePrefix = "setImmediate$" + Math.random() + "$";
-	        var onGlobalMessage = function(event) {
-	            if (event.source === global &&
-	                typeof event.data === "string" &&
-	                event.data.indexOf(messagePrefix) === 0) {
-	                runIfPresent(+event.data.slice(messagePrefix.length));
-	            }
-	        };
-
-	        if (global.addEventListener) {
-	            global.addEventListener("message", onGlobalMessage, false);
-	        } else {
-	            global.attachEvent("onmessage", onGlobalMessage);
-	        }
-
-	        registerImmediate = function(handle) {
-	            global.postMessage(messagePrefix + handle, "*");
-	        };
-	    }
-
-	    function installMessageChannelImplementation() {
-	        var channel = new MessageChannel();
-	        channel.port1.onmessage = function(event) {
-	            var handle = event.data;
-	            runIfPresent(handle);
-	        };
-
-	        registerImmediate = function(handle) {
-	            channel.port2.postMessage(handle);
-	        };
-	    }
-
-	    function installReadyStateChangeImplementation() {
-	        var html = doc.documentElement;
-	        registerImmediate = function(handle) {
-	            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
-	            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
-	            var script = doc.createElement("script");
-	            script.onreadystatechange = function () {
-	                runIfPresent(handle);
-	                script.onreadystatechange = null;
-	                html.removeChild(script);
-	                script = null;
-	            };
-	            html.appendChild(script);
-	        };
-	    }
-
-	    function installSetTimeoutImplementation() {
-	        registerImmediate = function(handle) {
-	            setTimeout(runIfPresent, 0, handle);
-	        };
-	    }
-
-	    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
-	    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
-	    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
-
-	    // Don't get fooled by e.g. browserify environments.
-	    if ({}.toString.call(global.process) === "[object process]") {
-	        // For Node.js before 0.9
-	        installNextTickImplementation();
-
-	    } else if (canUsePostMessage()) {
-	        // For non-IE10 modern browsers
-	        installPostMessageImplementation();
-
-	    } else if (global.MessageChannel) {
-	        // For web workers, where supported
-	        installMessageChannelImplementation();
-
-	    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
-	        // For IE 6–8
-	        installReadyStateChangeImplementation();
-
-	    } else {
-	        // For older browsers
-	        installSetTimeoutImplementation();
-	    }
-
-	    attachTo.setImmediate = setImmediate;
-	    attachTo.clearImmediate = clearImmediate;
-	}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
-
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(393)))
-
-/***/ },
-/* 418 */
-/***/ function(module, exports) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {
-	/**
-	 * Module exports.
-	 */
-
-	module.exports = deprecate;
-
-	/**
-	 * Mark that a method should not be used.
-	 * Returns a modified function which warns once by default.
-	 *
-	 * If `localStorage.noDeprecation = true` is set, then it is a no-op.
-	 *
-	 * If `localStorage.throwDeprecation = true` is set, then deprecated functions
-	 * will throw an Error when invoked.
-	 *
-	 * If `localStorage.traceDeprecation = true` is set, then deprecated functions
-	 * will invoke `console.trace()` instead of `console.error()`.
-	 *
-	 * @param {Function} fn - the function to deprecate
-	 * @param {String} msg - the string to print to the console when `fn` is invoked
-	 * @returns {Function} a new "deprecated" version of `fn`
-	 * @api public
-	 */
-
-	function deprecate (fn, msg) {
-	  if (config('noDeprecation')) {
-	    return fn;
-	  }
-
-	  var warned = false;
-	  function deprecated() {
-	    if (!warned) {
-	      if (config('throwDeprecation')) {
-	        throw new Error(msg);
-	      } else if (config('traceDeprecation')) {
-	        console.trace(msg);
-	      } else {
-	        console.warn(msg);
-	      }
-	      warned = true;
-	    }
-	    return fn.apply(this, arguments);
-	  }
-
-	  return deprecated;
-	}
-
-	/**
-	 * Checks `localStorage` for boolean values for the given `name`.
-	 *
-	 * @param {String} name
-	 * @returns {Boolean}
-	 * @api private
-	 */
-
-	function config (name) {
-	  // accessing global.localStorage can trigger a DOMException in sandboxed iframes
-	  try {
-	    if (!global.localStorage) return false;
-	  } catch (_) {
-	    return false;
-	  }
-	  var val = global.localStorage[name];
-	  if (null == val) return false;
-	  return String(val).toLowerCase() === 'true';
-	}
-
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 419 */
+/* 422 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -78154,7 +78809,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 	// USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-	var Buffer = __webpack_require__(395).Buffer;
+	var Buffer = __webpack_require__(399).Buffer;
 
 	var isBufferEncoding = Buffer.isEncoding
 	  || function(encoding) {
@@ -78357,1926 +79012,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 420 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// a transform stream is a readable/writable stream where you do
-	// something with the data.  Sometimes it's called a "filter",
-	// but that's not a great name for it, since that implies a thing where
-	// some bits pass through, and others are simply ignored.  (That would
-	// be a valid example of a transform, of course.)
-	//
-	// While the output is causally related to the input, it's not a
-	// necessarily symmetric or synchronous transformation.  For example,
-	// a zlib stream might take multiple plain-text writes(), and then
-	// emit a single compressed chunk some time in the future.
-	//
-	// Here's how this works:
-	//
-	// The Transform stream has all the aspects of the readable and writable
-	// stream classes.  When you write(chunk), that calls _write(chunk,cb)
-	// internally, and returns false if there's a lot of pending writes
-	// buffered up.  When you call read(), that calls _read(n) until
-	// there's enough pending readable data buffered up.
-	//
-	// In a transform stream, the written data is placed in a buffer.  When
-	// _read(n) is called, it transforms the queued up data, calling the
-	// buffered _write cb's as it consumes chunks.  If consuming a single
-	// written chunk would result in multiple output chunks, then the first
-	// outputted bit calls the readcb, and subsequent chunks just go into
-	// the read buffer, and will cause it to emit 'readable' if necessary.
-	//
-	// This way, back-pressure is actually determined by the reading side,
-	// since _read has to be called to start processing a new chunk.  However,
-	// a pathological inflate type of transform can cause excessive buffering
-	// here.  For example, imagine a stream where every byte of input is
-	// interpreted as an integer from 0-255, and then results in that many
-	// bytes of output.  Writing the 4 bytes {ff,ff,ff,ff} would result in
-	// 1kb of data being output.  In this case, you could write a very small
-	// amount of input, and end up with a very large amount of output.  In
-	// such a pathological inflating mechanism, there'd be no way to tell
-	// the system to stop doing the transform.  A single 4MB write could
-	// cause the system to run out of memory.
-	//
-	// However, even in such a pathological case, only a single written chunk
-	// would be consumed, and then the rest would wait (un-transformed) until
-	// the results of the previous transformed chunk were consumed.
-
-	'use strict';
-
-	module.exports = Transform;
-
-	var Duplex = __webpack_require__(414);
-
-	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
-	/*</replacement>*/
-
-	util.inherits(Transform, Duplex);
-
-	function TransformState(stream) {
-	  this.afterTransform = function (er, data) {
-	    return afterTransform(stream, er, data);
-	  };
-
-	  this.needTransform = false;
-	  this.transforming = false;
-	  this.writecb = null;
-	  this.writechunk = null;
-	  this.writeencoding = null;
-	}
-
-	function afterTransform(stream, er, data) {
-	  var ts = stream._transformState;
-	  ts.transforming = false;
-
-	  var cb = ts.writecb;
-
-	  if (!cb) return stream.emit('error', new Error('no writecb in Transform class'));
-
-	  ts.writechunk = null;
-	  ts.writecb = null;
-
-	  if (data !== null && data !== undefined) stream.push(data);
-
-	  cb(er);
-
-	  var rs = stream._readableState;
-	  rs.reading = false;
-	  if (rs.needReadable || rs.length < rs.highWaterMark) {
-	    stream._read(rs.highWaterMark);
-	  }
-	}
-
-	function Transform(options) {
-	  if (!(this instanceof Transform)) return new Transform(options);
-
-	  Duplex.call(this, options);
-
-	  this._transformState = new TransformState(this);
-
-	  var stream = this;
-
-	  // start out asking for a readable event once data is transformed.
-	  this._readableState.needReadable = true;
-
-	  // we have implemented the _read method, and done the other things
-	  // that Readable wants before the first _read call, so unset the
-	  // sync guard flag.
-	  this._readableState.sync = false;
-
-	  if (options) {
-	    if (typeof options.transform === 'function') this._transform = options.transform;
-
-	    if (typeof options.flush === 'function') this._flush = options.flush;
-	  }
-
-	  // When the writable side finishes, then flush out anything remaining.
-	  this.once('prefinish', function () {
-	    if (typeof this._flush === 'function') this._flush(function (er, data) {
-	      done(stream, er, data);
-	    });else done(stream);
-	  });
-	}
-
-	Transform.prototype.push = function (chunk, encoding) {
-	  this._transformState.needTransform = false;
-	  return Duplex.prototype.push.call(this, chunk, encoding);
-	};
-
-	// This is the part where you do stuff!
-	// override this function in implementation classes.
-	// 'chunk' is an input chunk.
-	//
-	// Call `push(newChunk)` to pass along transformed output
-	// to the readable side.  You may call 'push' zero or more times.
-	//
-	// Call `cb(err)` when you are done with this chunk.  If you pass
-	// an error, then that'll put the hurt on the whole operation.  If you
-	// never call cb(), then you'll never get another chunk.
-	Transform.prototype._transform = function (chunk, encoding, cb) {
-	  throw new Error('_transform() is not implemented');
-	};
-
-	Transform.prototype._write = function (chunk, encoding, cb) {
-	  var ts = this._transformState;
-	  ts.writecb = cb;
-	  ts.writechunk = chunk;
-	  ts.writeencoding = encoding;
-	  if (!ts.transforming) {
-	    var rs = this._readableState;
-	    if (ts.needTransform || rs.needReadable || rs.length < rs.highWaterMark) this._read(rs.highWaterMark);
-	  }
-	};
-
-	// Doesn't matter what the args are here.
-	// _transform does all the work.
-	// That we got here means that the readable side wants more data.
-	Transform.prototype._read = function (n) {
-	  var ts = this._transformState;
-
-	  if (ts.writechunk !== null && ts.writecb && !ts.transforming) {
-	    ts.transforming = true;
-	    this._transform(ts.writechunk, ts.writeencoding, ts.afterTransform);
-	  } else {
-	    // mark that we need a transform, so that any data that comes in
-	    // will get processed, now that we've asked for it.
-	    ts.needTransform = true;
-	  }
-	};
-
-	function done(stream, er, data) {
-	  if (er) return stream.emit('error', er);
-
-	  if (data !== null && data !== undefined) stream.push(data);
-
-	  // if there's nothing in the write buffer, then that means
-	  // that nothing more will ever be provided
-	  var ws = stream._writableState;
-	  var ts = stream._transformState;
-
-	  if (ws.length) throw new Error('Calling transform done when ws.length != 0');
-
-	  if (ts.transforming) throw new Error('Calling transform done when still transforming');
-
-	  return stream.push(null);
-	}
-
-/***/ },
-/* 421 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// a passthrough stream.
-	// basically just the most minimal sort of Transform stream.
-	// Every written chunk gets output as-is.
-
-	'use strict';
-
-	module.exports = PassThrough;
-
-	var Transform = __webpack_require__(420);
-
-	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
-	/*</replacement>*/
-
-	util.inherits(PassThrough, Transform);
-
-	function PassThrough(options) {
-	  if (!(this instanceof PassThrough)) return new PassThrough(options);
-
-	  Transform.call(this, options);
-	}
-
-	PassThrough.prototype._transform = function (chunk, encoding, cb) {
-	  cb(null, chunk);
-	};
-
-/***/ },
-/* 422 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(415)
-
-
-/***/ },
 /* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(414)
+	module.exports = __webpack_require__(418)
 
 
 /***/ },
 /* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(420)
+	module.exports = __webpack_require__(425)
 
 
 /***/ },
 /* 425 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(421)
-
-
-/***/ },
-/* 426 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	module.exports = Readable;
-
-	/*<replacement>*/
-	var processNextTick = __webpack_require__(408);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var isArray = __webpack_require__(427);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var Duplex;
-	/*</replacement>*/
-
-	Readable.ReadableState = ReadableState;
-
-	/*<replacement>*/
-	var EE = __webpack_require__(391).EventEmitter;
-
-	var EElistenerCount = function (emitter, type) {
-	  return emitter.listeners(type).length;
-	};
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var Stream;
-	(function () {
-	  try {
-	    Stream = __webpack_require__(405);
-	  } catch (_) {} finally {
-	    if (!Stream) Stream = __webpack_require__(391).EventEmitter;
-	  }
-	})();
-	/*</replacement>*/
-
-	var Buffer = __webpack_require__(395).Buffer;
-	/*<replacement>*/
-	var bufferShim = __webpack_require__(410);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var debugUtil = __webpack_require__(428);
-	var debug = void 0;
-	if (debugUtil && debugUtil.debuglog) {
-	  debug = debugUtil.debuglog('stream');
-	} else {
-	  debug = function () {};
-	}
-	/*</replacement>*/
-
-	var BufferList = __webpack_require__(429);
-	var StringDecoder;
-
-	util.inherits(Readable, Stream);
-
-	function prependListener(emitter, event, fn) {
-	  // Sadly this is not cacheable as some libraries bundle their own
-	  // event emitter implementation with them.
-	  if (typeof emitter.prependListener === 'function') {
-	    return emitter.prependListener(event, fn);
-	  } else {
-	    // This is a hack to make sure that our error handler is attached before any
-	    // userland ones.  NEVER DO THIS. This is here only because this code needs
-	    // to continue to work with older versions of Node.js that do not include
-	    // the prependListener() method. The goal is to eventually remove this hack.
-	    if (!emitter._events || !emitter._events[event]) emitter.on(event, fn);else if (isArray(emitter._events[event])) emitter._events[event].unshift(fn);else emitter._events[event] = [fn, emitter._events[event]];
-	  }
-	}
-
-	function ReadableState(options, stream) {
-	  Duplex = Duplex || __webpack_require__(430);
-
-	  options = options || {};
-
-	  // object stream flag. Used to make read(n) ignore n and to
-	  // make all the buffer merging and length checks go away
-	  this.objectMode = !!options.objectMode;
-
-	  if (stream instanceof Duplex) this.objectMode = this.objectMode || !!options.readableObjectMode;
-
-	  // the point at which it stops calling _read() to fill the buffer
-	  // Note: 0 is a valid value, means "don't call _read preemptively ever"
-	  var hwm = options.highWaterMark;
-	  var defaultHwm = this.objectMode ? 16 : 16 * 1024;
-	  this.highWaterMark = hwm || hwm === 0 ? hwm : defaultHwm;
-
-	  // cast to ints.
-	  this.highWaterMark = ~ ~this.highWaterMark;
-
-	  // A linked list is used to store data chunks instead of an array because the
-	  // linked list can remove elements from the beginning faster than
-	  // array.shift()
-	  this.buffer = new BufferList();
-	  this.length = 0;
-	  this.pipes = null;
-	  this.pipesCount = 0;
-	  this.flowing = null;
-	  this.ended = false;
-	  this.endEmitted = false;
-	  this.reading = false;
-
-	  // a flag to be able to tell if the onwrite cb is called immediately,
-	  // or on a later tick.  We set this to true at first, because any
-	  // actions that shouldn't happen until "later" should generally also
-	  // not happen before the first write call.
-	  this.sync = true;
-
-	  // whenever we return null, then we set a flag to say
-	  // that we're awaiting a 'readable' event emission.
-	  this.needReadable = false;
-	  this.emittedReadable = false;
-	  this.readableListening = false;
-	  this.resumeScheduled = false;
-
-	  // Crypto is kind of old and crusty.  Historically, its default string
-	  // encoding is 'binary' so we have to make this configurable.
-	  // Everything else in the universe uses 'utf8', though.
-	  this.defaultEncoding = options.defaultEncoding || 'utf8';
-
-	  // when piping, we only care about 'readable' events that happen
-	  // after read()ing all the bytes and not getting any pushback.
-	  this.ranOut = false;
-
-	  // the number of writers that are awaiting a drain event in .pipe()s
-	  this.awaitDrain = 0;
-
-	  // if true, a maybeReadMore has been scheduled
-	  this.readingMore = false;
-
-	  this.decoder = null;
-	  this.encoding = null;
-	  if (options.encoding) {
-	    if (!StringDecoder) StringDecoder = __webpack_require__(419).StringDecoder;
-	    this.decoder = new StringDecoder(options.encoding);
-	    this.encoding = options.encoding;
-	  }
-	}
-
-	function Readable(options) {
-	  Duplex = Duplex || __webpack_require__(430);
-
-	  if (!(this instanceof Readable)) return new Readable(options);
-
-	  this._readableState = new ReadableState(options, this);
-
-	  // legacy
-	  this.readable = true;
-
-	  if (options && typeof options.read === 'function') this._read = options.read;
-
-	  Stream.call(this);
-	}
-
-	// Manually shove something into the read() buffer.
-	// This returns true if the highWaterMark has not been hit yet,
-	// similar to how Writable.write() returns true if you should
-	// write() some more.
-	Readable.prototype.push = function (chunk, encoding) {
-	  var state = this._readableState;
-
-	  if (!state.objectMode && typeof chunk === 'string') {
-	    encoding = encoding || state.defaultEncoding;
-	    if (encoding !== state.encoding) {
-	      chunk = bufferShim.from(chunk, encoding);
-	      encoding = '';
-	    }
-	  }
-
-	  return readableAddChunk(this, state, chunk, encoding, false);
-	};
-
-	// Unshift should *always* be something directly out of read()
-	Readable.prototype.unshift = function (chunk) {
-	  var state = this._readableState;
-	  return readableAddChunk(this, state, chunk, '', true);
-	};
-
-	Readable.prototype.isPaused = function () {
-	  return this._readableState.flowing === false;
-	};
-
-	function readableAddChunk(stream, state, chunk, encoding, addToFront) {
-	  var er = chunkInvalid(state, chunk);
-	  if (er) {
-	    stream.emit('error', er);
-	  } else if (chunk === null) {
-	    state.reading = false;
-	    onEofChunk(stream, state);
-	  } else if (state.objectMode || chunk && chunk.length > 0) {
-	    if (state.ended && !addToFront) {
-	      var e = new Error('stream.push() after EOF');
-	      stream.emit('error', e);
-	    } else if (state.endEmitted && addToFront) {
-	      var _e = new Error('stream.unshift() after end event');
-	      stream.emit('error', _e);
-	    } else {
-	      var skipAdd;
-	      if (state.decoder && !addToFront && !encoding) {
-	        chunk = state.decoder.write(chunk);
-	        skipAdd = !state.objectMode && chunk.length === 0;
-	      }
-
-	      if (!addToFront) state.reading = false;
-
-	      // Don't add to the buffer if we've decoded to an empty string chunk and
-	      // we're not in object mode
-	      if (!skipAdd) {
-	        // if we want the data now, just emit it.
-	        if (state.flowing && state.length === 0 && !state.sync) {
-	          stream.emit('data', chunk);
-	          stream.read(0);
-	        } else {
-	          // update the buffer info.
-	          state.length += state.objectMode ? 1 : chunk.length;
-	          if (addToFront) state.buffer.unshift(chunk);else state.buffer.push(chunk);
-
-	          if (state.needReadable) emitReadable(stream);
-	        }
-	      }
-
-	      maybeReadMore(stream, state);
-	    }
-	  } else if (!addToFront) {
-	    state.reading = false;
-	  }
-
-	  return needMoreData(state);
-	}
-
-	// if it's past the high water mark, we can push in some more.
-	// Also, if we have no data yet, we can stand some
-	// more bytes.  This is to work around cases where hwm=0,
-	// such as the repl.  Also, if the push() triggered a
-	// readable event, and the user called read(largeNumber) such that
-	// needReadable was set, then we ought to push more, so that another
-	// 'readable' event will be triggered.
-	function needMoreData(state) {
-	  return !state.ended && (state.needReadable || state.length < state.highWaterMark || state.length === 0);
-	}
-
-	// backwards compatibility.
-	Readable.prototype.setEncoding = function (enc) {
-	  if (!StringDecoder) StringDecoder = __webpack_require__(419).StringDecoder;
-	  this._readableState.decoder = new StringDecoder(enc);
-	  this._readableState.encoding = enc;
-	  return this;
-	};
-
-	// Don't raise the hwm > 8MB
-	var MAX_HWM = 0x800000;
-	function computeNewHighWaterMark(n) {
-	  if (n >= MAX_HWM) {
-	    n = MAX_HWM;
-	  } else {
-	    // Get the next highest power of 2 to prevent increasing hwm excessively in
-	    // tiny amounts
-	    n--;
-	    n |= n >>> 1;
-	    n |= n >>> 2;
-	    n |= n >>> 4;
-	    n |= n >>> 8;
-	    n |= n >>> 16;
-	    n++;
-	  }
-	  return n;
-	}
-
-	// This function is designed to be inlinable, so please take care when making
-	// changes to the function body.
-	function howMuchToRead(n, state) {
-	  if (n <= 0 || state.length === 0 && state.ended) return 0;
-	  if (state.objectMode) return 1;
-	  if (n !== n) {
-	    // Only flow one buffer at a time
-	    if (state.flowing && state.length) return state.buffer.head.data.length;else return state.length;
-	  }
-	  // If we're asking for more than the current hwm, then raise the hwm.
-	  if (n > state.highWaterMark) state.highWaterMark = computeNewHighWaterMark(n);
-	  if (n <= state.length) return n;
-	  // Don't have enough
-	  if (!state.ended) {
-	    state.needReadable = true;
-	    return 0;
-	  }
-	  return state.length;
-	}
-
-	// you can override either this method, or the async _read(n) below.
-	Readable.prototype.read = function (n) {
-	  debug('read', n);
-	  n = parseInt(n, 10);
-	  var state = this._readableState;
-	  var nOrig = n;
-
-	  if (n !== 0) state.emittedReadable = false;
-
-	  // if we're doing read(0) to trigger a readable event, but we
-	  // already have a bunch of data in the buffer, then just trigger
-	  // the 'readable' event and move on.
-	  if (n === 0 && state.needReadable && (state.length >= state.highWaterMark || state.ended)) {
-	    debug('read: emitReadable', state.length, state.ended);
-	    if (state.length === 0 && state.ended) endReadable(this);else emitReadable(this);
-	    return null;
-	  }
-
-	  n = howMuchToRead(n, state);
-
-	  // if we've ended, and we're now clear, then finish it up.
-	  if (n === 0 && state.ended) {
-	    if (state.length === 0) endReadable(this);
-	    return null;
-	  }
-
-	  // All the actual chunk generation logic needs to be
-	  // *below* the call to _read.  The reason is that in certain
-	  // synthetic stream cases, such as passthrough streams, _read
-	  // may be a completely synchronous operation which may change
-	  // the state of the read buffer, providing enough data when
-	  // before there was *not* enough.
-	  //
-	  // So, the steps are:
-	  // 1. Figure out what the state of things will be after we do
-	  // a read from the buffer.
-	  //
-	  // 2. If that resulting state will trigger a _read, then call _read.
-	  // Note that this may be asynchronous, or synchronous.  Yes, it is
-	  // deeply ugly to write APIs this way, but that still doesn't mean
-	  // that the Readable class should behave improperly, as streams are
-	  // designed to be sync/async agnostic.
-	  // Take note if the _read call is sync or async (ie, if the read call
-	  // has returned yet), so that we know whether or not it's safe to emit
-	  // 'readable' etc.
-	  //
-	  // 3. Actually pull the requested chunks out of the buffer and return.
-
-	  // if we need a readable event, then we need to do some reading.
-	  var doRead = state.needReadable;
-	  debug('need readable', doRead);
-
-	  // if we currently have less than the highWaterMark, then also read some
-	  if (state.length === 0 || state.length - n < state.highWaterMark) {
-	    doRead = true;
-	    debug('length less than watermark', doRead);
-	  }
-
-	  // however, if we've ended, then there's no point, and if we're already
-	  // reading, then it's unnecessary.
-	  if (state.ended || state.reading) {
-	    doRead = false;
-	    debug('reading or ended', doRead);
-	  } else if (doRead) {
-	    debug('do read');
-	    state.reading = true;
-	    state.sync = true;
-	    // if the length is currently zero, then we *need* a readable event.
-	    if (state.length === 0) state.needReadable = true;
-	    // call internal read method
-	    this._read(state.highWaterMark);
-	    state.sync = false;
-	    // If _read pushed data synchronously, then `reading` will be false,
-	    // and we need to re-evaluate how much data we can return to the user.
-	    if (!state.reading) n = howMuchToRead(nOrig, state);
-	  }
-
-	  var ret;
-	  if (n > 0) ret = fromList(n, state);else ret = null;
-
-	  if (ret === null) {
-	    state.needReadable = true;
-	    n = 0;
-	  } else {
-	    state.length -= n;
-	  }
-
-	  if (state.length === 0) {
-	    // If we have nothing in the buffer, then we want to know
-	    // as soon as we *do* get something into the buffer.
-	    if (!state.ended) state.needReadable = true;
-
-	    // If we tried to read() past the EOF, then emit end on the next tick.
-	    if (nOrig !== n && state.ended) endReadable(this);
-	  }
-
-	  if (ret !== null) this.emit('data', ret);
-
-	  return ret;
-	};
-
-	function chunkInvalid(state, chunk) {
-	  var er = null;
-	  if (!Buffer.isBuffer(chunk) && typeof chunk !== 'string' && chunk !== null && chunk !== undefined && !state.objectMode) {
-	    er = new TypeError('Invalid non-string/buffer chunk');
-	  }
-	  return er;
-	}
-
-	function onEofChunk(stream, state) {
-	  if (state.ended) return;
-	  if (state.decoder) {
-	    var chunk = state.decoder.end();
-	    if (chunk && chunk.length) {
-	      state.buffer.push(chunk);
-	      state.length += state.objectMode ? 1 : chunk.length;
-	    }
-	  }
-	  state.ended = true;
-
-	  // emit 'readable' now to make sure it gets picked up.
-	  emitReadable(stream);
-	}
-
-	// Don't emit readable right away in sync mode, because this can trigger
-	// another read() call => stack overflow.  This way, it might trigger
-	// a nextTick recursion warning, but that's not so bad.
-	function emitReadable(stream) {
-	  var state = stream._readableState;
-	  state.needReadable = false;
-	  if (!state.emittedReadable) {
-	    debug('emitReadable', state.flowing);
-	    state.emittedReadable = true;
-	    if (state.sync) processNextTick(emitReadable_, stream);else emitReadable_(stream);
-	  }
-	}
-
-	function emitReadable_(stream) {
-	  debug('emit readable');
-	  stream.emit('readable');
-	  flow(stream);
-	}
-
-	// at this point, the user has presumably seen the 'readable' event,
-	// and called read() to consume some data.  that may have triggered
-	// in turn another _read(n) call, in which case reading = true if
-	// it's in progress.
-	// However, if we're not ended, or reading, and the length < hwm,
-	// then go ahead and try to read some more preemptively.
-	function maybeReadMore(stream, state) {
-	  if (!state.readingMore) {
-	    state.readingMore = true;
-	    processNextTick(maybeReadMore_, stream, state);
-	  }
-	}
-
-	function maybeReadMore_(stream, state) {
-	  var len = state.length;
-	  while (!state.reading && !state.flowing && !state.ended && state.length < state.highWaterMark) {
-	    debug('maybeReadMore read 0');
-	    stream.read(0);
-	    if (len === state.length)
-	      // didn't get any data, stop spinning.
-	      break;else len = state.length;
-	  }
-	  state.readingMore = false;
-	}
-
-	// abstract method.  to be overridden in specific implementation classes.
-	// call cb(er, data) where data is <= n in length.
-	// for virtual (non-string, non-buffer) streams, "length" is somewhat
-	// arbitrary, and perhaps not very meaningful.
-	Readable.prototype._read = function (n) {
-	  this.emit('error', new Error('_read() is not implemented'));
-	};
-
-	Readable.prototype.pipe = function (dest, pipeOpts) {
-	  var src = this;
-	  var state = this._readableState;
-
-	  switch (state.pipesCount) {
-	    case 0:
-	      state.pipes = dest;
-	      break;
-	    case 1:
-	      state.pipes = [state.pipes, dest];
-	      break;
-	    default:
-	      state.pipes.push(dest);
-	      break;
-	  }
-	  state.pipesCount += 1;
-	  debug('pipe count=%d opts=%j', state.pipesCount, pipeOpts);
-
-	  var doEnd = (!pipeOpts || pipeOpts.end !== false) && dest !== process.stdout && dest !== process.stderr;
-
-	  var endFn = doEnd ? onend : cleanup;
-	  if (state.endEmitted) processNextTick(endFn);else src.once('end', endFn);
-
-	  dest.on('unpipe', onunpipe);
-	  function onunpipe(readable) {
-	    debug('onunpipe');
-	    if (readable === src) {
-	      cleanup();
-	    }
-	  }
-
-	  function onend() {
-	    debug('onend');
-	    dest.end();
-	  }
-
-	  // when the dest drains, it reduces the awaitDrain counter
-	  // on the source.  This would be more elegant with a .once()
-	  // handler in flow(), but adding and removing repeatedly is
-	  // too slow.
-	  var ondrain = pipeOnDrain(src);
-	  dest.on('drain', ondrain);
-
-	  var cleanedUp = false;
-	  function cleanup() {
-	    debug('cleanup');
-	    // cleanup event handlers once the pipe is broken
-	    dest.removeListener('close', onclose);
-	    dest.removeListener('finish', onfinish);
-	    dest.removeListener('drain', ondrain);
-	    dest.removeListener('error', onerror);
-	    dest.removeListener('unpipe', onunpipe);
-	    src.removeListener('end', onend);
-	    src.removeListener('end', cleanup);
-	    src.removeListener('data', ondata);
-
-	    cleanedUp = true;
-
-	    // if the reader is waiting for a drain event from this
-	    // specific writer, then it would cause it to never start
-	    // flowing again.
-	    // So, if this is awaiting a drain, then we just call it now.
-	    // If we don't know, then assume that we are waiting for one.
-	    if (state.awaitDrain && (!dest._writableState || dest._writableState.needDrain)) ondrain();
-	  }
-
-	  // If the user pushes more data while we're writing to dest then we'll end up
-	  // in ondata again. However, we only want to increase awaitDrain once because
-	  // dest will only emit one 'drain' event for the multiple writes.
-	  // => Introduce a guard on increasing awaitDrain.
-	  var increasedAwaitDrain = false;
-	  src.on('data', ondata);
-	  function ondata(chunk) {
-	    debug('ondata');
-	    increasedAwaitDrain = false;
-	    var ret = dest.write(chunk);
-	    if (false === ret && !increasedAwaitDrain) {
-	      // If the user unpiped during `dest.write()`, it is possible
-	      // to get stuck in a permanently paused state if that write
-	      // also returned false.
-	      // => Check whether `dest` is still a piping destination.
-	      if ((state.pipesCount === 1 && state.pipes === dest || state.pipesCount > 1 && indexOf(state.pipes, dest) !== -1) && !cleanedUp) {
-	        debug('false write response, pause', src._readableState.awaitDrain);
-	        src._readableState.awaitDrain++;
-	        increasedAwaitDrain = true;
-	      }
-	      src.pause();
-	    }
-	  }
-
-	  // if the dest has an error, then stop piping into it.
-	  // however, don't suppress the throwing behavior for this.
-	  function onerror(er) {
-	    debug('onerror', er);
-	    unpipe();
-	    dest.removeListener('error', onerror);
-	    if (EElistenerCount(dest, 'error') === 0) dest.emit('error', er);
-	  }
-
-	  // Make sure our error handler is attached before userland ones.
-	  prependListener(dest, 'error', onerror);
-
-	  // Both close and finish should trigger unpipe, but only once.
-	  function onclose() {
-	    dest.removeListener('finish', onfinish);
-	    unpipe();
-	  }
-	  dest.once('close', onclose);
-	  function onfinish() {
-	    debug('onfinish');
-	    dest.removeListener('close', onclose);
-	    unpipe();
-	  }
-	  dest.once('finish', onfinish);
-
-	  function unpipe() {
-	    debug('unpipe');
-	    src.unpipe(dest);
-	  }
-
-	  // tell the dest that it's being piped to
-	  dest.emit('pipe', src);
-
-	  // start the flow if it hasn't been started already.
-	  if (!state.flowing) {
-	    debug('pipe resume');
-	    src.resume();
-	  }
-
-	  return dest;
-	};
-
-	function pipeOnDrain(src) {
-	  return function () {
-	    var state = src._readableState;
-	    debug('pipeOnDrain', state.awaitDrain);
-	    if (state.awaitDrain) state.awaitDrain--;
-	    if (state.awaitDrain === 0 && EElistenerCount(src, 'data')) {
-	      state.flowing = true;
-	      flow(src);
-	    }
-	  };
-	}
-
-	Readable.prototype.unpipe = function (dest) {
-	  var state = this._readableState;
-
-	  // if we're not piping anywhere, then do nothing.
-	  if (state.pipesCount === 0) return this;
-
-	  // just one destination.  most common case.
-	  if (state.pipesCount === 1) {
-	    // passed in one, but it's not the right one.
-	    if (dest && dest !== state.pipes) return this;
-
-	    if (!dest) dest = state.pipes;
-
-	    // got a match.
-	    state.pipes = null;
-	    state.pipesCount = 0;
-	    state.flowing = false;
-	    if (dest) dest.emit('unpipe', this);
-	    return this;
-	  }
-
-	  // slow case. multiple pipe destinations.
-
-	  if (!dest) {
-	    // remove all.
-	    var dests = state.pipes;
-	    var len = state.pipesCount;
-	    state.pipes = null;
-	    state.pipesCount = 0;
-	    state.flowing = false;
-
-	    for (var i = 0; i < len; i++) {
-	      dests[i].emit('unpipe', this);
-	    }return this;
-	  }
-
-	  // try to find the right one.
-	  var index = indexOf(state.pipes, dest);
-	  if (index === -1) return this;
-
-	  state.pipes.splice(index, 1);
-	  state.pipesCount -= 1;
-	  if (state.pipesCount === 1) state.pipes = state.pipes[0];
-
-	  dest.emit('unpipe', this);
-
-	  return this;
-	};
-
-	// set up data events if they are asked for
-	// Ensure readable listeners eventually get something
-	Readable.prototype.on = function (ev, fn) {
-	  var res = Stream.prototype.on.call(this, ev, fn);
-
-	  if (ev === 'data') {
-	    // Start flowing on next tick if stream isn't explicitly paused
-	    if (this._readableState.flowing !== false) this.resume();
-	  } else if (ev === 'readable') {
-	    var state = this._readableState;
-	    if (!state.endEmitted && !state.readableListening) {
-	      state.readableListening = state.needReadable = true;
-	      state.emittedReadable = false;
-	      if (!state.reading) {
-	        processNextTick(nReadingNextTick, this);
-	      } else if (state.length) {
-	        emitReadable(this, state);
-	      }
-	    }
-	  }
-
-	  return res;
-	};
-	Readable.prototype.addListener = Readable.prototype.on;
-
-	function nReadingNextTick(self) {
-	  debug('readable nexttick read 0');
-	  self.read(0);
-	}
-
-	// pause() and resume() are remnants of the legacy readable stream API
-	// If the user uses them, then switch into old mode.
-	Readable.prototype.resume = function () {
-	  var state = this._readableState;
-	  if (!state.flowing) {
-	    debug('resume');
-	    state.flowing = true;
-	    resume(this, state);
-	  }
-	  return this;
-	};
-
-	function resume(stream, state) {
-	  if (!state.resumeScheduled) {
-	    state.resumeScheduled = true;
-	    processNextTick(resume_, stream, state);
-	  }
-	}
-
-	function resume_(stream, state) {
-	  if (!state.reading) {
-	    debug('resume read 0');
-	    stream.read(0);
-	  }
-
-	  state.resumeScheduled = false;
-	  state.awaitDrain = 0;
-	  stream.emit('resume');
-	  flow(stream);
-	  if (state.flowing && !state.reading) stream.read(0);
-	}
-
-	Readable.prototype.pause = function () {
-	  debug('call pause flowing=%j', this._readableState.flowing);
-	  if (false !== this._readableState.flowing) {
-	    debug('pause');
-	    this._readableState.flowing = false;
-	    this.emit('pause');
-	  }
-	  return this;
-	};
-
-	function flow(stream) {
-	  var state = stream._readableState;
-	  debug('flow', state.flowing);
-	  while (state.flowing && stream.read() !== null) {}
-	}
-
-	// wrap an old-style stream as the async data source.
-	// This is *not* part of the readable stream interface.
-	// It is an ugly unfortunate mess of history.
-	Readable.prototype.wrap = function (stream) {
-	  var state = this._readableState;
-	  var paused = false;
-
-	  var self = this;
-	  stream.on('end', function () {
-	    debug('wrapped end');
-	    if (state.decoder && !state.ended) {
-	      var chunk = state.decoder.end();
-	      if (chunk && chunk.length) self.push(chunk);
-	    }
-
-	    self.push(null);
-	  });
-
-	  stream.on('data', function (chunk) {
-	    debug('wrapped data');
-	    if (state.decoder) chunk = state.decoder.write(chunk);
-
-	    // don't skip over falsy values in objectMode
-	    if (state.objectMode && (chunk === null || chunk === undefined)) return;else if (!state.objectMode && (!chunk || !chunk.length)) return;
-
-	    var ret = self.push(chunk);
-	    if (!ret) {
-	      paused = true;
-	      stream.pause();
-	    }
-	  });
-
-	  // proxy all the other methods.
-	  // important when wrapping filters and duplexes.
-	  for (var i in stream) {
-	    if (this[i] === undefined && typeof stream[i] === 'function') {
-	      this[i] = function (method) {
-	        return function () {
-	          return stream[method].apply(stream, arguments);
-	        };
-	      }(i);
-	    }
-	  }
-
-	  // proxy certain important events.
-	  var events = ['error', 'close', 'destroy', 'pause', 'resume'];
-	  forEach(events, function (ev) {
-	    stream.on(ev, self.emit.bind(self, ev));
-	  });
-
-	  // when we try to consume some more bytes, simply unpause the
-	  // underlying stream.
-	  self._read = function (n) {
-	    debug('wrapped _read', n);
-	    if (paused) {
-	      paused = false;
-	      stream.resume();
-	    }
-	  };
-
-	  return self;
-	};
-
-	// exposed for testing purposes only.
-	Readable._fromList = fromList;
-
-	// Pluck off n bytes from an array of buffers.
-	// Length is the combined lengths of all the buffers in the list.
-	// This function is designed to be inlinable, so please take care when making
-	// changes to the function body.
-	function fromList(n, state) {
-	  // nothing buffered
-	  if (state.length === 0) return null;
-
-	  var ret;
-	  if (state.objectMode) ret = state.buffer.shift();else if (!n || n >= state.length) {
-	    // read it all, truncate the list
-	    if (state.decoder) ret = state.buffer.join('');else if (state.buffer.length === 1) ret = state.buffer.head.data;else ret = state.buffer.concat(state.length);
-	    state.buffer.clear();
-	  } else {
-	    // read part of list
-	    ret = fromListPartial(n, state.buffer, state.decoder);
-	  }
-
-	  return ret;
-	}
-
-	// Extracts only enough buffered data to satisfy the amount requested.
-	// This function is designed to be inlinable, so please take care when making
-	// changes to the function body.
-	function fromListPartial(n, list, hasStrings) {
-	  var ret;
-	  if (n < list.head.data.length) {
-	    // slice is the same for buffers and strings
-	    ret = list.head.data.slice(0, n);
-	    list.head.data = list.head.data.slice(n);
-	  } else if (n === list.head.data.length) {
-	    // first chunk is a perfect match
-	    ret = list.shift();
-	  } else {
-	    // result spans more than one buffer
-	    ret = hasStrings ? copyFromBufferString(n, list) : copyFromBuffer(n, list);
-	  }
-	  return ret;
-	}
-
-	// Copies a specified amount of characters from the list of buffered data
-	// chunks.
-	// This function is designed to be inlinable, so please take care when making
-	// changes to the function body.
-	function copyFromBufferString(n, list) {
-	  var p = list.head;
-	  var c = 1;
-	  var ret = p.data;
-	  n -= ret.length;
-	  while (p = p.next) {
-	    var str = p.data;
-	    var nb = n > str.length ? str.length : n;
-	    if (nb === str.length) ret += str;else ret += str.slice(0, n);
-	    n -= nb;
-	    if (n === 0) {
-	      if (nb === str.length) {
-	        ++c;
-	        if (p.next) list.head = p.next;else list.head = list.tail = null;
-	      } else {
-	        list.head = p;
-	        p.data = str.slice(nb);
-	      }
-	      break;
-	    }
-	    ++c;
-	  }
-	  list.length -= c;
-	  return ret;
-	}
-
-	// Copies a specified amount of bytes from the list of buffered data chunks.
-	// This function is designed to be inlinable, so please take care when making
-	// changes to the function body.
-	function copyFromBuffer(n, list) {
-	  var ret = bufferShim.allocUnsafe(n);
-	  var p = list.head;
-	  var c = 1;
-	  p.data.copy(ret);
-	  n -= p.data.length;
-	  while (p = p.next) {
-	    var buf = p.data;
-	    var nb = n > buf.length ? buf.length : n;
-	    buf.copy(ret, ret.length - n, 0, nb);
-	    n -= nb;
-	    if (n === 0) {
-	      if (nb === buf.length) {
-	        ++c;
-	        if (p.next) list.head = p.next;else list.head = list.tail = null;
-	      } else {
-	        list.head = p;
-	        p.data = buf.slice(nb);
-	      }
-	      break;
-	    }
-	    ++c;
-	  }
-	  list.length -= c;
-	  return ret;
-	}
-
-	function endReadable(stream) {
-	  var state = stream._readableState;
-
-	  // If we get here before consuming all the bytes, then that is a
-	  // bug in node.  Should never happen.
-	  if (state.length > 0) throw new Error('"endReadable()" called on non-empty stream');
-
-	  if (!state.endEmitted) {
-	    state.ended = true;
-	    processNextTick(endReadableNT, state, stream);
-	  }
-	}
-
-	function endReadableNT(state, stream) {
-	  // Check that we didn't get one last unshift.
-	  if (!state.endEmitted && state.length === 0) {
-	    state.endEmitted = true;
-	    stream.readable = false;
-	    stream.emit('end');
-	  }
-	}
-
-	function forEach(xs, f) {
-	  for (var i = 0, l = xs.length; i < l; i++) {
-	    f(xs[i], i);
-	  }
-	}
-
-	function indexOf(xs, x) {
-	  for (var i = 0, l = xs.length; i < l; i++) {
-	    if (xs[i] === x) return i;
-	  }
-	  return -1;
-	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
-
-/***/ },
-/* 427 */
-/***/ function(module, exports) {
-
-	var toString = {}.toString;
-
-	module.exports = Array.isArray || function (arr) {
-	  return toString.call(arr) == '[object Array]';
-	};
-
-
-/***/ },
-/* 428 */
-/***/ function(module, exports) {
-
-	/* (ignored) */
-
-/***/ },
-/* 429 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var Buffer = __webpack_require__(395).Buffer;
-	/*<replacement>*/
-	var bufferShim = __webpack_require__(410);
-	/*</replacement>*/
-
-	module.exports = BufferList;
-
-	function BufferList() {
-	  this.head = null;
-	  this.tail = null;
-	  this.length = 0;
-	}
-
-	BufferList.prototype.push = function (v) {
-	  var entry = { data: v, next: null };
-	  if (this.length > 0) this.tail.next = entry;else this.head = entry;
-	  this.tail = entry;
-	  ++this.length;
-	};
-
-	BufferList.prototype.unshift = function (v) {
-	  var entry = { data: v, next: this.head };
-	  if (this.length === 0) this.tail = entry;
-	  this.head = entry;
-	  ++this.length;
-	};
-
-	BufferList.prototype.shift = function () {
-	  if (this.length === 0) return;
-	  var ret = this.head.data;
-	  if (this.length === 1) this.head = this.tail = null;else this.head = this.head.next;
-	  --this.length;
-	  return ret;
-	};
-
-	BufferList.prototype.clear = function () {
-	  this.head = this.tail = null;
-	  this.length = 0;
-	};
-
-	BufferList.prototype.join = function (s) {
-	  if (this.length === 0) return '';
-	  var p = this.head;
-	  var ret = '' + p.data;
-	  while (p = p.next) {
-	    ret += s + p.data;
-	  }return ret;
-	};
-
-	BufferList.prototype.concat = function (n) {
-	  if (this.length === 0) return bufferShim.alloc(0);
-	  if (this.length === 1) return this.head.data;
-	  var ret = bufferShim.allocUnsafe(n >>> 0);
-	  var p = this.head;
-	  var i = 0;
-	  while (p) {
-	    p.data.copy(ret, i);
-	    i += p.data.length;
-	    p = p.next;
-	  }
-	  return ret;
-	};
-
-/***/ },
-/* 430 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// a duplex stream is just a stream that is both readable and writable.
-	// Since JS doesn't have multiple prototypal inheritance, this class
-	// prototypally inherits from Readable, and then parasitically from
-	// Writable.
-
-	'use strict';
-
-	/*<replacement>*/
-
-	var objectKeys = Object.keys || function (obj) {
-	  var keys = [];
-	  for (var key in obj) {
-	    keys.push(key);
-	  }return keys;
-	};
-	/*</replacement>*/
-
-	module.exports = Duplex;
-
-	/*<replacement>*/
-	var processNextTick = __webpack_require__(408);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
-	/*</replacement>*/
-
-	var Readable = __webpack_require__(426);
-	var Writable = __webpack_require__(431);
-
-	util.inherits(Duplex, Readable);
-
-	var keys = objectKeys(Writable.prototype);
-	for (var v = 0; v < keys.length; v++) {
-	  var method = keys[v];
-	  if (!Duplex.prototype[method]) Duplex.prototype[method] = Writable.prototype[method];
-	}
-
-	function Duplex(options) {
-	  if (!(this instanceof Duplex)) return new Duplex(options);
-
-	  Readable.call(this, options);
-	  Writable.call(this, options);
-
-	  if (options && options.readable === false) this.readable = false;
-
-	  if (options && options.writable === false) this.writable = false;
-
-	  this.allowHalfOpen = true;
-	  if (options && options.allowHalfOpen === false) this.allowHalfOpen = false;
-
-	  this.once('end', onend);
-	}
-
-	// the no-half-open enforcer
-	function onend() {
-	  // if we allow half-open state, or if the writable side ended,
-	  // then we're ok.
-	  if (this.allowHalfOpen || this._writableState.ended) return;
-
-	  // no more data can be written.
-	  // But allow more writes to happen in this tick.
-	  processNextTick(onEndNT, this);
-	}
-
-	function onEndNT(self) {
-	  self.end();
-	}
-
-	function forEach(xs, f) {
-	  for (var i = 0, l = xs.length; i < l; i++) {
-	    f(xs[i], i);
-	  }
-	}
-
-/***/ },
-/* 431 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process, setImmediate) {// A bit simpler than readable streams.
-	// Implement an async ._write(chunk, encoding, cb), and it'll handle all
-	// the drain event emission and buffering.
-
-	'use strict';
-
-	module.exports = Writable;
-
-	/*<replacement>*/
-	var processNextTick = __webpack_require__(408);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var asyncWrite = !process.browser && ['v0.10', 'v0.9.'].indexOf(process.version.slice(0, 5)) > -1 ? setImmediate : processNextTick;
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var Duplex;
-	/*</replacement>*/
-
-	Writable.WritableState = WritableState;
-
-	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var internalUtil = {
-	  deprecate: __webpack_require__(418)
-	};
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var Stream;
-	(function () {
-	  try {
-	    Stream = __webpack_require__(405);
-	  } catch (_) {} finally {
-	    if (!Stream) Stream = __webpack_require__(391).EventEmitter;
-	  }
-	})();
-	/*</replacement>*/
-
-	var Buffer = __webpack_require__(395).Buffer;
-	/*<replacement>*/
-	var bufferShim = __webpack_require__(410);
-	/*</replacement>*/
-
-	util.inherits(Writable, Stream);
-
-	function nop() {}
-
-	function WriteReq(chunk, encoding, cb) {
-	  this.chunk = chunk;
-	  this.encoding = encoding;
-	  this.callback = cb;
-	  this.next = null;
-	}
-
-	function WritableState(options, stream) {
-	  Duplex = Duplex || __webpack_require__(430);
-
-	  options = options || {};
-
-	  // object stream flag to indicate whether or not this stream
-	  // contains buffers or objects.
-	  this.objectMode = !!options.objectMode;
-
-	  if (stream instanceof Duplex) this.objectMode = this.objectMode || !!options.writableObjectMode;
-
-	  // the point at which write() starts returning false
-	  // Note: 0 is a valid value, means that we always return false if
-	  // the entire buffer is not flushed immediately on write()
-	  var hwm = options.highWaterMark;
-	  var defaultHwm = this.objectMode ? 16 : 16 * 1024;
-	  this.highWaterMark = hwm || hwm === 0 ? hwm : defaultHwm;
-
-	  // cast to ints.
-	  this.highWaterMark = ~ ~this.highWaterMark;
-
-	  // drain event flag.
-	  this.needDrain = false;
-	  // at the start of calling end()
-	  this.ending = false;
-	  // when end() has been called, and returned
-	  this.ended = false;
-	  // when 'finish' is emitted
-	  this.finished = false;
-
-	  // should we decode strings into buffers before passing to _write?
-	  // this is here so that some node-core streams can optimize string
-	  // handling at a lower level.
-	  var noDecode = options.decodeStrings === false;
-	  this.decodeStrings = !noDecode;
-
-	  // Crypto is kind of old and crusty.  Historically, its default string
-	  // encoding is 'binary' so we have to make this configurable.
-	  // Everything else in the universe uses 'utf8', though.
-	  this.defaultEncoding = options.defaultEncoding || 'utf8';
-
-	  // not an actual buffer we keep track of, but a measurement
-	  // of how much we're waiting to get pushed to some underlying
-	  // socket or file.
-	  this.length = 0;
-
-	  // a flag to see when we're in the middle of a write.
-	  this.writing = false;
-
-	  // when true all writes will be buffered until .uncork() call
-	  this.corked = 0;
-
-	  // a flag to be able to tell if the onwrite cb is called immediately,
-	  // or on a later tick.  We set this to true at first, because any
-	  // actions that shouldn't happen until "later" should generally also
-	  // not happen before the first write call.
-	  this.sync = true;
-
-	  // a flag to know if we're processing previously buffered items, which
-	  // may call the _write() callback in the same tick, so that we don't
-	  // end up in an overlapped onwrite situation.
-	  this.bufferProcessing = false;
-
-	  // the callback that's passed to _write(chunk,cb)
-	  this.onwrite = function (er) {
-	    onwrite(stream, er);
-	  };
-
-	  // the callback that the user supplies to write(chunk,encoding,cb)
-	  this.writecb = null;
-
-	  // the amount that is being written when _write is called.
-	  this.writelen = 0;
-
-	  this.bufferedRequest = null;
-	  this.lastBufferedRequest = null;
-
-	  // number of pending user-supplied write callbacks
-	  // this must be 0 before 'finish' can be emitted
-	  this.pendingcb = 0;
-
-	  // emit prefinish if the only thing we're waiting for is _write cbs
-	  // This is relevant for synchronous Transform streams
-	  this.prefinished = false;
-
-	  // True if the error was already emitted and should not be thrown again
-	  this.errorEmitted = false;
-
-	  // count buffered requests
-	  this.bufferedRequestCount = 0;
-
-	  // allocate the first CorkedRequest, there is always
-	  // one allocated and free to use, and we maintain at most two
-	  this.corkedRequestsFree = new CorkedRequest(this);
-	}
-
-	WritableState.prototype.getBuffer = function getBuffer() {
-	  var current = this.bufferedRequest;
-	  var out = [];
-	  while (current) {
-	    out.push(current);
-	    current = current.next;
-	  }
-	  return out;
-	};
-
-	(function () {
-	  try {
-	    Object.defineProperty(WritableState.prototype, 'buffer', {
-	      get: internalUtil.deprecate(function () {
-	        return this.getBuffer();
-	      }, '_writableState.buffer is deprecated. Use _writableState.getBuffer ' + 'instead.')
-	    });
-	  } catch (_) {}
-	})();
-
-	// Test _writableState for inheritance to account for Duplex streams,
-	// whose prototype chain only points to Readable.
-	var realHasInstance;
-	if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.prototype[Symbol.hasInstance] === 'function') {
-	  realHasInstance = Function.prototype[Symbol.hasInstance];
-	  Object.defineProperty(Writable, Symbol.hasInstance, {
-	    value: function (object) {
-	      if (realHasInstance.call(this, object)) return true;
-
-	      return object && object._writableState instanceof WritableState;
-	    }
-	  });
-	} else {
-	  realHasInstance = function (object) {
-	    return object instanceof this;
-	  };
-	}
-
-	function Writable(options) {
-	  Duplex = Duplex || __webpack_require__(430);
-
-	  // Writable ctor is applied to Duplexes, too.
-	  // `realHasInstance` is necessary because using plain `instanceof`
-	  // would return false, as no `_writableState` property is attached.
-
-	  // Trying to use the custom `instanceof` for Writable here will also break the
-	  // Node.js LazyTransform implementation, which has a non-trivial getter for
-	  // `_writableState` that would lead to infinite recursion.
-	  if (!realHasInstance.call(Writable, this) && !(this instanceof Duplex)) {
-	    return new Writable(options);
-	  }
-
-	  this._writableState = new WritableState(options, this);
-
-	  // legacy.
-	  this.writable = true;
-
-	  if (options) {
-	    if (typeof options.write === 'function') this._write = options.write;
-
-	    if (typeof options.writev === 'function') this._writev = options.writev;
-	  }
-
-	  Stream.call(this);
-	}
-
-	// Otherwise people can pipe Writable streams, which is just wrong.
-	Writable.prototype.pipe = function () {
-	  this.emit('error', new Error('Cannot pipe, not readable'));
-	};
-
-	function writeAfterEnd(stream, cb) {
-	  var er = new Error('write after end');
-	  // TODO: defer error events consistently everywhere, not just the cb
-	  stream.emit('error', er);
-	  processNextTick(cb, er);
-	}
-
-	// If we get something that is not a buffer, string, null, or undefined,
-	// and we're not in objectMode, then that's an error.
-	// Otherwise stream chunks are all considered to be of length=1, and the
-	// watermarks determine how many objects to keep in the buffer, rather than
-	// how many bytes or characters.
-	function validChunk(stream, state, chunk, cb) {
-	  var valid = true;
-	  var er = false;
-	  // Always throw error if a null is written
-	  // if we are not in object mode then throw
-	  // if it is not a buffer, string, or undefined.
-	  if (chunk === null) {
-	    er = new TypeError('May not write null values to stream');
-	  } else if (!Buffer.isBuffer(chunk) && typeof chunk !== 'string' && chunk !== undefined && !state.objectMode) {
-	    er = new TypeError('Invalid non-string/buffer chunk');
-	  }
-	  if (er) {
-	    stream.emit('error', er);
-	    processNextTick(cb, er);
-	    valid = false;
-	  }
-	  return valid;
-	}
-
-	Writable.prototype.write = function (chunk, encoding, cb) {
-	  var state = this._writableState;
-	  var ret = false;
-
-	  if (typeof encoding === 'function') {
-	    cb = encoding;
-	    encoding = null;
-	  }
-
-	  if (Buffer.isBuffer(chunk)) encoding = 'buffer';else if (!encoding) encoding = state.defaultEncoding;
-
-	  if (typeof cb !== 'function') cb = nop;
-
-	  if (state.ended) writeAfterEnd(this, cb);else if (validChunk(this, state, chunk, cb)) {
-	    state.pendingcb++;
-	    ret = writeOrBuffer(this, state, chunk, encoding, cb);
-	  }
-
-	  return ret;
-	};
-
-	Writable.prototype.cork = function () {
-	  var state = this._writableState;
-
-	  state.corked++;
-	};
-
-	Writable.prototype.uncork = function () {
-	  var state = this._writableState;
-
-	  if (state.corked) {
-	    state.corked--;
-
-	    if (!state.writing && !state.corked && !state.finished && !state.bufferProcessing && state.bufferedRequest) clearBuffer(this, state);
-	  }
-	};
-
-	Writable.prototype.setDefaultEncoding = function setDefaultEncoding(encoding) {
-	  // node::ParseEncoding() requires lower case.
-	  if (typeof encoding === 'string') encoding = encoding.toLowerCase();
-	  if (!(['hex', 'utf8', 'utf-8', 'ascii', 'binary', 'base64', 'ucs2', 'ucs-2', 'utf16le', 'utf-16le', 'raw'].indexOf((encoding + '').toLowerCase()) > -1)) throw new TypeError('Unknown encoding: ' + encoding);
-	  this._writableState.defaultEncoding = encoding;
-	  return this;
-	};
-
-	function decodeChunk(state, chunk, encoding) {
-	  if (!state.objectMode && state.decodeStrings !== false && typeof chunk === 'string') {
-	    chunk = bufferShim.from(chunk, encoding);
-	  }
-	  return chunk;
-	}
-
-	// if we're already writing something, then just put this
-	// in the queue, and wait our turn.  Otherwise, call _write
-	// If we return false, then we need a drain event, so set that flag.
-	function writeOrBuffer(stream, state, chunk, encoding, cb) {
-	  chunk = decodeChunk(state, chunk, encoding);
-
-	  if (Buffer.isBuffer(chunk)) encoding = 'buffer';
-	  var len = state.objectMode ? 1 : chunk.length;
-
-	  state.length += len;
-
-	  var ret = state.length < state.highWaterMark;
-	  // we must ensure that previous needDrain will not be reset to false.
-	  if (!ret) state.needDrain = true;
-
-	  if (state.writing || state.corked) {
-	    var last = state.lastBufferedRequest;
-	    state.lastBufferedRequest = new WriteReq(chunk, encoding, cb);
-	    if (last) {
-	      last.next = state.lastBufferedRequest;
-	    } else {
-	      state.bufferedRequest = state.lastBufferedRequest;
-	    }
-	    state.bufferedRequestCount += 1;
-	  } else {
-	    doWrite(stream, state, false, len, chunk, encoding, cb);
-	  }
-
-	  return ret;
-	}
-
-	function doWrite(stream, state, writev, len, chunk, encoding, cb) {
-	  state.writelen = len;
-	  state.writecb = cb;
-	  state.writing = true;
-	  state.sync = true;
-	  if (writev) stream._writev(chunk, state.onwrite);else stream._write(chunk, encoding, state.onwrite);
-	  state.sync = false;
-	}
-
-	function onwriteError(stream, state, sync, er, cb) {
-	  --state.pendingcb;
-	  if (sync) processNextTick(cb, er);else cb(er);
-
-	  stream._writableState.errorEmitted = true;
-	  stream.emit('error', er);
-	}
-
-	function onwriteStateUpdate(state) {
-	  state.writing = false;
-	  state.writecb = null;
-	  state.length -= state.writelen;
-	  state.writelen = 0;
-	}
-
-	function onwrite(stream, er) {
-	  var state = stream._writableState;
-	  var sync = state.sync;
-	  var cb = state.writecb;
-
-	  onwriteStateUpdate(state);
-
-	  if (er) onwriteError(stream, state, sync, er, cb);else {
-	    // Check if we're actually ready to finish, but don't emit yet
-	    var finished = needFinish(state);
-
-	    if (!finished && !state.corked && !state.bufferProcessing && state.bufferedRequest) {
-	      clearBuffer(stream, state);
-	    }
-
-	    if (sync) {
-	      /*<replacement>*/
-	      asyncWrite(afterWrite, stream, state, finished, cb);
-	      /*</replacement>*/
-	    } else {
-	        afterWrite(stream, state, finished, cb);
-	      }
-	  }
-	}
-
-	function afterWrite(stream, state, finished, cb) {
-	  if (!finished) onwriteDrain(stream, state);
-	  state.pendingcb--;
-	  cb();
-	  finishMaybe(stream, state);
-	}
-
-	// Must force callback to be called on nextTick, so that we don't
-	// emit 'drain' before the write() consumer gets the 'false' return
-	// value, and has a chance to attach a 'drain' listener.
-	function onwriteDrain(stream, state) {
-	  if (state.length === 0 && state.needDrain) {
-	    state.needDrain = false;
-	    stream.emit('drain');
-	  }
-	}
-
-	// if there's something in the buffer waiting, then process it
-	function clearBuffer(stream, state) {
-	  state.bufferProcessing = true;
-	  var entry = state.bufferedRequest;
-
-	  if (stream._writev && entry && entry.next) {
-	    // Fast case, write everything using _writev()
-	    var l = state.bufferedRequestCount;
-	    var buffer = new Array(l);
-	    var holder = state.corkedRequestsFree;
-	    holder.entry = entry;
-
-	    var count = 0;
-	    while (entry) {
-	      buffer[count] = entry;
-	      entry = entry.next;
-	      count += 1;
-	    }
-
-	    doWrite(stream, state, true, state.length, buffer, '', holder.finish);
-
-	    // doWrite is almost always async, defer these to save a bit of time
-	    // as the hot path ends with doWrite
-	    state.pendingcb++;
-	    state.lastBufferedRequest = null;
-	    if (holder.next) {
-	      state.corkedRequestsFree = holder.next;
-	      holder.next = null;
-	    } else {
-	      state.corkedRequestsFree = new CorkedRequest(state);
-	    }
-	  } else {
-	    // Slow case, write chunks one-by-one
-	    while (entry) {
-	      var chunk = entry.chunk;
-	      var encoding = entry.encoding;
-	      var cb = entry.callback;
-	      var len = state.objectMode ? 1 : chunk.length;
-
-	      doWrite(stream, state, false, len, chunk, encoding, cb);
-	      entry = entry.next;
-	      // if we didn't call the onwrite immediately, then
-	      // it means that we need to wait until it does.
-	      // also, that means that the chunk and cb are currently
-	      // being processed, so move the buffer counter past them.
-	      if (state.writing) {
-	        break;
-	      }
-	    }
-
-	    if (entry === null) state.lastBufferedRequest = null;
-	  }
-
-	  state.bufferedRequestCount = 0;
-	  state.bufferedRequest = entry;
-	  state.bufferProcessing = false;
-	}
-
-	Writable.prototype._write = function (chunk, encoding, cb) {
-	  cb(new Error('_write() is not implemented'));
-	};
-
-	Writable.prototype._writev = null;
-
-	Writable.prototype.end = function (chunk, encoding, cb) {
-	  var state = this._writableState;
-
-	  if (typeof chunk === 'function') {
-	    cb = chunk;
-	    chunk = null;
-	    encoding = null;
-	  } else if (typeof encoding === 'function') {
-	    cb = encoding;
-	    encoding = null;
-	  }
-
-	  if (chunk !== null && chunk !== undefined) this.write(chunk, encoding);
-
-	  // .end() fully uncorks
-	  if (state.corked) {
-	    state.corked = 1;
-	    this.uncork();
-	  }
-
-	  // ignore unnecessary end() calls.
-	  if (!state.ending && !state.finished) endWritable(this, state, cb);
-	};
-
-	function needFinish(state) {
-	  return state.ending && state.length === 0 && state.bufferedRequest === null && !state.finished && !state.writing;
-	}
-
-	function prefinish(stream, state) {
-	  if (!state.prefinished) {
-	    state.prefinished = true;
-	    stream.emit('prefinish');
-	  }
-	}
-
-	function finishMaybe(stream, state) {
-	  var need = needFinish(state);
-	  if (need) {
-	    if (state.pendingcb === 0) {
-	      prefinish(stream, state);
-	      state.finished = true;
-	      stream.emit('finish');
-	    } else {
-	      prefinish(stream, state);
-	    }
-	  }
-	  return need;
-	}
-
-	function endWritable(stream, state, cb) {
-	  state.ending = true;
-	  finishMaybe(stream, state);
-	  if (cb) {
-	    if (state.finished) processNextTick(cb);else stream.once('finish', cb);
-	  }
-	  state.ended = true;
-	  stream.writable = false;
-	}
-
-	// It seems a linked list but it is not
-	// there will be only 2 of these for each stream
-	function CorkedRequest(state) {
-	  var _this = this;
-
-	  this.next = null;
-	  this.entry = null;
-
-	  this.finish = function (err) {
-	    var entry = _this.entry;
-	    _this.entry = null;
-	    while (entry) {
-	      var cb = entry.callback;
-	      state.pendingcb--;
-	      cb(err);
-	      entry = entry.next;
-	    }
-	    if (state.corkedRequestsFree) {
-	      state.corkedRequestsFree.next = _this;
-	    } else {
-	      state.corkedRequestsFree = _this;
-	    }
-	  };
-	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393), __webpack_require__(416).setImmediate))
-
-/***/ },
-/* 432 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// a transform stream is a readable/writable stream where you do
@@ -80325,11 +79075,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = Transform;
 
-	var Duplex = __webpack_require__(430);
+	var Duplex = __webpack_require__(418);
 
 	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
 	util.inherits(Transform, Duplex);
@@ -80463,7 +79213,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 433 */
+/* 426 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(427)
+
+
+/***/ },
+/* 427 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// a passthrough stream.
@@ -80474,11 +79231,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = PassThrough;
 
-	var Transform = __webpack_require__(432);
+	var Transform = __webpack_require__(425);
 
 	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
 	util.inherits(PassThrough, Transform);
@@ -80494,10 +79251,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 434 */
+/* 428 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Buffer = __webpack_require__(395).Buffer
+	var Buffer = __webpack_require__(399).Buffer
 
 	module.exports = function (buf) {
 		// If the buffer is backed by a Uint8Array, a faster version will work
@@ -80527,7 +79284,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 435 */
+/* 429 */
 /***/ function(module, exports) {
 
 	module.exports = extend
@@ -80552,7 +79309,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 436 */
+/* 430 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -80605,6 +79362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  "428": "Precondition Required",
 	  "429": "Too Many Requests",
 	  "431": "Request Header Fields Too Large",
+	  "451": "Unavailable For Legal Reasons",
 	  "500": "Internal Server Error",
 	  "501": "Not Implemented",
 	  "502": "Bad Gateway",
@@ -80621,10 +79379,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 437 */
+/* 431 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var http = __webpack_require__(399);
+	var http = __webpack_require__(403);
 
 	var https = module.exports;
 
@@ -80641,12 +79399,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 438 */
+/* 432 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var Transform = __webpack_require__(439)
-	  , inherits  = __webpack_require__(445).inherits
-	  , xtend     = __webpack_require__(435)
+	/* WEBPACK VAR INJECTION */(function(process) {var Transform = __webpack_require__(433)
+	  , inherits  = __webpack_require__(439).inherits
+	  , xtend     = __webpack_require__(429)
 
 	function DestroyableTransform(opts) {
 	  Transform.call(this, opts)
@@ -80741,17 +79499,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return t2
 	})
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 439 */
+/* 433 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(440)
+	module.exports = __webpack_require__(434)
 
 
 /***/ },
-/* 440 */
+/* 434 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -80820,11 +79578,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = Transform;
 
-	var Duplex = __webpack_require__(441);
+	var Duplex = __webpack_require__(435);
 
 	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
 	util.inherits(Transform, Duplex);
@@ -80967,7 +79725,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 441 */
+/* 435 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -81008,12 +79766,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
-	var Readable = __webpack_require__(442);
-	var Writable = __webpack_require__(444);
+	var Readable = __webpack_require__(436);
+	var Writable = __webpack_require__(438);
 
 	util.inherits(Duplex, Readable);
 
@@ -81060,10 +79818,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 442 */
+/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -81090,17 +79848,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Readable;
 
 	/*<replacement>*/
-	var isArray = __webpack_require__(443);
+	var isArray = __webpack_require__(437);
 	/*</replacement>*/
 
 
 	/*<replacement>*/
-	var Buffer = __webpack_require__(395).Buffer;
+	var Buffer = __webpack_require__(399).Buffer;
 	/*</replacement>*/
 
 	Readable.ReadableState = ReadableState;
 
-	var EE = __webpack_require__(391).EventEmitter;
+	var EE = __webpack_require__(395).EventEmitter;
 
 	/*<replacement>*/
 	if (!EE.listenerCount) EE.listenerCount = function(emitter, type) {
@@ -81108,11 +79866,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	/*</replacement>*/
 
-	var Stream = __webpack_require__(405);
+	var Stream = __webpack_require__(409);
 
 	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
 	var StringDecoder;
@@ -81181,7 +79939,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.encoding = null;
 	  if (options.encoding) {
 	    if (!StringDecoder)
-	      StringDecoder = __webpack_require__(419).StringDecoder;
+	      StringDecoder = __webpack_require__(422).StringDecoder;
 	    this.decoder = new StringDecoder(options.encoding);
 	    this.encoding = options.encoding;
 	  }
@@ -81282,7 +80040,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// backwards compatibility.
 	Readable.prototype.setEncoding = function(enc) {
 	  if (!StringDecoder)
-	    StringDecoder = __webpack_require__(419).StringDecoder;
+	    StringDecoder = __webpack_require__(422).StringDecoder;
 	  this._readableState.decoder = new StringDecoder(enc);
 	  this._readableState.encoding = enc;
 	};
@@ -82049,10 +80807,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return -1;
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 443 */
+/* 437 */
 /***/ function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -82061,7 +80819,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 444 */
+/* 438 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -82092,18 +80850,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Writable;
 
 	/*<replacement>*/
-	var Buffer = __webpack_require__(395).Buffer;
+	var Buffer = __webpack_require__(399).Buffer;
 	/*</replacement>*/
 
 	Writable.WritableState = WritableState;
 
 
 	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
-	var Stream = __webpack_require__(405);
+	var Stream = __webpack_require__(409);
 
 	util.inherits(Writable, Stream);
 
@@ -82185,7 +80943,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function Writable(options) {
-	  var Duplex = __webpack_require__(441);
+	  var Duplex = __webpack_require__(435);
 
 	  // Writable ctor is applied to Duplexes, though they're not
 	  // instanceof Writable, they're instanceof Readable.
@@ -82451,10 +81209,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  state.ended = true;
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 445 */
+/* 439 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -82982,7 +81740,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	exports.isPrimitive = isPrimitive;
 
-	exports.isBuffer = __webpack_require__(446);
+	exports.isBuffer = __webpack_require__(440);
 
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -83026,7 +81784,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(447);
+	exports.inherits = __webpack_require__(441);
 
 	exports._extend = function(origin, add) {
 	  // Don't do anything if add isn't an object
@@ -83044,10 +81802,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Object.prototype.hasOwnProperty.call(obj, prop);
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(397)))
 
 /***/ },
-/* 446 */
+/* 440 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -83058,7 +81816,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 447 */
+/* 441 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -83087,10 +81845,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 448 */
+/* 442 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var stream = __webpack_require__(449);
+	var stream = __webpack_require__(443);
 
 	var duplex2 = module.exports = function duplex2(options, writable, readable) {
 	  return new DuplexWrapper(options, writable, readable);
@@ -83155,24 +81913,24 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 449 */
+/* 443 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {exports = module.exports = __webpack_require__(450);
-	exports.Stream = __webpack_require__(405);
+	/* WEBPACK VAR INJECTION */(function(process) {exports = module.exports = __webpack_require__(444);
+	exports.Stream = __webpack_require__(409);
 	exports.Readable = exports;
-	exports.Writable = __webpack_require__(453);
-	exports.Duplex = __webpack_require__(452);
-	exports.Transform = __webpack_require__(454);
-	exports.PassThrough = __webpack_require__(455);
+	exports.Writable = __webpack_require__(447);
+	exports.Duplex = __webpack_require__(446);
+	exports.Transform = __webpack_require__(448);
+	exports.PassThrough = __webpack_require__(449);
 	if (!process.browser && process.env.READABLE_STREAM === 'disable') {
-	  module.exports = __webpack_require__(405);
+	  module.exports = __webpack_require__(409);
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 450 */
+/* 444 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -83199,17 +81957,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Readable;
 
 	/*<replacement>*/
-	var isArray = __webpack_require__(443);
+	var isArray = __webpack_require__(437);
 	/*</replacement>*/
 
 
 	/*<replacement>*/
-	var Buffer = __webpack_require__(395).Buffer;
+	var Buffer = __webpack_require__(399).Buffer;
 	/*</replacement>*/
 
 	Readable.ReadableState = ReadableState;
 
-	var EE = __webpack_require__(391).EventEmitter;
+	var EE = __webpack_require__(395).EventEmitter;
 
 	/*<replacement>*/
 	if (!EE.listenerCount) EE.listenerCount = function(emitter, type) {
@@ -83217,18 +81975,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	/*</replacement>*/
 
-	var Stream = __webpack_require__(405);
+	var Stream = __webpack_require__(409);
 
 	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
 	var StringDecoder;
 
 
 	/*<replacement>*/
-	var debug = __webpack_require__(451);
+	var debug = __webpack_require__(445);
 	if (debug && debug.debuglog) {
 	  debug = debug.debuglog('stream');
 	} else {
@@ -83240,7 +81998,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	util.inherits(Readable, Stream);
 
 	function ReadableState(options, stream) {
-	  var Duplex = __webpack_require__(452);
+	  var Duplex = __webpack_require__(446);
 
 	  options = options || {};
 
@@ -83301,14 +82059,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.encoding = null;
 	  if (options.encoding) {
 	    if (!StringDecoder)
-	      StringDecoder = __webpack_require__(419).StringDecoder;
+	      StringDecoder = __webpack_require__(422).StringDecoder;
 	    this.decoder = new StringDecoder(options.encoding);
 	    this.encoding = options.encoding;
 	  }
 	}
 
 	function Readable(options) {
-	  var Duplex = __webpack_require__(452);
+	  var Duplex = __webpack_require__(446);
 
 	  if (!(this instanceof Readable))
 	    return new Readable(options);
@@ -83411,7 +82169,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// backwards compatibility.
 	Readable.prototype.setEncoding = function(enc) {
 	  if (!StringDecoder)
-	    StringDecoder = __webpack_require__(419).StringDecoder;
+	    StringDecoder = __webpack_require__(422).StringDecoder;
 	  this._readableState.decoder = new StringDecoder(enc);
 	  this._readableState.encoding = enc;
 	  return this;
@@ -84127,16 +82885,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return -1;
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 451 */
+/* 445 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 452 */
+/* 446 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -84177,12 +82935,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
-	var Readable = __webpack_require__(450);
-	var Writable = __webpack_require__(453);
+	var Readable = __webpack_require__(444);
+	var Writable = __webpack_require__(447);
 
 	util.inherits(Duplex, Readable);
 
@@ -84229,10 +82987,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 453 */
+/* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -84263,18 +83021,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Writable;
 
 	/*<replacement>*/
-	var Buffer = __webpack_require__(395).Buffer;
+	var Buffer = __webpack_require__(399).Buffer;
 	/*</replacement>*/
 
 	Writable.WritableState = WritableState;
 
 
 	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
-	var Stream = __webpack_require__(405);
+	var Stream = __webpack_require__(409);
 
 	util.inherits(Writable, Stream);
 
@@ -84285,7 +83043,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function WritableState(options, stream) {
-	  var Duplex = __webpack_require__(452);
+	  var Duplex = __webpack_require__(446);
 
 	  options = options || {};
 
@@ -84373,7 +83131,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function Writable(options) {
-	  var Duplex = __webpack_require__(452);
+	  var Duplex = __webpack_require__(446);
 
 	  // Writable ctor is applied to Duplexes, though they're not
 	  // instanceof Writable, they're instanceof Readable.
@@ -84713,10 +83471,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  state.ended = true;
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 454 */
+/* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -84785,11 +83543,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = Transform;
 
-	var Duplex = __webpack_require__(452);
+	var Duplex = __webpack_require__(446);
 
 	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
 	util.inherits(Transform, Duplex);
@@ -84931,7 +83689,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 455 */
+/* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -84961,11 +83719,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = PassThrough;
 
-	var Transform = __webpack_require__(454);
+	var Transform = __webpack_require__(448);
 
 	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
 	util.inherits(PassThrough, Transform);
@@ -84983,7 +83741,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 456 */
+/* 450 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer, module, process) {
@@ -84992,8 +83750,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	var Parser = __webpack_require__(457),
-	    through = __webpack_require__(458);
+	var Parser = __webpack_require__(451),
+	    through = __webpack_require__(452);
 
 	/*
 
@@ -85068,6 +83826,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      }
 	    }
+
+	    // emit header
+	    if (header) {
+	      stream.emit('header', header);
+	      header = false;
+	    }
 	    if (j !== this.stack.length) return;
 
 	    count++;
@@ -85087,10 +83851,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    delete this.value[this.key];
 	    for (var k in this.stack) {
 	      if (!Object.isFrozen(this.stack[k])) this.stack[k].value = null;
-	    } // emit header
-	    if (header) {
-	      stream.emit('header', header);
-	      header = false;
 	    }
 	  };
 	  parser._onToken = parser.onToken;
@@ -85206,10 +83966,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	if (!module.parent && process.title !== 'browser') {
 	  process.stdin.pipe(exports.parse(process.argv[2])).pipe(exports.stringify('[', ',\n', ']\n', 2)).pipe(process.stdout);
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(395).Buffer, __webpack_require__(24)(module), __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(399).Buffer, __webpack_require__(24)(module), __webpack_require__(397)))
 
 /***/ },
-/* 457 */
+/* 451 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {/*global Buffer*/
@@ -85254,13 +84014,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Parser Modes
 	var OBJECT  = C.OBJECT  = 0x81;
 	var ARRAY   = C.ARRAY   = 0x82;
+	// Character constants
+	var BACK_SLASH =      "\\".charCodeAt(0);
+	var FORWARD_SLASH =   "\/".charCodeAt(0);
+	var BACKSPACE =       "\b".charCodeAt(0);
+	var FORM_FEED =       "\f".charCodeAt(0);
+	var NEWLINE =         "\n".charCodeAt(0);
+	var CARRIAGE_RETURN = "\r".charCodeAt(0);
+	var TAB =             "\t".charCodeAt(0);
 
+	var STRING_BUFFER_SIZE = 64 * 1024;
 
 	function Parser() {
 	  this.tState = START;
 	  this.value = undefined;
 
 	  this.string = undefined; // string data
+	  this.stringBuffer = Buffer.alloc ? Buffer.alloc(STRING_BUFFER_SIZE) : new Buffer(STRING_BUFFER_SIZE);
+	  this.stringBufferOffset = 0;
 	  this.unicode = undefined; // unicode escapes
 
 	  this.key = undefined;
@@ -85291,6 +84062,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.tState = STOP;
 	  this.onError(new Error("Unexpected " + JSON.stringify(String.fromCharCode(buffer[i])) + " at position " + i + " in state " + Parser.toknam(this.tState)));
 	};
+	proto.appendStringChar = function (char) {
+	  if (this.stringBufferOffset >= STRING_BUFFER_SIZE) {
+	    this.string += this.stringBuffer.toString('utf8');
+	    this.stringBufferOffset = 0;
+	  }
+
+	  this.stringBuffer[this.stringBufferOffset++] = char;
+	};
+	proto.appendStringBuf = function (buf, start, end) {
+	  var size = buf.length;
+	  if (typeof start === 'number') {
+	    if (typeof end === 'number') {
+	      if (end < 0) {
+	        // adding a negative end decreeses the size
+	        size = buf.length - start + end;
+	      } else {
+	        size = end - start;
+	      }
+	    } else {
+	      size = buf.length - start;
+	    }
+	  }
+
+	  if (size < 0) {
+	    size = 0;
+	  }
+
+	  if (this.stringBufferOffset + size > STRING_BUFFER_SIZE) {
+	    this.string += this.stringBuffer.toString('utf8', 0, this.stringBufferOffset);
+	    this.stringBufferOffset = 0;
+	  }
+
+	  buf.copy(this.stringBuffer, this.stringBufferOffset, start, end);
+	  this.stringBufferOffset += size;
+	};
 	proto.write = function (buffer) {
 	  if (typeof buffer === "string") buffer = new Buffer(buffer);
 	  var n;
@@ -85307,7 +84113,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }else if(n === 0x74){ this.tState = TRUE1;  // t
 	      }else if(n === 0x66){ this.tState = FALSE1;  // f
 	      }else if(n === 0x6e){ this.tState = NULL1; // n
-	      }else if(n === 0x22){ this.string = ""; this.tState = STRING1; // "
+	      }else if(n === 0x22){ // "
+	        this.string = "";
+	        this.stringBufferOffset = 0;
+	        this.tState = STRING1;
 	      }else if(n === 0x2d){ this.string = "-"; this.tState = NUMBER1; // -
 	      }else{
 	        if (n >= 0x30 && n < 0x40) { // 1-9
@@ -85326,7 +84135,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        for (var j = 0; j < this.bytes_remaining; j++) {
 	          this.temp_buffs[this.bytes_in_sequence][this.bytes_in_sequence - this.bytes_remaining + j] = buffer[j];
 	        }
-	        this.string += this.temp_buffs[this.bytes_in_sequence].toString();
+
+	        this.appendStringBuf(this.temp_buffs[this.bytes_in_sequence]);
 	        this.bytes_in_sequence = this.bytes_remaining = 0;
 	        i = i + j - 1;
 	      } else if (this.bytes_remaining === 0 && n >= 128) { // else if no remainder bytes carried over, parse multi byte (>=128) chars one at a time
@@ -85343,28 +84153,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	          this.bytes_remaining = (i + this.bytes_in_sequence) - buffer.length;
 	          i = buffer.length - 1;
 	        } else {
-	          this.string += buffer.slice(i, (i + this.bytes_in_sequence)).toString();
+	          this.appendStringBuf(buffer, i, i + this.bytes_in_sequence);
 	          i = i + this.bytes_in_sequence - 1;
 	        }
-	      } else if (n === 0x22) { this.tState = START; this.onToken(STRING, this.string); this.offset += Buffer.byteLength(this.string, 'utf8') + 1; this.string = undefined; }
-	      else if (n === 0x5c) { this.tState = STRING2; }
-	      else if (n >= 0x20) { this.string += String.fromCharCode(n); }
+	      } else if (n === 0x22) {
+	        this.tState = START;
+	        this.string += this.stringBuffer.toString('utf8', 0, this.stringBufferOffset);
+	        this.stringBufferOffset = 0;
+	        this.onToken(STRING, this.string);
+	        this.offset += Buffer.byteLength(this.string, 'utf8') + 1;
+	        this.string = undefined;
+	      }
+	      else if (n === 0x5c) {
+	        this.tState = STRING2;
+	      }
+	      else if (n >= 0x20) { this.appendStringChar(n); }
 	      else {
 	          return this.charError(buffer, i);
 	      }
 	    }else if (this.tState === STRING2){ // After backslash
 	      n = buffer[i];
-	      if(n === 0x22){ this.string += "\""; this.tState = STRING1;
-	      }else if(n === 0x5c){ this.string += "\\"; this.tState = STRING1; 
-	      }else if(n === 0x2f){ this.string += "\/"; this.tState = STRING1; 
-	      }else if(n === 0x62){ this.string += "\b"; this.tState = STRING1; 
-	      }else if(n === 0x66){ this.string += "\f"; this.tState = STRING1; 
-	      }else if(n === 0x6e){ this.string += "\n"; this.tState = STRING1; 
-	      }else if(n === 0x72){ this.string += "\r"; this.tState = STRING1; 
-	      }else if(n === 0x74){ this.string += "\t"; this.tState = STRING1; 
+	      if(n === 0x22){ this.appendStringChar(n); this.tState = STRING1;
+	      }else if(n === 0x5c){ this.appendStringChar(BACK_SLASH); this.tState = STRING1;
+	      }else if(n === 0x2f){ this.appendStringChar(FORWARD_SLASH); this.tState = STRING1;
+	      }else if(n === 0x62){ this.appendStringChar(BACKSPACE); this.tState = STRING1;
+	      }else if(n === 0x66){ this.appendStringChar(FORM_FEED); this.tState = STRING1;
+	      }else if(n === 0x6e){ this.appendStringChar(NEWLINE); this.tState = STRING1;
+	      }else if(n === 0x72){ this.appendStringChar(CARRIAGE_RETURN); this.tState = STRING1;
+	      }else if(n === 0x74){ this.appendStringChar(TAB); this.tState = STRING1;
 	      }else if(n === 0x75){ this.unicode = ""; this.tState = STRING3;
-	      }else{ 
-	        return this.charError(buffer, i); 
+	      }else{
+	        return this.charError(buffer, i);
 	      }
 	    }else if (this.tState === STRING3 || this.tState === STRING4 || this.tState === STRING5 || this.tState === STRING6){ // unicode hex codes
 	      n = buffer[i];
@@ -85372,9 +84191,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if ((n >= 0x30 && n < 0x40) || (n > 0x40 && n <= 0x46) || (n > 0x60 && n <= 0x66)) {
 	        this.unicode += String.fromCharCode(n);
 	        if (this.tState++ === STRING6) {
-	          this.string += String.fromCharCode(parseInt(this.unicode, 16));
+	          this.appendStringBuf(Buffer(String.fromCharCode(parseInt(this.unicode, 16))));
 	          this.unicode = undefined;
-	          this.tState = STRING1; 
+	          this.tState = STRING1;
 	        }
 	      } else {
 	        return this.charError(buffer, i);
@@ -85480,14 +84299,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	proto.onValue = function (value) {
 	  // Override me
-	};  
+	};
 	proto.onToken = function (token, value) {
 	  if(this.state === VALUE){
 	    if(token === STRING || token === NUMBER || token === TRUE || token === FALSE || token === NULL){
 	      if (this.value) {
 	        this.value[this.key] = value;
 	      }
-	      this.emit(value);  
+	      this.emit(value);
 	    }else if(token === LEFT_BRACE){
 	      this.push();
 	      if (this.value) {
@@ -85536,7 +84355,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (token === COLON) { this.state = VALUE; }
 	    else { return this.parseError(token, value); }
 	  }else if(this.state === COMMA){
-	    if (token === COMMA) { 
+	    if (token === COMMA) {
 	      if (this.mode === ARRAY) { this.key++; this.state = VALUE; }
 	      else if (this.mode === OBJECT) { this.state = KEY; }
 
@@ -85554,13 +84373,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = Parser;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(395).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(399).Buffer))
 
 /***/ },
-/* 458 */
+/* 452 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var Stream = __webpack_require__(405)
+	/* WEBPACK VAR INJECTION */(function(process) {var Stream = __webpack_require__(409)
 
 	// through
 	//
@@ -85669,15 +84488,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 459 */
+/* 453 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var Transform = __webpack_require__(460)
-	  , inherits  = __webpack_require__(445).inherits
-	  , xtend     = __webpack_require__(435)
+	/* WEBPACK VAR INJECTION */(function(process) {var Transform = __webpack_require__(424)
+	  , inherits  = __webpack_require__(439).inherits
+	  , xtend     = __webpack_require__(429)
 
 	function DestroyableTransform(opts) {
 	  Transform.call(this, opts)
@@ -85772,1886 +84591,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return t2
 	})
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 460 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(461)
-
-
-/***/ },
-/* 461 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// a transform stream is a readable/writable stream where you do
-	// something with the data.  Sometimes it's called a "filter",
-	// but that's not a great name for it, since that implies a thing where
-	// some bits pass through, and others are simply ignored.  (That would
-	// be a valid example of a transform, of course.)
-	//
-	// While the output is causally related to the input, it's not a
-	// necessarily symmetric or synchronous transformation.  For example,
-	// a zlib stream might take multiple plain-text writes(), and then
-	// emit a single compressed chunk some time in the future.
-	//
-	// Here's how this works:
-	//
-	// The Transform stream has all the aspects of the readable and writable
-	// stream classes.  When you write(chunk), that calls _write(chunk,cb)
-	// internally, and returns false if there's a lot of pending writes
-	// buffered up.  When you call read(), that calls _read(n) until
-	// there's enough pending readable data buffered up.
-	//
-	// In a transform stream, the written data is placed in a buffer.  When
-	// _read(n) is called, it transforms the queued up data, calling the
-	// buffered _write cb's as it consumes chunks.  If consuming a single
-	// written chunk would result in multiple output chunks, then the first
-	// outputted bit calls the readcb, and subsequent chunks just go into
-	// the read buffer, and will cause it to emit 'readable' if necessary.
-	//
-	// This way, back-pressure is actually determined by the reading side,
-	// since _read has to be called to start processing a new chunk.  However,
-	// a pathological inflate type of transform can cause excessive buffering
-	// here.  For example, imagine a stream where every byte of input is
-	// interpreted as an integer from 0-255, and then results in that many
-	// bytes of output.  Writing the 4 bytes {ff,ff,ff,ff} would result in
-	// 1kb of data being output.  In this case, you could write a very small
-	// amount of input, and end up with a very large amount of output.  In
-	// such a pathological inflating mechanism, there'd be no way to tell
-	// the system to stop doing the transform.  A single 4MB write could
-	// cause the system to run out of memory.
-	//
-	// However, even in such a pathological case, only a single written chunk
-	// would be consumed, and then the rest would wait (un-transformed) until
-	// the results of the previous transformed chunk were consumed.
-
-	'use strict';
-
-	module.exports = Transform;
-
-	var Duplex = __webpack_require__(462);
-
-	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
-	/*</replacement>*/
-
-	util.inherits(Transform, Duplex);
-
-	function TransformState(stream) {
-	  this.afterTransform = function (er, data) {
-	    return afterTransform(stream, er, data);
-	  };
-
-	  this.needTransform = false;
-	  this.transforming = false;
-	  this.writecb = null;
-	  this.writechunk = null;
-	  this.writeencoding = null;
-	}
-
-	function afterTransform(stream, er, data) {
-	  var ts = stream._transformState;
-	  ts.transforming = false;
-
-	  var cb = ts.writecb;
-
-	  if (!cb) return stream.emit('error', new Error('no writecb in Transform class'));
-
-	  ts.writechunk = null;
-	  ts.writecb = null;
-
-	  if (data !== null && data !== undefined) stream.push(data);
-
-	  cb(er);
-
-	  var rs = stream._readableState;
-	  rs.reading = false;
-	  if (rs.needReadable || rs.length < rs.highWaterMark) {
-	    stream._read(rs.highWaterMark);
-	  }
-	}
-
-	function Transform(options) {
-	  if (!(this instanceof Transform)) return new Transform(options);
-
-	  Duplex.call(this, options);
-
-	  this._transformState = new TransformState(this);
-
-	  var stream = this;
-
-	  // start out asking for a readable event once data is transformed.
-	  this._readableState.needReadable = true;
-
-	  // we have implemented the _read method, and done the other things
-	  // that Readable wants before the first _read call, so unset the
-	  // sync guard flag.
-	  this._readableState.sync = false;
-
-	  if (options) {
-	    if (typeof options.transform === 'function') this._transform = options.transform;
-
-	    if (typeof options.flush === 'function') this._flush = options.flush;
-	  }
-
-	  // When the writable side finishes, then flush out anything remaining.
-	  this.once('prefinish', function () {
-	    if (typeof this._flush === 'function') this._flush(function (er, data) {
-	      done(stream, er, data);
-	    });else done(stream);
-	  });
-	}
-
-	Transform.prototype.push = function (chunk, encoding) {
-	  this._transformState.needTransform = false;
-	  return Duplex.prototype.push.call(this, chunk, encoding);
-	};
-
-	// This is the part where you do stuff!
-	// override this function in implementation classes.
-	// 'chunk' is an input chunk.
-	//
-	// Call `push(newChunk)` to pass along transformed output
-	// to the readable side.  You may call 'push' zero or more times.
-	//
-	// Call `cb(err)` when you are done with this chunk.  If you pass
-	// an error, then that'll put the hurt on the whole operation.  If you
-	// never call cb(), then you'll never get another chunk.
-	Transform.prototype._transform = function (chunk, encoding, cb) {
-	  throw new Error('_transform() is not implemented');
-	};
-
-	Transform.prototype._write = function (chunk, encoding, cb) {
-	  var ts = this._transformState;
-	  ts.writecb = cb;
-	  ts.writechunk = chunk;
-	  ts.writeencoding = encoding;
-	  if (!ts.transforming) {
-	    var rs = this._readableState;
-	    if (ts.needTransform || rs.needReadable || rs.length < rs.highWaterMark) this._read(rs.highWaterMark);
-	  }
-	};
-
-	// Doesn't matter what the args are here.
-	// _transform does all the work.
-	// That we got here means that the readable side wants more data.
-	Transform.prototype._read = function (n) {
-	  var ts = this._transformState;
-
-	  if (ts.writechunk !== null && ts.writecb && !ts.transforming) {
-	    ts.transforming = true;
-	    this._transform(ts.writechunk, ts.writeencoding, ts.afterTransform);
-	  } else {
-	    // mark that we need a transform, so that any data that comes in
-	    // will get processed, now that we've asked for it.
-	    ts.needTransform = true;
-	  }
-	};
-
-	function done(stream, er, data) {
-	  if (er) return stream.emit('error', er);
-
-	  if (data !== null && data !== undefined) stream.push(data);
-
-	  // if there's nothing in the write buffer, then that means
-	  // that nothing more will ever be provided
-	  var ws = stream._writableState;
-	  var ts = stream._transformState;
-
-	  if (ws.length) throw new Error('Calling transform done when ws.length != 0');
-
-	  if (ts.transforming) throw new Error('Calling transform done when still transforming');
-
-	  return stream.push(null);
-	}
-
-/***/ },
-/* 462 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// a duplex stream is just a stream that is both readable and writable.
-	// Since JS doesn't have multiple prototypal inheritance, this class
-	// prototypally inherits from Readable, and then parasitically from
-	// Writable.
-
-	'use strict';
-
-	/*<replacement>*/
-
-	var objectKeys = Object.keys || function (obj) {
-	  var keys = [];
-	  for (var key in obj) {
-	    keys.push(key);
-	  }return keys;
-	};
-	/*</replacement>*/
-
-	module.exports = Duplex;
-
-	/*<replacement>*/
-	var processNextTick = __webpack_require__(408);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
-	/*</replacement>*/
-
-	var Readable = __webpack_require__(463);
-	var Writable = __webpack_require__(467);
-
-	util.inherits(Duplex, Readable);
-
-	var keys = objectKeys(Writable.prototype);
-	for (var v = 0; v < keys.length; v++) {
-	  var method = keys[v];
-	  if (!Duplex.prototype[method]) Duplex.prototype[method] = Writable.prototype[method];
-	}
-
-	function Duplex(options) {
-	  if (!(this instanceof Duplex)) return new Duplex(options);
-
-	  Readable.call(this, options);
-	  Writable.call(this, options);
-
-	  if (options && options.readable === false) this.readable = false;
-
-	  if (options && options.writable === false) this.writable = false;
-
-	  this.allowHalfOpen = true;
-	  if (options && options.allowHalfOpen === false) this.allowHalfOpen = false;
-
-	  this.once('end', onend);
-	}
-
-	// the no-half-open enforcer
-	function onend() {
-	  // if we allow half-open state, or if the writable side ended,
-	  // then we're ok.
-	  if (this.allowHalfOpen || this._writableState.ended) return;
-
-	  // no more data can be written.
-	  // But allow more writes to happen in this tick.
-	  processNextTick(onEndNT, this);
-	}
-
-	function onEndNT(self) {
-	  self.end();
-	}
-
-	function forEach(xs, f) {
-	  for (var i = 0, l = xs.length; i < l; i++) {
-	    f(xs[i], i);
-	  }
-	}
-
-/***/ },
-/* 463 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	module.exports = Readable;
-
-	/*<replacement>*/
-	var processNextTick = __webpack_require__(408);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var isArray = __webpack_require__(464);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var Duplex;
-	/*</replacement>*/
-
-	Readable.ReadableState = ReadableState;
-
-	/*<replacement>*/
-	var EE = __webpack_require__(391).EventEmitter;
-
-	var EElistenerCount = function (emitter, type) {
-	  return emitter.listeners(type).length;
-	};
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var Stream;
-	(function () {
-	  try {
-	    Stream = __webpack_require__(405);
-	  } catch (_) {} finally {
-	    if (!Stream) Stream = __webpack_require__(391).EventEmitter;
-	  }
-	})();
-	/*</replacement>*/
-
-	var Buffer = __webpack_require__(395).Buffer;
-	/*<replacement>*/
-	var bufferShim = __webpack_require__(410);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var debugUtil = __webpack_require__(465);
-	var debug = void 0;
-	if (debugUtil && debugUtil.debuglog) {
-	  debug = debugUtil.debuglog('stream');
-	} else {
-	  debug = function () {};
-	}
-	/*</replacement>*/
-
-	var BufferList = __webpack_require__(466);
-	var StringDecoder;
-
-	util.inherits(Readable, Stream);
-
-	function prependListener(emitter, event, fn) {
-	  // Sadly this is not cacheable as some libraries bundle their own
-	  // event emitter implementation with them.
-	  if (typeof emitter.prependListener === 'function') {
-	    return emitter.prependListener(event, fn);
-	  } else {
-	    // This is a hack to make sure that our error handler is attached before any
-	    // userland ones.  NEVER DO THIS. This is here only because this code needs
-	    // to continue to work with older versions of Node.js that do not include
-	    // the prependListener() method. The goal is to eventually remove this hack.
-	    if (!emitter._events || !emitter._events[event]) emitter.on(event, fn);else if (isArray(emitter._events[event])) emitter._events[event].unshift(fn);else emitter._events[event] = [fn, emitter._events[event]];
-	  }
-	}
-
-	function ReadableState(options, stream) {
-	  Duplex = Duplex || __webpack_require__(462);
-
-	  options = options || {};
-
-	  // object stream flag. Used to make read(n) ignore n and to
-	  // make all the buffer merging and length checks go away
-	  this.objectMode = !!options.objectMode;
-
-	  if (stream instanceof Duplex) this.objectMode = this.objectMode || !!options.readableObjectMode;
-
-	  // the point at which it stops calling _read() to fill the buffer
-	  // Note: 0 is a valid value, means "don't call _read preemptively ever"
-	  var hwm = options.highWaterMark;
-	  var defaultHwm = this.objectMode ? 16 : 16 * 1024;
-	  this.highWaterMark = hwm || hwm === 0 ? hwm : defaultHwm;
-
-	  // cast to ints.
-	  this.highWaterMark = ~ ~this.highWaterMark;
-
-	  // A linked list is used to store data chunks instead of an array because the
-	  // linked list can remove elements from the beginning faster than
-	  // array.shift()
-	  this.buffer = new BufferList();
-	  this.length = 0;
-	  this.pipes = null;
-	  this.pipesCount = 0;
-	  this.flowing = null;
-	  this.ended = false;
-	  this.endEmitted = false;
-	  this.reading = false;
-
-	  // a flag to be able to tell if the onwrite cb is called immediately,
-	  // or on a later tick.  We set this to true at first, because any
-	  // actions that shouldn't happen until "later" should generally also
-	  // not happen before the first write call.
-	  this.sync = true;
-
-	  // whenever we return null, then we set a flag to say
-	  // that we're awaiting a 'readable' event emission.
-	  this.needReadable = false;
-	  this.emittedReadable = false;
-	  this.readableListening = false;
-	  this.resumeScheduled = false;
-
-	  // Crypto is kind of old and crusty.  Historically, its default string
-	  // encoding is 'binary' so we have to make this configurable.
-	  // Everything else in the universe uses 'utf8', though.
-	  this.defaultEncoding = options.defaultEncoding || 'utf8';
-
-	  // when piping, we only care about 'readable' events that happen
-	  // after read()ing all the bytes and not getting any pushback.
-	  this.ranOut = false;
-
-	  // the number of writers that are awaiting a drain event in .pipe()s
-	  this.awaitDrain = 0;
-
-	  // if true, a maybeReadMore has been scheduled
-	  this.readingMore = false;
-
-	  this.decoder = null;
-	  this.encoding = null;
-	  if (options.encoding) {
-	    if (!StringDecoder) StringDecoder = __webpack_require__(419).StringDecoder;
-	    this.decoder = new StringDecoder(options.encoding);
-	    this.encoding = options.encoding;
-	  }
-	}
-
-	function Readable(options) {
-	  Duplex = Duplex || __webpack_require__(462);
-
-	  if (!(this instanceof Readable)) return new Readable(options);
-
-	  this._readableState = new ReadableState(options, this);
-
-	  // legacy
-	  this.readable = true;
-
-	  if (options && typeof options.read === 'function') this._read = options.read;
-
-	  Stream.call(this);
-	}
-
-	// Manually shove something into the read() buffer.
-	// This returns true if the highWaterMark has not been hit yet,
-	// similar to how Writable.write() returns true if you should
-	// write() some more.
-	Readable.prototype.push = function (chunk, encoding) {
-	  var state = this._readableState;
-
-	  if (!state.objectMode && typeof chunk === 'string') {
-	    encoding = encoding || state.defaultEncoding;
-	    if (encoding !== state.encoding) {
-	      chunk = bufferShim.from(chunk, encoding);
-	      encoding = '';
-	    }
-	  }
-
-	  return readableAddChunk(this, state, chunk, encoding, false);
-	};
-
-	// Unshift should *always* be something directly out of read()
-	Readable.prototype.unshift = function (chunk) {
-	  var state = this._readableState;
-	  return readableAddChunk(this, state, chunk, '', true);
-	};
-
-	Readable.prototype.isPaused = function () {
-	  return this._readableState.flowing === false;
-	};
-
-	function readableAddChunk(stream, state, chunk, encoding, addToFront) {
-	  var er = chunkInvalid(state, chunk);
-	  if (er) {
-	    stream.emit('error', er);
-	  } else if (chunk === null) {
-	    state.reading = false;
-	    onEofChunk(stream, state);
-	  } else if (state.objectMode || chunk && chunk.length > 0) {
-	    if (state.ended && !addToFront) {
-	      var e = new Error('stream.push() after EOF');
-	      stream.emit('error', e);
-	    } else if (state.endEmitted && addToFront) {
-	      var _e = new Error('stream.unshift() after end event');
-	      stream.emit('error', _e);
-	    } else {
-	      var skipAdd;
-	      if (state.decoder && !addToFront && !encoding) {
-	        chunk = state.decoder.write(chunk);
-	        skipAdd = !state.objectMode && chunk.length === 0;
-	      }
-
-	      if (!addToFront) state.reading = false;
-
-	      // Don't add to the buffer if we've decoded to an empty string chunk and
-	      // we're not in object mode
-	      if (!skipAdd) {
-	        // if we want the data now, just emit it.
-	        if (state.flowing && state.length === 0 && !state.sync) {
-	          stream.emit('data', chunk);
-	          stream.read(0);
-	        } else {
-	          // update the buffer info.
-	          state.length += state.objectMode ? 1 : chunk.length;
-	          if (addToFront) state.buffer.unshift(chunk);else state.buffer.push(chunk);
-
-	          if (state.needReadable) emitReadable(stream);
-	        }
-	      }
-
-	      maybeReadMore(stream, state);
-	    }
-	  } else if (!addToFront) {
-	    state.reading = false;
-	  }
-
-	  return needMoreData(state);
-	}
-
-	// if it's past the high water mark, we can push in some more.
-	// Also, if we have no data yet, we can stand some
-	// more bytes.  This is to work around cases where hwm=0,
-	// such as the repl.  Also, if the push() triggered a
-	// readable event, and the user called read(largeNumber) such that
-	// needReadable was set, then we ought to push more, so that another
-	// 'readable' event will be triggered.
-	function needMoreData(state) {
-	  return !state.ended && (state.needReadable || state.length < state.highWaterMark || state.length === 0);
-	}
-
-	// backwards compatibility.
-	Readable.prototype.setEncoding = function (enc) {
-	  if (!StringDecoder) StringDecoder = __webpack_require__(419).StringDecoder;
-	  this._readableState.decoder = new StringDecoder(enc);
-	  this._readableState.encoding = enc;
-	  return this;
-	};
-
-	// Don't raise the hwm > 8MB
-	var MAX_HWM = 0x800000;
-	function computeNewHighWaterMark(n) {
-	  if (n >= MAX_HWM) {
-	    n = MAX_HWM;
-	  } else {
-	    // Get the next highest power of 2 to prevent increasing hwm excessively in
-	    // tiny amounts
-	    n--;
-	    n |= n >>> 1;
-	    n |= n >>> 2;
-	    n |= n >>> 4;
-	    n |= n >>> 8;
-	    n |= n >>> 16;
-	    n++;
-	  }
-	  return n;
-	}
-
-	// This function is designed to be inlinable, so please take care when making
-	// changes to the function body.
-	function howMuchToRead(n, state) {
-	  if (n <= 0 || state.length === 0 && state.ended) return 0;
-	  if (state.objectMode) return 1;
-	  if (n !== n) {
-	    // Only flow one buffer at a time
-	    if (state.flowing && state.length) return state.buffer.head.data.length;else return state.length;
-	  }
-	  // If we're asking for more than the current hwm, then raise the hwm.
-	  if (n > state.highWaterMark) state.highWaterMark = computeNewHighWaterMark(n);
-	  if (n <= state.length) return n;
-	  // Don't have enough
-	  if (!state.ended) {
-	    state.needReadable = true;
-	    return 0;
-	  }
-	  return state.length;
-	}
-
-	// you can override either this method, or the async _read(n) below.
-	Readable.prototype.read = function (n) {
-	  debug('read', n);
-	  n = parseInt(n, 10);
-	  var state = this._readableState;
-	  var nOrig = n;
-
-	  if (n !== 0) state.emittedReadable = false;
-
-	  // if we're doing read(0) to trigger a readable event, but we
-	  // already have a bunch of data in the buffer, then just trigger
-	  // the 'readable' event and move on.
-	  if (n === 0 && state.needReadable && (state.length >= state.highWaterMark || state.ended)) {
-	    debug('read: emitReadable', state.length, state.ended);
-	    if (state.length === 0 && state.ended) endReadable(this);else emitReadable(this);
-	    return null;
-	  }
-
-	  n = howMuchToRead(n, state);
-
-	  // if we've ended, and we're now clear, then finish it up.
-	  if (n === 0 && state.ended) {
-	    if (state.length === 0) endReadable(this);
-	    return null;
-	  }
-
-	  // All the actual chunk generation logic needs to be
-	  // *below* the call to _read.  The reason is that in certain
-	  // synthetic stream cases, such as passthrough streams, _read
-	  // may be a completely synchronous operation which may change
-	  // the state of the read buffer, providing enough data when
-	  // before there was *not* enough.
-	  //
-	  // So, the steps are:
-	  // 1. Figure out what the state of things will be after we do
-	  // a read from the buffer.
-	  //
-	  // 2. If that resulting state will trigger a _read, then call _read.
-	  // Note that this may be asynchronous, or synchronous.  Yes, it is
-	  // deeply ugly to write APIs this way, but that still doesn't mean
-	  // that the Readable class should behave improperly, as streams are
-	  // designed to be sync/async agnostic.
-	  // Take note if the _read call is sync or async (ie, if the read call
-	  // has returned yet), so that we know whether or not it's safe to emit
-	  // 'readable' etc.
-	  //
-	  // 3. Actually pull the requested chunks out of the buffer and return.
-
-	  // if we need a readable event, then we need to do some reading.
-	  var doRead = state.needReadable;
-	  debug('need readable', doRead);
-
-	  // if we currently have less than the highWaterMark, then also read some
-	  if (state.length === 0 || state.length - n < state.highWaterMark) {
-	    doRead = true;
-	    debug('length less than watermark', doRead);
-	  }
-
-	  // however, if we've ended, then there's no point, and if we're already
-	  // reading, then it's unnecessary.
-	  if (state.ended || state.reading) {
-	    doRead = false;
-	    debug('reading or ended', doRead);
-	  } else if (doRead) {
-	    debug('do read');
-	    state.reading = true;
-	    state.sync = true;
-	    // if the length is currently zero, then we *need* a readable event.
-	    if (state.length === 0) state.needReadable = true;
-	    // call internal read method
-	    this._read(state.highWaterMark);
-	    state.sync = false;
-	    // If _read pushed data synchronously, then `reading` will be false,
-	    // and we need to re-evaluate how much data we can return to the user.
-	    if (!state.reading) n = howMuchToRead(nOrig, state);
-	  }
-
-	  var ret;
-	  if (n > 0) ret = fromList(n, state);else ret = null;
-
-	  if (ret === null) {
-	    state.needReadable = true;
-	    n = 0;
-	  } else {
-	    state.length -= n;
-	  }
-
-	  if (state.length === 0) {
-	    // If we have nothing in the buffer, then we want to know
-	    // as soon as we *do* get something into the buffer.
-	    if (!state.ended) state.needReadable = true;
-
-	    // If we tried to read() past the EOF, then emit end on the next tick.
-	    if (nOrig !== n && state.ended) endReadable(this);
-	  }
-
-	  if (ret !== null) this.emit('data', ret);
-
-	  return ret;
-	};
-
-	function chunkInvalid(state, chunk) {
-	  var er = null;
-	  if (!Buffer.isBuffer(chunk) && typeof chunk !== 'string' && chunk !== null && chunk !== undefined && !state.objectMode) {
-	    er = new TypeError('Invalid non-string/buffer chunk');
-	  }
-	  return er;
-	}
-
-	function onEofChunk(stream, state) {
-	  if (state.ended) return;
-	  if (state.decoder) {
-	    var chunk = state.decoder.end();
-	    if (chunk && chunk.length) {
-	      state.buffer.push(chunk);
-	      state.length += state.objectMode ? 1 : chunk.length;
-	    }
-	  }
-	  state.ended = true;
-
-	  // emit 'readable' now to make sure it gets picked up.
-	  emitReadable(stream);
-	}
-
-	// Don't emit readable right away in sync mode, because this can trigger
-	// another read() call => stack overflow.  This way, it might trigger
-	// a nextTick recursion warning, but that's not so bad.
-	function emitReadable(stream) {
-	  var state = stream._readableState;
-	  state.needReadable = false;
-	  if (!state.emittedReadable) {
-	    debug('emitReadable', state.flowing);
-	    state.emittedReadable = true;
-	    if (state.sync) processNextTick(emitReadable_, stream);else emitReadable_(stream);
-	  }
-	}
-
-	function emitReadable_(stream) {
-	  debug('emit readable');
-	  stream.emit('readable');
-	  flow(stream);
-	}
-
-	// at this point, the user has presumably seen the 'readable' event,
-	// and called read() to consume some data.  that may have triggered
-	// in turn another _read(n) call, in which case reading = true if
-	// it's in progress.
-	// However, if we're not ended, or reading, and the length < hwm,
-	// then go ahead and try to read some more preemptively.
-	function maybeReadMore(stream, state) {
-	  if (!state.readingMore) {
-	    state.readingMore = true;
-	    processNextTick(maybeReadMore_, stream, state);
-	  }
-	}
-
-	function maybeReadMore_(stream, state) {
-	  var len = state.length;
-	  while (!state.reading && !state.flowing && !state.ended && state.length < state.highWaterMark) {
-	    debug('maybeReadMore read 0');
-	    stream.read(0);
-	    if (len === state.length)
-	      // didn't get any data, stop spinning.
-	      break;else len = state.length;
-	  }
-	  state.readingMore = false;
-	}
-
-	// abstract method.  to be overridden in specific implementation classes.
-	// call cb(er, data) where data is <= n in length.
-	// for virtual (non-string, non-buffer) streams, "length" is somewhat
-	// arbitrary, and perhaps not very meaningful.
-	Readable.prototype._read = function (n) {
-	  this.emit('error', new Error('_read() is not implemented'));
-	};
-
-	Readable.prototype.pipe = function (dest, pipeOpts) {
-	  var src = this;
-	  var state = this._readableState;
-
-	  switch (state.pipesCount) {
-	    case 0:
-	      state.pipes = dest;
-	      break;
-	    case 1:
-	      state.pipes = [state.pipes, dest];
-	      break;
-	    default:
-	      state.pipes.push(dest);
-	      break;
-	  }
-	  state.pipesCount += 1;
-	  debug('pipe count=%d opts=%j', state.pipesCount, pipeOpts);
-
-	  var doEnd = (!pipeOpts || pipeOpts.end !== false) && dest !== process.stdout && dest !== process.stderr;
-
-	  var endFn = doEnd ? onend : cleanup;
-	  if (state.endEmitted) processNextTick(endFn);else src.once('end', endFn);
-
-	  dest.on('unpipe', onunpipe);
-	  function onunpipe(readable) {
-	    debug('onunpipe');
-	    if (readable === src) {
-	      cleanup();
-	    }
-	  }
-
-	  function onend() {
-	    debug('onend');
-	    dest.end();
-	  }
-
-	  // when the dest drains, it reduces the awaitDrain counter
-	  // on the source.  This would be more elegant with a .once()
-	  // handler in flow(), but adding and removing repeatedly is
-	  // too slow.
-	  var ondrain = pipeOnDrain(src);
-	  dest.on('drain', ondrain);
-
-	  var cleanedUp = false;
-	  function cleanup() {
-	    debug('cleanup');
-	    // cleanup event handlers once the pipe is broken
-	    dest.removeListener('close', onclose);
-	    dest.removeListener('finish', onfinish);
-	    dest.removeListener('drain', ondrain);
-	    dest.removeListener('error', onerror);
-	    dest.removeListener('unpipe', onunpipe);
-	    src.removeListener('end', onend);
-	    src.removeListener('end', cleanup);
-	    src.removeListener('data', ondata);
-
-	    cleanedUp = true;
-
-	    // if the reader is waiting for a drain event from this
-	    // specific writer, then it would cause it to never start
-	    // flowing again.
-	    // So, if this is awaiting a drain, then we just call it now.
-	    // If we don't know, then assume that we are waiting for one.
-	    if (state.awaitDrain && (!dest._writableState || dest._writableState.needDrain)) ondrain();
-	  }
-
-	  // If the user pushes more data while we're writing to dest then we'll end up
-	  // in ondata again. However, we only want to increase awaitDrain once because
-	  // dest will only emit one 'drain' event for the multiple writes.
-	  // => Introduce a guard on increasing awaitDrain.
-	  var increasedAwaitDrain = false;
-	  src.on('data', ondata);
-	  function ondata(chunk) {
-	    debug('ondata');
-	    increasedAwaitDrain = false;
-	    var ret = dest.write(chunk);
-	    if (false === ret && !increasedAwaitDrain) {
-	      // If the user unpiped during `dest.write()`, it is possible
-	      // to get stuck in a permanently paused state if that write
-	      // also returned false.
-	      // => Check whether `dest` is still a piping destination.
-	      if ((state.pipesCount === 1 && state.pipes === dest || state.pipesCount > 1 && indexOf(state.pipes, dest) !== -1) && !cleanedUp) {
-	        debug('false write response, pause', src._readableState.awaitDrain);
-	        src._readableState.awaitDrain++;
-	        increasedAwaitDrain = true;
-	      }
-	      src.pause();
-	    }
-	  }
-
-	  // if the dest has an error, then stop piping into it.
-	  // however, don't suppress the throwing behavior for this.
-	  function onerror(er) {
-	    debug('onerror', er);
-	    unpipe();
-	    dest.removeListener('error', onerror);
-	    if (EElistenerCount(dest, 'error') === 0) dest.emit('error', er);
-	  }
-
-	  // Make sure our error handler is attached before userland ones.
-	  prependListener(dest, 'error', onerror);
-
-	  // Both close and finish should trigger unpipe, but only once.
-	  function onclose() {
-	    dest.removeListener('finish', onfinish);
-	    unpipe();
-	  }
-	  dest.once('close', onclose);
-	  function onfinish() {
-	    debug('onfinish');
-	    dest.removeListener('close', onclose);
-	    unpipe();
-	  }
-	  dest.once('finish', onfinish);
-
-	  function unpipe() {
-	    debug('unpipe');
-	    src.unpipe(dest);
-	  }
-
-	  // tell the dest that it's being piped to
-	  dest.emit('pipe', src);
-
-	  // start the flow if it hasn't been started already.
-	  if (!state.flowing) {
-	    debug('pipe resume');
-	    src.resume();
-	  }
-
-	  return dest;
-	};
-
-	function pipeOnDrain(src) {
-	  return function () {
-	    var state = src._readableState;
-	    debug('pipeOnDrain', state.awaitDrain);
-	    if (state.awaitDrain) state.awaitDrain--;
-	    if (state.awaitDrain === 0 && EElistenerCount(src, 'data')) {
-	      state.flowing = true;
-	      flow(src);
-	    }
-	  };
-	}
-
-	Readable.prototype.unpipe = function (dest) {
-	  var state = this._readableState;
-
-	  // if we're not piping anywhere, then do nothing.
-	  if (state.pipesCount === 0) return this;
-
-	  // just one destination.  most common case.
-	  if (state.pipesCount === 1) {
-	    // passed in one, but it's not the right one.
-	    if (dest && dest !== state.pipes) return this;
-
-	    if (!dest) dest = state.pipes;
-
-	    // got a match.
-	    state.pipes = null;
-	    state.pipesCount = 0;
-	    state.flowing = false;
-	    if (dest) dest.emit('unpipe', this);
-	    return this;
-	  }
-
-	  // slow case. multiple pipe destinations.
-
-	  if (!dest) {
-	    // remove all.
-	    var dests = state.pipes;
-	    var len = state.pipesCount;
-	    state.pipes = null;
-	    state.pipesCount = 0;
-	    state.flowing = false;
-
-	    for (var i = 0; i < len; i++) {
-	      dests[i].emit('unpipe', this);
-	    }return this;
-	  }
-
-	  // try to find the right one.
-	  var index = indexOf(state.pipes, dest);
-	  if (index === -1) return this;
-
-	  state.pipes.splice(index, 1);
-	  state.pipesCount -= 1;
-	  if (state.pipesCount === 1) state.pipes = state.pipes[0];
-
-	  dest.emit('unpipe', this);
-
-	  return this;
-	};
-
-	// set up data events if they are asked for
-	// Ensure readable listeners eventually get something
-	Readable.prototype.on = function (ev, fn) {
-	  var res = Stream.prototype.on.call(this, ev, fn);
-
-	  if (ev === 'data') {
-	    // Start flowing on next tick if stream isn't explicitly paused
-	    if (this._readableState.flowing !== false) this.resume();
-	  } else if (ev === 'readable') {
-	    var state = this._readableState;
-	    if (!state.endEmitted && !state.readableListening) {
-	      state.readableListening = state.needReadable = true;
-	      state.emittedReadable = false;
-	      if (!state.reading) {
-	        processNextTick(nReadingNextTick, this);
-	      } else if (state.length) {
-	        emitReadable(this, state);
-	      }
-	    }
-	  }
-
-	  return res;
-	};
-	Readable.prototype.addListener = Readable.prototype.on;
-
-	function nReadingNextTick(self) {
-	  debug('readable nexttick read 0');
-	  self.read(0);
-	}
-
-	// pause() and resume() are remnants of the legacy readable stream API
-	// If the user uses them, then switch into old mode.
-	Readable.prototype.resume = function () {
-	  var state = this._readableState;
-	  if (!state.flowing) {
-	    debug('resume');
-	    state.flowing = true;
-	    resume(this, state);
-	  }
-	  return this;
-	};
-
-	function resume(stream, state) {
-	  if (!state.resumeScheduled) {
-	    state.resumeScheduled = true;
-	    processNextTick(resume_, stream, state);
-	  }
-	}
-
-	function resume_(stream, state) {
-	  if (!state.reading) {
-	    debug('resume read 0');
-	    stream.read(0);
-	  }
-
-	  state.resumeScheduled = false;
-	  state.awaitDrain = 0;
-	  stream.emit('resume');
-	  flow(stream);
-	  if (state.flowing && !state.reading) stream.read(0);
-	}
-
-	Readable.prototype.pause = function () {
-	  debug('call pause flowing=%j', this._readableState.flowing);
-	  if (false !== this._readableState.flowing) {
-	    debug('pause');
-	    this._readableState.flowing = false;
-	    this.emit('pause');
-	  }
-	  return this;
-	};
-
-	function flow(stream) {
-	  var state = stream._readableState;
-	  debug('flow', state.flowing);
-	  while (state.flowing && stream.read() !== null) {}
-	}
-
-	// wrap an old-style stream as the async data source.
-	// This is *not* part of the readable stream interface.
-	// It is an ugly unfortunate mess of history.
-	Readable.prototype.wrap = function (stream) {
-	  var state = this._readableState;
-	  var paused = false;
-
-	  var self = this;
-	  stream.on('end', function () {
-	    debug('wrapped end');
-	    if (state.decoder && !state.ended) {
-	      var chunk = state.decoder.end();
-	      if (chunk && chunk.length) self.push(chunk);
-	    }
-
-	    self.push(null);
-	  });
-
-	  stream.on('data', function (chunk) {
-	    debug('wrapped data');
-	    if (state.decoder) chunk = state.decoder.write(chunk);
-
-	    // don't skip over falsy values in objectMode
-	    if (state.objectMode && (chunk === null || chunk === undefined)) return;else if (!state.objectMode && (!chunk || !chunk.length)) return;
-
-	    var ret = self.push(chunk);
-	    if (!ret) {
-	      paused = true;
-	      stream.pause();
-	    }
-	  });
-
-	  // proxy all the other methods.
-	  // important when wrapping filters and duplexes.
-	  for (var i in stream) {
-	    if (this[i] === undefined && typeof stream[i] === 'function') {
-	      this[i] = function (method) {
-	        return function () {
-	          return stream[method].apply(stream, arguments);
-	        };
-	      }(i);
-	    }
-	  }
-
-	  // proxy certain important events.
-	  var events = ['error', 'close', 'destroy', 'pause', 'resume'];
-	  forEach(events, function (ev) {
-	    stream.on(ev, self.emit.bind(self, ev));
-	  });
-
-	  // when we try to consume some more bytes, simply unpause the
-	  // underlying stream.
-	  self._read = function (n) {
-	    debug('wrapped _read', n);
-	    if (paused) {
-	      paused = false;
-	      stream.resume();
-	    }
-	  };
-
-	  return self;
-	};
-
-	// exposed for testing purposes only.
-	Readable._fromList = fromList;
-
-	// Pluck off n bytes from an array of buffers.
-	// Length is the combined lengths of all the buffers in the list.
-	// This function is designed to be inlinable, so please take care when making
-	// changes to the function body.
-	function fromList(n, state) {
-	  // nothing buffered
-	  if (state.length === 0) return null;
-
-	  var ret;
-	  if (state.objectMode) ret = state.buffer.shift();else if (!n || n >= state.length) {
-	    // read it all, truncate the list
-	    if (state.decoder) ret = state.buffer.join('');else if (state.buffer.length === 1) ret = state.buffer.head.data;else ret = state.buffer.concat(state.length);
-	    state.buffer.clear();
-	  } else {
-	    // read part of list
-	    ret = fromListPartial(n, state.buffer, state.decoder);
-	  }
-
-	  return ret;
-	}
-
-	// Extracts only enough buffered data to satisfy the amount requested.
-	// This function is designed to be inlinable, so please take care when making
-	// changes to the function body.
-	function fromListPartial(n, list, hasStrings) {
-	  var ret;
-	  if (n < list.head.data.length) {
-	    // slice is the same for buffers and strings
-	    ret = list.head.data.slice(0, n);
-	    list.head.data = list.head.data.slice(n);
-	  } else if (n === list.head.data.length) {
-	    // first chunk is a perfect match
-	    ret = list.shift();
-	  } else {
-	    // result spans more than one buffer
-	    ret = hasStrings ? copyFromBufferString(n, list) : copyFromBuffer(n, list);
-	  }
-	  return ret;
-	}
-
-	// Copies a specified amount of characters from the list of buffered data
-	// chunks.
-	// This function is designed to be inlinable, so please take care when making
-	// changes to the function body.
-	function copyFromBufferString(n, list) {
-	  var p = list.head;
-	  var c = 1;
-	  var ret = p.data;
-	  n -= ret.length;
-	  while (p = p.next) {
-	    var str = p.data;
-	    var nb = n > str.length ? str.length : n;
-	    if (nb === str.length) ret += str;else ret += str.slice(0, n);
-	    n -= nb;
-	    if (n === 0) {
-	      if (nb === str.length) {
-	        ++c;
-	        if (p.next) list.head = p.next;else list.head = list.tail = null;
-	      } else {
-	        list.head = p;
-	        p.data = str.slice(nb);
-	      }
-	      break;
-	    }
-	    ++c;
-	  }
-	  list.length -= c;
-	  return ret;
-	}
-
-	// Copies a specified amount of bytes from the list of buffered data chunks.
-	// This function is designed to be inlinable, so please take care when making
-	// changes to the function body.
-	function copyFromBuffer(n, list) {
-	  var ret = bufferShim.allocUnsafe(n);
-	  var p = list.head;
-	  var c = 1;
-	  p.data.copy(ret);
-	  n -= p.data.length;
-	  while (p = p.next) {
-	    var buf = p.data;
-	    var nb = n > buf.length ? buf.length : n;
-	    buf.copy(ret, ret.length - n, 0, nb);
-	    n -= nb;
-	    if (n === 0) {
-	      if (nb === buf.length) {
-	        ++c;
-	        if (p.next) list.head = p.next;else list.head = list.tail = null;
-	      } else {
-	        list.head = p;
-	        p.data = buf.slice(nb);
-	      }
-	      break;
-	    }
-	    ++c;
-	  }
-	  list.length -= c;
-	  return ret;
-	}
-
-	function endReadable(stream) {
-	  var state = stream._readableState;
-
-	  // If we get here before consuming all the bytes, then that is a
-	  // bug in node.  Should never happen.
-	  if (state.length > 0) throw new Error('"endReadable()" called on non-empty stream');
-
-	  if (!state.endEmitted) {
-	    state.ended = true;
-	    processNextTick(endReadableNT, state, stream);
-	  }
-	}
-
-	function endReadableNT(state, stream) {
-	  // Check that we didn't get one last unshift.
-	  if (!state.endEmitted && state.length === 0) {
-	    state.endEmitted = true;
-	    stream.readable = false;
-	    stream.emit('end');
-	  }
-	}
-
-	function forEach(xs, f) {
-	  for (var i = 0, l = xs.length; i < l; i++) {
-	    f(xs[i], i);
-	  }
-	}
-
-	function indexOf(xs, x) {
-	  for (var i = 0, l = xs.length; i < l; i++) {
-	    if (xs[i] === x) return i;
-	  }
-	  return -1;
-	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393)))
-
-/***/ },
-/* 464 */
-/***/ function(module, exports) {
-
-	var toString = {}.toString;
-
-	module.exports = Array.isArray || function (arr) {
-	  return toString.call(arr) == '[object Array]';
-	};
-
-
-/***/ },
-/* 465 */
-/***/ function(module, exports) {
-
-	/* (ignored) */
-
-/***/ },
-/* 466 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var Buffer = __webpack_require__(395).Buffer;
-	/*<replacement>*/
-	var bufferShim = __webpack_require__(410);
-	/*</replacement>*/
-
-	module.exports = BufferList;
-
-	function BufferList() {
-	  this.head = null;
-	  this.tail = null;
-	  this.length = 0;
-	}
-
-	BufferList.prototype.push = function (v) {
-	  var entry = { data: v, next: null };
-	  if (this.length > 0) this.tail.next = entry;else this.head = entry;
-	  this.tail = entry;
-	  ++this.length;
-	};
-
-	BufferList.prototype.unshift = function (v) {
-	  var entry = { data: v, next: this.head };
-	  if (this.length === 0) this.tail = entry;
-	  this.head = entry;
-	  ++this.length;
-	};
-
-	BufferList.prototype.shift = function () {
-	  if (this.length === 0) return;
-	  var ret = this.head.data;
-	  if (this.length === 1) this.head = this.tail = null;else this.head = this.head.next;
-	  --this.length;
-	  return ret;
-	};
-
-	BufferList.prototype.clear = function () {
-	  this.head = this.tail = null;
-	  this.length = 0;
-	};
-
-	BufferList.prototype.join = function (s) {
-	  if (this.length === 0) return '';
-	  var p = this.head;
-	  var ret = '' + p.data;
-	  while (p = p.next) {
-	    ret += s + p.data;
-	  }return ret;
-	};
-
-	BufferList.prototype.concat = function (n) {
-	  if (this.length === 0) return bufferShim.alloc(0);
-	  if (this.length === 1) return this.head.data;
-	  var ret = bufferShim.allocUnsafe(n >>> 0);
-	  var p = this.head;
-	  var i = 0;
-	  while (p) {
-	    p.data.copy(ret, i);
-	    i += p.data.length;
-	    p = p.next;
-	  }
-	  return ret;
-	};
-
-/***/ },
-/* 467 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process, setImmediate) {// A bit simpler than readable streams.
-	// Implement an async ._write(chunk, encoding, cb), and it'll handle all
-	// the drain event emission and buffering.
-
-	'use strict';
-
-	module.exports = Writable;
-
-	/*<replacement>*/
-	var processNextTick = __webpack_require__(408);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var asyncWrite = !process.browser && ['v0.10', 'v0.9.'].indexOf(process.version.slice(0, 5)) > -1 ? setImmediate : processNextTick;
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var Duplex;
-	/*</replacement>*/
-
-	Writable.WritableState = WritableState;
-
-	/*<replacement>*/
-	var util = __webpack_require__(411);
-	util.inherits = __webpack_require__(402);
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var internalUtil = {
-	  deprecate: __webpack_require__(418)
-	};
-	/*</replacement>*/
-
-	/*<replacement>*/
-	var Stream;
-	(function () {
-	  try {
-	    Stream = __webpack_require__(405);
-	  } catch (_) {} finally {
-	    if (!Stream) Stream = __webpack_require__(391).EventEmitter;
-	  }
-	})();
-	/*</replacement>*/
-
-	var Buffer = __webpack_require__(395).Buffer;
-	/*<replacement>*/
-	var bufferShim = __webpack_require__(410);
-	/*</replacement>*/
-
-	util.inherits(Writable, Stream);
-
-	function nop() {}
-
-	function WriteReq(chunk, encoding, cb) {
-	  this.chunk = chunk;
-	  this.encoding = encoding;
-	  this.callback = cb;
-	  this.next = null;
-	}
-
-	function WritableState(options, stream) {
-	  Duplex = Duplex || __webpack_require__(462);
-
-	  options = options || {};
-
-	  // object stream flag to indicate whether or not this stream
-	  // contains buffers or objects.
-	  this.objectMode = !!options.objectMode;
-
-	  if (stream instanceof Duplex) this.objectMode = this.objectMode || !!options.writableObjectMode;
-
-	  // the point at which write() starts returning false
-	  // Note: 0 is a valid value, means that we always return false if
-	  // the entire buffer is not flushed immediately on write()
-	  var hwm = options.highWaterMark;
-	  var defaultHwm = this.objectMode ? 16 : 16 * 1024;
-	  this.highWaterMark = hwm || hwm === 0 ? hwm : defaultHwm;
-
-	  // cast to ints.
-	  this.highWaterMark = ~ ~this.highWaterMark;
-
-	  // drain event flag.
-	  this.needDrain = false;
-	  // at the start of calling end()
-	  this.ending = false;
-	  // when end() has been called, and returned
-	  this.ended = false;
-	  // when 'finish' is emitted
-	  this.finished = false;
-
-	  // should we decode strings into buffers before passing to _write?
-	  // this is here so that some node-core streams can optimize string
-	  // handling at a lower level.
-	  var noDecode = options.decodeStrings === false;
-	  this.decodeStrings = !noDecode;
-
-	  // Crypto is kind of old and crusty.  Historically, its default string
-	  // encoding is 'binary' so we have to make this configurable.
-	  // Everything else in the universe uses 'utf8', though.
-	  this.defaultEncoding = options.defaultEncoding || 'utf8';
-
-	  // not an actual buffer we keep track of, but a measurement
-	  // of how much we're waiting to get pushed to some underlying
-	  // socket or file.
-	  this.length = 0;
-
-	  // a flag to see when we're in the middle of a write.
-	  this.writing = false;
-
-	  // when true all writes will be buffered until .uncork() call
-	  this.corked = 0;
-
-	  // a flag to be able to tell if the onwrite cb is called immediately,
-	  // or on a later tick.  We set this to true at first, because any
-	  // actions that shouldn't happen until "later" should generally also
-	  // not happen before the first write call.
-	  this.sync = true;
-
-	  // a flag to know if we're processing previously buffered items, which
-	  // may call the _write() callback in the same tick, so that we don't
-	  // end up in an overlapped onwrite situation.
-	  this.bufferProcessing = false;
-
-	  // the callback that's passed to _write(chunk,cb)
-	  this.onwrite = function (er) {
-	    onwrite(stream, er);
-	  };
-
-	  // the callback that the user supplies to write(chunk,encoding,cb)
-	  this.writecb = null;
-
-	  // the amount that is being written when _write is called.
-	  this.writelen = 0;
-
-	  this.bufferedRequest = null;
-	  this.lastBufferedRequest = null;
-
-	  // number of pending user-supplied write callbacks
-	  // this must be 0 before 'finish' can be emitted
-	  this.pendingcb = 0;
-
-	  // emit prefinish if the only thing we're waiting for is _write cbs
-	  // This is relevant for synchronous Transform streams
-	  this.prefinished = false;
-
-	  // True if the error was already emitted and should not be thrown again
-	  this.errorEmitted = false;
-
-	  // count buffered requests
-	  this.bufferedRequestCount = 0;
-
-	  // allocate the first CorkedRequest, there is always
-	  // one allocated and free to use, and we maintain at most two
-	  this.corkedRequestsFree = new CorkedRequest(this);
-	}
-
-	WritableState.prototype.getBuffer = function getBuffer() {
-	  var current = this.bufferedRequest;
-	  var out = [];
-	  while (current) {
-	    out.push(current);
-	    current = current.next;
-	  }
-	  return out;
-	};
-
-	(function () {
-	  try {
-	    Object.defineProperty(WritableState.prototype, 'buffer', {
-	      get: internalUtil.deprecate(function () {
-	        return this.getBuffer();
-	      }, '_writableState.buffer is deprecated. Use _writableState.getBuffer ' + 'instead.')
-	    });
-	  } catch (_) {}
-	})();
-
-	// Test _writableState for inheritance to account for Duplex streams,
-	// whose prototype chain only points to Readable.
-	var realHasInstance;
-	if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.prototype[Symbol.hasInstance] === 'function') {
-	  realHasInstance = Function.prototype[Symbol.hasInstance];
-	  Object.defineProperty(Writable, Symbol.hasInstance, {
-	    value: function (object) {
-	      if (realHasInstance.call(this, object)) return true;
-
-	      return object && object._writableState instanceof WritableState;
-	    }
-	  });
-	} else {
-	  realHasInstance = function (object) {
-	    return object instanceof this;
-	  };
-	}
-
-	function Writable(options) {
-	  Duplex = Duplex || __webpack_require__(462);
-
-	  // Writable ctor is applied to Duplexes, too.
-	  // `realHasInstance` is necessary because using plain `instanceof`
-	  // would return false, as no `_writableState` property is attached.
-
-	  // Trying to use the custom `instanceof` for Writable here will also break the
-	  // Node.js LazyTransform implementation, which has a non-trivial getter for
-	  // `_writableState` that would lead to infinite recursion.
-	  if (!realHasInstance.call(Writable, this) && !(this instanceof Duplex)) {
-	    return new Writable(options);
-	  }
-
-	  this._writableState = new WritableState(options, this);
-
-	  // legacy.
-	  this.writable = true;
-
-	  if (options) {
-	    if (typeof options.write === 'function') this._write = options.write;
-
-	    if (typeof options.writev === 'function') this._writev = options.writev;
-	  }
-
-	  Stream.call(this);
-	}
-
-	// Otherwise people can pipe Writable streams, which is just wrong.
-	Writable.prototype.pipe = function () {
-	  this.emit('error', new Error('Cannot pipe, not readable'));
-	};
-
-	function writeAfterEnd(stream, cb) {
-	  var er = new Error('write after end');
-	  // TODO: defer error events consistently everywhere, not just the cb
-	  stream.emit('error', er);
-	  processNextTick(cb, er);
-	}
-
-	// If we get something that is not a buffer, string, null, or undefined,
-	// and we're not in objectMode, then that's an error.
-	// Otherwise stream chunks are all considered to be of length=1, and the
-	// watermarks determine how many objects to keep in the buffer, rather than
-	// how many bytes or characters.
-	function validChunk(stream, state, chunk, cb) {
-	  var valid = true;
-	  var er = false;
-	  // Always throw error if a null is written
-	  // if we are not in object mode then throw
-	  // if it is not a buffer, string, or undefined.
-	  if (chunk === null) {
-	    er = new TypeError('May not write null values to stream');
-	  } else if (!Buffer.isBuffer(chunk) && typeof chunk !== 'string' && chunk !== undefined && !state.objectMode) {
-	    er = new TypeError('Invalid non-string/buffer chunk');
-	  }
-	  if (er) {
-	    stream.emit('error', er);
-	    processNextTick(cb, er);
-	    valid = false;
-	  }
-	  return valid;
-	}
-
-	Writable.prototype.write = function (chunk, encoding, cb) {
-	  var state = this._writableState;
-	  var ret = false;
-
-	  if (typeof encoding === 'function') {
-	    cb = encoding;
-	    encoding = null;
-	  }
-
-	  if (Buffer.isBuffer(chunk)) encoding = 'buffer';else if (!encoding) encoding = state.defaultEncoding;
-
-	  if (typeof cb !== 'function') cb = nop;
-
-	  if (state.ended) writeAfterEnd(this, cb);else if (validChunk(this, state, chunk, cb)) {
-	    state.pendingcb++;
-	    ret = writeOrBuffer(this, state, chunk, encoding, cb);
-	  }
-
-	  return ret;
-	};
-
-	Writable.prototype.cork = function () {
-	  var state = this._writableState;
-
-	  state.corked++;
-	};
-
-	Writable.prototype.uncork = function () {
-	  var state = this._writableState;
-
-	  if (state.corked) {
-	    state.corked--;
-
-	    if (!state.writing && !state.corked && !state.finished && !state.bufferProcessing && state.bufferedRequest) clearBuffer(this, state);
-	  }
-	};
-
-	Writable.prototype.setDefaultEncoding = function setDefaultEncoding(encoding) {
-	  // node::ParseEncoding() requires lower case.
-	  if (typeof encoding === 'string') encoding = encoding.toLowerCase();
-	  if (!(['hex', 'utf8', 'utf-8', 'ascii', 'binary', 'base64', 'ucs2', 'ucs-2', 'utf16le', 'utf-16le', 'raw'].indexOf((encoding + '').toLowerCase()) > -1)) throw new TypeError('Unknown encoding: ' + encoding);
-	  this._writableState.defaultEncoding = encoding;
-	  return this;
-	};
-
-	function decodeChunk(state, chunk, encoding) {
-	  if (!state.objectMode && state.decodeStrings !== false && typeof chunk === 'string') {
-	    chunk = bufferShim.from(chunk, encoding);
-	  }
-	  return chunk;
-	}
-
-	// if we're already writing something, then just put this
-	// in the queue, and wait our turn.  Otherwise, call _write
-	// If we return false, then we need a drain event, so set that flag.
-	function writeOrBuffer(stream, state, chunk, encoding, cb) {
-	  chunk = decodeChunk(state, chunk, encoding);
-
-	  if (Buffer.isBuffer(chunk)) encoding = 'buffer';
-	  var len = state.objectMode ? 1 : chunk.length;
-
-	  state.length += len;
-
-	  var ret = state.length < state.highWaterMark;
-	  // we must ensure that previous needDrain will not be reset to false.
-	  if (!ret) state.needDrain = true;
-
-	  if (state.writing || state.corked) {
-	    var last = state.lastBufferedRequest;
-	    state.lastBufferedRequest = new WriteReq(chunk, encoding, cb);
-	    if (last) {
-	      last.next = state.lastBufferedRequest;
-	    } else {
-	      state.bufferedRequest = state.lastBufferedRequest;
-	    }
-	    state.bufferedRequestCount += 1;
-	  } else {
-	    doWrite(stream, state, false, len, chunk, encoding, cb);
-	  }
-
-	  return ret;
-	}
-
-	function doWrite(stream, state, writev, len, chunk, encoding, cb) {
-	  state.writelen = len;
-	  state.writecb = cb;
-	  state.writing = true;
-	  state.sync = true;
-	  if (writev) stream._writev(chunk, state.onwrite);else stream._write(chunk, encoding, state.onwrite);
-	  state.sync = false;
-	}
-
-	function onwriteError(stream, state, sync, er, cb) {
-	  --state.pendingcb;
-	  if (sync) processNextTick(cb, er);else cb(er);
-
-	  stream._writableState.errorEmitted = true;
-	  stream.emit('error', er);
-	}
-
-	function onwriteStateUpdate(state) {
-	  state.writing = false;
-	  state.writecb = null;
-	  state.length -= state.writelen;
-	  state.writelen = 0;
-	}
-
-	function onwrite(stream, er) {
-	  var state = stream._writableState;
-	  var sync = state.sync;
-	  var cb = state.writecb;
-
-	  onwriteStateUpdate(state);
-
-	  if (er) onwriteError(stream, state, sync, er, cb);else {
-	    // Check if we're actually ready to finish, but don't emit yet
-	    var finished = needFinish(state);
-
-	    if (!finished && !state.corked && !state.bufferProcessing && state.bufferedRequest) {
-	      clearBuffer(stream, state);
-	    }
-
-	    if (sync) {
-	      /*<replacement>*/
-	      asyncWrite(afterWrite, stream, state, finished, cb);
-	      /*</replacement>*/
-	    } else {
-	        afterWrite(stream, state, finished, cb);
-	      }
-	  }
-	}
-
-	function afterWrite(stream, state, finished, cb) {
-	  if (!finished) onwriteDrain(stream, state);
-	  state.pendingcb--;
-	  cb();
-	  finishMaybe(stream, state);
-	}
-
-	// Must force callback to be called on nextTick, so that we don't
-	// emit 'drain' before the write() consumer gets the 'false' return
-	// value, and has a chance to attach a 'drain' listener.
-	function onwriteDrain(stream, state) {
-	  if (state.length === 0 && state.needDrain) {
-	    state.needDrain = false;
-	    stream.emit('drain');
-	  }
-	}
-
-	// if there's something in the buffer waiting, then process it
-	function clearBuffer(stream, state) {
-	  state.bufferProcessing = true;
-	  var entry = state.bufferedRequest;
-
-	  if (stream._writev && entry && entry.next) {
-	    // Fast case, write everything using _writev()
-	    var l = state.bufferedRequestCount;
-	    var buffer = new Array(l);
-	    var holder = state.corkedRequestsFree;
-	    holder.entry = entry;
-
-	    var count = 0;
-	    while (entry) {
-	      buffer[count] = entry;
-	      entry = entry.next;
-	      count += 1;
-	    }
-
-	    doWrite(stream, state, true, state.length, buffer, '', holder.finish);
-
-	    // doWrite is almost always async, defer these to save a bit of time
-	    // as the hot path ends with doWrite
-	    state.pendingcb++;
-	    state.lastBufferedRequest = null;
-	    if (holder.next) {
-	      state.corkedRequestsFree = holder.next;
-	      holder.next = null;
-	    } else {
-	      state.corkedRequestsFree = new CorkedRequest(state);
-	    }
-	  } else {
-	    // Slow case, write chunks one-by-one
-	    while (entry) {
-	      var chunk = entry.chunk;
-	      var encoding = entry.encoding;
-	      var cb = entry.callback;
-	      var len = state.objectMode ? 1 : chunk.length;
-
-	      doWrite(stream, state, false, len, chunk, encoding, cb);
-	      entry = entry.next;
-	      // if we didn't call the onwrite immediately, then
-	      // it means that we need to wait until it does.
-	      // also, that means that the chunk and cb are currently
-	      // being processed, so move the buffer counter past them.
-	      if (state.writing) {
-	        break;
-	      }
-	    }
-
-	    if (entry === null) state.lastBufferedRequest = null;
-	  }
-
-	  state.bufferedRequestCount = 0;
-	  state.bufferedRequest = entry;
-	  state.bufferProcessing = false;
-	}
-
-	Writable.prototype._write = function (chunk, encoding, cb) {
-	  cb(new Error('_write() is not implemented'));
-	};
-
-	Writable.prototype._writev = null;
-
-	Writable.prototype.end = function (chunk, encoding, cb) {
-	  var state = this._writableState;
-
-	  if (typeof chunk === 'function') {
-	    cb = chunk;
-	    chunk = null;
-	    encoding = null;
-	  } else if (typeof encoding === 'function') {
-	    cb = encoding;
-	    encoding = null;
-	  }
-
-	  if (chunk !== null && chunk !== undefined) this.write(chunk, encoding);
-
-	  // .end() fully uncorks
-	  if (state.corked) {
-	    state.corked = 1;
-	    this.uncork();
-	  }
-
-	  // ignore unnecessary end() calls.
-	  if (!state.ending && !state.finished) endWritable(this, state, cb);
-	};
-
-	function needFinish(state) {
-	  return state.ending && state.length === 0 && state.bufferedRequest === null && !state.finished && !state.writing;
-	}
-
-	function prefinish(stream, state) {
-	  if (!state.prefinished) {
-	    state.prefinished = true;
-	    stream.emit('prefinish');
-	  }
-	}
-
-	function finishMaybe(stream, state) {
-	  var need = needFinish(state);
-	  if (need) {
-	    if (state.pendingcb === 0) {
-	      prefinish(stream, state);
-	      state.finished = true;
-	      stream.emit('finish');
-	    } else {
-	      prefinish(stream, state);
-	    }
-	  }
-	  return need;
-	}
-
-	function endWritable(stream, state, cb) {
-	  state.ending = true;
-	  finishMaybe(stream, state);
-	  if (cb) {
-	    if (state.finished) processNextTick(cb);else stream.once('finish', cb);
-	  }
-	  state.ended = true;
-	  stream.writable = false;
-	}
-
-	// It seems a linked list but it is not
-	// there will be only 2 of these for each stream
-	function CorkedRequest(state) {
-	  var _this = this;
-
-	  this.next = null;
-	  this.entry = null;
-
-	  this.finish = function (err) {
-	    var entry = _this.entry;
-	    _this.entry = null;
-	    while (entry) {
-	      var cb = entry.callback;
-	      state.pendingcb--;
-	      cb(err);
-	      entry = entry.next;
-	    }
-	    if (state.corkedRequestsFree) {
-	      state.corkedRequestsFree.next = _this;
-	    } else {
-	      state.corkedRequestsFree = _this;
-	    }
-	  };
-	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(393), __webpack_require__(416).setImmediate))
-
-/***/ },
-/* 468 */
+/* 454 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
 
-	var Readable = __webpack_require__(405).Readable;
-	var Guid = __webpack_require__(469);
-	var querystring = __webpack_require__(386);
-	var through2 = __webpack_require__(459);
-	var EventEmitter = __webpack_require__(391).EventEmitter;
+	var Readable = __webpack_require__(409).Readable;
+	var Guid = __webpack_require__(455);
+	var querystring = __webpack_require__(390);
+	var through2 = __webpack_require__(453);
+	var EventEmitter = __webpack_require__(395).EventEmitter;
 
 	var wsRequest = function wsRequest(client, args) {
 		this.client = client;
@@ -87796,10 +84748,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = wsRequest;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(395).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(399).Buffer))
 
 /***/ },
-/* 469 */
+/* 455 */
 /***/ function(module, exports) {
 
 	(function () {
@@ -87868,12 +84820,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 470 */
+/* 456 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var helpers = __webpack_require__(471);
+	var helpers = __webpack_require__(457);
 
 	var indexService = function indexService(client, args) {
 		var valid = helpers.validate(args, {
@@ -87910,7 +84862,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 471 */
+/* 457 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -87966,12 +84918,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 472 */
+/* 458 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var helpers = __webpack_require__(471);
+	var helpers = __webpack_require__(457);
 
 	var getService = function getService(client, args) {
 		var valid = helpers.validate(args, {
@@ -88001,12 +84953,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 473 */
+/* 459 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var helpers = __webpack_require__(471);
+	var helpers = __webpack_require__(457);
 
 	var updateService = function updateService(client, args) {
 		var valid = helpers.validate(args, {
@@ -88039,12 +84991,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 474 */
+/* 460 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var helpers = __webpack_require__(471);
+	var helpers = __webpack_require__(457);
 
 	var deleteService = function deleteService(client, args) {
 		var valid = helpers.validate(args, {
@@ -88073,12 +85025,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 475 */
+/* 461 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var helpers = __webpack_require__(471);
+	var helpers = __webpack_require__(457);
 
 	var bulkService = function bulkService(client, args) {
 		var valid = helpers.validate(args, {
@@ -88112,12 +85064,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 476 */
+/* 462 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var helpers = __webpack_require__(471);
+	var helpers = __webpack_require__(457);
 
 	var searchService = function searchService(client, args) {
 		var valid = helpers.validate(args, {
@@ -88158,12 +85110,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 477 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var through2 = __webpack_require__(459);
+	var through2 = __webpack_require__(453);
 
 	var getTypesService = function getTypesService(client) {
 		var resultStream = through2.obj(function (chunk, enc, callback) {
@@ -88187,14 +85139,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 478 */
+/* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var stringify = __webpack_require__(479);
+	var stringify = __webpack_require__(465);
 
-	var helpers = __webpack_require__(471);
+	var helpers = __webpack_require__(457);
 
 	var addWebhookService = function addWebhook(client, args, webhook) {
 		var valid = helpers.validate(args, {
@@ -88202,12 +85154,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		});
 		if (valid !== true) {
 			throw valid;
-			return;
 		}
 
 		if (args.type === undefined || !(typeof args.type === 'string' || args.type.constructor === Array) || args.type === '' || args.type.length === 0) {
 			throw new Error("fields missing: type");
-			return;
 		}
 
 		valid = helpers.validate(args.body, {
@@ -88215,7 +85165,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		});
 		if (valid !== true) {
 			throw valid;
-			return;
 		}
 
 		if (args.type.constructor === Array) {
@@ -88241,7 +85190,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.webhooks.push(webhook);
 		} else {
 			throw new Error('fields missing: second argument(webhook) is necessary');
-			return;
 		}
 
 		this.populateBody();
@@ -88306,10 +85254,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 479 */
+/* 465 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var json = typeof JSON !== 'undefined' ? JSON : __webpack_require__(480);
+	var json = typeof JSON !== 'undefined' ? JSON : __webpack_require__(466);
 
 	module.exports = function (obj, opts) {
 	    if (!opts) opts = {};
@@ -88396,15 +85344,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 480 */
+/* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports.parse = __webpack_require__(481);
-	exports.stringify = __webpack_require__(482);
+	exports.parse = __webpack_require__(467);
+	exports.stringify = __webpack_require__(468);
 
 
 /***/ },
-/* 481 */
+/* 467 */
 /***/ function(module, exports) {
 
 	var at, // The index of the current character
@@ -88683,7 +85631,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 482 */
+/* 468 */
 /***/ function(module, exports) {
 
 	var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
@@ -88843,12 +85791,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 483 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var helpers = __webpack_require__(471);
+	var helpers = __webpack_require__(457);
 
 	var streamDocumentService = function streamDocumentService(client, args) {
 		var valid = helpers.validate(args, {
@@ -88883,12 +85831,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 484 */
+/* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var helpers = __webpack_require__(471);
+	var helpers = __webpack_require__(457);
 
 	var streamSearchService = function streamSearchService(client, args) {
 		var valid = helpers.validate(args, {
