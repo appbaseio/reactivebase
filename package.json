@@ -1,6 +1,6 @@
 {
   "name": "@appbaseio/reactivebase",
-  "version": "1.0.0-alpha18",
+  "version": "1.0.0-alpha19",
   "description": "Data components for building reactive UIs",
   "main": "lib/app.js",
   "scripts": {
@@ -88,6 +88,7 @@
     "shebang-loader": "0.0.1",
     "storybook-readme": "^1.2.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "1.16.0"
   }
 }

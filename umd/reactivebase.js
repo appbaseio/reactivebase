@@ -7,7 +7,11 @@
 		exports["UmdReactiveBase"] = factory(require("react"), require("react-dom"), require("ws"));
 	else
 		root["UmdReactiveBase"] = factory(root["React"], root["ReactDOM"], root["ws"]);
+<<<<<<< HEAD
 })(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_381__) {
+=======
+})(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_394__) {
+>>>>>>> dev
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -116,6 +120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 
+<<<<<<< HEAD
 	var _DateRange = __webpack_require__(363);
 
 	var _DateRange2 = _interopRequireDefault(_DateRange);
@@ -137,6 +142,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _PoweredBy2 = _interopRequireDefault(_PoweredBy);
 
 	var _DataController = __webpack_require__(372);
+=======
+	var _DateRange = __webpack_require__(375);
+
+	var _DateRange2 = _interopRequireDefault(_DateRange);
+
+	var _NumberBox = __webpack_require__(376);
+
+	var _NumberBox2 = _interopRequireDefault(_NumberBox);
+
+	var _ReactiveList = __webpack_require__(377);
+
+	var _ReactiveList2 = _interopRequireDefault(_ReactiveList);
+
+	var _ReactiveElement = __webpack_require__(383);
+
+	var _ReactiveElement2 = _interopRequireDefault(_ReactiveElement);
+
+	var _PoweredBy = __webpack_require__(379);
+
+	var _PoweredBy2 = _interopRequireDefault(_PoweredBy);
+
+	var _DataController = __webpack_require__(384);
+>>>>>>> dev
 
 	var _DataController2 = _interopRequireDefault(_DataController);
 
@@ -144,6 +172,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _InitialLoader2 = _interopRequireDefault(_InitialLoader);
 
+<<<<<<< HEAD
 	var _NoResults = __webpack_require__(368);
 
 	var _NoResults2 = _interopRequireDefault(_NoResults);
@@ -153,6 +182,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ResultStats2 = _interopRequireDefault(_ResultStats);
 
 	var _ReactiveBase = __webpack_require__(373);
+=======
+	var _NoResults = __webpack_require__(380);
+
+	var _NoResults2 = _interopRequireDefault(_NoResults);
+
+	var _ResultStats = __webpack_require__(381);
+
+	var _ResultStats2 = _interopRequireDefault(_ResultStats);
+
+	var _ReactiveBase = __webpack_require__(385);
+>>>>>>> dev
 
 	var _ReactiveBase2 = _interopRequireDefault(_ReactiveBase);
 
@@ -1695,9 +1735,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(23);
 
+<<<<<<< HEAD
 	var _require = __webpack_require__(16);
 
 	var EventEmitter = _require.EventEmitter;
+=======
+	var _require = __webpack_require__(16),
+	    EventEmitter = _require.EventEmitter;
+>>>>>>> dev
 
 	var helper = __webpack_require__(13);
 
@@ -1798,6 +1843,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 
 				if (validQuery) {
+<<<<<<< HEAD
 					(function () {
 						var channelResponse = {
 							startTime: new Date().getTime(),
@@ -1834,8 +1880,44 @@ return /******/ (function(modules) { // webpackBootstrap
 							}
 						} else {
 							console.error("appbaseRef is not set for " + channelId);
+=======
+					var channelResponse = {
+						startTime: new Date().getTime(),
+						appliedQuery: queryObj
+					};
+					var appbaseRef = this.appbaseRef[channelId];
+					if (appbaseRef) {
+						// apply search query and emit historic queryResult
+						var searchQueryObj = queryObj;
+						searchQueryObj.type = this.type[channelId] === "*" ? "" : this.type[channelId];
+						searchQueryObj.preference = this.app[channelId];
+						setQueryState(channelResponse);
+						appbaseRef.search(searchQueryObj).on("data", function (data) {
+							channelResponse.mode = "historic";
+							channelResponse.data = _this2.highlightModify(data, channelResponse.appliedQuery);
+							self.emitter.emit(channelId, channelResponse);
+							var globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
+							self.emitter.emit("global", {
+								channelResponse: channelResponse,
+								react: channelObj.react,
+								queryOptions: globalQueryOptions
+							});
+						}).on("error", function (error) {
+							var channelError = {
+								appliedQuery: channelResponse.appliedQuery,
+								error: error,
+								startTime: channelResponse.startTime
+							};
+							self.emitter.emit(channelId, channelError);
+						});
+						// apply searchStream query and emit streaming data
+						if (channelObj.stream) {
+							activateStream.call(this, channelId, queryObj, appbaseRef);
+>>>>>>> dev
 						}
-					})();
+					} else {
+						console.error("appbaseRef is not set for " + channelId);
+					}
 				} else {
 					var obj = {
 						mode: "historic",
@@ -2610,11 +2692,19 @@ return /******/ (function(modules) { // webpackBootstrap
 		var paginationHeight = function paginationHeight() {
 			return $(".rbc-pagination").length * 85;
 		};
+<<<<<<< HEAD
 
 		var getHeight = function getHeight(item) {
 			return item.height() ? item.height() : 0;
 		};
 
+=======
+
+		var getHeight = function getHeight(item) {
+			return item.height() ? item.height() : 0;
+		};
+
+>>>>>>> dev
 		var handleResponsive = function handleResponsive() {
 			var height = $(window).height();
 			var resultHeight = height - 15;
@@ -2707,17 +2797,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * jQuery JavaScript Library v3.1.1
+	 * jQuery JavaScript Library v3.2.1
 	 * https://jquery.com/
 	 *
 	 * Includes Sizzle.js
 	 * https://sizzlejs.com/
 	 *
-	 * Copyright jQuery Foundation and other contributors
+	 * Copyright JS Foundation and other contributors
 	 * Released under the MIT license
 	 * https://jquery.org/license
 	 *
-	 * Date: 2016-09-22T22:30Z
+	 * Date: 2017-03-20T18:59Z
 	 */
 	( function( global, factory ) {
 
@@ -2796,7 +2886,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	var
-		version = "3.1.1",
+		version = "3.2.1",
 
 		// Define a local copy of jQuery
 		jQuery = function( selector, context ) {
@@ -2944,11 +3034,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 					// Recurse if we're merging plain objects or arrays
 					if ( deep && copy && ( jQuery.isPlainObject( copy ) ||
-						( copyIsArray = jQuery.isArray( copy ) ) ) ) {
+						( copyIsArray = Array.isArray( copy ) ) ) ) {
 
 						if ( copyIsArray ) {
 							copyIsArray = false;
-							clone = src && jQuery.isArray( src ) ? src : [];
+							clone = src && Array.isArray( src ) ? src : [];
 
 						} else {
 							clone = src && jQuery.isPlainObject( src ) ? src : {};
@@ -2986,8 +3076,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		isFunction: function( obj ) {
 			return jQuery.type( obj ) === "function";
 		},
-
-		isArray: Array.isArray,
 
 		isWindow: function( obj ) {
 			return obj != null && obj === obj.window;
@@ -3061,10 +3149,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		// Microsoft forgot to hump their vendor prefix (#9572)
 		camelCase: function( string ) {
 			return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
-		},
-
-		nodeName: function( elem, name ) {
-			return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 		},
 
 		each: function( obj, callback ) {
@@ -5551,6 +5635,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var rneedsContext = jQuery.expr.match.needsContext;
 
+
+
+	function nodeName( elem, name ) {
+
+	  return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
+
+	};
 	var rsingleTag = ( /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i );
 
 
@@ -5902,7 +5993,18 @@ return /******/ (function(modules) { // webpackBootstrap
 			return siblings( elem.firstChild );
 		},
 		contents: function( elem ) {
-			return elem.contentDocument || jQuery.merge( [], elem.childNodes );
+	        if ( nodeName( elem, "iframe" ) ) {
+	            return elem.contentDocument;
+	        }
+
+	        // Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
+	        // Treat the template element as a regular one in browsers that
+	        // don't support it.
+	        if ( nodeName( elem, "template" ) ) {
+	            elem = elem.content || elem;
+	        }
+
+	        return jQuery.merge( [], elem.childNodes );
 		}
 	}, function( name, fn ) {
 		jQuery.fn[ name ] = function( until, selector ) {
@@ -6000,7 +6102,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			fire = function() {
 
 				// Enforce single-firing
-				locked = options.once;
+				locked = locked || options.once;
 
 				// Execute callbacks for all pending executions,
 				// respecting firingIndex overrides and runtime changes
@@ -6169,7 +6271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		throw ex;
 	}
 
-	function adoptValue( value, resolve, reject ) {
+	function adoptValue( value, resolve, reject, noValue ) {
 		var method;
 
 		try {
@@ -6185,9 +6287,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			// Other non-thenables
 			} else {
 
-				// Support: Android 4.0 only
-				// Strict mode functions invoked without .call/.apply get global-object context
-				resolve.call( undefined, value );
+				// Control `resolve` arguments by letting Array#slice cast boolean `noValue` to integer:
+				// * false: [ value ].slice( 0 ) => resolve( value )
+				// * true: [ value ].slice( 1 ) => resolve()
+				resolve.apply( undefined, [ value ].slice( noValue ) );
 			}
 
 		// For Promises/A+, convert exceptions into rejections
@@ -6197,7 +6300,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			// Support: Android 4.0 only
 			// Strict mode functions invoked without .call/.apply get global-object context
-			reject.call( undefined, value );
+			reject.apply( undefined, [ value ] );
 		}
 	}
 
@@ -6522,7 +6625,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			// Single- and empty arguments are adopted like Promise.resolve
 			if ( remaining <= 1 ) {
-				adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject );
+				adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject,
+					!remaining );
 
 				// Use .then() to unwrap secondary thenables (cf. gh-3000)
 				if ( master.state() === "pending" ||
@@ -6593,15 +6697,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		// A counter to track how many items to wait for before
 		// the ready event fires. See #6781
 		readyWait: 1,
-
-		// Hold (or release) the ready event
-		holdReady: function( hold ) {
-			if ( hold ) {
-				jQuery.readyWait++;
-			} else {
-				jQuery.ready( true );
-			}
-		},
 
 		// Handle when the DOM is ready
 		ready: function( wait ) {
@@ -6838,7 +6933,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			if ( key !== undefined ) {
 
 				// Support array or space separated string of keys
-				if ( jQuery.isArray( key ) ) {
+				if ( Array.isArray( key ) ) {
 
 					// If key is an array of keys...
 					// We always set camelCase keys, so remove that.
@@ -7064,7 +7159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// Speed up dequeue by getting out quickly if this is just a lookup
 				if ( data ) {
-					if ( !queue || jQuery.isArray( data ) ) {
+					if ( !queue || Array.isArray( data ) ) {
 						queue = dataPriv.access( elem, type, jQuery.makeArray( data ) );
 					} else {
 						queue.push( data );
@@ -7441,7 +7536,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			ret = [];
 		}
 
-		if ( tag === undefined || tag && jQuery.nodeName( context, tag ) ) {
+		if ( tag === undefined || tag && nodeName( context, tag ) ) {
 			return jQuery.merge( [ context ], ret );
 		}
 
@@ -8048,7 +8143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// For checkbox, fire native event so checked state will be right
 				trigger: function() {
-					if ( this.type === "checkbox" && this.click && jQuery.nodeName( this, "input" ) ) {
+					if ( this.type === "checkbox" && this.click && nodeName( this, "input" ) ) {
 						this.click();
 						return false;
 					}
@@ -8056,7 +8151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// For cross-browser consistency, don't fire native .click() on links
 				_default: function( event ) {
-					return jQuery.nodeName( event.target, "a" );
+					return nodeName( event.target, "a" );
 				}
 			},
 
@@ -8333,11 +8428,12 @@ return /******/ (function(modules) { // webpackBootstrap
 		rscriptTypeMasked = /^true\/(.*)/,
 		rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
 
+	// Prefer a tbody over its parent table for containing new rows
 	function manipulationTarget( elem, content ) {
-		if ( jQuery.nodeName( elem, "table" ) &&
-			jQuery.nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
+		if ( nodeName( elem, "table" ) &&
+			nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
 
-			return elem.getElementsByTagName( "tbody" )[ 0 ] || elem;
+			return jQuery( ">tbody", elem )[ 0 ] || elem;
 		}
 
 		return elem;
@@ -8867,12 +8963,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function curCSS( elem, name, computed ) {
 		var width, minWidth, maxWidth, ret,
+
+			// Support: Firefox 51+
+			// Retrieving style before computed somehow
+			// fixes an issue with getting wrong values
+			// on detached elements
 			style = elem.style;
 
 		computed = computed || getStyles( elem );
 
-		// Support: IE <=9 only
-		// getPropertyValue is only needed for .css('filter') (#12537)
+		// getPropertyValue is needed for:
+		//   .css('filter') (IE 9 only, #12537)
+		//   .css('--customProperty) (#3144)
 		if ( computed ) {
 			ret = computed.getPropertyValue( name ) || computed[ name ];
 
@@ -8938,6 +9040,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		// except "table", "table-cell", or "table-caption"
 		// See here for display values: https://developer.mozilla.org/en-US/docs/CSS/display
 		rdisplayswap = /^(none|table(?!-c[ea]).+)/,
+		rcustomProp = /^--/,
 		cssShow = { position: "absolute", visibility: "hidden", display: "block" },
 		cssNormalTransform = {
 			letterSpacing: "0",
@@ -8965,6 +9068,16 @@ return /******/ (function(modules) { // webpackBootstrap
 				return name;
 			}
 		}
+	}
+
+	// Return a property mapped along what jQuery.cssProps suggests or to
+	// a vendor prefixed property.
+	function finalPropName( name ) {
+		var ret = jQuery.cssProps[ name ];
+		if ( !ret ) {
+			ret = jQuery.cssProps[ name ] = vendorPropName( name ) || name;
+		}
+		return ret;
 	}
 
 	function setPositiveNumber( elem, value, subtract ) {
@@ -9027,43 +9140,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function getWidthOrHeight( elem, name, extra ) {
 
-		// Start with offset property, which is equivalent to the border-box value
-		var val,
-			valueIsBorderBox = true,
+		// Start with computed style
+		var valueIsBorderBox,
 			styles = getStyles( elem ),
+			val = curCSS( elem, name, styles ),
 			isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
 
-		// Support: IE <=11 only
-		// Running getBoundingClientRect on a disconnected node
-		// in IE throws an error.
-		if ( elem.getClientRects().length ) {
-			val = elem.getBoundingClientRect()[ name ];
+		// Computed unit is not pixels. Stop here and return.
+		if ( rnumnonpx.test( val ) ) {
+			return val;
 		}
 
-		// Some non-html elements return undefined for offsetWidth, so check for null/undefined
-		// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
-		// MathML - https://bugzilla.mozilla.org/show_bug.cgi?id=491668
-		if ( val <= 0 || val == null ) {
+		// Check for style in case a browser which returns unreliable values
+		// for getComputedStyle silently falls back to the reliable elem.style
+		valueIsBorderBox = isBorderBox &&
+			( support.boxSizingReliable() || val === elem.style[ name ] );
 
-			// Fall back to computed then uncomputed css if necessary
-			val = curCSS( elem, name, styles );
-			if ( val < 0 || val == null ) {
-				val = elem.style[ name ];
-			}
-
-			// Computed unit is not pixels. Stop here and return.
-			if ( rnumnonpx.test( val ) ) {
-				return val;
-			}
-
-			// Check for style in case a browser which returns unreliable values
-			// for getComputedStyle silently falls back to the reliable elem.style
-			valueIsBorderBox = isBorderBox &&
-				( support.boxSizingReliable() || val === elem.style[ name ] );
-
-			// Normalize "", auto, and prepare for extra
-			val = parseFloat( val ) || 0;
+		// Fall back to offsetWidth/Height when value is "auto"
+		// This happens for inline elements with no explicit setting (gh-3571)
+		if ( val === "auto" ) {
+			val = elem[ "offset" + name[ 0 ].toUpperCase() + name.slice( 1 ) ];
 		}
+
+		// Normalize "", auto, and prepare for extra
+		val = parseFloat( val ) || 0;
 
 		// Use the active box-sizing model to add/subtract irrelevant styles
 		return ( val +
@@ -9128,10 +9228,15 @@ return /******/ (function(modules) { // webpackBootstrap
 			// Make sure that we're working with the right name
 			var ret, type, hooks,
 				origName = jQuery.camelCase( name ),
+				isCustomProp = rcustomProp.test( name ),
 				style = elem.style;
 
-			name = jQuery.cssProps[ origName ] ||
-				( jQuery.cssProps[ origName ] = vendorPropName( origName ) || origName );
+			// Make sure that we're working with the right name. We don't
+			// want to query the value if it is a CSS custom property
+			// since they are user-defined.
+			if ( !isCustomProp ) {
+				name = finalPropName( origName );
+			}
 
 			// Gets hook for the prefixed version, then unprefixed version
 			hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
@@ -9167,7 +9272,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				if ( !hooks || !( "set" in hooks ) ||
 					( value = hooks.set( elem, value, extra ) ) !== undefined ) {
 
-					style[ name ] = value;
+					if ( isCustomProp ) {
+						style.setProperty( name, value );
+					} else {
+						style[ name ] = value;
+					}
 				}
 
 			} else {
@@ -9186,11 +9295,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		css: function( elem, name, extra, styles ) {
 			var val, num, hooks,
-				origName = jQuery.camelCase( name );
+				origName = jQuery.camelCase( name ),
+				isCustomProp = rcustomProp.test( name );
 
-			// Make sure that we're working with the right name
-			name = jQuery.cssProps[ origName ] ||
-				( jQuery.cssProps[ origName ] = vendorPropName( origName ) || origName );
+			// Make sure that we're working with the right name. We don't
+			// want to modify the value if it is a CSS custom property
+			// since they are user-defined.
+			if ( !isCustomProp ) {
+				name = finalPropName( origName );
+			}
 
 			// Try prefixed name followed by the unprefixed name
 			hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
@@ -9215,6 +9328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				num = parseFloat( val );
 				return extra === true || isFinite( num ) ? num || 0 : val;
 			}
+
 			return val;
 		}
 	} );
@@ -9314,7 +9428,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					map = {},
 					i = 0;
 
-				if ( jQuery.isArray( name ) ) {
+				if ( Array.isArray( name ) ) {
 					styles = getStyles( elem );
 					len = name.length;
 
@@ -9452,13 +9566,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	var
-		fxNow, timerId,
+		fxNow, inProgress,
 		rfxtypes = /^(?:toggle|show|hide)$/,
 		rrun = /queueHooks$/;
 
-	function raf() {
-		if ( timerId ) {
-			window.requestAnimationFrame( raf );
+	function schedule() {
+		if ( inProgress ) {
+			if ( document.hidden === false && window.requestAnimationFrame ) {
+				window.requestAnimationFrame( schedule );
+			} else {
+				window.setTimeout( schedule, jQuery.fx.interval );
+			}
+
 			jQuery.fx.tick();
 		}
 	}
@@ -9685,7 +9804,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			name = jQuery.camelCase( index );
 			easing = specialEasing[ name ];
 			value = props[ index ];
-			if ( jQuery.isArray( value ) ) {
+			if ( Array.isArray( value ) ) {
 				easing = value[ 1 ];
 				value = props[ index ] = value[ 0 ];
 			}
@@ -9744,12 +9863,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				deferred.notifyWith( elem, [ animation, percent, remaining ] );
 
+				// If there's more to do, yield
 				if ( percent < 1 && length ) {
 					return remaining;
-				} else {
-					deferred.resolveWith( elem, [ animation ] );
-					return false;
 				}
+
+				// If this was an empty animation, synthesize a final progress notification
+				if ( !length ) {
+					deferred.notifyWith( elem, [ animation, 1, 0 ] );
+				}
+
+				// Resolve the animation and report its conclusion
+				deferred.resolveWith( elem, [ animation ] );
+				return false;
 			},
 			animation = deferred.promise( {
 				elem: elem,
@@ -9814,6 +9940,13 @@ return /******/ (function(modules) { // webpackBootstrap
 			animation.opts.start.call( elem, animation );
 		}
 
+		// Attach callbacks from options
+		animation
+			.progress( animation.opts.progress )
+			.done( animation.opts.done, animation.opts.complete )
+			.fail( animation.opts.fail )
+			.always( animation.opts.always );
+
 		jQuery.fx.timer(
 			jQuery.extend( tick, {
 				elem: elem,
@@ -9822,11 +9955,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			} )
 		);
 
-		// attach callbacks from options
-		return animation.progress( animation.opts.progress )
-			.done( animation.opts.done, animation.opts.complete )
-			.fail( animation.opts.fail )
-			.always( animation.opts.always );
+		return animation;
 	}
 
 	jQuery.Animation = jQuery.extend( Animation, {
@@ -9877,8 +10006,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			easing: fn && easing || easing && !jQuery.isFunction( easing ) && easing
 		};
 
-		// Go to the end state if fx are off or if document is hidden
-		if ( jQuery.fx.off || document.hidden ) {
+		// Go to the end state if fx are off
+		if ( jQuery.fx.off ) {
 			opt.duration = 0;
 
 		} else {
@@ -10070,7 +10199,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		for ( ; i < timers.length; i++ ) {
 			timer = timers[ i ];
 
-			// Checks the timer has not already been removed
+			// Run the timer and safely remove it when done (allowing for external removal)
 			if ( !timer() && timers[ i ] === timer ) {
 				timers.splice( i--, 1 );
 			}
@@ -10084,30 +10213,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	jQuery.fx.timer = function( timer ) {
 		jQuery.timers.push( timer );
-		if ( timer() ) {
-			jQuery.fx.start();
-		} else {
-			jQuery.timers.pop();
-		}
+		jQuery.fx.start();
 	};
 
 	jQuery.fx.interval = 13;
 	jQuery.fx.start = function() {
-		if ( !timerId ) {
-			timerId = window.requestAnimationFrame ?
-				window.requestAnimationFrame( raf ) :
-				window.setInterval( jQuery.fx.tick, jQuery.fx.interval );
+		if ( inProgress ) {
+			return;
 		}
+
+		inProgress = true;
+		schedule();
 	};
 
 	jQuery.fx.stop = function() {
-		if ( window.cancelAnimationFrame ) {
-			window.cancelAnimationFrame( timerId );
-		} else {
-			window.clearInterval( timerId );
-		}
-
-		timerId = null;
+		inProgress = null;
 	};
 
 	jQuery.fx.speeds = {
@@ -10224,7 +10344,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			type: {
 				set: function( elem, value ) {
 					if ( !support.radioValue && value === "radio" &&
-						jQuery.nodeName( elem, "input" ) ) {
+						nodeName( elem, "input" ) ) {
 						var val = elem.value;
 						elem.setAttribute( "type", value );
 						if ( val ) {
@@ -10655,7 +10775,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				} else if ( typeof val === "number" ) {
 					val += "";
 
-				} else if ( jQuery.isArray( val ) ) {
+				} else if ( Array.isArray( val ) ) {
 					val = jQuery.map( val, function( value ) {
 						return value == null ? "" : value + "";
 					} );
@@ -10714,7 +10834,7 @@ return /******/ (function(modules) { // webpackBootstrap
 								// Don't return options that are disabled or in a disabled optgroup
 								!option.disabled &&
 								( !option.parentNode.disabled ||
-									!jQuery.nodeName( option.parentNode, "optgroup" ) ) ) {
+									!nodeName( option.parentNode, "optgroup" ) ) ) {
 
 							// Get the specific value for the option
 							value = jQuery( option ).val();
@@ -10766,7 +10886,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	jQuery.each( [ "radio", "checkbox" ], function() {
 		jQuery.valHooks[ this ] = {
 			set: function( elem, value ) {
-				if ( jQuery.isArray( value ) ) {
+				if ( Array.isArray( value ) ) {
 					return ( elem.checked = jQuery.inArray( jQuery( elem ).val(), value ) > -1 );
 				}
 			}
@@ -11061,7 +11181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function buildParams( prefix, obj, traditional, add ) {
 		var name;
 
-		if ( jQuery.isArray( obj ) ) {
+		if ( Array.isArray( obj ) ) {
 
 			// Serialize array item.
 			jQuery.each( obj, function( i, v ) {
@@ -11113,7 +11233,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 
 		// If an array was passed in, assume that it is an array of form elements.
-		if ( jQuery.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
+		if ( Array.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
 
 			// Serialize the form elements
 			jQuery.each( a, function() {
@@ -11159,7 +11279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					return null;
 				}
 
-				if ( jQuery.isArray( val ) ) {
+				if ( Array.isArray( val ) ) {
 					return jQuery.map( val, function( val ) {
 						return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
 					} );
@@ -12584,13 +12704,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 
-	/**
-	 * Gets a window from an element
-	 */
-	function getWindow( elem ) {
-		return jQuery.isWindow( elem ) ? elem : elem.nodeType === 9 && elem.defaultView;
-	}
-
 	jQuery.offset = {
 		setOffset: function( elem, options, i ) {
 			var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calculatePosition,
@@ -12655,13 +12768,14 @@ return /******/ (function(modules) { // webpackBootstrap
 					} );
 			}
 
-			var docElem, win, rect, doc,
+			var doc, docElem, rect, win,
 				elem = this[ 0 ];
 
 			if ( !elem ) {
 				return;
 			}
 
+			// Return zeros for disconnected and hidden (display: none) elements (gh-2310)
 			// Support: IE <=11 only
 			// Running getBoundingClientRect on a
 			// disconnected node in IE throws an error
@@ -12671,20 +12785,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			rect = elem.getBoundingClientRect();
 
-			// Make sure element is not hidden (display: none)
-			if ( rect.width || rect.height ) {
-				doc = elem.ownerDocument;
-				win = getWindow( doc );
-				docElem = doc.documentElement;
+			doc = elem.ownerDocument;
+			docElem = doc.documentElement;
+			win = doc.defaultView;
 
-				return {
-					top: rect.top + win.pageYOffset - docElem.clientTop,
-					left: rect.left + win.pageXOffset - docElem.clientLeft
-				};
-			}
-
-			// Return zeros for disconnected and hidden elements (gh-2310)
-			return rect;
+			return {
+				top: rect.top + win.pageYOffset - docElem.clientTop,
+				left: rect.left + win.pageXOffset - docElem.clientLeft
+			};
 		},
 
 		position: function() {
@@ -12710,7 +12818,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				// Get correct offsets
 				offset = this.offset();
-				if ( !jQuery.nodeName( offsetParent[ 0 ], "html" ) ) {
+				if ( !nodeName( offsetParent[ 0 ], "html" ) ) {
 					parentOffset = offsetParent.offset();
 				}
 
@@ -12757,7 +12865,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		jQuery.fn[ method ] = function( val ) {
 			return access( this, function( elem, method, val ) {
-				var win = getWindow( elem );
+
+				// Coalesce documents and windows
+				var win;
+				if ( jQuery.isWindow( elem ) ) {
+					win = elem;
+				} else if ( elem.nodeType === 9 ) {
+					win = elem.defaultView;
+				}
 
 				if ( val === undefined ) {
 					return win ? win[ prop ] : elem[ method ];
@@ -12866,7 +12981,16 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	} );
 
+	jQuery.holdReady = function( hold ) {
+		if ( hold ) {
+			jQuery.readyWait++;
+		} else {
+			jQuery.ready( true );
+		}
+	};
+	jQuery.isArray = Array.isArray;
 	jQuery.parseJSON = JSON.parse;
+	jQuery.nodeName = nodeName;
 
 
 
@@ -12919,7 +13043,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	if ( !noGlobal ) {
 		window.jQuery = window.$ = jQuery;
 	}
-
 
 
 
@@ -13475,7 +13598,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var undefined;
 
 	  /** Used as the semantic version number. */
+<<<<<<< HEAD
 	  var VERSION = '4.16.3';
+=======
+	  var VERSION = '4.17.4';
+>>>>>>> dev
 
 	  /** Used as the size to enable large array optimizations. */
 	  var LARGE_ARRAY_SIZE = 200;
@@ -15014,9 +15141,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Shortcut fusion is an optimization to merge iteratee calls; this avoids
 	     * the creation of intermediate arrays and can greatly reduce the number of
 	     * iteratee executions. Sections of a chain sequence qualify for shortcut
-	     * fusion if the section is applied to an array of at least `200` elements
-	     * and any iteratees accept only one argument. The heuristic for whether a
-	     * section qualifies for shortcut fusion is subject to change.
+	     * fusion if the section is applied to an array and iteratees accept only
+	     * one argument. The heuristic for whether a section qualifies for shortcut
+	     * fusion is subject to change.
 	     *
 	     * Chaining is supported in custom builds as long as the `_#value` method is
 	     * directly or indirectly included in the build.
@@ -15175,8 +15302,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * By default, the template delimiters used by lodash are like those in
-	     * embedded Ruby (ERB). Change the following template settings to use
-	     * alternative delimiters.
+	     * embedded Ruby (ERB) as well as ES2015 template strings. Change the
+	     * following template settings to use alternative delimiters.
 	     *
 	     * @static
 	     * @memberOf _
@@ -15323,8 +15450,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          resIndex = 0,
 	          takeCount = nativeMin(length, this.__takeCount__);
 
-	      if (!isArr || arrLength < LARGE_ARRAY_SIZE ||
-	          (arrLength == length && takeCount == length)) {
+	      if (!isArr || (!isRight && arrLength == length && takeCount == length)) {
 	        return baseWrapperValue(array, this.__actions__);
 	      }
 	      var result = [];
@@ -15438,7 +15564,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    function hashHas(key) {
 	      var data = this.__data__;
-	      return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
+	      return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
 	    }
 
 	    /**
@@ -15901,24 +16027,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    function arrayShuffle(array) {
 	      return shuffleSelf(copyArray(array));
-	    }
-
-	    /**
-	     * Used by `_.defaults` to customize its `_.assignIn` use.
-	     *
-	     * @private
-	     * @param {*} objValue The destination value.
-	     * @param {*} srcValue The source value.
-	     * @param {string} key The key of the property to assign.
-	     * @param {Object} object The parent object of `objValue`.
-	     * @returns {*} Returns the value to assign.
-	     */
-	    function assignInDefaults(objValue, srcValue, key, object) {
-	      if (objValue === undefined ||
-	          (eq(objValue, objectProto[key]) && !hasOwnProperty.call(object, key))) {
-	        return srcValue;
-	      }
-	      return objValue;
 	    }
 
 	    /**
@@ -16507,7 +16615,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @returns {string} Returns the `toStringTag`.
 	     */
 	    function baseGetTag(value) {
+<<<<<<< HEAD
 	      return objectToString.call(value);
+=======
+	      if (value == null) {
+	        return value === undefined ? undefinedTag : nullTag;
+	      }
+	      return (symToStringTag && symToStringTag in Object(value))
+	        ? getRawTag(value)
+	        : objectToString(value);
+>>>>>>> dev
 	    }
 
 	    /**
@@ -16702,7 +16819,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (value === other) {
 	        return true;
 	      }
-	      if (value == null || other == null || (!isObject(value) && !isObjectLike(other))) {
+	      if (value == null || other == null || (!isObjectLike(value) && !isObjectLike(other))) {
 	        return value !== value && other !== other;
 	      }
 	      return baseIsEqualDeep(value, other, baseIsEqual, customizer, bitmask, stack);
@@ -16726,17 +16843,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function baseIsEqualDeep(object, other, equalFunc, customizer, bitmask, stack) {
 	      var objIsArr = isArray(object),
 	          othIsArr = isArray(other),
-	          objTag = arrayTag,
-	          othTag = arrayTag;
+	          objTag = objIsArr ? arrayTag : getTag(object),
+	          othTag = othIsArr ? arrayTag : getTag(other);
 
-	      if (!objIsArr) {
-	        objTag = getTag(object);
-	        objTag = objTag == argsTag ? objectTag : objTag;
-	      }
-	      if (!othIsArr) {
-	        othTag = getTag(other);
-	        othTag = othTag == argsTag ? objectTag : othTag;
-	      }
+	      objTag = objTag == argsTag ? objectTag : objTag;
+	      othTag = othTag == argsTag ? objectTag : othTag;
+
 	      var objIsObj = objTag == objectTag,
 	          othIsObj = othTag == objectTag,
 	          isSameTag = objTag == othTag;
@@ -17185,10 +17297,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {string[]} props The property identifiers to pick.
 	     * @returns {Object} Returns the new object.
 	     */
+<<<<<<< HEAD
 	    function basePick(object, props) {
 	      object = Object(object);
 	      return basePickBy(object, props, function(value, key) {
 	        return key in object;
+=======
+	    function basePick(object, paths) {
+	      return basePickBy(object, paths, function(value, path) {
+	        return hasIn(object, path);
+>>>>>>> dev
 	      });
 	    }
 
@@ -18563,8 +18681,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var args = arguments,
 	              value = args[0];
 
-	          if (wrapper && args.length == 1 &&
-	              isArray(value) && value.length >= LARGE_ARRAY_SIZE) {
+	          if (wrapper && args.length == 1 && isArray(value)) {
 	            return wrapper.plant(value).value();
 	          }
 	          var index = 0,
@@ -18871,7 +18988,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var func = Math[methodName];
 	      return function(number, precision) {
 	        number = toNumber(number);
-	        precision = nativeMin(toInteger(precision), 292);
+	        precision = precision == null ? 0 : nativeMin(toInteger(precision), 292);
 	        if (precision) {
 	          // Shift with exponential notation to avoid floating-point issues.
 	          // See [MDN](https://mdn.io/round#Examples) for more details.
@@ -18977,7 +19094,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      thisArg = newData[2];
 	      partials = newData[3];
 	      holders = newData[4];
-	      arity = newData[9] = newData[9] == null
+	      arity = newData[9] = newData[9] === undefined
 	        ? (isBindKey ? 0 : func.length)
 	        : nativeMax(newData[9] - length, 0);
 
@@ -18995,6 +19112,63 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	      var setter = data ? baseSetData : setData;
 	      return setWrapToString(setter(result, newData), func, bitmask);
+	    }
+
+	    /**
+	     * Used by `_.defaults` to customize its `_.assignIn` use to assign properties
+	     * of source objects to the destination object for all destination properties
+	     * that resolve to `undefined`.
+	     *
+	     * @private
+	     * @param {*} objValue The destination value.
+	     * @param {*} srcValue The source value.
+	     * @param {string} key The key of the property to assign.
+	     * @param {Object} object The parent object of `objValue`.
+	     * @returns {*} Returns the value to assign.
+	     */
+	    function customDefaultsAssignIn(objValue, srcValue, key, object) {
+	      if (objValue === undefined ||
+	          (eq(objValue, objectProto[key]) && !hasOwnProperty.call(object, key))) {
+	        return srcValue;
+	      }
+	      return objValue;
+	    }
+
+	    /**
+	     * Used by `_.defaultsDeep` to customize its `_.merge` use to merge source
+	     * objects into destination objects that are passed thru.
+	     *
+	     * @private
+	     * @param {*} objValue The destination value.
+	     * @param {*} srcValue The source value.
+	     * @param {string} key The key of the property to merge.
+	     * @param {Object} object The parent object of `objValue`.
+	     * @param {Object} source The parent object of `srcValue`.
+	     * @param {Object} [stack] Tracks traversed source values and their merged
+	     *  counterparts.
+	     * @returns {*} Returns the value to assign.
+	     */
+	    function customDefaultsMerge(objValue, srcValue, key, object, source, stack) {
+	      if (isObject(objValue) && isObject(srcValue)) {
+	        // Recursively merge objects and arrays (susceptible to call stack limits).
+	        stack.set(srcValue, objValue);
+	        baseMerge(objValue, srcValue, undefined, customDefaultsMerge, stack);
+	        stack['delete'](srcValue);
+	      }
+	      return objValue;
+	    }
+
+	    /**
+	     * Used by `_.omit` to customize its `_.cloneDeep` use to only clone plain
+	     * objects.
+	     *
+	     * @private
+	     * @param {*} value The value to inspect.
+	     * @param {string} key The key of the property to inspect.
+	     * @returns {*} Returns the uncloned value or `undefined` to defer cloning to `_.cloneDeep`.
+	     */
+	    function customOmitClone(value) {
+	      return isPlainObject(value) ? undefined : value;
 	    }
 
 	    /**
@@ -19169,11 +19343,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {Object} stack Tracks traversed `object` and `other` objects.
 	     * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
 	     */
+<<<<<<< HEAD
 	    function equalObjects(object, other, equalFunc, customizer, bitmask, stack) {
 	      var isPartial = bitmask & PARTIAL_COMPARE_FLAG,
 	          objProps = keys(object),
+=======
+	    function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
+	      var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
+	          objProps = getAllKeys(object),
+>>>>>>> dev
 	          objLength = objProps.length,
-	          othProps = keys(other),
+	          othProps = getAllKeys(other),
 	          othLength = othProps.length;
 
 	      if (objLength != othLength && !isPartial) {
@@ -19384,7 +19564,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {Object} object The object to query.
 	     * @returns {Array} Returns the array of symbols.
 	     */
-	    var getSymbols = nativeGetSymbols ? overArg(nativeGetSymbols, Object) : stubArray;
+	    var getSymbols = !nativeGetSymbols ? stubArray : function(object) {
+	      if (object == null) {
+	        return [];
+	      }
+	      object = Object(object);
+	      return arrayFilter(nativeGetSymbols(object), function(symbol) {
+	        return propertyIsEnumerable.call(object, symbol);
+	      });
+	    };
 
 	    /**
 	     * Creates an array of the own and inherited enumerable symbol properties
@@ -19869,29 +20057,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      data[1] = newBitmask;
 
 	      return data;
-	    }
-
-	    /**
-	     * Used by `_.defaultsDeep` to customize its `_.merge` use.
-	     *
-	     * @private
-	     * @param {*} objValue The destination value.
-	     * @param {*} srcValue The source value.
-	     * @param {string} key The key of the property to merge.
-	     * @param {Object} object The parent object of `objValue`.
-	     * @param {Object} source The parent object of `srcValue`.
-	     * @param {Object} [stack] Tracks traversed source values and their merged
-	     *  counterparts.
-	     * @returns {*} Returns the value to assign.
-	     */
-	    function mergeDefaults(objValue, srcValue, key, object, source, stack) {
-	      if (isObject(objValue) && isObject(srcValue)) {
-	        // Recursively merge objects and arrays (susceptible to call stack limits).
-	        stack.set(srcValue, objValue);
-	        baseMerge(objValue, srcValue, undefined, mergeDefaults, stack);
-	        stack['delete'](srcValue);
-	      }
-	      return objValue;
 	    }
 
 	    /**
@@ -21637,7 +21802,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     *
 	     * var users = [
 	     *   { 'user': 'barney',  'active': false },
-	     *   { 'user': 'fred',    'active': false},
+	     *   { 'user': 'fred',    'active': false },
 	     *   { 'user': 'pebbles', 'active': true }
 	     * ];
 	     *
@@ -24229,7 +24394,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (typeof func != 'function') {
 	        throw new TypeError(FUNC_ERROR_TEXT);
 	      }
-	      start = start === undefined ? 0 : nativeMax(toInteger(start), 0);
+	      start = start == null ? 0 : nativeMax(toInteger(start), 0);
 	      return baseRest(function(args) {
 	        var array = args[start],
 	            otherArgs = castSlice(args, 0, start);
@@ -24896,7 +25061,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * date objects, error objects, maps, numbers, `Object` objects, regexes,
 	     * sets, strings, symbols, and typed arrays. `Object` objects are compared
 	     * by their own, not inherited, enumerable properties. Functions and DOM
-	     * nodes are **not** supported.
+	     * nodes are compared by strict equality, i.e. `===`.
 	     *
 	     * @static
 	     * @memberOf _
@@ -25912,7 +26077,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * // => 3
 	     */
 	    function toSafeInteger(value) {
-	      return baseClamp(toInteger(value), -MAX_SAFE_INTEGER, MAX_SAFE_INTEGER);
+	      return value
+	        ? baseClamp(toInteger(value), -MAX_SAFE_INTEGER, MAX_SAFE_INTEGER)
+	        : (value === 0 ? value : 0);
 	    }
 
 	    /**
@@ -26166,7 +26333,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * // => { 'a': 1, 'b': 2 }
 	     */
 	    var defaults = baseRest(function(args) {
-	      args.push(undefined, assignInDefaults);
+	      args.push(undefined, customDefaultsAssignIn);
 	      return apply(assignInWith, undefined, args);
 	    });
 
@@ -26190,7 +26357,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * // => { 'a': { 'b': 2, 'c': 3 } }
 	     */
 	    var defaultsDeep = baseRest(function(args) {
-	      args.push(undefined, mergeDefaults);
+	      args.push(undefined, customDefaultsMerge);
 	      return apply(mergeWith, undefined, args);
 	    });
 
@@ -26840,7 +27007,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    var omit = flatRest(function(object, props) {
 	      if (object == null) {
+<<<<<<< HEAD
 	        return {};
+=======
+	        return result;
+	      }
+	      var isDeep = false;
+	      paths = arrayMap(paths, function(path) {
+	        path = castPath(path, object);
+	        isDeep || (isDeep = path.length > 1);
+	        return path;
+	      });
+	      copyObject(object, getAllKeysIn(object), result);
+	      if (isDeep) {
+	        result = baseClone(result, CLONE_DEEP_FLAG | CLONE_FLAT_FLAG | CLONE_SYMBOLS_FLAG, customOmitClone);
+	      }
+	      var length = paths.length;
+	      while (length--) {
+	        baseUnset(result, paths[length]);
+>>>>>>> dev
 	      }
 	      props = arrayMap(props, toKey);
 	      return basePick(object, baseDifference(getAllKeysIn(object), props));
@@ -27976,7 +28161,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    function startsWith(string, target, position) {
 	      string = toString(string);
-	      position = baseClamp(toInteger(position), 0, string.length);
+	      position = position == null
+	        ? 0
+	        : baseClamp(toInteger(position), 0, string.length);
+
 	      target = baseToString(target);
 	      return string.slice(position, position + target.length) == target;
 	    }
@@ -28095,9 +28283,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        options = undefined;
 	      }
 	      string = toString(string);
-	      options = assignInWith({}, options, settings, assignInDefaults);
+	      options = assignInWith({}, options, settings, customDefaultsAssignIn);
 
-	      var imports = assignInWith({}, options.imports, settings.imports, assignInDefaults),
+	      var imports = assignInWith({}, options.imports, settings.imports, customDefaultsAssignIn),
 	          importsKeys = keys(imports),
 	          importsValues = baseValues(imports, importsKeys);
 
@@ -30181,14 +30369,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // Add `LazyWrapper` methods for `_.drop` and `_.take` variants.
 	    arrayEach(['drop', 'take'], function(methodName, index) {
 	      LazyWrapper.prototype[methodName] = function(n) {
-	        var filtered = this.__filtered__;
-	        if (filtered && !index) {
-	          return new LazyWrapper(this);
-	        }
 	        n = n === undefined ? 1 : nativeMax(toInteger(n), 0);
 
-	        var result = this.clone();
-	        if (filtered) {
+	        var result = (this.__filtered__ && !index)
+	          ? new LazyWrapper(this)
+	          : this.clone();
+
+	        if (result.__filtered__) {
 	          result.__takeCount__ = nativeMin(n, result.__takeCount__);
 	        } else {
 	          result.__views__.push({
@@ -33849,6 +34036,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					if (nextProps.defaultSelected.start !== _this2.state.values.min || nextProps.defaultSelected.end !== _this2.state.values.max && nextProps.range.start <= nextProps.defaultSelected.start && nextProps.range.end >= nextProps.defaultSelected.end) {
 						var rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
 						if (rem) {
+<<<<<<< HEAD
 							(function () {
 								_this2.setState({
 									values: {
@@ -33893,6 +34081,48 @@ return /******/ (function(modules) { // webpackBootstrap
 									helper.selectedSensor.set(obj, true);
 								}, 1000);
 							})();
+=======
+							_this2.setState({
+								values: {
+									min: _this2.state.values.min,
+									max: nextProps.defaultSelected.end - rem
+								}
+							});
+							var obj = {
+								key: _this2.props.componentId,
+								value: {
+									from: _this2.state.values.min,
+									to: nextProps.defaultSelected.end - rem
+								}
+							};
+							setTimeout(function () {
+								if (_this2.props.onValueChange) {
+									_this2.props.onValueChange(obj.value);
+								}
+								helper.selectedSensor.set(obj, true);
+							}, 1000);
+						} else {
+							var values = {};
+							values.min = nextProps.defaultSelected.start;
+							values.max = nextProps.defaultSelected.end;
+							_this2.setState({
+								values: values,
+								currentValues: values
+							});
+							var _obj = {
+								key: _this2.props.componentId,
+								value: {
+									from: values.min,
+									to: values.max
+								}
+							};
+							setTimeout(function () {
+								if (_this2.props.onValueChange) {
+									_this2.props.onValueChange(_obj.value);
+								}
+								helper.selectedSensor.set(_obj, true);
+							}, 1000);
+>>>>>>> dev
 						}
 					}
 					// check range
@@ -33922,14 +34152,24 @@ return /******/ (function(modules) { // webpackBootstrap
 								from: _values.min,
 								to: _values.max
 							};
+<<<<<<< HEAD
 							var _obj = {
+=======
+							var _obj2 = {
+>>>>>>> dev
 								key: _this2.props.componentId,
 								value: currentRange
 							};
 							if (_this2.props.onValueChange) {
+<<<<<<< HEAD
 								_this2.props.onValueChange(_obj.value);
 							}
 							helper.selectedSensor.set(_obj, true);
+=======
+								_this2.props.onValueChange(_obj2.value);
+							}
+							helper.selectedSensor.set(_obj2, true);
+>>>>>>> dev
 						}
 						_this2.setRangeValue();
 					}
@@ -33943,7 +34183,11 @@ return /******/ (function(modules) { // webpackBootstrap
 									max: nextProps.defaultSelected.end - _rem
 								}
 							});
+<<<<<<< HEAD
 							var _obj2 = {
+=======
+							var _obj3 = {
+>>>>>>> dev
 								key: _this2.props.componentId,
 								value: {
 									from: _this2.state.values.min,
@@ -33951,9 +34195,15 @@ return /******/ (function(modules) { // webpackBootstrap
 								}
 							};
 							if (_this2.props.onValueChange) {
+<<<<<<< HEAD
 								_this2.props.onValueChange(_obj2.value);
 							}
 							helper.selectedSensor.set(_obj2, true);
+=======
+								_this2.props.onValueChange(_obj3.value);
+							}
+							helper.selectedSensor.set(_obj3, true);
+>>>>>>> dev
 						}
 					}
 				}, 300);
@@ -34160,20 +34410,18 @@ return /******/ (function(modules) { // webpackBootstrap
 				var min = this.state.startThreshold ? this.state.startThreshold : newItems[0].key;
 				var max = this.state.endThreshold ? this.state.endThreshold : newItems[itemLength - 1].key;
 				if (itemLength > 1) {
-					(function () {
-						var rangeValue = {
-							counts: _this5.countCalc(min, max, newItems),
-							startThreshold: min,
-							endThreshold: max,
-							values: {
-								min: _this5.state.values.min,
-								max: _this5.state.values.max
-							}
-						};
-						_this5.setState(rangeValue, function () {
-							_this5.handleResults(null, rangeValue.values);
-						});
-					})();
+					var rangeValue = {
+						counts: this.countCalc(min, max, newItems),
+						startThreshold: min,
+						endThreshold: max,
+						values: {
+							min: this.state.values.min,
+							max: this.state.values.max
+						}
+					};
+					this.setState(rangeValue, function () {
+						_this5.handleResults(null, rangeValue.values);
+					});
 				}
 			}
 
@@ -37236,8 +37484,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 148 */
 /***/ function(module, exports) {
 
+	/*
+	object-assign
+	(c) Sindre Sorhus
+	@license MIT
+	*/
+
 	'use strict';
 	/* eslint-disable no-unused-vars */
+	var getOwnPropertySymbols = Object.getOwnPropertySymbols;
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
@@ -37258,7 +37513,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			// Detect buggy property enumeration order in older V8 versions.
 
 			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-			var test1 = new String('abc');  // eslint-disable-line
+			var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
 			test1[5] = 'de';
 			if (Object.getOwnPropertyNames(test1)[0] === '5') {
 				return false;
@@ -37287,7 +37542,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 
 			return true;
-		} catch (e) {
+		} catch (err) {
 			// We don't expect any of the above to throw, but better to be safe.
 			return false;
 		}
@@ -37307,8 +37562,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}
 
-			if (Object.getOwnPropertySymbols) {
-				symbols = Object.getOwnPropertySymbols(from);
+			if (getOwnPropertySymbols) {
+				symbols = getOwnPropertySymbols(from);
 				for (var i = 0; i < symbols.length; i++) {
 					if (propIsEnumerable.call(from, symbols[i])) {
 						to[symbols[i]] = from[symbols[i]];
@@ -37776,6 +38031,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return '';
 	}
 
+	function returnDocument() {
+	  return window.document;
+	}
+
 	var ALL_HANDLERS = ['onClick', 'onMouseDown', 'onTouchStart', 'onMouseEnter', 'onMouseLeave', 'onFocus', 'onBlur'];
 
 	var Trigger = _react2["default"].createClass({
@@ -37803,6 +38062,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    focusDelay: _react.PropTypes.number,
 	    blurDelay: _react.PropTypes.number,
 	    getPopupContainer: _react.PropTypes.func,
+	    getDocument: _react.PropTypes.func,
 	    destroyPopupOnHide: _react.PropTypes.bool,
 	    mask: _react.PropTypes.bool,
 	    maskClosable: _react.PropTypes.bool,
@@ -37820,8 +38080,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return instance.state.popupVisible;
 	    },
 	    getContainer: function getContainer(instance) {
+	      var props = instance.props;
+
 	      var popupContainer = document.createElement('div');
-	      var mountNode = instance.props.getPopupContainer ? instance.props.getPopupContainer((0, _reactDom.findDOMNode)(instance)) : document.body;
+	      // Make sure default popup container will never cause scrollbar appearing
+	      // https://github.com/react-component/trigger/issues/41
+	      popupContainer.style.position = 'absolute';
+	      popupContainer.style.top = '0';
+	      popupContainer.style.left = '0';
+	      popupContainer.style.width = '100%';
+	      var mountNode = props.getPopupContainer ? props.getPopupContainer((0, _reactDom.findDOMNode)(instance)) : props.getDocument().body;
 	      mountNode.appendChild(popupContainer);
 	      return popupContainer;
 	    }
@@ -37831,6 +38099,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return {
 	      prefixCls: 'rc-trigger-popup',
 	      getPopupClassNameFromAlign: returnEmptyString,
+	      getDocument: returnDocument,
 	      onPopupVisibleChange: noop,
 	      afterPopupVisibleChange: noop,
 	      onPopupAlign: noop,
@@ -37893,30 +38162,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        props.afterPopupVisibleChange(state.popupVisible);
 	      }
 	    });
-	    if (this.isClickToHide()) {
-	      if (state.popupVisible) {
-	        if (!this.clickOutsideHandler) {
-	          this.clickOutsideHandler = (0, _addEventListener2["default"])(document, 'mousedown', this.onDocumentClick);
-	          this.touchOutsideHandler = (0, _addEventListener2["default"])(document, 'touchstart', this.onDocumentClick);
-	        }
-	        return;
+
+	    if (state.popupVisible) {
+	      var currentDocument = void 0;
+	      if (!this.clickOutsideHandler && this.isClickToHide()) {
+	        currentDocument = props.getDocument();
+	        this.clickOutsideHandler = (0, _addEventListener2["default"])(currentDocument, 'mousedown', this.onDocumentClick);
 	      }
+	      // always hide on mobile
+	      if (!this.touchOutsideHandler) {
+	        currentDocument = currentDocument || props.getDocument();
+	        this.touchOutsideHandler = (0, _addEventListener2["default"])(currentDocument, 'touchstart', this.onDocumentClick);
+	      }
+	      return;
 	    }
-	    if (this.clickOutsideHandler) {
-	      this.clickOutsideHandler.remove();
-	      this.touchOutsideHandler.remove();
-	      this.clickOutsideHandler = null;
-	      this.touchOutsideHandler = null;
-	    }
+
+	    this.clearOutsideHandler();
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
 	    this.clearDelayTimer();
-	    if (this.clickOutsideHandler) {
-	      this.clickOutsideHandler.remove();
-	      this.touchOutsideHandler.remove();
-	      this.clickOutsideHandler = null;
-	      this.touchOutsideHandler = null;
-	    }
+	    this.clearOutsideHandler();
 	  },
 	  onMouseEnter: function onMouseEnter(e) {
 	    this.fireEvents('onMouseEnter', e);
@@ -38099,6 +38364,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this.delayTimer = null;
 	    }
 	  },
+	  clearOutsideHandler: function clearOutsideHandler() {
+	    if (this.clickOutsideHandler) {
+	      this.clickOutsideHandler.remove();
+	      this.clickOutsideHandler = null;
+	    }
+
+	    if (this.touchOutsideHandler) {
+	      this.touchOutsideHandler.remove();
+	      this.touchOutsideHandler = null;
+	    }
+	  },
 	  createTwoChains: function createTwoChains(event) {
 	    var childPros = this.props.children.props;
 	    var props = this.props;
@@ -38172,7 +38448,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var children = props.children;
 	    var child = _react2["default"].Children.only(children);
 	    var newChildProps = {};
-
 	    if (this.isClickToHide() || this.isClickToShow()) {
 	      newChildProps.onClick = this.onClick;
 	      newChildProps.onMouseDown = this.onMouseDown;
@@ -39933,6 +40208,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _react = __webpack_require__(3);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -39973,6 +40250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  propTypes: {
 	    component: _react2["default"].PropTypes.any,
+	    componentProps: _react2["default"].PropTypes.object,
 	    animation: _react2["default"].PropTypes.object,
 	    transitionName: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.string, _react2["default"].PropTypes.object]),
 	    transitionEnter: _react2["default"].PropTypes.bool,
@@ -39990,6 +40268,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return {
 	      animation: {},
 	      component: 'span',
+	      componentProps: {},
 	      transitionEnter: true,
 	      transitionLeave: true,
 	      transitionAppear: false,
@@ -40237,10 +40516,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (Component) {
 	      var passedProps = props;
 	      if (typeof Component === 'string') {
-	        passedProps = {
+	        passedProps = _extends({
 	          className: props.className,
 	          style: props.style
-	        };
+	        }, props.componentProps);
 	      }
 	      return _react2["default"].createElement(
 	        Component,
@@ -40387,7 +40666,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _react = __webpack_require__(3);
 
@@ -40519,8 +40798,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var prefixes = ['-webkit-', '-moz-', '-o-', 'ms-', ''];
 
 	function getStyleProperty(node, name) {
-	  var style = window.getComputedStyle(node);
-
+	  // old ff need null, https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle
+	  var style = window.getComputedStyle(node, null);
 	  var ret = '';
 	  for (var i = 0; i < prefixes.length; i++) {
 	    ret = style.getPropertyValue(prefixes[i] + name);
@@ -42066,6 +42345,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (_.has(hit, field)) {
 					val = hit[field];
 				} else if (field.indexOf(".") > -1) {
+<<<<<<< HEAD
 					(function () {
 						var prefix = "";
 						var fieldSplit = field.split(".");
@@ -42081,6 +42361,21 @@ return /******/ (function(modules) { // webpackBootstrap
 							}
 						});
 					})();
+=======
+					var prefix = "";
+					var fieldSplit = field.split(".");
+					fieldSplit.forEach(function (item, index) {
+						prefix += item;
+						if (_.isArray(_.get(hit, prefix))) {
+							prefix += "[" + index + "]";
+						}
+						if (fieldSplit.length - 1 !== index) {
+							prefix += ".";
+						} else {
+							val = _.get(hit, prefix);
+						}
+					});
+>>>>>>> dev
 				}
 				return val;
 			}
@@ -42327,6 +42622,259 @@ return /******/ (function(modules) { // webpackBootstrap
 		customQuery: TYPES.FUNCTION,
 		componentStyle: TYPES.OBJECT,
 		highlight: TYPES.BOOLEAN
+<<<<<<< HEAD
+=======
+	};
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(5);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _constants = __webpack_require__(27);
+
+	var TYPES = _interopRequireWildcard(_constants);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var helper = __webpack_require__(13);
+
+	var SingleRange = function (_Component) {
+		_inherits(SingleRange, _Component);
+
+		function SingleRange(props, context) {
+			_classCallCheck(this, SingleRange);
+
+			var _this = _possibleConstructorReturn(this, (SingleRange.__proto__ || Object.getPrototypeOf(SingleRange)).call(this, props));
+
+			_this.state = {
+				selected: null
+			};
+			_this.type = "range";
+			_this.defaultSelected = _this.props.defaultSelected;
+			_this.handleChange = _this.handleChange.bind(_this);
+			_this.customQuery = _this.customQuery.bind(_this);
+			return _this;
+		}
+
+		// Set query information
+
+
+		_createClass(SingleRange, [{
+			key: "componentDidMount",
+			value: function componentDidMount() {
+				var _this2 = this;
+
+				this.setQueryInfo();
+				if (this.defaultSelected) {
+					var records = this.props.data.filter(function (record) {
+						return record.label === _this2.defaultSelected;
+					});
+					if (records && records.length) {
+						setTimeout(this.handleChange.bind(this, records[0]), 1000);
+					}
+				}
+			}
+		}, {
+			key: "componentWillUpdate",
+			value: function componentWillUpdate() {
+				var _this3 = this;
+
+				setTimeout(function () {
+					if (_this3.defaultSelected != _this3.props.defaultSelected) {
+						_this3.defaultSelected = _this3.props.defaultSelected;
+						var records = _this3.props.data.filter(function (record) {
+							return record.label === _this3.defaultSelected;
+						});
+						if (records && records.length) {
+							setTimeout(_this3.handleChange.bind(_this3, records[0]), 1000);
+						}
+					}
+				}, 300);
+			}
+
+			// set the query type and input data
+
+		}, {
+			key: "setQueryInfo",
+			value: function setQueryInfo() {
+				var obj = {
+					key: this.props.componentId,
+					value: {
+						queryType: this.type,
+						inputData: this.props.appbaseField,
+						customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
+					}
+				};
+				helper.selectedSensor.setSensorInfo(obj);
+			}
+
+			// build query for this sensor only
+
+		}, {
+			key: "customQuery",
+			value: function customQuery(record) {
+				if (record) {
+					return {
+						range: _defineProperty({}, this.props.appbaseField, {
+							gte: record.start,
+							lte: record.end,
+							boost: 2.0
+						})
+					};
+				}
+			}
+
+			// handle the input change and pass the value inside sensor info
+
+		}, {
+			key: "handleChange",
+			value: function handleChange(record) {
+				this.setState({
+					selected: record
+				});
+				var obj = {
+					key: this.props.componentId,
+					value: record
+				};
+				// pass the selected sensor value with componentId as key,
+				var isExecuteQuery = true;
+				if (this.props.onValueChange) {
+					this.props.onValueChange(obj.value);
+				}
+				helper.selectedSensor.set(obj, isExecuteQuery);
+			}
+		}, {
+			key: "renderButtons",
+			value: function renderButtons() {
+				var _this4 = this;
+
+				var buttons = void 0;
+				var selectedText = this.state.selected && this.state.selected.label ? this.state.selected.label : "";
+				if (this.props.data) {
+					buttons = this.props.data.map(function (record, i) {
+						return _react2.default.createElement(
+							"div",
+							{ className: "rbc-list-item row", key: i, onClick: function onClick() {
+									return _this4.handleChange(record);
+								} },
+							_react2.default.createElement("input", {
+								type: "radio",
+								className: "rbc-radio-item",
+								checked: selectedText === record.label,
+								value: record.label
+							}),
+							_react2.default.createElement(
+								"label",
+								{ className: "rbc-label" },
+								record.label
+							)
+						);
+					});
+				}
+				return buttons;
+			}
+
+			// render
+
+		}, {
+			key: "render",
+			value: function render() {
+				var title = null;
+				if (this.props.title) {
+					title = _react2.default.createElement(
+						"h4",
+						{ className: "rbc-title col s12 col-xs-12" },
+						this.props.title
+					);
+				}
+
+				var cx = (0, _classnames2.default)({
+					"rbc-title-active": this.props.title,
+					"rbc-title-inactive": !this.props.title
+				});
+
+				return _react2.default.createElement(
+					"div",
+					{ className: "rbc rbc-singlerange col s12 col-xs-12 card thumbnail " + cx, style: this.props.componentStyle },
+					_react2.default.createElement(
+						"div",
+						{ className: "row" },
+						title,
+						_react2.default.createElement(
+							"div",
+							{ className: "col s12 col-xs-12 rbc-list-container" },
+							this.renderButtons()
+						)
+					)
+				);
+			}
+		}]);
+
+		return SingleRange;
+	}(_react.Component);
+
+	exports.default = SingleRange;
+
+
+	SingleRange.propTypes = {
+		componentId: _react2.default.PropTypes.string.isRequired,
+		appbaseField: _react2.default.PropTypes.string.isRequired,
+		title: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.element]),
+		data: _react2.default.PropTypes.any.isRequired,
+		defaultSelected: _react2.default.PropTypes.string,
+		customQuery: _react2.default.PropTypes.func,
+		onValueChange: _react2.default.PropTypes.func,
+		componentStyle: _react2.default.PropTypes.object
+	};
+
+	// Default props value
+	SingleRange.defaultProps = {
+		title: null,
+		componentStyle: {}
+	};
+
+	// context type
+	SingleRange.contextTypes = {
+		appbaseRef: _react2.default.PropTypes.any.isRequired,
+		type: _react2.default.PropTypes.any.isRequired
+	};
+
+	SingleRange.types = {
+		componentId: TYPES.STRING,
+		appbaseField: TYPES.STRING,
+		appbaseFieldType: TYPES.NUMBER,
+		title: TYPES.STRING,
+		data: TYPES.OBJECT,
+		defaultSelected: TYPES.STRING,
+		customQuery: TYPES.FUNCTION,
+		componentStyle: TYPES.OBJECT
+>>>>>>> dev
 	};
 
 /***/ },
@@ -43758,8 +44306,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 	var moment = __webpack_require__(199);
 	var momentPropTypes = __webpack_require__(309);
+=======
+	var moment = __webpack_require__(198);
+	var momentPropTypes = __webpack_require__(322);
+>>>>>>> dev
 	var helper = __webpack_require__(13);
 
 	var DatePicker = function (_Component) {
@@ -43986,6 +44539,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	var DateRangePicker = __webpack_require__(198).default;
 	var DateRangePickerInput = __webpack_require__(311).default;
 	var DateRangePickerInputController = __webpack_require__(308).default;
@@ -44008,6 +44562,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	var toISODateString = __webpack_require__(362).default;
 	var toLocalizedDateString = __webpack_require__(314).default;
 	var toMomentObject = __webpack_require__(313).default;
+=======
+	var DateRangePicker = __webpack_require__(197).default;
+	var DateRangePickerInput = __webpack_require__(324).default;
+	var DateRangePickerInputController = __webpack_require__(321).default;
+	var SingleDatePicker = __webpack_require__(371).default;
+	var SingleDatePickerInput = __webpack_require__(372).default;
+	var DayPicker = __webpack_require__(359).default;
+	var DayPickerRangeController = __webpack_require__(329).default;
+	var CalendarMonthGrid = __webpack_require__(363).default;
+	var CalendarMonth = __webpack_require__(364).default;
+	var CalendarDay = __webpack_require__(365).default;
+
+	var DateRangePickerShape = __webpack_require__(369).default;
+	var SingleDatePickerShape = __webpack_require__(373).default;
+
+	var isInclusivelyAfterDay = __webpack_require__(319).default;
+	var isInclusivelyBeforeDay = __webpack_require__(328).default;
+	var isNextDay = __webpack_require__(357).default;
+	var isSameDay = __webpack_require__(320).default;
+
+	var toISODateString = __webpack_require__(374).default;
+	var toLocalizedDateString = __webpack_require__(327).default;
+	var toMomentObject = __webpack_require__(326).default;
+>>>>>>> dev
 
 
 	module.exports = {
@@ -44571,7 +45149,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 9 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(302);
+=======
+		module.exports = __webpack_require__(315);
+>>>>>>> dev
 
 	/***/ },
 	/* 10 */
@@ -44586,37 +45168,61 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 14 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(303);
+=======
+		module.exports = __webpack_require__(316);
+>>>>>>> dev
 
 	/***/ },
 	/* 15 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(304);
+=======
+		module.exports = __webpack_require__(317);
+>>>>>>> dev
 
 	/***/ },
 	/* 16 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(305);
+=======
+		module.exports = __webpack_require__(318);
+>>>>>>> dev
 
 	/***/ },
 	/* 17 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(306);
+=======
+		module.exports = __webpack_require__(319);
+>>>>>>> dev
 
 	/***/ },
 	/* 18 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(308);
+=======
+		module.exports = __webpack_require__(321);
+>>>>>>> dev
 
 	/***/ },
 	/* 19 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(316);
+=======
+		module.exports = __webpack_require__(329);
+>>>>>>> dev
 
 	/***/ },
 	/* 20 */
@@ -44675,7 +45281,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 21 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(357);
+=======
+		module.exports = __webpack_require__(369);
+>>>>>>> dev
 
 	/***/ }
 	/******/ ]);
@@ -44685,7 +45295,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
+<<<<<<< HEAD
 	//! version : 2.14.1
+=======
+	//! version : 2.18.1
+>>>>>>> dev
 	//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 	//! license : MIT
 	//! momentjs.com
@@ -44725,9 +45339,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return true;
 	    }
 
+<<<<<<< HEAD
 	    function isDate(input) {
 	        return input instanceof Date || Object.prototype.toString.call(input) === '[object Date]';
 	    }
+=======
+	function isUndefined(input) {
+	    return input === void 0;
+	}
+
+	function isNumber(input) {
+	    return typeof input === 'number' || Object.prototype.toString.call(input) === '[object Number]';
+	}
+>>>>>>> dev
 
 	    function map(arr, fn) {
 	        var res = [], i;
@@ -44796,11 +45420,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var t = Object(this);
 	            var len = t.length >>> 0;
 
+<<<<<<< HEAD
 	            for (var i = 0; i < len; i++) {
 	                if (i in t && fun.call(this, t[i], i, t)) {
 	                    return true;
 	                }
 	            }
+=======
+	function defaultParsingFlags() {
+	    // We need to deep clone this object.
+	    return {
+	        empty           : false,
+	        unusedTokens    : [],
+	        unusedInput     : [],
+	        overflow        : -2,
+	        charsLeftOver   : 0,
+	        nullInput       : false,
+	        invalidMonth    : null,
+	        invalidFormat   : false,
+	        userInvalidated : false,
+	        iso             : false,
+	        parsedDateParts : [],
+	        meridiem        : null,
+	        rfc2822         : false,
+	        weekdayMismatch : false
+	    };
+	}
+>>>>>>> dev
 
 	            return false;
 	        };
@@ -44844,6 +45490,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return m;
 	    }
 
+<<<<<<< HEAD
 	    function isUndefined(input) {
 	        return input === void 0;
 	    }
@@ -44851,6 +45498,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // Plugins that add properties should also add the key here (null value),
 	    // so we can properly clone ourselves.
 	    var momentProperties = utils_hooks__hooks.momentProperties = [];
+=======
+	    return m;
+	}
+
+	// Plugins that add properties should also add the key here (null value),
+	// so we can properly clone ourselves.
+	var momentProperties = hooks.momentProperties = [];
+>>>>>>> dev
 
 	    function copyConfig(to, from) {
 	        var i, prop, val;
@@ -44886,6 +45541,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            to._locale = from._locale;
 	        }
 
+<<<<<<< HEAD
 	        if (momentProperties.length > 0) {
 	            for (i in momentProperties) {
 	                prop = momentProperties[i];
@@ -44893,6 +45549,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (!isUndefined(val)) {
 	                    to[prop] = val;
 	                }
+=======
+	    if (momentProperties.length > 0) {
+	        for (i = 0; i < momentProperties.length; i++) {
+	            prop = momentProperties[i];
+	            val = from[prop];
+	            if (!isUndefined(val)) {
+	                to[prop] = val;
+>>>>>>> dev
 	            }
 	        }
 
@@ -44993,6 +45657,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function isFunction(input) {
 	        return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
 	    }
+<<<<<<< HEAD
+=======
+	    this._config = config;
+	    // Lenient ordinal parsing accepts just a number in addition to
+	    // number + (possibly) stuff coming from _dayOfMonthOrdinalParse.
+	    // TODO: Remove "ordinalParse" fallback in next major release.
+	    this._dayOfMonthOrdinalParseLenient = new RegExp(
+	        (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
+	            '|' + (/\d{1,2}/).source);
+	}
+>>>>>>> dev
 
 	    function locale_set__set (config) {
 	        var prop, i;
@@ -45102,13 +45777,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return this._invalidDate;
 	    }
 
+<<<<<<< HEAD
 	    var defaultOrdinal = '%d';
 	    var defaultOrdinalParse = /\d{1,2}/;
+=======
+	var defaultOrdinal = '%d';
+	var defaultDayOfMonthOrdinalParse = /\d{1,2}/;
+>>>>>>> dev
 
 	    function ordinal (number) {
 	        return this._ordinal.replace('%d', number);
 	    }
 
+<<<<<<< HEAD
 	    var defaultRelativeTime = {
 	        future : 'in %s',
 	        past   : '%s ago',
@@ -45124,6 +45805,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y  : 'a year',
 	        yy : '%d years'
 	    };
+=======
+	var defaultRelativeTime = {
+	    future : 'in %s',
+	    past   : '%s ago',
+	    s  : 'a few seconds',
+	    ss : '%d seconds',
+	    m  : 'a minute',
+	    mm : '%d minutes',
+	    h  : 'an hour',
+	    hh : '%d hours',
+	    d  : 'a day',
+	    dd : '%d days',
+	    M  : 'a month',
+	    MM : '%d months',
+	    y  : 'a year',
+	    yy : '%d years'
+	};
+>>>>>>> dev
 
 	    function relative__relativeTime (number, withoutSuffix, string, isFuture) {
 	        var output = this._relativeTime[string];
@@ -45281,6 +45980,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return input.replace(/\\/g, '');
 	    }
 
+<<<<<<< HEAD
 	    function makeFormatFunction(format) {
 	        var array = format.match(formattingTokens), i, length;
 
@@ -45290,6 +45990,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            } else {
 	                array[i] = removeFormattingTokens(array[i]);
 	            }
+=======
+	    return function (mom) {
+	        var output = '', i;
+	        for (i = 0; i < length; i++) {
+	            output += isFunction(array[i]) ? array[i].call(mom, format) : array[i];
+>>>>>>> dev
 	        }
 
 	        return function (mom) {
@@ -45492,17 +46198,34 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // LOCALES
 
+<<<<<<< HEAD
 	    var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/;
 	    var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
 	    function localeMonths (m, format) {
 	        return isArray(this._months) ? this._months[m.month()] :
 	            this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format) ? 'format' : 'standalone'][m.month()];
+=======
+	var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/;
+	var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
+	function localeMonths (m, format) {
+	    if (!m) {
+	        return isArray(this._months) ? this._months :
+	            this._months['standalone'];
+>>>>>>> dev
 	    }
 
+<<<<<<< HEAD
 	    var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
 	    function localeMonthsShort (m, format) {
 	        return isArray(this._monthsShort) ? this._monthsShort[m.month()] :
 	            this._monthsShort[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
+=======
+	var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
+	function localeMonthsShort (m, format) {
+	    if (!m) {
+	        return isArray(this._monthsShort) ? this._monthsShort :
+	            this._monthsShort['standalone'];
+>>>>>>> dev
 	    }
 
 	    function units_month__handleStrictParse(monthName, format, strict) {
@@ -45777,6 +46500,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return date;
 	    }
 
+<<<<<<< HEAD
 	    function createUTCDate (y) {
 	        var date = new Date(Date.UTC.apply(null, arguments));
 
@@ -45785,6 +46509,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	            date.setUTCFullYear(y);
 	        }
 	        return date;
+=======
+	function createDate (y, m, d, h, M, s, ms) {
+	    // can't just apply() to create a date:
+	    // https://stackoverflow.com/q/181348
+	    var date = new Date(y, m, d, h, M, s, ms);
+
+	    // the date constructor remaps years 0-99 to 1900-1999
+	    if (y < 100 && y >= 0 && isFinite(date.getFullYear())) {
+	        date.setFullYear(y);
+>>>>>>> dev
 	    }
 
 	    // start-of-first-week - start-of-year
@@ -45794,7 +46528,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // first-week day local weekday -- which local weekday is fwd
 	            fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - dow) % 7;
 
+<<<<<<< HEAD
 	        return -fwdlw + fwd - 1;
+=======
+	    // the Date.UTC function remaps years 0-99 to 1900-1999
+	    if (y < 100 && y >= 0 && isFinite(date.getUTCFullYear())) {
+	        date.setUTCFullYear(y);
+>>>>>>> dev
 	    }
 
 	    //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
@@ -45804,6 +46544,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
 	            resYear, resDayOfYear;
 
+<<<<<<< HEAD
 	        if (dayOfYear <= 0) {
 	            resYear = year - 1;
 	            resDayOfYear = daysInYear(resYear) + dayOfYear;
@@ -45814,6 +46555,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            resYear = year;
 	            resDayOfYear = dayOfYear;
 	        }
+=======
+	// https://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
+	function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
+	    var localWeekday = (7 + weekday - dow) % 7,
+	        weekOffset = firstWeekOffset(year, dow, doy),
+	        dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
+	        resYear, resDayOfYear;
+>>>>>>> dev
 
 	        return {
 	            year: resYear,
@@ -46006,9 +46755,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return this._weekdaysShort[m.day()];
 	    }
 
+<<<<<<< HEAD
 	    var defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_');
 	    function localeWeekdaysMin (m) {
 	        return this._weekdaysMin[m.day()];
+=======
+	var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
+	function localeWeekdays (m, format) {
+	    if (!m) {
+	        return isArray(this._weekdays) ? this._weekdays :
+	            this._weekdays['standalone'];
+>>>>>>> dev
 	    }
 
 	    function day_of_week__handleStrictParse(weekdayName, format, strict) {
@@ -46307,9 +47064,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // PARSING
 
+<<<<<<< HEAD
 	    function matchMeridiem (isStrict, locale) {
 	        return locale._meridiemParse;
 	    }
+=======
+	addRegexToken('a',  matchMeridiem);
+	addRegexToken('A',  matchMeridiem);
+	addRegexToken('H',  match1to2);
+	addRegexToken('h',  match1to2);
+	addRegexToken('k',  match1to2);
+	addRegexToken('HH', match1to2, match2);
+	addRegexToken('hh', match1to2, match2);
+	addRegexToken('kk', match1to2, match2);
+>>>>>>> dev
 
 	    addRegexToken('a',  matchMeridiem);
 	    addRegexToken('A',  matchMeridiem);
@@ -46318,10 +47086,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	    addRegexToken('HH', match1to2, match2);
 	    addRegexToken('hh', match1to2, match2);
 
+<<<<<<< HEAD
 	    addRegexToken('hmm', match3to4);
 	    addRegexToken('hmmss', match5to6);
 	    addRegexToken('Hmm', match3to4);
 	    addRegexToken('Hmmss', match5to6);
+=======
+	addParseToken(['H', 'HH'], HOUR);
+	addParseToken(['k', 'kk'], function (input, array, config) {
+	    var kInput = toInt(input);
+	    array[HOUR] = kInput === 24 ? 0 : kInput;
+	});
+	addParseToken(['a', 'A'], function (input, array, config) {
+	    config._isPm = config._locale.isPM(input);
+	    config._meridiem = input;
+	});
+	addParseToken(['h', 'hh'], function (input, array, config) {
+	    array[HOUR] = toInt(input);
+	    getParsingFlags(config).bigHour = true;
+	});
+	addParseToken('hmm', function (input, array, config) {
+	    var pos = input.length - 2;
+	    array[HOUR] = toInt(input.substr(0, pos));
+	    array[MINUTE] = toInt(input.substr(pos));
+	    getParsingFlags(config).bigHour = true;
+	});
+	addParseToken('hmmss', function (input, array, config) {
+	    var pos1 = input.length - 4;
+	    var pos2 = input.length - 2;
+	    array[HOUR] = toInt(input.substr(0, pos1));
+	    array[MINUTE] = toInt(input.substr(pos1, 2));
+	    array[SECOND] = toInt(input.substr(pos2));
+	    getParsingFlags(config).bigHour = true;
+	});
+	addParseToken('Hmm', function (input, array, config) {
+	    var pos = input.length - 2;
+	    array[HOUR] = toInt(input.substr(0, pos));
+	    array[MINUTE] = toInt(input.substr(pos));
+	});
+	addParseToken('Hmmss', function (input, array, config) {
+	    var pos1 = input.length - 4;
+	    var pos2 = input.length - 2;
+	    array[HOUR] = toInt(input.substr(0, pos1));
+	    array[MINUTE] = toInt(input.substr(pos1, 2));
+	    array[SECOND] = toInt(input.substr(pos2));
+	});
+>>>>>>> dev
 
 	    addParseToken(['H', 'HH'], HOUR);
 	    addParseToken(['a', 'A'], function (input, array, config) {
@@ -46376,6 +47186,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 
+<<<<<<< HEAD
+=======
+	// months
+	// week
+	// weekdays
+	// meridiem
+	var baseConfig = {
+	    calendar: defaultCalendar,
+	    longDateFormat: defaultLongDateFormat,
+	    invalidDate: defaultInvalidDate,
+	    ordinal: defaultOrdinal,
+	    dayOfMonthOrdinalParse: defaultDayOfMonthOrdinalParse,
+	    relativeTime: defaultRelativeTime,
+>>>>>>> dev
 
 	    // MOMENTS
 
@@ -46684,11 +47508,128 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            config._isValid = false;
 	        }
+<<<<<<< HEAD
 	    }
 
 	    // date from iso format or fallback
 	    function configFromString(config) {
 	        var matched = aspNetJsonRegex.exec(config._i);
+=======
+	        config._f = dateFormat + (timeFormat || '') + (tzFormat || '');
+	        configFromStringAndFormat(config);
+	    } else {
+	        config._isValid = false;
+	    }
+	}
+
+	// RFC 2822 regex: For details see https://tools.ietf.org/html/rfc2822#section-3.3
+	var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:\d\d)?\d\d\s)(\d\d:\d\d)(\:\d\d)?(\s(?:UT|GMT|[ECMP][SD]T|[A-IK-Za-ik-z]|[+-]\d{4}))$/;
+
+	// date and time from ref 2822 format
+	function configFromRFC2822(config) {
+	    var string, match, dayFormat,
+	        dateFormat, timeFormat, tzFormat;
+	    var timezones = {
+	        ' GMT': ' +0000',
+	        ' EDT': ' -0400',
+	        ' EST': ' -0500',
+	        ' CDT': ' -0500',
+	        ' CST': ' -0600',
+	        ' MDT': ' -0600',
+	        ' MST': ' -0700',
+	        ' PDT': ' -0700',
+	        ' PST': ' -0800'
+	    };
+	    var military = 'YXWVUTSRQPONZABCDEFGHIKLM';
+	    var timezone, timezoneIndex;
+
+	    string = config._i
+	        .replace(/\([^\)]*\)|[\n\t]/g, ' ') // Remove comments and folding whitespace
+	        .replace(/(\s\s+)/g, ' ') // Replace multiple-spaces with a single space
+	        .replace(/^\s|\s$/g, ''); // Remove leading and trailing spaces
+	    match = basicRfcRegex.exec(string);
+
+	    if (match) {
+	        dayFormat = match[1] ? 'ddd' + ((match[1].length === 5) ? ', ' : ' ') : '';
+	        dateFormat = 'D MMM ' + ((match[2].length > 10) ? 'YYYY ' : 'YY ');
+	        timeFormat = 'HH:mm' + (match[4] ? ':ss' : '');
+
+	        // TODO: Replace the vanilla JS Date object with an indepentent day-of-week check.
+	        if (match[1]) { // day of week given
+	            var momentDate = new Date(match[2]);
+	            var momentDay = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][momentDate.getDay()];
+
+	            if (match[1].substr(0,3) !== momentDay) {
+	                getParsingFlags(config).weekdayMismatch = true;
+	                config._isValid = false;
+	                return;
+	            }
+	        }
+
+	        switch (match[5].length) {
+	            case 2: // military
+	                if (timezoneIndex === 0) {
+	                    timezone = ' +0000';
+	                } else {
+	                    timezoneIndex = military.indexOf(match[5][1].toUpperCase()) - 12;
+	                    timezone = ((timezoneIndex < 0) ? ' -' : ' +') +
+	                        (('' + timezoneIndex).replace(/^-?/, '0')).match(/..$/)[0] + '00';
+	                }
+	                break;
+	            case 4: // Zone
+	                timezone = timezones[match[5]];
+	                break;
+	            default: // UT or +/-9999
+	                timezone = timezones[' GMT'];
+	        }
+	        match[5] = timezone;
+	        config._i = match.splice(1).join('');
+	        tzFormat = ' ZZ';
+	        config._f = dayFormat + dateFormat + timeFormat + tzFormat;
+	        configFromStringAndFormat(config);
+	        getParsingFlags(config).rfc2822 = true;
+	    } else {
+	        config._isValid = false;
+	    }
+	}
+
+	// date from iso format or fallback
+	function configFromString(config) {
+	    var matched = aspNetJsonRegex.exec(config._i);
+
+	    if (matched !== null) {
+	        config._d = new Date(+matched[1]);
+	        return;
+	    }
+
+	    configFromISO(config);
+	    if (config._isValid === false) {
+	        delete config._isValid;
+	    } else {
+	        return;
+	    }
+
+	    configFromRFC2822(config);
+	    if (config._isValid === false) {
+	        delete config._isValid;
+	    } else {
+	        return;
+	    }
+
+	    // Final attempt, use Input Fallback
+	    hooks.createFromInputFallback(config);
+	}
+
+	hooks.createFromInputFallback = deprecate(
+	    'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
+	    'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
+	    'discouraged and will be removed in an upcoming major release. Please refer to ' +
+	    'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
+	    function (config) {
+	        config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
+	    }
+	);
+>>>>>>> dev
 
 	        if (matched !== null) {
 	            config._d = new Date(+matched[1]);
@@ -46732,6 +47673,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
 	    }
 
+<<<<<<< HEAD
 	    // convert an array to a date.
 	    // the array should mirror the parameters below
 	    // note: all values past the year are optional and will default to the lowest possible value.
@@ -46741,6 +47683,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        if (config._d) {
 	            return;
+=======
+	    //if the day of the year is set, figure out what it is
+	    if (config._dayOfYear != null) {
+	        yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
+
+	        if (config._dayOfYear > daysInYear(yearToUse) || config._dayOfYear === 0) {
+	            getParsingFlags(config)._overflowDayOfYear = true;
+>>>>>>> dev
 	        }
 
 	        currentDate = currentDateArray(config);
@@ -46854,6 +47804,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // constant that refers to the ISO standard
 	    utils_hooks__hooks.ISO_8601 = function () {};
 
+<<<<<<< HEAD
 	    // date from string and format string
 	    function configFromStringAndFormat(config) {
 	        // TODO: Move this to another part of the creation flow to prevent circular deps
@@ -46864,6 +47815,24 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        config._a = [];
 	        getParsingFlags(config).empty = true;
+=======
+	// constant that refers to the RFC 2822 form
+	hooks.RFC_2822 = function () {};
+
+	// date from string and format string
+	function configFromStringAndFormat(config) {
+	    // TODO: Move this to another part of the creation flow to prevent circular deps
+	    if (config._f === hooks.ISO_8601) {
+	        configFromISO(config);
+	        return;
+	    }
+	    if (config._f === hooks.RFC_2822) {
+	        configFromRFC2822(config);
+	        return;
+	    }
+	    config._a = [];
+	    getParsingFlags(config).empty = true;
+>>>>>>> dev
 
 	        // This array is used to make a Date, either with `new Date` or `Date.UTC`
 	        var string = '' + config._i,
@@ -47077,10 +48046,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function createLocalOrUTC (input, format, locale, strict, isUTC) {
 	        var c = {};
 
+<<<<<<< HEAD
 	        if (typeof(locale) === 'boolean') {
 	            strict = locale;
 	            locale = undefined;
 	        }
+=======
+	function configFromInput(config) {
+	    var input = config._i;
+	    if (isUndefined(input)) {
+	        config._d = new Date(hooks.now());
+	    } else if (isDate(input)) {
+	        config._d = new Date(input.valueOf());
+	    } else if (typeof input === 'string') {
+	        configFromString(config);
+	    } else if (isArray(input)) {
+	        config._a = map(input.slice(0), function (obj) {
+	            return parseInt(obj, 10);
+	        });
+	        configFromArray(config);
+	    } else if (isObject(input)) {
+	        configFromObject(config);
+	    } else if (isNumber(input)) {
+	        // from milliseconds
+	        config._d = new Date(input);
+	    } else {
+	        hooks.createFromInputFallback(config);
+	    }
+	}
+>>>>>>> dev
 
 	        if ((isObject(input) && isObjectEmpty(input)) ||
 	                (isArray(input) && input.length === 0)) {
@@ -47165,6 +48159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return Date.now ? Date.now() : +(new Date());
 	    };
 
+<<<<<<< HEAD
 	    function Duration (duration) {
 	        var normalizedInput = normalizeObjectUnits(duration),
 	            years = normalizedInput.year || 0,
@@ -47220,6 +48215,69 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    offset('Z', ':');
 	    offset('ZZ', '');
+=======
+	var ordering = ['year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond'];
+
+	function isDurationValid(m) {
+	    for (var key in m) {
+	        if (!(ordering.indexOf(key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
+	            return false;
+	        }
+	    }
+
+	    var unitHasDecimal = false;
+	    for (var i = 0; i < ordering.length; ++i) {
+	        if (m[ordering[i]]) {
+	            if (unitHasDecimal) {
+	                return false; // only allow non-integers for smallest unit
+	            }
+	            if (parseFloat(m[ordering[i]]) !== toInt(m[ordering[i]])) {
+	                unitHasDecimal = true;
+	            }
+	        }
+	    }
+
+	    return true;
+	}
+
+	function isValid$1() {
+	    return this._isValid;
+	}
+
+	function createInvalid$1() {
+	    return createDuration(NaN);
+	}
+
+	function Duration (duration) {
+	    var normalizedInput = normalizeObjectUnits(duration),
+	        years = normalizedInput.year || 0,
+	        quarters = normalizedInput.quarter || 0,
+	        months = normalizedInput.month || 0,
+	        weeks = normalizedInput.week || 0,
+	        days = normalizedInput.day || 0,
+	        hours = normalizedInput.hour || 0,
+	        minutes = normalizedInput.minute || 0,
+	        seconds = normalizedInput.second || 0,
+	        milliseconds = normalizedInput.millisecond || 0;
+
+	    this._isValid = isDurationValid(normalizedInput);
+
+	    // representation for dateAddRemove
+	    this._milliseconds = +milliseconds +
+	        seconds * 1e3 + // 1000
+	        minutes * 6e4 + // 1000 * 60
+	        hours * 1000 * 60 * 60; //using 1000 * 60 * 60 instead of 36e5 to avoid floating point rounding errors https://github.com/moment/moment/issues/2978
+	    // Because of dateAddRemove treats 24 hours as different from a
+	    // day when working around DST, we need to store them separately
+	    this._days = +days +
+	        weeks * 7;
+	    // It is impossible translate months into days without knowing
+	    // which months you are are talking about, so we have to store
+	    // it separately.
+	    this._months = +months +
+	        quarters * 3 +
+	        years * 12;
+>>>>>>> dev
 
 	    // PARSING
 
@@ -47343,8 +48401,51 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.utcOffset(0, keepLocalTime);
 	            this._isUTC = false;
 
+<<<<<<< HEAD
 	            if (keepLocalTime) {
 	                this.subtract(getDateOffset(this), 'm');
+=======
+	// keepLocalTime = true means only change the timezone, without
+	// affecting the local hour. So 5:31:26 +0300 --[utcOffset(2, true)]-->
+	// 5:31:26 +0200 It is possible that 5:31:26 doesn't exist with offset
+	// +0200, so we adjust the time as needed, to be valid.
+	//
+	// Keeping the time actually adds/subtracts (one hour)
+	// from the actual represented time. That is why we call updateOffset
+	// a second time. In case it wants us to change the offset again
+	// _changeInProgress == true case, then we have to adjust, because
+	// there is no such time in the given timezone.
+	function getSetOffset (input, keepLocalTime, keepMinutes) {
+	    var offset = this._offset || 0,
+	        localAdjust;
+	    if (!this.isValid()) {
+	        return input != null ? this : NaN;
+	    }
+	    if (input != null) {
+	        if (typeof input === 'string') {
+	            input = offsetFromString(matchShortOffset, input);
+	            if (input === null) {
+	                return this;
+	            }
+	        } else if (Math.abs(input) < 16 && !keepMinutes) {
+	            input = input * 60;
+	        }
+	        if (!this._isUTC && keepLocalTime) {
+	            localAdjust = getDateOffset(this);
+	        }
+	        this._offset = input;
+	        this._isUTC = true;
+	        if (localAdjust != null) {
+	            this.add(localAdjust, 'm');
+	        }
+	        if (offset !== input) {
+	            if (!keepLocalTime || this._changeInProgress) {
+	                addSubtract(this, createDuration(input - offset, 'm'), 1, false);
+	            } else if (!this._changeInProgress) {
+	                this._changeInProgress = true;
+	                hooks.updateOffset(this, true);
+	                this._changeInProgress = null;
+>>>>>>> dev
 	            }
 	        }
 	        return this;
@@ -47375,9 +48476,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        );
 	    }
 
+<<<<<<< HEAD
 	    function isDaylightSavingTimeShifted () {
 	        if (!isUndefined(this._isDSTShifted)) {
 	            return this._isDSTShifted;
+=======
+	function setOffsetToParsedOffset () {
+	    if (this._tzm != null) {
+	        this.utcOffset(this._tzm, false, true);
+	    } else if (typeof this._i === 'string') {
+	        var tZone = offsetFromString(matchOffset, this._i);
+	        if (tZone != null) {
+	            this.utcOffset(tZone);
+>>>>>>> dev
 	        }
 
 	        var c = {};
@@ -47488,8 +48599,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return (isNaN(res) ? 0 : res) * sign;
 	    }
 
+<<<<<<< HEAD
 	    function positiveMomentsDifference(base, other) {
 	        var res = {milliseconds: 0, months: 0};
+=======
+	    return ret;
+	}
+
+	createDuration.fn = Duration.prototype;
+	createDuration.invalid = createInvalid$1;
+>>>>>>> dev
 
 	        res.months = other.month() - base.month() +
 	            (other.year() - base.year()) * 12;
@@ -47701,6 +48820,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            anchor = a.clone().add(wholeMonthDiff, 'months'),
 	            anchor2, adjust;
 
+<<<<<<< HEAD
 	        if (b - anchor < 0) {
 	            anchor2 = a.clone().add(wholeMonthDiff - 1, 'months');
 	            // linear across the month
@@ -47710,10 +48830,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // linear across the month
 	            adjust = (b - anchor) / (anchor2 - anchor);
 	        }
+=======
+	function toISOString() {
+	    if (!this.isValid()) {
+	        return null;
+	    }
+	    var m = this.clone().utc();
+	    if (m.year() < 0 || m.year() > 9999) {
+	        return formatMoment(m, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+	    }
+	    if (isFunction(Date.prototype.toISOString)) {
+	        // native implementation is ~50x faster, use it when we can
+	        return this.toDate().toISOString();
+	    }
+	    return formatMoment(m, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+	}
+>>>>>>> dev
 
 	        //check for negative zero, return zero if negative zero
 	        return -(wholeMonthDiff + adjust) || 0;
 	    }
+<<<<<<< HEAD
+=======
+	    var prefix = '[' + func + '("]';
+	    var year = (0 <= this.year() && this.year() <= 9999) ? 'YYYY' : 'YYYYYY';
+	    var datetime = '-MM-DD[T]HH:mm:ss.SSS';
+	    var suffix = zone + '[")]';
+>>>>>>> dev
 
 	    utils_hooks__hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 	    utils_hooks__hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
@@ -47862,9 +49005,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
 	    }
 
+<<<<<<< HEAD
 	    function to_type__valueOf () {
 	        return this._d.valueOf() - ((this._offset || 0) * 60000);
 	    }
+=======
+	function isValid$2 () {
+	    return isValid(this);
+	}
+>>>>>>> dev
 
 	    function unix () {
 	        return Math.floor(this.valueOf() / 1000);
@@ -48041,7 +49190,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return input == null ? Math.ceil((this.month() + 1) / 3) : this.month((input - 1) * 3 + this.month() % 3);
 	    }
 
+<<<<<<< HEAD
 	    // FORMATTING
+=======
+	addRegexToken('D',  match1to2);
+	addRegexToken('DD', match1to2, match2);
+	addRegexToken('Do', function (isStrict, locale) {
+	    // TODO: Remove "ordinalParse" fallback in next major release.
+	    return isStrict ?
+	      (locale._dayOfMonthOrdinalParse || locale._ordinalParse) :
+	      locale._dayOfMonthOrdinalParseLenient;
+	});
+>>>>>>> dev
 
 	    addFormatToken('D', ['DD', 2], 'Do', 'date');
 
@@ -48200,7 +49360,50 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    // MOMENTS
 
+<<<<<<< HEAD
 	    var getSetMillisecond = makeGetSet('Milliseconds', false);
+=======
+	var proto = Moment.prototype;
+
+	proto.add               = add;
+	proto.calendar          = calendar$1;
+	proto.clone             = clone;
+	proto.diff              = diff;
+	proto.endOf             = endOf;
+	proto.format            = format;
+	proto.from              = from;
+	proto.fromNow           = fromNow;
+	proto.to                = to;
+	proto.toNow             = toNow;
+	proto.get               = stringGet;
+	proto.invalidAt         = invalidAt;
+	proto.isAfter           = isAfter;
+	proto.isBefore          = isBefore;
+	proto.isBetween         = isBetween;
+	proto.isSame            = isSame;
+	proto.isSameOrAfter     = isSameOrAfter;
+	proto.isSameOrBefore    = isSameOrBefore;
+	proto.isValid           = isValid$2;
+	proto.lang              = lang;
+	proto.locale            = locale;
+	proto.localeData        = localeData;
+	proto.max               = prototypeMax;
+	proto.min               = prototypeMin;
+	proto.parsingFlags      = parsingFlags;
+	proto.set               = stringSet;
+	proto.startOf           = startOf;
+	proto.subtract          = subtract;
+	proto.toArray           = toArray;
+	proto.toObject          = toObject;
+	proto.toDate            = toDate;
+	proto.toISOString       = toISOString;
+	proto.inspect           = inspect;
+	proto.toJSON            = toJSON;
+	proto.toString          = toString;
+	proto.unix              = unix;
+	proto.valueOf           = valueOf;
+	proto.creationData      = creationData;
+>>>>>>> dev
 
 	    // FORMATTING
 
@@ -48450,8 +49653,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return listMonthsImpl(format, index, 'monthsShort');
 	    }
 
+<<<<<<< HEAD
 	    function lists__listWeekdays (localeSorted, format, index) {
 	        return listWeekdaysImpl(localeSorted, format, index, 'weekdays');
+=======
+	getSetGlobalLocale('en', {
+	    dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
+	    ordinal : function (number) {
+	        var b = number % 10,
+	            output = (toInt(number % 100 / 10) === 1) ? 'th' :
+	            (b === 1) ? 'st' :
+	            (b === 2) ? 'nd' :
+	            (b === 3) ? 'rd' : 'th';
+	        return number + output;
+>>>>>>> dev
 	    }
 
 	    function lists__listWeekdaysShort (localeSorted, format, index) {
@@ -48578,10 +49793,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return days * 4800 / 146097;
 	    }
 
+<<<<<<< HEAD
 	    function monthsToDays (months) {
 	        // the reverse of daysToMonths
 	        return months * 146097 / 4800;
 	    }
+=======
+	function as (units) {
+	    if (!this.isValid()) {
+	        return NaN;
+	    }
+	    var days;
+	    var months;
+	    var milliseconds = this._milliseconds;
+>>>>>>> dev
 
 	    function as (units) {
 	        var days;
@@ -48610,6 +49835,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 
+<<<<<<< HEAD
 	    // TODO: Use this.as('ms')?
 	    function duration_as__valueOf () {
 	        return (
@@ -48619,6 +49845,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	            toInt(this._months / 12) * 31536e6
 	        );
 	    }
+=======
+	// TODO: Use this.as('ms')?
+	function valueOf$1 () {
+	    if (!this.isValid()) {
+	        return NaN;
+	    }
+	    return (
+	        this._milliseconds +
+	        this._days * 864e5 +
+	        (this._months % 12) * 2592e6 +
+	        toInt(this._months / 12) * 31536e6
+	    );
+	}
+>>>>>>> dev
 
 	    function makeAs (alias) {
 	        return function () {
@@ -48635,6 +49875,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var asMonths       = makeAs('M');
 	    var asYears        = makeAs('y');
 
+<<<<<<< HEAD
 	    function duration_get__get (units) {
 	        units = normalizeUnits(units);
 	        return this[units + 's']();
@@ -48656,6 +49897,81 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    function weeks () {
 	        return absFloor(this.days() / 7);
+=======
+	function get$2 (units) {
+	    units = normalizeUnits(units);
+	    return this.isValid() ? this[units + 's']() : NaN;
+	}
+
+	function makeGetter(name) {
+	    return function () {
+	        return this.isValid() ? this._data[name] : NaN;
+	    };
+	}
+
+	var milliseconds = makeGetter('milliseconds');
+	var seconds      = makeGetter('seconds');
+	var minutes      = makeGetter('minutes');
+	var hours        = makeGetter('hours');
+	var days         = makeGetter('days');
+	var months       = makeGetter('months');
+	var years        = makeGetter('years');
+
+	function weeks () {
+	    return absFloor(this.days() / 7);
+	}
+
+	var round = Math.round;
+	var thresholds = {
+	    ss: 44,         // a few seconds to seconds
+	    s : 45,         // seconds to minute
+	    m : 45,         // minutes to hour
+	    h : 22,         // hours to day
+	    d : 26,         // days to month
+	    M : 11          // months to year
+	};
+
+	// helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
+	function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
+	    return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
+	}
+
+	function relativeTime$1 (posNegDuration, withoutSuffix, locale) {
+	    var duration = createDuration(posNegDuration).abs();
+	    var seconds  = round(duration.as('s'));
+	    var minutes  = round(duration.as('m'));
+	    var hours    = round(duration.as('h'));
+	    var days     = round(duration.as('d'));
+	    var months   = round(duration.as('M'));
+	    var years    = round(duration.as('y'));
+
+	    var a = seconds <= thresholds.ss && ['s', seconds]  ||
+	            seconds < thresholds.s   && ['ss', seconds] ||
+	            minutes <= 1             && ['m']           ||
+	            minutes < thresholds.m   && ['mm', minutes] ||
+	            hours   <= 1             && ['h']           ||
+	            hours   < thresholds.h   && ['hh', hours]   ||
+	            days    <= 1             && ['d']           ||
+	            days    < thresholds.d   && ['dd', days]    ||
+	            months  <= 1             && ['M']           ||
+	            months  < thresholds.M   && ['MM', months]  ||
+	            years   <= 1             && ['y']           || ['yy', years];
+
+	    a[2] = withoutSuffix;
+	    a[3] = +posNegDuration > 0;
+	    a[4] = locale;
+	    return substituteTimeAgo.apply(null, a);
+	}
+
+	// This function allows you to set the rounding function for relative time strings
+	function getSetRelativeTimeRounding (roundingFunction) {
+	    if (roundingFunction === undefined) {
+	        return round;
+	    }
+	    if (typeof(roundingFunction) === 'function') {
+	        round = roundingFunction;
+	        return true;
+>>>>>>> dev
 	    }
 
 	    var round = Math.round;
@@ -48721,6 +50037,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        thresholds[threshold] = limit;
 	        return true;
 	    }
+<<<<<<< HEAD
 
 	    function humanize (withSuffix) {
 	        var locale = this.localeData();
@@ -48838,6 +50155,179 @@ return /******/ (function(modules) { // webpackBootstrap
 	    addParseToken('x', function (input, array, config) {
 	        config._d = new Date(toInt(input));
 	    });
+=======
+	    thresholds[threshold] = limit;
+	    if (threshold === 's') {
+	        thresholds.ss = limit - 1;
+	    }
+	    return true;
+	}
+
+	function humanize (withSuffix) {
+	    if (!this.isValid()) {
+	        return this.localeData().invalidDate();
+	    }
+
+	    var locale = this.localeData();
+	    var output = relativeTime$1(this, !withSuffix, locale);
+
+	    if (withSuffix) {
+	        output = locale.pastFuture(+this, output);
+	    }
+
+	    return locale.postformat(output);
+	}
+
+	var abs$1 = Math.abs;
+
+	function toISOString$1() {
+	    // for ISO strings we do not use the normal bubbling rules:
+	    //  * milliseconds bubble up until they become hours
+	    //  * days do not bubble at all
+	    //  * months bubble up until they become years
+	    // This is because there is no context-free conversion between hours and days
+	    // (think of clock changes)
+	    // and also not between days and months (28-31 days per month)
+	    if (!this.isValid()) {
+	        return this.localeData().invalidDate();
+	    }
+
+	    var seconds = abs$1(this._milliseconds) / 1000;
+	    var days         = abs$1(this._days);
+	    var months       = abs$1(this._months);
+	    var minutes, hours, years;
+
+	    // 3600 seconds -> 60 minutes -> 1 hour
+	    minutes           = absFloor(seconds / 60);
+	    hours             = absFloor(minutes / 60);
+	    seconds %= 60;
+	    minutes %= 60;
+
+	    // 12 months -> 1 year
+	    years  = absFloor(months / 12);
+	    months %= 12;
+
+
+	    // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
+	    var Y = years;
+	    var M = months;
+	    var D = days;
+	    var h = hours;
+	    var m = minutes;
+	    var s = seconds;
+	    var total = this.asSeconds();
+
+	    if (!total) {
+	        // this is the same as C#'s (Noda) and python (isodate)...
+	        // but not other JS (goog.date)
+	        return 'P0D';
+	    }
+
+	    return (total < 0 ? '-' : '') +
+	        'P' +
+	        (Y ? Y + 'Y' : '') +
+	        (M ? M + 'M' : '') +
+	        (D ? D + 'D' : '') +
+	        ((h || m || s) ? 'T' : '') +
+	        (h ? h + 'H' : '') +
+	        (m ? m + 'M' : '') +
+	        (s ? s + 'S' : '');
+	}
+
+	var proto$2 = Duration.prototype;
+
+	proto$2.isValid        = isValid$1;
+	proto$2.abs            = abs;
+	proto$2.add            = add$1;
+	proto$2.subtract       = subtract$1;
+	proto$2.as             = as;
+	proto$2.asMilliseconds = asMilliseconds;
+	proto$2.asSeconds      = asSeconds;
+	proto$2.asMinutes      = asMinutes;
+	proto$2.asHours        = asHours;
+	proto$2.asDays         = asDays;
+	proto$2.asWeeks        = asWeeks;
+	proto$2.asMonths       = asMonths;
+	proto$2.asYears        = asYears;
+	proto$2.valueOf        = valueOf$1;
+	proto$2._bubble        = bubble;
+	proto$2.get            = get$2;
+	proto$2.milliseconds   = milliseconds;
+	proto$2.seconds        = seconds;
+	proto$2.minutes        = minutes;
+	proto$2.hours          = hours;
+	proto$2.days           = days;
+	proto$2.weeks          = weeks;
+	proto$2.months         = months;
+	proto$2.years          = years;
+	proto$2.humanize       = humanize;
+	proto$2.toISOString    = toISOString$1;
+	proto$2.toString       = toISOString$1;
+	proto$2.toJSON         = toISOString$1;
+	proto$2.locale         = locale;
+	proto$2.localeData     = localeData;
+
+	// Deprecations
+	proto$2.toIsoString = deprecate('toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)', toISOString$1);
+	proto$2.lang = lang;
+
+	// Side effect imports
+
+	// FORMATTING
+
+	addFormatToken('X', 0, 0, 'unix');
+	addFormatToken('x', 0, 0, 'valueOf');
+
+	// PARSING
+
+	addRegexToken('x', matchSigned);
+	addRegexToken('X', matchTimestamp);
+	addParseToken('X', function (input, array, config) {
+	    config._d = new Date(parseFloat(input, 10) * 1000);
+	});
+	addParseToken('x', function (input, array, config) {
+	    config._d = new Date(toInt(input));
+	});
+
+	// Side effect imports
+
+
+	hooks.version = '2.18.1';
+
+	setHookCallback(createLocal);
+
+	hooks.fn                    = proto;
+	hooks.min                   = min;
+	hooks.max                   = max;
+	hooks.now                   = now;
+	hooks.utc                   = createUTC;
+	hooks.unix                  = createUnix;
+	hooks.months                = listMonths;
+	hooks.isDate                = isDate;
+	hooks.locale                = getSetGlobalLocale;
+	hooks.invalid               = createInvalid;
+	hooks.duration              = createDuration;
+	hooks.isMoment              = isMoment;
+	hooks.weekdays              = listWeekdays;
+	hooks.parseZone             = createInZone;
+	hooks.localeData            = getLocale;
+	hooks.isDuration            = isDuration;
+	hooks.monthsShort           = listMonthsShort;
+	hooks.weekdaysMin           = listWeekdaysMin;
+	hooks.defineLocale          = defineLocale;
+	hooks.updateLocale          = updateLocale;
+	hooks.locales               = listLocales;
+	hooks.weekdaysShort         = listWeekdaysShort;
+	hooks.normalizeUnits        = normalizeUnits;
+	hooks.relativeTimeRounding = getSetRelativeTimeRounding;
+	hooks.relativeTimeThreshold = getSetRelativeTimeThreshold;
+	hooks.calendarFormat        = getCalendarFormat;
+	hooks.prototype             = proto;
+
+	return hooks;
+
+	})));
+>>>>>>> dev
 
 	    // Side effect imports
 
@@ -48886,6 +50376,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
+<<<<<<< HEAD
 		"./af": 201,
 		"./af.js": 201,
 		"./ar": 202,
@@ -49088,6 +50579,238 @@ return /******/ (function(modules) { // webpackBootstrap
 		"./zh-cn.js": 300,
 		"./zh-tw": 301,
 		"./zh-tw.js": 301
+=======
+		"./af": 200,
+		"./af.js": 200,
+		"./ar": 201,
+		"./ar-dz": 202,
+		"./ar-dz.js": 202,
+		"./ar-kw": 203,
+		"./ar-kw.js": 203,
+		"./ar-ly": 204,
+		"./ar-ly.js": 204,
+		"./ar-ma": 205,
+		"./ar-ma.js": 205,
+		"./ar-sa": 206,
+		"./ar-sa.js": 206,
+		"./ar-tn": 207,
+		"./ar-tn.js": 207,
+		"./ar.js": 201,
+		"./az": 208,
+		"./az.js": 208,
+		"./be": 209,
+		"./be.js": 209,
+		"./bg": 210,
+		"./bg.js": 210,
+		"./bn": 211,
+		"./bn.js": 211,
+		"./bo": 212,
+		"./bo.js": 212,
+		"./br": 213,
+		"./br.js": 213,
+		"./bs": 214,
+		"./bs.js": 214,
+		"./ca": 215,
+		"./ca.js": 215,
+		"./cs": 216,
+		"./cs.js": 216,
+		"./cv": 217,
+		"./cv.js": 217,
+		"./cy": 218,
+		"./cy.js": 218,
+		"./da": 219,
+		"./da.js": 219,
+		"./de": 220,
+		"./de-at": 221,
+		"./de-at.js": 221,
+		"./de-ch": 222,
+		"./de-ch.js": 222,
+		"./de.js": 220,
+		"./dv": 223,
+		"./dv.js": 223,
+		"./el": 224,
+		"./el.js": 224,
+		"./en-au": 225,
+		"./en-au.js": 225,
+		"./en-ca": 226,
+		"./en-ca.js": 226,
+		"./en-gb": 227,
+		"./en-gb.js": 227,
+		"./en-ie": 228,
+		"./en-ie.js": 228,
+		"./en-nz": 229,
+		"./en-nz.js": 229,
+		"./eo": 230,
+		"./eo.js": 230,
+		"./es": 231,
+		"./es-do": 232,
+		"./es-do.js": 232,
+		"./es.js": 231,
+		"./et": 233,
+		"./et.js": 233,
+		"./eu": 234,
+		"./eu.js": 234,
+		"./fa": 235,
+		"./fa.js": 235,
+		"./fi": 236,
+		"./fi.js": 236,
+		"./fo": 237,
+		"./fo.js": 237,
+		"./fr": 238,
+		"./fr-ca": 239,
+		"./fr-ca.js": 239,
+		"./fr-ch": 240,
+		"./fr-ch.js": 240,
+		"./fr.js": 238,
+		"./fy": 241,
+		"./fy.js": 241,
+		"./gd": 242,
+		"./gd.js": 242,
+		"./gl": 243,
+		"./gl.js": 243,
+		"./gom-latn": 244,
+		"./gom-latn.js": 244,
+		"./he": 245,
+		"./he.js": 245,
+		"./hi": 246,
+		"./hi.js": 246,
+		"./hr": 247,
+		"./hr.js": 247,
+		"./hu": 248,
+		"./hu.js": 248,
+		"./hy-am": 249,
+		"./hy-am.js": 249,
+		"./id": 250,
+		"./id.js": 250,
+		"./is": 251,
+		"./is.js": 251,
+		"./it": 252,
+		"./it.js": 252,
+		"./ja": 253,
+		"./ja.js": 253,
+		"./jv": 254,
+		"./jv.js": 254,
+		"./ka": 255,
+		"./ka.js": 255,
+		"./kk": 256,
+		"./kk.js": 256,
+		"./km": 257,
+		"./km.js": 257,
+		"./kn": 258,
+		"./kn.js": 258,
+		"./ko": 259,
+		"./ko.js": 259,
+		"./ky": 260,
+		"./ky.js": 260,
+		"./lb": 261,
+		"./lb.js": 261,
+		"./lo": 262,
+		"./lo.js": 262,
+		"./lt": 263,
+		"./lt.js": 263,
+		"./lv": 264,
+		"./lv.js": 264,
+		"./me": 265,
+		"./me.js": 265,
+		"./mi": 266,
+		"./mi.js": 266,
+		"./mk": 267,
+		"./mk.js": 267,
+		"./ml": 268,
+		"./ml.js": 268,
+		"./mr": 269,
+		"./mr.js": 269,
+		"./ms": 270,
+		"./ms-my": 271,
+		"./ms-my.js": 271,
+		"./ms.js": 270,
+		"./my": 272,
+		"./my.js": 272,
+		"./nb": 273,
+		"./nb.js": 273,
+		"./ne": 274,
+		"./ne.js": 274,
+		"./nl": 275,
+		"./nl-be": 276,
+		"./nl-be.js": 276,
+		"./nl.js": 275,
+		"./nn": 277,
+		"./nn.js": 277,
+		"./pa-in": 278,
+		"./pa-in.js": 278,
+		"./pl": 279,
+		"./pl.js": 279,
+		"./pt": 280,
+		"./pt-br": 281,
+		"./pt-br.js": 281,
+		"./pt.js": 280,
+		"./ro": 282,
+		"./ro.js": 282,
+		"./ru": 283,
+		"./ru.js": 283,
+		"./sd": 284,
+		"./sd.js": 284,
+		"./se": 285,
+		"./se.js": 285,
+		"./si": 286,
+		"./si.js": 286,
+		"./sk": 287,
+		"./sk.js": 287,
+		"./sl": 288,
+		"./sl.js": 288,
+		"./sq": 289,
+		"./sq.js": 289,
+		"./sr": 290,
+		"./sr-cyrl": 291,
+		"./sr-cyrl.js": 291,
+		"./sr.js": 290,
+		"./ss": 292,
+		"./ss.js": 292,
+		"./sv": 293,
+		"./sv.js": 293,
+		"./sw": 294,
+		"./sw.js": 294,
+		"./ta": 295,
+		"./ta.js": 295,
+		"./te": 296,
+		"./te.js": 296,
+		"./tet": 297,
+		"./tet.js": 297,
+		"./th": 298,
+		"./th.js": 298,
+		"./tl-ph": 299,
+		"./tl-ph.js": 299,
+		"./tlh": 300,
+		"./tlh.js": 300,
+		"./tr": 301,
+		"./tr.js": 301,
+		"./tzl": 302,
+		"./tzl.js": 302,
+		"./tzm": 303,
+		"./tzm-latn": 304,
+		"./tzm-latn.js": 304,
+		"./tzm.js": 303,
+		"./uk": 305,
+		"./uk.js": 305,
+		"./ur": 306,
+		"./ur.js": 306,
+		"./uz": 307,
+		"./uz-latn": 308,
+		"./uz-latn.js": 308,
+		"./uz.js": 307,
+		"./vi": 309,
+		"./vi.js": 309,
+		"./x-pseudo": 310,
+		"./x-pseudo.js": 310,
+		"./yo": 311,
+		"./yo.js": 311,
+		"./zh-cn": 312,
+		"./zh-cn.js": 312,
+		"./zh-hk": 313,
+		"./zh-hk.js": 313,
+		"./zh-tw": 314,
+		"./zh-tw.js": 314
+>>>>>>> dev
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -49174,7 +50897,53 @@ return /******/ (function(modules) { // webpackBootstrap
 	            dow : 1, // Maandag is die eerste dag van die week.
 	            doy : 4  // Die week wat die 4de Januarie bevat is die eerste week van die jaar.
 	        }
+<<<<<<< HEAD
 	    });
+=======
+	    },
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Vandag om] LT',
+	        nextDay : '[Môre om] LT',
+	        nextWeek : 'dddd [om] LT',
+	        lastDay : '[Gister om] LT',
+	        lastWeek : '[Laas] dddd [om] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'oor %s',
+	        past : '%s gelede',
+	        s : '\'n paar sekondes',
+	        m : '\'n minuut',
+	        mm : '%d minute',
+	        h : '\'n uur',
+	        hh : '%d ure',
+	        d : '\'n dag',
+	        dd : '%d dae',
+	        M : '\'n maand',
+	        MM : '%d maande',
+	        y : '\'n jaar',
+	        yy : '%d jaar'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
+	    ordinal : function (number) {
+	        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de'); // Thanks to Joris Röling : https://github.com/jjupiter
+	    },
+	    week : {
+	        dow : 1, // Maandag is die eerste dag van die week.
+	        doy : 4  // Die week wat die 4de Januarie bevat is die eerste week van die jaar.
+	    }
+	});
+
+	return af;
+>>>>>>> dev
 
 	    return af;
 
@@ -49326,6 +51095,204 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
+<<<<<<< HEAD
+=======
+	//! locale : Arabic (Kuwait) [ar-kw]
+	//! author : Nusret Parlak: https://github.com/nusretparlak
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var arKw = moment.defineLocale('ar-kw', {
+	    months : 'يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر'.split('_'),
+	    monthsShort : 'يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر'.split('_'),
+	    weekdays : 'الأحد_الإتنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
+	    weekdaysShort : 'احد_اتنين_ثلاثاء_اربعاء_خميس_جمعة_سبت'.split('_'),
+	    weekdaysMin : 'ح_ن_ث_ر_خ_ج_س'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[اليوم على الساعة] LT',
+	        nextDay: '[غدا على الساعة] LT',
+	        nextWeek: 'dddd [على الساعة] LT',
+	        lastDay: '[أمس على الساعة] LT',
+	        lastWeek: 'dddd [على الساعة] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'في %s',
+	        past : 'منذ %s',
+	        s : 'ثوان',
+	        m : 'دقيقة',
+	        mm : '%d دقائق',
+	        h : 'ساعة',
+	        hh : '%d ساعات',
+	        d : 'يوم',
+	        dd : '%d أيام',
+	        M : 'شهر',
+	        MM : '%d أشهر',
+	        y : 'سنة',
+	        yy : '%d سنوات'
+	    },
+	    week : {
+	        dow : 0, // Sunday is the first day of the week.
+	        doy : 12  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return arKw;
+
+	})));
+
+
+/***/ },
+/* 204 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Arabic (Lybia) [ar-ly]
+	//! author : Ali Hmer: https://github.com/kikoanis
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var symbolMap = {
+	    '1': '1',
+	    '2': '2',
+	    '3': '3',
+	    '4': '4',
+	    '5': '5',
+	    '6': '6',
+	    '7': '7',
+	    '8': '8',
+	    '9': '9',
+	    '0': '0'
+	};
+	var pluralForm = function (n) {
+	    return n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5;
+	};
+	var plurals = {
+	    s : ['أقل من ثانية', 'ثانية واحدة', ['ثانيتان', 'ثانيتين'], '%d ثوان', '%d ثانية', '%d ثانية'],
+	    m : ['أقل من دقيقة', 'دقيقة واحدة', ['دقيقتان', 'دقيقتين'], '%d دقائق', '%d دقيقة', '%d دقيقة'],
+	    h : ['أقل من ساعة', 'ساعة واحدة', ['ساعتان', 'ساعتين'], '%d ساعات', '%d ساعة', '%d ساعة'],
+	    d : ['أقل من يوم', 'يوم واحد', ['يومان', 'يومين'], '%d أيام', '%d يومًا', '%d يوم'],
+	    M : ['أقل من شهر', 'شهر واحد', ['شهران', 'شهرين'], '%d أشهر', '%d شهرا', '%d شهر'],
+	    y : ['أقل من عام', 'عام واحد', ['عامان', 'عامين'], '%d أعوام', '%d عامًا', '%d عام']
+	};
+	var pluralize = function (u) {
+	    return function (number, withoutSuffix, string, isFuture) {
+	        var f = pluralForm(number),
+	            str = plurals[u][pluralForm(number)];
+	        if (f === 2) {
+	            str = str[withoutSuffix ? 0 : 1];
+	        }
+	        return str.replace(/%d/i, number);
+	    };
+	};
+	var months = [
+	    'يناير',
+	    'فبراير',
+	    'مارس',
+	    'أبريل',
+	    'مايو',
+	    'يونيو',
+	    'يوليو',
+	    'أغسطس',
+	    'سبتمبر',
+	    'أكتوبر',
+	    'نوفمبر',
+	    'ديسمبر'
+	];
+
+	var arLy = moment.defineLocale('ar-ly', {
+	    months : months,
+	    monthsShort : months,
+	    weekdays : 'الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
+	    weekdaysShort : 'أحد_إثنين_ثلاثاء_أربعاء_خميس_جمعة_سبت'.split('_'),
+	    weekdaysMin : 'ح_ن_ث_ر_خ_ج_س'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'D/\u200FM/\u200FYYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd D MMMM YYYY HH:mm'
+	    },
+	    meridiemParse: /ص|م/,
+	    isPM : function (input) {
+	        return 'م' === input;
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 12) {
+	            return 'ص';
+	        } else {
+	            return 'م';
+	        }
+	    },
+	    calendar : {
+	        sameDay: '[اليوم عند الساعة] LT',
+	        nextDay: '[غدًا عند الساعة] LT',
+	        nextWeek: 'dddd [عند الساعة] LT',
+	        lastDay: '[أمس عند الساعة] LT',
+	        lastWeek: 'dddd [عند الساعة] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'بعد %s',
+	        past : 'منذ %s',
+	        s : pluralize('s'),
+	        m : pluralize('m'),
+	        mm : pluralize('m'),
+	        h : pluralize('h'),
+	        hh : pluralize('h'),
+	        d : pluralize('d'),
+	        dd : pluralize('d'),
+	        M : pluralize('M'),
+	        MM : pluralize('M'),
+	        y : pluralize('y'),
+	        yy : pluralize('y')
+	    },
+	    preparse: function (string) {
+	        return string.replace(/\u200f/g, '').replace(/،/g, ',');
+	    },
+	    postformat: function (string) {
+	        return string.replace(/\d/g, function (match) {
+	            return symbolMap[match];
+	        }).replace(/,/g, '،');
+	    },
+	    week : {
+	        dow : 6, // Saturday is the first day of the week.
+	        doy : 12  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return arLy;
+
+	})));
+
+
+/***/ },
+/* 205 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+>>>>>>> dev
 	//! locale : Arabic (Morocco) [ar-ma]
 	//! author : ElFadili Yassine : https://github.com/ElFadiliY
 	//! author : Abdel Said : https://github.com/abdelsaid
@@ -49386,7 +51353,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 204 */
+=======
+/* 206 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -49494,7 +51465,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 205 */
+=======
+/* 207 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -49556,7 +51531,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 206 */
+=======
+/* 208 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -49567,6 +51546,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -49590,6 +51570,100 @@ return /******/ (function(modules) { // webpackBootstrap
 	        60: '-ıncı',
 	        90: '-ıncı'
 	    };
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var suffixes = {
+	    1: '-inci',
+	    5: '-inci',
+	    8: '-inci',
+	    70: '-inci',
+	    80: '-inci',
+	    2: '-nci',
+	    7: '-nci',
+	    20: '-nci',
+	    50: '-nci',
+	    3: '-üncü',
+	    4: '-üncü',
+	    100: '-üncü',
+	    6: '-ncı',
+	    9: '-uncu',
+	    10: '-uncu',
+	    30: '-uncu',
+	    60: '-ıncı',
+	    90: '-ıncı'
+	};
+
+	var az = moment.defineLocale('az', {
+	    months : 'yanvar_fevral_mart_aprel_may_iyun_iyul_avqust_sentyabr_oktyabr_noyabr_dekabr'.split('_'),
+	    monthsShort : 'yan_fev_mar_apr_may_iyn_iyl_avq_sen_okt_noy_dek'.split('_'),
+	    weekdays : 'Bazar_Bazar ertəsi_Çərşənbə axşamı_Çərşənbə_Cümə axşamı_Cümə_Şənbə'.split('_'),
+	    weekdaysShort : 'Baz_BzE_ÇAx_Çər_CAx_Cüm_Şən'.split('_'),
+	    weekdaysMin : 'Bz_BE_ÇA_Çə_CA_Cü_Şə'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[bugün saat] LT',
+	        nextDay : '[sabah saat] LT',
+	        nextWeek : '[gələn həftə] dddd [saat] LT',
+	        lastDay : '[dünən] LT',
+	        lastWeek : '[keçən həftə] dddd [saat] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s sonra',
+	        past : '%s əvvəl',
+	        s : 'birneçə saniyyə',
+	        m : 'bir dəqiqə',
+	        mm : '%d dəqiqə',
+	        h : 'bir saat',
+	        hh : '%d saat',
+	        d : 'bir gün',
+	        dd : '%d gün',
+	        M : 'bir ay',
+	        MM : '%d ay',
+	        y : 'bir il',
+	        yy : '%d il'
+	    },
+	    meridiemParse: /gecə|səhər|gündüz|axşam/,
+	    isPM : function (input) {
+	        return /^(gündüz|axşam)$/.test(input);
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 4) {
+	            return 'gecə';
+	        } else if (hour < 12) {
+	            return 'səhər';
+	        } else if (hour < 17) {
+	            return 'gündüz';
+	        } else {
+	            return 'axşam';
+	        }
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}-(ıncı|inci|nci|üncü|ncı|uncu)/,
+	    ordinal : function (number) {
+	        if (number === 0) {  // special case for zero
+	            return number + '-ıncı';
+	        }
+	        var a = number % 10,
+	            b = number % 100 - a,
+	            c = number >= 100 ? 100 : null;
+	        return number + (suffixes[a] || suffixes[b] || suffixes[c]);
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+>>>>>>> dev
 
 	    var az = moment.defineLocale('az', {
 	        months : 'yanvar_fevral_mart_aprel_may_iyun_iyul_avqust_sentyabr_oktyabr_noyabr_dekabr'.split('_'),
@@ -49665,7 +51739,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 207 */
+=======
+/* 209 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -49715,6 +51793,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            standalone: 'нядзеля_панядзелак_аўторак_серада_чацвер_пятніца_субота'.split('_'),
 	            isFormat: /\[ ?[Вв] ?(?:мінулую|наступную)? ?\] ?dddd/
 	        },
+<<<<<<< HEAD
 	        weekdaysShort : 'нд_пн_ат_ср_чц_пт_сб'.split('_'),
 	        weekdaysMin : 'нд_пн_ат_ср_чц_пт_сб'.split('_'),
 	        longDateFormat : {
@@ -49795,6 +51874,53 @@ return /******/ (function(modules) { // webpackBootstrap
 	        week : {
 	            dow : 1, // Monday is the first day of the week.
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
+=======
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'праз %s',
+	        past : '%s таму',
+	        s : 'некалькі секунд',
+	        m : relativeTimeWithPlural,
+	        mm : relativeTimeWithPlural,
+	        h : relativeTimeWithPlural,
+	        hh : relativeTimeWithPlural,
+	        d : 'дзень',
+	        dd : relativeTimeWithPlural,
+	        M : 'месяц',
+	        MM : relativeTimeWithPlural,
+	        y : 'год',
+	        yy : relativeTimeWithPlural
+	    },
+	    meridiemParse: /ночы|раніцы|дня|вечара/,
+	    isPM : function (input) {
+	        return /^(дня|вечара)$/.test(input);
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 4) {
+	            return 'ночы';
+	        } else if (hour < 12) {
+	            return 'раніцы';
+	        } else if (hour < 17) {
+	            return 'дня';
+	        } else {
+	            return 'вечара';
+	        }
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}-(і|ы|га)/,
+	    ordinal: function (number, period) {
+	        switch (period) {
+	            case 'M':
+	            case 'd':
+	            case 'DDD':
+	            case 'w':
+	            case 'W':
+	                return (number % 10 === 2 || number % 10 === 3) && (number % 100 !== 12 && number % 100 !== 13) ? number + '-і' : number + '-ы';
+	            case 'D':
+	                return number + '-га';
+	            default:
+	                return number;
+>>>>>>> dev
 	        }
 	    });
 
@@ -49803,7 +51929,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 208 */
+=======
+/* 210 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -49886,9 +52016,47 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return number + '-ти';
 	            }
 	        },
+<<<<<<< HEAD
 	        week : {
 	            dow : 1, // Monday is the first day of the week.
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
+=======
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'след %s',
+	        past : 'преди %s',
+	        s : 'няколко секунди',
+	        m : 'минута',
+	        mm : '%d минути',
+	        h : 'час',
+	        hh : '%d часа',
+	        d : 'ден',
+	        dd : '%d дни',
+	        M : 'месец',
+	        MM : '%d месеца',
+	        y : 'година',
+	        yy : '%d години'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
+	    ordinal : function (number) {
+	        var lastDigit = number % 10,
+	            last2Digits = number % 100;
+	        if (number === 0) {
+	            return number + '-ев';
+	        } else if (last2Digits === 0) {
+	            return number + '-ен';
+	        } else if (last2Digits > 10 && last2Digits < 20) {
+	            return number + '-ти';
+	        } else if (lastDigit === 1) {
+	            return number + '-ви';
+	        } else if (lastDigit === 2) {
+	            return number + '-ри';
+	        } else if (lastDigit === 7 || lastDigit === 8) {
+	            return number + '-ми';
+	        } else {
+	            return number + '-ти';
+>>>>>>> dev
 	        }
 	    });
 
@@ -49897,7 +52065,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 209 */
+=======
+/* 211 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50020,7 +52192,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 210 */
+=======
+/* 212 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50143,7 +52319,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 211 */
+=======
+/* 213 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50189,6 +52369,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        return text;
 	    }
+<<<<<<< HEAD
 	    function softMutation(text) {
 	        var mutationTable = {
 	            'm': 'v',
@@ -50249,13 +52430,72 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	    return mutationTable[text.charAt(0)] + text.substring(1);
+	}
+
+	var br = moment.defineLocale('br', {
+	    months : 'Genver_C\'hwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu'.split('_'),
+	    monthsShort : 'Gen_C\'hwe_Meu_Ebr_Mae_Eve_Gou_Eos_Gwe_Her_Du_Ker'.split('_'),
+	    weekdays : 'Sul_Lun_Meurzh_Merc\'her_Yaou_Gwener_Sadorn'.split('_'),
+	    weekdaysShort : 'Sul_Lun_Meu_Mer_Yao_Gwe_Sad'.split('_'),
+	    weekdaysMin : 'Su_Lu_Me_Mer_Ya_Gw_Sa'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'h[e]mm A',
+	        LTS : 'h[e]mm:ss A',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D [a viz] MMMM YYYY',
+	        LLL : 'D [a viz] MMMM YYYY h[e]mm A',
+	        LLLL : 'dddd, D [a viz] MMMM YYYY h[e]mm A'
+	    },
+	    calendar : {
+	        sameDay : '[Hiziv da] LT',
+	        nextDay : '[Warc\'hoazh da] LT',
+	        nextWeek : 'dddd [da] LT',
+	        lastDay : '[Dec\'h da] LT',
+	        lastWeek : 'dddd [paset da] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'a-benn %s',
+	        past : '%s \'zo',
+	        s : 'un nebeud segondennoù',
+	        m : 'ur vunutenn',
+	        mm : relativeTimeWithMutation,
+	        h : 'un eur',
+	        hh : '%d eur',
+	        d : 'un devezh',
+	        dd : relativeTimeWithMutation,
+	        M : 'ur miz',
+	        MM : relativeTimeWithMutation,
+	        y : 'ur bloaz',
+	        yy : specialMutationForYears
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(añ|vet)/,
+	    ordinal : function (number) {
+	        var output = (number === 1) ? 'añ' : 'vet';
+	        return number + output;
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return br;
+>>>>>>> dev
 
 	    return br;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 212 */
+=======
+/* 214 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50374,6 +52614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            sameElse : 'L'
 	        },
+<<<<<<< HEAD
 	        relativeTime : {
 	            future : 'za %s',
 	            past   : 'prije %s',
@@ -50396,13 +52637,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
 	        }
 	    });
+=======
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'za %s',
+	        past   : 'prije %s',
+	        s      : 'par sekundi',
+	        m      : translate,
+	        mm     : translate,
+	        h      : translate,
+	        hh     : translate,
+	        d      : 'dan',
+	        dd     : translate,
+	        M      : 'mjesec',
+	        MM     : translate,
+	        y      : 'godinu',
+	        yy     : translate
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return bs;
+>>>>>>> dev
 
 	    return bs;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 213 */
+=======
+/* 215 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50413,6 +52686,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -50431,6 +52705,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	            LL : 'D MMMM YYYY',
 	            LLL : 'D MMMM YYYY H:mm',
 	            LLLL : 'dddd D MMMM YYYY H:mm'
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var ca = moment.defineLocale('ca', {
+	    months : {
+	        standalone: 'gener_febrer_març_abril_maig_juny_juliol_agost_setembre_octubre_novembre_desembre'.split('_'),
+	        format: 'de gener_de febrer_de març_d\'abril_de maig_de juny_de juliol_d\'agost_de setembre_d\'octubre_de novembre_de desembre'.split('_'),
+	        isFormat: /D[oD]?(\s)+MMMM/
+	    },
+	    monthsShort : 'gen._febr._març_abr._maig_juny_jul._ag._set._oct._nov._des.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'diumenge_dilluns_dimarts_dimecres_dijous_divendres_dissabte'.split('_'),
+	    weekdaysShort : 'dg._dl._dt._dc._dj._dv._ds.'.split('_'),
+	    weekdaysMin : 'Dg_Dl_Dt_Dc_Dj_Dv_Ds'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'H:mm',
+	        LTS : 'H:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : '[el] D MMMM [de] YYYY',
+	        ll : 'D MMM YYYY',
+	        LLL : '[el] D MMMM [de] YYYY [a les] H:mm',
+	        lll : 'D MMM YYYY, H:mm',
+	        LLLL : '[el] dddd D MMMM [de] YYYY [a les] H:mm',
+	        llll : 'ddd D MMM YYYY, H:mm'
+	    },
+	    calendar : {
+	        sameDay : function () {
+	            return '[avui a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
+	        },
+	        nextDay : function () {
+	            return '[demà a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
+>>>>>>> dev
 	        },
 	        calendar : {
 	            sameDay : function () {
@@ -50476,18 +52784,60 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            return number + output;
 	        },
+<<<<<<< HEAD
 	        week : {
 	            dow : 1, // Monday is the first day of the week.
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'd\'aquí %s',
+	        past : 'fa %s',
+	        s : 'uns segons',
+	        m : 'un minut',
+	        mm : '%d minuts',
+	        h : 'una hora',
+	        hh : '%d hores',
+	        d : 'un dia',
+	        dd : '%d dies',
+	        M : 'un mes',
+	        MM : '%d mesos',
+	        y : 'un any',
+	        yy : '%d anys'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(r|n|t|è|a)/,
+	    ordinal : function (number, period) {
+	        var output = (number === 1) ? 'r' :
+	            (number === 2) ? 'n' :
+	            (number === 3) ? 'r' :
+	            (number === 4) ? 't' : 'è';
+	        if (period === 'w' || period === 'W') {
+	            output = 'a';
+	        }
+	        return number + output;
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return ca;
+>>>>>>> dev
 
 	    return ca;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 214 */
+=======
+/* 216 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50596,6 +52946,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            LLLL : 'dddd D. MMMM YYYY H:mm',
 	            l : 'D. M. YYYY'
 	        },
+<<<<<<< HEAD
 	        calendar : {
 	            sameDay: '[dnes v] LT',
 	            nextDay: '[zítra v] LT',
@@ -50657,13 +53008,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'za %s',
+	        past : 'před %s',
+	        s : translate,
+	        m : translate,
+	        mm : translate,
+	        h : translate,
+	        hh : translate,
+	        d : translate,
+	        dd : translate,
+	        M : translate,
+	        MM : translate,
+	        y : translate,
+	        yy : translate
+	    },
+	    dayOfMonthOrdinalParse : /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return cs;
+>>>>>>> dev
 
 	    return cs;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 215 */
+=======
+/* 217 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50691,6 +53074,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            LLL : 'YYYY [ҫулхи] MMMM [уйӑхӗн] D[-мӗшӗ], HH:mm',
 	            LLLL : 'dddd, YYYY [ҫулхи] MMMM [уйӑхӗн] D[-мӗшӗ], HH:mm'
 	        },
+<<<<<<< HEAD
 	        calendar : {
 	            sameDay: '[Паян] LT [сехетре]',
 	            nextDay: '[Ыран] LT [сехетре]',
@@ -50724,13 +53108,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
 	        }
 	    });
+=======
+	        past : '%s каялла',
+	        s : 'пӗр-ик ҫеккунт',
+	        m : 'пӗр минут',
+	        mm : '%d минут',
+	        h : 'пӗр сехет',
+	        hh : '%d сехет',
+	        d : 'пӗр кун',
+	        dd : '%d кун',
+	        M : 'пӗр уйӑх',
+	        MM : '%d уйӑх',
+	        y : 'пӗр ҫул',
+	        yy : '%d ҫул'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}-мӗш/,
+	    ordinal : '%d-мӗш',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return cv;
+>>>>>>> dev
 
 	    return cv;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 216 */
+=======
+/* 218 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50741,6 +53153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -50800,6 +53213,64 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            } else if (b > 0) {
 	                output = lookup[b];
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var cy = moment.defineLocale('cy', {
+	    months: 'Ionawr_Chwefror_Mawrth_Ebrill_Mai_Mehefin_Gorffennaf_Awst_Medi_Hydref_Tachwedd_Rhagfyr'.split('_'),
+	    monthsShort: 'Ion_Chwe_Maw_Ebr_Mai_Meh_Gor_Aws_Med_Hyd_Tach_Rhag'.split('_'),
+	    weekdays: 'Dydd Sul_Dydd Llun_Dydd Mawrth_Dydd Mercher_Dydd Iau_Dydd Gwener_Dydd Sadwrn'.split('_'),
+	    weekdaysShort: 'Sul_Llun_Maw_Mer_Iau_Gwe_Sad'.split('_'),
+	    weekdaysMin: 'Su_Ll_Ma_Me_Ia_Gw_Sa'.split('_'),
+	    weekdaysParseExact : true,
+	    // time formats are the same as en-gb
+	    longDateFormat: {
+	        LT: 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L: 'DD/MM/YYYY',
+	        LL: 'D MMMM YYYY',
+	        LLL: 'D MMMM YYYY HH:mm',
+	        LLLL: 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar: {
+	        sameDay: '[Heddiw am] LT',
+	        nextDay: '[Yfory am] LT',
+	        nextWeek: 'dddd [am] LT',
+	        lastDay: '[Ddoe am] LT',
+	        lastWeek: 'dddd [diwethaf am] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime: {
+	        future: 'mewn %s',
+	        past: '%s yn ôl',
+	        s: 'ychydig eiliadau',
+	        m: 'munud',
+	        mm: '%d munud',
+	        h: 'awr',
+	        hh: '%d awr',
+	        d: 'diwrnod',
+	        dd: '%d diwrnod',
+	        M: 'mis',
+	        MM: '%d mis',
+	        y: 'blwyddyn',
+	        yy: '%d flynedd'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(fed|ain|af|il|ydd|ed|eg)/,
+	    // traditional ordinal numbers above 31 are not commonly used in colloquial Welsh
+	    ordinal: function (number) {
+	        var b = number,
+	            output = '',
+	            lookup = [
+	                '', 'af', 'il', 'ydd', 'ydd', 'ed', 'ed', 'ed', 'fed', 'fed', 'fed', // 1af to 10fed
+	                'eg', 'fed', 'eg', 'eg', 'fed', 'eg', 'eg', 'fed', 'eg', 'fed' // 11eg to 20fed
+	            ];
+	        if (b > 20) {
+	            if (b === 40 || b === 50 || b === 60 || b === 80 || b === 100) {
+	                output = 'fed'; // not 30ain, 70ain or 90ain
+	            } else {
+	                output = 'ain';
+>>>>>>> dev
 	            }
 	            return number + output;
 	        },
@@ -50814,7 +53285,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 217 */
+=======
+/* 219 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50825,6 +53300,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -50872,13 +53348,68 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var da = moment.defineLocale('da', {
+	    months : 'januar_februar_marts_april_maj_juni_juli_august_september_oktober_november_december'.split('_'),
+	    monthsShort : 'jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec'.split('_'),
+	    weekdays : 'søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag'.split('_'),
+	    weekdaysShort : 'søn_man_tir_ons_tor_fre_lør'.split('_'),
+	    weekdaysMin : 'sø_ma_ti_on_to_fr_lø'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D. MMMM YYYY',
+	        LLL : 'D. MMMM YYYY HH:mm',
+	        LLLL : 'dddd [d.] D. MMMM YYYY [kl.] HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[i dag kl.] LT',
+	        nextDay : '[i morgen kl.] LT',
+	        nextWeek : 'på dddd [kl.] LT',
+	        lastDay : '[i går kl.] LT',
+	        lastWeek : '[i] dddd[s kl.] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'om %s',
+	        past : '%s siden',
+	        s : 'få sekunder',
+	        m : 'et minut',
+	        mm : '%d minutter',
+	        h : 'en time',
+	        hh : '%d timer',
+	        d : 'en dag',
+	        dd : '%d dage',
+	        M : 'en måned',
+	        MM : '%d måneder',
+	        y : 'et år',
+	        yy : '%d år'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return da;
+>>>>>>> dev
 
 	    return da;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 218 */
+=======
+/* 220 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50891,6 +53422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -50954,13 +53486,84 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	function processRelativeTime(number, withoutSuffix, key, isFuture) {
+	    var format = {
+	        'm': ['eine Minute', 'einer Minute'],
+	        'h': ['eine Stunde', 'einer Stunde'],
+	        'd': ['ein Tag', 'einem Tag'],
+	        'dd': [number + ' Tage', number + ' Tagen'],
+	        'M': ['ein Monat', 'einem Monat'],
+	        'MM': [number + ' Monate', number + ' Monaten'],
+	        'y': ['ein Jahr', 'einem Jahr'],
+	        'yy': [number + ' Jahre', number + ' Jahren']
+	    };
+	    return withoutSuffix ? format[key][0] : format[key][1];
+	}
+
+	var de = moment.defineLocale('de', {
+	    months : 'Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
+	    monthsShort : 'Jan._Febr._Mrz._Apr._Mai_Jun._Jul._Aug._Sept._Okt._Nov._Dez.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
+	    weekdaysShort : 'So._Mo._Di._Mi._Do._Fr._Sa.'.split('_'),
+	    weekdaysMin : 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT: 'HH:mm',
+	        LTS: 'HH:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D. MMMM YYYY',
+	        LLL : 'D. MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D. MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[heute um] LT [Uhr]',
+	        sameElse: 'L',
+	        nextDay: '[morgen um] LT [Uhr]',
+	        nextWeek: 'dddd [um] LT [Uhr]',
+	        lastDay: '[gestern um] LT [Uhr]',
+	        lastWeek: '[letzten] dddd [um] LT [Uhr]'
+	    },
+	    relativeTime : {
+	        future : 'in %s',
+	        past : 'vor %s',
+	        s : 'ein paar Sekunden',
+	        m : processRelativeTime,
+	        mm : '%d Minuten',
+	        h : processRelativeTime,
+	        hh : '%d Stunden',
+	        d : processRelativeTime,
+	        dd : processRelativeTime,
+	        M : processRelativeTime,
+	        MM : processRelativeTime,
+	        y : processRelativeTime,
+	        yy : processRelativeTime
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return de;
+>>>>>>> dev
 
 	    return de;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 219 */
+=======
+/* 221 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -50974,6 +53577,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -51037,13 +53641,167 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	function processRelativeTime(number, withoutSuffix, key, isFuture) {
+	    var format = {
+	        'm': ['eine Minute', 'einer Minute'],
+	        'h': ['eine Stunde', 'einer Stunde'],
+	        'd': ['ein Tag', 'einem Tag'],
+	        'dd': [number + ' Tage', number + ' Tagen'],
+	        'M': ['ein Monat', 'einem Monat'],
+	        'MM': [number + ' Monate', number + ' Monaten'],
+	        'y': ['ein Jahr', 'einem Jahr'],
+	        'yy': [number + ' Jahre', number + ' Jahren']
+	    };
+	    return withoutSuffix ? format[key][0] : format[key][1];
+	}
+
+	var deAt = moment.defineLocale('de-at', {
+	    months : 'Jänner_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
+	    monthsShort : 'Jän._Febr._Mrz._Apr._Mai_Jun._Jul._Aug._Sept._Okt._Nov._Dez.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
+	    weekdaysShort : 'So._Mo._Di._Mi._Do._Fr._Sa.'.split('_'),
+	    weekdaysMin : 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT: 'HH:mm',
+	        LTS: 'HH:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D. MMMM YYYY',
+	        LLL : 'D. MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D. MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[heute um] LT [Uhr]',
+	        sameElse: 'L',
+	        nextDay: '[morgen um] LT [Uhr]',
+	        nextWeek: 'dddd [um] LT [Uhr]',
+	        lastDay: '[gestern um] LT [Uhr]',
+	        lastWeek: '[letzten] dddd [um] LT [Uhr]'
+	    },
+	    relativeTime : {
+	        future : 'in %s',
+	        past : 'vor %s',
+	        s : 'ein paar Sekunden',
+	        m : processRelativeTime,
+	        mm : '%d Minuten',
+	        h : processRelativeTime,
+	        hh : '%d Stunden',
+	        d : processRelativeTime,
+	        dd : processRelativeTime,
+	        M : processRelativeTime,
+	        MM : processRelativeTime,
+	        y : processRelativeTime,
+	        yy : processRelativeTime
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return deAt;
+>>>>>>> dev
 
 	    return de_at;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 220 */
+=======
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : German (Switzerland) [de-ch]
+	//! author : sschueller : https://github.com/sschueller
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	// based on: https://www.bk.admin.ch/dokumentation/sprachen/04915/05016/index.html?lang=de#
+
+	function processRelativeTime(number, withoutSuffix, key, isFuture) {
+	    var format = {
+	        'm': ['eine Minute', 'einer Minute'],
+	        'h': ['eine Stunde', 'einer Stunde'],
+	        'd': ['ein Tag', 'einem Tag'],
+	        'dd': [number + ' Tage', number + ' Tagen'],
+	        'M': ['ein Monat', 'einem Monat'],
+	        'MM': [number + ' Monate', number + ' Monaten'],
+	        'y': ['ein Jahr', 'einem Jahr'],
+	        'yy': [number + ' Jahre', number + ' Jahren']
+	    };
+	    return withoutSuffix ? format[key][0] : format[key][1];
+	}
+
+	var deCh = moment.defineLocale('de-ch', {
+	    months : 'Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
+	    monthsShort : 'Jan._Febr._März_April_Mai_Juni_Juli_Aug._Sept._Okt._Nov._Dez.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
+	    weekdaysShort : 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),
+	    weekdaysMin : 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT: 'HH.mm',
+	        LTS: 'HH.mm.ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D. MMMM YYYY',
+	        LLL : 'D. MMMM YYYY HH.mm',
+	        LLLL : 'dddd, D. MMMM YYYY HH.mm'
+	    },
+	    calendar : {
+	        sameDay: '[heute um] LT [Uhr]',
+	        sameElse: 'L',
+	        nextDay: '[morgen um] LT [Uhr]',
+	        nextWeek: 'dddd [um] LT [Uhr]',
+	        lastDay: '[gestern um] LT [Uhr]',
+	        lastWeek: '[letzten] dddd [um] LT [Uhr]'
+	    },
+	    relativeTime : {
+	        future : 'in %s',
+	        past : 'vor %s',
+	        s : 'ein paar Sekunden',
+	        m : processRelativeTime,
+	        mm : '%d Minuten',
+	        h : processRelativeTime,
+	        hh : '%d Stunden',
+	        d : processRelativeTime,
+	        dd : processRelativeTime,
+	        M : processRelativeTime,
+	        MM : processRelativeTime,
+	        y : processRelativeTime,
+	        yy : processRelativeTime
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return deCh;
+
+	})));
+
+
+/***/ },
+/* 223 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51146,7 +53904,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 221 */
+=======
+/* 224 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51164,6 +53926,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 
+<<<<<<< HEAD
 	    var el = moment.defineLocale('el', {
 	        monthsNominativeEl : 'Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος'.split('_'),
 	        monthsGenitiveEl : 'Ιανουαρίου_Φεβρουαρίου_Μαρτίου_Απριλίου_Μαΐου_Ιουνίου_Ιουλίου_Αυγούστου_Σεπτεμβρίου_Οκτωβρίου_Νοεμβρίου_Δεκεμβρίου'.split('_'),
@@ -51172,6 +53935,54 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return this._monthsGenitiveEl[momentToFormat.month()];
 	            } else {
 	                return this._monthsNominativeEl[momentToFormat.month()];
+=======
+	var el = moment.defineLocale('el', {
+	    monthsNominativeEl : 'Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος'.split('_'),
+	    monthsGenitiveEl : 'Ιανουαρίου_Φεβρουαρίου_Μαρτίου_Απριλίου_Μαΐου_Ιουνίου_Ιουλίου_Αυγούστου_Σεπτεμβρίου_Οκτωβρίου_Νοεμβρίου_Δεκεμβρίου'.split('_'),
+	    months : function (momentToFormat, format) {
+	        if (!momentToFormat) {
+	            return this._monthsNominativeEl;
+	        } else if (/D/.test(format.substring(0, format.indexOf('MMMM')))) { // if there is a day number before 'MMMM'
+	            return this._monthsGenitiveEl[momentToFormat.month()];
+	        } else {
+	            return this._monthsNominativeEl[momentToFormat.month()];
+	        }
+	    },
+	    monthsShort : 'Ιαν_Φεβ_Μαρ_Απρ_Μαϊ_Ιουν_Ιουλ_Αυγ_Σεπ_Οκτ_Νοε_Δεκ'.split('_'),
+	    weekdays : 'Κυριακή_Δευτέρα_Τρίτη_Τετάρτη_Πέμπτη_Παρασκευή_Σάββατο'.split('_'),
+	    weekdaysShort : 'Κυρ_Δευ_Τρι_Τετ_Πεμ_Παρ_Σαβ'.split('_'),
+	    weekdaysMin : 'Κυ_Δε_Τρ_Τε_Πε_Πα_Σα'.split('_'),
+	    meridiem : function (hours, minutes, isLower) {
+	        if (hours > 11) {
+	            return isLower ? 'μμ' : 'ΜΜ';
+	        } else {
+	            return isLower ? 'πμ' : 'ΠΜ';
+	        }
+	    },
+	    isPM : function (input) {
+	        return ((input + '').toLowerCase()[0] === 'μ');
+	    },
+	    meridiemParse : /[ΠΜ]\.?Μ?\.?/i,
+	    longDateFormat : {
+	        LT : 'h:mm A',
+	        LTS : 'h:mm:ss A',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY h:mm A',
+	        LLLL : 'dddd, D MMMM YYYY h:mm A'
+	    },
+	    calendarEl : {
+	        sameDay : '[Σήμερα {}] LT',
+	        nextDay : '[Αύριο {}] LT',
+	        nextWeek : 'dddd [{}] LT',
+	        lastDay : '[Χθες {}] LT',
+	        lastWeek : function () {
+	            switch (this.day()) {
+	                case 6:
+	                    return '[το προηγούμενο] dddd [{}] LT';
+	                default:
+	                    return '[την προηγούμενη] dddd [{}] LT';
+>>>>>>> dev
 	            }
 	        },
 	        monthsShort : 'Ιαν_Φεβ_Μαρ_Απρ_Μαϊ_Ιουν_Ιουλ_Αυγ_Σεπ_Οκτ_Νοε_Δεκ'.split('_'),
@@ -51241,14 +54052,47 @@ return /******/ (function(modules) { // webpackBootstrap
 	            dow : 1, // Monday is the first day of the week.
 	            doy : 4  // The week that contains Jan 4st is the first week of the year.
 	        }
+<<<<<<< HEAD
 	    });
+=======
+	        return output.replace('{}', (hours % 12 === 1 ? 'στη' : 'στις'));
+	    },
+	    relativeTime : {
+	        future : 'σε %s',
+	        past : '%s πριν',
+	        s : 'λίγα δευτερόλεπτα',
+	        m : 'ένα λεπτό',
+	        mm : '%d λεπτά',
+	        h : 'μία ώρα',
+	        hh : '%d ώρες',
+	        d : 'μία μέρα',
+	        dd : '%d μέρες',
+	        M : 'ένας μήνας',
+	        MM : '%d μήνες',
+	        y : 'ένας χρόνος',
+	        yy : '%d χρόνια'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}η/,
+	    ordinal: '%dη',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4st is the first week of the year.
+	    }
+	});
+
+	return el;
+>>>>>>> dev
 
 	    return el;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 222 */
+=======
+/* 225 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51258,6 +54102,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -51312,13 +54157,75 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var enAu = moment.defineLocale('en-au', {
+	    months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
+	    monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
+	    weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+	    weekdaysShort : 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+	    weekdaysMin : 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+	    longDateFormat : {
+	        LT : 'h:mm A',
+	        LTS : 'h:mm:ss A',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY h:mm A',
+	        LLLL : 'dddd, D MMMM YYYY h:mm A'
+	    },
+	    calendar : {
+	        sameDay : '[Today at] LT',
+	        nextDay : '[Tomorrow at] LT',
+	        nextWeek : 'dddd [at] LT',
+	        lastDay : '[Yesterday at] LT',
+	        lastWeek : '[Last] dddd [at] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'in %s',
+	        past : '%s ago',
+	        s : 'a few seconds',
+	        m : 'a minute',
+	        mm : '%d minutes',
+	        h : 'an hour',
+	        hh : '%d hours',
+	        d : 'a day',
+	        dd : '%d days',
+	        M : 'a month',
+	        MM : '%d months',
+	        y : 'a year',
+	        yy : '%d years'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
+	    ordinal : function (number) {
+	        var b = number % 10,
+	            output = (~~(number % 100 / 10) === 1) ? 'th' :
+	            (b === 1) ? 'st' :
+	            (b === 2) ? 'nd' :
+	            (b === 3) ? 'rd' : 'th';
+	        return number + output;
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return enAu;
+>>>>>>> dev
 
 	    return en_au;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 223 */
+=======
+/* 226 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51329,6 +54236,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -51379,13 +54287,71 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return number + output;
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var enCa = moment.defineLocale('en-ca', {
+	    months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
+	    monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
+	    weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+	    weekdaysShort : 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+	    weekdaysMin : 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+	    longDateFormat : {
+	        LT : 'h:mm A',
+	        LTS : 'h:mm:ss A',
+	        L : 'YYYY-MM-DD',
+	        LL : 'MMMM D, YYYY',
+	        LLL : 'MMMM D, YYYY h:mm A',
+	        LLLL : 'dddd, MMMM D, YYYY h:mm A'
+	    },
+	    calendar : {
+	        sameDay : '[Today at] LT',
+	        nextDay : '[Tomorrow at] LT',
+	        nextWeek : 'dddd [at] LT',
+	        lastDay : '[Yesterday at] LT',
+	        lastWeek : '[Last] dddd [at] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'in %s',
+	        past : '%s ago',
+	        s : 'a few seconds',
+	        m : 'a minute',
+	        mm : '%d minutes',
+	        h : 'an hour',
+	        hh : '%d hours',
+	        d : 'a day',
+	        dd : '%d days',
+	        M : 'a month',
+	        MM : '%d months',
+	        y : 'a year',
+	        yy : '%d years'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
+	    ordinal : function (number) {
+	        var b = number % 10,
+	            output = (~~(number % 100 / 10) === 1) ? 'th' :
+	            (b === 1) ? 'st' :
+	            (b === 2) ? 'nd' :
+	            (b === 3) ? 'rd' : 'th';
+	        return number + output;
+	    }
+	});
+
+	return enCa;
+>>>>>>> dev
 
 	    return en_ca;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 224 */
+=======
+/* 227 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51396,6 +54362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -51450,13 +54417,75 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var enGb = moment.defineLocale('en-gb', {
+	    months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
+	    monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
+	    weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+	    weekdaysShort : 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+	    weekdaysMin : 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Today at] LT',
+	        nextDay : '[Tomorrow at] LT',
+	        nextWeek : 'dddd [at] LT',
+	        lastDay : '[Yesterday at] LT',
+	        lastWeek : '[Last] dddd [at] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'in %s',
+	        past : '%s ago',
+	        s : 'a few seconds',
+	        m : 'a minute',
+	        mm : '%d minutes',
+	        h : 'an hour',
+	        hh : '%d hours',
+	        d : 'a day',
+	        dd : '%d days',
+	        M : 'a month',
+	        MM : '%d months',
+	        y : 'a year',
+	        yy : '%d years'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
+	    ordinal : function (number) {
+	        var b = number % 10,
+	            output = (~~(number % 100 / 10) === 1) ? 'th' :
+	            (b === 1) ? 'st' :
+	            (b === 2) ? 'nd' :
+	            (b === 3) ? 'rd' : 'th';
+	        return number + output;
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return enGb;
+>>>>>>> dev
 
 	    return en_gb;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 225 */
+=======
+/* 228 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51467,6 +54496,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -51521,13 +54551,75 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var enIe = moment.defineLocale('en-ie', {
+	    months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
+	    monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
+	    weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+	    weekdaysShort : 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+	    weekdaysMin : 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD-MM-YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Today at] LT',
+	        nextDay : '[Tomorrow at] LT',
+	        nextWeek : 'dddd [at] LT',
+	        lastDay : '[Yesterday at] LT',
+	        lastWeek : '[Last] dddd [at] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'in %s',
+	        past : '%s ago',
+	        s : 'a few seconds',
+	        m : 'a minute',
+	        mm : '%d minutes',
+	        h : 'an hour',
+	        hh : '%d hours',
+	        d : 'a day',
+	        dd : '%d days',
+	        M : 'a month',
+	        MM : '%d months',
+	        y : 'a year',
+	        yy : '%d years'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
+	    ordinal : function (number) {
+	        var b = number % 10,
+	            output = (~~(number % 100 / 10) === 1) ? 'th' :
+	            (b === 1) ? 'st' :
+	            (b === 2) ? 'nd' :
+	            (b === 3) ? 'rd' : 'th';
+	        return number + output;
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return enIe;
+>>>>>>> dev
 
 	    return en_ie;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 226 */
+=======
+/* 229 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51537,6 +54629,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -51591,25 +54684,88 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var enNz = moment.defineLocale('en-nz', {
+	    months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
+	    monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
+	    weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+	    weekdaysShort : 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+	    weekdaysMin : 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+	    longDateFormat : {
+	        LT : 'h:mm A',
+	        LTS : 'h:mm:ss A',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY h:mm A',
+	        LLLL : 'dddd, D MMMM YYYY h:mm A'
+	    },
+	    calendar : {
+	        sameDay : '[Today at] LT',
+	        nextDay : '[Tomorrow at] LT',
+	        nextWeek : 'dddd [at] LT',
+	        lastDay : '[Yesterday at] LT',
+	        lastWeek : '[Last] dddd [at] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'in %s',
+	        past : '%s ago',
+	        s : 'a few seconds',
+	        m : 'a minute',
+	        mm : '%d minutes',
+	        h : 'an hour',
+	        hh : '%d hours',
+	        d : 'a day',
+	        dd : '%d days',
+	        M : 'a month',
+	        MM : '%d months',
+	        y : 'a year',
+	        yy : '%d years'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
+	    ordinal : function (number) {
+	        var b = number % 10,
+	            output = (~~(number % 100 / 10) === 1) ? 'th' :
+	            (b === 1) ? 'st' :
+	            (b === 2) ? 'nd' :
+	            (b === 3) ? 'rd' : 'th';
+	        return number + output;
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return enNz;
+>>>>>>> dev
 
 	    return en_nz;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 227 */
+=======
+/* 230 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : Esperanto [eo]
 	//! author : Colin Dean : https://github.com/colindean
-	//! komento: Mi estas malcerta se mi korekte traktis akuzativojn en tiu traduko.
-	//!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
+	//! author : Mia Nordentoft Imperatori : https://github.com/miestasmia
+	//! comment : miestasmia corrected the translation by colindean
 
 	;(function (global, factory) {
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -51668,13 +54824,79 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var eo = moment.defineLocale('eo', {
+	    months : 'januaro_februaro_marto_aprilo_majo_junio_julio_aŭgusto_septembro_oktobro_novembro_decembro'.split('_'),
+	    monthsShort : 'jan_feb_mar_apr_maj_jun_jul_aŭg_sep_okt_nov_dec'.split('_'),
+	    weekdays : 'dimanĉo_lundo_mardo_merkredo_ĵaŭdo_vendredo_sabato'.split('_'),
+	    weekdaysShort : 'dim_lun_mard_merk_ĵaŭ_ven_sab'.split('_'),
+	    weekdaysMin : 'di_lu_ma_me_ĵa_ve_sa'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'YYYY-MM-DD',
+	        LL : 'D[-a de] MMMM, YYYY',
+	        LLL : 'D[-a de] MMMM, YYYY HH:mm',
+	        LLLL : 'dddd, [la] D[-a de] MMMM, YYYY HH:mm'
+	    },
+	    meridiemParse: /[ap]\.t\.m/i,
+	    isPM: function (input) {
+	        return input.charAt(0).toLowerCase() === 'p';
+	    },
+	    meridiem : function (hours, minutes, isLower) {
+	        if (hours > 11) {
+	            return isLower ? 'p.t.m.' : 'P.T.M.';
+	        } else {
+	            return isLower ? 'a.t.m.' : 'A.T.M.';
+	        }
+	    },
+	    calendar : {
+	        sameDay : '[Hodiaŭ je] LT',
+	        nextDay : '[Morgaŭ je] LT',
+	        nextWeek : 'dddd [je] LT',
+	        lastDay : '[Hieraŭ je] LT',
+	        lastWeek : '[pasinta] dddd [je] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'post %s',
+	        past : 'antaŭ %s',
+	        s : 'sekundoj',
+	        m : 'minuto',
+	        mm : '%d minutoj',
+	        h : 'horo',
+	        hh : '%d horoj',
+	        d : 'tago',//ne 'diurno', ĉar estas uzita por proksimumo
+	        dd : '%d tagoj',
+	        M : 'monato',
+	        MM : '%d monatoj',
+	        y : 'jaro',
+	        yy : '%d jaroj'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}a/,
+	    ordinal : '%da',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return eo;
+>>>>>>> dev
 
 	    return eo;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 228 */
+=======
+/* 231 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51691,6 +54913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_'),
 	        monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
 
+<<<<<<< HEAD
 	    var es = moment.defineLocale('es', {
 	        months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
 	        monthsShort : function (m, format) {
@@ -51699,6 +54922,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	            } else {
 	                return monthsShortDot[m.month()];
 	            }
+=======
+	var es = moment.defineLocale('es', {
+	    months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
+	    monthsShort : function (m, format) {
+	        if (!m) {
+	            return monthsShortDot;
+	        } else if (/-MMM-/.test(format)) {
+	            return monthsShort[m.month()];
+	        } else {
+	            return monthsShortDot[m.month()];
+	        }
+	    },
+	    monthsParseExact : true,
+	    weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
+	    weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
+	    weekdaysMin : 'do_lu_ma_mi_ju_vi_sá'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'H:mm',
+	        LTS : 'H:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D [de] MMMM [de] YYYY',
+	        LLL : 'D [de] MMMM [de] YYYY H:mm',
+	        LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
+	    },
+	    calendar : {
+	        sameDay : function () {
+	            return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+	        },
+	        nextDay : function () {
+	            return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+>>>>>>> dev
 	        },
 	        monthsParseExact : true,
 	        weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
@@ -51746,6 +55001,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            y : 'un año',
 	            yy : '%d años'
 	        },
+<<<<<<< HEAD
 	        ordinalParse : /\d{1,2}º/,
 	        ordinal : '%dº',
 	        week : {
@@ -51753,13 +55009,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'en %s',
+	        past : 'hace %s',
+	        s : 'unos segundos',
+	        m : 'un minuto',
+	        mm : '%d minutos',
+	        h : 'una hora',
+	        hh : '%d horas',
+	        d : 'un día',
+	        dd : '%d días',
+	        M : 'un mes',
+	        MM : '%d meses',
+	        y : 'un año',
+	        yy : '%d años'
+	    },
+	    dayOfMonthOrdinalParse : /\d{1,2}º/,
+	    ordinal : '%dº',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return es;
+>>>>>>> dev
 
 	    return es;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 229 */
+=======
+/* 232 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51775,6 +55063,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_'),
 	        monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
 
+<<<<<<< HEAD
 	    var es_do = moment.defineLocale('es-do', {
 	        months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
 	        monthsShort : function (m, format) {
@@ -51783,6 +55072,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	            } else {
 	                return monthsShortDot[m.month()];
 	            }
+=======
+	var esDo = moment.defineLocale('es-do', {
+	    months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
+	    monthsShort : function (m, format) {
+	        if (!m) {
+	            return monthsShortDot;
+	        } else if (/-MMM-/.test(format)) {
+	            return monthsShort[m.month()];
+	        } else {
+	            return monthsShortDot[m.month()];
+	        }
+	    },
+	    monthsParseExact : true,
+	    weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
+	    weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
+	    weekdaysMin : 'do_lu_ma_mi_ju_vi_sá'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'h:mm A',
+	        LTS : 'h:mm:ss A',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D [de] MMMM [de] YYYY',
+	        LLL : 'D [de] MMMM [de] YYYY h:mm A',
+	        LLLL : 'dddd, D [de] MMMM [de] YYYY h:mm A'
+	    },
+	    calendar : {
+	        sameDay : function () {
+	            return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+	        },
+	        nextDay : function () {
+	            return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+>>>>>>> dev
 	        },
 	        monthsParseExact : true,
 	        weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
@@ -51830,6 +55151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            y : 'un año',
 	            yy : '%d años'
 	        },
+<<<<<<< HEAD
 	        ordinalParse : /\d{1,2}º/,
 	        ordinal : '%dº',
 	        week : {
@@ -51837,13 +55159,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'en %s',
+	        past : 'hace %s',
+	        s : 'unos segundos',
+	        m : 'un minuto',
+	        mm : '%d minutos',
+	        h : 'una hora',
+	        hh : '%d horas',
+	        d : 'un día',
+	        dd : '%d días',
+	        M : 'un mes',
+	        MM : '%d meses',
+	        y : 'un año',
+	        yy : '%d años'
+	    },
+	    dayOfMonthOrdinalParse : /\d{1,2}º/,
+	    ordinal : '%dº',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return esDo;
+>>>>>>> dev
 
 	    return es_do;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 230 */
+=======
+/* 233 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51855,6 +55209,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -51921,13 +55276,87 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	function processRelativeTime(number, withoutSuffix, key, isFuture) {
+	    var format = {
+	        's' : ['mõne sekundi', 'mõni sekund', 'paar sekundit'],
+	        'm' : ['ühe minuti', 'üks minut'],
+	        'mm': [number + ' minuti', number + ' minutit'],
+	        'h' : ['ühe tunni', 'tund aega', 'üks tund'],
+	        'hh': [number + ' tunni', number + ' tundi'],
+	        'd' : ['ühe päeva', 'üks päev'],
+	        'M' : ['kuu aja', 'kuu aega', 'üks kuu'],
+	        'MM': [number + ' kuu', number + ' kuud'],
+	        'y' : ['ühe aasta', 'aasta', 'üks aasta'],
+	        'yy': [number + ' aasta', number + ' aastat']
+	    };
+	    if (withoutSuffix) {
+	        return format[key][2] ? format[key][2] : format[key][1];
+	    }
+	    return isFuture ? format[key][0] : format[key][1];
+	}
+
+	var et = moment.defineLocale('et', {
+	    months        : 'jaanuar_veebruar_märts_aprill_mai_juuni_juuli_august_september_oktoober_november_detsember'.split('_'),
+	    monthsShort   : 'jaan_veebr_märts_apr_mai_juuni_juuli_aug_sept_okt_nov_dets'.split('_'),
+	    weekdays      : 'pühapäev_esmaspäev_teisipäev_kolmapäev_neljapäev_reede_laupäev'.split('_'),
+	    weekdaysShort : 'P_E_T_K_N_R_L'.split('_'),
+	    weekdaysMin   : 'P_E_T_K_N_R_L'.split('_'),
+	    longDateFormat : {
+	        LT   : 'H:mm',
+	        LTS : 'H:mm:ss',
+	        L    : 'DD.MM.YYYY',
+	        LL   : 'D. MMMM YYYY',
+	        LLL  : 'D. MMMM YYYY H:mm',
+	        LLLL : 'dddd, D. MMMM YYYY H:mm'
+	    },
+	    calendar : {
+	        sameDay  : '[Täna,] LT',
+	        nextDay  : '[Homme,] LT',
+	        nextWeek : '[Järgmine] dddd LT',
+	        lastDay  : '[Eile,] LT',
+	        lastWeek : '[Eelmine] dddd LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s pärast',
+	        past   : '%s tagasi',
+	        s      : processRelativeTime,
+	        m      : processRelativeTime,
+	        mm     : processRelativeTime,
+	        h      : processRelativeTime,
+	        hh     : processRelativeTime,
+	        d      : processRelativeTime,
+	        dd     : '%d päeva',
+	        M      : processRelativeTime,
+	        MM     : processRelativeTime,
+	        y      : processRelativeTime,
+	        yy     : processRelativeTime
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return et;
+>>>>>>> dev
 
 	    return et;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 231 */
+=======
+/* 234 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -51938,6 +55367,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -51991,13 +55421,74 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var eu = moment.defineLocale('eu', {
+	    months : 'urtarrila_otsaila_martxoa_apirila_maiatza_ekaina_uztaila_abuztua_iraila_urria_azaroa_abendua'.split('_'),
+	    monthsShort : 'urt._ots._mar._api._mai._eka._uzt._abu._ira._urr._aza._abe.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'igandea_astelehena_asteartea_asteazkena_osteguna_ostirala_larunbata'.split('_'),
+	    weekdaysShort : 'ig._al._ar._az._og._ol._lr.'.split('_'),
+	    weekdaysMin : 'ig_al_ar_az_og_ol_lr'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'YYYY-MM-DD',
+	        LL : 'YYYY[ko] MMMM[ren] D[a]',
+	        LLL : 'YYYY[ko] MMMM[ren] D[a] HH:mm',
+	        LLLL : 'dddd, YYYY[ko] MMMM[ren] D[a] HH:mm',
+	        l : 'YYYY-M-D',
+	        ll : 'YYYY[ko] MMM D[a]',
+	        lll : 'YYYY[ko] MMM D[a] HH:mm',
+	        llll : 'ddd, YYYY[ko] MMM D[a] HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[gaur] LT[etan]',
+	        nextDay : '[bihar] LT[etan]',
+	        nextWeek : 'dddd LT[etan]',
+	        lastDay : '[atzo] LT[etan]',
+	        lastWeek : '[aurreko] dddd LT[etan]',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s barru',
+	        past : 'duela %s',
+	        s : 'segundo batzuk',
+	        m : 'minutu bat',
+	        mm : '%d minutu',
+	        h : 'ordu bat',
+	        hh : '%d ordu',
+	        d : 'egun bat',
+	        dd : '%d egun',
+	        M : 'hilabete bat',
+	        MM : '%d hilabete',
+	        y : 'urte bat',
+	        yy : '%d urte'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return eu;
+>>>>>>> dev
 
 	    return eu;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 232 */
+=======
+/* 235 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52008,6 +55499,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -52034,6 +55526,102 @@ return /******/ (function(modules) { // webpackBootstrap
 	        '۹': '9',
 	        '۰': '0'
 	    };
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var symbolMap = {
+	    '1': '۱',
+	    '2': '۲',
+	    '3': '۳',
+	    '4': '۴',
+	    '5': '۵',
+	    '6': '۶',
+	    '7': '۷',
+	    '8': '۸',
+	    '9': '۹',
+	    '0': '۰'
+	};
+	var numberMap = {
+	    '۱': '1',
+	    '۲': '2',
+	    '۳': '3',
+	    '۴': '4',
+	    '۵': '5',
+	    '۶': '6',
+	    '۷': '7',
+	    '۸': '8',
+	    '۹': '9',
+	    '۰': '0'
+	};
+
+	var fa = moment.defineLocale('fa', {
+	    months : 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split('_'),
+	    monthsShort : 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split('_'),
+	    weekdays : 'یک\u200cشنبه_دوشنبه_سه\u200cشنبه_چهارشنبه_پنج\u200cشنبه_جمعه_شنبه'.split('_'),
+	    weekdaysShort : 'یک\u200cشنبه_دوشنبه_سه\u200cشنبه_چهارشنبه_پنج\u200cشنبه_جمعه_شنبه'.split('_'),
+	    weekdaysMin : 'ی_د_س_چ_پ_ج_ش'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    meridiemParse: /قبل از ظهر|بعد از ظهر/,
+	    isPM: function (input) {
+	        return /بعد از ظهر/.test(input);
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 12) {
+	            return 'قبل از ظهر';
+	        } else {
+	            return 'بعد از ظهر';
+	        }
+	    },
+	    calendar : {
+	        sameDay : '[امروز ساعت] LT',
+	        nextDay : '[فردا ساعت] LT',
+	        nextWeek : 'dddd [ساعت] LT',
+	        lastDay : '[دیروز ساعت] LT',
+	        lastWeek : 'dddd [پیش] [ساعت] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'در %s',
+	        past : '%s پیش',
+	        s : 'چند ثانیه',
+	        m : 'یک دقیقه',
+	        mm : '%d دقیقه',
+	        h : 'یک ساعت',
+	        hh : '%d ساعت',
+	        d : 'یک روز',
+	        dd : '%d روز',
+	        M : 'یک ماه',
+	        MM : '%d ماه',
+	        y : 'یک سال',
+	        yy : '%d سال'
+	    },
+	    preparse: function (string) {
+	        return string.replace(/[۰-۹]/g, function (match) {
+	            return numberMap[match];
+	        }).replace(/،/g, ',');
+	    },
+	    postformat: function (string) {
+	        return string.replace(/\d/g, function (match) {
+	            return symbolMap[match];
+	        }).replace(/,/g, '،');
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}م/,
+	    ordinal : '%dم',
+	    week : {
+	        dow : 6, // Saturday is the first day of the week.
+	        doy : 12 // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+>>>>>>> dev
 
 	    var fa = moment.defineLocale('fa', {
 	        months : 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split('_'),
@@ -52107,7 +55695,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 233 */
+=======
+/* 236 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52118,6 +55710,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -52159,6 +55752,100 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        result = verbalNumber(number, isFuture) + ' ' + result;
 	        return result;
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var numbersPast = 'nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän'.split(' ');
+	var numbersFuture = [
+	        'nolla', 'yhden', 'kahden', 'kolmen', 'neljän', 'viiden', 'kuuden',
+	        numbersPast[7], numbersPast[8], numbersPast[9]
+	    ];
+	function translate(number, withoutSuffix, key, isFuture) {
+	    var result = '';
+	    switch (key) {
+	        case 's':
+	            return isFuture ? 'muutaman sekunnin' : 'muutama sekunti';
+	        case 'm':
+	            return isFuture ? 'minuutin' : 'minuutti';
+	        case 'mm':
+	            result = isFuture ? 'minuutin' : 'minuuttia';
+	            break;
+	        case 'h':
+	            return isFuture ? 'tunnin' : 'tunti';
+	        case 'hh':
+	            result = isFuture ? 'tunnin' : 'tuntia';
+	            break;
+	        case 'd':
+	            return isFuture ? 'päivän' : 'päivä';
+	        case 'dd':
+	            result = isFuture ? 'päivän' : 'päivää';
+	            break;
+	        case 'M':
+	            return isFuture ? 'kuukauden' : 'kuukausi';
+	        case 'MM':
+	            result = isFuture ? 'kuukauden' : 'kuukautta';
+	            break;
+	        case 'y':
+	            return isFuture ? 'vuoden' : 'vuosi';
+	        case 'yy':
+	            result = isFuture ? 'vuoden' : 'vuotta';
+	            break;
+	    }
+	    result = verbalNumber(number, isFuture) + ' ' + result;
+	    return result;
+	}
+	function verbalNumber(number, isFuture) {
+	    return number < 10 ? (isFuture ? numbersFuture[number] : numbersPast[number]) : number;
+	}
+
+	var fi = moment.defineLocale('fi', {
+	    months : 'tammikuu_helmikuu_maaliskuu_huhtikuu_toukokuu_kesäkuu_heinäkuu_elokuu_syyskuu_lokakuu_marraskuu_joulukuu'.split('_'),
+	    monthsShort : 'tammi_helmi_maalis_huhti_touko_kesä_heinä_elo_syys_loka_marras_joulu'.split('_'),
+	    weekdays : 'sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai'.split('_'),
+	    weekdaysShort : 'su_ma_ti_ke_to_pe_la'.split('_'),
+	    weekdaysMin : 'su_ma_ti_ke_to_pe_la'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH.mm',
+	        LTS : 'HH.mm.ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'Do MMMM[ta] YYYY',
+	        LLL : 'Do MMMM[ta] YYYY, [klo] HH.mm',
+	        LLLL : 'dddd, Do MMMM[ta] YYYY, [klo] HH.mm',
+	        l : 'D.M.YYYY',
+	        ll : 'Do MMM YYYY',
+	        lll : 'Do MMM YYYY, [klo] HH.mm',
+	        llll : 'ddd, Do MMM YYYY, [klo] HH.mm'
+	    },
+	    calendar : {
+	        sameDay : '[tänään] [klo] LT',
+	        nextDay : '[huomenna] [klo] LT',
+	        nextWeek : 'dddd [klo] LT',
+	        lastDay : '[eilen] [klo] LT',
+	        lastWeek : '[viime] dddd[na] [klo] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s päästä',
+	        past : '%s sitten',
+	        s : translate,
+	        m : translate,
+	        mm : translate,
+	        h : translate,
+	        hh : translate,
+	        d : translate,
+	        dd : translate,
+	        M : translate,
+	        MM : translate,
+	        y : translate,
+	        yy : translate
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+>>>>>>> dev
 	    }
 	    function verbalNumber(number, isFuture) {
 	        return number < 10 ? (isFuture ? numbersFuture[number] : numbersPast[number]) : number;
@@ -52218,7 +55905,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 234 */
+=======
+/* 237 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52229,6 +55920,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -52276,13 +55968,68 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var fo = moment.defineLocale('fo', {
+	    months : 'januar_februar_mars_apríl_mai_juni_juli_august_september_oktober_november_desember'.split('_'),
+	    monthsShort : 'jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des'.split('_'),
+	    weekdays : 'sunnudagur_mánadagur_týsdagur_mikudagur_hósdagur_fríggjadagur_leygardagur'.split('_'),
+	    weekdaysShort : 'sun_mán_týs_mik_hós_frí_ley'.split('_'),
+	    weekdaysMin : 'su_má_tý_mi_hó_fr_le'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd D. MMMM, YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Í dag kl.] LT',
+	        nextDay : '[Í morgin kl.] LT',
+	        nextWeek : 'dddd [kl.] LT',
+	        lastDay : '[Í gjár kl.] LT',
+	        lastWeek : '[síðstu] dddd [kl] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'um %s',
+	        past : '%s síðani',
+	        s : 'fá sekund',
+	        m : 'ein minutt',
+	        mm : '%d minuttir',
+	        h : 'ein tími',
+	        hh : '%d tímar',
+	        d : 'ein dagur',
+	        dd : '%d dagar',
+	        M : 'ein mánaði',
+	        MM : '%d mánaðir',
+	        y : 'eitt ár',
+	        yy : '%d ár'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return fo;
+>>>>>>> dev
 
 	    return fo;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 235 */
+=======
+/* 238 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52293,6 +56040,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -52344,13 +56092,91 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var fr = moment.defineLocale('fr', {
+	    months : 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
+	    monthsShort : 'janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
+	    weekdaysShort : 'dim._lun._mar._mer._jeu._ven._sam.'.split('_'),
+	    weekdaysMin : 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Aujourd’hui à] LT',
+	        nextDay : '[Demain à] LT',
+	        nextWeek : 'dddd [à] LT',
+	        lastDay : '[Hier à] LT',
+	        lastWeek : 'dddd [dernier à] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'dans %s',
+	        past : 'il y a %s',
+	        s : 'quelques secondes',
+	        m : 'une minute',
+	        mm : '%d minutes',
+	        h : 'une heure',
+	        hh : '%d heures',
+	        d : 'un jour',
+	        dd : '%d jours',
+	        M : 'un mois',
+	        MM : '%d mois',
+	        y : 'un an',
+	        yy : '%d ans'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(er|)/,
+	    ordinal : function (number, period) {
+	        switch (period) {
+	            // TODO: Return 'e' when day of month > 1. Move this case inside
+	            // block for masculine words below.
+	            // See https://github.com/moment/moment/issues/3375
+	            case 'D':
+	                return number + (number === 1 ? 'er' : '');
+
+	            // Words with masculine grammatical gender: mois, trimestre, jour
+	            default:
+	            case 'M':
+	            case 'Q':
+	            case 'DDD':
+	            case 'd':
+	                return number + (number === 1 ? 'er' : 'e');
+
+	            // Words with feminine grammatical gender: semaine
+	            case 'w':
+	            case 'W':
+	                return number + (number === 1 ? 're' : 'e');
+	        }
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return fr;
+>>>>>>> dev
 
 	    return fr;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 236 */
+=======
+/* 239 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52361,6 +56187,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -52408,13 +56235,82 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return number + (number === 1 ? 'er' : 'e');
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var frCa = moment.defineLocale('fr-ca', {
+	    months : 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
+	    monthsShort : 'janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
+	    weekdaysShort : 'dim._lun._mar._mer._jeu._ven._sam.'.split('_'),
+	    weekdaysMin : 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'YYYY-MM-DD',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Aujourd’hui à] LT',
+	        nextDay : '[Demain à] LT',
+	        nextWeek : 'dddd [à] LT',
+	        lastDay : '[Hier à] LT',
+	        lastWeek : 'dddd [dernier à] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'dans %s',
+	        past : 'il y a %s',
+	        s : 'quelques secondes',
+	        m : 'une minute',
+	        mm : '%d minutes',
+	        h : 'une heure',
+	        hh : '%d heures',
+	        d : 'un jour',
+	        dd : '%d jours',
+	        M : 'un mois',
+	        MM : '%d mois',
+	        y : 'un an',
+	        yy : '%d ans'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
+	    ordinal : function (number, period) {
+	        switch (period) {
+	            // Words with masculine grammatical gender: mois, trimestre, jour
+	            default:
+	            case 'M':
+	            case 'Q':
+	            case 'D':
+	            case 'DDD':
+	            case 'd':
+	                return number + (number === 1 ? 'er' : 'e');
+
+	            // Words with feminine grammatical gender: semaine
+	            case 'w':
+	            case 'W':
+	                return number + (number === 1 ? 're' : 'e');
+	        }
+	    }
+	});
+
+	return frCa;
+>>>>>>> dev
 
 	    return fr_ca;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 237 */
+=======
+/* 240 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52425,6 +56321,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -52476,13 +56373,86 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var frCh = moment.defineLocale('fr-ch', {
+	    months : 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
+	    monthsShort : 'janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
+	    weekdaysShort : 'dim._lun._mar._mer._jeu._ven._sam.'.split('_'),
+	    weekdaysMin : 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Aujourd’hui à] LT',
+	        nextDay : '[Demain à] LT',
+	        nextWeek : 'dddd [à] LT',
+	        lastDay : '[Hier à] LT',
+	        lastWeek : 'dddd [dernier à] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'dans %s',
+	        past : 'il y a %s',
+	        s : 'quelques secondes',
+	        m : 'une minute',
+	        mm : '%d minutes',
+	        h : 'une heure',
+	        hh : '%d heures',
+	        d : 'un jour',
+	        dd : '%d jours',
+	        M : 'un mois',
+	        MM : '%d mois',
+	        y : 'un an',
+	        yy : '%d ans'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
+	    ordinal : function (number, period) {
+	        switch (period) {
+	            // Words with masculine grammatical gender: mois, trimestre, jour
+	            default:
+	            case 'M':
+	            case 'Q':
+	            case 'D':
+	            case 'DDD':
+	            case 'd':
+	                return number + (number === 1 ? 'er' : 'e');
+
+	            // Words with feminine grammatical gender: semaine
+	            case 'w':
+	            case 'W':
+	                return number + (number === 1 ? 're' : 'e');
+	        }
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return frCh;
+>>>>>>> dev
 
 	    return fr_ch;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 238 */
+=======
+/* 241 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52499,6 +56469,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var monthsShortWithDots = 'jan._feb._mrt._apr._mai_jun._jul._aug._sep._okt._nov._des.'.split('_'),
 	        monthsShortWithoutDots = 'jan_feb_mrt_apr_mai_jun_jul_aug_sep_okt_nov_des'.split('_');
 
+<<<<<<< HEAD
 	    var fy = moment.defineLocale('fy', {
 	        months : 'jannewaris_febrewaris_maart_april_maaie_juny_july_augustus_septimber_oktober_novimber_desimber'.split('_'),
 	        monthsShort : function (m, format) {
@@ -52553,13 +56524,77 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	var fy = moment.defineLocale('fy', {
+	    months : 'jannewaris_febrewaris_maart_april_maaie_juny_july_augustus_septimber_oktober_novimber_desimber'.split('_'),
+	    monthsShort : function (m, format) {
+	        if (!m) {
+	            return monthsShortWithDots;
+	        } else if (/-MMM-/.test(format)) {
+	            return monthsShortWithoutDots[m.month()];
+	        } else {
+	            return monthsShortWithDots[m.month()];
+	        }
+	    },
+	    monthsParseExact : true,
+	    weekdays : 'snein_moandei_tiisdei_woansdei_tongersdei_freed_sneon'.split('_'),
+	    weekdaysShort : 'si._mo._ti._wo._to._fr._so.'.split('_'),
+	    weekdaysMin : 'Si_Mo_Ti_Wo_To_Fr_So'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD-MM-YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[hjoed om] LT',
+	        nextDay: '[moarn om] LT',
+	        nextWeek: 'dddd [om] LT',
+	        lastDay: '[juster om] LT',
+	        lastWeek: '[ôfrûne] dddd [om] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'oer %s',
+	        past : '%s lyn',
+	        s : 'in pear sekonden',
+	        m : 'ien minút',
+	        mm : '%d minuten',
+	        h : 'ien oere',
+	        hh : '%d oeren',
+	        d : 'ien dei',
+	        dd : '%d dagen',
+	        M : 'ien moanne',
+	        MM : '%d moannen',
+	        y : 'ien jier',
+	        yy : '%d jierren'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
+	    ordinal : function (number) {
+	        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return fy;
+>>>>>>> dev
 
 	    return fy;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 239 */
+=======
+/* 242 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52583,7 +56618,58 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var weekdaysShort = ['Did', 'Dil', 'Dim', 'Dic', 'Dia', 'Dih', 'Dis'];
 
+<<<<<<< HEAD
 	    var weekdaysMin = ['Dò', 'Lu', 'Mà', 'Ci', 'Ar', 'Ha', 'Sa'];
+=======
+	var gd = moment.defineLocale('gd', {
+	    months : months,
+	    monthsShort : monthsShort,
+	    monthsParseExact : true,
+	    weekdays : weekdays,
+	    weekdaysShort : weekdaysShort,
+	    weekdaysMin : weekdaysMin,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[An-diugh aig] LT',
+	        nextDay : '[A-màireach aig] LT',
+	        nextWeek : 'dddd [aig] LT',
+	        lastDay : '[An-dè aig] LT',
+	        lastWeek : 'dddd [seo chaidh] [aig] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'ann an %s',
+	        past : 'bho chionn %s',
+	        s : 'beagan diogan',
+	        m : 'mionaid',
+	        mm : '%d mionaidean',
+	        h : 'uair',
+	        hh : '%d uairean',
+	        d : 'latha',
+	        dd : '%d latha',
+	        M : 'mìos',
+	        MM : '%d mìosan',
+	        y : 'bliadhna',
+	        yy : '%d bliadhna'
+	    },
+	    dayOfMonthOrdinalParse : /\d{1,2}(d|na|mh)/,
+	    ordinal : function (number) {
+	        var output = number === 1 ? 'd' : number % 10 === 2 ? 'na' : 'mh';
+	        return number + output;
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+>>>>>>> dev
 
 	    var gd = moment.defineLocale('gd', {
 	        months : months,
@@ -52639,7 +56725,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 240 */
+=======
+/* 243 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52707,6 +56797,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            y : 'un ano',
 	            yy : '%d anos'
 	        },
+<<<<<<< HEAD
 	        ordinalParse : /\d{1,2}º/,
 	        ordinal : '%dº',
 	        week : {
@@ -52714,13 +56805,168 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
 	        }
 	    });
+=======
+	        past : 'hai %s',
+	        s : 'uns segundos',
+	        m : 'un minuto',
+	        mm : '%d minutos',
+	        h : 'unha hora',
+	        hh : '%d horas',
+	        d : 'un día',
+	        dd : '%d días',
+	        M : 'un mes',
+	        MM : '%d meses',
+	        y : 'un ano',
+	        yy : '%d anos'
+	    },
+	    dayOfMonthOrdinalParse : /\d{1,2}º/,
+	    ordinal : '%dº',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return gl;
+>>>>>>> dev
 
 	    return gl;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 241 */
+=======
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Konkani Latin script [gom-latn]
+	//! author : The Discoverer : https://github.com/WikiDiscoverer
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	function processRelativeTime(number, withoutSuffix, key, isFuture) {
+	    var format = {
+	        's': ['thodde secondanim', 'thodde second'],
+	        'm': ['eka mintan', 'ek minute'],
+	        'mm': [number + ' mintanim', number + ' mintam'],
+	        'h': ['eka horan', 'ek hor'],
+	        'hh': [number + ' horanim', number + ' hor'],
+	        'd': ['eka disan', 'ek dis'],
+	        'dd': [number + ' disanim', number + ' dis'],
+	        'M': ['eka mhoinean', 'ek mhoino'],
+	        'MM': [number + ' mhoineanim', number + ' mhoine'],
+	        'y': ['eka vorsan', 'ek voros'],
+	        'yy': [number + ' vorsanim', number + ' vorsam']
+	    };
+	    return withoutSuffix ? format[key][0] : format[key][1];
+	}
+
+	var gomLatn = moment.defineLocale('gom-latn', {
+	    months : 'Janer_Febrer_Mars_Abril_Mai_Jun_Julai_Agost_Setembr_Otubr_Novembr_Dezembr'.split('_'),
+	    monthsShort : 'Jan._Feb._Mars_Abr._Mai_Jun_Jul._Ago._Set._Otu._Nov._Dez.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'Aitar_Somar_Mongllar_Budvar_Brestar_Sukrar_Son\'var'.split('_'),
+	    weekdaysShort : 'Ait._Som._Mon._Bud._Bre._Suk._Son.'.split('_'),
+	    weekdaysMin : 'Ai_Sm_Mo_Bu_Br_Su_Sn'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'A h:mm [vazta]',
+	        LTS : 'A h:mm:ss [vazta]',
+	        L : 'DD-MM-YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY A h:mm [vazta]',
+	        LLLL : 'dddd, MMMM[achea] Do, YYYY, A h:mm [vazta]',
+	        llll: 'ddd, D MMM YYYY, A h:mm [vazta]'
+	    },
+	    calendar : {
+	        sameDay: '[Aiz] LT',
+	        nextDay: '[Faleam] LT',
+	        nextWeek: '[Ieta to] dddd[,] LT',
+	        lastDay: '[Kal] LT',
+	        lastWeek: '[Fatlo] dddd[,] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : '%s',
+	        past : '%s adim',
+	        s : processRelativeTime,
+	        m : processRelativeTime,
+	        mm : processRelativeTime,
+	        h : processRelativeTime,
+	        hh : processRelativeTime,
+	        d : processRelativeTime,
+	        dd : processRelativeTime,
+	        M : processRelativeTime,
+	        MM : processRelativeTime,
+	        y : processRelativeTime,
+	        yy : processRelativeTime
+	    },
+	    dayOfMonthOrdinalParse : /\d{1,2}(er)/,
+	    ordinal : function (number, period) {
+	        switch (period) {
+	            // the ordinal 'er' only applies to day of the month
+	            case 'D':
+	                return number + 'er';
+	            default:
+	            case 'M':
+	            case 'Q':
+	            case 'DDD':
+	            case 'd':
+	            case 'w':
+	            case 'W':
+	                return number;
+	        }
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    },
+	    meridiemParse: /rati|sokalli|donparam|sanje/,
+	    meridiemHour : function (hour, meridiem) {
+	        if (hour === 12) {
+	            hour = 0;
+	        }
+	        if (meridiem === 'rati') {
+	            return hour < 4 ? hour : hour + 12;
+	        } else if (meridiem === 'sokalli') {
+	            return hour;
+	        } else if (meridiem === 'donparam') {
+	            return hour > 12 ? hour : hour + 12;
+	        } else if (meridiem === 'sanje') {
+	            return hour + 12;
+	        }
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 4) {
+	            return 'rati';
+	        } else if (hour < 12) {
+	            return 'sokalli';
+	        } else if (hour < 16) {
+	            return 'donparam';
+	        } else if (hour < 20) {
+	            return 'sanje';
+	        } else {
+	            return 'rati';
+	        }
+	    }
+	});
+
+	return gomLatn;
+
+	})));
+
+
+/***/ },
+/* 245 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52823,7 +57069,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 242 */
+=======
+/* 246 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -52951,7 +57201,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 243 */
+=======
+/* 247 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53037,6 +57291,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            LLL : 'D. MMMM YYYY H:mm',
 	            LLLL : 'dddd, D. MMMM YYYY H:mm'
 	        },
+<<<<<<< HEAD
 	        calendar : {
 	            sameDay  : '[danas u] LT',
 	            nextDay  : '[sutra u] LT',
@@ -53094,13 +57349,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
 	        }
 	    });
+=======
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'za %s',
+	        past   : 'prije %s',
+	        s      : 'par sekundi',
+	        m      : translate,
+	        mm     : translate,
+	        h      : translate,
+	        hh     : translate,
+	        d      : 'dan',
+	        dd     : translate,
+	        M      : 'mjesec',
+	        MM     : translate,
+	        y      : 'godinu',
+	        yy     : translate
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return hr;
+>>>>>>> dev
 
 	    return hr;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 244 */
+=======
+/* 248 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53166,6 +57453,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        isPM: function (input) {
 	            return input.charAt(1).toLowerCase() === 'u';
 	        },
+<<<<<<< HEAD
 	        meridiem : function (hours, minutes, isLower) {
 	            if (hours < 12) {
 	                return isLower === true ? 'de' : 'DE';
@@ -53207,13 +57495,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
 	        }
 	    });
+=======
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s múlva',
+	        past : '%s',
+	        s : translate,
+	        m : translate,
+	        mm : translate,
+	        h : translate,
+	        hh : translate,
+	        d : translate,
+	        dd : translate,
+	        M : translate,
+	        MM : translate,
+	        y : translate,
+	        yy : translate
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return hu;
+>>>>>>> dev
 
 	    return hu;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 245 */
+=======
+/* 249 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53244,6 +57564,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            LLL : 'D MMMM YYYY թ., HH:mm',
 	            LLLL : 'dddd, D MMMM YYYY թ., HH:mm'
 	        },
+<<<<<<< HEAD
 	        calendar : {
 	            sameDay: '[այսօր] LT',
 	            nextDay: '[վաղը] LT',
@@ -53304,6 +57625,53 @@ return /******/ (function(modules) { // webpackBootstrap
 	        week : {
 	            dow : 1, // Monday is the first day of the week.
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
+=======
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : '%s հետո',
+	        past : '%s առաջ',
+	        s : 'մի քանի վայրկյան',
+	        m : 'րոպե',
+	        mm : '%d րոպե',
+	        h : 'ժամ',
+	        hh : '%d ժամ',
+	        d : 'օր',
+	        dd : '%d օր',
+	        M : 'ամիս',
+	        MM : '%d ամիս',
+	        y : 'տարի',
+	        yy : '%d տարի'
+	    },
+	    meridiemParse: /գիշերվա|առավոտվա|ցերեկվա|երեկոյան/,
+	    isPM: function (input) {
+	        return /^(ցերեկվա|երեկոյան)$/.test(input);
+	    },
+	    meridiem : function (hour) {
+	        if (hour < 4) {
+	            return 'գիշերվա';
+	        } else if (hour < 12) {
+	            return 'առավոտվա';
+	        } else if (hour < 17) {
+	            return 'ցերեկվա';
+	        } else {
+	            return 'երեկոյան';
+	        }
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}|\d{1,2}-(ին|րդ)/,
+	    ordinal: function (number, period) {
+	        switch (period) {
+	            case 'DDD':
+	            case 'w':
+	            case 'W':
+	            case 'DDDo':
+	                if (number === 1) {
+	                    return number + '-ին';
+	                }
+	                return number + '-րդ';
+	            default:
+	                return number;
+>>>>>>> dev
 	        }
 	    });
 
@@ -53312,7 +57680,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 246 */
+=======
+/* 250 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53399,7 +57771,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 247 */
+=======
+/* 251 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53459,6 +57835,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (withoutSuffix) {
 	                    return 'mánuður';
 	                }
+<<<<<<< HEAD
 	                return isFuture ? 'mánuð' : 'mánuði';
 	            case 'MM':
 	                if (plural(number)) {
@@ -53478,6 +57855,65 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	                return result + (withoutSuffix || isFuture ? 'ár' : 'ári');
 	        }
+=======
+	                return result + (isFuture ? 'mánuði' : 'mánuðum');
+	            } else if (withoutSuffix) {
+	                return result + 'mánuður';
+	            }
+	            return result + (isFuture ? 'mánuð' : 'mánuði');
+	        case 'y':
+	            return withoutSuffix || isFuture ? 'ár' : 'ári';
+	        case 'yy':
+	            if (plural(number)) {
+	                return result + (withoutSuffix || isFuture ? 'ár' : 'árum');
+	            }
+	            return result + (withoutSuffix || isFuture ? 'ár' : 'ári');
+	    }
+	}
+
+	var is = moment.defineLocale('is', {
+	    months : 'janúar_febrúar_mars_apríl_maí_júní_júlí_ágúst_september_október_nóvember_desember'.split('_'),
+	    monthsShort : 'jan_feb_mar_apr_maí_jún_júl_ágú_sep_okt_nóv_des'.split('_'),
+	    weekdays : 'sunnudagur_mánudagur_þriðjudagur_miðvikudagur_fimmtudagur_föstudagur_laugardagur'.split('_'),
+	    weekdaysShort : 'sun_mán_þri_mið_fim_fös_lau'.split('_'),
+	    weekdaysMin : 'Su_Má_Þr_Mi_Fi_Fö_La'.split('_'),
+	    longDateFormat : {
+	        LT : 'H:mm',
+	        LTS : 'H:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D. MMMM YYYY',
+	        LLL : 'D. MMMM YYYY [kl.] H:mm',
+	        LLLL : 'dddd, D. MMMM YYYY [kl.] H:mm'
+	    },
+	    calendar : {
+	        sameDay : '[í dag kl.] LT',
+	        nextDay : '[á morgun kl.] LT',
+	        nextWeek : 'dddd [kl.] LT',
+	        lastDay : '[í gær kl.] LT',
+	        lastWeek : '[síðasta] dddd [kl.] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'eftir %s',
+	        past : 'fyrir %s síðan',
+	        s : translate,
+	        m : translate,
+	        mm : translate,
+	        h : 'klukkustund',
+	        hh : translate,
+	        d : translate,
+	        dd : translate,
+	        M : translate,
+	        MM : translate,
+	        y : translate,
+	        yy : translate
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+>>>>>>> dev
 	    }
 
 	    var is = moment.defineLocale('is', {
@@ -53530,7 +57966,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 248 */
+=======
+/* 252 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53542,6 +57982,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -53558,6 +57999,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	            LL : 'D MMMM YYYY',
 	            LLL : 'D MMMM YYYY HH:mm',
 	            LLLL : 'dddd, D MMMM YYYY HH:mm'
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var it = moment.defineLocale('it', {
+	    months : 'gennaio_febbraio_marzo_aprile_maggio_giugno_luglio_agosto_settembre_ottobre_novembre_dicembre'.split('_'),
+	    monthsShort : 'gen_feb_mar_apr_mag_giu_lug_ago_set_ott_nov_dic'.split('_'),
+	    weekdays : 'domenica_lunedì_martedì_mercoledì_giovedì_venerdì_sabato'.split('_'),
+	    weekdaysShort : 'dom_lun_mar_mer_gio_ven_sab'.split('_'),
+	    weekdaysMin : 'do_lu_ma_me_gi_ve_sa'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[Oggi alle] LT',
+	        nextDay: '[Domani alle] LT',
+	        nextWeek: 'dddd [alle] LT',
+	        lastDay: '[Ieri alle] LT',
+	        lastWeek: function () {
+	            switch (this.day()) {
+	                case 0:
+	                    return '[la scorsa] dddd [alle] LT';
+	                default:
+	                    return '[lo scorso] dddd [alle] LT';
+	            }
+>>>>>>> dev
 	        },
 	        calendar : {
 	            sameDay: '[Oggi alle] LT',
@@ -53574,6 +58046,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            sameElse: 'L'
 	        },
+<<<<<<< HEAD
 	        relativeTime : {
 	            future : function (s) {
 	                return ((/^[0-9].+$/).test(s) ? 'tra' : 'in') + ' ' + s;
@@ -53598,13 +58071,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	        past : '%s fa',
+	        s : 'alcuni secondi',
+	        m : 'un minuto',
+	        mm : '%d minuti',
+	        h : 'un\'ora',
+	        hh : '%d ore',
+	        d : 'un giorno',
+	        dd : '%d giorni',
+	        M : 'un mese',
+	        MM : '%d mesi',
+	        y : 'un anno',
+	        yy : '%d anni'
+	    },
+	    dayOfMonthOrdinalParse : /\d{1,2}º/,
+	    ordinal: '%dº',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return it;
+>>>>>>> dev
 
 	    return it;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 249 */
+=======
+/* 253 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53615,6 +58116,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -53676,6 +58178,57 @@ return /******/ (function(modules) { // webpackBootstrap
 	            MM : '%dヶ月',
 	            y : '1年',
 	            yy : '%d年'
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var ja = moment.defineLocale('ja', {
+	    months : '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
+	    monthsShort : '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
+	    weekdays : '日曜日_月曜日_火曜日_水曜日_木曜日_金曜日_土曜日'.split('_'),
+	    weekdaysShort : '日_月_火_水_木_金_土'.split('_'),
+	    weekdaysMin : '日_月_火_水_木_金_土'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'YYYY/MM/DD',
+	        LL : 'YYYY年M月D日',
+	        LLL : 'YYYY年M月D日 HH:mm',
+	        LLLL : 'YYYY年M月D日 HH:mm dddd',
+	        l : 'YYYY/MM/DD',
+	        ll : 'YYYY年M月D日',
+	        lll : 'YYYY年M月D日 HH:mm',
+	        llll : 'YYYY年M月D日 HH:mm dddd'
+	    },
+	    meridiemParse: /午前|午後/i,
+	    isPM : function (input) {
+	        return input === '午後';
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 12) {
+	            return '午前';
+	        } else {
+	            return '午後';
+	        }
+	    },
+	    calendar : {
+	        sameDay : '[今日] LT',
+	        nextDay : '[明日] LT',
+	        nextWeek : '[来週]dddd LT',
+	        lastDay : '[昨日] LT',
+	        lastWeek : '[前週]dddd LT',
+	        sameElse : 'L'
+	    },
+	    dayOfMonthOrdinalParse : /\d{1,2}日/,
+	    ordinal : function (number, period) {
+	        switch (period) {
+	            case 'd':
+	            case 'D':
+	            case 'DDD':
+	                return number + '日';
+	            default:
+	                return number;
+>>>>>>> dev
 	        }
 	    });
 
@@ -53684,7 +58237,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 250 */
+=======
+/* 254 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53771,7 +58328,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 251 */
+=======
+/* 255 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53814,6 +58375,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            lastWeek : '[წინა] dddd LT-ზე',
 	            sameElse : 'L'
 	        },
+<<<<<<< HEAD
 	        relativeTime : {
 	            future : function (s) {
 	                return (/(წამი|წუთი|საათი|წელი)/).test(s) ?
@@ -53850,12 +58412,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            if ((number < 20) || (number <= 100 && (number % 20 === 0)) || (number % 100 === 0)) {
 	                return 'მე-' + number;
+=======
+	        past : function (s) {
+	            if ((/(წამი|წუთი|საათი|დღე|თვე)/).test(s)) {
+	                return s.replace(/(ი|ე)$/, 'ის უკან');
+	            }
+	            if ((/წელი/).test(s)) {
+	                return s.replace(/წელი$/, 'წლის უკან');
+>>>>>>> dev
 	            }
 	            return number + '-ე';
 	        },
+<<<<<<< HEAD
 	        week : {
 	            dow : 1,
 	            doy : 7
+=======
+	        s : 'რამდენიმე წამი',
+	        m : 'წუთი',
+	        mm : '%d წუთი',
+	        h : 'საათი',
+	        hh : '%d საათი',
+	        d : 'დღე',
+	        dd : '%d დღე',
+	        M : 'თვე',
+	        MM : '%d თვე',
+	        y : 'წელი',
+	        yy : '%d წელი'
+	    },
+	    dayOfMonthOrdinalParse: /0|1-ლი|მე-\d{1,2}|\d{1,2}-ე/,
+	    ordinal : function (number) {
+	        if (number === 0) {
+	            return number;
+>>>>>>> dev
 	        }
 	    });
 
@@ -53864,7 +58453,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 252 */
+=======
+/* 256 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -53875,6 +58468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -53900,6 +58494,82 @@ return /******/ (function(modules) { // webpackBootstrap
 	        90: '-шы',
 	        100: '-ші'
 	    };
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var suffixes = {
+	    0: '-ші',
+	    1: '-ші',
+	    2: '-ші',
+	    3: '-ші',
+	    4: '-ші',
+	    5: '-ші',
+	    6: '-шы',
+	    7: '-ші',
+	    8: '-ші',
+	    9: '-шы',
+	    10: '-шы',
+	    20: '-шы',
+	    30: '-шы',
+	    40: '-шы',
+	    50: '-ші',
+	    60: '-шы',
+	    70: '-ші',
+	    80: '-ші',
+	    90: '-шы',
+	    100: '-ші'
+	};
+
+	var kk = moment.defineLocale('kk', {
+	    months : 'қаңтар_ақпан_наурыз_сәуір_мамыр_маусым_шілде_тамыз_қыркүйек_қазан_қараша_желтоқсан'.split('_'),
+	    monthsShort : 'қаң_ақп_нау_сәу_мам_мау_шіл_там_қыр_қаз_қар_жел'.split('_'),
+	    weekdays : 'жексенбі_дүйсенбі_сейсенбі_сәрсенбі_бейсенбі_жұма_сенбі'.split('_'),
+	    weekdaysShort : 'жек_дүй_сей_сәр_бей_жұм_сен'.split('_'),
+	    weekdaysMin : 'жк_дй_сй_ср_бй_жм_сн'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Бүгін сағат] LT',
+	        nextDay : '[Ертең сағат] LT',
+	        nextWeek : 'dddd [сағат] LT',
+	        lastDay : '[Кеше сағат] LT',
+	        lastWeek : '[Өткен аптаның] dddd [сағат] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s ішінде',
+	        past : '%s бұрын',
+	        s : 'бірнеше секунд',
+	        m : 'бір минут',
+	        mm : '%d минут',
+	        h : 'бір сағат',
+	        hh : '%d сағат',
+	        d : 'бір күн',
+	        dd : '%d күн',
+	        M : 'бір ай',
+	        MM : '%d ай',
+	        y : 'бір жыл',
+	        yy : '%d жыл'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}-(ші|шы)/,
+	    ordinal : function (number) {
+	        var a = number % 10,
+	            b = number >= 100 ? 100 : null;
+	        return number + (suffixes[number] || suffixes[a] || suffixes[b]);
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+>>>>>>> dev
 
 	    var kk = moment.defineLocale('kk', {
 	        months : 'қаңтар_ақпан_наурыз_сәуір_мамыр_маусым_шілде_тамыз_қыркүйек_қазан_қараша_желтоқсан'.split('_'),
@@ -53955,7 +58625,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 253 */
+=======
+/* 257 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54017,7 +58691,142 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 254 */
+=======
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Kannada [kn]
+	//! author : Rajeev Naik : https://github.com/rajeevnaikte
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var symbolMap = {
+	    '1': '೧',
+	    '2': '೨',
+	    '3': '೩',
+	    '4': '೪',
+	    '5': '೫',
+	    '6': '೬',
+	    '7': '೭',
+	    '8': '೮',
+	    '9': '೯',
+	    '0': '೦'
+	};
+	var numberMap = {
+	    '೧': '1',
+	    '೨': '2',
+	    '೩': '3',
+	    '೪': '4',
+	    '೫': '5',
+	    '೬': '6',
+	    '೭': '7',
+	    '೮': '8',
+	    '೯': '9',
+	    '೦': '0'
+	};
+
+	var kn = moment.defineLocale('kn', {
+	    months : 'ಜನವರಿ_ಫೆಬ್ರವರಿ_ಮಾರ್ಚ್_ಏಪ್ರಿಲ್_ಮೇ_ಜೂನ್_ಜುಲೈ_ಆಗಸ್ಟ್_ಸೆಪ್ಟೆಂಬರ್_ಅಕ್ಟೋಬರ್_ನವೆಂಬರ್_ಡಿಸೆಂಬರ್'.split('_'),
+	    monthsShort : 'ಜನ_ಫೆಬ್ರ_ಮಾರ್ಚ್_ಏಪ್ರಿಲ್_ಮೇ_ಜೂನ್_ಜುಲೈ_ಆಗಸ್ಟ್_ಸೆಪ್ಟೆಂಬ_ಅಕ್ಟೋಬ_ನವೆಂಬ_ಡಿಸೆಂಬ'.split('_'),
+	    monthsParseExact: true,
+	    weekdays : 'ಭಾನುವಾರ_ಸೋಮವಾರ_ಮಂಗಳವಾರ_ಬುಧವಾರ_ಗುರುವಾರ_ಶುಕ್ರವಾರ_ಶನಿವಾರ'.split('_'),
+	    weekdaysShort : 'ಭಾನು_ಸೋಮ_ಮಂಗಳ_ಬುಧ_ಗುರು_ಶುಕ್ರ_ಶನಿ'.split('_'),
+	    weekdaysMin : 'ಭಾ_ಸೋ_ಮಂ_ಬು_ಗು_ಶು_ಶ'.split('_'),
+	    longDateFormat : {
+	        LT : 'A h:mm',
+	        LTS : 'A h:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY, A h:mm',
+	        LLLL : 'dddd, D MMMM YYYY, A h:mm'
+	    },
+	    calendar : {
+	        sameDay : '[ಇಂದು] LT',
+	        nextDay : '[ನಾಳೆ] LT',
+	        nextWeek : 'dddd, LT',
+	        lastDay : '[ನಿನ್ನೆ] LT',
+	        lastWeek : '[ಕೊನೆಯ] dddd, LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s ನಂತರ',
+	        past : '%s ಹಿಂದೆ',
+	        s : 'ಕೆಲವು ಕ್ಷಣಗಳು',
+	        m : 'ಒಂದು ನಿಮಿಷ',
+	        mm : '%d ನಿಮಿಷ',
+	        h : 'ಒಂದು ಗಂಟೆ',
+	        hh : '%d ಗಂಟೆ',
+	        d : 'ಒಂದು ದಿನ',
+	        dd : '%d ದಿನ',
+	        M : 'ಒಂದು ತಿಂಗಳು',
+	        MM : '%d ತಿಂಗಳು',
+	        y : 'ಒಂದು ವರ್ಷ',
+	        yy : '%d ವರ್ಷ'
+	    },
+	    preparse: function (string) {
+	        return string.replace(/[೧೨೩೪೫೬೭೮೯೦]/g, function (match) {
+	            return numberMap[match];
+	        });
+	    },
+	    postformat: function (string) {
+	        return string.replace(/\d/g, function (match) {
+	            return symbolMap[match];
+	        });
+	    },
+	    meridiemParse: /ರಾತ್ರಿ|ಬೆಳಿಗ್ಗೆ|ಮಧ್ಯಾಹ್ನ|ಸಂಜೆ/,
+	    meridiemHour : function (hour, meridiem) {
+	        if (hour === 12) {
+	            hour = 0;
+	        }
+	        if (meridiem === 'ರಾತ್ರಿ') {
+	            return hour < 4 ? hour : hour + 12;
+	        } else if (meridiem === 'ಬೆಳಿಗ್ಗೆ') {
+	            return hour;
+	        } else if (meridiem === 'ಮಧ್ಯಾಹ್ನ') {
+	            return hour >= 10 ? hour : hour + 12;
+	        } else if (meridiem === 'ಸಂಜೆ') {
+	            return hour + 12;
+	        }
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 4) {
+	            return 'ರಾತ್ರಿ';
+	        } else if (hour < 10) {
+	            return 'ಬೆಳಿಗ್ಗೆ';
+	        } else if (hour < 17) {
+	            return 'ಮಧ್ಯಾಹ್ನ';
+	        } else if (hour < 20) {
+	            return 'ಸಂಜೆ';
+	        } else {
+	            return 'ರಾತ್ರಿ';
+	        }
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(ನೇ)/,
+	    ordinal : function (number) {
+	        return number + 'ನೇ';
+	    },
+	    week : {
+	        dow : 0, // Sunday is the first day of the week.
+	        doy : 6  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return kn;
+
+	})));
+
+
+/***/ },
+/* 259 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54032,6 +58841,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -54083,13 +58893,76 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return hour < 12 ? '오전' : '오후';
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var ko = moment.defineLocale('ko', {
+	    months : '1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월'.split('_'),
+	    monthsShort : '1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월'.split('_'),
+	    weekdays : '일요일_월요일_화요일_수요일_목요일_금요일_토요일'.split('_'),
+	    weekdaysShort : '일_월_화_수_목_금_토'.split('_'),
+	    weekdaysMin : '일_월_화_수_목_금_토'.split('_'),
+	    longDateFormat : {
+	        LT : 'A h:mm',
+	        LTS : 'A h:mm:ss',
+	        L : 'YYYY.MM.DD',
+	        LL : 'YYYY년 MMMM D일',
+	        LLL : 'YYYY년 MMMM D일 A h:mm',
+	        LLLL : 'YYYY년 MMMM D일 dddd A h:mm',
+	        l : 'YYYY.MM.DD',
+	        ll : 'YYYY년 MMMM D일',
+	        lll : 'YYYY년 MMMM D일 A h:mm',
+	        llll : 'YYYY년 MMMM D일 dddd A h:mm'
+	    },
+	    calendar : {
+	        sameDay : '오늘 LT',
+	        nextDay : '내일 LT',
+	        nextWeek : 'dddd LT',
+	        lastDay : '어제 LT',
+	        lastWeek : '지난주 dddd LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s 후',
+	        past : '%s 전',
+	        s : '몇 초',
+	        ss : '%d초',
+	        m : '1분',
+	        mm : '%d분',
+	        h : '한 시간',
+	        hh : '%d시간',
+	        d : '하루',
+	        dd : '%d일',
+	        M : '한 달',
+	        MM : '%d달',
+	        y : '일 년',
+	        yy : '%d년'
+	    },
+	    dayOfMonthOrdinalParse : /\d{1,2}일/,
+	    ordinal : '%d일',
+	    meridiemParse : /오전|오후/,
+	    isPM : function (token) {
+	        return token === '오후';
+	    },
+	    meridiem : function (hour, minute, isUpper) {
+	        return hour < 12 ? '오전' : '오후';
+	    }
+	});
+
+	return ko;
+>>>>>>> dev
 
 	    return ko;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 255 */
+=======
+/* 260 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54100,6 +58973,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -54126,6 +59000,83 @@ return /******/ (function(modules) { // webpackBootstrap
 	        90: '-чу',
 	        100: '-чү'
 	    };
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+
+	var suffixes = {
+	    0: '-чү',
+	    1: '-чи',
+	    2: '-чи',
+	    3: '-чү',
+	    4: '-чү',
+	    5: '-чи',
+	    6: '-чы',
+	    7: '-чи',
+	    8: '-чи',
+	    9: '-чу',
+	    10: '-чу',
+	    20: '-чы',
+	    30: '-чу',
+	    40: '-чы',
+	    50: '-чү',
+	    60: '-чы',
+	    70: '-чи',
+	    80: '-чи',
+	    90: '-чу',
+	    100: '-чү'
+	};
+
+	var ky = moment.defineLocale('ky', {
+	    months : 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
+	    monthsShort : 'янв_фев_март_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
+	    weekdays : 'Жекшемби_Дүйшөмбү_Шейшемби_Шаршемби_Бейшемби_Жума_Ишемби'.split('_'),
+	    weekdaysShort : 'Жек_Дүй_Шей_Шар_Бей_Жум_Ише'.split('_'),
+	    weekdaysMin : 'Жк_Дй_Шй_Шр_Бй_Жм_Иш'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Бүгүн саат] LT',
+	        nextDay : '[Эртең саат] LT',
+	        nextWeek : 'dddd [саат] LT',
+	        lastDay : '[Кече саат] LT',
+	        lastWeek : '[Өткен аптанын] dddd [күнү] [саат] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s ичинде',
+	        past : '%s мурун',
+	        s : 'бирнече секунд',
+	        m : 'бир мүнөт',
+	        mm : '%d мүнөт',
+	        h : 'бир саат',
+	        hh : '%d саат',
+	        d : 'бир күн',
+	        dd : '%d күн',
+	        M : 'бир ай',
+	        MM : '%d ай',
+	        y : 'бир жыл',
+	        yy : '%d жыл'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}-(чи|чы|чү|чу)/,
+	    ordinal : function (number) {
+	        var a = number % 10,
+	            b = number >= 100 ? 100 : null;
+	        return number + (suffixes[number] || suffixes[a] || suffixes[b]);
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+>>>>>>> dev
 
 	    var ky = moment.defineLocale('ky', {
 	        months : 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
@@ -54181,7 +59132,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 256 */
+=======
+/* 261 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54258,6 +59213,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	            number = number / 1000;
 	            return eifelerRegelAppliesToNumber(number);
 	        }
+<<<<<<< HEAD
+=======
+	    },
+	    relativeTime : {
+	        future : processFutureTime,
+	        past : processPastTime,
+	        s : 'e puer Sekonnen',
+	        m : processRelativeTime,
+	        mm : '%d Minutten',
+	        h : processRelativeTime,
+	        hh : '%d Stonnen',
+	        d : processRelativeTime,
+	        dd : '%d Deeg',
+	        M : processRelativeTime,
+	        MM : '%d Méint',
+	        y : processRelativeTime,
+	        yy : '%d Joer'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal: '%d.',
+	    week: {
+	        dow: 1, // Monday is the first day of the week.
+	        doy: 4  // The week that contains Jan 4th is the first week of the year.
+>>>>>>> dev
 	    }
 
 	    var lb = moment.defineLocale('lb', {
@@ -54321,7 +59300,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 257 */
+=======
+/* 262 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54388,14 +59371,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ordinal : function (number) {
 	            return 'ທີ່' + number;
 	        }
+<<<<<<< HEAD
 	    });
+=======
+	    },
+	    calendar : {
+	        sameDay : '[ມື້ນີ້ເວລາ] LT',
+	        nextDay : '[ມື້ອື່ນເວລາ] LT',
+	        nextWeek : '[ວັນ]dddd[ໜ້າເວລາ] LT',
+	        lastDay : '[ມື້ວານນີ້ເວລາ] LT',
+	        lastWeek : '[ວັນ]dddd[ແລ້ວນີ້ເວລາ] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'ອີກ %s',
+	        past : '%sຜ່ານມາ',
+	        s : 'ບໍ່ເທົ່າໃດວິນາທີ',
+	        m : '1 ນາທີ',
+	        mm : '%d ນາທີ',
+	        h : '1 ຊົ່ວໂມງ',
+	        hh : '%d ຊົ່ວໂມງ',
+	        d : '1 ມື້',
+	        dd : '%d ມື້',
+	        M : '1 ເດືອນ',
+	        MM : '%d ເດືອນ',
+	        y : '1 ປີ',
+	        yy : '%d ປີ'
+	    },
+	    dayOfMonthOrdinalParse: /(ທີ່)\d{1,2}/,
+	    ordinal : function (number) {
+	        return 'ທີ່' + number;
+	    }
+	});
+
+	return lo;
+>>>>>>> dev
 
 	    return lo;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 258 */
+=======
+/* 263 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54428,8 +59449,69 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return isFuture ? 'kelių sekundžių' : 'kelias sekundes';
 	        }
 	    }
+<<<<<<< HEAD
 	    function translateSingular(number, withoutSuffix, key, isFuture) {
 	        return withoutSuffix ? forms(key)[0] : (isFuture ? forms(key)[1] : forms(key)[2]);
+=======
+	}
+	var lt = moment.defineLocale('lt', {
+	    months : {
+	        format: 'sausio_vasario_kovo_balandžio_gegužės_birželio_liepos_rugpjūčio_rugsėjo_spalio_lapkričio_gruodžio'.split('_'),
+	        standalone: 'sausis_vasaris_kovas_balandis_gegužė_birželis_liepa_rugpjūtis_rugsėjis_spalis_lapkritis_gruodis'.split('_'),
+	        isFormat: /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?|MMMM?(\[[^\[\]]*\]|\s)+D[oD]?/
+	    },
+	    monthsShort : 'sau_vas_kov_bal_geg_bir_lie_rgp_rgs_spa_lap_grd'.split('_'),
+	    weekdays : {
+	        format: 'sekmadienį_pirmadienį_antradienį_trečiadienį_ketvirtadienį_penktadienį_šeštadienį'.split('_'),
+	        standalone: 'sekmadienis_pirmadienis_antradienis_trečiadienis_ketvirtadienis_penktadienis_šeštadienis'.split('_'),
+	        isFormat: /dddd HH:mm/
+	    },
+	    weekdaysShort : 'Sek_Pir_Ant_Tre_Ket_Pen_Šeš'.split('_'),
+	    weekdaysMin : 'S_P_A_T_K_Pn_Š'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'YYYY-MM-DD',
+	        LL : 'YYYY [m.] MMMM D [d.]',
+	        LLL : 'YYYY [m.] MMMM D [d.], HH:mm [val.]',
+	        LLLL : 'YYYY [m.] MMMM D [d.], dddd, HH:mm [val.]',
+	        l : 'YYYY-MM-DD',
+	        ll : 'YYYY [m.] MMMM D [d.]',
+	        lll : 'YYYY [m.] MMMM D [d.], HH:mm [val.]',
+	        llll : 'YYYY [m.] MMMM D [d.], ddd, HH:mm [val.]'
+	    },
+	    calendar : {
+	        sameDay : '[Šiandien] LT',
+	        nextDay : '[Rytoj] LT',
+	        nextWeek : 'dddd LT',
+	        lastDay : '[Vakar] LT',
+	        lastWeek : '[Praėjusį] dddd LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'po %s',
+	        past : 'prieš %s',
+	        s : translateSeconds,
+	        m : translateSingular,
+	        mm : translate,
+	        h : translateSingular,
+	        hh : translate,
+	        d : translateSingular,
+	        dd : translate,
+	        M : translateSingular,
+	        MM : translate,
+	        y : translateSingular,
+	        yy : translate
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}-oji/,
+	    ordinal : function (number) {
+	        return number + '-oji';
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+>>>>>>> dev
 	    }
 	    function special(number) {
 	        return number % 10 === 0 || (number > 10 && number < 20);
@@ -54516,7 +59598,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 259 */
+=======
+/* 264 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54528,6 +59614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -54555,6 +59642,89 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // E.g. "3 minūtēm" as in "pēc 3 minūtēm".
 	            return number % 10 === 1 && number % 100 !== 11 ? forms[0] : forms[1];
 	        }
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var units = {
+	    'm': 'minūtes_minūtēm_minūte_minūtes'.split('_'),
+	    'mm': 'minūtes_minūtēm_minūte_minūtes'.split('_'),
+	    'h': 'stundas_stundām_stunda_stundas'.split('_'),
+	    'hh': 'stundas_stundām_stunda_stundas'.split('_'),
+	    'd': 'dienas_dienām_diena_dienas'.split('_'),
+	    'dd': 'dienas_dienām_diena_dienas'.split('_'),
+	    'M': 'mēneša_mēnešiem_mēnesis_mēneši'.split('_'),
+	    'MM': 'mēneša_mēnešiem_mēnesis_mēneši'.split('_'),
+	    'y': 'gada_gadiem_gads_gadi'.split('_'),
+	    'yy': 'gada_gadiem_gads_gadi'.split('_')
+	};
+	/**
+	 * @param withoutSuffix boolean true = a length of time; false = before/after a period of time.
+	 */
+	function format(forms, number, withoutSuffix) {
+	    if (withoutSuffix) {
+	        // E.g. "21 minūte", "3 minūtes".
+	        return number % 10 === 1 && number % 100 !== 11 ? forms[2] : forms[3];
+	    } else {
+	        // E.g. "21 minūtes" as in "pēc 21 minūtes".
+	        // E.g. "3 minūtēm" as in "pēc 3 minūtēm".
+	        return number % 10 === 1 && number % 100 !== 11 ? forms[0] : forms[1];
+	    }
+	}
+	function relativeTimeWithPlural(number, withoutSuffix, key) {
+	    return number + ' ' + format(units[key], number, withoutSuffix);
+	}
+	function relativeTimeWithSingular(number, withoutSuffix, key) {
+	    return format(units[key], number, withoutSuffix);
+	}
+	function relativeSeconds(number, withoutSuffix) {
+	    return withoutSuffix ? 'dažas sekundes' : 'dažām sekundēm';
+	}
+
+	var lv = moment.defineLocale('lv', {
+	    months : 'janvāris_februāris_marts_aprīlis_maijs_jūnijs_jūlijs_augusts_septembris_oktobris_novembris_decembris'.split('_'),
+	    monthsShort : 'jan_feb_mar_apr_mai_jūn_jūl_aug_sep_okt_nov_dec'.split('_'),
+	    weekdays : 'svētdiena_pirmdiena_otrdiena_trešdiena_ceturtdiena_piektdiena_sestdiena'.split('_'),
+	    weekdaysShort : 'Sv_P_O_T_C_Pk_S'.split('_'),
+	    weekdaysMin : 'Sv_P_O_T_C_Pk_S'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD.MM.YYYY.',
+	        LL : 'YYYY. [gada] D. MMMM',
+	        LLL : 'YYYY. [gada] D. MMMM, HH:mm',
+	        LLLL : 'YYYY. [gada] D. MMMM, dddd, HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Šodien pulksten] LT',
+	        nextDay : '[Rīt pulksten] LT',
+	        nextWeek : 'dddd [pulksten] LT',
+	        lastDay : '[Vakar pulksten] LT',
+	        lastWeek : '[Pagājušā] dddd [pulksten] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'pēc %s',
+	        past : 'pirms %s',
+	        s : relativeSeconds,
+	        m : relativeTimeWithSingular,
+	        mm : relativeTimeWithPlural,
+	        h : relativeTimeWithSingular,
+	        hh : relativeTimeWithPlural,
+	        d : relativeTimeWithSingular,
+	        dd : relativeTimeWithPlural,
+	        M : relativeTimeWithSingular,
+	        MM : relativeTimeWithPlural,
+	        y : relativeTimeWithSingular,
+	        yy : relativeTimeWithPlural
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+>>>>>>> dev
 	    }
 	    function relativeTimeWithPlural(number, withoutSuffix, key) {
 	        return number + ' ' + format(units[key], number, withoutSuffix);
@@ -54617,7 +59787,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 260 */
+=======
+/* 265 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54644,6 +59818,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        correctGrammaticalCase: function (number, wordKey) {
 	            return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
 	        },
+<<<<<<< HEAD
 	        translate: function (number, withoutSuffix, key) {
 	            var wordKey = translator.words[key];
 	            if (key.length === 1) {
@@ -54673,6 +59848,101 @@ return /******/ (function(modules) { // webpackBootstrap
 	        calendar: {
 	            sameDay: '[danas u] LT',
 	            nextDay: '[sjutra u] LT',
+=======
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'za %s',
+	        past   : 'prije %s',
+	        s      : 'nekoliko sekundi',
+	        m      : translator.translate,
+	        mm     : translator.translate,
+	        h      : translator.translate,
+	        hh     : translator.translate,
+	        d      : 'dan',
+	        dd     : translator.translate,
+	        M      : 'mjesec',
+	        MM     : translator.translate,
+	        y      : 'godinu',
+	        yy     : translator.translate
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return me;
+
+	})));
+
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Maori [mi]
+	//! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var mi = moment.defineLocale('mi', {
+	    months: 'Kohi-tāte_Hui-tanguru_Poutū-te-rangi_Paenga-whāwhā_Haratua_Pipiri_Hōngoingoi_Here-turi-kōkā_Mahuru_Whiringa-ā-nuku_Whiringa-ā-rangi_Hakihea'.split('_'),
+	    monthsShort: 'Kohi_Hui_Pou_Pae_Hara_Pipi_Hōngoi_Here_Mahu_Whi-nu_Whi-ra_Haki'.split('_'),
+	    monthsRegex: /(?:['a-z\u0101\u014D\u016B]+\-?){1,3}/i,
+	    monthsStrictRegex: /(?:['a-z\u0101\u014D\u016B]+\-?){1,3}/i,
+	    monthsShortRegex: /(?:['a-z\u0101\u014D\u016B]+\-?){1,3}/i,
+	    monthsShortStrictRegex: /(?:['a-z\u0101\u014D\u016B]+\-?){1,2}/i,
+	    weekdays: 'Rātapu_Mane_Tūrei_Wenerei_Tāite_Paraire_Hātarei'.split('_'),
+	    weekdaysShort: 'Ta_Ma_Tū_We_Tāi_Pa_Hā'.split('_'),
+	    weekdaysMin: 'Ta_Ma_Tū_We_Tāi_Pa_Hā'.split('_'),
+	    longDateFormat: {
+	        LT: 'HH:mm',
+	        LTS: 'HH:mm:ss',
+	        L: 'DD/MM/YYYY',
+	        LL: 'D MMMM YYYY',
+	        LLL: 'D MMMM YYYY [i] HH:mm',
+	        LLLL: 'dddd, D MMMM YYYY [i] HH:mm'
+	    },
+	    calendar: {
+	        sameDay: '[i teie mahana, i] LT',
+	        nextDay: '[apopo i] LT',
+	        nextWeek: 'dddd [i] LT',
+	        lastDay: '[inanahi i] LT',
+	        lastWeek: 'dddd [whakamutunga i] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime: {
+	        future: 'i roto i %s',
+	        past: '%s i mua',
+	        s: 'te hēkona ruarua',
+	        m: 'he meneti',
+	        mm: '%d meneti',
+	        h: 'te haora',
+	        hh: '%d haora',
+	        d: 'he ra',
+	        dd: '%d ra',
+	        M: 'he marama',
+	        MM: '%d marama',
+	        y: 'he tau',
+	        yy: '%d tau'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}º/,
+	    ordinal: '%dº',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+>>>>>>> dev
 
 	            nextWeek: function () {
 	                switch (this.day()) {
@@ -54732,7 +60002,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 261 */
+=======
+/* 267 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54815,9 +60089,47 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return number + '-ти';
 	            }
 	        },
+<<<<<<< HEAD
 	        week : {
 	            dow : 1, // Monday is the first day of the week.
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
+=======
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'после %s',
+	        past : 'пред %s',
+	        s : 'неколку секунди',
+	        m : 'минута',
+	        mm : '%d минути',
+	        h : 'час',
+	        hh : '%d часа',
+	        d : 'ден',
+	        dd : '%d дена',
+	        M : 'месец',
+	        MM : '%d месеци',
+	        y : 'година',
+	        yy : '%d години'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
+	    ordinal : function (number) {
+	        var lastDigit = number % 10,
+	            last2Digits = number % 100;
+	        if (number === 0) {
+	            return number + '-ев';
+	        } else if (last2Digits === 0) {
+	            return number + '-ен';
+	        } else if (last2Digits > 10 && last2Digits < 20) {
+	            return number + '-ти';
+	        } else if (lastDigit === 1) {
+	            return number + '-ви';
+	        } else if (lastDigit === 2) {
+	            return number + '-ри';
+	        } else if (lastDigit === 7 || lastDigit === 8) {
+	            return number + '-ми';
+	        } else {
+	            return number + '-ти';
+>>>>>>> dev
 	        }
 	    });
 
@@ -54826,7 +60138,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 262 */
+=======
+/* 268 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -54911,7 +60227,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 263 */
+=======
+/* 269 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55074,7 +60394,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 264 */
+=======
+/* 270 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55160,7 +60484,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 265 */
+=======
+/* 271 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55247,7 +60575,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 266 */
+=======
+/* 272 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55344,7 +60676,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 267 */
+=======
+/* 273 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55356,6 +60692,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -55405,13 +60742,70 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var nb = moment.defineLocale('nb', {
+	    months : 'januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember'.split('_'),
+	    monthsShort : 'jan._feb._mars_april_mai_juni_juli_aug._sep._okt._nov._des.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag'.split('_'),
+	    weekdaysShort : 'sø._ma._ti._on._to._fr._lø.'.split('_'),
+	    weekdaysMin : 'sø_ma_ti_on_to_fr_lø'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D. MMMM YYYY',
+	        LLL : 'D. MMMM YYYY [kl.] HH:mm',
+	        LLLL : 'dddd D. MMMM YYYY [kl.] HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[i dag kl.] LT',
+	        nextDay: '[i morgen kl.] LT',
+	        nextWeek: 'dddd [kl.] LT',
+	        lastDay: '[i går kl.] LT',
+	        lastWeek: '[forrige] dddd [kl.] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'om %s',
+	        past : '%s siden',
+	        s : 'noen sekunder',
+	        m : 'ett minutt',
+	        mm : '%d minutter',
+	        h : 'en time',
+	        hh : '%d timer',
+	        d : 'en dag',
+	        dd : '%d dager',
+	        M : 'en måned',
+	        MM : '%d måneder',
+	        y : 'ett år',
+	        yy : '%d år'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return nb;
+>>>>>>> dev
 
 	    return nb;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 268 */
+=======
+/* 274 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55437,6 +60831,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        '9': '९',
 	        '0': '०'
 	    },
+<<<<<<< HEAD
 	    numberMap = {
 	        '१': '1',
 	        '२': '2',
@@ -55532,13 +60927,142 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 6  // The week that contains Jan 1st is the first week of the year.
 	        }
 	    });
+=======
+	    calendar : {
+	        sameDay : '[आज] LT',
+	        nextDay : '[भोलि] LT',
+	        nextWeek : '[आउँदो] dddd[,] LT',
+	        lastDay : '[हिजो] LT',
+	        lastWeek : '[गएको] dddd[,] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%sमा',
+	        past : '%s अगाडि',
+	        s : 'केही क्षण',
+	        m : 'एक मिनेट',
+	        mm : '%d मिनेट',
+	        h : 'एक घण्टा',
+	        hh : '%d घण्टा',
+	        d : 'एक दिन',
+	        dd : '%d दिन',
+	        M : 'एक महिना',
+	        MM : '%d महिना',
+	        y : 'एक बर्ष',
+	        yy : '%d बर्ष'
+	    },
+	    week : {
+	        dow : 0, // Sunday is the first day of the week.
+	        doy : 6  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return ne;
+
+	})));
+
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Dutch [nl]
+	//! author : Joris Röling : https://github.com/jorisroling
+	//! author : Jacob Middag : https://github.com/middagj
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var monthsShortWithDots = 'jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.'.split('_');
+	var monthsShortWithoutDots = 'jan_feb_mrt_apr_mei_jun_jul_aug_sep_okt_nov_dec'.split('_');
+
+	var monthsParse = [/^jan/i, /^feb/i, /^maart|mrt.?$/i, /^apr/i, /^mei$/i, /^jun[i.]?$/i, /^jul[i.]?$/i, /^aug/i, /^sep/i, /^okt/i, /^nov/i, /^dec/i];
+	var monthsRegex = /^(januari|februari|maart|april|mei|april|ju[nl]i|augustus|september|oktober|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
+
+	var nl = moment.defineLocale('nl', {
+	    months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
+	    monthsShort : function (m, format) {
+	        if (!m) {
+	            return monthsShortWithDots;
+	        } else if (/-MMM-/.test(format)) {
+	            return monthsShortWithoutDots[m.month()];
+	        } else {
+	            return monthsShortWithDots[m.month()];
+	        }
+	    },
+
+	    monthsRegex: monthsRegex,
+	    monthsShortRegex: monthsRegex,
+	    monthsStrictRegex: /^(januari|februari|maart|mei|ju[nl]i|april|augustus|september|oktober|november|december)/i,
+	    monthsShortStrictRegex: /^(jan\.?|feb\.?|mrt\.?|apr\.?|mei|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i,
+
+	    monthsParse : monthsParse,
+	    longMonthsParse : monthsParse,
+	    shortMonthsParse : monthsParse,
+
+	    weekdays : 'zondag_maandag_dinsdag_woensdag_donderdag_vrijdag_zaterdag'.split('_'),
+	    weekdaysShort : 'zo._ma._di._wo._do._vr._za.'.split('_'),
+	    weekdaysMin : 'Zo_Ma_Di_Wo_Do_Vr_Za'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD-MM-YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[vandaag om] LT',
+	        nextDay: '[morgen om] LT',
+	        nextWeek: 'dddd [om] LT',
+	        lastDay: '[gisteren om] LT',
+	        lastWeek: '[afgelopen] dddd [om] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'over %s',
+	        past : '%s geleden',
+	        s : 'een paar seconden',
+	        m : 'één minuut',
+	        mm : '%d minuten',
+	        h : 'één uur',
+	        hh : '%d uur',
+	        d : 'één dag',
+	        dd : '%d dagen',
+	        M : 'één maand',
+	        MM : '%d maanden',
+	        y : 'één jaar',
+	        yy : '%d jaar'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
+	    ordinal : function (number) {
+	        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return nl;
+>>>>>>> dev
 
 	    return ne;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 269 */
+=======
+/* 276 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55555,6 +61079,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var monthsShortWithDots = 'jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.'.split('_'),
 	        monthsShortWithoutDots = 'jan_feb_mrt_apr_mei_jun_jul_aug_sep_okt_nov_dec'.split('_');
 
+<<<<<<< HEAD
 	    var nl = moment.defineLocale('nl', {
 	        months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
 	        monthsShort : function (m, format) {
@@ -55609,13 +61134,89 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	var monthsParse = [/^jan/i, /^feb/i, /^maart|mrt.?$/i, /^apr/i, /^mei$/i, /^jun[i.]?$/i, /^jul[i.]?$/i, /^aug/i, /^sep/i, /^okt/i, /^nov/i, /^dec/i];
+	var monthsRegex = /^(januari|februari|maart|april|mei|april|ju[nl]i|augustus|september|oktober|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
+
+	var nlBe = moment.defineLocale('nl-be', {
+	    months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
+	    monthsShort : function (m, format) {
+	        if (!m) {
+	            return monthsShortWithDots;
+	        } else if (/-MMM-/.test(format)) {
+	            return monthsShortWithoutDots[m.month()];
+	        } else {
+	            return monthsShortWithDots[m.month()];
+	        }
+	    },
+
+	    monthsRegex: monthsRegex,
+	    monthsShortRegex: monthsRegex,
+	    monthsStrictRegex: /^(januari|februari|maart|mei|ju[nl]i|april|augustus|september|oktober|november|december)/i,
+	    monthsShortStrictRegex: /^(jan\.?|feb\.?|mrt\.?|apr\.?|mei|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i,
+
+	    monthsParse : monthsParse,
+	    longMonthsParse : monthsParse,
+	    shortMonthsParse : monthsParse,
+
+	    weekdays : 'zondag_maandag_dinsdag_woensdag_donderdag_vrijdag_zaterdag'.split('_'),
+	    weekdaysShort : 'zo._ma._di._wo._do._vr._za.'.split('_'),
+	    weekdaysMin : 'Zo_Ma_Di_Wo_Do_Vr_Za'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[vandaag om] LT',
+	        nextDay: '[morgen om] LT',
+	        nextWeek: 'dddd [om] LT',
+	        lastDay: '[gisteren om] LT',
+	        lastWeek: '[afgelopen] dddd [om] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'over %s',
+	        past : '%s geleden',
+	        s : 'een paar seconden',
+	        m : 'één minuut',
+	        mm : '%d minuten',
+	        h : 'één uur',
+	        hh : '%d uur',
+	        d : 'één dag',
+	        dd : '%d dagen',
+	        M : 'één maand',
+	        MM : '%d maanden',
+	        y : 'één jaar',
+	        yy : '%d jaar'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
+	    ordinal : function (number) {
+	        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return nlBe;
+>>>>>>> dev
 
 	    return nl;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 270 */
+=======
+/* 277 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55626,6 +61227,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -55673,13 +61275,68 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var nn = moment.defineLocale('nn', {
+	    months : 'januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember'.split('_'),
+	    monthsShort : 'jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des'.split('_'),
+	    weekdays : 'sundag_måndag_tysdag_onsdag_torsdag_fredag_laurdag'.split('_'),
+	    weekdaysShort : 'sun_mån_tys_ons_tor_fre_lau'.split('_'),
+	    weekdaysMin : 'su_må_ty_on_to_fr_lø'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D. MMMM YYYY',
+	        LLL : 'D. MMMM YYYY [kl.] H:mm',
+	        LLLL : 'dddd D. MMMM YYYY [kl.] HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[I dag klokka] LT',
+	        nextDay: '[I morgon klokka] LT',
+	        nextWeek: 'dddd [klokka] LT',
+	        lastDay: '[I går klokka] LT',
+	        lastWeek: '[Føregåande] dddd [klokka] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'om %s',
+	        past : '%s sidan',
+	        s : 'nokre sekund',
+	        m : 'eit minutt',
+	        mm : '%d minutt',
+	        h : 'ein time',
+	        hh : '%d timar',
+	        d : 'ein dag',
+	        dd : '%d dagar',
+	        M : 'ein månad',
+	        MM : '%d månader',
+	        y : 'eit år',
+	        yy : '%d år'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return nn;
+>>>>>>> dev
 
 	    return nn;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 271 */
+=======
+/* 278 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55807,7 +61464,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 272 */
+=======
+/* 279 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55818,6 +61479,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -55842,6 +61504,100 @@ return /******/ (function(modules) { // webpackBootstrap
 	            case 'yy':
 	                return result + (plural(number) ? 'lata' : 'lat');
 	        }
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var monthsNominative = 'styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierpień_wrzesień_październik_listopad_grudzień'.split('_');
+	var monthsSubjective = 'stycznia_lutego_marca_kwietnia_maja_czerwca_lipca_sierpnia_września_października_listopada_grudnia'.split('_');
+	function plural(n) {
+	    return (n % 10 < 5) && (n % 10 > 1) && ((~~(n / 10) % 10) !== 1);
+	}
+	function translate(number, withoutSuffix, key) {
+	    var result = number + ' ';
+	    switch (key) {
+	        case 'm':
+	            return withoutSuffix ? 'minuta' : 'minutę';
+	        case 'mm':
+	            return result + (plural(number) ? 'minuty' : 'minut');
+	        case 'h':
+	            return withoutSuffix  ? 'godzina'  : 'godzinę';
+	        case 'hh':
+	            return result + (plural(number) ? 'godziny' : 'godzin');
+	        case 'MM':
+	            return result + (plural(number) ? 'miesiące' : 'miesięcy');
+	        case 'yy':
+	            return result + (plural(number) ? 'lata' : 'lat');
+	    }
+	}
+
+	var pl = moment.defineLocale('pl', {
+	    months : function (momentToFormat, format) {
+	        if (!momentToFormat) {
+	            return monthsNominative;
+	        } else if (format === '') {
+	            // Hack: if format empty we know this is used to generate
+	            // RegExp by moment. Give then back both valid forms of months
+	            // in RegExp ready format.
+	            return '(' + monthsSubjective[momentToFormat.month()] + '|' + monthsNominative[momentToFormat.month()] + ')';
+	        } else if (/D MMMM/.test(format)) {
+	            return monthsSubjective[momentToFormat.month()];
+	        } else {
+	            return monthsNominative[momentToFormat.month()];
+	        }
+	    },
+	    monthsShort : 'sty_lut_mar_kwi_maj_cze_lip_sie_wrz_paź_lis_gru'.split('_'),
+	    weekdays : 'niedziela_poniedziałek_wtorek_środa_czwartek_piątek_sobota'.split('_'),
+	    weekdaysShort : 'ndz_pon_wt_śr_czw_pt_sob'.split('_'),
+	    weekdaysMin : 'Nd_Pn_Wt_Śr_Cz_Pt_So'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[Dziś o] LT',
+	        nextDay: '[Jutro o] LT',
+	        nextWeek: '[W] dddd [o] LT',
+	        lastDay: '[Wczoraj o] LT',
+	        lastWeek: function () {
+	            switch (this.day()) {
+	                case 0:
+	                    return '[W zeszłą niedzielę o] LT';
+	                case 3:
+	                    return '[W zeszłą środę o] LT';
+	                case 6:
+	                    return '[W zeszłą sobotę o] LT';
+	                default:
+	                    return '[W zeszły] dddd [o] LT';
+	            }
+	        },
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'za %s',
+	        past : '%s temu',
+	        s : 'kilka sekund',
+	        m : translate,
+	        mm : translate,
+	        h : translate,
+	        hh : translate,
+	        d : '1 dzień',
+	        dd : '%d dni',
+	        M : 'miesiąc',
+	        MM : translate,
+	        y : 'rok',
+	        yy : translate
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+>>>>>>> dev
 	    }
 
 	    var pl = moment.defineLocale('pl', {
@@ -55916,7 +61672,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 273 */
+=======
+/* 280 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55927,6 +61687,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -55979,13 +61740,73 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var pt = moment.defineLocale('pt', {
+	    months : 'Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'.split('_'),
+	    monthsShort : 'Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez'.split('_'),
+	    weekdays : 'Domingo_Segunda-Feira_Terça-Feira_Quarta-Feira_Quinta-Feira_Sexta-Feira_Sábado'.split('_'),
+	    weekdaysShort : 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
+	    weekdaysMin : 'Do_2ª_3ª_4ª_5ª_6ª_Sá'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D [de] MMMM [de] YYYY',
+	        LLL : 'D [de] MMMM [de] YYYY HH:mm',
+	        LLLL : 'dddd, D [de] MMMM [de] YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[Hoje às] LT',
+	        nextDay: '[Amanhã às] LT',
+	        nextWeek: 'dddd [às] LT',
+	        lastDay: '[Ontem às] LT',
+	        lastWeek: function () {
+	            return (this.day() === 0 || this.day() === 6) ?
+	                '[Último] dddd [às] LT' : // Saturday + Sunday
+	                '[Última] dddd [às] LT'; // Monday - Friday
+	        },
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'em %s',
+	        past : 'há %s',
+	        s : 'segundos',
+	        m : 'um minuto',
+	        mm : '%d minutos',
+	        h : 'uma hora',
+	        hh : '%d horas',
+	        d : 'um dia',
+	        dd : '%d dias',
+	        M : 'um mês',
+	        MM : '%d meses',
+	        y : 'um ano',
+	        yy : '%d anos'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}º/,
+	    ordinal : '%dº',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return pt;
+>>>>>>> dev
 
 	    return pt;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 274 */
+=======
+/* 281 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -55996,6 +61817,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -56044,13 +61866,69 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ordinalParse: /\d{1,2}º/,
 	        ordinal : '%dº'
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var ptBr = moment.defineLocale('pt-br', {
+	    months : 'Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'.split('_'),
+	    monthsShort : 'Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez'.split('_'),
+	    weekdays : 'Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado'.split('_'),
+	    weekdaysShort : 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
+	    weekdaysMin : 'Do_2ª_3ª_4ª_5ª_6ª_Sá'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D [de] MMMM [de] YYYY',
+	        LLL : 'D [de] MMMM [de] YYYY [às] HH:mm',
+	        LLLL : 'dddd, D [de] MMMM [de] YYYY [às] HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[Hoje às] LT',
+	        nextDay: '[Amanhã às] LT',
+	        nextWeek: 'dddd [às] LT',
+	        lastDay: '[Ontem às] LT',
+	        lastWeek: function () {
+	            return (this.day() === 0 || this.day() === 6) ?
+	                '[Último] dddd [às] LT' : // Saturday + Sunday
+	                '[Última] dddd [às] LT'; // Monday - Friday
+	        },
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'em %s',
+	        past : '%s atrás',
+	        s : 'poucos segundos',
+	        m : 'um minuto',
+	        mm : '%d minutos',
+	        h : 'uma hora',
+	        hh : '%d horas',
+	        d : 'um dia',
+	        dd : '%d dias',
+	        M : 'um mês',
+	        MM : '%d meses',
+	        y : 'um ano',
+	        yy : '%d anos'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}º/,
+	    ordinal : '%dº'
+	});
+
+	return ptBr;
+>>>>>>> dev
 
 	    return pt_br;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 275 */
+=======
+/* 282 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56129,7 +62007,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 276 */
+=======
+/* 283 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56289,6 +62171,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return 'вечера';
 	            }
 	        },
+<<<<<<< HEAD
 	        ordinalParse: /\d{1,2}-(й|го|я)/,
 	        ordinal: function (number, period) {
 	            switch (period) {
@@ -56308,6 +62191,54 @@ return /******/ (function(modules) { // webpackBootstrap
 	        week : {
 	            dow : 1, // Monday is the first day of the week.
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
+=======
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'через %s',
+	        past : '%s назад',
+	        s : 'несколько секунд',
+	        m : relativeTimeWithPlural,
+	        mm : relativeTimeWithPlural,
+	        h : 'час',
+	        hh : relativeTimeWithPlural,
+	        d : 'день',
+	        dd : relativeTimeWithPlural,
+	        M : 'месяц',
+	        MM : relativeTimeWithPlural,
+	        y : 'год',
+	        yy : relativeTimeWithPlural
+	    },
+	    meridiemParse: /ночи|утра|дня|вечера/i,
+	    isPM : function (input) {
+	        return /^(дня|вечера)$/.test(input);
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 4) {
+	            return 'ночи';
+	        } else if (hour < 12) {
+	            return 'утра';
+	        } else if (hour < 17) {
+	            return 'дня';
+	        } else {
+	            return 'вечера';
+	        }
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}-(й|го|я)/,
+	    ordinal: function (number, period) {
+	        switch (period) {
+	            case 'M':
+	            case 'd':
+	            case 'DDD':
+	                return number + '-й';
+	            case 'D':
+	                return number + '-го';
+	            case 'w':
+	            case 'W':
+	                return number + '-я';
+	            default:
+	                return number;
+>>>>>>> dev
 	        }
 	    });
 
@@ -56316,7 +62247,114 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 277 */
+=======
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Sindhi [sd]
+	//! author : Narain Sagar : https://github.com/narainsagar
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var months = [
+	    'جنوري',
+	    'فيبروري',
+	    'مارچ',
+	    'اپريل',
+	    'مئي',
+	    'جون',
+	    'جولاءِ',
+	    'آگسٽ',
+	    'سيپٽمبر',
+	    'آڪٽوبر',
+	    'نومبر',
+	    'ڊسمبر'
+	];
+	var days = [
+	    'آچر',
+	    'سومر',
+	    'اڱارو',
+	    'اربع',
+	    'خميس',
+	    'جمع',
+	    'ڇنڇر'
+	];
+
+	var sd = moment.defineLocale('sd', {
+	    months : months,
+	    monthsShort : months,
+	    weekdays : days,
+	    weekdaysShort : days,
+	    weekdaysMin : days,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd، D MMMM YYYY HH:mm'
+	    },
+	    meridiemParse: /صبح|شام/,
+	    isPM : function (input) {
+	        return 'شام' === input;
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 12) {
+	            return 'صبح';
+	        }
+	        return 'شام';
+	    },
+	    calendar : {
+	        sameDay : '[اڄ] LT',
+	        nextDay : '[سڀاڻي] LT',
+	        nextWeek : 'dddd [اڳين هفتي تي] LT',
+	        lastDay : '[ڪالهه] LT',
+	        lastWeek : '[گزريل هفتي] dddd [تي] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s پوء',
+	        past : '%s اڳ',
+	        s : 'چند سيڪنڊ',
+	        m : 'هڪ منٽ',
+	        mm : '%d منٽ',
+	        h : 'هڪ ڪلاڪ',
+	        hh : '%d ڪلاڪ',
+	        d : 'هڪ ڏينهن',
+	        dd : '%d ڏينهن',
+	        M : 'هڪ مهينو',
+	        MM : '%d مهينا',
+	        y : 'هڪ سال',
+	        yy : '%d سال'
+	    },
+	    preparse: function (string) {
+	        return string.replace(/،/g, ',');
+	    },
+	    postformat: function (string) {
+	        return string.replace(/,/g, '،');
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return sd;
+
+	})));
+
+
+/***/ },
+/* 285 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56327,6 +62365,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -56375,13 +62414,69 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+
+	var se = moment.defineLocale('se', {
+	    months : 'ođđajagemánnu_guovvamánnu_njukčamánnu_cuoŋománnu_miessemánnu_geassemánnu_suoidnemánnu_borgemánnu_čakčamánnu_golggotmánnu_skábmamánnu_juovlamánnu'.split('_'),
+	    monthsShort : 'ođđj_guov_njuk_cuo_mies_geas_suoi_borg_čakč_golg_skáb_juov'.split('_'),
+	    weekdays : 'sotnabeaivi_vuossárga_maŋŋebárga_gaskavahkku_duorastat_bearjadat_lávvardat'.split('_'),
+	    weekdaysShort : 'sotn_vuos_maŋ_gask_duor_bear_láv'.split('_'),
+	    weekdaysMin : 's_v_m_g_d_b_L'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'MMMM D. [b.] YYYY',
+	        LLL : 'MMMM D. [b.] YYYY [ti.] HH:mm',
+	        LLLL : 'dddd, MMMM D. [b.] YYYY [ti.] HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[otne ti] LT',
+	        nextDay: '[ihttin ti] LT',
+	        nextWeek: 'dddd [ti] LT',
+	        lastDay: '[ikte ti] LT',
+	        lastWeek: '[ovddit] dddd [ti] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : '%s geažes',
+	        past : 'maŋit %s',
+	        s : 'moadde sekunddat',
+	        m : 'okta minuhta',
+	        mm : '%d minuhtat',
+	        h : 'okta diimmu',
+	        hh : '%d diimmut',
+	        d : 'okta beaivi',
+	        dd : '%d beaivvit',
+	        M : 'okta mánnu',
+	        MM : '%d mánut',
+	        y : 'okta jahki',
+	        yy : '%d jagit'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return se;
+>>>>>>> dev
 
 	    return se;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 278 */
+=======
+/* 286 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56392,6 +62487,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -56448,6 +62544,63 @@ return /******/ (function(modules) { // webpackBootstrap
 	            } else {
 	                return isLower ? 'පෙ.ව.' : 'පෙර වරු';
 	            }
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	/*jshint -W100*/
+	var si = moment.defineLocale('si', {
+	    months : 'ජනවාරි_පෙබරවාරි_මාර්තු_අප්‍රේල්_මැයි_ජූනි_ජූලි_අගෝස්තු_සැප්තැම්බර්_ඔක්තෝබර්_නොවැම්බර්_දෙසැම්බර්'.split('_'),
+	    monthsShort : 'ජන_පෙබ_මාර්_අප්_මැයි_ජූනි_ජූලි_අගෝ_සැප්_ඔක්_නොවැ_දෙසැ'.split('_'),
+	    weekdays : 'ඉරිදා_සඳුදා_අඟහරුවාදා_බදාදා_බ්‍රහස්පතින්දා_සිකුරාදා_සෙනසුරාදා'.split('_'),
+	    weekdaysShort : 'ඉරි_සඳු_අඟ_බදා_බ්‍රහ_සිකු_සෙන'.split('_'),
+	    weekdaysMin : 'ඉ_ස_අ_බ_බ්‍ර_සි_සෙ'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'a h:mm',
+	        LTS : 'a h:mm:ss',
+	        L : 'YYYY/MM/DD',
+	        LL : 'YYYY MMMM D',
+	        LLL : 'YYYY MMMM D, a h:mm',
+	        LLLL : 'YYYY MMMM D [වැනි] dddd, a h:mm:ss'
+	    },
+	    calendar : {
+	        sameDay : '[අද] LT[ට]',
+	        nextDay : '[හෙට] LT[ට]',
+	        nextWeek : 'dddd LT[ට]',
+	        lastDay : '[ඊයේ] LT[ට]',
+	        lastWeek : '[පසුගිය] dddd LT[ට]',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%sකින්',
+	        past : '%sකට පෙර',
+	        s : 'තත්පර කිහිපය',
+	        m : 'මිනිත්තුව',
+	        mm : 'මිනිත්තු %d',
+	        h : 'පැය',
+	        hh : 'පැය %d',
+	        d : 'දිනය',
+	        dd : 'දින %d',
+	        M : 'මාසය',
+	        MM : 'මාස %d',
+	        y : 'වසර',
+	        yy : 'වසර %d'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2} වැනි/,
+	    ordinal : function (number) {
+	        return number + ' වැනි';
+	    },
+	    meridiemParse : /පෙර වරු|පස් වරු|පෙ.ව|ප.ව./,
+	    isPM : function (input) {
+	        return input === 'ප.ව.' || input === 'පස් වරු';
+	    },
+	    meridiem : function (hours, minutes, isLower) {
+	        if (hours > 11) {
+	            return isLower ? 'ප.ව.' : 'පස් වරු';
+	        } else {
+	            return isLower ? 'පෙ.ව.' : 'පෙර වරු';
+>>>>>>> dev
 	        }
 	    });
 
@@ -56456,7 +62609,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 279 */
+=======
+/* 287 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56582,6 +62739,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            sameElse: 'L'
 	        },
+<<<<<<< HEAD
 	        relativeTime : {
 	            future : 'za %s',
 	            past : 'pred %s',
@@ -56604,13 +62762,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'za %s',
+	        past : 'pred %s',
+	        s : translate,
+	        m : translate,
+	        mm : translate,
+	        h : translate,
+	        hh : translate,
+	        d : translate,
+	        dd : translate,
+	        M : translate,
+	        MM : translate,
+	        y : translate,
+	        yy : translate
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return sk;
+>>>>>>> dev
 
 	    return sk;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 280 */
+=======
+/* 288 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56711,9 +62901,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	            LLL : 'D. MMMM YYYY H:mm',
 	            LLLL : 'dddd, D. MMMM YYYY H:mm'
 	        },
+<<<<<<< HEAD
 	        calendar : {
 	            sameDay  : '[danes ob] LT',
 	            nextDay  : '[jutri ob] LT',
+=======
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'čez %s',
+	        past   : 'pred %s',
+	        s      : processRelativeTime,
+	        m      : processRelativeTime,
+	        mm     : processRelativeTime,
+	        h      : processRelativeTime,
+	        hh     : processRelativeTime,
+	        d      : processRelativeTime,
+	        dd     : processRelativeTime,
+	        M      : processRelativeTime,
+	        MM     : processRelativeTime,
+	        y      : processRelativeTime,
+	        yy     : processRelativeTime
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+>>>>>>> dev
 
 	            nextWeek : function () {
 	                switch (this.day()) {
@@ -56776,7 +62993,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 281 */
+=======
+/* 289 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56789,6 +63010,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -56844,13 +63066,76 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var sq = moment.defineLocale('sq', {
+	    months : 'Janar_Shkurt_Mars_Prill_Maj_Qershor_Korrik_Gusht_Shtator_Tetor_Nëntor_Dhjetor'.split('_'),
+	    monthsShort : 'Jan_Shk_Mar_Pri_Maj_Qer_Kor_Gus_Sht_Tet_Nën_Dhj'.split('_'),
+	    weekdays : 'E Diel_E Hënë_E Martë_E Mërkurë_E Enjte_E Premte_E Shtunë'.split('_'),
+	    weekdaysShort : 'Die_Hën_Mar_Mër_Enj_Pre_Sht'.split('_'),
+	    weekdaysMin : 'D_H_Ma_Më_E_P_Sh'.split('_'),
+	    weekdaysParseExact : true,
+	    meridiemParse: /PD|MD/,
+	    isPM: function (input) {
+	        return input.charAt(0) === 'M';
+	    },
+	    meridiem : function (hours, minutes, isLower) {
+	        return hours < 12 ? 'PD' : 'MD';
+	    },
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Sot në] LT',
+	        nextDay : '[Nesër në] LT',
+	        nextWeek : 'dddd [në] LT',
+	        lastDay : '[Dje në] LT',
+	        lastWeek : 'dddd [e kaluar në] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'në %s',
+	        past : '%s më parë',
+	        s : 'disa sekonda',
+	        m : 'një minutë',
+	        mm : '%d minuta',
+	        h : 'një orë',
+	        hh : '%d orë',
+	        d : 'një ditë',
+	        dd : '%d ditë',
+	        M : 'një muaj',
+	        MM : '%d muaj',
+	        y : 'një vit',
+	        yy : '%d vite'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return sq;
+>>>>>>> dev
 
 	    return sq;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 282 */
+=======
+/* 290 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56877,6 +63162,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        correctGrammaticalCase: function (number, wordKey) {
 	            return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
 	        },
+<<<<<<< HEAD
 	        translate: function (number, withoutSuffix, key) {
 	            var wordKey = translator.words[key];
 	            if (key.length === 1) {
@@ -56886,6 +63172,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	    };
+=======
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'za %s',
+	        past   : 'pre %s',
+	        s      : 'nekoliko sekundi',
+	        m      : translator.translate,
+	        mm     : translator.translate,
+	        h      : translator.translate,
+	        hh     : translator.translate,
+	        d      : 'dan',
+	        dd     : translator.translate,
+	        M      : 'mesec',
+	        MM     : translator.translate,
+	        y      : 'godinu',
+	        yy     : translator.translate
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+>>>>>>> dev
 
 	    var sr = moment.defineLocale('sr', {
 	        months: 'januar_februar_mart_april_maj_jun_jul_avgust_septembar_oktobar_novembar_decembar'.split('_'),
@@ -56964,7 +63276,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 283 */
+=======
+/* 291 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -56991,6 +63307,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        correctGrammaticalCase: function (number, wordKey) {
 	            return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
 	        },
+<<<<<<< HEAD
 	        translate: function (number, withoutSuffix, key) {
 	            var wordKey = translator.words[key];
 	            if (key.length === 1) {
@@ -57000,6 +63317,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	    };
+=======
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'за %s',
+	        past   : 'пре %s',
+	        s      : 'неколико секунди',
+	        m      : translator.translate,
+	        mm     : translator.translate,
+	        h      : translator.translate,
+	        hh     : translator.translate,
+	        d      : 'дан',
+	        dd     : translator.translate,
+	        M      : 'месец',
+	        MM     : translator.translate,
+	        y      : 'годину',
+	        yy     : translator.translate
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+>>>>>>> dev
 
 	    var sr_cyrl = moment.defineLocale('sr-cyrl', {
 	        months: 'јануар_фебруар_март_април_мај_јун_јул_август_септембар_октобар_новембар_децембар'.split('_'),
@@ -57078,7 +63421,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 284 */
+=======
+/* 292 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57164,14 +63511,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	            dow : 1, // Monday is the first day of the week.
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
+<<<<<<< HEAD
 	    });
+=======
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}/,
+	    ordinal : '%d',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return ss;
+>>>>>>> dev
 
 	    return ss;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 285 */
+=======
+/* 293 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57182,6 +63546,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -57238,13 +63603,77 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var sv = moment.defineLocale('sv', {
+	    months : 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december'.split('_'),
+	    monthsShort : 'jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec'.split('_'),
+	    weekdays : 'söndag_måndag_tisdag_onsdag_torsdag_fredag_lördag'.split('_'),
+	    weekdaysShort : 'sön_mån_tis_ons_tor_fre_lör'.split('_'),
+	    weekdaysMin : 'sö_må_ti_on_to_fr_lö'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'YYYY-MM-DD',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY [kl.] HH:mm',
+	        LLLL : 'dddd D MMMM YYYY [kl.] HH:mm',
+	        lll : 'D MMM YYYY HH:mm',
+	        llll : 'ddd D MMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[Idag] LT',
+	        nextDay: '[Imorgon] LT',
+	        lastDay: '[Igår] LT',
+	        nextWeek: '[På] dddd LT',
+	        lastWeek: '[I] dddd[s] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'om %s',
+	        past : 'för %s sedan',
+	        s : 'några sekunder',
+	        m : 'en minut',
+	        mm : '%d minuter',
+	        h : 'en timme',
+	        hh : '%d timmar',
+	        d : 'en dag',
+	        dd : '%d dagar',
+	        M : 'en månad',
+	        MM : '%d månader',
+	        y : 'ett år',
+	        yy : '%d år'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(e|a)/,
+	    ordinal : function (number) {
+	        var b = number % 10,
+	            output = (~~(number % 100 / 10) === 1) ? 'e' :
+	            (b === 1) ? 'a' :
+	            (b === 2) ? 'a' :
+	            (b === 3) ? 'e' : 'e';
+	        return number + output;
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return sv;
+>>>>>>> dev
 
 	    return sv;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 286 */
+=======
+/* 294 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57307,7 +63736,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 287 */
+=======
+/* 295 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57318,6 +63751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -57344,6 +63778,125 @@ return /******/ (function(modules) { // webpackBootstrap
 	        '௯': '9',
 	        '௦': '0'
 	    };
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var symbolMap = {
+	    '1': '௧',
+	    '2': '௨',
+	    '3': '௩',
+	    '4': '௪',
+	    '5': '௫',
+	    '6': '௬',
+	    '7': '௭',
+	    '8': '௮',
+	    '9': '௯',
+	    '0': '௦'
+	};
+	var numberMap = {
+	    '௧': '1',
+	    '௨': '2',
+	    '௩': '3',
+	    '௪': '4',
+	    '௫': '5',
+	    '௬': '6',
+	    '௭': '7',
+	    '௮': '8',
+	    '௯': '9',
+	    '௦': '0'
+	};
+
+	var ta = moment.defineLocale('ta', {
+	    months : 'ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்'.split('_'),
+	    monthsShort : 'ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்'.split('_'),
+	    weekdays : 'ஞாயிற்றுக்கிழமை_திங்கட்கிழமை_செவ்வாய்கிழமை_புதன்கிழமை_வியாழக்கிழமை_வெள்ளிக்கிழமை_சனிக்கிழமை'.split('_'),
+	    weekdaysShort : 'ஞாயிறு_திங்கள்_செவ்வாய்_புதன்_வியாழன்_வெள்ளி_சனி'.split('_'),
+	    weekdaysMin : 'ஞா_தி_செ_பு_வி_வெ_ச'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY, HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY, HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[இன்று] LT',
+	        nextDay : '[நாளை] LT',
+	        nextWeek : 'dddd, LT',
+	        lastDay : '[நேற்று] LT',
+	        lastWeek : '[கடந்த வாரம்] dddd, LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s இல்',
+	        past : '%s முன்',
+	        s : 'ஒரு சில விநாடிகள்',
+	        m : 'ஒரு நிமிடம்',
+	        mm : '%d நிமிடங்கள்',
+	        h : 'ஒரு மணி நேரம்',
+	        hh : '%d மணி நேரம்',
+	        d : 'ஒரு நாள்',
+	        dd : '%d நாட்கள்',
+	        M : 'ஒரு மாதம்',
+	        MM : '%d மாதங்கள்',
+	        y : 'ஒரு வருடம்',
+	        yy : '%d ஆண்டுகள்'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}வது/,
+	    ordinal : function (number) {
+	        return number + 'வது';
+	    },
+	    preparse: function (string) {
+	        return string.replace(/[௧௨௩௪௫௬௭௮௯௦]/g, function (match) {
+	            return numberMap[match];
+	        });
+	    },
+	    postformat: function (string) {
+	        return string.replace(/\d/g, function (match) {
+	            return symbolMap[match];
+	        });
+	    },
+	    // refer http://ta.wikipedia.org/s/1er1
+	    meridiemParse: /யாமம்|வைகறை|காலை|நண்பகல்|எற்பாடு|மாலை/,
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 2) {
+	            return ' யாமம்';
+	        } else if (hour < 6) {
+	            return ' வைகறை';  // வைகறை
+	        } else if (hour < 10) {
+	            return ' காலை'; // காலை
+	        } else if (hour < 14) {
+	            return ' நண்பகல்'; // நண்பகல்
+	        } else if (hour < 18) {
+	            return ' எற்பாடு'; // எற்பாடு
+	        } else if (hour < 22) {
+	            return ' மாலை'; // மாலை
+	        } else {
+	            return ' யாமம்';
+	        }
+	    },
+	    meridiemHour : function (hour, meridiem) {
+	        if (hour === 12) {
+	            hour = 0;
+	        }
+	        if (meridiem === 'யாமம்') {
+	            return hour < 2 ? hour : hour + 12;
+	        } else if (meridiem === 'வைகறை' || meridiem === 'காலை') {
+	            return hour;
+	        } else if (meridiem === 'நண்பகல்') {
+	            return hour >= 10 ? hour : hour + 12;
+	        } else {
+	            return hour + 12;
+	        }
+	    },
+	    week : {
+	        dow : 0, // Sunday is the first day of the week.
+	        doy : 6  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+>>>>>>> dev
 
 	    var ta = moment.defineLocale('ta', {
 	        months : 'ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்'.split('_'),
@@ -57440,7 +63993,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 288 */
+=======
+/* 296 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57451,6 +64008,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -57527,13 +64085,170 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 6  // The week that contains Jan 1st is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var te = moment.defineLocale('te', {
+	    months : 'జనవరి_ఫిబ్రవరి_మార్చి_ఏప్రిల్_మే_జూన్_జూలై_ఆగస్టు_సెప్టెంబర్_అక్టోబర్_నవంబర్_డిసెంబర్'.split('_'),
+	    monthsShort : 'జన._ఫిబ్ర._మార్చి_ఏప్రి._మే_జూన్_జూలై_ఆగ._సెప్._అక్టో._నవ._డిసె.'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'ఆదివారం_సోమవారం_మంగళవారం_బుధవారం_గురువారం_శుక్రవారం_శనివారం'.split('_'),
+	    weekdaysShort : 'ఆది_సోమ_మంగళ_బుధ_గురు_శుక్ర_శని'.split('_'),
+	    weekdaysMin : 'ఆ_సో_మం_బు_గు_శు_శ'.split('_'),
+	    longDateFormat : {
+	        LT : 'A h:mm',
+	        LTS : 'A h:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY, A h:mm',
+	        LLLL : 'dddd, D MMMM YYYY, A h:mm'
+	    },
+	    calendar : {
+	        sameDay : '[నేడు] LT',
+	        nextDay : '[రేపు] LT',
+	        nextWeek : 'dddd, LT',
+	        lastDay : '[నిన్న] LT',
+	        lastWeek : '[గత] dddd, LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s లో',
+	        past : '%s క్రితం',
+	        s : 'కొన్ని క్షణాలు',
+	        m : 'ఒక నిమిషం',
+	        mm : '%d నిమిషాలు',
+	        h : 'ఒక గంట',
+	        hh : '%d గంటలు',
+	        d : 'ఒక రోజు',
+	        dd : '%d రోజులు',
+	        M : 'ఒక నెల',
+	        MM : '%d నెలలు',
+	        y : 'ఒక సంవత్సరం',
+	        yy : '%d సంవత్సరాలు'
+	    },
+	    dayOfMonthOrdinalParse : /\d{1,2}వ/,
+	    ordinal : '%dవ',
+	    meridiemParse: /రాత్రి|ఉదయం|మధ్యాహ్నం|సాయంత్రం/,
+	    meridiemHour : function (hour, meridiem) {
+	        if (hour === 12) {
+	            hour = 0;
+	        }
+	        if (meridiem === 'రాత్రి') {
+	            return hour < 4 ? hour : hour + 12;
+	        } else if (meridiem === 'ఉదయం') {
+	            return hour;
+	        } else if (meridiem === 'మధ్యాహ్నం') {
+	            return hour >= 10 ? hour : hour + 12;
+	        } else if (meridiem === 'సాయంత్రం') {
+	            return hour + 12;
+	        }
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 4) {
+	            return 'రాత్రి';
+	        } else if (hour < 10) {
+	            return 'ఉదయం';
+	        } else if (hour < 17) {
+	            return 'మధ్యాహ్నం';
+	        } else if (hour < 20) {
+	            return 'సాయంత్రం';
+	        } else {
+	            return 'రాత్రి';
+	        }
+	    },
+	    week : {
+	        dow : 0, // Sunday is the first day of the week.
+	        doy : 6  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return te;
+
+	})));
+
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Tetun Dili (East Timor) [tet]
+	//! author : Joshua Brooks : https://github.com/joshbrooks
+	//! author : Onorio De J. Afonso : https://github.com/marobo
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var tet = moment.defineLocale('tet', {
+	    months : 'Janeiru_Fevereiru_Marsu_Abril_Maiu_Juniu_Juliu_Augustu_Setembru_Outubru_Novembru_Dezembru'.split('_'),
+	    monthsShort : 'Jan_Fev_Mar_Abr_Mai_Jun_Jul_Aug_Set_Out_Nov_Dez'.split('_'),
+	    weekdays : 'Domingu_Segunda_Tersa_Kuarta_Kinta_Sexta_Sabadu'.split('_'),
+	    weekdaysShort : 'Dom_Seg_Ters_Kua_Kint_Sext_Sab'.split('_'),
+	    weekdaysMin : 'Do_Seg_Te_Ku_Ki_Sex_Sa'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[Ohin iha] LT',
+	        nextDay: '[Aban iha] LT',
+	        nextWeek: 'dddd [iha] LT',
+	        lastDay: '[Horiseik iha] LT',
+	        lastWeek: 'dddd [semana kotuk] [iha] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'iha %s',
+	        past : '%s liuba',
+	        s : 'minutu balun',
+	        m : 'minutu ida',
+	        mm : 'minutus %d',
+	        h : 'horas ida',
+	        hh : 'horas %d',
+	        d : 'loron ida',
+	        dd : 'loron %d',
+	        M : 'fulan ida',
+	        MM : 'fulan %d',
+	        y : 'tinan ida',
+	        yy : 'tinan %d'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
+	    ordinal : function (number) {
+	        var b = number % 10,
+	            output = (~~(number % 100 / 10) === 1) ? 'th' :
+	            (b === 1) ? 'st' :
+	            (b === 2) ? 'nd' :
+	            (b === 3) ? 'rd' : 'th';
+	        return number + output;
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return tet;
+>>>>>>> dev
 
 	    return te;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 289 */
+=======
+/* 298 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57544,6 +64259,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -57596,6 +64312,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	            MM : '%d เดือน',
 	            y : '1 ปี',
 	            yy : '%d ปี'
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var th = moment.defineLocale('th', {
+	    months : 'มกราคม_กุมภาพันธ์_มีนาคม_เมษายน_พฤษภาคม_มิถุนายน_กรกฎาคม_สิงหาคม_กันยายน_ตุลาคม_พฤศจิกายน_ธันวาคม'.split('_'),
+	    monthsShort : 'ม.ค._ก.พ._มี.ค._เม.ย._พ.ค._มิ.ย._ก.ค._ส.ค._ก.ย._ต.ค._พ.ย._ธ.ค.'.split('_'),
+	    monthsParseExact: true,
+	    weekdays : 'อาทิตย์_จันทร์_อังคาร_พุธ_พฤหัสบดี_ศุกร์_เสาร์'.split('_'),
+	    weekdaysShort : 'อาทิตย์_จันทร์_อังคาร_พุธ_พฤหัส_ศุกร์_เสาร์'.split('_'), // yes, three characters difference
+	    weekdaysMin : 'อา._จ._อ._พ._พฤ._ศ._ส.'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'H:mm',
+	        LTS : 'H:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY เวลา H:mm',
+	        LLLL : 'วันddddที่ D MMMM YYYY เวลา H:mm'
+	    },
+	    meridiemParse: /ก่อนเที่ยง|หลังเที่ยง/,
+	    isPM: function (input) {
+	        return input === 'หลังเที่ยง';
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 12) {
+	            return 'ก่อนเที่ยง';
+	        } else {
+	            return 'หลังเที่ยง';
+>>>>>>> dev
 	        }
 	    });
 
@@ -57604,7 +64350,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 290 */
+=======
+/* 299 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57615,6 +64365,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -57664,13 +64415,70 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var tlPh = moment.defineLocale('tl-ph', {
+	    months : 'Enero_Pebrero_Marso_Abril_Mayo_Hunyo_Hulyo_Agosto_Setyembre_Oktubre_Nobyembre_Disyembre'.split('_'),
+	    monthsShort : 'Ene_Peb_Mar_Abr_May_Hun_Hul_Ago_Set_Okt_Nob_Dis'.split('_'),
+	    weekdays : 'Linggo_Lunes_Martes_Miyerkules_Huwebes_Biyernes_Sabado'.split('_'),
+	    weekdaysShort : 'Lin_Lun_Mar_Miy_Huw_Biy_Sab'.split('_'),
+	    weekdaysMin : 'Li_Lu_Ma_Mi_Hu_Bi_Sab'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'MM/D/YYYY',
+	        LL : 'MMMM D, YYYY',
+	        LLL : 'MMMM D, YYYY HH:mm',
+	        LLLL : 'dddd, MMMM DD, YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: 'LT [ngayong araw]',
+	        nextDay: '[Bukas ng] LT',
+	        nextWeek: 'LT [sa susunod na] dddd',
+	        lastDay: 'LT [kahapon]',
+	        lastWeek: 'LT [noong nakaraang] dddd',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'sa loob ng %s',
+	        past : '%s ang nakalipas',
+	        s : 'ilang segundo',
+	        m : 'isang minuto',
+	        mm : '%d minuto',
+	        h : 'isang oras',
+	        hh : '%d oras',
+	        d : 'isang araw',
+	        dd : '%d araw',
+	        M : 'isang buwan',
+	        MM : '%d buwan',
+	        y : 'isang taon',
+	        yy : '%d taon'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}/,
+	    ordinal : function (number) {
+	        return number;
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return tlPh;
+>>>>>>> dev
 
 	    return tl_ph;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 291 */
+=======
+/* 300 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57681,6 +64489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -57708,6 +64517,113 @@ return /******/ (function(modules) { // webpackBootstrap
 	        time.slice(0, -3) + 'ben' :
 	        time + ' ret';
 	        return time;
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var numbersNouns = 'pagh_wa’_cha’_wej_loS_vagh_jav_Soch_chorgh_Hut'.split('_');
+
+	function translateFuture(output) {
+	    var time = output;
+	    time = (output.indexOf('jaj') !== -1) ?
+	    time.slice(0, -3) + 'leS' :
+	    (output.indexOf('jar') !== -1) ?
+	    time.slice(0, -3) + 'waQ' :
+	    (output.indexOf('DIS') !== -1) ?
+	    time.slice(0, -3) + 'nem' :
+	    time + ' pIq';
+	    return time;
+	}
+
+	function translatePast(output) {
+	    var time = output;
+	    time = (output.indexOf('jaj') !== -1) ?
+	    time.slice(0, -3) + 'Hu’' :
+	    (output.indexOf('jar') !== -1) ?
+	    time.slice(0, -3) + 'wen' :
+	    (output.indexOf('DIS') !== -1) ?
+	    time.slice(0, -3) + 'ben' :
+	    time + ' ret';
+	    return time;
+	}
+
+	function translate(number, withoutSuffix, string, isFuture) {
+	    var numberNoun = numberAsNoun(number);
+	    switch (string) {
+	        case 'mm':
+	            return numberNoun + ' tup';
+	        case 'hh':
+	            return numberNoun + ' rep';
+	        case 'dd':
+	            return numberNoun + ' jaj';
+	        case 'MM':
+	            return numberNoun + ' jar';
+	        case 'yy':
+	            return numberNoun + ' DIS';
+	    }
+	}
+
+	function numberAsNoun(number) {
+	    var hundred = Math.floor((number % 1000) / 100),
+	    ten = Math.floor((number % 100) / 10),
+	    one = number % 10,
+	    word = '';
+	    if (hundred > 0) {
+	        word += numbersNouns[hundred] + 'vatlh';
+	    }
+	    if (ten > 0) {
+	        word += ((word !== '') ? ' ' : '') + numbersNouns[ten] + 'maH';
+	    }
+	    if (one > 0) {
+	        word += ((word !== '') ? ' ' : '') + numbersNouns[one];
+	    }
+	    return (word === '') ? 'pagh' : word;
+	}
+
+	var tlh = moment.defineLocale('tlh', {
+	    months : 'tera’ jar wa’_tera’ jar cha’_tera’ jar wej_tera’ jar loS_tera’ jar vagh_tera’ jar jav_tera’ jar Soch_tera’ jar chorgh_tera’ jar Hut_tera’ jar wa’maH_tera’ jar wa’maH wa’_tera’ jar wa’maH cha’'.split('_'),
+	    monthsShort : 'jar wa’_jar cha’_jar wej_jar loS_jar vagh_jar jav_jar Soch_jar chorgh_jar Hut_jar wa’maH_jar wa’maH wa’_jar wa’maH cha’'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'lojmItjaj_DaSjaj_povjaj_ghItlhjaj_loghjaj_buqjaj_ghInjaj'.split('_'),
+	    weekdaysShort : 'lojmItjaj_DaSjaj_povjaj_ghItlhjaj_loghjaj_buqjaj_ghInjaj'.split('_'),
+	    weekdaysMin : 'lojmItjaj_DaSjaj_povjaj_ghItlhjaj_loghjaj_buqjaj_ghInjaj'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[DaHjaj] LT',
+	        nextDay: '[wa’leS] LT',
+	        nextWeek: 'LLL',
+	        lastDay: '[wa’Hu’] LT',
+	        lastWeek: 'LLL',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : translateFuture,
+	        past : translatePast,
+	        s : 'puS lup',
+	        m : 'wa’ tup',
+	        mm : translate,
+	        h : 'wa’ rep',
+	        hh : translate,
+	        d : 'wa’ jaj',
+	        dd : translate,
+	        M : 'wa’ jar',
+	        MM : translate,
+	        y : 'wa’ DIS',
+	        yy : translate
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+>>>>>>> dev
 	    }
 
 	    function translate(number, withoutSuffix, string, isFuture) {
@@ -57794,7 +64710,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 292 */
+=======
+/* 301 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57806,6 +64726,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -57829,6 +64750,84 @@ return /******/ (function(modules) { // webpackBootstrap
 	        60: '\'ıncı',
 	        90: '\'ıncı'
 	    };
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var suffixes = {
+	    1: '\'inci',
+	    5: '\'inci',
+	    8: '\'inci',
+	    70: '\'inci',
+	    80: '\'inci',
+	    2: '\'nci',
+	    7: '\'nci',
+	    20: '\'nci',
+	    50: '\'nci',
+	    3: '\'üncü',
+	    4: '\'üncü',
+	    100: '\'üncü',
+	    6: '\'ncı',
+	    9: '\'uncu',
+	    10: '\'uncu',
+	    30: '\'uncu',
+	    60: '\'ıncı',
+	    90: '\'ıncı'
+	};
+
+	var tr = moment.defineLocale('tr', {
+	    months : 'Ocak_Şubat_Mart_Nisan_Mayıs_Haziran_Temmuz_Ağustos_Eylül_Ekim_Kasım_Aralık'.split('_'),
+	    monthsShort : 'Oca_Şub_Mar_Nis_May_Haz_Tem_Ağu_Eyl_Eki_Kas_Ara'.split('_'),
+	    weekdays : 'Pazar_Pazartesi_Salı_Çarşamba_Perşembe_Cuma_Cumartesi'.split('_'),
+	    weekdaysShort : 'Paz_Pts_Sal_Çar_Per_Cum_Cts'.split('_'),
+	    weekdaysMin : 'Pz_Pt_Sa_Ça_Pe_Cu_Ct'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD.MM.YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[bugün saat] LT',
+	        nextDay : '[yarın saat] LT',
+	        nextWeek : '[haftaya] dddd [saat] LT',
+	        lastDay : '[dün] LT',
+	        lastWeek : '[geçen hafta] dddd [saat] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s sonra',
+	        past : '%s önce',
+	        s : 'birkaç saniye',
+	        m : 'bir dakika',
+	        mm : '%d dakika',
+	        h : 'bir saat',
+	        hh : '%d saat',
+	        d : 'bir gün',
+	        dd : '%d gün',
+	        M : 'bir ay',
+	        MM : '%d ay',
+	        y : 'bir yıl',
+	        yy : '%d yıl'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}'(inci|nci|üncü|ncı|uncu|ıncı)/,
+	    ordinal : function (number) {
+	        if (number === 0) {  // special case for zero
+	            return number + '\'ıncı';
+	        }
+	        var a = number % 10,
+	            b = number % 100 - a,
+	            c = number >= 100 ? 100 : null;
+	        return number + (suffixes[a] || suffixes[b] || suffixes[c]);
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+>>>>>>> dev
 
 	    var tr = moment.defineLocale('tr', {
 	        months : 'Ocak_Şubat_Mart_Nisan_Mayıs_Haziran_Temmuz_Ağustos_Eylül_Ekim_Kasım_Aralık'.split('_'),
@@ -57888,7 +64887,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 293 */
+=======
+/* 302 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -57959,7 +64962,58 @@ return /******/ (function(modules) { // webpackBootstrap
 	            dow : 1, // Monday is the first day of the week.
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
+<<<<<<< HEAD
 	    });
+=======
+	    },
+	    calendar : {
+	        sameDay : '[oxhi à] LT',
+	        nextDay : '[demà à] LT',
+	        nextWeek : 'dddd [à] LT',
+	        lastDay : '[ieiri à] LT',
+	        lastWeek : '[sür el] dddd [lasteu à] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'osprei %s',
+	        past : 'ja%s',
+	        s : processRelativeTime,
+	        m : processRelativeTime,
+	        mm : processRelativeTime,
+	        h : processRelativeTime,
+	        hh : processRelativeTime,
+	        d : processRelativeTime,
+	        dd : processRelativeTime,
+	        M : processRelativeTime,
+	        MM : processRelativeTime,
+	        y : processRelativeTime,
+	        yy : processRelativeTime
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}\./,
+	    ordinal : '%d.',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	function processRelativeTime(number, withoutSuffix, key, isFuture) {
+	    var format = {
+	        's': ['viensas secunds', '\'iensas secunds'],
+	        'm': ['\'n míut', '\'iens míut'],
+	        'mm': [number + ' míuts', '' + number + ' míuts'],
+	        'h': ['\'n þora', '\'iensa þora'],
+	        'hh': [number + ' þoras', '' + number + ' þoras'],
+	        'd': ['\'n ziua', '\'iensa ziua'],
+	        'dd': [number + ' ziuas', '' + number + ' ziuas'],
+	        'M': ['\'n mes', '\'iens mes'],
+	        'MM': [number + ' mesen', '' + number + ' mesen'],
+	        'y': ['\'n ar', '\'iens ar'],
+	        'yy': [number + ' ars', '' + number + ' ars']
+	    };
+	    return isFuture ? format[key][0] : (withoutSuffix ? format[key][0] : format[key][1]);
+	}
+>>>>>>> dev
 
 	    function processRelativeTime(number, withoutSuffix, key, isFuture) {
 	        var format = {
@@ -57983,7 +65037,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 294 */
+=======
+/* 303 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58045,7 +65103,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 295 */
+=======
+/* 304 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58107,7 +65169,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 296 */
+=======
+/* 305 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58162,6 +65228,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return str + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
 	        };
 	    }
+<<<<<<< HEAD
+=======
+	}
+	function weekdaysCaseReplace(m, format) {
+	    var weekdays = {
+	        'nominative': 'неділя_понеділок_вівторок_середа_четвер_п’ятниця_субота'.split('_'),
+	        'accusative': 'неділю_понеділок_вівторок_середу_четвер_п’ятницю_суботу'.split('_'),
+	        'genitive': 'неділі_понеділка_вівторка_середи_четверга_п’ятниці_суботи'.split('_')
+	    };
+
+	    if (!m) {
+	        return weekdays['nominative'];
+	    }
+
+	    var nounCase = (/(\[[ВвУу]\]) ?dddd/).test(format) ?
+	        'accusative' :
+	        ((/\[?(?:минулої|наступної)? ?\] ?dddd/).test(format) ?
+	            'genitive' :
+	            'nominative');
+	    return weekdays[nounCase][m.day()];
+	}
+	function processHoursFunction(str) {
+	    return function () {
+	        return str + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+	    };
+	}
+>>>>>>> dev
 
 	    var uk = moment.defineLocale('uk', {
 	        months : {
@@ -58231,6 +65324,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return 'вечора';
 	            }
 	        },
+<<<<<<< HEAD
 	        ordinalParse: /\d{1,2}-(й|го)/,
 	        ordinal: function (number, period) {
 	            switch (period) {
@@ -58249,6 +65343,54 @@ return /******/ (function(modules) { // webpackBootstrap
 	        week : {
 	            dow : 1, // Monday is the first day of the week.
 	            doy : 7  // The week that contains Jan 1st is the first week of the year.
+=======
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : 'за %s',
+	        past : '%s тому',
+	        s : 'декілька секунд',
+	        m : relativeTimeWithPlural,
+	        mm : relativeTimeWithPlural,
+	        h : 'годину',
+	        hh : relativeTimeWithPlural,
+	        d : 'день',
+	        dd : relativeTimeWithPlural,
+	        M : 'місяць',
+	        MM : relativeTimeWithPlural,
+	        y : 'рік',
+	        yy : relativeTimeWithPlural
+	    },
+	    // M. E.: those two are virtually unused but a user might want to implement them for his/her website for some reason
+	    meridiemParse: /ночі|ранку|дня|вечора/,
+	    isPM: function (input) {
+	        return /^(дня|вечора)$/.test(input);
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 4) {
+	            return 'ночі';
+	        } else if (hour < 12) {
+	            return 'ранку';
+	        } else if (hour < 17) {
+	            return 'дня';
+	        } else {
+	            return 'вечора';
+	        }
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}-(й|го)/,
+	    ordinal: function (number, period) {
+	        switch (period) {
+	            case 'M':
+	            case 'd':
+	            case 'DDD':
+	            case 'w':
+	            case 'W':
+	                return number + '-й';
+	            case 'D':
+	                return number + '-го';
+	            default:
+	                return number;
+>>>>>>> dev
 	        }
 	    });
 
@@ -58257,7 +65399,115 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 297 */
+=======
+/* 306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Urdu [ur]
+	//! author : Sawood Alam : https://github.com/ibnesayeed
+	//! author : Zack : https://github.com/ZackVision
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var months = [
+	    'جنوری',
+	    'فروری',
+	    'مارچ',
+	    'اپریل',
+	    'مئی',
+	    'جون',
+	    'جولائی',
+	    'اگست',
+	    'ستمبر',
+	    'اکتوبر',
+	    'نومبر',
+	    'دسمبر'
+	];
+	var days = [
+	    'اتوار',
+	    'پیر',
+	    'منگل',
+	    'بدھ',
+	    'جمعرات',
+	    'جمعہ',
+	    'ہفتہ'
+	];
+
+	var ur = moment.defineLocale('ur', {
+	    months : months,
+	    monthsShort : months,
+	    weekdays : days,
+	    weekdaysShort : days,
+	    weekdaysMin : days,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd، D MMMM YYYY HH:mm'
+	    },
+	    meridiemParse: /صبح|شام/,
+	    isPM : function (input) {
+	        return 'شام' === input;
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        if (hour < 12) {
+	            return 'صبح';
+	        }
+	        return 'شام';
+	    },
+	    calendar : {
+	        sameDay : '[آج بوقت] LT',
+	        nextDay : '[کل بوقت] LT',
+	        nextWeek : 'dddd [بوقت] LT',
+	        lastDay : '[گذشتہ روز بوقت] LT',
+	        lastWeek : '[گذشتہ] dddd [بوقت] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : '%s بعد',
+	        past : '%s قبل',
+	        s : 'چند سیکنڈ',
+	        m : 'ایک منٹ',
+	        mm : '%d منٹ',
+	        h : 'ایک گھنٹہ',
+	        hh : '%d گھنٹے',
+	        d : 'ایک دن',
+	        dd : '%d دن',
+	        M : 'ایک ماہ',
+	        MM : '%d ماہ',
+	        y : 'ایک سال',
+	        yy : '%d سال'
+	    },
+	    preparse: function (string) {
+	        return string.replace(/،/g, ',');
+	    },
+	    postformat: function (string) {
+	        return string.replace(/,/g, '،');
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return ur;
+
+	})));
+
+
+/***/ },
+/* 307 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58319,7 +65569,74 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 298 */
+=======
+/* 308 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Uzbek Latin [uz-latn]
+	//! author : Rasulbek Mirzayev : github.com/Rasulbeeek
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var uzLatn = moment.defineLocale('uz-latn', {
+	    months : 'Yanvar_Fevral_Mart_Aprel_May_Iyun_Iyul_Avgust_Sentabr_Oktabr_Noyabr_Dekabr'.split('_'),
+	    monthsShort : 'Yan_Fev_Mar_Apr_May_Iyun_Iyul_Avg_Sen_Okt_Noy_Dek'.split('_'),
+	    weekdays : 'Yakshanba_Dushanba_Seshanba_Chorshanba_Payshanba_Juma_Shanba'.split('_'),
+	    weekdaysShort : 'Yak_Dush_Sesh_Chor_Pay_Jum_Shan'.split('_'),
+	    weekdaysMin : 'Ya_Du_Se_Cho_Pa_Ju_Sha'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'D MMMM YYYY, dddd HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[Bugun soat] LT [da]',
+	        nextDay : '[Ertaga] LT [da]',
+	        nextWeek : 'dddd [kuni soat] LT [da]',
+	        lastDay : '[Kecha soat] LT [da]',
+	        lastWeek : '[O\'tgan] dddd [kuni soat] LT [da]',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'Yaqin %s ichida',
+	        past : 'Bir necha %s oldin',
+	        s : 'soniya',
+	        m : 'bir daqiqa',
+	        mm : '%d daqiqa',
+	        h : 'bir soat',
+	        hh : '%d soat',
+	        d : 'bir kun',
+	        dd : '%d kun',
+	        M : 'bir oy',
+	        MM : '%d oy',
+	        y : 'bir yil',
+	        yy : '%d yil'
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 7  // The week that contains Jan 1st is the first week of the year.
+	    }
+	});
+
+	return uzLatn;
+
+	})));
+
+
+/***/ },
+/* 309 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58395,14 +65712,68 @@ return /******/ (function(modules) { // webpackBootstrap
 	            dow : 1, // Monday is the first day of the week.
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
+<<<<<<< HEAD
 	    });
+=======
+	    },
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM [năm] YYYY',
+	        LLL : 'D MMMM [năm] YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM [năm] YYYY HH:mm',
+	        l : 'DD/M/YYYY',
+	        ll : 'D MMM YYYY',
+	        lll : 'D MMM YYYY HH:mm',
+	        llll : 'ddd, D MMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay: '[Hôm nay lúc] LT',
+	        nextDay: '[Ngày mai lúc] LT',
+	        nextWeek: 'dddd [tuần tới lúc] LT',
+	        lastDay: '[Hôm qua lúc] LT',
+	        lastWeek: 'dddd [tuần rồi lúc] LT',
+	        sameElse: 'L'
+	    },
+	    relativeTime : {
+	        future : '%s tới',
+	        past : '%s trước',
+	        s : 'vài giây',
+	        m : 'một phút',
+	        mm : '%d phút',
+	        h : 'một giờ',
+	        hh : '%d giờ',
+	        d : 'một ngày',
+	        dd : '%d ngày',
+	        M : 'một tháng',
+	        MM : '%d tháng',
+	        y : 'một năm',
+	        yy : '%d năm'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}/,
+	    ordinal : function (number) {
+	        return number;
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return vi;
+>>>>>>> dev
 
 	    return vi;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 299 */
+=======
+/* 310 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58410,6 +65781,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	//! author : Andrew Hood : https://github.com/andrewhood125
 
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
@@ -58468,13 +65840,144 @@ return /******/ (function(modules) { // webpackBootstrap
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
 	        }
 	    });
+=======
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var xPseudo = moment.defineLocale('x-pseudo', {
+	    months : 'J~áñúá~rý_F~ébrú~árý_~Márc~h_Áp~ríl_~Máý_~Júñé~_Júl~ý_Áú~gúst~_Sép~témb~ér_Ó~ctób~ér_Ñ~óvém~bér_~Décé~mbér'.split('_'),
+	    monthsShort : 'J~áñ_~Féb_~Már_~Ápr_~Máý_~Júñ_~Júl_~Áúg_~Sép_~Óct_~Ñóv_~Déc'.split('_'),
+	    monthsParseExact : true,
+	    weekdays : 'S~úñdá~ý_Mó~ñdáý~_Túé~sdáý~_Wéd~ñésd~áý_T~húrs~dáý_~Fríd~áý_S~átúr~dáý'.split('_'),
+	    weekdaysShort : 'S~úñ_~Móñ_~Túé_~Wéd_~Thú_~Frí_~Sát'.split('_'),
+	    weekdaysMin : 'S~ú_Mó~_Tú_~Wé_T~h_Fr~_Sá'.split('_'),
+	    weekdaysParseExact : true,
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY HH:mm',
+	        LLLL : 'dddd, D MMMM YYYY HH:mm'
+	    },
+	    calendar : {
+	        sameDay : '[T~ódá~ý át] LT',
+	        nextDay : '[T~ómó~rró~w át] LT',
+	        nextWeek : 'dddd [át] LT',
+	        lastDay : '[Ý~ést~érdá~ý át] LT',
+	        lastWeek : '[L~ást] dddd [át] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'í~ñ %s',
+	        past : '%s á~gó',
+	        s : 'á ~féw ~sécó~ñds',
+	        m : 'á ~míñ~úté',
+	        mm : '%d m~íñú~tés',
+	        h : 'á~ñ hó~úr',
+	        hh : '%d h~óúrs',
+	        d : 'á ~dáý',
+	        dd : '%d d~áýs',
+	        M : 'á ~móñ~th',
+	        MM : '%d m~óñt~hs',
+	        y : 'á ~ýéár',
+	        yy : '%d ý~éárs'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
+	    ordinal : function (number) {
+	        var b = number % 10,
+	            output = (~~(number % 100 / 10) === 1) ? 'th' :
+	            (b === 1) ? 'st' :
+	            (b === 2) ? 'nd' :
+	            (b === 3) ? 'rd' : 'th';
+	        return number + output;
+	    },
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4  // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return xPseudo;
+
+	})));
+
+
+/***/ },
+/* 311 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Yoruba Nigeria [yo]
+	//! author : Atolagbe Abisoye : https://github.com/andela-batolagbe
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var yo = moment.defineLocale('yo', {
+	    months : 'Sẹ́rẹ́_Èrèlè_Ẹrẹ̀nà_Ìgbé_Èbibi_Òkùdu_Agẹmo_Ògún_Owewe_Ọ̀wàrà_Bélú_Ọ̀pẹ̀̀'.split('_'),
+	    monthsShort : 'Sẹ́r_Èrl_Ẹrn_Ìgb_Èbi_Òkù_Agẹ_Ògú_Owe_Ọ̀wà_Bél_Ọ̀pẹ̀̀'.split('_'),
+	    weekdays : 'Àìkú_Ajé_Ìsẹ́gun_Ọjọ́rú_Ọjọ́bọ_Ẹtì_Àbámẹ́ta'.split('_'),
+	    weekdaysShort : 'Àìk_Ajé_Ìsẹ́_Ọjr_Ọjb_Ẹtì_Àbá'.split('_'),
+	    weekdaysMin : 'Àì_Aj_Ìs_Ọr_Ọb_Ẹt_Àb'.split('_'),
+	    longDateFormat : {
+	        LT : 'h:mm A',
+	        LTS : 'h:mm:ss A',
+	        L : 'DD/MM/YYYY',
+	        LL : 'D MMMM YYYY',
+	        LLL : 'D MMMM YYYY h:mm A',
+	        LLLL : 'dddd, D MMMM YYYY h:mm A'
+	    },
+	    calendar : {
+	        sameDay : '[Ònì ni] LT',
+	        nextDay : '[Ọ̀la ni] LT',
+	        nextWeek : 'dddd [Ọsẹ̀ tón\'bọ] [ni] LT',
+	        lastDay : '[Àna ni] LT',
+	        lastWeek : 'dddd [Ọsẹ̀ tólọ́] [ni] LT',
+	        sameElse : 'L'
+	    },
+	    relativeTime : {
+	        future : 'ní %s',
+	        past : '%s kọjá',
+	        s : 'ìsẹjú aayá die',
+	        m : 'ìsẹjú kan',
+	        mm : 'ìsẹjú %d',
+	        h : 'wákati kan',
+	        hh : 'wákati %d',
+	        d : 'ọjọ́ kan',
+	        dd : 'ọjọ́ %d',
+	        M : 'osù kan',
+	        MM : 'osù %d',
+	        y : 'ọdún kan',
+	        yy : 'ọdún %d'
+	    },
+	    dayOfMonthOrdinalParse : /ọjọ́\s\d{1,2}/,
+	    ordinal : 'ọjọ́ %d',
+	    week : {
+	        dow : 1, // Monday is the first day of the week.
+	        doy : 4 // The week that contains Jan 4th is the first week of the year.
+	    }
+	});
+
+	return yo;
+>>>>>>> dev
 
 	    return x_pseudo;
 
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 300 */
+=======
+/* 312 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58486,6 +65989,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -58597,6 +66101,82 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // GB/T 7408-1994《数据元和交换格式·信息交换·日期和时间表示法》与ISO 8601:1988等效
 	            dow : 1, // Monday is the first day of the week.
 	            doy : 4  // The week that contains Jan 4th is the first week of the year.
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var zhCn = moment.defineLocale('zh-cn', {
+	    months : '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
+	    monthsShort : '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
+	    weekdays : '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
+	    weekdaysShort : '周日_周一_周二_周三_周四_周五_周六'.split('_'),
+	    weekdaysMin : '日_一_二_三_四_五_六'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'YYYY年MMMD日',
+	        LL : 'YYYY年MMMD日',
+	        LLL : 'YYYY年MMMD日Ah点mm分',
+	        LLLL : 'YYYY年MMMD日ddddAh点mm分',
+	        l : 'YYYY年MMMD日',
+	        ll : 'YYYY年MMMD日',
+	        lll : 'YYYY年MMMD日 HH:mm',
+	        llll : 'YYYY年MMMD日dddd HH:mm'
+	    },
+	    meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
+	    meridiemHour: function (hour, meridiem) {
+	        if (hour === 12) {
+	            hour = 0;
+	        }
+	        if (meridiem === '凌晨' || meridiem === '早上' ||
+	                meridiem === '上午') {
+	            return hour;
+	        } else if (meridiem === '下午' || meridiem === '晚上') {
+	            return hour + 12;
+	        } else {
+	            // '中午'
+	            return hour >= 11 ? hour : hour + 12;
+	        }
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        var hm = hour * 100 + minute;
+	        if (hm < 600) {
+	            return '凌晨';
+	        } else if (hm < 900) {
+	            return '早上';
+	        } else if (hm < 1130) {
+	            return '上午';
+	        } else if (hm < 1230) {
+	            return '中午';
+	        } else if (hm < 1800) {
+	            return '下午';
+	        } else {
+	            return '晚上';
+	        }
+	    },
+	    calendar : {
+	        sameDay : '[今天]LT',
+	        nextDay : '[明天]LT',
+	        nextWeek : '[下]ddddLT',
+	        lastDay : '[昨天]LT',
+	        lastWeek : '[上]ddddLT',
+	        sameElse : 'L'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(日|月|周)/,
+	    ordinal : function (number, period) {
+	        switch (period) {
+	            case 'd':
+	            case 'D':
+	            case 'DDD':
+	                return number + '日';
+	            case 'M':
+	                return number + '月';
+	            case 'w':
+	            case 'W':
+	                return number + '周';
+	            default:
+	                return number;
+>>>>>>> dev
 	        }
 	    });
 
@@ -58605,7 +66185,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 301 */
+=======
+/* 313 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -58617,6 +66201,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    true ? factory(__webpack_require__(199)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
+<<<<<<< HEAD
 	}(this, function (moment) { 'use strict';
 
 
@@ -58705,6 +66290,80 @@ return /******/ (function(modules) { // webpackBootstrap
 	            MM : '%d 個月',
 	            y : '1 年',
 	            yy : '%d 年'
+=======
+	}(this, (function (moment) { 'use strict';
+
+
+	var zhHk = moment.defineLocale('zh-hk', {
+	    months : '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
+	    monthsShort : '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
+	    weekdays : '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
+	    weekdaysShort : '週日_週一_週二_週三_週四_週五_週六'.split('_'),
+	    weekdaysMin : '日_一_二_三_四_五_六'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'YYYY年MMMD日',
+	        LL : 'YYYY年MMMD日',
+	        LLL : 'YYYY年MMMD日 HH:mm',
+	        LLLL : 'YYYY年MMMD日dddd HH:mm',
+	        l : 'YYYY年MMMD日',
+	        ll : 'YYYY年MMMD日',
+	        lll : 'YYYY年MMMD日 HH:mm',
+	        llll : 'YYYY年MMMD日dddd HH:mm'
+	    },
+	    meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
+	    meridiemHour : function (hour, meridiem) {
+	        if (hour === 12) {
+	            hour = 0;
+	        }
+	        if (meridiem === '凌晨' || meridiem === '早上' || meridiem === '上午') {
+	            return hour;
+	        } else if (meridiem === '中午') {
+	            return hour >= 11 ? hour : hour + 12;
+	        } else if (meridiem === '下午' || meridiem === '晚上') {
+	            return hour + 12;
+	        }
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        var hm = hour * 100 + minute;
+	        if (hm < 600) {
+	            return '凌晨';
+	        } else if (hm < 900) {
+	            return '早上';
+	        } else if (hm < 1130) {
+	            return '上午';
+	        } else if (hm < 1230) {
+	            return '中午';
+	        } else if (hm < 1800) {
+	            return '下午';
+	        } else {
+	            return '晚上';
+	        }
+	    },
+	    calendar : {
+	        sameDay : '[今天]LT',
+	        nextDay : '[明天]LT',
+	        nextWeek : '[下]ddddLT',
+	        lastDay : '[昨天]LT',
+	        lastWeek : '[上]ddddLT',
+	        sameElse : 'L'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(日|月|週)/,
+	    ordinal : function (number, period) {
+	        switch (period) {
+	            case 'd' :
+	            case 'D' :
+	            case 'DDD' :
+	                return number + '日';
+	            case 'M' :
+	                return number + '月';
+	            case 'w' :
+	            case 'W' :
+	                return number + '週';
+	            default :
+	                return number;
+>>>>>>> dev
 	        }
 	    });
 
@@ -58713,7 +66372,120 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 302 */
+=======
+/* 314 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//! moment.js locale configuration
+	//! locale : Chinese (Taiwan) [zh-tw]
+	//! author : Ben : https://github.com/ben-lin
+	//! author : Chris Lam : https://github.com/hehachris
+
+	;(function (global, factory) {
+	    true ? factory(__webpack_require__(198)) :
+	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+	   factory(global.moment)
+	}(this, (function (moment) { 'use strict';
+
+
+	var zhTw = moment.defineLocale('zh-tw', {
+	    months : '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
+	    monthsShort : '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
+	    weekdays : '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
+	    weekdaysShort : '週日_週一_週二_週三_週四_週五_週六'.split('_'),
+	    weekdaysMin : '日_一_二_三_四_五_六'.split('_'),
+	    longDateFormat : {
+	        LT : 'HH:mm',
+	        LTS : 'HH:mm:ss',
+	        L : 'YYYY年MMMD日',
+	        LL : 'YYYY年MMMD日',
+	        LLL : 'YYYY年MMMD日 HH:mm',
+	        LLLL : 'YYYY年MMMD日dddd HH:mm',
+	        l : 'YYYY年MMMD日',
+	        ll : 'YYYY年MMMD日',
+	        lll : 'YYYY年MMMD日 HH:mm',
+	        llll : 'YYYY年MMMD日dddd HH:mm'
+	    },
+	    meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
+	    meridiemHour : function (hour, meridiem) {
+	        if (hour === 12) {
+	            hour = 0;
+	        }
+	        if (meridiem === '凌晨' || meridiem === '早上' || meridiem === '上午') {
+	            return hour;
+	        } else if (meridiem === '中午') {
+	            return hour >= 11 ? hour : hour + 12;
+	        } else if (meridiem === '下午' || meridiem === '晚上') {
+	            return hour + 12;
+	        }
+	    },
+	    meridiem : function (hour, minute, isLower) {
+	        var hm = hour * 100 + minute;
+	        if (hm < 600) {
+	            return '凌晨';
+	        } else if (hm < 900) {
+	            return '早上';
+	        } else if (hm < 1130) {
+	            return '上午';
+	        } else if (hm < 1230) {
+	            return '中午';
+	        } else if (hm < 1800) {
+	            return '下午';
+	        } else {
+	            return '晚上';
+	        }
+	    },
+	    calendar : {
+	        sameDay : '[今天]LT',
+	        nextDay : '[明天]LT',
+	        nextWeek : '[下]ddddLT',
+	        lastDay : '[昨天]LT',
+	        lastWeek : '[上]ddddLT',
+	        sameElse : 'L'
+	    },
+	    dayOfMonthOrdinalParse: /\d{1,2}(日|月|週)/,
+	    ordinal : function (number, period) {
+	        switch (period) {
+	            case 'd' :
+	            case 'D' :
+	            case 'DDD' :
+	                return number + '日';
+	            case 'M' :
+	                return number + '月';
+	            case 'w' :
+	            case 'W' :
+	                return number + '週';
+	            default :
+	                return number;
+	        }
+	    },
+	    relativeTime : {
+	        future : '%s內',
+	        past : '%s前',
+	        s : '幾秒',
+	        m : '1 分鐘',
+	        mm : '%d 分鐘',
+	        h : '1 小時',
+	        hh : '%d 小時',
+	        d : '1 天',
+	        dd : '%d 天',
+	        M : '1 個月',
+	        MM : '%d 個月',
+	        y : '1 年',
+	        yy : '%d 年'
+	    }
+	});
+
+	return zhTw;
+
+	})));
+
+
+/***/ },
+/* 315 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -58732,7 +66504,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 303 */
+=======
+/* 316 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -58744,7 +66520,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 304 */
+=======
+/* 317 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58968,7 +66748,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 305 */
+=======
+/* 318 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -58976,22 +66760,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports['default'] = getResponsiveContainerStyles;
 
+<<<<<<< HEAD
 	var _constants = __webpack_require__(302);
+=======
+	var _constants = __webpack_require__(315);
+>>>>>>> dev
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	function getResponsiveContainerStyles(anchorDirection, currentOffset, containerEdge, margin) {
-	  var newStyles = {};
-
 	  var windowWidth = typeof window !== 'undefined' && window.innerWidth;
 	  var calculatedOffset = anchorDirection === _constants.ANCHOR_LEFT ? windowWidth - containerEdge : containerEdge;
 	  var calculatedMargin = margin || 0;
 
-	  newStyles[anchorDirection] = Math.min(currentOffset + calculatedOffset - calculatedMargin, 0);
-
-	  return newStyles;
+	  return _defineProperty({}, anchorDirection, Math.min(currentOffset + calculatedOffset - calculatedMargin, 0));
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 306 */
+=======
+/* 319 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -59003,7 +66793,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _moment2 = _interopRequireDefault(_moment);
 
+<<<<<<< HEAD
 	var _isSameDay = __webpack_require__(307);
+=======
+	var _isSameDay = __webpack_require__(320);
+>>>>>>> dev
 
 	var _isSameDay2 = _interopRequireDefault(_isSameDay);
 
@@ -59015,7 +66809,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 307 */
+=======
+/* 320 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -59035,7 +66833,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 308 */
+=======
+/* 321 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -59465,7 +67267,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 3 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(309);
+=======
+		module.exports = __webpack_require__(322);
+>>>>>>> dev
 
 	/***/ },
 	/* 4 */
@@ -59481,7 +67287,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 9 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(302);
+=======
+		module.exports = __webpack_require__(315);
+>>>>>>> dev
 
 	/***/ },
 	/* 10 */,
@@ -59494,7 +67304,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 17 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(306);
+=======
+		module.exports = __webpack_require__(319);
+>>>>>>> dev
 
 	/***/ },
 	/* 18 */,
@@ -59506,35 +67320,59 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 24 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(311);
+=======
+		module.exports = __webpack_require__(324);
+>>>>>>> dev
 
 	/***/ },
 	/* 25 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(313);
+=======
+		module.exports = __webpack_require__(326);
+>>>>>>> dev
 
 	/***/ },
 	/* 26 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(314);
+=======
+		module.exports = __webpack_require__(327);
+>>>>>>> dev
 
 	/***/ },
 	/* 27 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(315);
+=======
+		module.exports = __webpack_require__(328);
+>>>>>>> dev
 
 	/***/ }
 	/******/ ]);
 
 /***/ },
+<<<<<<< HEAD
 /* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var moment = __webpack_require__(199);
 	var momentValidationWrapper = __webpack_require__(310);
+=======
+/* 322 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var moment = __webpack_require__(198);
+	var momentValidationWrapper = __webpack_require__(323);
+>>>>>>> dev
 
 	moment.createFromInputFallback = function(config) {
 	  config._d = new Date(config._i);
@@ -59548,6 +67386,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  childContext : 'child context',
 	};
 
+	function createInvalidRequiredErrorMessage(propName, componentName, value) {
+	  return new Error(
+	    'The prop `' + propName + '` is marked as required in `' + componentName + '`, but its value is `' + value + '`.'
+	  );
+	}
+
 	function createMomentChecker(type, typeValidator, validator, momentType) {
 
 	  function propValidator(
@@ -59559,23 +67403,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    location,
 	    propFullName
 	  ) {
-	    if (isRequired) {
-	      var locationName = ReactPropTypeLocationNames[ location ];
-	      componentName = componentName || ANONYMOUS;
-	      propFullName = propFullName || propName;
-	      if (!props.hasOwnProperty(propName)) {
-	        return new Error(
-	          'Required ' + locationName + ' `' + propFullName +
-	          '` was not specified in `' +
-	          componentName + '`.'
-	        );
-	      }
-	    }
-
 	    var propValue = props[ propName ];
 	    var propType = typeof propValue;
 
-	    if (typeof propValue === 'undefined' || propValue === null) {
+	    var isPropValueUndefined = typeof propValue === 'undefined';
+	    var isPropValueNull = propValue === null;
+
+	    if (isRequired) {
+	      componentName = componentName || ANONYMOUS;
+	      propFullName = propFullName || propName;
+	      if (isPropValueUndefined) {
+	        return createInvalidRequiredErrorMessage(propFullName, componentName, 'undefined');
+	      } else if (isPropValueNull) {
+	        return createInvalidRequiredErrorMessage(propFullName, componentName, 'null');
+	      }
+	    }
+
+	    if (isPropValueUndefined || isPropValueNull) {
 	      return null;
 	    }
 
@@ -59660,7 +67504,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 310 */
+=======
+/* 323 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	var moment = __webpack_require__(199);
@@ -59680,7 +67528,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 311 */
+=======
+/* 324 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -59863,10 +67715,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		    return onClearDates;
 		  }(),
 
+		  startDate: '',
+		  endDate: '',
+
 		  isStartDateFocused: false,
 		  isEndDateFocused: false,
 		  showClearDates: false,
 		  disabled: false,
+		  required: false,
 		  showCaret: false,
 
 		  // i18n
@@ -60018,7 +67874,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/***/ 9:
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(302);
+=======
+		module.exports = __webpack_require__(315);
+>>>>>>> dev
 
 	/***/ },
 
@@ -60079,7 +67939,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/***/ 22:
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(312);
+=======
+		module.exports = __webpack_require__(325);
+>>>>>>> dev
 
 	/***/ },
 
@@ -60140,7 +68004,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/******/ });
 
 /***/ },
+<<<<<<< HEAD
 /* 312 */
+=======
+/* 325 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -60453,14 +68321,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	/***/ 14:
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(303);
+=======
+		module.exports = __webpack_require__(316);
+>>>>>>> dev
 
 	/***/ }
 
 	/******/ });
 
 /***/ },
+<<<<<<< HEAD
 /* 313 */
+=======
+/* 326 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -60472,7 +68348,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _moment2 = _interopRequireDefault(_moment);
 
+<<<<<<< HEAD
 	var _constants = __webpack_require__(302);
+=======
+	var _constants = __webpack_require__(315);
+>>>>>>> dev
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -60484,7 +68364,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 314 */
+=======
+/* 327 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -60496,11 +68380,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _moment2 = _interopRequireDefault(_moment);
 
+<<<<<<< HEAD
 	var _toMomentObject = __webpack_require__(313);
 
 	var _toMomentObject2 = _interopRequireDefault(_toMomentObject);
 
 	var _constants = __webpack_require__(302);
+=======
+	var _toMomentObject = __webpack_require__(326);
+
+	var _toMomentObject2 = _interopRequireDefault(_toMomentObject);
+
+	var _constants = __webpack_require__(315);
+>>>>>>> dev
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -60512,7 +68404,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 315 */
+=======
+/* 328 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -60524,7 +68420,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _moment2 = _interopRequireDefault(_moment);
 
+<<<<<<< HEAD
 	var _isSameDay = __webpack_require__(307);
+=======
+	var _isSameDay = __webpack_require__(320);
+>>>>>>> dev
 
 	var _isSameDay2 = _interopRequireDefault(_isSameDay);
 
@@ -60536,7 +68436,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 316 */
+=======
+/* 329 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -60712,6 +68616,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 
 		var defaultProps = {
+		  startDate: undefined, // TODO: use null
+		  endDate: undefined, // TODO: use null
 		  onDatesChange: function () {
 		    function onDatesChange() {}
 
@@ -61227,7 +69133,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 3 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(309);
+=======
+		module.exports = __webpack_require__(322);
+>>>>>>> dev
 
 	/***/ },
 	/* 4 */
@@ -61242,13 +69152,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 8 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(317);
+=======
+		module.exports = __webpack_require__(330);
+>>>>>>> dev
 
 	/***/ },
 	/* 9 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(302);
+=======
+		module.exports = __webpack_require__(315);
+>>>>>>> dev
 
 	/***/ },
 	/* 10 */,
@@ -61258,7 +69176,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 14 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(303);
+=======
+		module.exports = __webpack_require__(316);
+>>>>>>> dev
 
 	/***/ },
 	/* 15 */,
@@ -61266,7 +69188,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 17 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(306);
+=======
+		module.exports = __webpack_require__(319);
+>>>>>>> dev
 
 	/***/ },
 	/* 18 */,
@@ -61288,37 +69214,61 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 34 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(318);
+=======
+		module.exports = __webpack_require__(331);
+>>>>>>> dev
 
 	/***/ },
 	/* 35 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(343);
+=======
+		module.exports = __webpack_require__(357);
+>>>>>>> dev
 
 	/***/ },
 	/* 36 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(307);
+=======
+		module.exports = __webpack_require__(320);
+>>>>>>> dev
 
 	/***/ },
 	/* 37 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(344);
+=======
+		module.exports = __webpack_require__(358);
+>>>>>>> dev
 
 	/***/ },
 	/* 38 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(345);
+=======
+		module.exports = __webpack_require__(359);
+>>>>>>> dev
 
 	/***/ }
 	/******/ ]);
 
 /***/ },
+<<<<<<< HEAD
 /* 317 */
+=======
+/* 330 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -61327,16 +69277,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(3);
 
+<<<<<<< HEAD
 	var _constants = __webpack_require__(302);
+=======
+	var _constants = __webpack_require__(315);
+>>>>>>> dev
 
 	exports['default'] = _react.PropTypes.oneOf([_constants.HORIZONTAL_ORIENTATION, _constants.VERTICAL_ORIENTATION]);
 
 /***/ },
+<<<<<<< HEAD
 /* 318 */
+=======
+/* 331 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var define = __webpack_require__(319);
 	var ES = __webpack_require__(323);
 
@@ -61344,6 +69303,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	var getPolyfill = __webpack_require__(341);
 	var polyfill = getPolyfill();
 	var shim = __webpack_require__(342);
+=======
+	var define = __webpack_require__(332);
+	var ES = __webpack_require__(336);
+
+	var implementation = __webpack_require__(354);
+	var getPolyfill = __webpack_require__(355);
+	var polyfill = getPolyfill();
+	var shim = __webpack_require__(356);
+>>>>>>> dev
 
 	var slice = Array.prototype.slice;
 
@@ -61363,13 +69331,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 319 */
+=======
+/* 332 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var keys = __webpack_require__(320);
 	var foreach = __webpack_require__(322);
+=======
+	var keys = __webpack_require__(333);
+	var foreach = __webpack_require__(335);
+>>>>>>> dev
 	var hasSymbols = typeof Symbol === 'function' && typeof Symbol() === 'symbol';
 
 	var toStr = Object.prototype.toString;
@@ -61425,7 +69402,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 320 */
+=======
+/* 333 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61434,7 +69415,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var has = Object.prototype.hasOwnProperty;
 	var toStr = Object.prototype.toString;
 	var slice = Array.prototype.slice;
+<<<<<<< HEAD
 	var isArgs = __webpack_require__(321);
+=======
+	var isArgs = __webpack_require__(334);
+>>>>>>> dev
 	var isEnumerable = Object.prototype.propertyIsEnumerable;
 	var hasDontEnumBug = !isEnumerable.call({ toString: null }, 'toString');
 	var hasProtoEnumBug = isEnumerable.call(function () {}, 'prototype');
@@ -61571,7 +69556,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 321 */
+=======
+/* 334 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	'use strict';
@@ -61594,7 +69583,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 322 */
+=======
+/* 335 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	
@@ -61622,7 +69615,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 323 */
+=======
+/* 336 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61631,6 +69628,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
 	var symbolToStr = hasSymbols ? Symbol.prototype.toString : toStr;
 
+<<<<<<< HEAD
 	var $isNaN = __webpack_require__(324);
 	var $isFinite = __webpack_require__(325);
 	var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
@@ -61642,13 +69640,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	var toPrimitive = __webpack_require__(330);
 	var parseInteger = parseInt;
 	var bind = __webpack_require__(335);
+=======
+	var $isNaN = __webpack_require__(337);
+	var $isFinite = __webpack_require__(338);
+	var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
+
+	var assign = __webpack_require__(339);
+	var sign = __webpack_require__(340);
+	var mod = __webpack_require__(341);
+	var isPrimitive = __webpack_require__(342);
+	var toPrimitive = __webpack_require__(343);
+	var parseInteger = parseInt;
+	var bind = __webpack_require__(348);
+>>>>>>> dev
 	var strSlice = bind.call(Function.call, String.prototype.slice);
 	var isBinary = bind.call(Function.call, RegExp.prototype.test, /^0b[01]+$/i);
 	var isOctal = bind.call(Function.call, RegExp.prototype.test, /^0o[0-7]+$/i);
 	var nonWS = ['\u0085', '\u200b', '\ufffe'].join('');
 	var nonWSregex = new RegExp('[' + nonWS + ']', 'g');
 	var hasNonWS = bind.call(Function.call, RegExp.prototype.test, nonWSregex);
-	var invalidHexLiteral = /^[\-\+]0x[0-9a-f]+$/i;
+	var invalidHexLiteral = /^[-+]0x[0-9a-f]+$/i;
 	var isInvalidHexLiteral = bind.call(Function.call, RegExp.prototype.test, invalidHexLiteral);
 
 	// whitespace from: http://es5.github.io/#x15.5.4.20
@@ -61664,9 +69675,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		return replace(value, trimRegex, '');
 	};
 
+<<<<<<< HEAD
 	var ES5 = __webpack_require__(337);
 
 	var hasRegExpMatcher = __webpack_require__(339);
+=======
+	var ES5 = __webpack_require__(350);
+
+	var hasRegExpMatcher = __webpack_require__(352);
+>>>>>>> dev
 
 	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-abstract-operations
 	var ES6 = assign(assign({}, ES5), {
@@ -61853,6 +69870,77 @@ return /******/ (function(modules) { // webpackBootstrap
 			return (x === y) || ($isNaN(x) && $isNaN(y));
 		},
 
+		/**
+		 * 7.3.2 GetV (V, P)
+		 * 1. Assert: IsPropertyKey(P) is true.
+		 * 2. Let O be ToObject(V).
+		 * 3. ReturnIfAbrupt(O).
+		 * 4. Return O.[[Get]](P, V).
+		 */
+		GetV: function GetV(V, P) {
+			// 7.3.2.1
+			if (!this.IsPropertyKey(P)) {
+				throw new TypeError('Assertion failed: IsPropertyKey(P) is not true');
+			}
+
+			// 7.3.2.2-3
+			var O = this.ToObject(V);
+
+			// 7.3.2.4
+			return O[P];
+		},
+
+		/**
+		 * 7.3.9 - http://www.ecma-international.org/ecma-262/6.0/#sec-getmethod
+		 * 1. Assert: IsPropertyKey(P) is true.
+		 * 2. Let func be GetV(O, P).
+		 * 3. ReturnIfAbrupt(func).
+		 * 4. If func is either undefined or null, return undefined.
+		 * 5. If IsCallable(func) is false, throw a TypeError exception.
+		 * 6. Return func.
+		 */
+		GetMethod: function GetMethod(O, P) {
+			// 7.3.9.1
+			if (!this.IsPropertyKey(P)) {
+				throw new TypeError('Assertion failed: IsPropertyKey(P) is not true');
+			}
+
+			// 7.3.9.2
+			var func = this.GetV(O, P);
+
+			// 7.3.9.4
+			if (func == null) {
+				return undefined;
+			}
+
+			// 7.3.9.5
+			if (!this.IsCallable(func)) {
+				throw new TypeError(P + 'is not a function');
+			}
+
+			// 7.3.9.6
+			return func;
+		},
+
+		/**
+		 * 7.3.1 Get (O, P) - http://www.ecma-international.org/ecma-262/6.0/#sec-get-o-p
+		 * 1. Assert: Type(O) is Object.
+		 * 2. Assert: IsPropertyKey(P) is true.
+		 * 3. Return O.[[Get]](P, O).
+		 */
+		Get: function Get(O, P) {
+			// 7.3.1.1
+			if (this.Type(O) !== 'Object') {
+				throw new TypeError('Assertion failed: Type(O) is not Object');
+			}
+			// 7.3.1.2
+			if (!this.IsPropertyKey(P)) {
+				throw new TypeError('Assertion failed: IsPropertyKey(P) is not true');
+			}
+			// 7.3.1.3
+			return O[P];
+		},
+
 		Type: function Type(x) {
 			if (typeof x === 'symbol') {
 				return 'Symbol';
@@ -61889,7 +69977,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 324 */
+=======
+/* 337 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	module.exports = Number.isNaN || function isNaN(a) {
@@ -61898,7 +69990,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 325 */
+=======
+/* 338 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	var $isNaN = Number.isNaN || function (a) { return a !== a; };
@@ -61907,7 +70003,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 326 */
+=======
+/* 339 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	var has = Object.prototype.hasOwnProperty;
@@ -61922,7 +70022,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 327 */
+=======
+/* 340 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	module.exports = function sign(number) {
@@ -61931,7 +70035,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 328 */
+=======
+/* 341 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	module.exports = function mod(number, modulo) {
@@ -61941,7 +70049,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 329 */
+=======
+/* 342 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	module.exports = function isPrimitive(value) {
@@ -61950,17 +70062,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 330 */
+=======
+/* 343 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
 
+<<<<<<< HEAD
 	var isPrimitive = __webpack_require__(331);
 	var isCallable = __webpack_require__(332);
 	var isDate = __webpack_require__(333);
 	var isSymbol = __webpack_require__(334);
+=======
+	var isPrimitive = __webpack_require__(344);
+	var isCallable = __webpack_require__(345);
+	var isDate = __webpack_require__(346);
+	var isSymbol = __webpack_require__(347);
+>>>>>>> dev
 
 	var ordinaryToPrimitive = function OrdinaryToPrimitive(O, hint) {
 		if (typeof O === 'undefined' || O === null) {
@@ -62030,7 +70153,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 331 */
+=======
+/* 344 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	module.exports = function isPrimitive(value) {
@@ -62039,7 +70166,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 332 */
+=======
+/* 345 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	'use strict';
@@ -62084,7 +70215,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 333 */
+=======
+/* 346 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	'use strict';
@@ -62110,7 +70245,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 334 */
+=======
+/* 347 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	'use strict';
@@ -62143,16 +70282,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 335 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var implementation = __webpack_require__(336);
+=======
+/* 348 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var implementation = __webpack_require__(349);
+>>>>>>> dev
 
 	module.exports = Function.prototype.bind || implementation;
 
 
 /***/ },
+<<<<<<< HEAD
 /* 336 */
+=======
+/* 349 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	var ERROR_MESSAGE = 'Function.prototype.bind called on incompatible ';
@@ -62206,11 +70356,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 337 */
+=======
+/* 350 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var $isNaN = __webpack_require__(324);
 	var $isFinite = __webpack_require__(325);
 
@@ -62219,6 +70374,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var IsCallable = __webpack_require__(332);
 	var toPrimitive = __webpack_require__(338);
+=======
+	var $isNaN = __webpack_require__(337);
+	var $isFinite = __webpack_require__(338);
+
+	var sign = __webpack_require__(340);
+	var mod = __webpack_require__(341);
+
+	var IsCallable = __webpack_require__(345);
+	var toPrimitive = __webpack_require__(351);
+>>>>>>> dev
 
 	// https://es5.github.io/#x9
 	var ES5 = {
@@ -62298,16 +70463,26 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 338 */
+=======
+/* 351 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var toStr = Object.prototype.toString;
 
+<<<<<<< HEAD
 	var isPrimitive = __webpack_require__(331);
 
 	var isCallable = __webpack_require__(332);
+=======
+	var isPrimitive = __webpack_require__(344);
+
+	var isCallable = __webpack_require__(345);
+>>>>>>> dev
 
 	// https://es5.github.io/#x8.12
 	var ES5internalSlots = {
@@ -62341,18 +70516,31 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 339 */
 /***/ function(module, exports) {
+=======
+/* 352 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> dev
 
 	'use strict';
 
+	var has = __webpack_require__(353);
 	var regexExec = RegExp.prototype.exec;
-	var tryRegexExec = function tryRegexExec(value) {
+	var gOPD = Object.getOwnPropertyDescriptor;
+
+	var tryRegexExecCall = function tryRegexExec(value) {
 		try {
+			var lastIndex = value.lastIndex;
+			value.lastIndex = 0;
+
 			regexExec.call(value);
 			return true;
 		} catch (e) {
 			return false;
+		} finally {
+			value.lastIndex = lastIndex;
 		}
 	};
 	var toStr = Object.prototype.toString;
@@ -62360,18 +70548,47 @@ return /******/ (function(modules) { // webpackBootstrap
 	var hasToStringTag = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol';
 
 	module.exports = function isRegex(value) {
-		if (typeof value !== 'object') { return false; }
-		return hasToStringTag ? tryRegexExec(value) : toStr.call(value) === regexClass;
+		if (!value || typeof value !== 'object') {
+			return false;
+		}
+		if (!hasToStringTag) {
+			return toStr.call(value) === regexClass;
+		}
+
+		var descriptor = gOPD(value, 'lastIndex');
+		var hasLastIndexDataProperty = descriptor && has(descriptor, 'value');
+		if (!hasLastIndexDataProperty) {
+			return false;
+		}
+
+		return tryRegexExecCall(value);
 	};
 
 
 /***/ },
+<<<<<<< HEAD
 /* 340 */
+=======
+/* 353 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var bind = __webpack_require__(348);
+
+	module.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);
+
+
+/***/ },
+/* 354 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
+<<<<<<< HEAD
 	var ES = __webpack_require__(323);
+=======
+	var ES = __webpack_require__(336);
+>>>>>>> dev
 	var $isNaN = Number.isNaN || function (a) { return a !== a; };
 	var $isFinite = Number.isFinite || function (n) { return typeof n === 'number' && global.isFinite(n); };
 	var indexOf = Array.prototype.indexOf;
@@ -62400,12 +70617,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
+<<<<<<< HEAD
 /* 341 */
+=======
+/* 355 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var implementation = __webpack_require__(340);
+=======
+	var implementation = __webpack_require__(354);
+>>>>>>> dev
 
 	module.exports = function getPolyfill() {
 		return Array.prototype.includes || implementation;
@@ -62413,13 +70638,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 342 */
+=======
+/* 356 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var define = __webpack_require__(319);
 	var getPolyfill = __webpack_require__(341);
+=======
+	var define = __webpack_require__(332);
+	var getPolyfill = __webpack_require__(355);
+>>>>>>> dev
 
 	module.exports = function shimArrayPrototypeIncludes() {
 		var polyfill = getPolyfill();
@@ -62431,7 +70665,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 343 */
+=======
+/* 357 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -62443,7 +70681,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _moment2 = _interopRequireDefault(_moment);
 
+<<<<<<< HEAD
 	var _isSameDay = __webpack_require__(307);
+=======
+	var _isSameDay = __webpack_require__(320);
+>>>>>>> dev
 
 	var _isSameDay2 = _interopRequireDefault(_isSameDay);
 
@@ -62456,7 +70698,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 344 */
+=======
+/* 358 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -62465,12 +70711,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(3);
 
+<<<<<<< HEAD
 	var _constants = __webpack_require__(302);
+=======
+	var _constants = __webpack_require__(315);
+>>>>>>> dev
 
 	exports['default'] = _react.PropTypes.oneOf([_constants.START_DATE, _constants.END_DATE]);
 
 /***/ },
+<<<<<<< HEAD
 /* 345 */
+=======
+/* 359 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -62536,6 +70790,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		  };
 		}();
 
+		exports.calculateDimension = calculateDimension;
+
 		var _react = __webpack_require__(1);
 
 		var _react2 = _interopRequireDefault(_react);
@@ -62580,16 +70836,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		function _interopRequireDefault(obj) {
 		  return obj && obj.__esModule ? obj : { 'default': obj };
-		}
-
-		function _toConsumableArray(arr) {
-		  if (Array.isArray(arr)) {
-		    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-		      arr2[i] = arr[i];
-		    }return arr2;
-		  } else {
-		    return Array.from(arr);
-		  }
 		}
 
 		function _classCallCheck(instance, Constructor) {
@@ -62723,6 +70969,57 @@ return /******/ (function(modules) { // webpackBootstrap
 		  monthFormat: 'MMMM YYYY'
 		};
 
+		function applyTransformStyles(el, transform) {
+		  var opacity = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
+		  var transformStyles = (0, _getTransformStyles2['default'])(transform);
+		  transformStyles.opacity = opacity;
+
+		  Object.keys(transformStyles).forEach(function (styleKey) {
+		    // eslint-disable-next-line no-param-reassign
+		    el.style[styleKey] = transformStyles[styleKey];
+		  });
+		}
+
+		function calculateDimension(el, axis) {
+		  var borderBox = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+		  var withMargin = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+		  if (!el) {
+		    return 0;
+		  }
+
+		  var axisStart = axis === 'width' ? 'Left' : 'Top';
+		  var axisEnd = axis === 'width' ? 'Right' : 'Bottom';
+
+		  // Only read styles if we need to
+		  var style = !borderBox || withMargin ? window.getComputedStyle(el) : {};
+
+		  // Offset includes border and padding
+		  var size = axis === 'width' ? el.offsetWidth : el.offsetHeight;
+
+		  // Get the inner size
+		  if (!borderBox) {
+		    size -= parseFloat(style['padding' + axisStart]) + parseFloat(style['padding' + axisEnd]) + parseFloat(style['border' + axisStart + 'Width']) + parseFloat(style['border' + axisEnd + 'Width']);
+		  }
+
+		  // Apply margin
+		  if (withMargin) {
+		    size += parseFloat(style['margin' + axisStart]) + parseFloat(style['margin' + axisEnd]);
+		  }
+
+		  return size;
+		}
+
+		function getMonthHeight(el) {
+		  var caption = el.querySelector('.js-CalendarMonth__caption');
+		  var grid = el.querySelector('.js-CalendarMonth__grid');
+
+		  // Need to separate out table children for FF
+		  // Add an additional +1 for the border
+		  return calculateDimension(caption, 'height', true, true) + calculateDimension(grid, 'height') + 1;
+		}
+
 		var DayPicker = function (_React$Component) {
 		  _inherits(DayPicker, _React$Component);
 
@@ -62850,76 +71147,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		    key: 'getMonthHeightByIndex',
 		    value: function () {
 		      function getMonthHeightByIndex(i) {
-		        return this.getMonthHeight(_reactDom2['default'].findDOMNode(this.refs.transitionContainer).querySelectorAll('.CalendarMonth')[i]);
+		        return getMonthHeight(_reactDom2['default'].findDOMNode(this.refs.transitionContainer).querySelectorAll('.CalendarMonth')[i]);
 		      }
 
 		      return getMonthHeightByIndex;
-		    }()
-		  }, {
-		    key: 'getMonthHeight',
-		    value: function () {
-		      function getMonthHeight(el) {
-		        var caption = el.querySelector('.js-CalendarMonth__caption');
-		        var grid = el.querySelector('.js-CalendarMonth__grid');
-
-		        // Need to separate out table children for FF
-		        // Add an additional +1 for the border
-		        return this.calculateDimension(caption, 'height', true, true) + this.calculateDimension(grid, 'height') + 1;
-		      }
-
-		      return getMonthHeight;
-		    }()
-		  }, {
-		    key: 'applyTransformStyles',
-		    value: function () {
-		      function applyTransformStyles(el, transform) {
-		        var opacity = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-
-		        var transformStyles = (0, _getTransformStyles2['default'])(transform);
-		        transformStyles.opacity = opacity;
-
-		        Object.keys(transformStyles).forEach(function (styleKey) {
-		          // eslint-disable-next-line no-param-reassign
-		          el.style[styleKey] = transformStyles[styleKey];
-		        });
-		      }
-
-		      return applyTransformStyles;
-		    }()
-		  }, {
-		    key: 'calculateDimension',
-		    value: function () {
-		      function calculateDimension(el, axis) {
-		        var borderBox = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-		        var withMargin = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-
-		        if (!el) {
-		          return 0;
-		        }
-
-		        var axisStart = axis === 'width' ? 'Left' : 'Top';
-		        var axisEnd = axis === 'width' ? 'Right' : 'Bottom';
-
-		        // Only read styles if we need to
-		        var style = !borderBox || withMargin ? window.getComputedStyle(el) : {};
-
-		        // Offset includes border and padding
-		        var size = axis === 'width' ? el.offsetWidth : el.offsetHeight;
-
-		        // Get the inner size
-		        if (!borderBox) {
-		          size -= parseFloat(style['padding' + axisStart]) + parseFloat(style['padding' + axisEnd]) + parseFloat(style['border' + axisStart + 'Width']) + parseFloat(style['border' + axisEnd + 'Width']);
-		        }
-
-		        // Apply margin
-		        if (withMargin) {
-		          size += parseFloat(style['margin' + axisStart]) + parseFloat(style['margin' + axisEnd]);
-		        }
-
-		        return size;
-		      }
-
-		      return calculateDimension;
 		    }()
 		  }, {
 		    key: 'isHorizontal',
@@ -62943,7 +71174,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		    key: 'initializeDayPickerWidth',
 		    value: function () {
 		      function initializeDayPickerWidth() {
-		        this.dayPickerWidth = this.calculateDimension(_reactDom2['default'].findDOMNode(this.refs.calendarMonthGrid).querySelector('.CalendarMonth'), 'width', true);
+		        this.dayPickerWidth = calculateDimension(_reactDom2['default'].findDOMNode(this.refs.calendarMonthGrid).querySelector('.CalendarMonth'), 'width', true);
 		      }
 
 		      return initializeDayPickerWidth;
@@ -62964,7 +71195,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		        }
 
 		        // clear the previous transforms
-		        this.applyTransformStyles(_reactDom2['default'].findDOMNode(this.refs.calendarMonthGrid).querySelector('.CalendarMonth'), 'none');
+		        applyTransformStyles(_reactDom2['default'].findDOMNode(this.refs.calendarMonthGrid).querySelector('.CalendarMonth'), 'none');
 
 		        this.setState({
 		          currentMonth: newMonth,
@@ -62979,21 +71210,18 @@ return /******/ (function(modules) { // webpackBootstrap
 		    key: 'adjustDayPickerHeight',
 		    value: function () {
 		      function adjustDayPickerHeight() {
-		        var _this2 = this;
-
 		        var transitionContainer = _reactDom2['default'].findDOMNode(this.refs.transitionContainer);
 		        var heights = [];
 
-		        // convert node list to array
-		        [].concat(_toConsumableArray(transitionContainer.querySelectorAll('.CalendarMonth'))).forEach(function (el) {
+		        Array.prototype.forEach.call(transitionContainer.querySelectorAll('.CalendarMonth'), function (el) {
 		          if (el.getAttribute('data-visible') === 'true') {
-		            heights.push(_this2.getMonthHeight(el));
+		            heights.push(getMonthHeight(el));
 		          }
 		        });
 
 		        var newMonthHeight = Math.max.apply(Math, heights) + MONTH_PADDING;
 
-		        if (newMonthHeight !== this.calculateDimension(transitionContainer, 'height')) {
+		        if (newMonthHeight !== calculateDimension(transitionContainer, 'height')) {
 		          this.monthHeight = newMonthHeight;
 		          transitionContainer.style.height = String(newMonthHeight) + 'px';
 		        }
@@ -63008,7 +71236,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		        var transformType = this.isVertical() ? 'translateY' : 'translateX';
 		        var transformValue = transformType + '(-' + String(translationValue) + 'px)';
 
-		        this.applyTransformStyles(_reactDom2['default'].findDOMNode(this.refs.transitionContainer).querySelector('.CalendarMonth'), transformValue, 1);
+		        applyTransformStyles(_reactDom2['default'].findDOMNode(this.refs.transitionContainer).querySelector('.CalendarMonth'), transformValue, 1);
 		      }
 
 		      return translateFirstDayPickerForAnimation;
@@ -63178,7 +71406,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 2 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(346);
+=======
+		module.exports = __webpack_require__(360);
+>>>>>>> dev
 
 	/***/ },
 	/* 3 */,
@@ -63199,13 +71431,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 8 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(317);
+=======
+		module.exports = __webpack_require__(330);
+>>>>>>> dev
 
 	/***/ },
 	/* 9 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(302);
+=======
+		module.exports = __webpack_require__(315);
+>>>>>>> dev
 
 	/***/ },
 	/* 10 */
@@ -63219,7 +71459,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 13 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(349);
+=======
+		module.exports = __webpack_require__(361);
+>>>>>>> dev
 
 	/***/ },
 	/* 14 */,
@@ -63239,24 +71483,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 28 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(350);
+=======
+		module.exports = __webpack_require__(362);
+>>>>>>> dev
 
 	/***/ },
 	/* 29 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(351);
+=======
+		module.exports = __webpack_require__(363);
+>>>>>>> dev
 
 	/***/ },
 	/* 30 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(356);
+=======
+		module.exports = __webpack_require__(368);
+>>>>>>> dev
 
 	/***/ }
 	/******/ ]);
 
 /***/ },
+<<<<<<< HEAD
 /* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -63293,21 +71550,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 348 */
+=======
+/* 360 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * Copyright 2013-present, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @typechecks
-	 * 
+	 * @providesModule shallowCompare
 	 */
-
-	/*eslint-disable no-self-compare */
 
 	'use strict';
 
@@ -63361,10 +71618,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return true;
 	}
 
-	module.exports = shallowEqual;
+	/**
+	 * Does a shallow comparison for props and state.
+	 * See ReactComponentWithPureRenderMixin
+	 * See also https://facebook.github.io/react/docs/shallow-compare.html
+	 */
+	function shallowCompare(instance, nextProps, nextState) {
+	  return (
+	    !shallowEqual(instance.props, nextProps) ||
+	    !shallowEqual(instance.state, nextState)
+	  );
+	}
+
+	module.exports = shallowCompare;
+
 
 /***/ },
+<<<<<<< HEAD
 /* 349 */
+=======
+/* 361 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -63381,7 +71655,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 350 */
+=======
+/* 362 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -63582,7 +71860,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/******/ });
 
 /***/ },
+<<<<<<< HEAD
 /* 351 */
+=======
+/* 363 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -63789,7 +72071,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		    return onMonthTransitionEnd;
 		  }(),
 
-		  transform: 'none',
+		  transformValue: 'none',
 
 		  // i18n
 		  monthFormat: 'MMMM YYYY' };
@@ -63956,13 +72238,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 2 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(346);
+=======
+		module.exports = __webpack_require__(360);
+>>>>>>> dev
 
 	/***/ },
 	/* 3 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(309);
+=======
+		module.exports = __webpack_require__(322);
+>>>>>>> dev
 
 	/***/ },
 	/* 4 */
@@ -63982,13 +72272,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 8 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(317);
+=======
+		module.exports = __webpack_require__(330);
+>>>>>>> dev
 
 	/***/ },
 	/* 9 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(302);
+=======
+		module.exports = __webpack_require__(315);
+>>>>>>> dev
 
 	/***/ },
 	/* 10 */
@@ -64000,25 +72298,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 11 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(352);
+=======
+		module.exports = __webpack_require__(364);
+>>>>>>> dev
 
 	/***/ },
 	/* 12 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(355);
+=======
+		module.exports = __webpack_require__(367);
+>>>>>>> dev
 
 	/***/ },
 	/* 13 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(349);
+=======
+		module.exports = __webpack_require__(361);
+>>>>>>> dev
 
 	/***/ }
 	/******/ ]);
 
 /***/ },
+<<<<<<< HEAD
 /* 352 */
+=======
+/* 364 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -64107,6 +72421,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		function _interopRequireDefault(obj) {
 		  return obj && obj.__esModule ? obj : { 'default': obj };
 		}
+
+		/* eslint react/no-array-index-key: 0 */
 
 		var propTypes = {
 		  month: _reactMomentProptypes2['default'].momentObj,
@@ -64245,7 +72561,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 3 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(309);
+=======
+		module.exports = __webpack_require__(322);
+>>>>>>> dev
 
 	/***/ },
 	/* 4 */
@@ -64263,24 +72583,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 6 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(353);
+=======
+		module.exports = __webpack_require__(365);
+>>>>>>> dev
 
 	/***/ },
 	/* 7 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(354);
+=======
+		module.exports = __webpack_require__(366);
+>>>>>>> dev
 
 	/***/ },
 	/* 8 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(317);
+=======
+		module.exports = __webpack_require__(330);
+>>>>>>> dev
 
 	/***/ },
 	/* 9 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(302);
 
 	/***/ }
@@ -64657,11 +72990,393 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		module.exports = __webpack_require__(199);
 
+=======
+		module.exports = __webpack_require__(315);
+
+>>>>>>> dev
 	/***/ }
 	/******/ ]);
 
 /***/ },
+<<<<<<< HEAD
 /* 354 */
+=======
+/* 365 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports =
+	/******/ (function(modules) { // webpackBootstrap
+	/******/ 	// The module cache
+	/******/ 	var installedModules = {};
+
+	/******/ 	// The require function
+	/******/ 	function __webpack_require__(moduleId) {
+
+	/******/ 		// Check if module is in cache
+	/******/ 		if(installedModules[moduleId])
+	/******/ 			return installedModules[moduleId].exports;
+
+	/******/ 		// Create a new module (and put it into the cache)
+	/******/ 		var module = installedModules[moduleId] = {
+	/******/ 			exports: {},
+	/******/ 			id: moduleId,
+	/******/ 			loaded: false
+	/******/ 		};
+
+	/******/ 		// Execute the module function
+	/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+	/******/ 		// Flag the module as loaded
+	/******/ 		module.loaded = true;
+
+	/******/ 		// Return the exports of the module
+	/******/ 		return module.exports;
+	/******/ 	}
+
+
+	/******/ 	// expose the modules object (__webpack_modules__)
+	/******/ 	__webpack_require__.m = modules;
+
+	/******/ 	// expose the module cache
+	/******/ 	__webpack_require__.c = installedModules;
+
+	/******/ 	// __webpack_public_path__
+	/******/ 	__webpack_require__.p = "";
+
+	/******/ 	// Load entry module and return exports
+	/******/ 	return __webpack_require__(0);
+	/******/ })
+	/************************************************************************/
+	/******/ ([
+	/* 0 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+		Object.defineProperty(exports, "__esModule", {
+		  value: true
+		});
+		exports.TOUCHSTART_TIMEOUT = undefined;
+
+		var _createClass = function () {
+		  function defineProperties(target, props) {
+		    for (var i = 0; i < props.length; i++) {
+		      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+		    }
+		  }return function (Constructor, protoProps, staticProps) {
+		    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+		  };
+		}();
+
+		var _react = __webpack_require__(1);
+
+		var _react2 = _interopRequireDefault(_react);
+
+		var _reactAddonsShallowCompare = __webpack_require__(2);
+
+		var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
+
+		var _reactMomentProptypes = __webpack_require__(3);
+
+		var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
+
+		var _moment = __webpack_require__(4);
+
+		var _moment2 = _interopRequireDefault(_moment);
+
+		function _interopRequireDefault(obj) {
+		  return obj && obj.__esModule ? obj : { 'default': obj };
+		}
+
+		function _classCallCheck(instance, Constructor) {
+		  if (!(instance instanceof Constructor)) {
+		    throw new TypeError("Cannot call a class as a function");
+		  }
+		}
+
+		function _possibleConstructorReturn(self, call) {
+		  if (!self) {
+		    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+		  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+		}
+
+		function _inherits(subClass, superClass) {
+		  if (typeof superClass !== "function" && superClass !== null) {
+		    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+		  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+		}
+
+		var TOUCHSTART_TIMEOUT = exports.TOUCHSTART_TIMEOUT = 200;
+
+		var propTypes = {
+		  day: _reactMomentProptypes2['default'].momentObj,
+		  modifiers: _react.PropTypes.arrayOf(_react.PropTypes.string),
+		  onDayClick: _react.PropTypes.func,
+		  onDayMouseDown: _react.PropTypes.func,
+		  onDayMouseUp: _react.PropTypes.func,
+		  onDayMouseEnter: _react.PropTypes.func,
+		  onDayMouseLeave: _react.PropTypes.func,
+		  onDayTouchStart: _react.PropTypes.func,
+		  onDayTouchEnd: _react.PropTypes.func,
+		  onDayTouchTap: _react.PropTypes.func
+		};
+
+		var defaultProps = {
+		  day: (0, _moment2['default'])(),
+		  modifiers: [],
+		  onDayClick: function () {
+		    function onDayClick() {}
+
+		    return onDayClick;
+		  }(),
+		  onDayMouseDown: function () {
+		    function onDayMouseDown() {}
+
+		    return onDayMouseDown;
+		  }(),
+		  onDayMouseUp: function () {
+		    function onDayMouseUp() {}
+
+		    return onDayMouseUp;
+		  }(),
+		  onDayMouseEnter: function () {
+		    function onDayMouseEnter() {}
+
+		    return onDayMouseEnter;
+		  }(),
+		  onDayMouseLeave: function () {
+		    function onDayMouseLeave() {}
+
+		    return onDayMouseLeave;
+		  }(),
+		  onDayTouchStart: function () {
+		    function onDayTouchStart() {}
+
+		    return onDayTouchStart;
+		  }(),
+		  onDayTouchEnd: function () {
+		    function onDayTouchEnd() {}
+
+		    return onDayTouchEnd;
+		  }(),
+		  onDayTouchTap: function () {
+		    function onDayTouchTap() {}
+
+		    return onDayTouchTap;
+		  }()
+		};
+
+		var CalendarDay = function (_React$Component) {
+		  _inherits(CalendarDay, _React$Component);
+
+		  function CalendarDay(props) {
+		    _classCallCheck(this, CalendarDay);
+
+		    var _this = _possibleConstructorReturn(this, (CalendarDay.__proto__ || Object.getPrototypeOf(CalendarDay)).call(this, props));
+
+		    _this.hasActiveTouchStart = false;
+		    return _this;
+		  }
+
+		  _createClass(CalendarDay, [{
+		    key: 'shouldComponentUpdate',
+		    value: function () {
+		      function shouldComponentUpdate(nextProps, nextState) {
+		        return (0, _reactAddonsShallowCompare2['default'])(this, nextProps, nextState);
+		      }
+
+		      return shouldComponentUpdate;
+		    }()
+		  }, {
+		    key: 'handleDayClick',
+		    value: function () {
+		      function handleDayClick(day, modifiers, e) {
+		        this.props.onDayClick(day, modifiers, e);
+		      }
+
+		      return handleDayClick;
+		    }()
+		  }, {
+		    key: 'handleDayMouseDown',
+		    value: function () {
+		      function handleDayMouseDown(day, modifiers, e) {
+		        this.props.onDayMouseDown(day, modifiers, e);
+		      }
+
+		      return handleDayMouseDown;
+		    }()
+		  }, {
+		    key: 'handleDayMouseUp',
+		    value: function () {
+		      function handleDayMouseUp(day, modifiers, e) {
+		        this.props.onDayMouseUp(day, modifiers, e);
+		      }
+
+		      return handleDayMouseUp;
+		    }()
+		  }, {
+		    key: 'handleDayMouseEnter',
+		    value: function () {
+		      function handleDayMouseEnter(day, modifiers, e) {
+		        this.props.onDayMouseEnter(day, modifiers, e);
+		      }
+
+		      return handleDayMouseEnter;
+		    }()
+		  }, {
+		    key: 'handleDayMouseLeave',
+		    value: function () {
+		      function handleDayMouseLeave(day, modifiers, e) {
+		        this.props.onDayMouseLeave(day, modifiers, e);
+		      }
+
+		      return handleDayMouseLeave;
+		    }()
+		  }, {
+		    key: 'handleDayTouchStart',
+		    value: function () {
+		      function handleDayTouchStart(day, modifiers, e) {
+		        var _this2 = this;
+
+		        this.hasActiveTouchStart = true;
+		        setTimeout(function () {
+		          _this2.hasActiveTouchStart = false;
+		        }, TOUCHSTART_TIMEOUT);
+
+		        this.props.onDayTouchStart(day, modifiers, e);
+		      }
+
+		      return handleDayTouchStart;
+		    }()
+		  }, {
+		    key: 'handleDayTouchEnd',
+		    value: function () {
+		      function handleDayTouchEnd(day, modifiers, e) {
+		        if (this.hasActiveTouchStart) {
+		          this.hasActiveTouchStart = false;
+		          this.handleDayTouchTap(day, modifiers, e);
+		        }
+
+		        this.props.onDayTouchEnd(day, modifiers, e);
+		      }
+
+		      return handleDayTouchEnd;
+		    }()
+		  }, {
+		    key: 'handleDayTouchTap',
+		    value: function () {
+		      function handleDayTouchTap(day, modifiers, e) {
+		        this.props.onDayTouchTap(day, modifiers, e);
+		      }
+
+		      return handleDayTouchTap;
+		    }()
+		  }, {
+		    key: 'render',
+		    value: function () {
+		      function render() {
+		        var _this3 = this;
+
+		        var _props = this.props;
+		        var day = _props.day;
+		        var modifiers = _props.modifiers;
+
+		        return _react2['default'].createElement('div', {
+		          className: 'CalendarDay',
+		          onMouseEnter: function () {
+		            function onMouseEnter(e) {
+		              _this3.handleDayMouseEnter(day, modifiers, e);
+		            }
+
+		            return onMouseEnter;
+		          }(),
+		          onMouseLeave: function () {
+		            function onMouseLeave(e) {
+		              _this3.handleDayMouseLeave(day, modifiers, e);
+		            }
+
+		            return onMouseLeave;
+		          }(),
+		          onMouseDown: function () {
+		            function onMouseDown(e) {
+		              _this3.handleDayMouseDown(day, modifiers, e);
+		            }
+
+		            return onMouseDown;
+		          }(),
+		          onMouseUp: function () {
+		            function onMouseUp(e) {
+		              _this3.handleDayMouseUp(day, modifiers, e);
+		            }
+
+		            return onMouseUp;
+		          }(),
+		          onClick: function () {
+		            function onClick(e) {
+		              _this3.handleDayClick(day, modifiers, e);
+		            }
+
+		            return onClick;
+		          }(),
+		          onTouchStart: function () {
+		            function onTouchStart(e) {
+		              _this3.handleDayTouchStart(day, modifiers, e);
+		            }
+
+		            return onTouchStart;
+		          }(),
+		          onTouchEnd: function () {
+		            function onTouchEnd(e) {
+		              _this3.handleDayTouchEnd(day, modifiers, e);
+		            }
+
+		            return onTouchEnd;
+		          }()
+		        }, _react2['default'].createElement('span', { className: 'CalendarDay__day' }, day.format('D')));
+		      }
+
+		      return render;
+		    }()
+		  }]);
+
+		  return CalendarDay;
+		}(_react2['default'].Component);
+
+		exports['default'] = CalendarDay;
+
+		CalendarDay.propTypes = propTypes;
+		CalendarDay.defaultProps = defaultProps;
+
+	/***/ },
+	/* 1 */
+	/***/ function(module, exports) {
+
+		module.exports = __webpack_require__(3);
+
+	/***/ },
+	/* 2 */
+	/***/ function(module, exports) {
+
+		module.exports = __webpack_require__(360);
+
+	/***/ },
+	/* 3 */
+	/***/ function(module, exports) {
+
+		module.exports = __webpack_require__(322);
+
+	/***/ },
+	/* 4 */
+	/***/ function(module, exports) {
+
+		module.exports = __webpack_require__(198);
+
+	/***/ }
+	/******/ ]);
+
+/***/ },
+/* 366 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -64710,7 +73425,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 355 */
+=======
+/* 367 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -64722,7 +73441,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 356 */
+=======
+/* 368 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -65109,7 +73832,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/******/ });
 
 /***/ },
+<<<<<<< HEAD
 /* 357 */
+=======
+/* 369 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -65118,6 +73845,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(3);
 
+<<<<<<< HEAD
 	var _reactMomentProptypes = __webpack_require__(309);
 
 	var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
@@ -65131,6 +73859,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _OrientationShape2 = _interopRequireDefault(_OrientationShape);
 
 	var _AnchorDirectionShape = __webpack_require__(358);
+=======
+	var _reactMomentProptypes = __webpack_require__(322);
+
+	var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
+
+	var _FocusedInputShape = __webpack_require__(358);
+
+	var _FocusedInputShape2 = _interopRequireDefault(_FocusedInputShape);
+
+	var _OrientationShape = __webpack_require__(330);
+
+	var _OrientationShape2 = _interopRequireDefault(_OrientationShape);
+
+	var _AnchorDirectionShape = __webpack_require__(370);
+>>>>>>> dev
 
 	var _AnchorDirectionShape2 = _interopRequireDefault(_AnchorDirectionShape);
 
@@ -65179,7 +73922,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 358 */
+=======
+/* 370 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -65188,12 +73935,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(3);
 
+<<<<<<< HEAD
 	var _constants = __webpack_require__(302);
+=======
+	var _constants = __webpack_require__(315);
+>>>>>>> dev
 
 	exports['default'] = _react.PropTypes.oneOf([_constants.ANCHOR_LEFT, _constants.ANCHOR_RIGHT]);
 
 /***/ },
+<<<<<<< HEAD
 /* 359 */
+=======
+/* 371 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -65927,7 +74682,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 9 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(302);
+=======
+		module.exports = __webpack_require__(315);
+>>>>>>> dev
 
 	/***/ },
 	/* 10 */,
@@ -65938,19 +74697,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 15 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(304);
+=======
+		module.exports = __webpack_require__(317);
+>>>>>>> dev
 
 	/***/ },
 	/* 16 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(305);
+=======
+		module.exports = __webpack_require__(318);
+>>>>>>> dev
 
 	/***/ },
 	/* 17 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(306);
+=======
+		module.exports = __webpack_require__(319);
+>>>>>>> dev
 
 	/***/ },
 	/* 18 */,
@@ -66015,13 +74786,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 25 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(313);
+=======
+		module.exports = __webpack_require__(326);
+>>>>>>> dev
 
 	/***/ },
 	/* 26 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(314);
+=======
+		module.exports = __webpack_require__(327);
+>>>>>>> dev
 
 	/***/ },
 	/* 27 */,
@@ -66034,39 +74813,63 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* 34 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(318);
+=======
+		module.exports = __webpack_require__(331);
+>>>>>>> dev
 
 	/***/ },
 	/* 35 */,
 	/* 36 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(307);
+=======
+		module.exports = __webpack_require__(320);
+>>>>>>> dev
 
 	/***/ },
 	/* 37 */,
 	/* 38 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(345);
+=======
+		module.exports = __webpack_require__(359);
+>>>>>>> dev
 
 	/***/ },
 	/* 39 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(360);
+=======
+		module.exports = __webpack_require__(372);
+>>>>>>> dev
 
 	/***/ },
 	/* 40 */
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(361);
+=======
+		module.exports = __webpack_require__(373);
+>>>>>>> dev
 
 	/***/ }
 	/******/ ]);
 
 /***/ },
+<<<<<<< HEAD
 /* 360 */
+=======
+/* 372 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports =
@@ -66202,11 +75005,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		  disabled: false,
 		  required: false,
 		  showCaret: false,
+		  showClearDate: false,
 
 		  onChange: function () {
 		    function onChange() {}
 
 		    return onChange;
+		  }(),
+		  onClearDate: function () {
+		    function onClearDate() {}
+
+		    return onClearDate;
 		  }(),
 		  onFocus: function () {
 		    function onFocus() {}
@@ -66400,14 +75209,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	/***/ 22:
 	/***/ function(module, exports) {
 
+<<<<<<< HEAD
 		module.exports = __webpack_require__(312);
+=======
+		module.exports = __webpack_require__(325);
+>>>>>>> dev
 
 	/***/ }
 
 	/******/ });
 
 /***/ },
+<<<<<<< HEAD
 /* 361 */
+=======
+/* 373 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -66416,6 +75233,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(3);
 
+<<<<<<< HEAD
 	var _reactMomentProptypes = __webpack_require__(309);
 
 	var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
@@ -66425,6 +75243,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _OrientationShape2 = _interopRequireDefault(_OrientationShape);
 
 	var _AnchorDirectionShape = __webpack_require__(358);
+=======
+	var _reactMomentProptypes = __webpack_require__(322);
+
+	var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
+
+	var _OrientationShape = __webpack_require__(330);
+
+	var _OrientationShape2 = _interopRequireDefault(_OrientationShape);
+
+	var _AnchorDirectionShape = __webpack_require__(370);
+>>>>>>> dev
 
 	var _AnchorDirectionShape2 = _interopRequireDefault(_AnchorDirectionShape);
 
@@ -66472,7 +75301,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 362 */
+=======
+/* 374 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -66484,11 +75317,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _moment2 = _interopRequireDefault(_moment);
 
+<<<<<<< HEAD
 	var _toMomentObject = __webpack_require__(313);
 
 	var _toMomentObject2 = _interopRequireDefault(_toMomentObject);
 
 	var _constants = __webpack_require__(302);
+=======
+	var _toMomentObject = __webpack_require__(326);
+
+	var _toMomentObject2 = _interopRequireDefault(_toMomentObject);
+
+	var _constants = __webpack_require__(315);
+>>>>>>> dev
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -66500,7 +75341,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 363 */
+=======
+/* 375 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66539,9 +75384,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 	var moment = __webpack_require__(199);
 	var _ = __webpack_require__(23);
 	var momentPropTypes = __webpack_require__(309);
+=======
+	var moment = __webpack_require__(198);
+	var _ = __webpack_require__(23);
+	var momentPropTypes = __webpack_require__(322);
+>>>>>>> dev
 	var helper = __webpack_require__(13);
 
 	var DateRange = function (_Component) {
@@ -66833,7 +75684,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 364 */
+=======
+/* 376 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66898,10 +75753,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var NumberComponent = function NumberComponent(props) {
+<<<<<<< HEAD
 		var label = props.label;
 		var end = props.end;
 		var start = props.start;
 		var handleChange = props.handleChange;
+=======
+		var label = props.label,
+		    end = props.end,
+		    start = props.start,
+		    handleChange = props.handleChange;
+>>>>>>> dev
 
 		var value = props.value != undefined ? props.value : start;
 		var isPlusActive = end != undefined ? value < end : true;
@@ -66937,9 +75799,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			var _this = _possibleConstructorReturn(this, (NumberBox.__proto__ || Object.getPrototypeOf(NumberBox)).call(this, props));
 
+<<<<<<< HEAD
 			var _this$props = _this.props;
 			var defaultSelected = _this$props.defaultSelected;
 			var focused = _this$props.focused;
+=======
+			var _this$props = _this.props,
+			    defaultSelected = _this$props.defaultSelected,
+			    focused = _this$props.focused;
+>>>>>>> dev
 
 			_this.state = {
 				currentValue: defaultSelected,
@@ -66981,9 +75849,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "setQueryInfo",
 			value: function setQueryInfo() {
+<<<<<<< HEAD
 				var _props = this.props;
 				var componentId = _props.componentId;
 				var appbaseField = _props.appbaseField;
+=======
+				var _props = this.props,
+				    componentId = _props.componentId,
+				    appbaseField = _props.appbaseField;
+>>>>>>> dev
 
 				var obj = {
 					key: componentId,
@@ -67002,11 +75876,19 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: "handleChange",
 			value: function handleChange() {
 				var increment = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+<<<<<<< HEAD
 				var _props2 = this.props;
 				var componentId = _props2.componentId;
 				var data = _props2.data;
 				var start = data.start;
 				var end = data.end;
+=======
+				var _props2 = this.props,
+				    componentId = _props2.componentId,
+				    data = _props2.data;
+				var start = data.start,
+				    end = data.end;
+>>>>>>> dev
 
 				var inputVal = this.state.currentValue;
 
@@ -67035,10 +75917,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: "render",
 			value: function render() {
+<<<<<<< HEAD
 				var _props3 = this.props;
 				var title = _props3.title;
 				var data = _props3.data;
 				var labelPosition = _props3.labelPosition;
+=======
+				var _props3 = this.props,
+				    title = _props3.title,
+				    data = _props3.data,
+				    labelPosition = _props3.labelPosition;
+>>>>>>> dev
 				var currentValue = this.state.currentValue;
 
 				var ComponentTitle = title ? _react2.default.createElement(TitleComponent, { title: title }) : null;
@@ -67110,7 +75999,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 365 */
+=======
+/* 377 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -67133,11 +76026,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ChannelManager2 = _interopRequireDefault(_ChannelManager);
 
+<<<<<<< HEAD
 	var _JsonPrint = __webpack_require__(366);
 
 	var _JsonPrint2 = _interopRequireDefault(_JsonPrint);
 
 	var _PoweredBy = __webpack_require__(367);
+=======
+	var _JsonPrint = __webpack_require__(378);
+
+	var _JsonPrint2 = _interopRequireDefault(_JsonPrint);
+
+	var _PoweredBy = __webpack_require__(379);
+>>>>>>> dev
 
 	var _PoweredBy2 = _interopRequireDefault(_PoweredBy);
 
@@ -67145,6 +76046,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _InitialLoader2 = _interopRequireDefault(_InitialLoader);
 
+<<<<<<< HEAD
 	var _NoResults = __webpack_require__(368);
 
 	var _NoResults2 = _interopRequireDefault(_NoResults);
@@ -67154,6 +76056,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ResultStats2 = _interopRequireDefault(_ResultStats);
 
 	var _Pagination = __webpack_require__(370);
+=======
+	var _NoResults = __webpack_require__(380);
+
+	var _NoResults2 = _interopRequireDefault(_NoResults);
+
+	var _ResultStats = __webpack_require__(381);
+
+	var _ResultStats2 = _interopRequireDefault(_ResultStats);
+
+	var _Pagination = __webpack_require__(382);
+>>>>>>> dev
 
 	var _Pagination2 = _interopRequireDefault(_Pagination);
 
@@ -67847,7 +76760,11 @@ return /******/ (function(modules) { // webpackBootstrap
 					),
 					this.props.noResults && this.state.visibleNoResults ? _react2.default.createElement(_NoResults2.default, { defaultText: this.props.noResults }) : null,
 					this.props.initialLoader && this.state.queryStart && this.state.showInitialLoader ? _react2.default.createElement(_InitialLoader2.default, { defaultText: this.props.initialLoader }) : null,
+<<<<<<< HEAD
 					_react2.default.createElement(_PoweredBy2.default, { container: this.resultListContainer })
+=======
+					_react2.default.createElement(_PoweredBy2.default, { container: "rbc-reactivelist-container" })
+>>>>>>> dev
 				);
 			}
 		}]);
@@ -67923,7 +76840,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 366 */
+=======
+/* 378 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -67999,7 +76920,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JsonPrint;
 
 /***/ },
+<<<<<<< HEAD
 /* 367 */
+=======
+/* 379 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -68026,13 +76951,22 @@ return /******/ (function(modules) { // webpackBootstrap
 			_react2.default.createElement("img", { className: "rbc-img-responsive rbc-poweredby-light", src: "https://cdn.rawgit.com/appbaseio/cdn/master/appbase/logos/rbc-logo.svg", alt: "Poweredby appbase" })
 		);
 		if (props.container) {
+<<<<<<< HEAD
 			showMarkup = !($(props.container).height() < 300);
+=======
+			var height = $("." + props.container).height() || 0;
+			showMarkup = height > 300;
+>>>>>>> dev
 		}
 		return showMarkup ? markup : null;
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 368 */
+=======
+/* 380 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -68094,7 +77028,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 369 */
+=======
+/* 381 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -68160,7 +77098,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 370 */
+=======
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -68183,6 +77124,310 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ChannelManager2 = _interopRequireDefault(_ChannelManager);
 
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var helper = __webpack_require__(13);
+
+	var Pagination = function (_Component) {
+		_inherits(Pagination, _Component);
+
+		function Pagination(props, context) {
+			_classCallCheck(this, Pagination);
+
+			var _this = _possibleConstructorReturn(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, props));
+
+			_this.state = {
+				currentValue: 1,
+				maxPageNumber: 1
+			};
+			_this.handleChange = _this.handleChange.bind(_this);
+			_this.prePage = _this.prePage.bind(_this);
+			_this.nextPage = _this.nextPage.bind(_this);
+			_this.firstPage = _this.firstPage.bind(_this);
+			_this.lastPage = _this.lastPage.bind(_this);
+			return _this;
+		}
+
+		// Set query information
+
+
+		_createClass(Pagination, [{
+			key: "componentDidMount",
+			value: function componentDidMount() {
+				this.setQueryInfo();
+				this.listenGlobal();
+			}
+
+			// stop streaming request and remove listener when component will unmount
+
+		}, {
+			key: "componentWillUnmount",
+			value: function componentWillUnmount() {
+				if (this.globalListener) {
+					this.globalListener.remove();
+				}
+			}
+
+			// set the query type and input data
+
+		}, {
+			key: "setQueryInfo",
+			value: function setQueryInfo() {
+				var obj = {
+					key: this.props.componentId,
+					value: this.state.currentValue
+				};
+				helper.selectedSensor.setPaginationInfo(obj);
+			}
+
+			// listen all results
+
+		}, {
+			key: "listenGlobal",
+			value: function listenGlobal() {
+				var _this2 = this;
+
+				this.globalListener = _ChannelManager2.default.emitter.addListener("global", function (res) {
+					if (res.react && Object.keys(res.react).indexOf(_this2.props.componentId) > -1) {
+						var totalHits = res.channelResponse && res.channelResponse.data && res.channelResponse.data.hits ? res.channelResponse.data.hits.total : 0;
+						var maxPageNumber = Math.ceil(totalHits / res.queryOptions.size) < 1 ? 1 : Math.ceil(totalHits / res.queryOptions.size);
+						var size = res.queryOptions.size ? res.queryOptions.size : 20;
+						var currentPage = Math.round(res.queryOptions.from / size) + 1;
+						_this2.setState({
+							totalHits: totalHits,
+							size: size,
+							maxPageNumber: maxPageNumber,
+							currentValue: currentPage
+						});
+					}
+				});
+			}
+
+			// handle the input change and pass the value inside sensor info
+
+		}, {
+			key: "handleChange",
+			value: function handleChange(inputVal) {
+				this.setState({
+					currentValue: inputVal
+				});
+				var obj = {
+					key: this.props.componentId,
+					value: inputVal
+				};
+
+				// pass the selected sensor value with componentId as key,
+				var isExecuteQuery = true;
+				helper.selectedSensor.set(obj, isExecuteQuery, "paginationChange");
+				if (this.props.onPageChange) {
+					this.props.onPageChange(inputVal);
+				}
+			}
+
+			// first page
+
+		}, {
+			key: "firstPage",
+			value: function firstPage() {
+				if (this.state.currentValue !== 1) {
+					this.handleChange.call(this, 1);
+				}
+			}
+
+			// last page
+
+		}, {
+			key: "lastPage",
+			value: function lastPage() {
+				if (this.state.currentValue !== this.state.maxPageNumber) {
+					this.handleChange.call(this, this.state.maxPageNumber);
+				}
+			}
+
+			// pre page
+
+		}, {
+			key: "prePage",
+			value: function prePage() {
+				var currentValue = this.state.currentValue > 1 ? this.state.currentValue - 1 : 1;
+				if (this.state.currentValue !== currentValue) {
+					this.handleChange.call(this, currentValue);
+				}
+			}
+
+			// next page
+
+		}, {
+			key: "nextPage",
+			value: function nextPage() {
+				var currentValue = this.state.currentValue < this.state.maxPageNumber ? this.state.currentValue + 1 : this.state.maxPageNumber;
+				if (this.state.currentValue !== currentValue) {
+					this.handleChange.call(this, currentValue);
+				}
+			}
+		}, {
+			key: "renderPageNumber",
+			value: function renderPageNumber() {
+				var _this3 = this;
+
+				var start = void 0,
+				    numbers = [];
+				for (var i = this.state.currentValue; i > 0; i--) {
+					if (i % 5 === 0 || i === 1) {
+						start = i;
+						break;
+					}
+				}
+
+				var _loop = function _loop(_i) {
+					var singleItem = _react2.default.createElement(
+						"li",
+						{ key: _i, className: "rbc-page-number " + (_this3.state.currentValue === _i ? "active rbc-pagination-active" : "waves-effect") },
+						_react2.default.createElement(
+							"a",
+							{ onClick: function onClick() {
+									return _this3.handleChange(_i);
+								} },
+							_i
+						)
+					);
+					if (_i <= _this3.state.maxPageNumber) {
+						numbers.push(singleItem);
+					}
+				};
+
+				for (var _i = start; _i <= start + 5; _i++) {
+					_loop(_i);
+				}
+				return _react2.default.createElement(
+					"ul",
+					{ className: "pagination" },
+					_react2.default.createElement(
+						"li",
+						{ className: this.state.currentValue === 1 ? "disabled" : "waves-effect" },
+						_react2.default.createElement(
+							"a",
+							{ className: "rbc-page-previous", onClick: this.firstPage },
+							_react2.default.createElement("i", { className: "fa fa-angle-double-left" })
+						)
+					),
+					_react2.default.createElement(
+						"li",
+						{ className: this.state.currentValue === 1 ? "disabled" : "waves-effect" },
+						_react2.default.createElement(
+							"a",
+							{ className: "rbc-page-previous", onClick: this.prePage },
+							_react2.default.createElement("i", { className: "fa fa-angle-left" })
+						)
+					),
+					numbers,
+					_react2.default.createElement(
+						"li",
+						{ className: this.state.currentValue === this.state.maxPageNumber ? "disabled" : "waves-effect" },
+						_react2.default.createElement(
+							"a",
+							{ className: "rbc-page-next", onClick: this.nextPage },
+							_react2.default.createElement("i", { className: "fa fa-angle-right" })
+						)
+					),
+					_react2.default.createElement(
+						"li",
+						{ className: this.state.currentValue === this.state.maxPageNumber ? "disabled" : "waves-effect" },
+						_react2.default.createElement(
+							"a",
+							{ className: "rbc-page-previous", onClick: this.lastPage },
+							_react2.default.createElement("i", { className: "fa fa-angle-double-right" })
+						)
+					)
+				);
+			}
+
+			// render
+
+		}, {
+			key: "render",
+			value: function render() {
+				var title = null;
+				var titleExists = false;
+				if (this.props.title) {
+					title = _react2.default.createElement(
+						"h4",
+						{ className: "rbc-title col s12 col-xs-12" },
+						this.props.title
+					);
+				}
+
+				var cx = (0, _classnames2.default)({
+					"rbc-title-active": this.props.title,
+					"rbc-title-inactive": !this.props.title
+				});
+
+				return _react2.default.createElement(
+					"div",
+					{ className: "rbc rbc-pagination col s12 col-xs-12 " + cx + " " + this.props.className },
+					title,
+					_react2.default.createElement(
+						"div",
+						{ className: "col s12 col-xs-12" },
+						this.renderPageNumber()
+					)
+				);
+			}
+		}]);
+
+		return Pagination;
+	}(_react.Component);
+
+	exports.default = Pagination;
+
+
+	Pagination.propTypes = {
+		componentId: _react2.default.PropTypes.string.isRequired,
+		title: _react2.default.PropTypes.string,
+		onPageChange: _react2.default.PropTypes.func
+	};
+
+	// Default props value
+	Pagination.defaultProps = {};
+
+	// context type
+	Pagination.contextTypes = {
+		appbaseRef: _react2.default.PropTypes.any.isRequired,
+		type: _react2.default.PropTypes.any.isRequired
+	};
+
+/***/ },
+/* 383 */
+>>>>>>> dev
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(5);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _ChannelManager = __webpack_require__(11);
+
+	var _ChannelManager2 = _interopRequireDefault(_ChannelManager);
+
+<<<<<<< HEAD
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -68486,6 +77731,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ChannelManager2 = _interopRequireDefault(_ChannelManager);
 
 	var _PoweredBy = __webpack_require__(367);
+=======
+	var _PoweredBy = __webpack_require__(379);
+>>>>>>> dev
 
 	var _PoweredBy2 = _interopRequireDefault(_PoweredBy);
 
@@ -68493,11 +77741,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _InitialLoader2 = _interopRequireDefault(_InitialLoader);
 
+<<<<<<< HEAD
 	var _NoResults = __webpack_require__(368);
 
 	var _NoResults2 = _interopRequireDefault(_NoResults);
 
 	var _ResultStats = __webpack_require__(369);
+=======
+	var _NoResults = __webpack_require__(380);
+
+	var _NoResults2 = _interopRequireDefault(_NoResults);
+
+	var _ResultStats = __webpack_require__(381);
+>>>>>>> dev
 
 	var _ResultStats2 = _interopRequireDefault(_ResultStats);
 
@@ -68887,7 +78143,11 @@ return /******/ (function(modules) { // webpackBootstrap
 					),
 					this.props.noResults && this.state.visibleNoResults ? _react2.default.createElement(_NoResults2.default, { defaultText: this.props.noResults.text }) : null,
 					this.props.initialLoader && this.state.queryStart ? _react2.default.createElement(_InitialLoader2.default, { defaultText: this.props.initialLoader.text }) : null,
+<<<<<<< HEAD
 					_react2.default.createElement(_PoweredBy2.default, { container: this.resultListContainer })
+=======
+					_react2.default.createElement(_PoweredBy2.default, { container: "rbc-reactiveelement-container" })
+>>>>>>> dev
 				);
 			}
 		}]);
@@ -68946,7 +78206,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 372 */
+=======
+/* 384 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -69139,7 +78403,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 373 */
+=======
+/* 385 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -69166,7 +78434,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 	var Appbase = __webpack_require__(374);
+=======
+	var Appbase = __webpack_require__(386);
+>>>>>>> dev
 	var helper = __webpack_require__(13);
 
 	var ReactiveBase = function (_Component) {
@@ -69233,11 +78505,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 374 */
+=======
+/* 386 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var URL = __webpack_require__(375);
 
 	var betterWs = __webpack_require__(380);
@@ -69255,6 +78532,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var streamDocumentService = __webpack_require__(451);
 	var streamSearchService = __webpack_require__(452);
+=======
+	var URL = __webpack_require__(387);
+
+	var betterWs = __webpack_require__(393);
+	var streamingRequest = __webpack_require__(396);
+	var wsRequest = __webpack_require__(454);
+
+	var indexService = __webpack_require__(456);
+	var getService = __webpack_require__(458);
+	var updateService = __webpack_require__(459);
+	var deleteService = __webpack_require__(460);
+	var bulkService = __webpack_require__(461);
+	var searchService = __webpack_require__(462);
+	var getTypesService = __webpack_require__(463);
+	var addWebhookService = __webpack_require__(464);
+
+	var streamDocumentService = __webpack_require__(469);
+	var streamSearchService = __webpack_require__(470);
+>>>>>>> dev
 
 	var appbaseClient = function appbaseClient(args) {
 		if (!(this instanceof appbaseClient)) {
@@ -69376,7 +78672,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 375 */
+=======
+/* 387 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -69400,7 +78700,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 	// USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+<<<<<<< HEAD
 	var punycode = __webpack_require__(376);
+=======
+	'use strict';
+
+	var punycode = __webpack_require__(388);
+	var util = __webpack_require__(389);
+>>>>>>> dev
 
 	exports.parse = urlParse;
 	exports.resolve = urlResolve;
@@ -69472,7 +78779,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      'gopher:': true,
 	      'file:': true
 	    },
+<<<<<<< HEAD
 	    querystring = __webpack_require__(377);
+=======
+	    querystring = __webpack_require__(390);
+>>>>>>> dev
 
 	function urlParse(url, parseQueryString, slashesDenoteHost) {
 	  if (url && isObject(url) && url instanceof Url) return url;
@@ -70089,7 +79400,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 376 */
+=======
+/* 388 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! https://mths.be/punycode v1.3.2 by @mathias */
@@ -70624,17 +79939,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)(module), (function() { return this; }())))
 
 /***/ },
+<<<<<<< HEAD
 /* 377 */
+=======
+/* 389 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = {
+	  isString: function(arg) {
+	    return typeof(arg) === 'string';
+	  },
+	  isObject: function(arg) {
+	    return typeof(arg) === 'object' && arg !== null;
+	  },
+	  isNull: function(arg) {
+	    return arg === null;
+	  },
+	  isNullOrUndefined: function(arg) {
+	    return arg == null;
+	  }
+	};
+
+
+/***/ },
+/* 390 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	exports.decode = exports.parse = __webpack_require__(378);
 	exports.encode = exports.stringify = __webpack_require__(379);
 
 
 /***/ },
 /* 378 */
+=======
+	exports.decode = exports.parse = __webpack_require__(391);
+	exports.encode = exports.stringify = __webpack_require__(392);
+
+
+/***/ },
+/* 391 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -70720,7 +80070,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 379 */
+=======
+/* 392 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -70790,13 +80144,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 380 */
+=======
+/* 393 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var WebSocket = typeof window !== 'undefined' ? window.WebSocket : __webpack_require__(381);
 	var EventEmitter = __webpack_require__(382).EventEmitter;
+=======
+	var WebSocket = typeof window !== 'undefined' ? window.WebSocket : __webpack_require__(394);
+	var EventEmitter = __webpack_require__(395).EventEmitter;
+>>>>>>> dev
 
 	var betterWs = function betterWs(url) {
 		var conn = new WebSocket(url);
@@ -70840,6 +80203,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 381 */
 /***/ function(module, exports) {
 
@@ -70847,6 +80211,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 382 */
+=======
+/* 394 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_394__;
+
+/***/ },
+/* 395 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -71154,15 +80527,26 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 383 */
+=======
+/* 396 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
+<<<<<<< HEAD
 	var hyperquest = __webpack_require__(385);
 	var JSONStream = __webpack_require__(422);
 	var querystring = __webpack_require__(377);
 	var through2 = __webpack_require__(425);
+=======
+	var hyperquest = __webpack_require__(398);
+	var JSONStream = __webpack_require__(450);
+	var querystring = __webpack_require__(390);
+	var through2 = __webpack_require__(453);
+>>>>>>> dev
 
 	var streamingRequest = function streamingRequest(client, args) {
 		this.client = client;
@@ -71262,10 +80646,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = streamingRequest;
 
+<<<<<<< HEAD
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(384)))
 
 /***/ },
 /* 384 */
+=======
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+/***/ },
+/* 397 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -71451,6 +80842,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -71459,6 +80851,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	var https = __webpack_require__(413);
 	var through = __webpack_require__(414);
 	var duplexer = __webpack_require__(421);
+=======
+/* 398 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process, Buffer) {var url = __webpack_require__(387);
+	var http = __webpack_require__(403);
+	var https = __webpack_require__(431);
+	var through = __webpack_require__(432);
+	var duplexer = __webpack_require__(442);
+>>>>>>> dev
 
 	module.exports = hyperquest;
 
@@ -71607,10 +81009,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this;
 	};
 
+<<<<<<< HEAD
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(384), __webpack_require__(386).Buffer))
 
 /***/ },
 /* 386 */
+=======
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397), __webpack_require__(399).Buffer))
+
+/***/ },
+/* 399 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer, global) {/*!
@@ -71623,9 +81032,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict'
 
+<<<<<<< HEAD
 	var base64 = __webpack_require__(387)
 	var ieee754 = __webpack_require__(388)
 	var isArray = __webpack_require__(389)
+=======
+	var base64 = __webpack_require__(400)
+	var ieee754 = __webpack_require__(401)
+	var isArray = __webpack_require__(402)
+>>>>>>> dev
 
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -73406,7 +82821,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(386).Buffer, (function() { return this; }())))
 
 /***/ },
+<<<<<<< HEAD
 /* 387 */
+=======
+/* 400 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	'use strict'
@@ -73526,7 +82945,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 388 */
+=======
+/* 401 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -73616,7 +83039,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 389 */
+=======
+/* 402 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -73627,6 +83054,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -73646,6 +83074,332 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!params.host && params.hostname) {
 	        params.host = params.hostname;
 	    }
+=======
+/* 403 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {var ClientRequest = __webpack_require__(404)
+	var extend = __webpack_require__(429)
+	var statusCodes = __webpack_require__(430)
+	var url = __webpack_require__(387)
+
+	var http = exports
+
+	http.request = function (opts, cb) {
+		if (typeof opts === 'string')
+			opts = url.parse(opts)
+		else
+			opts = extend(opts)
+
+		// Normally, the page is loaded from http or https, so not specifying a protocol
+		// will result in a (valid) protocol-relative url. However, this won't work if
+		// the protocol is something else, like 'file:'
+		var defaultProtocol = global.location.protocol.search(/^https?:$/) === -1 ? 'http:' : ''
+
+		var protocol = opts.protocol || defaultProtocol
+		var host = opts.hostname || opts.host
+		var port = opts.port
+		var path = opts.path || '/'
+
+		// Necessary for IPv6 addresses
+		if (host && host.indexOf(':') !== -1)
+			host = '[' + host + ']'
+
+		// This may be a relative url. The browser should always be able to interpret it correctly.
+		opts.url = (host ? (protocol + '//' + host) : '') + (port ? ':' + port : '') + path
+		opts.method = (opts.method || 'GET').toUpperCase()
+		opts.headers = opts.headers || {}
+
+		// Also valid opts.auth, opts.mode
+
+		var req = new ClientRequest(opts)
+		if (cb)
+			req.on('response', cb)
+		return req
+	}
+
+	http.get = function get (opts, cb) {
+		var req = http.request(opts, cb)
+		req.end()
+		return req
+	}
+
+	http.Agent = function () {}
+	http.Agent.defaultMaxSockets = 4
+
+	http.STATUS_CODES = statusCodes
+
+	http.METHODS = [
+		'CHECKOUT',
+		'CONNECT',
+		'COPY',
+		'DELETE',
+		'GET',
+		'HEAD',
+		'LOCK',
+		'M-SEARCH',
+		'MERGE',
+		'MKACTIVITY',
+		'MKCOL',
+		'MOVE',
+		'NOTIFY',
+		'OPTIONS',
+		'PATCH',
+		'POST',
+		'PROPFIND',
+		'PROPPATCH',
+		'PURGE',
+		'PUT',
+		'REPORT',
+		'SEARCH',
+		'SUBSCRIBE',
+		'TRACE',
+		'UNLOCK',
+		'UNSUBSCRIBE'
+	]
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 404 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(405)
+	var inherits = __webpack_require__(406)
+	var response = __webpack_require__(407)
+	var stream = __webpack_require__(408)
+	var toArrayBuffer = __webpack_require__(428)
+
+	var IncomingMessage = response.IncomingMessage
+	var rStates = response.readyStates
+
+	function decideMode (preferBinary, useFetch) {
+		if (capability.fetch && useFetch) {
+			return 'fetch'
+		} else if (capability.mozchunkedarraybuffer) {
+			return 'moz-chunked-arraybuffer'
+		} else if (capability.msstream) {
+			return 'ms-stream'
+		} else if (capability.arraybuffer && preferBinary) {
+			return 'arraybuffer'
+		} else if (capability.vbArray && preferBinary) {
+			return 'text:vbarray'
+		} else {
+			return 'text'
+		}
+	}
+
+	var ClientRequest = module.exports = function (opts) {
+		var self = this
+		stream.Writable.call(self)
+
+		self._opts = opts
+		self._body = []
+		self._headers = {}
+		if (opts.auth)
+			self.setHeader('Authorization', 'Basic ' + new Buffer(opts.auth).toString('base64'))
+		Object.keys(opts.headers).forEach(function (name) {
+			self.setHeader(name, opts.headers[name])
+		})
+
+		var preferBinary
+		var useFetch = true
+		if (opts.mode === 'disable-fetch' || 'timeout' in opts) {
+			// If the use of XHR should be preferred and includes preserving the 'content-type' header.
+			// Force XHR to be used since the Fetch API does not yet support timeouts.
+			useFetch = false
+			preferBinary = true
+		} else if (opts.mode === 'prefer-streaming') {
+			// If streaming is a high priority but binary compatibility and
+			// the accuracy of the 'content-type' header aren't
+			preferBinary = false
+		} else if (opts.mode === 'allow-wrong-content-type') {
+			// If streaming is more important than preserving the 'content-type' header
+			preferBinary = !capability.overrideMimeType
+		} else if (!opts.mode || opts.mode === 'default' || opts.mode === 'prefer-fast') {
+			// Use binary if text streaming may corrupt data or the content-type header, or for speed
+			preferBinary = true
+		} else {
+			throw new Error('Invalid value for opts.mode')
+		}
+		self._mode = decideMode(preferBinary, useFetch)
+
+		self.on('finish', function () {
+			self._onFinish()
+		})
+	}
+
+	inherits(ClientRequest, stream.Writable)
+
+	ClientRequest.prototype.setHeader = function (name, value) {
+		var self = this
+		var lowerName = name.toLowerCase()
+		// This check is not necessary, but it prevents warnings from browsers about setting unsafe
+		// headers. To be honest I'm not entirely sure hiding these warnings is a good thing, but
+		// http-browserify did it, so I will too.
+		if (unsafeHeaders.indexOf(lowerName) !== -1)
+			return
+
+		self._headers[lowerName] = {
+			name: name,
+			value: value
+		}
+	}
+
+	ClientRequest.prototype.getHeader = function (name) {
+		var self = this
+		return self._headers[name.toLowerCase()].value
+	}
+
+	ClientRequest.prototype.removeHeader = function (name) {
+		var self = this
+		delete self._headers[name.toLowerCase()]
+	}
+
+	ClientRequest.prototype._onFinish = function () {
+		var self = this
+
+		if (self._destroyed)
+			return
+		var opts = self._opts
+
+		var headersObj = self._headers
+		var body = null
+		if (opts.method === 'POST' || opts.method === 'PUT' || opts.method === 'PATCH' || opts.method === 'MERGE') {
+			if (capability.blobConstructor) {
+				body = new global.Blob(self._body.map(function (buffer) {
+					return toArrayBuffer(buffer)
+				}), {
+					type: (headersObj['content-type'] || {}).value || ''
+				})
+			} else {
+				// get utf8 string
+				body = Buffer.concat(self._body).toString()
+			}
+		}
+
+		if (self._mode === 'fetch') {
+			var headers = Object.keys(headersObj).map(function (name) {
+				return [headersObj[name].name, headersObj[name].value]
+			})
+
+			global.fetch(self._opts.url, {
+				method: self._opts.method,
+				headers: headers,
+				body: body || undefined,
+				mode: 'cors',
+				credentials: opts.withCredentials ? 'include' : 'same-origin'
+			}).then(function (response) {
+				self._fetchResponse = response
+				self._connect()
+			}, function (reason) {
+				self.emit('error', reason)
+			})
+		} else {
+			var xhr = self._xhr = new global.XMLHttpRequest()
+			try {
+				xhr.open(self._opts.method, self._opts.url, true)
+			} catch (err) {
+				process.nextTick(function () {
+					self.emit('error', err)
+				})
+				return
+			}
+
+			// Can't set responseType on really old browsers
+			if ('responseType' in xhr)
+				xhr.responseType = self._mode.split(':')[0]
+
+			if ('withCredentials' in xhr)
+				xhr.withCredentials = !!opts.withCredentials
+
+			if (self._mode === 'text' && 'overrideMimeType' in xhr)
+				xhr.overrideMimeType('text/plain; charset=x-user-defined')
+
+			if ('timeout' in opts) {
+				xhr.timeout = opts.timeout
+				xhr.ontimeout = function () {
+					self.emit('timeout')
+				}
+			}
+
+			Object.keys(headersObj).forEach(function (name) {
+				xhr.setRequestHeader(headersObj[name].name, headersObj[name].value)
+			})
+
+			self._response = null
+			xhr.onreadystatechange = function () {
+				switch (xhr.readyState) {
+					case rStates.LOADING:
+					case rStates.DONE:
+						self._onXHRProgress()
+						break
+				}
+			}
+			// Necessary for streaming in Firefox, since xhr.response is ONLY defined
+			// in onprogress, not in onreadystatechange with xhr.readyState = 3
+			if (self._mode === 'moz-chunked-arraybuffer') {
+				xhr.onprogress = function () {
+					self._onXHRProgress()
+				}
+			}
+
+			xhr.onerror = function () {
+				if (self._destroyed)
+					return
+				self.emit('error', new Error('XHR error'))
+			}
+
+			try {
+				xhr.send(body)
+			} catch (err) {
+				process.nextTick(function () {
+					self.emit('error', err)
+				})
+				return
+			}
+		}
+	}
+
+	/**
+	 * Checks if xhr.status is readable and non-zero, indicating no error.
+	 * Even though the spec says it should be available in readyState 3,
+	 * accessing it throws an exception in IE8
+	 */
+	function statusValid (xhr) {
+		try {
+			var status = xhr.status
+			return (status !== null && status !== 0)
+		} catch (e) {
+			return false
+		}
+	}
+
+	ClientRequest.prototype._onXHRProgress = function () {
+		var self = this
+
+		if (!statusValid(self._xhr) || self._destroyed)
+			return
+
+		if (!self._response)
+			self._connect()
+
+		self._response._onXHRProgress()
+	}
+
+	ClientRequest.prototype._connect = function () {
+		var self = this
+
+		if (self._destroyed)
+			return
+
+		self._response = new IncomingMessage(self._xhr, self._fetchResponse, self._mode)
+		self._response.on('error', function(err) {
+			self.emit('error', err)
+		})
+
+		self.emit('response', self._response)
+	}
+>>>>>>> dev
 
 	    if (!params.protocol) {
 	        if (params.scheme) {
@@ -73717,6 +83471,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	})();
 
+<<<<<<< HEAD
 	http.STATUS_CODES = {
 	    100 : 'Continue',
 	    101 : 'Switching Protocols',
@@ -73800,6 +83555,114 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (typeof params.withCredentials === 'undefined') {
 	        params.withCredentials = true;
 	    }
+=======
+		stream.Writable.prototype.end.call(self, data, encoding, cb)
+	}
+
+	ClientRequest.prototype.flushHeaders = function () {}
+	ClientRequest.prototype.setTimeout = function () {}
+	ClientRequest.prototype.setNoDelay = function () {}
+	ClientRequest.prototype.setSocketKeepAlive = function () {}
+
+	// Taken from http://www.w3.org/TR/XMLHttpRequest/#the-setrequestheader%28%29-method
+	var unsafeHeaders = [
+		'accept-charset',
+		'accept-encoding',
+		'access-control-request-headers',
+		'access-control-request-method',
+		'connection',
+		'content-length',
+		'cookie',
+		'cookie2',
+		'date',
+		'dnt',
+		'expect',
+		'host',
+		'keep-alive',
+		'origin',
+		'referer',
+		'te',
+		'trailer',
+		'transfer-encoding',
+		'upgrade',
+		'user-agent',
+		'via'
+	]
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(399).Buffer, (function() { return this; }()), __webpack_require__(397)))
+
+/***/ },
+/* 405 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
+
+	exports.blobConstructor = false
+	try {
+		new Blob([new ArrayBuffer(1)])
+		exports.blobConstructor = true
+	} catch (e) {}
+
+	// The xhr request to example.com may violate some restrictive CSP configurations,
+	// so if we're running in a browser that supports `fetch`, avoid calling getXHR()
+	// and assume support for certain features below.
+	var xhr
+	function getXHR () {
+		// Cache the xhr value
+		if (xhr !== undefined) return xhr
+
+		if (global.XMLHttpRequest) {
+			xhr = new global.XMLHttpRequest()
+			// If XDomainRequest is available (ie only, where xhr might not work
+			// cross domain), use the page location. Otherwise use example.com
+			// Note: this doesn't actually make an http request.
+			try {
+				xhr.open('GET', global.XDomainRequest ? '/' : 'https://example.com')
+			} catch(e) {
+				xhr = null
+			}
+		} else {
+			// Service workers don't have XHR
+			xhr = null
+		}
+		return xhr
+	}
+
+	function checkTypeSupport (type) {
+		var xhr = getXHR()
+		if (!xhr) return false
+		try {
+			xhr.responseType = type
+			return xhr.responseType === type
+		} catch (e) {}
+		return false
+	}
+
+	// For some strange reason, Safari 7.0 reports typeof global.ArrayBuffer === 'object'.
+	// Safari 7.1 appears to have fixed this bug.
+	var haveArrayBuffer = typeof global.ArrayBuffer !== 'undefined'
+	var haveSlice = haveArrayBuffer && isFunction(global.ArrayBuffer.prototype.slice)
+
+	// If fetch is supported, then arraybuffer will be supported too. Skip calling
+	// checkTypeSupport(), since that calls getXHR().
+	exports.arraybuffer = exports.fetch || (haveArrayBuffer && checkTypeSupport('arraybuffer'))
+
+	// These next two tests unavoidably show warnings in Chrome. Since fetch will always
+	// be used if it's available, just return false for these to avoid the warnings.
+	exports.msstream = !exports.fetch && haveSlice && checkTypeSupport('ms-stream')
+	exports.mozchunkedarraybuffer = !exports.fetch && haveArrayBuffer &&
+		checkTypeSupport('moz-chunked-arraybuffer')
+
+	// If fetch is supported, then overrideMimeType will be supported too. Skip calling
+	// getXHR().
+	exports.overrideMimeType = exports.fetch || (getXHR() ? isFunction(getXHR().overrideMimeType) : false)
+
+	exports.vbArray = isFunction(global.VBArray)
+
+	function isFunction (value) {
+		return typeof value === 'function'
+	}
+>>>>>>> dev
 
 	    try { xhr.withCredentials = params.withCredentials }
 	    catch (e) {}
@@ -73817,6 +83680,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        self.emit('error', new Error('Network error'));
 	    };
 
+<<<<<<< HEAD
 	    self._headers = {};
 	    
 	    if (params.headers) {
@@ -73833,6 +83697,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        //basic auth
 	        this.setHeader('Authorization', 'Basic ' + Base64.btoa(params.auth));
 	    }
+=======
+/***/ },
+/* 406 */
+/***/ function(module, exports) {
+>>>>>>> dev
 
 	    var res = new Response;
 	    res.on('close', function () {
@@ -73842,6 +83711,47 @@ return /******/ (function(modules) { // webpackBootstrap
 	    res.on('ready', function () {
 	        self.emit('response', res);
 	    });
+<<<<<<< HEAD
+=======
+	  };
+	} else {
+	  // old school shim for old browsers
+	  module.exports = function inherits(ctor, superCtor) {
+	    ctor.super_ = superCtor
+	    var TempCtor = function () {}
+	    TempCtor.prototype = superCtor.prototype
+	    ctor.prototype = new TempCtor()
+	    ctor.prototype.constructor = ctor
+	  }
+	}
+
+
+/***/ },
+/* 407 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(405)
+	var inherits = __webpack_require__(406)
+	var stream = __webpack_require__(408)
+
+	var rStates = exports.readyStates = {
+		UNSENT: 0,
+		OPENED: 1,
+		HEADERS_RECEIVED: 2,
+		LOADING: 3,
+		DONE: 4
+	}
+
+	var IncomingMessage = exports.IncomingMessage = function (xhr, response, mode) {
+		var self = this
+		stream.Readable.call(self)
+
+		self._mode = mode
+		self.headers = {}
+		self.rawHeaders = []
+		self.trailers = {}
+		self.rawTrailers = []
+>>>>>>> dev
 
 	    res.on('error', function (err) {
 	        self.emit('error', err);
@@ -73858,9 +83768,29 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	inherits(Request, Stream);
 
+<<<<<<< HEAD
 	Request.prototype.setHeader = function (key, value) {
 	    this._headers[key.toLowerCase()] = value
 	};
+=======
+			// TODO: this doesn't respect backpressure. Once WritableStream is available, this can be fixed
+			var reader = response.body.getReader()
+			function read () {
+				reader.read().then(function (result) {
+					if (self._destroyed)
+						return
+					if (result.done) {
+						self.push(null)
+						return
+					}
+					self.push(new Buffer(result.value))
+					read()
+				}).catch(function(err) {
+					self.emit('error', err)
+				})
+			}
+			read()
+>>>>>>> dev
 
 	Request.prototype.getHeader = function (key) {
 	    return this._headers[key.toLowerCase()]
@@ -73966,6 +83896,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return indexOf(Request.unsafeHeaders, headerName.toLowerCase()) === -1;
 	};
 
+<<<<<<< HEAD
 	var objectKeys = Object.keys || function (obj) {
 	    var keys = [];
 	    for (var key in obj) keys.push(key);
@@ -73983,6 +83914,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return -1;
 	};
+=======
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397), __webpack_require__(399).Buffer, (function() { return this; }())))
+
+/***/ },
+/* 408 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {var Stream = (function (){
+	  try {
+	    return __webpack_require__(409); // hack to fix a circular dependency issue when used with browserify
+	  } catch(_){}
+	}());
+	exports = module.exports = __webpack_require__(419);
+	exports.Stream = Stream || exports;
+	exports.Readable = exports;
+	exports.Writable = __webpack_require__(411);
+	exports.Duplex = __webpack_require__(418);
+	exports.Transform = __webpack_require__(425);
+	exports.PassThrough = __webpack_require__(427);
+>>>>>>> dev
 
 	var isXHR2Compatible = function (obj) {
 	    if (typeof Blob !== 'undefined' && obj instanceof Blob) return true;
@@ -73990,9 +83941,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (typeof FormData !== 'undefined' && obj instanceof FormData) return true;
 	};
 
+<<<<<<< HEAD
 
 /***/ },
 /* 392 */
+=======
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+/***/ },
+/* 409 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -74018,6 +83976,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = Stream;
 
+<<<<<<< HEAD
 	var EE = __webpack_require__(382).EventEmitter;
 	var inherits = __webpack_require__(393);
 
@@ -74027,6 +83986,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	Stream.Duplex = __webpack_require__(405);
 	Stream.Transform = __webpack_require__(406);
 	Stream.PassThrough = __webpack_require__(407);
+=======
+	var EE = __webpack_require__(395).EventEmitter;
+	var inherits = __webpack_require__(406);
+
+	inherits(Stream, EE);
+	Stream.Readable = __webpack_require__(408);
+	Stream.Writable = __webpack_require__(410);
+	Stream.Duplex = __webpack_require__(423);
+	Stream.Transform = __webpack_require__(424);
+	Stream.PassThrough = __webpack_require__(426);
+>>>>>>> dev
 
 	// Backwards-compat with node 0.4.x
 	Stream.Stream = Stream;
@@ -74125,6 +84095,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 393 */
 /***/ function(module, exports) {
 
@@ -74194,20 +84165,47 @@ return /******/ (function(modules) { // webpackBootstrap
 	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+=======
+/* 410 */
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = Readable;
+	module.exports = __webpack_require__(411)
+
+
+/***/ },
+/* 411 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process, setImmediate) {// A bit simpler than readable streams.
+	// Implement an async ._write(chunk, encoding, cb), and it'll handle all
+	// the drain event emission and buffering.
+>>>>>>> dev
+
+	'use strict';
+
+	module.exports = Writable;
 
 	/*<replacement>*/
+<<<<<<< HEAD
 	var isArray = __webpack_require__(396);
 	/*</replacement>*/
 
+=======
+	var processNextTick = __webpack_require__(414);
+	/*</replacement>*/
+
+	/*<replacement>*/
+	var asyncWrite = !process.browser && ['v0.10', 'v0.9.'].indexOf(process.version.slice(0, 5)) > -1 ? setImmediate : processNextTick;
+	/*</replacement>*/
+>>>>>>> dev
 
 	/*<replacement>*/
 	var Buffer = __webpack_require__(386).Buffer;
 	/*</replacement>*/
 
-	Readable.ReadableState = ReadableState;
+	Writable.WritableState = WritableState;
 
+<<<<<<< HEAD
 	var EE = __webpack_require__(382).EventEmitter;
 
 	/*<replacement>*/
@@ -74235,11 +84233,6803 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	/*</replacement>*/
 
+=======
+	/*<replacement>*/
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
+	/*</replacement>*/
+
+	/*<replacement>*/
+	var internalUtil = {
+	  deprecate: __webpack_require__(416)
+	};
+	/*</replacement>*/
+
+	/*<replacement>*/
+	var Stream;
+	(function () {
+	  try {
+	    Stream = __webpack_require__(409);
+	  } catch (_) {} finally {
+	    if (!Stream) Stream = __webpack_require__(395).EventEmitter;
+	  }
+	})();
+	/*</replacement>*/
+
+	var Buffer = __webpack_require__(399).Buffer;
+	/*<replacement>*/
+	var bufferShim = __webpack_require__(417);
+	/*</replacement>*/
+
+	util.inherits(Writable, Stream);
+>>>>>>> dev
+
+	function nop() {}
+
+<<<<<<< HEAD
+	function ReadableState(options, stream) {
+	  var Duplex = __webpack_require__(399);
+
+	  options = options || {};
+
+	  // the point at which it stops calling _read() to fill the buffer
+	  // Note: 0 is a valid value, means "don't call _read preemptively ever"
+=======
+	function WriteReq(chunk, encoding, cb) {
+	  this.chunk = chunk;
+	  this.encoding = encoding;
+	  this.callback = cb;
+	  this.next = null;
+	}
+
+	function WritableState(options, stream) {
+	  Duplex = Duplex || __webpack_require__(418);
+
+	  options = options || {};
+
+	  // object stream flag to indicate whether or not this stream
+	  // contains buffers or objects.
+	  this.objectMode = !!options.objectMode;
+
+	  if (stream instanceof Duplex) this.objectMode = this.objectMode || !!options.writableObjectMode;
+
+	  // the point at which write() starts returning false
+	  // Note: 0 is a valid value, means that we always return false if
+	  // the entire buffer is not flushed immediately on write()
+>>>>>>> dev
+	  var hwm = options.highWaterMark;
+	  var defaultHwm = options.objectMode ? 16 : 16 * 1024;
+	  this.highWaterMark = (hwm || hwm === 0) ? hwm : defaultHwm;
+
+	  // cast to ints.
+	  this.highWaterMark = ~~this.highWaterMark;
+
+<<<<<<< HEAD
+	  this.buffer = [];
+	  this.length = 0;
+	  this.pipes = null;
+	  this.pipesCount = 0;
+	  this.flowing = null;
+=======
+	  // drain event flag.
+	  this.needDrain = false;
+	  // at the start of calling end()
+	  this.ending = false;
+	  // when end() has been called, and returned
+>>>>>>> dev
+	  this.ended = false;
+	  // when 'finish' is emitted
+	  this.finished = false;
+
+<<<<<<< HEAD
+	  // whenever we return null, then we set a flag to say
+	  // that we're awaiting a 'readable' event emission.
+	  this.needReadable = false;
+	  this.emittedReadable = false;
+	  this.readableListening = false;
+
+
+	  // object stream flag. Used to make read(n) ignore n and to
+	  // make all the buffer merging and length checks go away
+	  this.objectMode = !!options.objectMode;
+
+	  if (stream instanceof Duplex)
+	    this.objectMode = this.objectMode || !!options.readableObjectMode;
+=======
+	  // should we decode strings into buffers before passing to _write?
+	  // this is here so that some node-core streams can optimize string
+	  // handling at a lower level.
+	  var noDecode = options.decodeStrings === false;
+	  this.decodeStrings = !noDecode;
+>>>>>>> dev
+
+	  // Crypto is kind of old and crusty.  Historically, its default string
+	  // encoding is 'binary' so we have to make this configurable.
+	  // Everything else in the universe uses 'utf8', though.
+	  this.defaultEncoding = options.defaultEncoding || 'utf8';
+
+	  // not an actual buffer we keep track of, but a measurement
+	  // of how much we're waiting to get pushed to some underlying
+	  // socket or file.
+	  this.length = 0;
+
+	  // a flag to see when we're in the middle of a write.
+	  this.writing = false;
+
+	  // when true all writes will be buffered until .uncork() call
+	  this.corked = 0;
+
+<<<<<<< HEAD
+	  this.decoder = null;
+	  this.encoding = null;
+	  if (options.encoding) {
+	    if (!StringDecoder)
+	      StringDecoder = __webpack_require__(401).StringDecoder;
+	    this.decoder = new StringDecoder(options.encoding);
+	    this.encoding = options.encoding;
+	  }
+	}
+
+	function Readable(options) {
+	  var Duplex = __webpack_require__(399);
+
+	  if (!(this instanceof Readable))
+	    return new Readable(options);
+=======
+	  // a flag to be able to tell if the onwrite cb is called immediately,
+	  // or on a later tick.  We set this to true at first, because any
+	  // actions that shouldn't happen until "later" should generally also
+	  // not happen before the first write call.
+	  this.sync = true;
+
+	  // a flag to know if we're processing previously buffered items, which
+	  // may call the _write() callback in the same tick, so that we don't
+	  // end up in an overlapped onwrite situation.
+	  this.bufferProcessing = false;
+
+	  // the callback that's passed to _write(chunk,cb)
+	  this.onwrite = function (er) {
+	    onwrite(stream, er);
+	  };
+>>>>>>> dev
+
+	  // the callback that the user supplies to write(chunk,encoding,cb)
+	  this.writecb = null;
+
+	  // the amount that is being written when _write is called.
+	  this.writelen = 0;
+
+<<<<<<< HEAD
+	  Stream.call(this);
+	}
+
+	// Manually shove something into the read() buffer.
+	// This returns true if the highWaterMark has not been hit yet,
+	// similar to how Writable.write() returns true if you should
+	// write() some more.
+	Readable.prototype.push = function(chunk, encoding) {
+	  var state = this._readableState;
+
+	  if (util.isString(chunk) && !state.objectMode) {
+	    encoding = encoding || state.defaultEncoding;
+	    if (encoding !== state.encoding) {
+	      chunk = new Buffer(chunk, encoding);
+	      encoding = '';
+	    }
+	  }
+=======
+	  this.bufferedRequest = null;
+	  this.lastBufferedRequest = null;
+
+	  // number of pending user-supplied write callbacks
+	  // this must be 0 before 'finish' can be emitted
+	  this.pendingcb = 0;
+
+	  // emit prefinish if the only thing we're waiting for is _write cbs
+	  // This is relevant for synchronous Transform streams
+	  this.prefinished = false;
+
+	  // True if the error was already emitted and should not be thrown again
+	  this.errorEmitted = false;
+>>>>>>> dev
+
+	  // count buffered requests
+	  this.bufferedRequestCount = 0;
+
+<<<<<<< HEAD
+	// Unshift should *always* be something directly out of read()
+	Readable.prototype.unshift = function(chunk) {
+	  var state = this._readableState;
+	  return readableAddChunk(this, state, chunk, '', true);
+	};
+
+	function readableAddChunk(stream, state, chunk, encoding, addToFront) {
+	  var er = chunkInvalid(state, chunk);
+	  if (er) {
+	    stream.emit('error', er);
+	  } else if (util.isNullOrUndefined(chunk)) {
+	    state.reading = false;
+	    if (!state.ended)
+	      onEofChunk(stream, state);
+	  } else if (state.objectMode || chunk && chunk.length > 0) {
+	    if (state.ended && !addToFront) {
+	      var e = new Error('stream.push() after EOF');
+	      stream.emit('error', e);
+	    } else if (state.endEmitted && addToFront) {
+	      var e = new Error('stream.unshift() after end event');
+	      stream.emit('error', e);
+	    } else {
+	      if (state.decoder && !addToFront && !encoding)
+	        chunk = state.decoder.write(chunk);
+
+	      if (!addToFront)
+	        state.reading = false;
+
+	      // if we want the data now, just emit it.
+	      if (state.flowing && state.length === 0 && !state.sync) {
+	        stream.emit('data', chunk);
+	        stream.read(0);
+	      } else {
+	        // update the buffer info.
+	        state.length += state.objectMode ? 1 : chunk.length;
+	        if (addToFront)
+	          state.buffer.unshift(chunk);
+	        else
+	          state.buffer.push(chunk);
+
+	        if (state.needReadable)
+	          emitReadable(stream);
+	      }
+=======
+	  // allocate the first CorkedRequest, there is always
+	  // one allocated and free to use, and we maintain at most two
+	  this.corkedRequestsFree = new CorkedRequest(this);
+	}
+
+	WritableState.prototype.getBuffer = function getBuffer() {
+	  var current = this.bufferedRequest;
+	  var out = [];
+	  while (current) {
+	    out.push(current);
+	    current = current.next;
+	  }
+	  return out;
+	};
+
+	(function () {
+	  try {
+	    Object.defineProperty(WritableState.prototype, 'buffer', {
+	      get: internalUtil.deprecate(function () {
+	        return this.getBuffer();
+	      }, '_writableState.buffer is deprecated. Use _writableState.getBuffer ' + 'instead.')
+	    });
+	  } catch (_) {}
+	})();
+
+	// Test _writableState for inheritance to account for Duplex streams,
+	// whose prototype chain only points to Readable.
+	var realHasInstance;
+	if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.prototype[Symbol.hasInstance] === 'function') {
+	  realHasInstance = Function.prototype[Symbol.hasInstance];
+	  Object.defineProperty(Writable, Symbol.hasInstance, {
+	    value: function (object) {
+	      if (realHasInstance.call(this, object)) return true;
+
+	      return object && object._writableState instanceof WritableState;
+	    }
+	  });
+	} else {
+	  realHasInstance = function (object) {
+	    return object instanceof this;
+	  };
+	}
+
+	function Writable(options) {
+	  Duplex = Duplex || __webpack_require__(418);
+>>>>>>> dev
+
+	  // Writable ctor is applied to Duplexes, too.
+	  // `realHasInstance` is necessary because using plain `instanceof`
+	  // would return false, as no `_writableState` property is attached.
+
+	  // Trying to use the custom `instanceof` for Writable here will also break the
+	  // Node.js LazyTransform implementation, which has a non-trivial getter for
+	  // `_writableState` that would lead to infinite recursion.
+	  if (!realHasInstance.call(Writable, this) && !(this instanceof Duplex)) {
+	    return new Writable(options);
+	  }
+
+	  this._writableState = new WritableState(options, this);
+
+<<<<<<< HEAD
+
+
+	// if it's past the high water mark, we can push in some more.
+	// Also, if we have no data yet, we can stand some
+	// more bytes.  This is to work around cases where hwm=0,
+	// such as the repl.  Also, if the push() triggered a
+	// readable event, and the user called read(largeNumber) such that
+	// needReadable was set, then we ought to push more, so that another
+	// 'readable' event will be triggered.
+	function needMoreData(state) {
+	  return !state.ended &&
+	         (state.needReadable ||
+	          state.length < state.highWaterMark ||
+	          state.length === 0);
+	}
+
+	// backwards compatibility.
+	Readable.prototype.setEncoding = function(enc) {
+	  if (!StringDecoder)
+	    StringDecoder = __webpack_require__(401).StringDecoder;
+	  this._readableState.decoder = new StringDecoder(enc);
+	  this._readableState.encoding = enc;
+	  return this;
+	};
+
+	// Don't raise the hwm > 128MB
+	var MAX_HWM = 0x800000;
+	function roundUpToNextPowerOf2(n) {
+	  if (n >= MAX_HWM) {
+	    n = MAX_HWM;
+	  } else {
+	    // Get the next highest power of 2
+	    n--;
+	    for (var p = 1; p < 32; p <<= 1) n |= n >> p;
+	    n++;
+	  }
+	  return n;
+	}
+
+	function howMuchToRead(n, state) {
+	  if (state.length === 0 && state.ended)
+	    return 0;
+
+	  if (state.objectMode)
+	    return n === 0 ? 0 : 1;
+
+	  if (isNaN(n) || util.isNull(n)) {
+	    // only flow one buffer at a time
+	    if (state.flowing && state.buffer.length)
+	      return state.buffer[0].length;
+	    else
+	      return state.length;
+	  }
+
+	  if (n <= 0)
+	    return 0;
+
+	  // If we're asking for more than the target buffer level,
+	  // then raise the water mark.  Bump up to the next highest
+	  // power of 2, to prevent increasing it excessively in tiny
+	  // amounts.
+	  if (n > state.highWaterMark)
+	    state.highWaterMark = roundUpToNextPowerOf2(n);
+
+	  // don't have that much.  return null, unless we've ended.
+	  if (n > state.length) {
+	    if (!state.ended) {
+	      state.needReadable = true;
+	      return 0;
+	    } else
+	      return state.length;
+	  }
+
+	  return n;
+	}
+
+	// you can override either this method, or the async _read(n) below.
+	Readable.prototype.read = function(n) {
+	  debug('read', n);
+	  var state = this._readableState;
+	  var nOrig = n;
+
+	  if (!util.isNumber(n) || n > 0)
+	    state.emittedReadable = false;
+
+	  // if we're doing read(0) to trigger a readable event, but we
+	  // already have a bunch of data in the buffer, then just trigger
+	  // the 'readable' event and move on.
+	  if (n === 0 &&
+	      state.needReadable &&
+	      (state.length >= state.highWaterMark || state.ended)) {
+	    debug('read: emitReadable', state.length, state.ended);
+	    if (state.length === 0 && state.ended)
+	      endReadable(this);
+	    else
+	      emitReadable(this);
+	    return null;
+=======
+	  // legacy.
+	  this.writable = true;
+
+	  if (options) {
+	    if (typeof options.write === 'function') this._write = options.write;
+
+	    if (typeof options.writev === 'function') this._writev = options.writev;
+	  }
+
+	  Stream.call(this);
+	}
+
+	// Otherwise people can pipe Writable streams, which is just wrong.
+	Writable.prototype.pipe = function () {
+	  this.emit('error', new Error('Cannot pipe, not readable'));
+	};
+
+	function writeAfterEnd(stream, cb) {
+	  var er = new Error('write after end');
+	  // TODO: defer error events consistently everywhere, not just the cb
+	  stream.emit('error', er);
+	  processNextTick(cb, er);
+	}
+
+	// Checks that a user-supplied chunk is valid, especially for the particular
+	// mode the stream is in. Currently this means that `null` is never accepted
+	// and undefined/non-string values are only allowed in object mode.
+	function validChunk(stream, state, chunk, cb) {
+	  var valid = true;
+	  var er = false;
+
+	  if (chunk === null) {
+	    er = new TypeError('May not write null values to stream');
+	  } else if (typeof chunk !== 'string' && chunk !== undefined && !state.objectMode) {
+	    er = new TypeError('Invalid non-string/buffer chunk');
+	  }
+	  if (er) {
+	    stream.emit('error', er);
+	    processNextTick(cb, er);
+	    valid = false;
+	  }
+	  return valid;
+	}
+
+	Writable.prototype.write = function (chunk, encoding, cb) {
+	  var state = this._writableState;
+	  var ret = false;
+	  var isBuf = Buffer.isBuffer(chunk);
+
+	  if (typeof encoding === 'function') {
+	    cb = encoding;
+	    encoding = null;
+>>>>>>> dev
+	  }
+
+	  if (isBuf) encoding = 'buffer';else if (!encoding) encoding = state.defaultEncoding;
+
+<<<<<<< HEAD
+	  // if we've ended, and we're now clear, then finish it up.
+	  if (n === 0 && state.ended) {
+	    if (state.length === 0)
+	      endReadable(this);
+	    return null;
+=======
+	  if (typeof cb !== 'function') cb = nop;
+
+	  if (state.ended) writeAfterEnd(this, cb);else if (isBuf || validChunk(this, state, chunk, cb)) {
+	    state.pendingcb++;
+	    ret = writeOrBuffer(this, state, isBuf, chunk, encoding, cb);
+>>>>>>> dev
+	  }
+
+	  return ret;
+	};
+
+	Writable.prototype.cork = function () {
+	  var state = this._writableState;
+
+	  state.corked++;
+	};
+
+<<<<<<< HEAD
+	  // however, if we've ended, then there's no point, and if we're already
+	  // reading, then it's unnecessary.
+	  if (state.ended || state.reading) {
+	    doRead = false;
+	    debug('reading or ended', doRead);
+	  }
+
+	  if (doRead) {
+	    debug('do read');
+	    state.reading = true;
+	    state.sync = true;
+	    // if the length is currently zero, then we *need* a readable event.
+	    if (state.length === 0)
+	      state.needReadable = true;
+	    // call internal read method
+	    this._read(state.highWaterMark);
+	    state.sync = false;
+	  }
+
+	  // If _read pushed data synchronously, then `reading` will be false,
+	  // and we need to re-evaluate how much data we can return to the user.
+	  if (doRead && !state.reading)
+	    n = howMuchToRead(nOrig, state);
+
+	  var ret;
+	  if (n > 0)
+	    ret = fromList(n, state);
+	  else
+	    ret = null;
+
+	  if (util.isNull(ret)) {
+	    state.needReadable = true;
+	    n = 0;
+=======
+	Writable.prototype.uncork = function () {
+	  var state = this._writableState;
+
+	  if (state.corked) {
+	    state.corked--;
+
+	    if (!state.writing && !state.corked && !state.finished && !state.bufferProcessing && state.bufferedRequest) clearBuffer(this, state);
+>>>>>>> dev
+	  }
+	};
+
+<<<<<<< HEAD
+	  state.length -= n;
+
+	  // If we have nothing in the buffer, then we want to know
+	  // as soon as we *do* get something into the buffer.
+	  if (state.length === 0 && !state.ended)
+	    state.needReadable = true;
+
+	  // If we tried to read() past the EOF, then emit end on the next tick.
+	  if (nOrig !== n && state.ended && state.length === 0)
+	    endReadable(this);
+
+	  if (!util.isNull(ret))
+	    this.emit('data', ret);
+=======
+	Writable.prototype.setDefaultEncoding = function setDefaultEncoding(encoding) {
+	  // node::ParseEncoding() requires lower case.
+	  if (typeof encoding === 'string') encoding = encoding.toLowerCase();
+	  if (!(['hex', 'utf8', 'utf-8', 'ascii', 'binary', 'base64', 'ucs2', 'ucs-2', 'utf16le', 'utf-16le', 'raw'].indexOf((encoding + '').toLowerCase()) > -1)) throw new TypeError('Unknown encoding: ' + encoding);
+	  this._writableState.defaultEncoding = encoding;
+	  return this;
+	};
+
+	function decodeChunk(state, chunk, encoding) {
+	  if (!state.objectMode && state.decodeStrings !== false && typeof chunk === 'string') {
+	    chunk = bufferShim.from(chunk, encoding);
+	  }
+	  return chunk;
+	}
+
+	// if we're already writing something, then just put this
+	// in the queue, and wait our turn.  Otherwise, call _write
+	// If we return false, then we need a drain event, so set that flag.
+	function writeOrBuffer(stream, state, isBuf, chunk, encoding, cb) {
+	  if (!isBuf) {
+	    chunk = decodeChunk(state, chunk, encoding);
+	    if (Buffer.isBuffer(chunk)) encoding = 'buffer';
+	  }
+	  var len = state.objectMode ? 1 : chunk.length;
+>>>>>>> dev
+
+	  state.length += len;
+
+<<<<<<< HEAD
+	function chunkInvalid(state, chunk) {
+	  var er = null;
+	  if (!util.isBuffer(chunk) &&
+	      !util.isString(chunk) &&
+	      !util.isNullOrUndefined(chunk) &&
+	      !state.objectMode) {
+	    er = new TypeError('Invalid non-string/buffer chunk');
+	  }
+	  return er;
+	}
+
+
+	function onEofChunk(stream, state) {
+	  if (state.decoder && !state.ended) {
+	    var chunk = state.decoder.end();
+	    if (chunk && chunk.length) {
+	      state.buffer.push(chunk);
+	      state.length += state.objectMode ? 1 : chunk.length;
+=======
+	  var ret = state.length < state.highWaterMark;
+	  // we must ensure that previous needDrain will not be reset to false.
+	  if (!ret) state.needDrain = true;
+
+	  if (state.writing || state.corked) {
+	    var last = state.lastBufferedRequest;
+	    state.lastBufferedRequest = new WriteReq(chunk, encoding, cb);
+	    if (last) {
+	      last.next = state.lastBufferedRequest;
+	    } else {
+	      state.bufferedRequest = state.lastBufferedRequest;
+>>>>>>> dev
+	    }
+	    state.bufferedRequestCount += 1;
+	  } else {
+	    doWrite(stream, state, false, len, chunk, encoding, cb);
+	  }
+
+	  return ret;
+	}
+
+<<<<<<< HEAD
+	// Don't emit readable right away in sync mode, because this can trigger
+	// another read() call => stack overflow.  This way, it might trigger
+	// a nextTick recursion warning, but that's not so bad.
+	function emitReadable(stream) {
+	  var state = stream._readableState;
+	  state.needReadable = false;
+	  if (!state.emittedReadable) {
+	    debug('emitReadable', state.flowing);
+	    state.emittedReadable = true;
+	    if (state.sync)
+	      process.nextTick(function() {
+	        emitReadable_(stream);
+	      });
+	    else
+	      emitReadable_(stream);
+	  }
+=======
+	function doWrite(stream, state, writev, len, chunk, encoding, cb) {
+	  state.writelen = len;
+	  state.writecb = cb;
+	  state.writing = true;
+	  state.sync = true;
+	  if (writev) stream._writev(chunk, state.onwrite);else stream._write(chunk, encoding, state.onwrite);
+	  state.sync = false;
+>>>>>>> dev
+	}
+
+	function onwriteError(stream, state, sync, er, cb) {
+	  --state.pendingcb;
+	  if (sync) processNextTick(cb, er);else cb(er);
+
+<<<<<<< HEAD
+
+	// at this point, the user has presumably seen the 'readable' event,
+	// and called read() to consume some data.  that may have triggered
+	// in turn another _read(n) call, in which case reading = true if
+	// it's in progress.
+	// However, if we're not ended, or reading, and the length < hwm,
+	// then go ahead and try to read some more preemptively.
+	function maybeReadMore(stream, state) {
+	  if (!state.readingMore) {
+	    state.readingMore = true;
+	    process.nextTick(function() {
+	      maybeReadMore_(stream, state);
+	    });
+	  }
+	}
+
+	function maybeReadMore_(stream, state) {
+	  var len = state.length;
+	  while (!state.reading && !state.flowing && !state.ended &&
+	         state.length < state.highWaterMark) {
+	    debug('maybeReadMore read 0');
+	    stream.read(0);
+	    if (len === state.length)
+	      // didn't get any data, stop spinning.
+	      break;
+	    else
+	      len = state.length;
+	  }
+	  state.readingMore = false;
+	}
+
+	// abstract method.  to be overridden in specific implementation classes.
+	// call cb(er, data) where data is <= n in length.
+	// for virtual (non-string, non-buffer) streams, "length" is somewhat
+	// arbitrary, and perhaps not very meaningful.
+	Readable.prototype._read = function(n) {
+	  this.emit('error', new Error('not implemented'));
+	};
+
+	Readable.prototype.pipe = function(dest, pipeOpts) {
+	  var src = this;
+	  var state = this._readableState;
+=======
+	  stream._writableState.errorEmitted = true;
+	  stream.emit('error', er);
+	}
+
+	function onwriteStateUpdate(state) {
+	  state.writing = false;
+	  state.writecb = null;
+	  state.length -= state.writelen;
+	  state.writelen = 0;
+	}
+
+	function onwrite(stream, er) {
+	  var state = stream._writableState;
+	  var sync = state.sync;
+	  var cb = state.writecb;
+>>>>>>> dev
+
+	  onwriteStateUpdate(state);
+
+<<<<<<< HEAD
+	  var doEnd = (!pipeOpts || pipeOpts.end !== false) &&
+	              dest !== process.stdout &&
+	              dest !== process.stderr;
+
+	  var endFn = doEnd ? onend : cleanup;
+	  if (state.endEmitted)
+	    process.nextTick(endFn);
+	  else
+	    src.once('end', endFn);
+=======
+	  if (er) onwriteError(stream, state, sync, er, cb);else {
+	    // Check if we're actually ready to finish, but don't emit yet
+	    var finished = needFinish(state);
+
+	    if (!finished && !state.corked && !state.bufferProcessing && state.bufferedRequest) {
+	      clearBuffer(stream, state);
+	    }
+>>>>>>> dev
+
+	    if (sync) {
+	      /*<replacement>*/
+	      asyncWrite(afterWrite, stream, state, finished, cb);
+	      /*</replacement>*/
+	    } else {
+	      afterWrite(stream, state, finished, cb);
+	    }
+	  }
+	}
+
+	function afterWrite(stream, state, finished, cb) {
+	  if (!finished) onwriteDrain(stream, state);
+	  state.pendingcb--;
+	  cb();
+	  finishMaybe(stream, state);
+	}
+
+	// Must force callback to be called on nextTick, so that we don't
+	// emit 'drain' before the write() consumer gets the 'false' return
+	// value, and has a chance to attach a 'drain' listener.
+	function onwriteDrain(stream, state) {
+	  if (state.length === 0 && state.needDrain) {
+	    state.needDrain = false;
+	    stream.emit('drain');
+	  }
+	}
+
+	// if there's something in the buffer waiting, then process it
+	function clearBuffer(stream, state) {
+	  state.bufferProcessing = true;
+	  var entry = state.bufferedRequest;
+
+<<<<<<< HEAD
+	  function cleanup() {
+	    debug('cleanup');
+	    // cleanup event handlers once the pipe is broken
+	    dest.removeListener('close', onclose);
+	    dest.removeListener('finish', onfinish);
+	    dest.removeListener('drain', ondrain);
+	    dest.removeListener('error', onerror);
+	    dest.removeListener('unpipe', onunpipe);
+	    src.removeListener('end', onend);
+	    src.removeListener('end', cleanup);
+	    src.removeListener('data', ondata);
+
+	    // if the reader is waiting for a drain event from this
+	    // specific writer, then it would cause it to never start
+	    // flowing again.
+	    // So, if this is awaiting a drain, then we just call it now.
+	    // If we don't know, then assume that we are waiting for one.
+	    if (state.awaitDrain &&
+	        (!dest._writableState || dest._writableState.needDrain))
+	      ondrain();
+	  }
+
+	  src.on('data', ondata);
+	  function ondata(chunk) {
+	    debug('ondata');
+	    var ret = dest.write(chunk);
+	    if (false === ret) {
+	      debug('false write response, pause',
+	            src._readableState.awaitDrain);
+	      src._readableState.awaitDrain++;
+	      src.pause();
+=======
+	  if (stream._writev && entry && entry.next) {
+	    // Fast case, write everything using _writev()
+	    var l = state.bufferedRequestCount;
+	    var buffer = new Array(l);
+	    var holder = state.corkedRequestsFree;
+	    holder.entry = entry;
+
+	    var count = 0;
+	    while (entry) {
+	      buffer[count] = entry;
+	      entry = entry.next;
+	      count += 1;
+	    }
+
+	    doWrite(stream, state, true, state.length, buffer, '', holder.finish);
+
+	    // doWrite is almost always async, defer these to save a bit of time
+	    // as the hot path ends with doWrite
+	    state.pendingcb++;
+	    state.lastBufferedRequest = null;
+	    if (holder.next) {
+	      state.corkedRequestsFree = holder.next;
+	      holder.next = null;
+	    } else {
+	      state.corkedRequestsFree = new CorkedRequest(state);
+	    }
+	  } else {
+	    // Slow case, write chunks one-by-one
+	    while (entry) {
+	      var chunk = entry.chunk;
+	      var encoding = entry.encoding;
+	      var cb = entry.callback;
+	      var len = state.objectMode ? 1 : chunk.length;
+
+	      doWrite(stream, state, false, len, chunk, encoding, cb);
+	      entry = entry.next;
+	      // if we didn't call the onwrite immediately, then
+	      // it means that we need to wait until it does.
+	      // also, that means that the chunk and cb are currently
+	      // being processed, so move the buffer counter past them.
+	      if (state.writing) {
+	        break;
+	      }
+>>>>>>> dev
+	    }
+
+<<<<<<< HEAD
+	  // if the dest has an error, then stop piping into it.
+	  // however, don't suppress the throwing behavior for this.
+	  function onerror(er) {
+	    debug('onerror', er);
+	    unpipe();
+	    dest.removeListener('error', onerror);
+	    if (EE.listenerCount(dest, 'error') === 0)
+	      dest.emit('error', er);
+=======
+	    if (entry === null) state.lastBufferedRequest = null;
+>>>>>>> dev
+	  }
+	  // This is a brutally ugly hack to make sure that our error handler
+	  // is attached before any userland ones.  NEVER DO THIS.
+	  if (!dest._events || !dest._events.error)
+	    dest.on('error', onerror);
+	  else if (isArray(dest._events.error))
+	    dest._events.error.unshift(onerror);
+	  else
+	    dest._events.error = [onerror, dest._events.error];
+
+
+<<<<<<< HEAD
+=======
+	  state.bufferedRequestCount = 0;
+	  state.bufferedRequest = entry;
+	  state.bufferProcessing = false;
+	}
+>>>>>>> dev
+
+	Writable.prototype._write = function (chunk, encoding, cb) {
+	  cb(new Error('_write() is not implemented'));
+	};
+
+	Writable.prototype._writev = null;
+
+	Writable.prototype.end = function (chunk, encoding, cb) {
+	  var state = this._writableState;
+
+	  if (typeof chunk === 'function') {
+	    cb = chunk;
+	    chunk = null;
+	    encoding = null;
+	  } else if (typeof encoding === 'function') {
+	    cb = encoding;
+	    encoding = null;
+	  }
+
+	  if (chunk !== null && chunk !== undefined) this.write(chunk, encoding);
+
+	  // .end() fully uncorks
+	  if (state.corked) {
+	    state.corked = 1;
+	    this.uncork();
+	  }
+
+	  // ignore unnecessary end() calls.
+	  if (!state.ending && !state.finished) endWritable(this, state, cb);
+	};
+
+	function needFinish(state) {
+	  return state.ending && state.length === 0 && state.bufferedRequest === null && !state.finished && !state.writing;
+	}
+
+	function prefinish(stream, state) {
+	  if (!state.prefinished) {
+	    state.prefinished = true;
+	    stream.emit('prefinish');
+	  }
+	}
+
+	function finishMaybe(stream, state) {
+	  var need = needFinish(state);
+	  if (need) {
+	    if (state.pendingcb === 0) {
+	      prefinish(stream, state);
+	      state.finished = true;
+	      stream.emit('finish');
+	    } else {
+	      prefinish(stream, state);
+	    }
+	  }
+	  return need;
+	}
+
+	function endWritable(stream, state, cb) {
+	  state.ending = true;
+	  finishMaybe(stream, state);
+	  if (cb) {
+	    if (state.finished) processNextTick(cb);else stream.once('finish', cb);
+	  }
+	  state.ended = true;
+	  stream.writable = false;
+	}
+
+	// It seems a linked list but it is not
+	// there will be only 2 of these for each stream
+	function CorkedRequest(state) {
+	  var _this = this;
+
+<<<<<<< HEAD
+	function pipeOnDrain(src) {
+	  return function() {
+	    var state = src._readableState;
+	    debug('pipeOnDrain', state.awaitDrain);
+	    if (state.awaitDrain)
+	      state.awaitDrain--;
+	    if (state.awaitDrain === 0 && EE.listenerCount(src, 'data')) {
+	      state.flowing = true;
+	      flow(src);
+=======
+	  this.next = null;
+	  this.entry = null;
+	  this.finish = function (err) {
+	    var entry = _this.entry;
+	    _this.entry = null;
+	    while (entry) {
+	      var cb = entry.callback;
+	      state.pendingcb--;
+	      cb(err);
+	      entry = entry.next;
+	    }
+	    if (state.corkedRequestsFree) {
+	      state.corkedRequestsFree.next = _this;
+	    } else {
+	      state.corkedRequestsFree = _this;
+>>>>>>> dev
+	    }
+	  };
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397), __webpack_require__(412).setImmediate))
+
+<<<<<<< HEAD
+
+	Readable.prototype.unpipe = function(dest) {
+	  var state = this._readableState;
+
+	  // if we're not piping anywhere, then do nothing.
+	  if (state.pipesCount === 0)
+	    return this;
+
+	  // just one destination.  most common case.
+	  if (state.pipesCount === 1) {
+	    // passed in one, but it's not the right one.
+	    if (dest && dest !== state.pipes)
+	      return this;
+
+	    if (!dest)
+	      dest = state.pipes;
+
+	    // got a match.
+	    state.pipes = null;
+	    state.pipesCount = 0;
+	    state.flowing = false;
+	    if (dest)
+	      dest.emit('unpipe', this);
+	    return this;
+=======
+/***/ },
+/* 412 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var apply = Function.prototype.apply;
+
+	// DOM APIs, for completeness
+
+	exports.setTimeout = function() {
+	  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+	};
+	exports.setInterval = function() {
+	  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+	};
+	exports.clearTimeout =
+	exports.clearInterval = function(timeout) {
+	  if (timeout) {
+	    timeout.close();
+>>>>>>> dev
+	  }
+	};
+
+	function Timeout(id, clearFn) {
+	  this._id = id;
+	  this._clearFn = clearFn;
+	}
+	Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+	Timeout.prototype.close = function() {
+	  this._clearFn.call(window, this._id);
+	};
+
+	// Does not start the time, just sets up the members needed.
+	exports.enroll = function(item, msecs) {
+	  clearTimeout(item._idleTimeoutId);
+	  item._idleTimeout = msecs;
+	};
+
+<<<<<<< HEAD
+	    for (var i = 0; i < len; i++)
+	      dests[i].emit('unpipe', this);
+	    return this;
+=======
+	exports.unenroll = function(item) {
+	  clearTimeout(item._idleTimeoutId);
+	  item._idleTimeout = -1;
+	};
+
+	exports._unrefActive = exports.active = function(item) {
+	  clearTimeout(item._idleTimeoutId);
+
+	  var msecs = item._idleTimeout;
+	  if (msecs >= 0) {
+	    item._idleTimeoutId = setTimeout(function onTimeout() {
+	      if (item._onTimeout)
+	        item._onTimeout();
+	    }, msecs);
+>>>>>>> dev
+	  }
+	};
+
+<<<<<<< HEAD
+	  // try to find the right one.
+	  var i = indexOf(state.pipes, dest);
+	  if (i === -1)
+	    return this;
+
+	  state.pipes.splice(i, 1);
+	  state.pipesCount -= 1;
+	  if (state.pipesCount === 1)
+	    state.pipes = state.pipes[0];
+=======
+	// setimmediate attaches itself to the global object
+	__webpack_require__(413);
+	exports.setImmediate = setImmediate;
+	exports.clearImmediate = clearImmediate;
+
+>>>>>>> dev
+
+/***/ },
+/* 413 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
+	    "use strict";
+
+<<<<<<< HEAD
+	// set up data events if they are asked for
+	// Ensure readable listeners eventually get something
+	Readable.prototype.on = function(ev, fn) {
+	  var res = Stream.prototype.on.call(this, ev, fn);
+
+	  // If listening to data, and it has not explicitly been paused,
+	  // then call resume to start the flow of data on the next tick.
+	  if (ev === 'data' && false !== this._readableState.flowing) {
+	    this.resume();
+	  }
+
+	  if (ev === 'readable' && this.readable) {
+	    var state = this._readableState;
+	    if (!state.readableListening) {
+	      state.readableListening = true;
+	      state.emittedReadable = false;
+	      state.needReadable = true;
+	      if (!state.reading) {
+	        var self = this;
+	        process.nextTick(function() {
+	          debug('readable nexttick read 0');
+	          self.read(0);
+	        });
+	      } else if (state.length) {
+	        emitReadable(this, state);
+=======
+	    if (global.setImmediate) {
+	        return;
+	    }
+
+	    var nextHandle = 1; // Spec says greater than zero
+	    var tasksByHandle = {};
+	    var currentlyRunningATask = false;
+	    var doc = global.document;
+	    var registerImmediate;
+
+	    function setImmediate(callback) {
+	      // Callback can either be a function or a string
+	      if (typeof callback !== "function") {
+	        callback = new Function("" + callback);
+	      }
+	      // Copy function arguments
+	      var args = new Array(arguments.length - 1);
+	      for (var i = 0; i < args.length; i++) {
+	          args[i] = arguments[i + 1];
+>>>>>>> dev
+	      }
+	      // Store and register the task
+	      var task = { callback: callback, args: args };
+	      tasksByHandle[nextHandle] = task;
+	      registerImmediate(nextHandle);
+	      return nextHandle++;
+	    }
+
+<<<<<<< HEAD
+	// pause() and resume() are remnants of the legacy readable stream API
+	// If the user uses them, then switch into old mode.
+	Readable.prototype.resume = function() {
+	  var state = this._readableState;
+	  if (!state.flowing) {
+	    debug('resume');
+	    state.flowing = true;
+	    if (!state.reading) {
+	      debug('resume read 0');
+	      this.read(0);
+	    }
+	    resume(this, state);
+	  }
+	  return this;
+	};
+
+	function resume(stream, state) {
+	  if (!state.resumeScheduled) {
+	    state.resumeScheduled = true;
+	    process.nextTick(function() {
+	      resume_(stream, state);
+	    });
+	  }
+	}
+
+	function resume_(stream, state) {
+	  state.resumeScheduled = false;
+	  stream.emit('resume');
+	  flow(stream);
+	  if (state.flowing && !state.reading)
+	    stream.read(0);
+	}
+
+	Readable.prototype.pause = function() {
+	  debug('call pause flowing=%j', this._readableState.flowing);
+	  if (false !== this._readableState.flowing) {
+	    debug('pause');
+	    this._readableState.flowing = false;
+	    this.emit('pause');
+	  }
+	  return this;
+	};
+
+	function flow(stream) {
+	  var state = stream._readableState;
+	  debug('flow', state.flowing);
+	  if (state.flowing) {
+	    do {
+	      var chunk = stream.read();
+	    } while (null !== chunk && state.flowing);
+	  }
+	}
+
+	// wrap an old-style stream as the async data source.
+	// This is *not* part of the readable stream interface.
+	// It is an ugly unfortunate mess of history.
+	Readable.prototype.wrap = function(stream) {
+	  var state = this._readableState;
+	  var paused = false;
+
+	  var self = this;
+	  stream.on('end', function() {
+	    debug('wrapped end');
+	    if (state.decoder && !state.ended) {
+	      var chunk = state.decoder.end();
+	      if (chunk && chunk.length)
+	        self.push(chunk);
+	    }
+
+	    self.push(null);
+	  });
+
+	  stream.on('data', function(chunk) {
+	    debug('wrapped data');
+	    if (state.decoder)
+	      chunk = state.decoder.write(chunk);
+	    if (!chunk || !state.objectMode && !chunk.length)
+	      return;
+=======
+	    function clearImmediate(handle) {
+	        delete tasksByHandle[handle];
+	    }
+
+	    function run(task) {
+	        var callback = task.callback;
+	        var args = task.args;
+	        switch (args.length) {
+	        case 0:
+	            callback();
+	            break;
+	        case 1:
+	            callback(args[0]);
+	            break;
+	        case 2:
+	            callback(args[0], args[1]);
+	            break;
+	        case 3:
+	            callback(args[0], args[1], args[2]);
+	            break;
+	        default:
+	            callback.apply(undefined, args);
+	            break;
+	        }
+	    }
+
+	    function runIfPresent(handle) {
+	        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
+	        // So if we're currently running a task, we'll need to delay this invocation.
+	        if (currentlyRunningATask) {
+	            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+	            // "too much recursion" error.
+	            setTimeout(runIfPresent, 0, handle);
+	        } else {
+	            var task = tasksByHandle[handle];
+	            if (task) {
+	                currentlyRunningATask = true;
+	                try {
+	                    run(task);
+	                } finally {
+	                    clearImmediate(handle);
+	                    currentlyRunningATask = false;
+	                }
+	            }
+	        }
+	    }
+
+	    function installNextTickImplementation() {
+	        registerImmediate = function(handle) {
+	            process.nextTick(function () { runIfPresent(handle); });
+	        };
+	    }
+
+	    function canUsePostMessage() {
+	        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
+	        // where `global.postMessage` means something completely different and can't be used for this purpose.
+	        if (global.postMessage && !global.importScripts) {
+	            var postMessageIsAsynchronous = true;
+	            var oldOnMessage = global.onmessage;
+	            global.onmessage = function() {
+	                postMessageIsAsynchronous = false;
+	            };
+	            global.postMessage("", "*");
+	            global.onmessage = oldOnMessage;
+	            return postMessageIsAsynchronous;
+	        }
+	    }
+
+	    function installPostMessageImplementation() {
+	        // Installs an event handler on `global` for the `message` event: see
+	        // * https://developer.mozilla.org/en/DOM/window.postMessage
+	        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+
+	        var messagePrefix = "setImmediate$" + Math.random() + "$";
+	        var onGlobalMessage = function(event) {
+	            if (event.source === global &&
+	                typeof event.data === "string" &&
+	                event.data.indexOf(messagePrefix) === 0) {
+	                runIfPresent(+event.data.slice(messagePrefix.length));
+	            }
+	        };
+
+	        if (global.addEventListener) {
+	            global.addEventListener("message", onGlobalMessage, false);
+	        } else {
+	            global.attachEvent("onmessage", onGlobalMessage);
+	        }
+
+	        registerImmediate = function(handle) {
+	            global.postMessage(messagePrefix + handle, "*");
+	        };
+	    }
+
+	    function installMessageChannelImplementation() {
+	        var channel = new MessageChannel();
+	        channel.port1.onmessage = function(event) {
+	            var handle = event.data;
+	            runIfPresent(handle);
+	        };
+>>>>>>> dev
+
+	        registerImmediate = function(handle) {
+	            channel.port2.postMessage(handle);
+	        };
+	    }
+
+<<<<<<< HEAD
+	  // proxy all the other methods.
+	  // important when wrapping filters and duplexes.
+	  for (var i in stream) {
+	    if (util.isFunction(stream[i]) && util.isUndefined(this[i])) {
+	      this[i] = function(method) { return function() {
+	        return stream[method].apply(stream, arguments);
+	      }}(i);
+	    }
+	  }
+
+	  // proxy certain important events.
+	  var events = ['error', 'close', 'destroy', 'pause', 'resume'];
+	  forEach(events, function(ev) {
+	    stream.on(ev, self.emit.bind(self, ev));
+	  });
+
+	  // when we try to consume some more bytes, simply unpause the
+	  // underlying stream.
+	  self._read = function(n) {
+	    debug('wrapped _read', n);
+	    if (paused) {
+	      paused = false;
+	      stream.resume();
+	    }
+	  };
+
+	  return self;
+	};
+
+
+
+	// exposed for testing purposes only.
+	Readable._fromList = fromList;
+
+	// Pluck off n bytes from an array of buffers.
+	// Length is the combined lengths of all the buffers in the list.
+	function fromList(n, state) {
+	  var list = state.buffer;
+	  var length = state.length;
+	  var stringMode = !!state.decoder;
+	  var objectMode = !!state.objectMode;
+	  var ret;
+
+	  // nothing in the list, definitely empty.
+	  if (list.length === 0)
+	    return null;
+
+	  if (length === 0)
+	    ret = null;
+	  else if (objectMode)
+	    ret = list.shift();
+	  else if (!n || n >= length) {
+	    // read it all, truncate the array.
+	    if (stringMode)
+	      ret = list.join('');
+	    else
+	      ret = Buffer.concat(list, length);
+	    list.length = 0;
+	  } else {
+	    // read just some of it.
+	    if (n < list[0].length) {
+	      // just take a part of the first list item.
+	      // slice is the same for buffers and strings.
+	      var buf = list[0];
+	      ret = buf.slice(0, n);
+	      list[0] = buf.slice(n);
+	    } else if (n === list[0].length) {
+	      // first list is a perfect match
+	      ret = list.shift();
+	    } else {
+	      // complex case.
+	      // we have enough to cover it, but it spans past the first buffer.
+	      if (stringMode)
+	        ret = '';
+	      else
+	        ret = new Buffer(n);
+
+	      var c = 0;
+	      for (var i = 0, l = list.length; i < l && c < n; i++) {
+	        var buf = list[0];
+	        var cpy = Math.min(n - c, buf.length);
+
+	        if (stringMode)
+	          ret += buf.slice(0, cpy);
+	        else
+	          buf.copy(ret, c, 0, cpy);
+
+	        if (cpy < buf.length)
+	          list[0] = buf.slice(cpy);
+	        else
+	          list.shift();
+
+	        c += cpy;
+	      }
+	    }
+	  }
+
+	  return ret;
+	}
+
+	function endReadable(stream) {
+	  var state = stream._readableState;
+
+	  // If we get here before consuming all the bytes, then that is a
+	  // bug in node.  Should never happen.
+	  if (state.length > 0)
+	    throw new Error('endReadable called on non-empty stream');
+
+	  if (!state.endEmitted) {
+	    state.ended = true;
+	    process.nextTick(function() {
+	      // Check that we didn't get one last unshift.
+	      if (!state.endEmitted && state.length === 0) {
+	        state.endEmitted = true;
+	        stream.readable = false;
+	        stream.emit('end');
+	      }
+	    });
+	  }
+	}
+
+	function forEach (xs, f) {
+	  for (var i = 0, l = xs.length; i < l; i++) {
+	    f(xs[i], i);
+	  }
+	}
+
+	function indexOf (xs, x) {
+	  for (var i = 0, l = xs.length; i < l; i++) {
+	    if (xs[i] === x) return i;
+	  }
+	  return -1;
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(384)))
+
+/***/ },
+/* 396 */
+/***/ function(module, exports) {
+
+	module.exports = Array.isArray || function (arr) {
+	  return Object.prototype.toString.call(arr) == '[object Array]';
+	};
+=======
+	    function installReadyStateChangeImplementation() {
+	        var html = doc.documentElement;
+	        registerImmediate = function(handle) {
+	            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+	            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+	            var script = doc.createElement("script");
+	            script.onreadystatechange = function () {
+	                runIfPresent(handle);
+	                script.onreadystatechange = null;
+	                html.removeChild(script);
+	                script = null;
+	            };
+	            html.appendChild(script);
+	        };
+	    }
+
+	    function installSetTimeoutImplementation() {
+	        registerImmediate = function(handle) {
+	            setTimeout(runIfPresent, 0, handle);
+	        };
+	    }
+
+	    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+	    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+	    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+
+	    // Don't get fooled by e.g. browserify environments.
+	    if ({}.toString.call(global.process) === "[object process]") {
+	        // For Node.js before 0.9
+	        installNextTickImplementation();
+
+	    } else if (canUsePostMessage()) {
+	        // For non-IE10 modern browsers
+	        installPostMessageImplementation();
+
+	    } else if (global.MessageChannel) {
+	        // For web workers, where supported
+	        installMessageChannelImplementation();
+
+	    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
+	        // For IE 6–8
+	        installReadyStateChangeImplementation();
+
+	    } else {
+	        // For older browsers
+	        installSetTimeoutImplementation();
+	    }
+
+	    attachTo.setImmediate = setImmediate;
+	    attachTo.clearImmediate = clearImmediate;
+	}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(397)))
+
+/***/ },
+/* 414 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	if (!process.version ||
+	    process.version.indexOf('v0.') === 0 ||
+	    process.version.indexOf('v1.') === 0 && process.version.indexOf('v1.8.') !== 0) {
+	  module.exports = nextTick;
+	} else {
+	  module.exports = process.nextTick;
+	}
+
+	function nextTick(fn, arg1, arg2, arg3) {
+	  if (typeof fn !== 'function') {
+	    throw new TypeError('"callback" argument must be a function');
+	  }
+	  var len = arguments.length;
+	  var args, i;
+	  switch (len) {
+	  case 0:
+	  case 1:
+	    return process.nextTick(fn);
+	  case 2:
+	    return process.nextTick(function afterTickOne() {
+	      fn.call(null, arg1);
+	    });
+	  case 3:
+	    return process.nextTick(function afterTickTwo() {
+	      fn.call(null, arg1, arg2);
+	    });
+	  case 4:
+	    return process.nextTick(function afterTickThree() {
+	      fn.call(null, arg1, arg2, arg3);
+	    });
+	  default:
+	    args = new Array(len - 1);
+	    i = 0;
+	    while (i < args.length) {
+	      args[i++] = arguments[i];
+	    }
+	    return process.nextTick(function afterTick() {
+	      fn.apply(null, args);
+	    });
+	  }
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+/***/ },
+/* 415 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	// NOTE: These type checking functions intentionally don't use `instanceof`
+	// because it is fragile and can be easily faked with `Object.create()`.
+>>>>>>> dev
+
+	function isArray(arg) {
+	  if (Array.isArray) {
+	    return Array.isArray(arg);
+	  }
+	  return objectToString(arg) === '[object Array]';
+	}
+	exports.isArray = isArray;
+
+<<<<<<< HEAD
+/***/ },
+/* 397 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	// NOTE: These type checking functions intentionally don't use `instanceof`
+	// because it is fragile and can be easily faked with `Object.create()`.
+
+	function isArray(arg) {
+	  if (Array.isArray) {
+	    return Array.isArray(arg);
+	  }
+	  return objectToString(arg) === '[object Array]';
+	}
+	exports.isArray = isArray;
+
+=======
+>>>>>>> dev
+	function isBoolean(arg) {
+	  return typeof arg === 'boolean';
+	}
+	exports.isBoolean = isBoolean;
+
+	function isNull(arg) {
+	  return arg === null;
+	}
+	exports.isNull = isNull;
+
+	function isNullOrUndefined(arg) {
+	  return arg == null;
+	}
+	exports.isNullOrUndefined = isNullOrUndefined;
+
+	function isNumber(arg) {
+	  return typeof arg === 'number';
+	}
+	exports.isNumber = isNumber;
+
+	function isString(arg) {
+	  return typeof arg === 'string';
+	}
+	exports.isString = isString;
+
+	function isSymbol(arg) {
+	  return typeof arg === 'symbol';
+	}
+	exports.isSymbol = isSymbol;
+
+	function isUndefined(arg) {
+	  return arg === void 0;
+	}
+	exports.isUndefined = isUndefined;
+
+	function isRegExp(re) {
+	  return objectToString(re) === '[object RegExp]';
+	}
+	exports.isRegExp = isRegExp;
+
+	function isObject(arg) {
+	  return typeof arg === 'object' && arg !== null;
+	}
+	exports.isObject = isObject;
+
+	function isDate(d) {
+	  return objectToString(d) === '[object Date]';
+	}
+	exports.isDate = isDate;
+
+	function isError(e) {
+	  return (objectToString(e) === '[object Error]' || e instanceof Error);
+	}
+	exports.isError = isError;
+
+	function isFunction(arg) {
+	  return typeof arg === 'function';
+	}
+	exports.isFunction = isFunction;
+
+	function isPrimitive(arg) {
+	  return arg === null ||
+	         typeof arg === 'boolean' ||
+	         typeof arg === 'number' ||
+	         typeof arg === 'string' ||
+	         typeof arg === 'symbol' ||  // ES6 symbol
+	         typeof arg === 'undefined';
+	}
+	exports.isPrimitive = isPrimitive;
+
+	exports.isBuffer = Buffer.isBuffer;
+
+	function objectToString(o) {
+	  return Object.prototype.toString.call(o);
+	}
+
+<<<<<<< HEAD
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(386).Buffer))
+
+/***/ },
+/* 398 */
+=======
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(399).Buffer))
+
+/***/ },
+/* 416 */
+>>>>>>> dev
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {
+	/**
+	 * Module exports.
+	 */
+
+<<<<<<< HEAD
+/***/ },
+/* 399 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+=======
+	module.exports = deprecate;
+
+	/**
+	 * Mark that a method should not be used.
+	 * Returns a modified function which warns once by default.
+	 *
+	 * If `localStorage.noDeprecation = true` is set, then it is a no-op.
+	 *
+	 * If `localStorage.throwDeprecation = true` is set, then deprecated functions
+	 * will throw an Error when invoked.
+	 *
+	 * If `localStorage.traceDeprecation = true` is set, then deprecated functions
+	 * will invoke `console.trace()` instead of `console.error()`.
+	 *
+	 * @param {Function} fn - the function to deprecate
+	 * @param {String} msg - the string to print to the console when `fn` is invoked
+	 * @returns {Function} a new "deprecated" version of `fn`
+	 * @api public
+	 */
+
+	function deprecate (fn, msg) {
+	  if (config('noDeprecation')) {
+	    return fn;
+	  }
+
+	  var warned = false;
+	  function deprecated() {
+	    if (!warned) {
+	      if (config('throwDeprecation')) {
+	        throw new Error(msg);
+	      } else if (config('traceDeprecation')) {
+	        console.trace(msg);
+	      } else {
+	        console.warn(msg);
+	      }
+	      warned = true;
+	    }
+	    return fn.apply(this, arguments);
+	  }
+
+	  return deprecated;
+	}
+
+	/**
+	 * Checks `localStorage` for boolean values for the given `name`.
+	 *
+	 * @param {String} name
+	 * @returns {Boolean}
+	 * @api private
+	 */
+
+	function config (name) {
+	  // accessing global.localStorage can trigger a DOMException in sandboxed iframes
+	  try {
+	    if (!global.localStorage) return false;
+	  } catch (_) {
+	    return false;
+	  }
+	  var val = global.localStorage[name];
+	  if (null == val) return false;
+	  return String(val).toLowerCase() === 'true';
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 417 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+
+	var buffer = __webpack_require__(399);
+	var Buffer = buffer.Buffer;
+	var SlowBuffer = buffer.SlowBuffer;
+	var MAX_LEN = buffer.kMaxLength || 2147483647;
+	exports.alloc = function alloc(size, fill, encoding) {
+	  if (typeof Buffer.alloc === 'function') {
+	    return Buffer.alloc(size, fill, encoding);
+	  }
+	  if (typeof encoding === 'number') {
+	    throw new TypeError('encoding must not be number');
+	  }
+	  if (typeof size !== 'number') {
+	    throw new TypeError('size must be a number');
+	  }
+	  if (size > MAX_LEN) {
+	    throw new RangeError('size is too large');
+	  }
+	  var enc = encoding;
+	  var _fill = fill;
+	  if (_fill === undefined) {
+	    enc = undefined;
+	    _fill = 0;
+	  }
+	  var buf = new Buffer(size);
+	  if (typeof _fill === 'string') {
+	    var fillBuf = new Buffer(_fill, enc);
+	    var flen = fillBuf.length;
+	    var i = -1;
+	    while (++i < size) {
+	      buf[i] = fillBuf[i % flen];
+	    }
+	  } else {
+	    buf.fill(_fill);
+	  }
+	  return buf;
+	}
+	exports.allocUnsafe = function allocUnsafe(size) {
+	  if (typeof Buffer.allocUnsafe === 'function') {
+	    return Buffer.allocUnsafe(size);
+	  }
+	  if (typeof size !== 'number') {
+	    throw new TypeError('size must be a number');
+	  }
+	  if (size > MAX_LEN) {
+	    throw new RangeError('size is too large');
+	  }
+	  return new Buffer(size);
+	}
+	exports.from = function from(value, encodingOrOffset, length) {
+	  if (typeof Buffer.from === 'function' && (!global.Uint8Array || Uint8Array.from !== Buffer.from)) {
+	    return Buffer.from(value, encodingOrOffset, length);
+	  }
+	  if (typeof value === 'number') {
+	    throw new TypeError('"value" argument must not be a number');
+	  }
+	  if (typeof value === 'string') {
+	    return new Buffer(value, encodingOrOffset);
+	  }
+	  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
+	    var offset = encodingOrOffset;
+	    if (arguments.length === 1) {
+	      return new Buffer(value);
+	    }
+	    if (typeof offset === 'undefined') {
+	      offset = 0;
+	    }
+	    var len = length;
+	    if (typeof len === 'undefined') {
+	      len = value.byteLength - offset;
+	    }
+	    if (offset >= value.byteLength) {
+	      throw new RangeError('\'offset\' is out of bounds');
+	    }
+	    if (len > value.byteLength - offset) {
+	      throw new RangeError('\'length\' is out of bounds');
+	    }
+	    return new Buffer(value.slice(offset, offset + len));
+	  }
+	  if (Buffer.isBuffer(value)) {
+	    var out = new Buffer(value.length);
+	    value.copy(out, 0, 0, value.length);
+	    return out;
+	  }
+	  if (value) {
+	    if (Array.isArray(value) || (typeof ArrayBuffer !== 'undefined' && value.buffer instanceof ArrayBuffer) || 'length' in value) {
+	      return new Buffer(value);
+	    }
+	    if (value.type === 'Buffer' && Array.isArray(value.data)) {
+	      return new Buffer(value.data);
+	    }
+	  }
+
+	  throw new TypeError('First argument must be a string, Buffer, ' + 'ArrayBuffer, Array, or array-like object.');
+	}
+	exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
+	  if (typeof Buffer.allocUnsafeSlow === 'function') {
+	    return Buffer.allocUnsafeSlow(size);
+	  }
+	  if (typeof size !== 'number') {
+	    throw new TypeError('size must be a number');
+	  }
+	  if (size >= MAX_LEN) {
+	    throw new RangeError('size is too large');
+	  }
+	  return new SlowBuffer(size);
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 418 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> dev
+
+	// a duplex stream is just a stream that is both readable and writable.
+	// Since JS doesn't have multiple prototypal inheritance, this class
+	// prototypally inherits from Readable, and then parasitically from
+	// Writable.
+
+	module.exports = Duplex;
+
+	/*<replacement>*/
+	var objectKeys = Object.keys || function (obj) {
+	  var keys = [];
+	  for (var key in obj) keys.push(key);
+	  return keys;
+	}
+	/*</replacement>*/
+
+<<<<<<< HEAD
+
+	/*<replacement>*/
+	var util = __webpack_require__(397);
+	util.inherits = __webpack_require__(393);
+	/*</replacement>*/
+
+	var Readable = __webpack_require__(395);
+	var Writable = __webpack_require__(400);
+=======
+	module.exports = Duplex;
+
+	/*<replacement>*/
+	var processNextTick = __webpack_require__(414);
+	/*</replacement>*/
+
+	/*<replacement>*/
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
+	/*</replacement>*/
+
+	var Readable = __webpack_require__(419);
+	var Writable = __webpack_require__(411);
+>>>>>>> dev
+
+	util.inherits(Duplex, Readable);
+
+	forEach(objectKeys(Writable.prototype), function(method) {
+	  if (!Duplex.prototype[method])
+	    Duplex.prototype[method] = Writable.prototype[method];
+	});
+
+	function Duplex(options) {
+	  if (!(this instanceof Duplex))
+	    return new Duplex(options);
+
+	  Readable.call(this, options);
+	  Writable.call(this, options);
+
+	  if (options && options.readable === false)
+	    this.readable = false;
+
+	  if (options && options.writable === false)
+	    this.writable = false;
+
+	  this.allowHalfOpen = true;
+	  if (options && options.allowHalfOpen === false)
+	    this.allowHalfOpen = false;
+
+	  this.once('end', onend);
+	}
+
+	// the no-half-open enforcer
+	function onend() {
+	  // if we allow half-open state, or if the writable side ended,
+	  // then we're ok.
+	  if (this.allowHalfOpen || this._writableState.ended)
+	    return;
+
+	  // no more data can be written.
+	  // But allow more writes to happen in this tick.
+	  process.nextTick(this.end.bind(this));
+	}
+
+	function forEach (xs, f) {
+	  for (var i = 0, l = xs.length; i < l; i++) {
+	    f(xs[i], i);
+	  }
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(384)))
+
+/***/ },
+<<<<<<< HEAD
+/* 400 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	// A bit simpler than readable streams.
+	// Implement an async ._write(chunk, cb), and it'll handle all
+	// the drain event emission and buffering.
+=======
+/* 419 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+>>>>>>> dev
+
+	module.exports = Readable;
+
+	/*<replacement>*/
+<<<<<<< HEAD
+	var Buffer = __webpack_require__(386).Buffer;
+=======
+	var processNextTick = __webpack_require__(414);
+	/*</replacement>*/
+
+	/*<replacement>*/
+	var isArray = __webpack_require__(402);
+	/*</replacement>*/
+
+	/*<replacement>*/
+	var Duplex;
+>>>>>>> dev
+	/*</replacement>*/
+
+	Readable.ReadableState = ReadableState;
+
+<<<<<<< HEAD
+
+	/*<replacement>*/
+	var util = __webpack_require__(397);
+	util.inherits = __webpack_require__(393);
+	/*</replacement>*/
+
+	var Stream = __webpack_require__(392);
+=======
+	/*<replacement>*/
+	var EE = __webpack_require__(395).EventEmitter;
+
+	var EElistenerCount = function (emitter, type) {
+	  return emitter.listeners(type).length;
+	};
+	/*</replacement>*/
+
+	/*<replacement>*/
+	var Stream;
+	(function () {
+	  try {
+	    Stream = __webpack_require__(409);
+	  } catch (_) {} finally {
+	    if (!Stream) Stream = __webpack_require__(395).EventEmitter;
+	  }
+	})();
+	/*</replacement>*/
+
+	var Buffer = __webpack_require__(399).Buffer;
+	/*<replacement>*/
+	var bufferShim = __webpack_require__(417);
+	/*</replacement>*/
+>>>>>>> dev
+
+	/*<replacement>*/
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
+	/*</replacement>*/
+
+<<<<<<< HEAD
+	function WriteReq(chunk, encoding, cb) {
+	  this.chunk = chunk;
+	  this.encoding = encoding;
+	  this.callback = cb;
+	}
+
+	function WritableState(options, stream) {
+	  var Duplex = __webpack_require__(399);
+
+	  options = options || {};
+
+	  // the point at which write() starts returning false
+	  // Note: 0 is a valid value, means that we always return false if
+	  // the entire buffer is not flushed immediately on write()
+=======
+	/*<replacement>*/
+	var debugUtil = __webpack_require__(420);
+	var debug = void 0;
+	if (debugUtil && debugUtil.debuglog) {
+	  debug = debugUtil.debuglog('stream');
+	} else {
+	  debug = function () {};
+	}
+	/*</replacement>*/
+
+	var BufferList = __webpack_require__(421);
+	var StringDecoder;
+
+	util.inherits(Readable, Stream);
+
+	function prependListener(emitter, event, fn) {
+	  // Sadly this is not cacheable as some libraries bundle their own
+	  // event emitter implementation with them.
+	  if (typeof emitter.prependListener === 'function') {
+	    return emitter.prependListener(event, fn);
+	  } else {
+	    // This is a hack to make sure that our error handler is attached before any
+	    // userland ones.  NEVER DO THIS. This is here only because this code needs
+	    // to continue to work with older versions of Node.js that do not include
+	    // the prependListener() method. The goal is to eventually remove this hack.
+	    if (!emitter._events || !emitter._events[event]) emitter.on(event, fn);else if (isArray(emitter._events[event])) emitter._events[event].unshift(fn);else emitter._events[event] = [fn, emitter._events[event]];
+	  }
+	}
+
+	function ReadableState(options, stream) {
+	  Duplex = Duplex || __webpack_require__(418);
+
+	  options = options || {};
+
+	  // object stream flag. Used to make read(n) ignore n and to
+	  // make all the buffer merging and length checks go away
+	  this.objectMode = !!options.objectMode;
+
+	  if (stream instanceof Duplex) this.objectMode = this.objectMode || !!options.readableObjectMode;
+
+	  // the point at which it stops calling _read() to fill the buffer
+	  // Note: 0 is a valid value, means "don't call _read preemptively ever"
+>>>>>>> dev
+	  var hwm = options.highWaterMark;
+	  var defaultHwm = options.objectMode ? 16 : 16 * 1024;
+	  this.highWaterMark = (hwm || hwm === 0) ? hwm : defaultHwm;
+
+	  // object stream flag to indicate whether or not this stream
+	  // contains buffers or objects.
+	  this.objectMode = !!options.objectMode;
+
+	  if (stream instanceof Duplex)
+	    this.objectMode = this.objectMode || !!options.writableObjectMode;
+
+	  // cast to ints.
+	  this.highWaterMark = ~~this.highWaterMark;
+<<<<<<< HEAD
+
+	  this.needDrain = false;
+	  // at the start of calling end()
+	  this.ending = false;
+	  // when end() has been called, and returned
+	  this.ended = false;
+	  // when 'finish' is emitted
+	  this.finished = false;
+
+	  // should we decode strings into buffers before passing to _write?
+	  // this is here so that some node-core streams can optimize string
+	  // handling at a lower level.
+	  var noDecode = options.decodeStrings === false;
+	  this.decodeStrings = !noDecode;
+
+	  // Crypto is kind of old and crusty.  Historically, its default string
+	  // encoding is 'binary' so we have to make this configurable.
+	  // Everything else in the universe uses 'utf8', though.
+	  this.defaultEncoding = options.defaultEncoding || 'utf8';
+=======
+>>>>>>> dev
+
+	  // A linked list is used to store data chunks instead of an array because the
+	  // linked list can remove elements from the beginning faster than
+	  // array.shift()
+	  this.buffer = new BufferList();
+	  this.length = 0;
+	  this.pipes = null;
+	  this.pipesCount = 0;
+	  this.flowing = null;
+	  this.ended = false;
+	  this.endEmitted = false;
+	  this.reading = false;
+
+	  // a flag to be able to tell if the onwrite cb is called immediately,
+	  // or on a later tick.  We set this to true at first, because any
+	  // actions that shouldn't happen until "later" should generally also
+	  // not happen before the first write call.
+	  this.sync = true;
+
+	  // whenever we return null, then we set a flag to say
+	  // that we're awaiting a 'readable' event emission.
+	  this.needReadable = false;
+	  this.emittedReadable = false;
+	  this.readableListening = false;
+	  this.resumeScheduled = false;
+
+<<<<<<< HEAD
+	  // the callback that's passed to _write(chunk,cb)
+	  this.onwrite = function(er) {
+	    onwrite(stream, er);
+	  };
+=======
+	  // Crypto is kind of old and crusty.  Historically, its default string
+	  // encoding is 'binary' so we have to make this configurable.
+	  // Everything else in the universe uses 'utf8', though.
+	  this.defaultEncoding = options.defaultEncoding || 'utf8';
+>>>>>>> dev
+
+	  // when piping, we only care about 'readable' events that happen
+	  // after read()ing all the bytes and not getting any pushback.
+	  this.ranOut = false;
+
+	  // the number of writers that are awaiting a drain event in .pipe()s
+	  this.awaitDrain = 0;
+
+<<<<<<< HEAD
+	  this.buffer = [];
+=======
+	  // if true, a maybeReadMore has been scheduled
+	  this.readingMore = false;
+>>>>>>> dev
+
+	  this.decoder = null;
+	  this.encoding = null;
+	  if (options.encoding) {
+	    if (!StringDecoder) StringDecoder = __webpack_require__(422).StringDecoder;
+	    this.decoder = new StringDecoder(options.encoding);
+	    this.encoding = options.encoding;
+	  }
+	}
+
+	function Readable(options) {
+	  Duplex = Duplex || __webpack_require__(418);
+
+<<<<<<< HEAD
+	  // True if the error was already emitted and should not be thrown again
+	  this.errorEmitted = false;
+	}
+
+	function Writable(options) {
+	  var Duplex = __webpack_require__(399);
+
+	  // Writable ctor is applied to Duplexes, though they're not
+	  // instanceof Writable, they're instanceof Readable.
+	  if (!(this instanceof Writable) && !(this instanceof Duplex))
+	    return new Writable(options);
+=======
+	  if (!(this instanceof Readable)) return new Readable(options);
+
+	  this._readableState = new ReadableState(options, this);
+
+	  // legacy
+	  this.readable = true;
+
+	  if (options && typeof options.read === 'function') this._read = options.read;
+
+	  Stream.call(this);
+	}
+
+	// Manually shove something into the read() buffer.
+	// This returns true if the highWaterMark has not been hit yet,
+	// similar to how Writable.write() returns true if you should
+	// write() some more.
+	Readable.prototype.push = function (chunk, encoding) {
+	  var state = this._readableState;
+
+	  if (!state.objectMode && typeof chunk === 'string') {
+	    encoding = encoding || state.defaultEncoding;
+	    if (encoding !== state.encoding) {
+	      chunk = bufferShim.from(chunk, encoding);
+	      encoding = '';
+	    }
+	  }
+
+	  return readableAddChunk(this, state, chunk, encoding, false);
+	};
+
+	// Unshift should *always* be something directly out of read()
+	Readable.prototype.unshift = function (chunk) {
+	  var state = this._readableState;
+	  return readableAddChunk(this, state, chunk, '', true);
+	};
+
+	Readable.prototype.isPaused = function () {
+	  return this._readableState.flowing === false;
+	};
+
+	function readableAddChunk(stream, state, chunk, encoding, addToFront) {
+	  var er = chunkInvalid(state, chunk);
+	  if (er) {
+	    stream.emit('error', er);
+	  } else if (chunk === null) {
+	    state.reading = false;
+	    onEofChunk(stream, state);
+	  } else if (state.objectMode || chunk && chunk.length > 0) {
+	    if (state.ended && !addToFront) {
+	      var e = new Error('stream.push() after EOF');
+	      stream.emit('error', e);
+	    } else if (state.endEmitted && addToFront) {
+	      var _e = new Error('stream.unshift() after end event');
+	      stream.emit('error', _e);
+	    } else {
+	      var skipAdd;
+	      if (state.decoder && !addToFront && !encoding) {
+	        chunk = state.decoder.write(chunk);
+	        skipAdd = !state.objectMode && chunk.length === 0;
+	      }
+>>>>>>> dev
+
+	      if (!addToFront) state.reading = false;
+
+	      // Don't add to the buffer if we've decoded to an empty string chunk and
+	      // we're not in object mode
+	      if (!skipAdd) {
+	        // if we want the data now, just emit it.
+	        if (state.flowing && state.length === 0 && !state.sync) {
+	          stream.emit('data', chunk);
+	          stream.read(0);
+	        } else {
+	          // update the buffer info.
+	          state.length += state.objectMode ? 1 : chunk.length;
+	          if (addToFront) state.buffer.unshift(chunk);else state.buffer.push(chunk);
+
+<<<<<<< HEAD
+	  Stream.call(this);
+	}
+
+	// Otherwise people can pipe Writable streams, which is just wrong.
+	Writable.prototype.pipe = function() {
+	  this.emit('error', new Error('Cannot pipe. Not readable.'));
+	};
+
+
+	function writeAfterEnd(stream, state, cb) {
+	  var er = new Error('write after end');
+	  // TODO: defer error events consistently everywhere, not just the cb
+	  stream.emit('error', er);
+	  process.nextTick(function() {
+	    cb(er);
+	  });
+	}
+
+	// If we get something that is not a buffer, string, null, or undefined,
+	// and we're not in objectMode, then that's an error.
+	// Otherwise stream chunks are all considered to be of length=1, and the
+	// watermarks determine how many objects to keep in the buffer, rather than
+	// how many bytes or characters.
+	function validChunk(stream, state, chunk, cb) {
+	  var valid = true;
+	  if (!util.isBuffer(chunk) &&
+	      !util.isString(chunk) &&
+	      !util.isNullOrUndefined(chunk) &&
+	      !state.objectMode) {
+	    var er = new TypeError('Invalid non-string/buffer chunk');
+	    stream.emit('error', er);
+	    process.nextTick(function() {
+	      cb(er);
+	    });
+	    valid = false;
+=======
+	          if (state.needReadable) emitReadable(stream);
+	        }
+	      }
+
+	      maybeReadMore(stream, state);
+	    }
+	  } else if (!addToFront) {
+	    state.reading = false;
+	  }
+
+	  return needMoreData(state);
+	}
+
+	// if it's past the high water mark, we can push in some more.
+	// Also, if we have no data yet, we can stand some
+	// more bytes.  This is to work around cases where hwm=0,
+	// such as the repl.  Also, if the push() triggered a
+	// readable event, and the user called read(largeNumber) such that
+	// needReadable was set, then we ought to push more, so that another
+	// 'readable' event will be triggered.
+	function needMoreData(state) {
+	  return !state.ended && (state.needReadable || state.length < state.highWaterMark || state.length === 0);
+	}
+
+	// backwards compatibility.
+	Readable.prototype.setEncoding = function (enc) {
+	  if (!StringDecoder) StringDecoder = __webpack_require__(422).StringDecoder;
+	  this._readableState.decoder = new StringDecoder(enc);
+	  this._readableState.encoding = enc;
+	  return this;
+	};
+
+	// Don't raise the hwm > 8MB
+	var MAX_HWM = 0x800000;
+	function computeNewHighWaterMark(n) {
+	  if (n >= MAX_HWM) {
+	    n = MAX_HWM;
+	  } else {
+	    // Get the next highest power of 2 to prevent increasing hwm excessively in
+	    // tiny amounts
+	    n--;
+	    n |= n >>> 1;
+	    n |= n >>> 2;
+	    n |= n >>> 4;
+	    n |= n >>> 8;
+	    n |= n >>> 16;
+	    n++;
+	  }
+	  return n;
+	}
+
+	// This function is designed to be inlinable, so please take care when making
+	// changes to the function body.
+	function howMuchToRead(n, state) {
+	  if (n <= 0 || state.length === 0 && state.ended) return 0;
+	  if (state.objectMode) return 1;
+	  if (n !== n) {
+	    // Only flow one buffer at a time
+	    if (state.flowing && state.length) return state.buffer.head.data.length;else return state.length;
+	  }
+	  // If we're asking for more than the current hwm, then raise the hwm.
+	  if (n > state.highWaterMark) state.highWaterMark = computeNewHighWaterMark(n);
+	  if (n <= state.length) return n;
+	  // Don't have enough
+	  if (!state.ended) {
+	    state.needReadable = true;
+	    return 0;
+>>>>>>> dev
+	  }
+	  return state.length;
+	}
+
+<<<<<<< HEAD
+	Writable.prototype.write = function(chunk, encoding, cb) {
+	  var state = this._writableState;
+	  var ret = false;
+
+	  if (util.isFunction(encoding)) {
+	    cb = encoding;
+	    encoding = null;
+	  }
+
+	  if (util.isBuffer(chunk))
+	    encoding = 'buffer';
+	  else if (!encoding)
+	    encoding = state.defaultEncoding;
+
+	  if (!util.isFunction(cb))
+	    cb = function() {};
+
+	  if (state.ended)
+	    writeAfterEnd(this, state, cb);
+	  else if (validChunk(this, state, chunk, cb)) {
+	    state.pendingcb++;
+	    ret = writeOrBuffer(this, state, chunk, encoding, cb);
+=======
+	// you can override either this method, or the async _read(n) below.
+	Readable.prototype.read = function (n) {
+	  debug('read', n);
+	  n = parseInt(n, 10);
+	  var state = this._readableState;
+	  var nOrig = n;
+
+	  if (n !== 0) state.emittedReadable = false;
+
+	  // if we're doing read(0) to trigger a readable event, but we
+	  // already have a bunch of data in the buffer, then just trigger
+	  // the 'readable' event and move on.
+	  if (n === 0 && state.needReadable && (state.length >= state.highWaterMark || state.ended)) {
+	    debug('read: emitReadable', state.length, state.ended);
+	    if (state.length === 0 && state.ended) endReadable(this);else emitReadable(this);
+	    return null;
+	  }
+
+	  n = howMuchToRead(n, state);
+
+	  // if we've ended, and we're now clear, then finish it up.
+	  if (n === 0 && state.ended) {
+	    if (state.length === 0) endReadable(this);
+	    return null;
+>>>>>>> dev
+	  }
+
+	  // All the actual chunk generation logic needs to be
+	  // *below* the call to _read.  The reason is that in certain
+	  // synthetic stream cases, such as passthrough streams, _read
+	  // may be a completely synchronous operation which may change
+	  // the state of the read buffer, providing enough data when
+	  // before there was *not* enough.
+	  //
+	  // So, the steps are:
+	  // 1. Figure out what the state of things will be after we do
+	  // a read from the buffer.
+	  //
+	  // 2. If that resulting state will trigger a _read, then call _read.
+	  // Note that this may be asynchronous, or synchronous.  Yes, it is
+	  // deeply ugly to write APIs this way, but that still doesn't mean
+	  // that the Readable class should behave improperly, as streams are
+	  // designed to be sync/async agnostic.
+	  // Take note if the _read call is sync or async (ie, if the read call
+	  // has returned yet), so that we know whether or not it's safe to emit
+	  // 'readable' etc.
+	  //
+	  // 3. Actually pull the requested chunks out of the buffer and return.
+
+<<<<<<< HEAD
+	Writable.prototype.cork = function() {
+	  var state = this._writableState;
+=======
+	  // if we need a readable event, then we need to do some reading.
+	  var doRead = state.needReadable;
+	  debug('need readable', doRead);
+>>>>>>> dev
+
+	  // if we currently have less than the highWaterMark, then also read some
+	  if (state.length === 0 || state.length - n < state.highWaterMark) {
+	    doRead = true;
+	    debug('length less than watermark', doRead);
+	  }
+
+<<<<<<< HEAD
+	Writable.prototype.uncork = function() {
+	  var state = this._writableState;
+=======
+	  // however, if we've ended, then there's no point, and if we're already
+	  // reading, then it's unnecessary.
+	  if (state.ended || state.reading) {
+	    doRead = false;
+	    debug('reading or ended', doRead);
+	  } else if (doRead) {
+	    debug('do read');
+	    state.reading = true;
+	    state.sync = true;
+	    // if the length is currently zero, then we *need* a readable event.
+	    if (state.length === 0) state.needReadable = true;
+	    // call internal read method
+	    this._read(state.highWaterMark);
+	    state.sync = false;
+	    // If _read pushed data synchronously, then `reading` will be false,
+	    // and we need to re-evaluate how much data we can return to the user.
+	    if (!state.reading) n = howMuchToRead(nOrig, state);
+	  }
+>>>>>>> dev
+
+	  var ret;
+	  if (n > 0) ret = fromList(n, state);else ret = null;
+
+<<<<<<< HEAD
+	    if (!state.writing &&
+	        !state.corked &&
+	        !state.finished &&
+	        !state.bufferProcessing &&
+	        state.buffer.length)
+	      clearBuffer(this, state);
+=======
+	  if (ret === null) {
+	    state.needReadable = true;
+	    n = 0;
+	  } else {
+	    state.length -= n;
+>>>>>>> dev
+	  }
+
+<<<<<<< HEAD
+	function decodeChunk(state, chunk, encoding) {
+	  if (!state.objectMode &&
+	      state.decodeStrings !== false &&
+	      util.isString(chunk)) {
+	    chunk = new Buffer(chunk, encoding);
+=======
+	  if (state.length === 0) {
+	    // If we have nothing in the buffer, then we want to know
+	    // as soon as we *do* get something into the buffer.
+	    if (!state.ended) state.needReadable = true;
+
+	    // If we tried to read() past the EOF, then emit end on the next tick.
+	    if (nOrig !== n && state.ended) endReadable(this);
+>>>>>>> dev
+	  }
+
+<<<<<<< HEAD
+	// if we're already writing something, then just put this
+	// in the queue, and wait our turn.  Otherwise, call _write
+	// If we return false, then we need a drain event, so set that flag.
+	function writeOrBuffer(stream, state, chunk, encoding, cb) {
+	  chunk = decodeChunk(state, chunk, encoding);
+	  if (util.isBuffer(chunk))
+	    encoding = 'buffer';
+	  var len = state.objectMode ? 1 : chunk.length;
+=======
+	  if (ret !== null) this.emit('data', ret);
+>>>>>>> dev
+
+	  return ret;
+	};
+
+<<<<<<< HEAD
+	  var ret = state.length < state.highWaterMark;
+	  // we must ensure that previous needDrain will not be reset to false.
+	  if (!ret)
+	    state.needDrain = true;
+
+	  if (state.writing || state.corked)
+	    state.buffer.push(new WriteReq(chunk, encoding, cb));
+	  else
+	    doWrite(stream, state, false, len, chunk, encoding, cb);
+
+	  return ret;
+	}
+
+	function doWrite(stream, state, writev, len, chunk, encoding, cb) {
+	  state.writelen = len;
+	  state.writecb = cb;
+	  state.writing = true;
+	  state.sync = true;
+	  if (writev)
+	    stream._writev(chunk, state.onwrite);
+	  else
+	    stream._write(chunk, encoding, state.onwrite);
+	  state.sync = false;
+	}
+
+	function onwriteError(stream, state, sync, er, cb) {
+	  if (sync)
+	    process.nextTick(function() {
+	      state.pendingcb--;
+	      cb(er);
+	    });
+	  else {
+	    state.pendingcb--;
+	    cb(er);
+	  }
+
+	  stream._writableState.errorEmitted = true;
+	  stream.emit('error', er);
+=======
+	function chunkInvalid(state, chunk) {
+	  var er = null;
+	  if (!Buffer.isBuffer(chunk) && typeof chunk !== 'string' && chunk !== null && chunk !== undefined && !state.objectMode) {
+	    er = new TypeError('Invalid non-string/buffer chunk');
+	  }
+	  return er;
+	}
+
+	function onEofChunk(stream, state) {
+	  if (state.ended) return;
+	  if (state.decoder) {
+	    var chunk = state.decoder.end();
+	    if (chunk && chunk.length) {
+	      state.buffer.push(chunk);
+	      state.length += state.objectMode ? 1 : chunk.length;
+	    }
+	  }
+	  state.ended = true;
+
+	  // emit 'readable' now to make sure it gets picked up.
+	  emitReadable(stream);
+	}
+
+	// Don't emit readable right away in sync mode, because this can trigger
+	// another read() call => stack overflow.  This way, it might trigger
+	// a nextTick recursion warning, but that's not so bad.
+	function emitReadable(stream) {
+	  var state = stream._readableState;
+	  state.needReadable = false;
+	  if (!state.emittedReadable) {
+	    debug('emitReadable', state.flowing);
+	    state.emittedReadable = true;
+	    if (state.sync) processNextTick(emitReadable_, stream);else emitReadable_(stream);
+	  }
+>>>>>>> dev
+	}
+
+	function emitReadable_(stream) {
+	  debug('emit readable');
+	  stream.emit('readable');
+	  flow(stream);
+	}
+
+<<<<<<< HEAD
+	function onwrite(stream, er) {
+	  var state = stream._writableState;
+	  var sync = state.sync;
+	  var cb = state.writecb;
+
+	  onwriteStateUpdate(state);
+
+	  if (er)
+	    onwriteError(stream, state, sync, er, cb);
+	  else {
+	    // Check if we're actually ready to finish, but don't emit yet
+	    var finished = needFinish(stream, state);
+
+	    if (!finished &&
+	        !state.corked &&
+	        !state.bufferProcessing &&
+	        state.buffer.length) {
+	      clearBuffer(stream, state);
+	    }
+
+	    if (sync) {
+	      process.nextTick(function() {
+	        afterWrite(stream, state, finished, cb);
+	      });
+	    } else {
+	      afterWrite(stream, state, finished, cb);
+	    }
+	  }
+	}
+
+	function afterWrite(stream, state, finished, cb) {
+	  if (!finished)
+	    onwriteDrain(stream, state);
+	  state.pendingcb--;
+	  cb();
+	  finishMaybe(stream, state);
+	}
+
+	// Must force callback to be called on nextTick, so that we don't
+	// emit 'drain' before the write() consumer gets the 'false' return
+	// value, and has a chance to attach a 'drain' listener.
+	function onwriteDrain(stream, state) {
+	  if (state.length === 0 && state.needDrain) {
+	    state.needDrain = false;
+	    stream.emit('drain');
+=======
+	// at this point, the user has presumably seen the 'readable' event,
+	// and called read() to consume some data.  that may have triggered
+	// in turn another _read(n) call, in which case reading = true if
+	// it's in progress.
+	// However, if we're not ended, or reading, and the length < hwm,
+	// then go ahead and try to read some more preemptively.
+	function maybeReadMore(stream, state) {
+	  if (!state.readingMore) {
+	    state.readingMore = true;
+	    processNextTick(maybeReadMore_, stream, state);
+	  }
+	}
+
+	function maybeReadMore_(stream, state) {
+	  var len = state.length;
+	  while (!state.reading && !state.flowing && !state.ended && state.length < state.highWaterMark) {
+	    debug('maybeReadMore read 0');
+	    stream.read(0);
+	    if (len === state.length)
+	      // didn't get any data, stop spinning.
+	      break;else len = state.length;
+>>>>>>> dev
+	  }
+	  state.readingMore = false;
+	}
+
+<<<<<<< HEAD
+
+	// if there's something in the buffer waiting, then process it
+	function clearBuffer(stream, state) {
+	  state.bufferProcessing = true;
+
+	  if (stream._writev && state.buffer.length > 1) {
+	    // Fast case, write everything using _writev()
+	    var cbs = [];
+	    for (var c = 0; c < state.buffer.length; c++)
+	      cbs.push(state.buffer[c].callback);
+
+	    // count the one we are adding, as well.
+	    // TODO(isaacs) clean this up
+	    state.pendingcb++;
+	    doWrite(stream, state, true, state.length, state.buffer, '', function(err) {
+	      for (var i = 0; i < cbs.length; i++) {
+	        state.pendingcb--;
+	        cbs[i](err);
+	      }
+	    });
+
+	    // Clear buffer
+	    state.buffer = [];
+	  } else {
+	    // Slow case, write chunks one-by-one
+	    for (var c = 0; c < state.buffer.length; c++) {
+	      var entry = state.buffer[c];
+	      var chunk = entry.chunk;
+	      var encoding = entry.encoding;
+	      var cb = entry.callback;
+	      var len = state.objectMode ? 1 : chunk.length;
+
+	      doWrite(stream, state, false, len, chunk, encoding, cb);
+
+	      // if we didn't call the onwrite immediately, then
+	      // it means that we need to wait until it does.
+	      // also, that means that the chunk and cb are currently
+	      // being processed, so move the buffer counter past them.
+	      if (state.writing) {
+	        c++;
+	        break;
+	      }
+	    }
+
+	    if (c < state.buffer.length)
+	      state.buffer = state.buffer.slice(c);
+	    else
+	      state.buffer.length = 0;
+	  }
+
+	  state.bufferProcessing = false;
+	}
+
+	Writable.prototype._write = function(chunk, encoding, cb) {
+	  cb(new Error('not implemented'));
+
+	};
+
+	Writable.prototype._writev = null;
+
+	Writable.prototype.end = function(chunk, encoding, cb) {
+	  var state = this._writableState;
+
+	  if (util.isFunction(chunk)) {
+	    cb = chunk;
+	    chunk = null;
+	    encoding = null;
+	  } else if (util.isFunction(encoding)) {
+	    cb = encoding;
+	    encoding = null;
+	  }
+
+	  if (!util.isNullOrUndefined(chunk))
+	    this.write(chunk, encoding);
+
+	  // .end() fully uncorks
+	  if (state.corked) {
+	    state.corked = 1;
+	    this.uncork();
+	  }
+
+	  // ignore unnecessary end() calls.
+	  if (!state.ending && !state.finished)
+	    endWritable(this, state, cb);
+	};
+
+
+	function needFinish(stream, state) {
+	  return (state.ending &&
+	          state.length === 0 &&
+	          !state.finished &&
+	          !state.writing);
+	}
+=======
+	// abstract method.  to be overridden in specific implementation classes.
+	// call cb(er, data) where data is <= n in length.
+	// for virtual (non-string, non-buffer) streams, "length" is somewhat
+	// arbitrary, and perhaps not very meaningful.
+	Readable.prototype._read = function (n) {
+	  this.emit('error', new Error('_read() is not implemented'));
+	};
+
+	Readable.prototype.pipe = function (dest, pipeOpts) {
+	  var src = this;
+	  var state = this._readableState;
+
+	  switch (state.pipesCount) {
+	    case 0:
+	      state.pipes = dest;
+	      break;
+	    case 1:
+	      state.pipes = [state.pipes, dest];
+	      break;
+	    default:
+	      state.pipes.push(dest);
+	      break;
+	  }
+	  state.pipesCount += 1;
+	  debug('pipe count=%d opts=%j', state.pipesCount, pipeOpts);
+
+	  var doEnd = (!pipeOpts || pipeOpts.end !== false) && dest !== process.stdout && dest !== process.stderr;
+
+	  var endFn = doEnd ? onend : cleanup;
+	  if (state.endEmitted) processNextTick(endFn);else src.once('end', endFn);
+
+	  dest.on('unpipe', onunpipe);
+	  function onunpipe(readable) {
+	    debug('onunpipe');
+	    if (readable === src) {
+	      cleanup();
+	    }
+	  }
+
+	  function onend() {
+	    debug('onend');
+	    dest.end();
+	  }
+
+	  // when the dest drains, it reduces the awaitDrain counter
+	  // on the source.  This would be more elegant with a .once()
+	  // handler in flow(), but adding and removing repeatedly is
+	  // too slow.
+	  var ondrain = pipeOnDrain(src);
+	  dest.on('drain', ondrain);
+
+	  var cleanedUp = false;
+	  function cleanup() {
+	    debug('cleanup');
+	    // cleanup event handlers once the pipe is broken
+	    dest.removeListener('close', onclose);
+	    dest.removeListener('finish', onfinish);
+	    dest.removeListener('drain', ondrain);
+	    dest.removeListener('error', onerror);
+	    dest.removeListener('unpipe', onunpipe);
+	    src.removeListener('end', onend);
+	    src.removeListener('end', cleanup);
+	    src.removeListener('data', ondata);
+
+	    cleanedUp = true;
+>>>>>>> dev
+
+	    // if the reader is waiting for a drain event from this
+	    // specific writer, then it would cause it to never start
+	    // flowing again.
+	    // So, if this is awaiting a drain, then we just call it now.
+	    // If we don't know, then assume that we are waiting for one.
+	    if (state.awaitDrain && (!dest._writableState || dest._writableState.needDrain)) ondrain();
+	  }
+
+<<<<<<< HEAD
+	function finishMaybe(stream, state) {
+	  var need = needFinish(stream, state);
+	  if (need) {
+	    if (state.pendingcb === 0) {
+	      prefinish(stream, state);
+	      state.finished = true;
+	      stream.emit('finish');
+	    } else
+	      prefinish(stream, state);
+=======
+	  // If the user pushes more data while we're writing to dest then we'll end up
+	  // in ondata again. However, we only want to increase awaitDrain once because
+	  // dest will only emit one 'drain' event for the multiple writes.
+	  // => Introduce a guard on increasing awaitDrain.
+	  var increasedAwaitDrain = false;
+	  src.on('data', ondata);
+	  function ondata(chunk) {
+	    debug('ondata');
+	    increasedAwaitDrain = false;
+	    var ret = dest.write(chunk);
+	    if (false === ret && !increasedAwaitDrain) {
+	      // If the user unpiped during `dest.write()`, it is possible
+	      // to get stuck in a permanently paused state if that write
+	      // also returned false.
+	      // => Check whether `dest` is still a piping destination.
+	      if ((state.pipesCount === 1 && state.pipes === dest || state.pipesCount > 1 && indexOf(state.pipes, dest) !== -1) && !cleanedUp) {
+	        debug('false write response, pause', src._readableState.awaitDrain);
+	        src._readableState.awaitDrain++;
+	        increasedAwaitDrain = true;
+	      }
+	      src.pause();
+	    }
+>>>>>>> dev
+	  }
+
+<<<<<<< HEAD
+	function endWritable(stream, state, cb) {
+	  state.ending = true;
+	  finishMaybe(stream, state);
+	  if (cb) {
+	    if (state.finished)
+	      process.nextTick(cb);
+	    else
+	      stream.once('finish', cb);
+	  }
+	  state.ended = true;
+=======
+	  // if the dest has an error, then stop piping into it.
+	  // however, don't suppress the throwing behavior for this.
+	  function onerror(er) {
+	    debug('onerror', er);
+	    unpipe();
+	    dest.removeListener('error', onerror);
+	    if (EElistenerCount(dest, 'error') === 0) dest.emit('error', er);
+	  }
+
+	  // Make sure our error handler is attached before userland ones.
+	  prependListener(dest, 'error', onerror);
+
+	  // Both close and finish should trigger unpipe, but only once.
+	  function onclose() {
+	    dest.removeListener('finish', onfinish);
+	    unpipe();
+	  }
+	  dest.once('close', onclose);
+	  function onfinish() {
+	    debug('onfinish');
+	    dest.removeListener('close', onclose);
+	    unpipe();
+	  }
+	  dest.once('finish', onfinish);
+
+	  function unpipe() {
+	    debug('unpipe');
+	    src.unpipe(dest);
+	  }
+
+	  // tell the dest that it's being piped to
+	  dest.emit('pipe', src);
+
+	  // start the flow if it hasn't been started already.
+	  if (!state.flowing) {
+	    debug('pipe resume');
+	    src.resume();
+	  }
+
+	  return dest;
+	};
+
+	function pipeOnDrain(src) {
+	  return function () {
+	    var state = src._readableState;
+	    debug('pipeOnDrain', state.awaitDrain);
+	    if (state.awaitDrain) state.awaitDrain--;
+	    if (state.awaitDrain === 0 && EElistenerCount(src, 'data')) {
+	      state.flowing = true;
+	      flow(src);
+	    }
+	  };
+	}
+
+	Readable.prototype.unpipe = function (dest) {
+	  var state = this._readableState;
+
+	  // if we're not piping anywhere, then do nothing.
+	  if (state.pipesCount === 0) return this;
+
+	  // just one destination.  most common case.
+	  if (state.pipesCount === 1) {
+	    // passed in one, but it's not the right one.
+	    if (dest && dest !== state.pipes) return this;
+
+	    if (!dest) dest = state.pipes;
+
+	    // got a match.
+	    state.pipes = null;
+	    state.pipesCount = 0;
+	    state.flowing = false;
+	    if (dest) dest.emit('unpipe', this);
+	    return this;
+	  }
+
+	  // slow case. multiple pipe destinations.
+
+	  if (!dest) {
+	    // remove all.
+	    var dests = state.pipes;
+	    var len = state.pipesCount;
+	    state.pipes = null;
+	    state.pipesCount = 0;
+	    state.flowing = false;
+
+	    for (var i = 0; i < len; i++) {
+	      dests[i].emit('unpipe', this);
+	    }return this;
+	  }
+
+	  // try to find the right one.
+	  var index = indexOf(state.pipes, dest);
+	  if (index === -1) return this;
+
+	  state.pipes.splice(index, 1);
+	  state.pipesCount -= 1;
+	  if (state.pipesCount === 1) state.pipes = state.pipes[0];
+
+	  dest.emit('unpipe', this);
+
+	  return this;
+	};
+
+	// set up data events if they are asked for
+	// Ensure readable listeners eventually get something
+	Readable.prototype.on = function (ev, fn) {
+	  var res = Stream.prototype.on.call(this, ev, fn);
+
+	  if (ev === 'data') {
+	    // Start flowing on next tick if stream isn't explicitly paused
+	    if (this._readableState.flowing !== false) this.resume();
+	  } else if (ev === 'readable') {
+	    var state = this._readableState;
+	    if (!state.endEmitted && !state.readableListening) {
+	      state.readableListening = state.needReadable = true;
+	      state.emittedReadable = false;
+	      if (!state.reading) {
+	        processNextTick(nReadingNextTick, this);
+	      } else if (state.length) {
+	        emitReadable(this, state);
+	      }
+	    }
+	  }
+
+	  return res;
+	};
+	Readable.prototype.addListener = Readable.prototype.on;
+
+	function nReadingNextTick(self) {
+	  debug('readable nexttick read 0');
+	  self.read(0);
+	}
+
+	// pause() and resume() are remnants of the legacy readable stream API
+	// If the user uses them, then switch into old mode.
+	Readable.prototype.resume = function () {
+	  var state = this._readableState;
+	  if (!state.flowing) {
+	    debug('resume');
+	    state.flowing = true;
+	    resume(this, state);
+	  }
+	  return this;
+	};
+
+	function resume(stream, state) {
+	  if (!state.resumeScheduled) {
+	    state.resumeScheduled = true;
+	    processNextTick(resume_, stream, state);
+	  }
+	}
+
+	function resume_(stream, state) {
+	  if (!state.reading) {
+	    debug('resume read 0');
+	    stream.read(0);
+	  }
+
+	  state.resumeScheduled = false;
+	  state.awaitDrain = 0;
+	  stream.emit('resume');
+	  flow(stream);
+	  if (state.flowing && !state.reading) stream.read(0);
+	}
+
+	Readable.prototype.pause = function () {
+	  debug('call pause flowing=%j', this._readableState.flowing);
+	  if (false !== this._readableState.flowing) {
+	    debug('pause');
+	    this._readableState.flowing = false;
+	    this.emit('pause');
+	  }
+	  return this;
+	};
+
+	function flow(stream) {
+	  var state = stream._readableState;
+	  debug('flow', state.flowing);
+	  while (state.flowing && stream.read() !== null) {}
+	}
+
+	// wrap an old-style stream as the async data source.
+	// This is *not* part of the readable stream interface.
+	// It is an ugly unfortunate mess of history.
+	Readable.prototype.wrap = function (stream) {
+	  var state = this._readableState;
+	  var paused = false;
+
+	  var self = this;
+	  stream.on('end', function () {
+	    debug('wrapped end');
+	    if (state.decoder && !state.ended) {
+	      var chunk = state.decoder.end();
+	      if (chunk && chunk.length) self.push(chunk);
+	    }
+
+	    self.push(null);
+	  });
+
+	  stream.on('data', function (chunk) {
+	    debug('wrapped data');
+	    if (state.decoder) chunk = state.decoder.write(chunk);
+
+	    // don't skip over falsy values in objectMode
+	    if (state.objectMode && (chunk === null || chunk === undefined)) return;else if (!state.objectMode && (!chunk || !chunk.length)) return;
+
+	    var ret = self.push(chunk);
+	    if (!ret) {
+	      paused = true;
+	      stream.pause();
+	    }
+	  });
+
+	  // proxy all the other methods.
+	  // important when wrapping filters and duplexes.
+	  for (var i in stream) {
+	    if (this[i] === undefined && typeof stream[i] === 'function') {
+	      this[i] = function (method) {
+	        return function () {
+	          return stream[method].apply(stream, arguments);
+	        };
+	      }(i);
+	    }
+	  }
+
+	  // proxy certain important events.
+	  var events = ['error', 'close', 'destroy', 'pause', 'resume'];
+	  forEach(events, function (ev) {
+	    stream.on(ev, self.emit.bind(self, ev));
+	  });
+
+	  // when we try to consume some more bytes, simply unpause the
+	  // underlying stream.
+	  self._read = function (n) {
+	    debug('wrapped _read', n);
+	    if (paused) {
+	      paused = false;
+	      stream.resume();
+	    }
+	  };
+
+	  return self;
+	};
+
+	// exposed for testing purposes only.
+	Readable._fromList = fromList;
+
+	// Pluck off n bytes from an array of buffers.
+	// Length is the combined lengths of all the buffers in the list.
+	// This function is designed to be inlinable, so please take care when making
+	// changes to the function body.
+	function fromList(n, state) {
+	  // nothing buffered
+	  if (state.length === 0) return null;
+
+	  var ret;
+	  if (state.objectMode) ret = state.buffer.shift();else if (!n || n >= state.length) {
+	    // read it all, truncate the list
+	    if (state.decoder) ret = state.buffer.join('');else if (state.buffer.length === 1) ret = state.buffer.head.data;else ret = state.buffer.concat(state.length);
+	    state.buffer.clear();
+	  } else {
+	    // read part of list
+	    ret = fromListPartial(n, state.buffer, state.decoder);
+	  }
+
+	  return ret;
+	}
+
+	// Extracts only enough buffered data to satisfy the amount requested.
+	// This function is designed to be inlinable, so please take care when making
+	// changes to the function body.
+	function fromListPartial(n, list, hasStrings) {
+	  var ret;
+	  if (n < list.head.data.length) {
+	    // slice is the same for buffers and strings
+	    ret = list.head.data.slice(0, n);
+	    list.head.data = list.head.data.slice(n);
+	  } else if (n === list.head.data.length) {
+	    // first chunk is a perfect match
+	    ret = list.shift();
+	  } else {
+	    // result spans more than one buffer
+	    ret = hasStrings ? copyFromBufferString(n, list) : copyFromBuffer(n, list);
+	  }
+	  return ret;
+	}
+
+	// Copies a specified amount of characters from the list of buffered data
+	// chunks.
+	// This function is designed to be inlinable, so please take care when making
+	// changes to the function body.
+	function copyFromBufferString(n, list) {
+	  var p = list.head;
+	  var c = 1;
+	  var ret = p.data;
+	  n -= ret.length;
+	  while (p = p.next) {
+	    var str = p.data;
+	    var nb = n > str.length ? str.length : n;
+	    if (nb === str.length) ret += str;else ret += str.slice(0, n);
+	    n -= nb;
+	    if (n === 0) {
+	      if (nb === str.length) {
+	        ++c;
+	        if (p.next) list.head = p.next;else list.head = list.tail = null;
+	      } else {
+	        list.head = p;
+	        p.data = str.slice(nb);
+	      }
+	      break;
+	    }
+	    ++c;
+	  }
+	  list.length -= c;
+	  return ret;
+	}
+
+	// Copies a specified amount of bytes from the list of buffered data chunks.
+	// This function is designed to be inlinable, so please take care when making
+	// changes to the function body.
+	function copyFromBuffer(n, list) {
+	  var ret = bufferShim.allocUnsafe(n);
+	  var p = list.head;
+	  var c = 1;
+	  p.data.copy(ret);
+	  n -= p.data.length;
+	  while (p = p.next) {
+	    var buf = p.data;
+	    var nb = n > buf.length ? buf.length : n;
+	    buf.copy(ret, ret.length - n, 0, nb);
+	    n -= nb;
+	    if (n === 0) {
+	      if (nb === buf.length) {
+	        ++c;
+	        if (p.next) list.head = p.next;else list.head = list.tail = null;
+	      } else {
+	        list.head = p;
+	        p.data = buf.slice(nb);
+	      }
+	      break;
+	    }
+	    ++c;
+	  }
+	  list.length -= c;
+	  return ret;
+	}
+
+	function endReadable(stream) {
+	  var state = stream._readableState;
+
+	  // If we get here before consuming all the bytes, then that is a
+	  // bug in node.  Should never happen.
+	  if (state.length > 0) throw new Error('"endReadable()" called on non-empty stream');
+
+	  if (!state.endEmitted) {
+	    state.ended = true;
+	    processNextTick(endReadableNT, state, stream);
+	  }
+	}
+
+	function endReadableNT(state, stream) {
+	  // Check that we didn't get one last unshift.
+	  if (!state.endEmitted && state.length === 0) {
+	    state.endEmitted = true;
+	    stream.readable = false;
+	    stream.emit('end');
+	  }
+	}
+
+	function forEach(xs, f) {
+	  for (var i = 0, l = xs.length; i < l; i++) {
+	    f(xs[i], i);
+	  }
+	}
+
+	function indexOf(xs, x) {
+	  for (var i = 0, l = xs.length; i < l; i++) {
+	    if (xs[i] === x) return i;
+	  }
+	  return -1;
+>>>>>>> dev
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+<<<<<<< HEAD
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(384)))
+
+/***/ },
+/* 401 */
+=======
+/***/ },
+/* 420 */
+/***/ function(module, exports) {
+
+	/* (ignored) */
+
+/***/ },
+/* 421 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Buffer = __webpack_require__(399).Buffer;
+	/*<replacement>*/
+	var bufferShim = __webpack_require__(417);
+	/*</replacement>*/
+
+	module.exports = BufferList;
+
+	function BufferList() {
+	  this.head = null;
+	  this.tail = null;
+	  this.length = 0;
+	}
+
+	BufferList.prototype.push = function (v) {
+	  var entry = { data: v, next: null };
+	  if (this.length > 0) this.tail.next = entry;else this.head = entry;
+	  this.tail = entry;
+	  ++this.length;
+	};
+
+	BufferList.prototype.unshift = function (v) {
+	  var entry = { data: v, next: this.head };
+	  if (this.length === 0) this.tail = entry;
+	  this.head = entry;
+	  ++this.length;
+	};
+
+	BufferList.prototype.shift = function () {
+	  if (this.length === 0) return;
+	  var ret = this.head.data;
+	  if (this.length === 1) this.head = this.tail = null;else this.head = this.head.next;
+	  --this.length;
+	  return ret;
+	};
+
+	BufferList.prototype.clear = function () {
+	  this.head = this.tail = null;
+	  this.length = 0;
+	};
+
+	BufferList.prototype.join = function (s) {
+	  if (this.length === 0) return '';
+	  var p = this.head;
+	  var ret = '' + p.data;
+	  while (p = p.next) {
+	    ret += s + p.data;
+	  }return ret;
+	};
+
+	BufferList.prototype.concat = function (n) {
+	  if (this.length === 0) return bufferShim.alloc(0);
+	  if (this.length === 1) return this.head.data;
+	  var ret = bufferShim.allocUnsafe(n >>> 0);
+	  var p = this.head;
+	  var i = 0;
+	  while (p) {
+	    p.data.copy(ret, i);
+	    i += p.data.length;
+	    p = p.next;
+	  }
+	  return ret;
+	};
+
+/***/ },
+/* 422 */
+>>>>>>> dev
+/***/ function(module, exports, __webpack_require__) {
+
+	// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+<<<<<<< HEAD
+	var Buffer = __webpack_require__(386).Buffer;
+=======
+	var Buffer = __webpack_require__(399).Buffer;
+>>>>>>> dev
+
+	var isBufferEncoding = Buffer.isEncoding
+	  || function(encoding) {
+	       switch (encoding && encoding.toLowerCase()) {
+	         case 'hex': case 'utf8': case 'utf-8': case 'ascii': case 'binary': case 'base64': case 'ucs2': case 'ucs-2': case 'utf16le': case 'utf-16le': case 'raw': return true;
+	         default: return false;
+	       }
+	     }
+
+
+	function assertEncoding(encoding) {
+	  if (encoding && !isBufferEncoding(encoding)) {
+	    throw new Error('Unknown encoding: ' + encoding);
+	  }
+	}
+
+	// StringDecoder provides an interface for efficiently splitting a series of
+	// buffers into a series of JS strings without breaking apart multi-byte
+	// characters. CESU-8 is handled as part of the UTF-8 encoding.
+	//
+	// @TODO Handling all encodings inside a single object makes it very difficult
+	// to reason about this code, so it should be split up in the future.
+	// @TODO There should be a utf8-strict encoding that rejects invalid UTF-8 code
+	// points as used by CESU-8.
+	var StringDecoder = exports.StringDecoder = function(encoding) {
+	  this.encoding = (encoding || 'utf8').toLowerCase().replace(/[-_]/, '');
+	  assertEncoding(encoding);
+	  switch (this.encoding) {
+	    case 'utf8':
+	      // CESU-8 represents each of Surrogate Pair by 3-bytes
+	      this.surrogateSize = 3;
+	      break;
+	    case 'ucs2':
+	    case 'utf16le':
+	      // UTF-16 represents each of Surrogate Pair by 2-bytes
+	      this.surrogateSize = 2;
+	      this.detectIncompleteChar = utf16DetectIncompleteChar;
+	      break;
+	    case 'base64':
+	      // Base-64 stores 3 bytes in 4 chars, and pads the remainder.
+	      this.surrogateSize = 3;
+	      this.detectIncompleteChar = base64DetectIncompleteChar;
+	      break;
+	    default:
+	      this.write = passThroughWrite;
+	      return;
+	  }
+
+	  // Enough space to store all bytes of a single character. UTF-8 needs 4
+	  // bytes, but CESU-8 may require up to 6 (3 bytes per surrogate).
+	  this.charBuffer = new Buffer(6);
+	  // Number of bytes received for the current incomplete multi-byte character.
+	  this.charReceived = 0;
+	  // Number of bytes expected for the current incomplete multi-byte character.
+	  this.charLength = 0;
+	};
+
+
+	// write decodes the given buffer and returns it as JS string that is
+	// guaranteed to not contain any partial multi-byte characters. Any partial
+	// character found at the end of the buffer is buffered up, and will be
+	// returned when calling write again with the remaining bytes.
+	//
+	// Note: Converting a Buffer containing an orphan surrogate to a String
+	// currently works, but converting a String to a Buffer (via `new Buffer`, or
+	// Buffer#write) will replace incomplete surrogates with the unicode
+	// replacement character. See https://codereview.chromium.org/121173009/ .
+	StringDecoder.prototype.write = function(buffer) {
+	  var charStr = '';
+	  // if our last write ended with an incomplete multibyte character
+	  while (this.charLength) {
+	    // determine how many remaining bytes this buffer has to offer for this char
+	    var available = (buffer.length >= this.charLength - this.charReceived) ?
+	        this.charLength - this.charReceived :
+	        buffer.length;
+
+	    // add the new bytes to the char buffer
+	    buffer.copy(this.charBuffer, this.charReceived, 0, available);
+	    this.charReceived += available;
+
+	    if (this.charReceived < this.charLength) {
+	      // still not enough chars in this buffer? wait for more ...
+	      return '';
+	    }
+
+	    // remove bytes belonging to the current character from the buffer
+	    buffer = buffer.slice(available, buffer.length);
+
+	    // get the character that was split
+	    charStr = this.charBuffer.slice(0, this.charLength).toString(this.encoding);
+
+	    // CESU-8: lead surrogate (D800-DBFF) is also the incomplete character
+	    var charCode = charStr.charCodeAt(charStr.length - 1);
+	    if (charCode >= 0xD800 && charCode <= 0xDBFF) {
+	      this.charLength += this.surrogateSize;
+	      charStr = '';
+	      continue;
+	    }
+	    this.charReceived = this.charLength = 0;
+
+	    // if there are no more bytes in this buffer, just emit our char
+	    if (buffer.length === 0) {
+	      return charStr;
+	    }
+	    break;
+	  }
+
+	  // determine and set charLength / charReceived
+	  this.detectIncompleteChar(buffer);
+
+	  var end = buffer.length;
+	  if (this.charLength) {
+	    // buffer the incomplete character bytes we got
+	    buffer.copy(this.charBuffer, 0, buffer.length - this.charReceived, end);
+	    end -= this.charReceived;
+	  }
+
+	  charStr += buffer.toString(this.encoding, 0, end);
+
+	  var end = charStr.length - 1;
+	  var charCode = charStr.charCodeAt(end);
+	  // CESU-8: lead surrogate (D800-DBFF) is also the incomplete character
+	  if (charCode >= 0xD800 && charCode <= 0xDBFF) {
+	    var size = this.surrogateSize;
+	    this.charLength += size;
+	    this.charReceived += size;
+	    this.charBuffer.copy(this.charBuffer, size, 0, size);
+	    buffer.copy(this.charBuffer, 0, 0, size);
+	    return charStr.substring(0, end);
+	  }
+
+	  // or just emit the charStr
+	  return charStr;
+	};
+
+	// detectIncompleteChar determines if there is an incomplete UTF-8 character at
+	// the end of the given buffer. If so, it sets this.charLength to the byte
+	// length that character, and sets this.charReceived to the number of bytes
+	// that are available for this character.
+	StringDecoder.prototype.detectIncompleteChar = function(buffer) {
+	  // determine how many bytes we have to check at the end of this buffer
+	  var i = (buffer.length >= 3) ? 3 : buffer.length;
+
+	  // Figure out if one of the last i bytes of our buffer announces an
+	  // incomplete char.
+	  for (; i > 0; i--) {
+	    var c = buffer[buffer.length - i];
+
+	    // See http://en.wikipedia.org/wiki/UTF-8#Description
+
+	    // 110XXXXX
+	    if (i == 1 && c >> 5 == 0x06) {
+	      this.charLength = 2;
+	      break;
+	    }
+
+	    // 1110XXXX
+	    if (i <= 2 && c >> 4 == 0x0E) {
+	      this.charLength = 3;
+	      break;
+	    }
+
+	    // 11110XXX
+	    if (i <= 3 && c >> 3 == 0x1E) {
+	      this.charLength = 4;
+	      break;
+	    }
+	  }
+	  this.charReceived = i;
+	};
+
+	StringDecoder.prototype.end = function(buffer) {
+	  var res = '';
+	  if (buffer && buffer.length)
+	    res = this.write(buffer);
+
+	  if (this.charReceived) {
+	    var cr = this.charReceived;
+	    var buf = this.charBuffer;
+	    var enc = this.encoding;
+	    res += buf.slice(0, cr).toString(enc);
+	  }
+
+	  return res;
+	};
+
+	function passThroughWrite(buffer) {
+	  return buffer.toString(this.encoding);
+	}
+
+	function utf16DetectIncompleteChar(buffer) {
+	  this.charReceived = buffer.length % 2;
+	  this.charLength = this.charReceived ? 2 : 0;
+	}
+
+	function base64DetectIncompleteChar(buffer) {
+	  this.charReceived = buffer.length % 3;
+	  this.charLength = this.charReceived ? 3 : 0;
+	}
+
+
+/***/ },
+<<<<<<< HEAD
+/* 402 */
+=======
+/* 423 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(418)
+
+
+/***/ },
+/* 424 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(425)
+
+
+/***/ },
+/* 425 */
+>>>>>>> dev
+/***/ function(module, exports, __webpack_require__) {
+
+	// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+	// a transform stream is a readable/writable stream where you do
+	// something with the data.  Sometimes it's called a "filter",
+	// but that's not a great name for it, since that implies a thing where
+	// some bits pass through, and others are simply ignored.  (That would
+	// be a valid example of a transform, of course.)
+	//
+	// While the output is causally related to the input, it's not a
+	// necessarily symmetric or synchronous transformation.  For example,
+	// a zlib stream might take multiple plain-text writes(), and then
+	// emit a single compressed chunk some time in the future.
+	//
+	// Here's how this works:
+	//
+	// The Transform stream has all the aspects of the readable and writable
+	// stream classes.  When you write(chunk), that calls _write(chunk,cb)
+	// internally, and returns false if there's a lot of pending writes
+	// buffered up.  When you call read(), that calls _read(n) until
+	// there's enough pending readable data buffered up.
+	//
+	// In a transform stream, the written data is placed in a buffer.  When
+	// _read(n) is called, it transforms the queued up data, calling the
+	// buffered _write cb's as it consumes chunks.  If consuming a single
+	// written chunk would result in multiple output chunks, then the first
+	// outputted bit calls the readcb, and subsequent chunks just go into
+	// the read buffer, and will cause it to emit 'readable' if necessary.
+	//
+	// This way, back-pressure is actually determined by the reading side,
+	// since _read has to be called to start processing a new chunk.  However,
+	// a pathological inflate type of transform can cause excessive buffering
+	// here.  For example, imagine a stream where every byte of input is
+	// interpreted as an integer from 0-255, and then results in that many
+	// bytes of output.  Writing the 4 bytes {ff,ff,ff,ff} would result in
+	// 1kb of data being output.  In this case, you could write a very small
+	// amount of input, and end up with a very large amount of output.  In
+	// such a pathological inflating mechanism, there'd be no way to tell
+	// the system to stop doing the transform.  A single 4MB write could
+	// cause the system to run out of memory.
+	//
+	// However, even in such a pathological case, only a single written chunk
+	// would be consumed, and then the rest would wait (un-transformed) until
+	// the results of the previous transformed chunk were consumed.
+
+	module.exports = Transform;
+
+<<<<<<< HEAD
+	var Duplex = __webpack_require__(399);
+
+	/*<replacement>*/
+	var util = __webpack_require__(397);
+	util.inherits = __webpack_require__(393);
+=======
+	var Duplex = __webpack_require__(418);
+
+	/*<replacement>*/
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
+>>>>>>> dev
+	/*</replacement>*/
+
+	util.inherits(Transform, Duplex);
+
+
+	function TransformState(options, stream) {
+	  this.afterTransform = function(er, data) {
+	    return afterTransform(stream, er, data);
+	  };
+
+	  this.needTransform = false;
+	  this.transforming = false;
+	  this.writecb = null;
+	  this.writechunk = null;
+	}
+
+	function afterTransform(stream, er, data) {
+	  var ts = stream._transformState;
+	  ts.transforming = false;
+
+	  var cb = ts.writecb;
+
+	  if (!cb)
+	    return stream.emit('error', new Error('no writecb in Transform class'));
+
+	  ts.writechunk = null;
+	  ts.writecb = null;
+
+	  if (!util.isNullOrUndefined(data))
+	    stream.push(data);
+
+	  if (cb)
+	    cb(er);
+
+	  var rs = stream._readableState;
+	  rs.reading = false;
+	  if (rs.needReadable || rs.length < rs.highWaterMark) {
+	    stream._read(rs.highWaterMark);
+	  }
+	}
+
+
+	function Transform(options) {
+	  if (!(this instanceof Transform))
+	    return new Transform(options);
+
+	  Duplex.call(this, options);
+
+	  this._transformState = new TransformState(options, this);
+
+	  // when the writable side finishes, then flush out anything remaining.
+	  var stream = this;
+
+	  // start out asking for a readable event once data is transformed.
+	  this._readableState.needReadable = true;
+
+	  // we have implemented the _read method, and done the other things
+	  // that Readable wants before the first _read call, so unset the
+	  // sync guard flag.
+	  this._readableState.sync = false;
+
+	  this.once('prefinish', function() {
+	    if (util.isFunction(this._flush))
+	      this._flush(function(er) {
+	        done(stream, er);
+	      });
+	    else
+	      done(stream);
+	  });
+	}
+
+	Transform.prototype.push = function(chunk, encoding) {
+	  this._transformState.needTransform = false;
+	  return Duplex.prototype.push.call(this, chunk, encoding);
+	};
+
+	// This is the part where you do stuff!
+	// override this function in implementation classes.
+	// 'chunk' is an input chunk.
+	//
+	// Call `push(newChunk)` to pass along transformed output
+	// to the readable side.  You may call 'push' zero or more times.
+	//
+	// Call `cb(err)` when you are done with this chunk.  If you pass
+	// an error, then that'll put the hurt on the whole operation.  If you
+	// never call cb(), then you'll never get another chunk.
+	Transform.prototype._transform = function(chunk, encoding, cb) {
+	  throw new Error('not implemented');
+	};
+
+	Transform.prototype._write = function(chunk, encoding, cb) {
+	  var ts = this._transformState;
+	  ts.writecb = cb;
+	  ts.writechunk = chunk;
+	  ts.writeencoding = encoding;
+	  if (!ts.transforming) {
+	    var rs = this._readableState;
+	    if (ts.needTransform ||
+	        rs.needReadable ||
+	        rs.length < rs.highWaterMark)
+	      this._read(rs.highWaterMark);
+	  }
+	};
+
+	// Doesn't matter what the args are here.
+	// _transform does all the work.
+	// That we got here means that the readable side wants more data.
+	Transform.prototype._read = function(n) {
+	  var ts = this._transformState;
+
+	  if (!util.isNull(ts.writechunk) && ts.writecb && !ts.transforming) {
+	    ts.transforming = true;
+	    this._transform(ts.writechunk, ts.writeencoding, ts.afterTransform);
+	  } else {
+	    // mark that we need a transform, so that any data that comes in
+	    // will get processed, now that we've asked for it.
+	    ts.needTransform = true;
+	  }
+	};
+
+
+	function done(stream, er) {
+	  if (er)
+	    return stream.emit('error', er);
+
+	  // if there's nothing in the write buffer, then that means
+	  // that nothing more will ever be provided
+	  var ws = stream._writableState;
+	  var ts = stream._transformState;
+
+	  if (ws.length)
+	    throw new Error('calling transform done when ws.length != 0');
+
+	  if (ts.transforming)
+	    throw new Error('calling transform done when still transforming');
+
+	  return stream.push(null);
+	}
+
+
+/***/ },
+<<<<<<< HEAD
+/* 403 */
+=======
+/* 426 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(427)
+
+
+/***/ },
+/* 427 */
+>>>>>>> dev
+/***/ function(module, exports, __webpack_require__) {
+
+	// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	// a passthrough stream.
+	// basically just the most minimal sort of Transform stream.
+	// Every written chunk gets output as-is.
+
+	module.exports = PassThrough;
+
+<<<<<<< HEAD
+	var Transform = __webpack_require__(402);
+
+	/*<replacement>*/
+	var util = __webpack_require__(397);
+	util.inherits = __webpack_require__(393);
+=======
+	var Transform = __webpack_require__(425);
+
+	/*<replacement>*/
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
+>>>>>>> dev
+	/*</replacement>*/
+
+	util.inherits(PassThrough, Transform);
+
+	function PassThrough(options) {
+	  if (!(this instanceof PassThrough))
+	    return new PassThrough(options);
+
+	  Transform.call(this, options);
+	}
+
+<<<<<<< HEAD
+	PassThrough.prototype._transform = function(chunk, encoding, cb) {
+	  cb(null, chunk);
+	};
+=======
+	PassThrough.prototype._transform = function (chunk, encoding, cb) {
+	  cb(null, chunk);
+	};
+
+/***/ },
+/* 428 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Buffer = __webpack_require__(399).Buffer
+
+	module.exports = function (buf) {
+		// If the buffer is backed by a Uint8Array, a faster version will work
+		if (buf instanceof Uint8Array) {
+			// If the buffer isn't a subarray, return the underlying ArrayBuffer
+			if (buf.byteOffset === 0 && buf.byteLength === buf.buffer.byteLength) {
+				return buf.buffer
+			} else if (typeof buf.buffer.slice === 'function') {
+				// Otherwise we need to get a proper copy
+				return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength)
+			}
+		}
+
+		if (Buffer.isBuffer(buf)) {
+			// This is the slow version that will work with any Buffer
+			// implementation (even in old browsers)
+			var arrayCopy = new Uint8Array(buf.length)
+			var len = buf.length
+			for (var i = 0; i < len; i++) {
+				arrayCopy[i] = buf[i]
+			}
+			return arrayCopy.buffer
+		} else {
+			throw new Error('Argument must be a Buffer')
+		}
+	}
+
+
+/***/ },
+/* 429 */
+/***/ function(module, exports) {
+
+	module.exports = extend
+
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+	function extend() {
+	    var target = {}
+
+	    for (var i = 0; i < arguments.length; i++) {
+	        var source = arguments[i]
+
+	        for (var key in source) {
+	            if (hasOwnProperty.call(source, key)) {
+	                target[key] = source[key]
+	            }
+	        }
+	    }
+
+	    return target
+	}
+
+
+/***/ },
+/* 430 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  "100": "Continue",
+	  "101": "Switching Protocols",
+	  "102": "Processing",
+	  "200": "OK",
+	  "201": "Created",
+	  "202": "Accepted",
+	  "203": "Non-Authoritative Information",
+	  "204": "No Content",
+	  "205": "Reset Content",
+	  "206": "Partial Content",
+	  "207": "Multi-Status",
+	  "208": "Already Reported",
+	  "226": "IM Used",
+	  "300": "Multiple Choices",
+	  "301": "Moved Permanently",
+	  "302": "Found",
+	  "303": "See Other",
+	  "304": "Not Modified",
+	  "305": "Use Proxy",
+	  "307": "Temporary Redirect",
+	  "308": "Permanent Redirect",
+	  "400": "Bad Request",
+	  "401": "Unauthorized",
+	  "402": "Payment Required",
+	  "403": "Forbidden",
+	  "404": "Not Found",
+	  "405": "Method Not Allowed",
+	  "406": "Not Acceptable",
+	  "407": "Proxy Authentication Required",
+	  "408": "Request Timeout",
+	  "409": "Conflict",
+	  "410": "Gone",
+	  "411": "Length Required",
+	  "412": "Precondition Failed",
+	  "413": "Payload Too Large",
+	  "414": "URI Too Long",
+	  "415": "Unsupported Media Type",
+	  "416": "Range Not Satisfiable",
+	  "417": "Expectation Failed",
+	  "418": "I'm a teapot",
+	  "421": "Misdirected Request",
+	  "422": "Unprocessable Entity",
+	  "423": "Locked",
+	  "424": "Failed Dependency",
+	  "425": "Unordered Collection",
+	  "426": "Upgrade Required",
+	  "428": "Precondition Required",
+	  "429": "Too Many Requests",
+	  "431": "Request Header Fields Too Large",
+	  "451": "Unavailable For Legal Reasons",
+	  "500": "Internal Server Error",
+	  "501": "Not Implemented",
+	  "502": "Bad Gateway",
+	  "503": "Service Unavailable",
+	  "504": "Gateway Timeout",
+	  "505": "HTTP Version Not Supported",
+	  "506": "Variant Also Negotiates",
+	  "507": "Insufficient Storage",
+	  "508": "Loop Detected",
+	  "509": "Bandwidth Limit Exceeded",
+	  "510": "Not Extended",
+	  "511": "Network Authentication Required"
+	}
+
+
+/***/ },
+/* 431 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var http = __webpack_require__(403);
+
+	var https = module.exports;
+
+	for (var key in http) {
+	    if (http.hasOwnProperty(key)) https[key] = http[key];
+	};
+
+	https.request = function (params, cb) {
+	    if (!params) params = {};
+	    params.scheme = 'https';
+	    params.protocol = 'https:';
+	    return http.request.call(this, params, cb);
+	}
+
+
+/***/ },
+/* 432 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {var Transform = __webpack_require__(433)
+	  , inherits  = __webpack_require__(439).inherits
+	  , xtend     = __webpack_require__(429)
+
+	function DestroyableTransform(opts) {
+	  Transform.call(this, opts)
+	  this._destroyed = false
+	}
+
+	inherits(DestroyableTransform, Transform)
+
+	DestroyableTransform.prototype.destroy = function(err) {
+	  if (this._destroyed) return
+	  this._destroyed = true
+	  
+	  var self = this
+	  process.nextTick(function() {
+	    if (err)
+	      self.emit('error', err)
+	    self.emit('close')
+	  })
+	}
+
+	// a noop _transform function
+	function noop (chunk, enc, callback) {
+	  callback(null, chunk)
+	}
+
+
+	// create a new export function, used by both the main export and
+	// the .ctor export, contains common logic for dealing with arguments
+	function through2 (construct) {
+	  return function (options, transform, flush) {
+	    if (typeof options == 'function') {
+	      flush     = transform
+	      transform = options
+	      options   = {}
+	    }
+
+	    if (typeof transform != 'function')
+	      transform = noop
+
+	    if (typeof flush != 'function')
+	      flush = null
+
+	    return construct(options, transform, flush)
+	  }
+	}
+
+
+	// main export, just make me a transform stream!
+	module.exports = through2(function (options, transform, flush) {
+	  var t2 = new DestroyableTransform(options)
+
+	  t2._transform = transform
+
+	  if (flush)
+	    t2._flush = flush
+
+	  return t2
+	})
+
+
+	// make me a reusable prototype that I can `new`, or implicitly `new`
+	// with a constructor call
+	module.exports.ctor = through2(function (options, transform, flush) {
+	  function Through2 (override) {
+	    if (!(this instanceof Through2))
+	      return new Through2(override)
+
+	    this.options = xtend(options, override)
+
+	    DestroyableTransform.call(this, this.options)
+	  }
+
+	  inherits(Through2, DestroyableTransform)
+
+	  Through2.prototype._transform = transform
+
+	  if (flush)
+	    Through2.prototype._flush = flush
+
+	  return Through2
+	})
+
+
+	module.exports.obj = through2(function (options, transform, flush) {
+	  var t2 = new DestroyableTransform(xtend({ objectMode: true, highWaterMark: 16 }, options))
+
+	  t2._transform = transform
+
+	  if (flush)
+	    t2._flush = flush
+
+	  return t2
+	})
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+/***/ },
+/* 433 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(434)
+
+
+/***/ },
+/* 434 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+	// a transform stream is a readable/writable stream where you do
+	// something with the data.  Sometimes it's called a "filter",
+	// but that's not a great name for it, since that implies a thing where
+	// some bits pass through, and others are simply ignored.  (That would
+	// be a valid example of a transform, of course.)
+	//
+	// While the output is causally related to the input, it's not a
+	// necessarily symmetric or synchronous transformation.  For example,
+	// a zlib stream might take multiple plain-text writes(), and then
+	// emit a single compressed chunk some time in the future.
+	//
+	// Here's how this works:
+	//
+	// The Transform stream has all the aspects of the readable and writable
+	// stream classes.  When you write(chunk), that calls _write(chunk,cb)
+	// internally, and returns false if there's a lot of pending writes
+	// buffered up.  When you call read(), that calls _read(n) until
+	// there's enough pending readable data buffered up.
+	//
+	// In a transform stream, the written data is placed in a buffer.  When
+	// _read(n) is called, it transforms the queued up data, calling the
+	// buffered _write cb's as it consumes chunks.  If consuming a single
+	// written chunk would result in multiple output chunks, then the first
+	// outputted bit calls the readcb, and subsequent chunks just go into
+	// the read buffer, and will cause it to emit 'readable' if necessary.
+	//
+	// This way, back-pressure is actually determined by the reading side,
+	// since _read has to be called to start processing a new chunk.  However,
+	// a pathological inflate type of transform can cause excessive buffering
+	// here.  For example, imagine a stream where every byte of input is
+	// interpreted as an integer from 0-255, and then results in that many
+	// bytes of output.  Writing the 4 bytes {ff,ff,ff,ff} would result in
+	// 1kb of data being output.  In this case, you could write a very small
+	// amount of input, and end up with a very large amount of output.  In
+	// such a pathological inflating mechanism, there'd be no way to tell
+	// the system to stop doing the transform.  A single 4MB write could
+	// cause the system to run out of memory.
+	//
+	// However, even in such a pathological case, only a single written chunk
+	// would be consumed, and then the rest would wait (un-transformed) until
+	// the results of the previous transformed chunk were consumed.
+
+	module.exports = Transform;
+
+	var Duplex = __webpack_require__(435);
+
+	/*<replacement>*/
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
+	/*</replacement>*/
+
+	util.inherits(Transform, Duplex);
+
+
+	function TransformState(options, stream) {
+	  this.afterTransform = function(er, data) {
+	    return afterTransform(stream, er, data);
+	  };
+
+	  this.needTransform = false;
+	  this.transforming = false;
+	  this.writecb = null;
+	  this.writechunk = null;
+	}
+
+	function afterTransform(stream, er, data) {
+	  var ts = stream._transformState;
+	  ts.transforming = false;
+
+	  var cb = ts.writecb;
+
+	  if (!cb)
+	    return stream.emit('error', new Error('no writecb in Transform class'));
+
+	  ts.writechunk = null;
+	  ts.writecb = null;
+
+	  if (data !== null && data !== undefined)
+	    stream.push(data);
+
+	  if (cb)
+	    cb(er);
+
+	  var rs = stream._readableState;
+	  rs.reading = false;
+	  if (rs.needReadable || rs.length < rs.highWaterMark) {
+	    stream._read(rs.highWaterMark);
+	  }
+	}
+
+
+	function Transform(options) {
+	  if (!(this instanceof Transform))
+	    return new Transform(options);
+
+	  Duplex.call(this, options);
+
+	  var ts = this._transformState = new TransformState(options, this);
+
+	  // when the writable side finishes, then flush out anything remaining.
+	  var stream = this;
+
+	  // start out asking for a readable event once data is transformed.
+	  this._readableState.needReadable = true;
+
+	  // we have implemented the _read method, and done the other things
+	  // that Readable wants before the first _read call, so unset the
+	  // sync guard flag.
+	  this._readableState.sync = false;
+
+	  this.once('finish', function() {
+	    if ('function' === typeof this._flush)
+	      this._flush(function(er) {
+	        done(stream, er);
+	      });
+	    else
+	      done(stream);
+	  });
+	}
+
+	Transform.prototype.push = function(chunk, encoding) {
+	  this._transformState.needTransform = false;
+	  return Duplex.prototype.push.call(this, chunk, encoding);
+	};
+
+	// This is the part where you do stuff!
+	// override this function in implementation classes.
+	// 'chunk' is an input chunk.
+	//
+	// Call `push(newChunk)` to pass along transformed output
+	// to the readable side.  You may call 'push' zero or more times.
+	//
+	// Call `cb(err)` when you are done with this chunk.  If you pass
+	// an error, then that'll put the hurt on the whole operation.  If you
+	// never call cb(), then you'll never get another chunk.
+	Transform.prototype._transform = function(chunk, encoding, cb) {
+	  throw new Error('not implemented');
+	};
+
+	Transform.prototype._write = function(chunk, encoding, cb) {
+	  var ts = this._transformState;
+	  ts.writecb = cb;
+	  ts.writechunk = chunk;
+	  ts.writeencoding = encoding;
+	  if (!ts.transforming) {
+	    var rs = this._readableState;
+	    if (ts.needTransform ||
+	        rs.needReadable ||
+	        rs.length < rs.highWaterMark)
+	      this._read(rs.highWaterMark);
+	  }
+	};
+
+	// Doesn't matter what the args are here.
+	// _transform does all the work.
+	// That we got here means that the readable side wants more data.
+	Transform.prototype._read = function(n) {
+	  var ts = this._transformState;
+
+	  if (ts.writechunk !== null && ts.writecb && !ts.transforming) {
+	    ts.transforming = true;
+	    this._transform(ts.writechunk, ts.writeencoding, ts.afterTransform);
+	  } else {
+	    // mark that we need a transform, so that any data that comes in
+	    // will get processed, now that we've asked for it.
+	    ts.needTransform = true;
+	  }
+	};
+
+
+	function done(stream, er) {
+	  if (er)
+	    return stream.emit('error', er);
+
+	  // if there's nothing in the write buffer, then that means
+	  // that nothing more will ever be provided
+	  var ws = stream._writableState;
+	  var rs = stream._readableState;
+	  var ts = stream._transformState;
+
+	  if (ws.length)
+	    throw new Error('calling transform done when ws.length != 0');
+
+	  if (ts.transforming)
+	    throw new Error('calling transform done when still transforming');
+
+	  return stream.push(null);
+	}
+
+
+/***/ },
+/* 435 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	// a duplex stream is just a stream that is both readable and writable.
+	// Since JS doesn't have multiple prototypal inheritance, this class
+	// prototypally inherits from Readable, and then parasitically from
+	// Writable.
+
+	module.exports = Duplex;
+
+	/*<replacement>*/
+	var objectKeys = Object.keys || function (obj) {
+	  var keys = [];
+	  for (var key in obj) keys.push(key);
+	  return keys;
+	}
+	/*</replacement>*/
+
+
+	/*<replacement>*/
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
+	/*</replacement>*/
+
+	var Readable = __webpack_require__(436);
+	var Writable = __webpack_require__(438);
+
+	util.inherits(Duplex, Readable);
+
+	forEach(objectKeys(Writable.prototype), function(method) {
+	  if (!Duplex.prototype[method])
+	    Duplex.prototype[method] = Writable.prototype[method];
+	});
+
+	function Duplex(options) {
+	  if (!(this instanceof Duplex))
+	    return new Duplex(options);
+
+	  Readable.call(this, options);
+	  Writable.call(this, options);
+
+	  if (options && options.readable === false)
+	    this.readable = false;
+
+	  if (options && options.writable === false)
+	    this.writable = false;
+
+	  this.allowHalfOpen = true;
+	  if (options && options.allowHalfOpen === false)
+	    this.allowHalfOpen = false;
+
+	  this.once('end', onend);
+	}
+
+	// the no-half-open enforcer
+	function onend() {
+	  // if we allow half-open state, or if the writable side ended,
+	  // then we're ok.
+	  if (this.allowHalfOpen || this._writableState.ended)
+	    return;
+
+	  // no more data can be written.
+	  // But allow more writes to happen in this tick.
+	  process.nextTick(this.end.bind(this));
+	}
+
+	function forEach (xs, f) {
+	  for (var i = 0, l = xs.length; i < l; i++) {
+	    f(xs[i], i);
+	  }
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+/***/ },
+/* 436 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	module.exports = Readable;
+
+	/*<replacement>*/
+	var isArray = __webpack_require__(437);
+	/*</replacement>*/
+
+
+	/*<replacement>*/
+	var Buffer = __webpack_require__(399).Buffer;
+	/*</replacement>*/
+
+	Readable.ReadableState = ReadableState;
+
+	var EE = __webpack_require__(395).EventEmitter;
+
+	/*<replacement>*/
+	if (!EE.listenerCount) EE.listenerCount = function(emitter, type) {
+	  return emitter.listeners(type).length;
+	};
+	/*</replacement>*/
+
+	var Stream = __webpack_require__(409);
+
+	/*<replacement>*/
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
+	/*</replacement>*/
+
+	var StringDecoder;
 
 	util.inherits(Readable, Stream);
 
 	function ReadableState(options, stream) {
-	  var Duplex = __webpack_require__(399);
+	  options = options || {};
+
+	  // the point at which it stops calling _read() to fill the buffer
+	  // Note: 0 is a valid value, means "don't call _read preemptively ever"
+	  var hwm = options.highWaterMark;
+	  this.highWaterMark = (hwm || hwm === 0) ? hwm : 16 * 1024;
+
+	  // cast to ints.
+	  this.highWaterMark = ~~this.highWaterMark;
+
+	  this.buffer = [];
+	  this.length = 0;
+	  this.pipes = null;
+	  this.pipesCount = 0;
+	  this.flowing = false;
+	  this.ended = false;
+	  this.endEmitted = false;
+	  this.reading = false;
+
+	  // In streams that never have any data, and do push(null) right away,
+	  // the consumer can miss the 'end' event if they do some I/O before
+	  // consuming the stream.  So, we don't emit('end') until some reading
+	  // happens.
+	  this.calledRead = false;
+
+	  // a flag to be able to tell if the onwrite cb is called immediately,
+	  // or on a later tick.  We set this to true at first, becuase any
+	  // actions that shouldn't happen until "later" should generally also
+	  // not happen before the first write call.
+	  this.sync = true;
+
+	  // whenever we return null, then we set a flag to say
+	  // that we're awaiting a 'readable' event emission.
+	  this.needReadable = false;
+	  this.emittedReadable = false;
+	  this.readableListening = false;
+
+
+	  // object stream flag. Used to make read(n) ignore n and to
+	  // make all the buffer merging and length checks go away
+	  this.objectMode = !!options.objectMode;
+
+	  // Crypto is kind of old and crusty.  Historically, its default string
+	  // encoding is 'binary' so we have to make this configurable.
+	  // Everything else in the universe uses 'utf8', though.
+	  this.defaultEncoding = options.defaultEncoding || 'utf8';
+
+	  // when piping, we only care about 'readable' events that happen
+	  // after read()ing all the bytes and not getting any pushback.
+	  this.ranOut = false;
+
+	  // the number of writers that are awaiting a drain event in .pipe()s
+	  this.awaitDrain = 0;
+
+	  // if true, a maybeReadMore has been scheduled
+	  this.readingMore = false;
+
+	  this.decoder = null;
+	  this.encoding = null;
+	  if (options.encoding) {
+	    if (!StringDecoder)
+	      StringDecoder = __webpack_require__(422).StringDecoder;
+	    this.decoder = new StringDecoder(options.encoding);
+	    this.encoding = options.encoding;
+	  }
+	}
+
+	function Readable(options) {
+	  if (!(this instanceof Readable))
+	    return new Readable(options);
+
+	  this._readableState = new ReadableState(options, this);
+
+	  // legacy
+	  this.readable = true;
+
+	  Stream.call(this);
+	}
+
+	// Manually shove something into the read() buffer.
+	// This returns true if the highWaterMark has not been hit yet,
+	// similar to how Writable.write() returns true if you should
+	// write() some more.
+	Readable.prototype.push = function(chunk, encoding) {
+	  var state = this._readableState;
+
+	  if (typeof chunk === 'string' && !state.objectMode) {
+	    encoding = encoding || state.defaultEncoding;
+	    if (encoding !== state.encoding) {
+	      chunk = new Buffer(chunk, encoding);
+	      encoding = '';
+	    }
+	  }
+
+	  return readableAddChunk(this, state, chunk, encoding, false);
+	};
+
+	// Unshift should *always* be something directly out of read()
+	Readable.prototype.unshift = function(chunk) {
+	  var state = this._readableState;
+	  return readableAddChunk(this, state, chunk, '', true);
+	};
+
+	function readableAddChunk(stream, state, chunk, encoding, addToFront) {
+	  var er = chunkInvalid(state, chunk);
+	  if (er) {
+	    stream.emit('error', er);
+	  } else if (chunk === null || chunk === undefined) {
+	    state.reading = false;
+	    if (!state.ended)
+	      onEofChunk(stream, state);
+	  } else if (state.objectMode || chunk && chunk.length > 0) {
+	    if (state.ended && !addToFront) {
+	      var e = new Error('stream.push() after EOF');
+	      stream.emit('error', e);
+	    } else if (state.endEmitted && addToFront) {
+	      var e = new Error('stream.unshift() after end event');
+	      stream.emit('error', e);
+	    } else {
+	      if (state.decoder && !addToFront && !encoding)
+	        chunk = state.decoder.write(chunk);
+
+	      // update the buffer info.
+	      state.length += state.objectMode ? 1 : chunk.length;
+	      if (addToFront) {
+	        state.buffer.unshift(chunk);
+	      } else {
+	        state.reading = false;
+	        state.buffer.push(chunk);
+	      }
+
+	      if (state.needReadable)
+	        emitReadable(stream);
+
+	      maybeReadMore(stream, state);
+	    }
+	  } else if (!addToFront) {
+	    state.reading = false;
+	  }
+
+	  return needMoreData(state);
+	}
+
+
+
+	// if it's past the high water mark, we can push in some more.
+	// Also, if we have no data yet, we can stand some
+	// more bytes.  This is to work around cases where hwm=0,
+	// such as the repl.  Also, if the push() triggered a
+	// readable event, and the user called read(largeNumber) such that
+	// needReadable was set, then we ought to push more, so that another
+	// 'readable' event will be triggered.
+	function needMoreData(state) {
+	  return !state.ended &&
+	         (state.needReadable ||
+	          state.length < state.highWaterMark ||
+	          state.length === 0);
+	}
+
+	// backwards compatibility.
+	Readable.prototype.setEncoding = function(enc) {
+	  if (!StringDecoder)
+	    StringDecoder = __webpack_require__(422).StringDecoder;
+	  this._readableState.decoder = new StringDecoder(enc);
+	  this._readableState.encoding = enc;
+	};
+
+	// Don't raise the hwm > 128MB
+	var MAX_HWM = 0x800000;
+	function roundUpToNextPowerOf2(n) {
+	  if (n >= MAX_HWM) {
+	    n = MAX_HWM;
+	  } else {
+	    // Get the next highest power of 2
+	    n--;
+	    for (var p = 1; p < 32; p <<= 1) n |= n >> p;
+	    n++;
+	  }
+	  return n;
+	}
+
+	function howMuchToRead(n, state) {
+	  if (state.length === 0 && state.ended)
+	    return 0;
+
+	  if (state.objectMode)
+	    return n === 0 ? 0 : 1;
+
+	  if (n === null || isNaN(n)) {
+	    // only flow one buffer at a time
+	    if (state.flowing && state.buffer.length)
+	      return state.buffer[0].length;
+	    else
+	      return state.length;
+	  }
+
+	  if (n <= 0)
+	    return 0;
+
+	  // If we're asking for more than the target buffer level,
+	  // then raise the water mark.  Bump up to the next highest
+	  // power of 2, to prevent increasing it excessively in tiny
+	  // amounts.
+	  if (n > state.highWaterMark)
+	    state.highWaterMark = roundUpToNextPowerOf2(n);
+
+	  // don't have that much.  return null, unless we've ended.
+	  if (n > state.length) {
+	    if (!state.ended) {
+	      state.needReadable = true;
+	      return 0;
+	    } else
+	      return state.length;
+	  }
+
+	  return n;
+	}
+
+	// you can override either this method, or the async _read(n) below.
+	Readable.prototype.read = function(n) {
+	  var state = this._readableState;
+	  state.calledRead = true;
+	  var nOrig = n;
+	  var ret;
+
+	  if (typeof n !== 'number' || n > 0)
+	    state.emittedReadable = false;
+
+	  // if we're doing read(0) to trigger a readable event, but we
+	  // already have a bunch of data in the buffer, then just trigger
+	  // the 'readable' event and move on.
+	  if (n === 0 &&
+	      state.needReadable &&
+	      (state.length >= state.highWaterMark || state.ended)) {
+	    emitReadable(this);
+	    return null;
+	  }
+
+	  n = howMuchToRead(n, state);
+
+	  // if we've ended, and we're now clear, then finish it up.
+	  if (n === 0 && state.ended) {
+	    ret = null;
+
+	    // In cases where the decoder did not receive enough data
+	    // to produce a full chunk, then immediately received an
+	    // EOF, state.buffer will contain [<Buffer >, <Buffer 00 ...>].
+	    // howMuchToRead will see this and coerce the amount to
+	    // read to zero (because it's looking at the length of the
+	    // first <Buffer > in state.buffer), and we'll end up here.
+	    //
+	    // This can only happen via state.decoder -- no other venue
+	    // exists for pushing a zero-length chunk into state.buffer
+	    // and triggering this behavior. In this case, we return our
+	    // remaining data and end the stream, if appropriate.
+	    if (state.length > 0 && state.decoder) {
+	      ret = fromList(n, state);
+	      state.length -= ret.length;
+	    }
+
+	    if (state.length === 0)
+	      endReadable(this);
+
+	    return ret;
+	  }
+
+	  // All the actual chunk generation logic needs to be
+	  // *below* the call to _read.  The reason is that in certain
+	  // synthetic stream cases, such as passthrough streams, _read
+	  // may be a completely synchronous operation which may change
+	  // the state of the read buffer, providing enough data when
+	  // before there was *not* enough.
+	  //
+	  // So, the steps are:
+	  // 1. Figure out what the state of things will be after we do
+	  // a read from the buffer.
+	  //
+	  // 2. If that resulting state will trigger a _read, then call _read.
+	  // Note that this may be asynchronous, or synchronous.  Yes, it is
+	  // deeply ugly to write APIs this way, but that still doesn't mean
+	  // that the Readable class should behave improperly, as streams are
+	  // designed to be sync/async agnostic.
+	  // Take note if the _read call is sync or async (ie, if the read call
+	  // has returned yet), so that we know whether or not it's safe to emit
+	  // 'readable' etc.
+	  //
+	  // 3. Actually pull the requested chunks out of the buffer and return.
+
+	  // if we need a readable event, then we need to do some reading.
+	  var doRead = state.needReadable;
+
+	  // if we currently have less than the highWaterMark, then also read some
+	  if (state.length - n <= state.highWaterMark)
+	    doRead = true;
+
+	  // however, if we've ended, then there's no point, and if we're already
+	  // reading, then it's unnecessary.
+	  if (state.ended || state.reading)
+	    doRead = false;
+
+	  if (doRead) {
+	    state.reading = true;
+	    state.sync = true;
+	    // if the length is currently zero, then we *need* a readable event.
+	    if (state.length === 0)
+	      state.needReadable = true;
+	    // call internal read method
+	    this._read(state.highWaterMark);
+	    state.sync = false;
+	  }
+
+	  // If _read called its callback synchronously, then `reading`
+	  // will be false, and we need to re-evaluate how much data we
+	  // can return to the user.
+	  if (doRead && !state.reading)
+	    n = howMuchToRead(nOrig, state);
+
+	  if (n > 0)
+	    ret = fromList(n, state);
+	  else
+	    ret = null;
+
+	  if (ret === null) {
+	    state.needReadable = true;
+	    n = 0;
+	  }
+
+	  state.length -= n;
+
+	  // If we have nothing in the buffer, then we want to know
+	  // as soon as we *do* get something into the buffer.
+	  if (state.length === 0 && !state.ended)
+	    state.needReadable = true;
+
+	  // If we happened to read() exactly the remaining amount in the
+	  // buffer, and the EOF has been seen at this point, then make sure
+	  // that we emit 'end' on the very next tick.
+	  if (state.ended && !state.endEmitted && state.length === 0)
+	    endReadable(this);
+
+	  return ret;
+	};
+
+	function chunkInvalid(state, chunk) {
+	  var er = null;
+	  if (!Buffer.isBuffer(chunk) &&
+	      'string' !== typeof chunk &&
+	      chunk !== null &&
+	      chunk !== undefined &&
+	      !state.objectMode) {
+	    er = new TypeError('Invalid non-string/buffer chunk');
+	  }
+	  return er;
+	}
+
+
+	function onEofChunk(stream, state) {
+	  if (state.decoder && !state.ended) {
+	    var chunk = state.decoder.end();
+	    if (chunk && chunk.length) {
+	      state.buffer.push(chunk);
+	      state.length += state.objectMode ? 1 : chunk.length;
+	    }
+	  }
+	  state.ended = true;
+
+	  // if we've ended and we have some data left, then emit
+	  // 'readable' now to make sure it gets picked up.
+	  if (state.length > 0)
+	    emitReadable(stream);
+	  else
+	    endReadable(stream);
+	}
+
+	// Don't emit readable right away in sync mode, because this can trigger
+	// another read() call => stack overflow.  This way, it might trigger
+	// a nextTick recursion warning, but that's not so bad.
+	function emitReadable(stream) {
+	  var state = stream._readableState;
+	  state.needReadable = false;
+	  if (state.emittedReadable)
+	    return;
+
+	  state.emittedReadable = true;
+	  if (state.sync)
+	    process.nextTick(function() {
+	      emitReadable_(stream);
+	    });
+	  else
+	    emitReadable_(stream);
+	}
+
+	function emitReadable_(stream) {
+	  stream.emit('readable');
+	}
+
+
+	// at this point, the user has presumably seen the 'readable' event,
+	// and called read() to consume some data.  that may have triggered
+	// in turn another _read(n) call, in which case reading = true if
+	// it's in progress.
+	// However, if we're not ended, or reading, and the length < hwm,
+	// then go ahead and try to read some more preemptively.
+	function maybeReadMore(stream, state) {
+	  if (!state.readingMore) {
+	    state.readingMore = true;
+	    process.nextTick(function() {
+	      maybeReadMore_(stream, state);
+	    });
+	  }
+	}
+
+	function maybeReadMore_(stream, state) {
+	  var len = state.length;
+	  while (!state.reading && !state.flowing && !state.ended &&
+	         state.length < state.highWaterMark) {
+	    stream.read(0);
+	    if (len === state.length)
+	      // didn't get any data, stop spinning.
+	      break;
+	    else
+	      len = state.length;
+	  }
+	  state.readingMore = false;
+	}
+
+	// abstract method.  to be overridden in specific implementation classes.
+	// call cb(er, data) where data is <= n in length.
+	// for virtual (non-string, non-buffer) streams, "length" is somewhat
+	// arbitrary, and perhaps not very meaningful.
+	Readable.prototype._read = function(n) {
+	  this.emit('error', new Error('not implemented'));
+	};
+
+	Readable.prototype.pipe = function(dest, pipeOpts) {
+	  var src = this;
+	  var state = this._readableState;
+
+	  switch (state.pipesCount) {
+	    case 0:
+	      state.pipes = dest;
+	      break;
+	    case 1:
+	      state.pipes = [state.pipes, dest];
+	      break;
+	    default:
+	      state.pipes.push(dest);
+	      break;
+	  }
+	  state.pipesCount += 1;
+
+	  var doEnd = (!pipeOpts || pipeOpts.end !== false) &&
+	              dest !== process.stdout &&
+	              dest !== process.stderr;
+
+	  var endFn = doEnd ? onend : cleanup;
+	  if (state.endEmitted)
+	    process.nextTick(endFn);
+	  else
+	    src.once('end', endFn);
+
+	  dest.on('unpipe', onunpipe);
+	  function onunpipe(readable) {
+	    if (readable !== src) return;
+	    cleanup();
+	  }
+
+	  function onend() {
+	    dest.end();
+	  }
+
+	  // when the dest drains, it reduces the awaitDrain counter
+	  // on the source.  This would be more elegant with a .once()
+	  // handler in flow(), but adding and removing repeatedly is
+	  // too slow.
+	  var ondrain = pipeOnDrain(src);
+	  dest.on('drain', ondrain);
+
+	  function cleanup() {
+	    // cleanup event handlers once the pipe is broken
+	    dest.removeListener('close', onclose);
+	    dest.removeListener('finish', onfinish);
+	    dest.removeListener('drain', ondrain);
+	    dest.removeListener('error', onerror);
+	    dest.removeListener('unpipe', onunpipe);
+	    src.removeListener('end', onend);
+	    src.removeListener('end', cleanup);
+
+	    // if the reader is waiting for a drain event from this
+	    // specific writer, then it would cause it to never start
+	    // flowing again.
+	    // So, if this is awaiting a drain, then we just call it now.
+	    // If we don't know, then assume that we are waiting for one.
+	    if (!dest._writableState || dest._writableState.needDrain)
+	      ondrain();
+	  }
+
+	  // if the dest has an error, then stop piping into it.
+	  // however, don't suppress the throwing behavior for this.
+	  function onerror(er) {
+	    unpipe();
+	    dest.removeListener('error', onerror);
+	    if (EE.listenerCount(dest, 'error') === 0)
+	      dest.emit('error', er);
+	  }
+	  // This is a brutally ugly hack to make sure that our error handler
+	  // is attached before any userland ones.  NEVER DO THIS.
+	  if (!dest._events || !dest._events.error)
+	    dest.on('error', onerror);
+	  else if (isArray(dest._events.error))
+	    dest._events.error.unshift(onerror);
+	  else
+	    dest._events.error = [onerror, dest._events.error];
+
+
+
+	  // Both close and finish should trigger unpipe, but only once.
+	  function onclose() {
+	    dest.removeListener('finish', onfinish);
+	    unpipe();
+	  }
+	  dest.once('close', onclose);
+	  function onfinish() {
+	    dest.removeListener('close', onclose);
+	    unpipe();
+	  }
+	  dest.once('finish', onfinish);
+
+	  function unpipe() {
+	    src.unpipe(dest);
+	  }
+
+	  // tell the dest that it's being piped to
+	  dest.emit('pipe', src);
+
+	  // start the flow if it hasn't been started already.
+	  if (!state.flowing) {
+	    // the handler that waits for readable events after all
+	    // the data gets sucked out in flow.
+	    // This would be easier to follow with a .once() handler
+	    // in flow(), but that is too slow.
+	    this.on('readable', pipeOnReadable);
+
+	    state.flowing = true;
+	    process.nextTick(function() {
+	      flow(src);
+	    });
+	  }
+
+	  return dest;
+	};
+
+	function pipeOnDrain(src) {
+	  return function() {
+	    var dest = this;
+	    var state = src._readableState;
+	    state.awaitDrain--;
+	    if (state.awaitDrain === 0)
+	      flow(src);
+	  };
+	}
+
+	function flow(src) {
+	  var state = src._readableState;
+	  var chunk;
+	  state.awaitDrain = 0;
+
+	  function write(dest, i, list) {
+	    var written = dest.write(chunk);
+	    if (false === written) {
+	      state.awaitDrain++;
+	    }
+	  }
+
+	  while (state.pipesCount && null !== (chunk = src.read())) {
+
+	    if (state.pipesCount === 1)
+	      write(state.pipes, 0, null);
+	    else
+	      forEach(state.pipes, write);
+
+	    src.emit('data', chunk);
+
+	    // if anyone needs a drain, then we have to wait for that.
+	    if (state.awaitDrain > 0)
+	      return;
+	  }
+
+	  // if every destination was unpiped, either before entering this
+	  // function, or in the while loop, then stop flowing.
+	  //
+	  // NB: This is a pretty rare edge case.
+	  if (state.pipesCount === 0) {
+	    state.flowing = false;
+
+	    // if there were data event listeners added, then switch to old mode.
+	    if (EE.listenerCount(src, 'data') > 0)
+	      emitDataEvents(src);
+	    return;
+	  }
+
+	  // at this point, no one needed a drain, so we just ran out of data
+	  // on the next readable event, start it over again.
+	  state.ranOut = true;
+	}
+
+	function pipeOnReadable() {
+	  if (this._readableState.ranOut) {
+	    this._readableState.ranOut = false;
+	    flow(this);
+	  }
+	}
+
+
+	Readable.prototype.unpipe = function(dest) {
+	  var state = this._readableState;
+
+	  // if we're not piping anywhere, then do nothing.
+	  if (state.pipesCount === 0)
+	    return this;
+
+	  // just one destination.  most common case.
+	  if (state.pipesCount === 1) {
+	    // passed in one, but it's not the right one.
+	    if (dest && dest !== state.pipes)
+	      return this;
+
+	    if (!dest)
+	      dest = state.pipes;
+
+	    // got a match.
+	    state.pipes = null;
+	    state.pipesCount = 0;
+	    this.removeListener('readable', pipeOnReadable);
+	    state.flowing = false;
+	    if (dest)
+	      dest.emit('unpipe', this);
+	    return this;
+	  }
+
+	  // slow case. multiple pipe destinations.
+
+	  if (!dest) {
+	    // remove all.
+	    var dests = state.pipes;
+	    var len = state.pipesCount;
+	    state.pipes = null;
+	    state.pipesCount = 0;
+	    this.removeListener('readable', pipeOnReadable);
+	    state.flowing = false;
+
+	    for (var i = 0; i < len; i++)
+	      dests[i].emit('unpipe', this);
+	    return this;
+	  }
+
+	  // try to find the right one.
+	  var i = indexOf(state.pipes, dest);
+	  if (i === -1)
+	    return this;
+
+	  state.pipes.splice(i, 1);
+	  state.pipesCount -= 1;
+	  if (state.pipesCount === 1)
+	    state.pipes = state.pipes[0];
+
+	  dest.emit('unpipe', this);
+
+	  return this;
+	};
+
+	// set up data events if they are asked for
+	// Ensure readable listeners eventually get something
+	Readable.prototype.on = function(ev, fn) {
+	  var res = Stream.prototype.on.call(this, ev, fn);
+
+	  if (ev === 'data' && !this._readableState.flowing)
+	    emitDataEvents(this);
+
+	  if (ev === 'readable' && this.readable) {
+	    var state = this._readableState;
+	    if (!state.readableListening) {
+	      state.readableListening = true;
+	      state.emittedReadable = false;
+	      state.needReadable = true;
+	      if (!state.reading) {
+	        this.read(0);
+	      } else if (state.length) {
+	        emitReadable(this, state);
+	      }
+	    }
+	  }
+
+	  return res;
+	};
+	Readable.prototype.addListener = Readable.prototype.on;
+
+	// pause() and resume() are remnants of the legacy readable stream API
+	// If the user uses them, then switch into old mode.
+	Readable.prototype.resume = function() {
+	  emitDataEvents(this);
+	  this.read(0);
+	  this.emit('resume');
+	};
+
+	Readable.prototype.pause = function() {
+	  emitDataEvents(this, true);
+	  this.emit('pause');
+	};
+
+	function emitDataEvents(stream, startPaused) {
+	  var state = stream._readableState;
+
+	  if (state.flowing) {
+	    // https://github.com/isaacs/readable-stream/issues/16
+	    throw new Error('Cannot switch to old mode now.');
+	  }
+
+	  var paused = startPaused || false;
+	  var readable = false;
+
+	  // convert to an old-style stream.
+	  stream.readable = true;
+	  stream.pipe = Stream.prototype.pipe;
+	  stream.on = stream.addListener = Stream.prototype.on;
+
+	  stream.on('readable', function() {
+	    readable = true;
+
+	    var c;
+	    while (!paused && (null !== (c = stream.read())))
+	      stream.emit('data', c);
+
+	    if (c === null) {
+	      readable = false;
+	      stream._readableState.needReadable = true;
+	    }
+	  });
+
+	  stream.pause = function() {
+	    paused = true;
+	    this.emit('pause');
+	  };
+
+	  stream.resume = function() {
+	    paused = false;
+	    if (readable)
+	      process.nextTick(function() {
+	        stream.emit('readable');
+	      });
+	    else
+	      this.read(0);
+	    this.emit('resume');
+	  };
+
+	  // now make it start, just in case it hadn't already.
+	  stream.emit('readable');
+	}
+
+	// wrap an old-style stream as the async data source.
+	// This is *not* part of the readable stream interface.
+	// It is an ugly unfortunate mess of history.
+	Readable.prototype.wrap = function(stream) {
+	  var state = this._readableState;
+	  var paused = false;
+
+	  var self = this;
+	  stream.on('end', function() {
+	    if (state.decoder && !state.ended) {
+	      var chunk = state.decoder.end();
+	      if (chunk && chunk.length)
+	        self.push(chunk);
+	    }
+
+	    self.push(null);
+	  });
+
+	  stream.on('data', function(chunk) {
+	    if (state.decoder)
+	      chunk = state.decoder.write(chunk);
+
+	    // don't skip over falsy values in objectMode
+	    //if (state.objectMode && util.isNullOrUndefined(chunk))
+	    if (state.objectMode && (chunk === null || chunk === undefined))
+	      return;
+	    else if (!state.objectMode && (!chunk || !chunk.length))
+	      return;
+
+	    var ret = self.push(chunk);
+	    if (!ret) {
+	      paused = true;
+	      stream.pause();
+	    }
+	  });
+
+	  // proxy all the other methods.
+	  // important when wrapping filters and duplexes.
+	  for (var i in stream) {
+	    if (typeof stream[i] === 'function' &&
+	        typeof this[i] === 'undefined') {
+	      this[i] = function(method) { return function() {
+	        return stream[method].apply(stream, arguments);
+	      }}(i);
+	    }
+	  }
+
+	  // proxy certain important events.
+	  var events = ['error', 'close', 'destroy', 'pause', 'resume'];
+	  forEach(events, function(ev) {
+	    stream.on(ev, self.emit.bind(self, ev));
+	  });
+
+	  // when we try to consume some more bytes, simply unpause the
+	  // underlying stream.
+	  self._read = function(n) {
+	    if (paused) {
+	      paused = false;
+	      stream.resume();
+	    }
+	  };
+
+	  return self;
+	};
+
+
+
+	// exposed for testing purposes only.
+	Readable._fromList = fromList;
+
+	// Pluck off n bytes from an array of buffers.
+	// Length is the combined lengths of all the buffers in the list.
+	function fromList(n, state) {
+	  var list = state.buffer;
+	  var length = state.length;
+	  var stringMode = !!state.decoder;
+	  var objectMode = !!state.objectMode;
+	  var ret;
+
+	  // nothing in the list, definitely empty.
+	  if (list.length === 0)
+	    return null;
+
+	  if (length === 0)
+	    ret = null;
+	  else if (objectMode)
+	    ret = list.shift();
+	  else if (!n || n >= length) {
+	    // read it all, truncate the array.
+	    if (stringMode)
+	      ret = list.join('');
+	    else
+	      ret = Buffer.concat(list, length);
+	    list.length = 0;
+	  } else {
+	    // read just some of it.
+	    if (n < list[0].length) {
+	      // just take a part of the first list item.
+	      // slice is the same for buffers and strings.
+	      var buf = list[0];
+	      ret = buf.slice(0, n);
+	      list[0] = buf.slice(n);
+	    } else if (n === list[0].length) {
+	      // first list is a perfect match
+	      ret = list.shift();
+	    } else {
+	      // complex case.
+	      // we have enough to cover it, but it spans past the first buffer.
+	      if (stringMode)
+	        ret = '';
+	      else
+	        ret = new Buffer(n);
+
+	      var c = 0;
+	      for (var i = 0, l = list.length; i < l && c < n; i++) {
+	        var buf = list[0];
+	        var cpy = Math.min(n - c, buf.length);
+
+	        if (stringMode)
+	          ret += buf.slice(0, cpy);
+	        else
+	          buf.copy(ret, c, 0, cpy);
+
+	        if (cpy < buf.length)
+	          list[0] = buf.slice(cpy);
+	        else
+	          list.shift();
+
+	        c += cpy;
+	      }
+	    }
+	  }
+
+	  return ret;
+	}
+
+	function endReadable(stream) {
+	  var state = stream._readableState;
+
+	  // If we get here before consuming all the bytes, then that is a
+	  // bug in node.  Should never happen.
+	  if (state.length > 0)
+	    throw new Error('endReadable called on non-empty stream');
+
+	  if (!state.endEmitted && state.calledRead) {
+	    state.ended = true;
+	    process.nextTick(function() {
+	      // Check that we didn't get one last unshift.
+	      if (!state.endEmitted && state.length === 0) {
+	        state.endEmitted = true;
+	        stream.readable = false;
+	        stream.emit('end');
+	      }
+	    });
+	  }
+	}
+
+	function forEach (xs, f) {
+	  for (var i = 0, l = xs.length; i < l; i++) {
+	    f(xs[i], i);
+	  }
+	}
+
+	function indexOf (xs, x) {
+	  for (var i = 0, l = xs.length; i < l; i++) {
+	    if (xs[i] === x) return i;
+	  }
+	  return -1;
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+/***/ },
+/* 437 */
+/***/ function(module, exports) {
+
+	module.exports = Array.isArray || function (arr) {
+	  return Object.prototype.toString.call(arr) == '[object Array]';
+	};
+
+
+/***/ },
+/* 438 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	// A bit simpler than readable streams.
+	// Implement an async ._write(chunk, cb), and it'll handle all
+	// the drain event emission and buffering.
+
+	module.exports = Writable;
+
+	/*<replacement>*/
+	var Buffer = __webpack_require__(399).Buffer;
+	/*</replacement>*/
+
+	Writable.WritableState = WritableState;
+
+
+	/*<replacement>*/
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
+	/*</replacement>*/
+
+	var Stream = __webpack_require__(409);
+
+	util.inherits(Writable, Stream);
+
+	function WriteReq(chunk, encoding, cb) {
+	  this.chunk = chunk;
+	  this.encoding = encoding;
+	  this.callback = cb;
+	}
+
+	function WritableState(options, stream) {
+	  options = options || {};
+
+	  // the point at which write() starts returning false
+	  // Note: 0 is a valid value, means that we always return false if
+	  // the entire buffer is not flushed immediately on write()
+	  var hwm = options.highWaterMark;
+	  this.highWaterMark = (hwm || hwm === 0) ? hwm : 16 * 1024;
+
+	  // object stream flag to indicate whether or not this stream
+	  // contains buffers or objects.
+	  this.objectMode = !!options.objectMode;
+
+	  // cast to ints.
+	  this.highWaterMark = ~~this.highWaterMark;
+
+	  this.needDrain = false;
+	  // at the start of calling end()
+	  this.ending = false;
+	  // when end() has been called, and returned
+	  this.ended = false;
+	  // when 'finish' is emitted
+	  this.finished = false;
+
+	  // should we decode strings into buffers before passing to _write?
+	  // this is here so that some node-core streams can optimize string
+	  // handling at a lower level.
+	  var noDecode = options.decodeStrings === false;
+	  this.decodeStrings = !noDecode;
+
+	  // Crypto is kind of old and crusty.  Historically, its default string
+	  // encoding is 'binary' so we have to make this configurable.
+	  // Everything else in the universe uses 'utf8', though.
+	  this.defaultEncoding = options.defaultEncoding || 'utf8';
+
+	  // not an actual buffer we keep track of, but a measurement
+	  // of how much we're waiting to get pushed to some underlying
+	  // socket or file.
+	  this.length = 0;
+
+	  // a flag to see when we're in the middle of a write.
+	  this.writing = false;
+
+	  // a flag to be able to tell if the onwrite cb is called immediately,
+	  // or on a later tick.  We set this to true at first, becuase any
+	  // actions that shouldn't happen until "later" should generally also
+	  // not happen before the first write call.
+	  this.sync = true;
+
+	  // a flag to know if we're processing previously buffered items, which
+	  // may call the _write() callback in the same tick, so that we don't
+	  // end up in an overlapped onwrite situation.
+	  this.bufferProcessing = false;
+
+	  // the callback that's passed to _write(chunk,cb)
+	  this.onwrite = function(er) {
+	    onwrite(stream, er);
+	  };
+
+	  // the callback that the user supplies to write(chunk,encoding,cb)
+	  this.writecb = null;
+
+	  // the amount that is being written when _write is called.
+	  this.writelen = 0;
+
+	  this.buffer = [];
+
+	  // True if the error was already emitted and should not be thrown again
+	  this.errorEmitted = false;
+	}
+
+	function Writable(options) {
+	  var Duplex = __webpack_require__(435);
+
+	  // Writable ctor is applied to Duplexes, though they're not
+	  // instanceof Writable, they're instanceof Readable.
+	  if (!(this instanceof Writable) && !(this instanceof Duplex))
+	    return new Writable(options);
+
+	  this._writableState = new WritableState(options, this);
+
+	  // legacy.
+	  this.writable = true;
+
+	  Stream.call(this);
+	}
+
+	// Otherwise people can pipe Writable streams, which is just wrong.
+	Writable.prototype.pipe = function() {
+	  this.emit('error', new Error('Cannot pipe. Not readable.'));
+	};
+
+
+	function writeAfterEnd(stream, state, cb) {
+	  var er = new Error('write after end');
+	  // TODO: defer error events consistently everywhere, not just the cb
+	  stream.emit('error', er);
+	  process.nextTick(function() {
+	    cb(er);
+	  });
+	}
+
+	// If we get something that is not a buffer, string, null, or undefined,
+	// and we're not in objectMode, then that's an error.
+	// Otherwise stream chunks are all considered to be of length=1, and the
+	// watermarks determine how many objects to keep in the buffer, rather than
+	// how many bytes or characters.
+	function validChunk(stream, state, chunk, cb) {
+	  var valid = true;
+	  if (!Buffer.isBuffer(chunk) &&
+	      'string' !== typeof chunk &&
+	      chunk !== null &&
+	      chunk !== undefined &&
+	      !state.objectMode) {
+	    var er = new TypeError('Invalid non-string/buffer chunk');
+	    stream.emit('error', er);
+	    process.nextTick(function() {
+	      cb(er);
+	    });
+	    valid = false;
+	  }
+	  return valid;
+	}
+
+	Writable.prototype.write = function(chunk, encoding, cb) {
+	  var state = this._writableState;
+	  var ret = false;
+
+	  if (typeof encoding === 'function') {
+	    cb = encoding;
+	    encoding = null;
+	  }
+
+	  if (Buffer.isBuffer(chunk))
+	    encoding = 'buffer';
+	  else if (!encoding)
+	    encoding = state.defaultEncoding;
+
+	  if (typeof cb !== 'function')
+	    cb = function() {};
+
+	  if (state.ended)
+	    writeAfterEnd(this, state, cb);
+	  else if (validChunk(this, state, chunk, cb))
+	    ret = writeOrBuffer(this, state, chunk, encoding, cb);
+
+	  return ret;
+	};
+
+	function decodeChunk(state, chunk, encoding) {
+	  if (!state.objectMode &&
+	      state.decodeStrings !== false &&
+	      typeof chunk === 'string') {
+	    chunk = new Buffer(chunk, encoding);
+	  }
+	  return chunk;
+	}
+
+	// if we're already writing something, then just put this
+	// in the queue, and wait our turn.  Otherwise, call _write
+	// If we return false, then we need a drain event, so set that flag.
+	function writeOrBuffer(stream, state, chunk, encoding, cb) {
+	  chunk = decodeChunk(state, chunk, encoding);
+	  if (Buffer.isBuffer(chunk))
+	    encoding = 'buffer';
+	  var len = state.objectMode ? 1 : chunk.length;
+
+	  state.length += len;
+
+	  var ret = state.length < state.highWaterMark;
+	  // we must ensure that previous needDrain will not be reset to false.
+	  if (!ret)
+	    state.needDrain = true;
+
+	  if (state.writing)
+	    state.buffer.push(new WriteReq(chunk, encoding, cb));
+	  else
+	    doWrite(stream, state, len, chunk, encoding, cb);
+
+	  return ret;
+	}
+
+	function doWrite(stream, state, len, chunk, encoding, cb) {
+	  state.writelen = len;
+	  state.writecb = cb;
+	  state.writing = true;
+	  state.sync = true;
+	  stream._write(chunk, encoding, state.onwrite);
+	  state.sync = false;
+	}
+
+	function onwriteError(stream, state, sync, er, cb) {
+	  if (sync)
+	    process.nextTick(function() {
+	      cb(er);
+	    });
+	  else
+	    cb(er);
+
+	  stream._writableState.errorEmitted = true;
+	  stream.emit('error', er);
+	}
+
+	function onwriteStateUpdate(state) {
+	  state.writing = false;
+	  state.writecb = null;
+	  state.length -= state.writelen;
+	  state.writelen = 0;
+	}
+
+	function onwrite(stream, er) {
+	  var state = stream._writableState;
+	  var sync = state.sync;
+	  var cb = state.writecb;
+
+	  onwriteStateUpdate(state);
+
+	  if (er)
+	    onwriteError(stream, state, sync, er, cb);
+	  else {
+	    // Check if we're actually ready to finish, but don't emit yet
+	    var finished = needFinish(stream, state);
+
+	    if (!finished && !state.bufferProcessing && state.buffer.length)
+	      clearBuffer(stream, state);
+
+	    if (sync) {
+	      process.nextTick(function() {
+	        afterWrite(stream, state, finished, cb);
+	      });
+	    } else {
+	      afterWrite(stream, state, finished, cb);
+	    }
+	  }
+	}
+
+	function afterWrite(stream, state, finished, cb) {
+	  if (!finished)
+	    onwriteDrain(stream, state);
+	  cb();
+	  if (finished)
+	    finishMaybe(stream, state);
+	}
+
+	// Must force callback to be called on nextTick, so that we don't
+	// emit 'drain' before the write() consumer gets the 'false' return
+	// value, and has a chance to attach a 'drain' listener.
+	function onwriteDrain(stream, state) {
+	  if (state.length === 0 && state.needDrain) {
+	    state.needDrain = false;
+	    stream.emit('drain');
+	  }
+	}
+
+
+	// if there's something in the buffer waiting, then process it
+	function clearBuffer(stream, state) {
+	  state.bufferProcessing = true;
+
+	  for (var c = 0; c < state.buffer.length; c++) {
+	    var entry = state.buffer[c];
+	    var chunk = entry.chunk;
+	    var encoding = entry.encoding;
+	    var cb = entry.callback;
+	    var len = state.objectMode ? 1 : chunk.length;
+
+	    doWrite(stream, state, len, chunk, encoding, cb);
+
+	    // if we didn't call the onwrite immediately, then
+	    // it means that we need to wait until it does.
+	    // also, that means that the chunk and cb are currently
+	    // being processed, so move the buffer counter past them.
+	    if (state.writing) {
+	      c++;
+	      break;
+	    }
+	  }
+
+	  state.bufferProcessing = false;
+	  if (c < state.buffer.length)
+	    state.buffer = state.buffer.slice(c);
+	  else
+	    state.buffer.length = 0;
+	}
+
+	Writable.prototype._write = function(chunk, encoding, cb) {
+	  cb(new Error('not implemented'));
+	};
+
+	Writable.prototype.end = function(chunk, encoding, cb) {
+	  var state = this._writableState;
+
+	  if (typeof chunk === 'function') {
+	    cb = chunk;
+	    chunk = null;
+	    encoding = null;
+	  } else if (typeof encoding === 'function') {
+	    cb = encoding;
+	    encoding = null;
+	  }
+
+	  if (typeof chunk !== 'undefined' && chunk !== null)
+	    this.write(chunk, encoding);
+
+	  // ignore unnecessary end() calls.
+	  if (!state.ending && !state.finished)
+	    endWritable(this, state, cb);
+	};
+
+
+	function needFinish(stream, state) {
+	  return (state.ending &&
+	          state.length === 0 &&
+	          !state.finished &&
+	          !state.writing);
+	}
+
+	function finishMaybe(stream, state) {
+	  var need = needFinish(stream, state);
+	  if (need) {
+	    state.finished = true;
+	    stream.emit('finish');
+	  }
+	  return need;
+	}
+
+	function endWritable(stream, state, cb) {
+	  state.ending = true;
+	  finishMaybe(stream, state);
+	  if (cb) {
+	    if (state.finished)
+	      process.nextTick(cb);
+	    else
+	      stream.once('finish', cb);
+	  }
+	  state.ended = true;
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+/***/ },
+/* 439 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	var formatRegExp = /%[sdj%]/g;
+	exports.format = function(f) {
+	  if (!isString(f)) {
+	    var objects = [];
+	    for (var i = 0; i < arguments.length; i++) {
+	      objects.push(inspect(arguments[i]));
+	    }
+	    return objects.join(' ');
+	  }
+
+	  var i = 1;
+	  var args = arguments;
+	  var len = args.length;
+	  var str = String(f).replace(formatRegExp, function(x) {
+	    if (x === '%%') return '%';
+	    if (i >= len) return x;
+	    switch (x) {
+	      case '%s': return String(args[i++]);
+	      case '%d': return Number(args[i++]);
+	      case '%j':
+	        try {
+	          return JSON.stringify(args[i++]);
+	        } catch (_) {
+	          return '[Circular]';
+	        }
+	      default:
+	        return x;
+	    }
+	  });
+	  for (var x = args[i]; i < len; x = args[++i]) {
+	    if (isNull(x) || !isObject(x)) {
+	      str += ' ' + x;
+	    } else {
+	      str += ' ' + inspect(x);
+	    }
+	  }
+	  return str;
+	};
+
+
+	// Mark that a method should not be used.
+	// Returns a modified function which warns once by default.
+	// If --no-deprecation is set, then it is a no-op.
+	exports.deprecate = function(fn, msg) {
+	  // Allow for deprecating things in the process of starting up.
+	  if (isUndefined(global.process)) {
+	    return function() {
+	      return exports.deprecate(fn, msg).apply(this, arguments);
+	    };
+	  }
+
+	  if (process.noDeprecation === true) {
+	    return fn;
+	  }
+
+	  var warned = false;
+	  function deprecated() {
+	    if (!warned) {
+	      if (process.throwDeprecation) {
+	        throw new Error(msg);
+	      } else if (process.traceDeprecation) {
+	        console.trace(msg);
+	      } else {
+	        console.error(msg);
+	      }
+	      warned = true;
+	    }
+	    return fn.apply(this, arguments);
+	  }
+
+	  return deprecated;
+	};
+
+
+	var debugs = {};
+	var debugEnviron;
+	exports.debuglog = function(set) {
+	  if (isUndefined(debugEnviron))
+	    debugEnviron = process.env.NODE_DEBUG || '';
+	  set = set.toUpperCase();
+	  if (!debugs[set]) {
+	    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
+	      var pid = process.pid;
+	      debugs[set] = function() {
+	        var msg = exports.format.apply(exports, arguments);
+	        console.error('%s %d: %s', set, pid, msg);
+	      };
+	    } else {
+	      debugs[set] = function() {};
+	    }
+	  }
+	  return debugs[set];
+	};
+
+
+	/**
+	 * Echos the value of a value. Trys to print the value out
+	 * in the best way possible given the different types.
+	 *
+	 * @param {Object} obj The object to print out.
+	 * @param {Object} opts Optional options object that alters the output.
+	 */
+	/* legacy: obj, showHidden, depth, colors*/
+	function inspect(obj, opts) {
+	  // default options
+	  var ctx = {
+	    seen: [],
+	    stylize: stylizeNoColor
+	  };
+	  // legacy...
+	  if (arguments.length >= 3) ctx.depth = arguments[2];
+	  if (arguments.length >= 4) ctx.colors = arguments[3];
+	  if (isBoolean(opts)) {
+	    // legacy...
+	    ctx.showHidden = opts;
+	  } else if (opts) {
+	    // got an "options" object
+	    exports._extend(ctx, opts);
+	  }
+	  // set default options
+	  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
+	  if (isUndefined(ctx.depth)) ctx.depth = 2;
+	  if (isUndefined(ctx.colors)) ctx.colors = false;
+	  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
+	  if (ctx.colors) ctx.stylize = stylizeWithColor;
+	  return formatValue(ctx, obj, ctx.depth);
+	}
+	exports.inspect = inspect;
+
+
+	// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
+	inspect.colors = {
+	  'bold' : [1, 22],
+	  'italic' : [3, 23],
+	  'underline' : [4, 24],
+	  'inverse' : [7, 27],
+	  'white' : [37, 39],
+	  'grey' : [90, 39],
+	  'black' : [30, 39],
+	  'blue' : [34, 39],
+	  'cyan' : [36, 39],
+	  'green' : [32, 39],
+	  'magenta' : [35, 39],
+	  'red' : [31, 39],
+	  'yellow' : [33, 39]
+	};
+
+	// Don't use 'blue' not visible on cmd.exe
+	inspect.styles = {
+	  'special': 'cyan',
+	  'number': 'yellow',
+	  'boolean': 'yellow',
+	  'undefined': 'grey',
+	  'null': 'bold',
+	  'string': 'green',
+	  'date': 'magenta',
+	  // "name": intentionally not styling
+	  'regexp': 'red'
+	};
+
+
+	function stylizeWithColor(str, styleType) {
+	  var style = inspect.styles[styleType];
+
+	  if (style) {
+	    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
+	           '\u001b[' + inspect.colors[style][1] + 'm';
+	  } else {
+	    return str;
+	  }
+	}
+
+
+	function stylizeNoColor(str, styleType) {
+	  return str;
+	}
+
+
+	function arrayToHash(array) {
+	  var hash = {};
+
+	  array.forEach(function(val, idx) {
+	    hash[val] = true;
+	  });
+
+	  return hash;
+	}
+
+
+	function formatValue(ctx, value, recurseTimes) {
+	  // Provide a hook for user-specified inspect functions.
+	  // Check that value is an object with an inspect function on it
+	  if (ctx.customInspect &&
+	      value &&
+	      isFunction(value.inspect) &&
+	      // Filter out the util module, it's inspect function is special
+	      value.inspect !== exports.inspect &&
+	      // Also filter out any prototype objects using the circular check.
+	      !(value.constructor && value.constructor.prototype === value)) {
+	    var ret = value.inspect(recurseTimes, ctx);
+	    if (!isString(ret)) {
+	      ret = formatValue(ctx, ret, recurseTimes);
+	    }
+	    return ret;
+	  }
+
+	  // Primitive types cannot have properties
+	  var primitive = formatPrimitive(ctx, value);
+	  if (primitive) {
+	    return primitive;
+	  }
+
+	  // Look up the keys of the object.
+	  var keys = Object.keys(value);
+	  var visibleKeys = arrayToHash(keys);
+
+	  if (ctx.showHidden) {
+	    keys = Object.getOwnPropertyNames(value);
+	  }
+
+	  // IE doesn't make error fields non-enumerable
+	  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
+	  if (isError(value)
+	      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
+	    return formatError(value);
+	  }
+
+	  // Some type of object without properties can be shortcutted.
+	  if (keys.length === 0) {
+	    if (isFunction(value)) {
+	      var name = value.name ? ': ' + value.name : '';
+	      return ctx.stylize('[Function' + name + ']', 'special');
+	    }
+	    if (isRegExp(value)) {
+	      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+	    }
+	    if (isDate(value)) {
+	      return ctx.stylize(Date.prototype.toString.call(value), 'date');
+	    }
+	    if (isError(value)) {
+	      return formatError(value);
+	    }
+	  }
+
+	  var base = '', array = false, braces = ['{', '}'];
+
+	  // Make Array say that they are Array
+	  if (isArray(value)) {
+	    array = true;
+	    braces = ['[', ']'];
+	  }
+
+	  // Make functions say that they are functions
+	  if (isFunction(value)) {
+	    var n = value.name ? ': ' + value.name : '';
+	    base = ' [Function' + n + ']';
+	  }
+
+	  // Make RegExps say that they are RegExps
+	  if (isRegExp(value)) {
+	    base = ' ' + RegExp.prototype.toString.call(value);
+	  }
+
+	  // Make dates with properties first say the date
+	  if (isDate(value)) {
+	    base = ' ' + Date.prototype.toUTCString.call(value);
+	  }
+
+	  // Make error with message first say the error
+	  if (isError(value)) {
+	    base = ' ' + formatError(value);
+	  }
+
+	  if (keys.length === 0 && (!array || value.length == 0)) {
+	    return braces[0] + base + braces[1];
+	  }
+
+	  if (recurseTimes < 0) {
+	    if (isRegExp(value)) {
+	      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+	    } else {
+	      return ctx.stylize('[Object]', 'special');
+	    }
+	  }
+
+	  ctx.seen.push(value);
+
+	  var output;
+	  if (array) {
+	    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+	  } else {
+	    output = keys.map(function(key) {
+	      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
+	    });
+	  }
+
+	  ctx.seen.pop();
+
+	  return reduceToSingleString(output, base, braces);
+	}
+
+
+	function formatPrimitive(ctx, value) {
+	  if (isUndefined(value))
+	    return ctx.stylize('undefined', 'undefined');
+	  if (isString(value)) {
+	    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
+	                                             .replace(/'/g, "\\'")
+	                                             .replace(/\\"/g, '"') + '\'';
+	    return ctx.stylize(simple, 'string');
+	  }
+	  if (isNumber(value))
+	    return ctx.stylize('' + value, 'number');
+	  if (isBoolean(value))
+	    return ctx.stylize('' + value, 'boolean');
+	  // For some reason typeof null is "object", so special case here.
+	  if (isNull(value))
+	    return ctx.stylize('null', 'null');
+	}
+
+
+	function formatError(value) {
+	  return '[' + Error.prototype.toString.call(value) + ']';
+	}
+
+
+	function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+	  var output = [];
+	  for (var i = 0, l = value.length; i < l; ++i) {
+	    if (hasOwnProperty(value, String(i))) {
+	      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+	          String(i), true));
+	    } else {
+	      output.push('');
+	    }
+	  }
+	  keys.forEach(function(key) {
+	    if (!key.match(/^\d+$/)) {
+	      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+	          key, true));
+	    }
+	  });
+	  return output;
+	}
+
+
+	function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
+	  var name, str, desc;
+	  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
+	  if (desc.get) {
+	    if (desc.set) {
+	      str = ctx.stylize('[Getter/Setter]', 'special');
+	    } else {
+	      str = ctx.stylize('[Getter]', 'special');
+	    }
+	  } else {
+	    if (desc.set) {
+	      str = ctx.stylize('[Setter]', 'special');
+	    }
+	  }
+	  if (!hasOwnProperty(visibleKeys, key)) {
+	    name = '[' + key + ']';
+	  }
+	  if (!str) {
+	    if (ctx.seen.indexOf(desc.value) < 0) {
+	      if (isNull(recurseTimes)) {
+	        str = formatValue(ctx, desc.value, null);
+	      } else {
+	        str = formatValue(ctx, desc.value, recurseTimes - 1);
+	      }
+	      if (str.indexOf('\n') > -1) {
+	        if (array) {
+	          str = str.split('\n').map(function(line) {
+	            return '  ' + line;
+	          }).join('\n').substr(2);
+	        } else {
+	          str = '\n' + str.split('\n').map(function(line) {
+	            return '   ' + line;
+	          }).join('\n');
+	        }
+	      }
+	    } else {
+	      str = ctx.stylize('[Circular]', 'special');
+	    }
+	  }
+	  if (isUndefined(name)) {
+	    if (array && key.match(/^\d+$/)) {
+	      return str;
+	    }
+	    name = JSON.stringify('' + key);
+	    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+	      name = name.substr(1, name.length - 2);
+	      name = ctx.stylize(name, 'name');
+	    } else {
+	      name = name.replace(/'/g, "\\'")
+	                 .replace(/\\"/g, '"')
+	                 .replace(/(^"|"$)/g, "'");
+	      name = ctx.stylize(name, 'string');
+	    }
+	  }
+
+	  return name + ': ' + str;
+	}
+
+
+	function reduceToSingleString(output, base, braces) {
+	  var numLinesEst = 0;
+	  var length = output.reduce(function(prev, cur) {
+	    numLinesEst++;
+	    if (cur.indexOf('\n') >= 0) numLinesEst++;
+	    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
+	  }, 0);
+
+	  if (length > 60) {
+	    return braces[0] +
+	           (base === '' ? '' : base + '\n ') +
+	           ' ' +
+	           output.join(',\n  ') +
+	           ' ' +
+	           braces[1];
+	  }
+
+	  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
+	}
+
+
+	// NOTE: These type checking functions intentionally don't use `instanceof`
+	// because it is fragile and can be easily faked with `Object.create()`.
+	function isArray(ar) {
+	  return Array.isArray(ar);
+	}
+	exports.isArray = isArray;
+
+	function isBoolean(arg) {
+	  return typeof arg === 'boolean';
+	}
+	exports.isBoolean = isBoolean;
+
+	function isNull(arg) {
+	  return arg === null;
+	}
+	exports.isNull = isNull;
+
+	function isNullOrUndefined(arg) {
+	  return arg == null;
+	}
+	exports.isNullOrUndefined = isNullOrUndefined;
+
+	function isNumber(arg) {
+	  return typeof arg === 'number';
+	}
+	exports.isNumber = isNumber;
+
+	function isString(arg) {
+	  return typeof arg === 'string';
+	}
+	exports.isString = isString;
+
+	function isSymbol(arg) {
+	  return typeof arg === 'symbol';
+	}
+	exports.isSymbol = isSymbol;
+
+	function isUndefined(arg) {
+	  return arg === void 0;
+	}
+	exports.isUndefined = isUndefined;
+
+	function isRegExp(re) {
+	  return isObject(re) && objectToString(re) === '[object RegExp]';
+	}
+	exports.isRegExp = isRegExp;
+
+	function isObject(arg) {
+	  return typeof arg === 'object' && arg !== null;
+	}
+	exports.isObject = isObject;
+
+	function isDate(d) {
+	  return isObject(d) && objectToString(d) === '[object Date]';
+	}
+	exports.isDate = isDate;
+
+	function isError(e) {
+	  return isObject(e) &&
+	      (objectToString(e) === '[object Error]' || e instanceof Error);
+	}
+	exports.isError = isError;
+
+	function isFunction(arg) {
+	  return typeof arg === 'function';
+	}
+	exports.isFunction = isFunction;
+
+	function isPrimitive(arg) {
+	  return arg === null ||
+	         typeof arg === 'boolean' ||
+	         typeof arg === 'number' ||
+	         typeof arg === 'string' ||
+	         typeof arg === 'symbol' ||  // ES6 symbol
+	         typeof arg === 'undefined';
+	}
+	exports.isPrimitive = isPrimitive;
+
+	exports.isBuffer = __webpack_require__(440);
+
+	function objectToString(o) {
+	  return Object.prototype.toString.call(o);
+	}
+
+
+	function pad(n) {
+	  return n < 10 ? '0' + n.toString(10) : n.toString(10);
+	}
+
+
+	var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+	              'Oct', 'Nov', 'Dec'];
+
+	// 26 Feb 16:19:34
+	function timestamp() {
+	  var d = new Date();
+	  var time = [pad(d.getHours()),
+	              pad(d.getMinutes()),
+	              pad(d.getSeconds())].join(':');
+	  return [d.getDate(), months[d.getMonth()], time].join(' ');
+	}
+
+
+	// log is just a thin wrapper to console.log that prepends a timestamp
+	exports.log = function() {
+	  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
+	};
+
+
+	/**
+	 * Inherit the prototype methods from one constructor into another.
+	 *
+	 * The Function.prototype.inherits from lang.js rewritten as a standalone
+	 * function (not on Function.prototype). NOTE: If this file is to be loaded
+	 * during bootstrapping this function needs to be rewritten using some native
+	 * functions as prototype setup using normal JavaScript does not work as
+	 * expected during bootstrapping (see mirror.js in r114903).
+	 *
+	 * @param {function} ctor Constructor function which needs to inherit the
+	 *     prototype.
+	 * @param {function} superCtor Constructor function to inherit prototype from.
+	 */
+	exports.inherits = __webpack_require__(441);
+
+	exports._extend = function(origin, add) {
+	  // Don't do anything if add isn't an object
+	  if (!add || !isObject(add)) return origin;
+
+	  var keys = Object.keys(add);
+	  var i = keys.length;
+	  while (i--) {
+	    origin[keys[i]] = add[keys[i]];
+	  }
+	  return origin;
+	};
+
+	function hasOwnProperty(obj, prop) {
+	  return Object.prototype.hasOwnProperty.call(obj, prop);
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(397)))
+
+/***/ },
+/* 440 */
+/***/ function(module, exports) {
+
+	module.exports = function isBuffer(arg) {
+	  return arg && typeof arg === 'object'
+	    && typeof arg.copy === 'function'
+	    && typeof arg.fill === 'function'
+	    && typeof arg.readUInt8 === 'function';
+	}
+
+/***/ },
+/* 441 */
+/***/ function(module, exports) {
+
+	if (typeof Object.create === 'function') {
+	  // implementation from standard node.js 'util' module
+	  module.exports = function inherits(ctor, superCtor) {
+	    ctor.super_ = superCtor
+	    ctor.prototype = Object.create(superCtor.prototype, {
+	      constructor: {
+	        value: ctor,
+	        enumerable: false,
+	        writable: true,
+	        configurable: true
+	      }
+	    });
+	  };
+	} else {
+	  // old school shim for old browsers
+	  module.exports = function inherits(ctor, superCtor) {
+	    ctor.super_ = superCtor
+	    var TempCtor = function () {}
+	    TempCtor.prototype = superCtor.prototype
+	    ctor.prototype = new TempCtor()
+	    ctor.prototype.constructor = ctor
+	  }
+	}
+
+
+/***/ },
+/* 442 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var stream = __webpack_require__(443);
+
+	var duplex2 = module.exports = function duplex2(options, writable, readable) {
+	  return new DuplexWrapper(options, writable, readable);
+	};
+
+	var DuplexWrapper = exports.DuplexWrapper = function DuplexWrapper(options, writable, readable) {
+	  if (typeof readable === "undefined") {
+	    readable = writable;
+	    writable = options;
+	    options = null;
+	  }
+
+	  options = options || {};
+	  options.objectMode = true;
+
+	  stream.Duplex.call(this, options);
+
+	  this._bubbleErrors = (typeof options.bubbleErrors === "undefined") || !!options.bubbleErrors;
+
+	  this._writable = writable;
+	  this._readable = readable;
+
+	  var self = this;
+
+	  writable.once("finish", function() {
+	    self.end();
+	  });
+
+	  this.once("finish", function() {
+	    writable.end();
+	  });
+
+	  readable.on("data", function(e) {
+	    if (!self.push(e)) {
+	      readable.pause();
+	    }
+	  });
+
+	  readable.once("end", function() {
+	    return self.push(null);
+	  });
+
+	  if (this._bubbleErrors) {
+	    writable.on("error", function(err) {
+	      return self.emit("error", err);
+	    });
+
+	    readable.on("error", function(err) {
+	      return self.emit("error", err);
+	    });
+	  }
+	};
+	DuplexWrapper.prototype = Object.create(stream.Duplex.prototype, {constructor: {value: DuplexWrapper}});
+
+	DuplexWrapper.prototype._write = function _write(input, encoding, done) {
+	  this._writable.write(input, encoding, done);
+	};
+
+	DuplexWrapper.prototype._read = function _read(n) {
+	  this._readable.resume();
+	};
+
+
+/***/ },
+/* 443 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {exports = module.exports = __webpack_require__(444);
+	exports.Stream = __webpack_require__(409);
+	exports.Readable = exports;
+	exports.Writable = __webpack_require__(447);
+	exports.Duplex = __webpack_require__(446);
+	exports.Transform = __webpack_require__(448);
+	exports.PassThrough = __webpack_require__(449);
+	if (!process.browser && process.env.READABLE_STREAM === 'disable') {
+	  module.exports = __webpack_require__(409);
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+/***/ },
+/* 444 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	module.exports = Readable;
+
+	/*<replacement>*/
+	var isArray = __webpack_require__(437);
+	/*</replacement>*/
+
+
+	/*<replacement>*/
+	var Buffer = __webpack_require__(399).Buffer;
+	/*</replacement>*/
+
+	Readable.ReadableState = ReadableState;
+
+	var EE = __webpack_require__(395).EventEmitter;
+
+	/*<replacement>*/
+	if (!EE.listenerCount) EE.listenerCount = function(emitter, type) {
+	  return emitter.listeners(type).length;
+	};
+	/*</replacement>*/
+
+	var Stream = __webpack_require__(409);
+
+	/*<replacement>*/
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
+	/*</replacement>*/
+
+	var StringDecoder;
+
+
+	/*<replacement>*/
+	var debug = __webpack_require__(445);
+	if (debug && debug.debuglog) {
+	  debug = debug.debuglog('stream');
+	} else {
+	  debug = function () {};
+	}
+	/*</replacement>*/
+
+
+	util.inherits(Readable, Stream);
+
+	function ReadableState(options, stream) {
+	  var Duplex = __webpack_require__(446);
 
 	  options = options || {};
 
@@ -74300,14 +91090,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.encoding = null;
 	  if (options.encoding) {
 	    if (!StringDecoder)
-	      StringDecoder = __webpack_require__(401).StringDecoder;
+	      StringDecoder = __webpack_require__(422).StringDecoder;
 	    this.decoder = new StringDecoder(options.encoding);
 	    this.encoding = options.encoding;
 	  }
 	}
 
 	function Readable(options) {
-	  var Duplex = __webpack_require__(399);
+	  var Duplex = __webpack_require__(446);
 
 	  if (!(this instanceof Readable))
 	    return new Readable(options);
@@ -74410,7 +91200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// backwards compatibility.
 	Readable.prototype.setEncoding = function(enc) {
 	  if (!StringDecoder)
-	    StringDecoder = __webpack_require__(401).StringDecoder;
+	    StringDecoder = __webpack_require__(422).StringDecoder;
 	  this._readableState.decoder = new StringDecoder(enc);
 	  this._readableState.encoding = enc;
 	  return this;
@@ -75126,139 +91916,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return -1;
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(384)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 396 */
-/***/ function(module, exports) {
-
-	module.exports = Array.isArray || function (arr) {
-	  return Object.prototype.toString.call(arr) == '[object Array]';
-	};
-
-
-/***/ },
-/* 397 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
-	//
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the
-	// "Software"), to deal in the Software without restriction, including
-	// without limitation the rights to use, copy, modify, merge, publish,
-	// distribute, sublicense, and/or sell copies of the Software, and to permit
-	// persons to whom the Software is furnished to do so, subject to the
-	// following conditions:
-	//
-	// The above copyright notice and this permission notice shall be included
-	// in all copies or substantial portions of the Software.
-	//
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-	// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-	// NOTE: These type checking functions intentionally don't use `instanceof`
-	// because it is fragile and can be easily faked with `Object.create()`.
-
-	function isArray(arg) {
-	  if (Array.isArray) {
-	    return Array.isArray(arg);
-	  }
-	  return objectToString(arg) === '[object Array]';
-	}
-	exports.isArray = isArray;
-
-	function isBoolean(arg) {
-	  return typeof arg === 'boolean';
-	}
-	exports.isBoolean = isBoolean;
-
-	function isNull(arg) {
-	  return arg === null;
-	}
-	exports.isNull = isNull;
-
-	function isNullOrUndefined(arg) {
-	  return arg == null;
-	}
-	exports.isNullOrUndefined = isNullOrUndefined;
-
-	function isNumber(arg) {
-	  return typeof arg === 'number';
-	}
-	exports.isNumber = isNumber;
-
-	function isString(arg) {
-	  return typeof arg === 'string';
-	}
-	exports.isString = isString;
-
-	function isSymbol(arg) {
-	  return typeof arg === 'symbol';
-	}
-	exports.isSymbol = isSymbol;
-
-	function isUndefined(arg) {
-	  return arg === void 0;
-	}
-	exports.isUndefined = isUndefined;
-
-	function isRegExp(re) {
-	  return objectToString(re) === '[object RegExp]';
-	}
-	exports.isRegExp = isRegExp;
-
-	function isObject(arg) {
-	  return typeof arg === 'object' && arg !== null;
-	}
-	exports.isObject = isObject;
-
-	function isDate(d) {
-	  return objectToString(d) === '[object Date]';
-	}
-	exports.isDate = isDate;
-
-	function isError(e) {
-	  return (objectToString(e) === '[object Error]' || e instanceof Error);
-	}
-	exports.isError = isError;
-
-	function isFunction(arg) {
-	  return typeof arg === 'function';
-	}
-	exports.isFunction = isFunction;
-
-	function isPrimitive(arg) {
-	  return arg === null ||
-	         typeof arg === 'boolean' ||
-	         typeof arg === 'number' ||
-	         typeof arg === 'string' ||
-	         typeof arg === 'symbol' ||  // ES6 symbol
-	         typeof arg === 'undefined';
-	}
-	exports.isPrimitive = isPrimitive;
-
-	exports.isBuffer = Buffer.isBuffer;
-
-	function objectToString(o) {
-	  return Object.prototype.toString.call(o);
-	}
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(386).Buffer))
-
-/***/ },
-/* 398 */
+/* 445 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 399 */
+/* 446 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -75299,12 +91966,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	/*<replacement>*/
-	var util = __webpack_require__(397);
-	util.inherits = __webpack_require__(393);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
-	var Readable = __webpack_require__(395);
-	var Writable = __webpack_require__(400);
+	var Readable = __webpack_require__(444);
+	var Writable = __webpack_require__(447);
 
 	util.inherits(Duplex, Readable);
 
@@ -75351,10 +92018,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(384)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
 
 /***/ },
-/* 400 */
+/* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -75385,18 +92052,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Writable;
 
 	/*<replacement>*/
-	var Buffer = __webpack_require__(386).Buffer;
+	var Buffer = __webpack_require__(399).Buffer;
 	/*</replacement>*/
 
 	Writable.WritableState = WritableState;
 
 
 	/*<replacement>*/
-	var util = __webpack_require__(397);
-	util.inherits = __webpack_require__(393);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
-	var Stream = __webpack_require__(392);
+	var Stream = __webpack_require__(409);
 
 	util.inherits(Writable, Stream);
 
@@ -75407,7 +92074,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function WritableState(options, stream) {
-	  var Duplex = __webpack_require__(399);
+	  var Duplex = __webpack_require__(446);
 
 	  options = options || {};
 
@@ -75495,7 +92162,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function Writable(options) {
-	  var Duplex = __webpack_require__(399);
+	  var Duplex = __webpack_require__(446);
 
 	  // Writable ctor is applied to Duplexes, though they're not
 	  // instanceof Writable, they're instanceof Readable.
@@ -75667,30 +92334,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var cb = state.writecb;
 
 	  onwriteStateUpdate(state);
+>>>>>>> dev
 
-	  if (er)
-	    onwriteError(stream, state, sync, er, cb);
-	  else {
-	    // Check if we're actually ready to finish, but don't emit yet
-	    var finished = needFinish(stream, state);
 
+<<<<<<< HEAD
+/***/ },
+/* 404 */
+/***/ function(module, exports, __webpack_require__) {
+=======
 	    if (!finished &&
 	        !state.corked &&
 	        !state.bufferProcessing &&
 	        state.buffer.length) {
 	      clearBuffer(stream, state);
 	    }
+>>>>>>> dev
 
-	    if (sync) {
-	      process.nextTick(function() {
-	        afterWrite(stream, state, finished, cb);
-	      });
-	    } else {
-	      afterWrite(stream, state, finished, cb);
-	    }
-	  }
-	}
+	module.exports = __webpack_require__(400)
 
+<<<<<<< HEAD
+=======
 	function afterWrite(stream, state, finished, cb) {
 	  if (!finished)
 	    onwriteDrain(stream, state);
@@ -75698,22 +92361,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	  cb();
 	  finishMaybe(stream, state);
 	}
+>>>>>>> dev
 
-	// Must force callback to be called on nextTick, so that we don't
-	// emit 'drain' before the write() consumer gets the 'false' return
-	// value, and has a chance to attach a 'drain' listener.
-	function onwriteDrain(stream, state) {
-	  if (state.length === 0 && state.needDrain) {
-	    state.needDrain = false;
-	    stream.emit('drain');
-	  }
-	}
+/***/ },
+/* 405 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(399)
 
 
-	// if there's something in the buffer waiting, then process it
-	function clearBuffer(stream, state) {
-	  state.bufferProcessing = true;
+<<<<<<< HEAD
+/***/ },
+/* 406 */
+/***/ function(module, exports, __webpack_require__) {
 
+	module.exports = __webpack_require__(402)
+
+
+/***/ },
+/* 407 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(403)
+
+
+/***/ },
+/* 408 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Stream = __webpack_require__(392);
+	var util = __webpack_require__(409);
+
+	var Response = module.exports = function (res) {
+	    this.offset = 0;
+	    this.readable = true;
+=======
 	  if (stream._writev && state.buffer.length > 1) {
 	    // Fast case, write everything using _writev()
 	    var cbs = [];
@@ -75793,16 +92475,47 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // ignore unnecessary end() calls.
 	  if (!state.ending && !state.finished)
 	    endWritable(this, state, cb);
+>>>>>>> dev
 	};
 
+	util.inherits(Response, Stream);
 
-	function needFinish(stream, state) {
-	  return (state.ending &&
-	          state.length === 0 &&
-	          !state.finished &&
-	          !state.writing);
-	}
+	var capable = {
+	    streaming : true,
+	    status2 : true
+	};
 
+<<<<<<< HEAD
+	function parseHeaders (res) {
+	    var lines = res.getAllResponseHeaders().split(/\r?\n/);
+	    var headers = {};
+	    for (var i = 0; i < lines.length; i++) {
+	        var line = lines[i];
+	        if (line === '') continue;
+	        
+	        var m = line.match(/^([^:]+):\s*(.*)/);
+	        if (m) {
+	            var key = m[1].toLowerCase(), value = m[2];
+	            
+	            if (headers[key] !== undefined) {
+	            
+	                if (isArray(headers[key])) {
+	                    headers[key].push(value);
+	                }
+	                else {
+	                    headers[key] = [ headers[key], value ];
+	                }
+	            }
+	            else {
+	                headers[key] = value;
+	            }
+	        }
+	        else {
+	            headers[line] = true;
+	        }
+	    }
+	    return headers;
+=======
 	function prefinish(stream, state) {
 	  if (!state.prefinished) {
 	    state.prefinished = true;
@@ -75821,251 +92534,94 @@ return /******/ (function(modules) { // webpackBootstrap
 	      prefinish(stream, state);
 	  }
 	  return need;
+>>>>>>> dev
 	}
 
-	function endWritable(stream, state, cb) {
-	  state.ending = true;
-	  finishMaybe(stream, state);
-	  if (cb) {
-	    if (state.finished)
-	      process.nextTick(cb);
-	    else
-	      stream.once('finish', cb);
-	  }
-	  state.ended = true;
+	Response.prototype.getResponse = function (xhr) {
+	    var respType = String(xhr.responseType).toLowerCase();
+	    if (respType === 'blob') return xhr.responseBlob || xhr.response;
+	    if (respType === 'arraybuffer') return xhr.response;
+	    return xhr.responseText;
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(384)))
-
-/***/ },
-/* 401 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// Copyright Joyent, Inc. and other Node contributors.
-	//
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the
-	// "Software"), to deal in the Software without restriction, including
-	// without limitation the rights to use, copy, modify, merge, publish,
-	// distribute, sublicense, and/or sell copies of the Software, and to permit
-	// persons to whom the Software is furnished to do so, subject to the
-	// following conditions:
-	//
-	// The above copyright notice and this permission notice shall be included
-	// in all copies or substantial portions of the Software.
-	//
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-	// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-	var Buffer = __webpack_require__(386).Buffer;
-
-	var isBufferEncoding = Buffer.isEncoding
-	  || function(encoding) {
-	       switch (encoding && encoding.toLowerCase()) {
-	         case 'hex': case 'utf8': case 'utf-8': case 'ascii': case 'binary': case 'base64': case 'ucs2': case 'ucs-2': case 'utf16le': case 'utf-16le': case 'raw': return true;
-	         default: return false;
-	       }
-	     }
-
-
-	function assertEncoding(encoding) {
-	  if (encoding && !isBufferEncoding(encoding)) {
-	    throw new Error('Unknown encoding: ' + encoding);
-	  }
-	}
-
-	// StringDecoder provides an interface for efficiently splitting a series of
-	// buffers into a series of JS strings without breaking apart multi-byte
-	// characters. CESU-8 is handled as part of the UTF-8 encoding.
-	//
-	// @TODO Handling all encodings inside a single object makes it very difficult
-	// to reason about this code, so it should be split up in the future.
-	// @TODO There should be a utf8-strict encoding that rejects invalid UTF-8 code
-	// points as used by CESU-8.
-	var StringDecoder = exports.StringDecoder = function(encoding) {
-	  this.encoding = (encoding || 'utf8').toLowerCase().replace(/[-_]/, '');
-	  assertEncoding(encoding);
-	  switch (this.encoding) {
-	    case 'utf8':
-	      // CESU-8 represents each of Surrogate Pair by 3-bytes
-	      this.surrogateSize = 3;
-	      break;
-	    case 'ucs2':
-	    case 'utf16le':
-	      // UTF-16 represents each of Surrogate Pair by 2-bytes
-	      this.surrogateSize = 2;
-	      this.detectIncompleteChar = utf16DetectIncompleteChar;
-	      break;
-	    case 'base64':
-	      // Base-64 stores 3 bytes in 4 chars, and pads the remainder.
-	      this.surrogateSize = 3;
-	      this.detectIncompleteChar = base64DetectIncompleteChar;
-	      break;
-	    default:
-	      this.write = passThroughWrite;
-	      return;
-	  }
-
-	  // Enough space to store all bytes of a single character. UTF-8 needs 4
-	  // bytes, but CESU-8 may require up to 6 (3 bytes per surrogate).
-	  this.charBuffer = new Buffer(6);
-	  // Number of bytes received for the current incomplete multi-byte character.
-	  this.charReceived = 0;
-	  // Number of bytes expected for the current incomplete multi-byte character.
-	  this.charLength = 0;
+<<<<<<< HEAD
+	Response.prototype.getHeader = function (key) {
+	    return this.headers[key.toLowerCase()];
 	};
 
-
-	// write decodes the given buffer and returns it as JS string that is
-	// guaranteed to not contain any partial multi-byte characters. Any partial
-	// character found at the end of the buffer is buffered up, and will be
-	// returned when calling write again with the remaining bytes.
-	//
-	// Note: Converting a Buffer containing an orphan surrogate to a String
-	// currently works, but converting a String to a Buffer (via `new Buffer`, or
-	// Buffer#write) will replace incomplete surrogates with the unicode
-	// replacement character. See https://codereview.chromium.org/121173009/ .
-	StringDecoder.prototype.write = function(buffer) {
-	  var charStr = '';
-	  // if our last write ended with an incomplete multibyte character
-	  while (this.charLength) {
-	    // determine how many remaining bytes this buffer has to offer for this char
-	    var available = (buffer.length >= this.charLength - this.charReceived) ?
-	        this.charLength - this.charReceived :
-	        buffer.length;
-
-	    // add the new bytes to the char buffer
-	    buffer.copy(this.charBuffer, this.charReceived, 0, available);
-	    this.charReceived += available;
-
-	    if (this.charReceived < this.charLength) {
-	      // still not enough chars in this buffer? wait for more ...
-	      return '';
+	Response.prototype.handle = function (res) {
+	    if (res.readyState === 2 && capable.status2) {
+	        try {
+	            this.statusCode = res.status;
+	            this.headers = parseHeaders(res);
+	        }
+	        catch (err) {
+	            capable.status2 = false;
+	        }
+	        
+	        if (capable.status2) {
+	            this.emit('ready');
+	        }
 	    }
-
-	    // remove bytes belonging to the current character from the buffer
-	    buffer = buffer.slice(available, buffer.length);
-
-	    // get the character that was split
-	    charStr = this.charBuffer.slice(0, this.charLength).toString(this.encoding);
-
-	    // CESU-8: lead surrogate (D800-DBFF) is also the incomplete character
-	    var charCode = charStr.charCodeAt(charStr.length - 1);
-	    if (charCode >= 0xD800 && charCode <= 0xDBFF) {
-	      this.charLength += this.surrogateSize;
-	      charStr = '';
-	      continue;
+	    else if (capable.streaming && res.readyState === 3) {
+	        try {
+	            if (!this.statusCode) {
+	                this.statusCode = res.status;
+	                this.headers = parseHeaders(res);
+	                this.emit('ready');
+	            }
+	        }
+	        catch (err) {}
+	        
+	        try {
+	            this._emitData(res);
+	        }
+	        catch (err) {
+	            capable.streaming = false;
+	        }
 	    }
-	    this.charReceived = this.charLength = 0;
-
-	    // if there are no more bytes in this buffer, just emit our char
-	    if (buffer.length === 0) {
-	      return charStr;
+	    else if (res.readyState === 4) {
+	        if (!this.statusCode) {
+	            this.statusCode = res.status;
+	            this.emit('ready');
+	        }
+	        this._emitData(res);
+	        
+	        if (res.error) {
+	            this.emit('error', this.getResponse(res));
+	        }
+	        else this.emit('end');
+	        
+	        this.emit('close');
 	    }
-	    break;
-	  }
-
-	  // determine and set charLength / charReceived
-	  this.detectIncompleteChar(buffer);
-
-	  var end = buffer.length;
-	  if (this.charLength) {
-	    // buffer the incomplete character bytes we got
-	    buffer.copy(this.charBuffer, 0, buffer.length - this.charReceived, end);
-	    end -= this.charReceived;
-	  }
-
-	  charStr += buffer.toString(this.encoding, 0, end);
-
-	  var end = charStr.length - 1;
-	  var charCode = charStr.charCodeAt(end);
-	  // CESU-8: lead surrogate (D800-DBFF) is also the incomplete character
-	  if (charCode >= 0xD800 && charCode <= 0xDBFF) {
-	    var size = this.surrogateSize;
-	    this.charLength += size;
-	    this.charReceived += size;
-	    this.charBuffer.copy(this.charBuffer, size, 0, size);
-	    buffer.copy(this.charBuffer, 0, 0, size);
-	    return charStr.substring(0, end);
-	  }
-
-	  // or just emit the charStr
-	  return charStr;
 	};
 
-	// detectIncompleteChar determines if there is an incomplete UTF-8 character at
-	// the end of the given buffer. If so, it sets this.charLength to the byte
-	// length that character, and sets this.charReceived to the number of bytes
-	// that are available for this character.
-	StringDecoder.prototype.detectIncompleteChar = function(buffer) {
-	  // determine how many bytes we have to check at the end of this buffer
-	  var i = (buffer.length >= 3) ? 3 : buffer.length;
-
-	  // Figure out if one of the last i bytes of our buffer announces an
-	  // incomplete char.
-	  for (; i > 0; i--) {
-	    var c = buffer[buffer.length - i];
-
-	    // See http://en.wikipedia.org/wiki/UTF-8#Description
-
-	    // 110XXXXX
-	    if (i == 1 && c >> 5 == 0x06) {
-	      this.charLength = 2;
-	      break;
+	Response.prototype._emitData = function (res) {
+	    var respBody = this.getResponse(res);
+	    if (respBody.toString().match(/ArrayBuffer/)) {
+	        this.emit('data', new Uint8Array(respBody, this.offset));
+	        this.offset = respBody.byteLength;
+	        return;
 	    }
-
-	    // 1110XXXX
-	    if (i <= 2 && c >> 4 == 0x0E) {
-	      this.charLength = 3;
-	      break;
+	    if (respBody.length > this.offset) {
+	        this.emit('data', respBody.slice(this.offset));
+	        this.offset = respBody.length;
 	    }
-
-	    // 11110XXX
-	    if (i <= 3 && c >> 3 == 0x1E) {
-	      this.charLength = 4;
-	      break;
-	    }
-	  }
-	  this.charReceived = i;
 	};
 
-	StringDecoder.prototype.end = function(buffer) {
-	  var res = '';
-	  if (buffer && buffer.length)
-	    res = this.write(buffer);
-
-	  if (this.charReceived) {
-	    var cr = this.charReceived;
-	    var buf = this.charBuffer;
-	    var enc = this.encoding;
-	    res += buf.slice(0, cr).toString(enc);
-	  }
-
-	  return res;
+	var isArray = Array.isArray || function (xs) {
+	    return Object.prototype.toString.call(xs) === '[object Array]';
 	};
-
-	function passThroughWrite(buffer) {
-	  return buffer.toString(this.encoding);
-	}
-
-	function utf16DetectIncompleteChar(buffer) {
-	  this.charReceived = buffer.length % 2;
-	  this.charLength = this.charReceived ? 2 : 0;
-	}
-
-	function base64DetectIncompleteChar(buffer) {
-	  this.charReceived = buffer.length % 3;
-	  this.charLength = this.charReceived ? 3 : 0;
-	}
 
 
 /***/ },
-/* 402 */
+/* 409 */
+=======
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+/***/ },
+/* 448 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -76134,11 +92690,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = Transform;
 
-	var Duplex = __webpack_require__(399);
+	var Duplex = __webpack_require__(446);
 
 	/*<replacement>*/
-	var util = __webpack_require__(397);
-	util.inherits = __webpack_require__(393);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
 	util.inherits(Transform, Duplex);
@@ -76280,7 +92836,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 403 */
+/* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -76310,11 +92866,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = PassThrough;
 
-	var Transform = __webpack_require__(402);
+	var Transform = __webpack_require__(448);
 
 	/*<replacement>*/
-	var util = __webpack_require__(397);
-	util.inherits = __webpack_require__(393);
+	var util = __webpack_require__(415);
+	util.inherits = __webpack_require__(406);
 	/*</replacement>*/
 
 	util.inherits(PassThrough, Transform);
@@ -76332,597 +92888,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 404 */
+/* 450 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(400)
+	/* WEBPACK VAR INJECTION */(function(Buffer, module, process) {
 
+	'use strict';
 
-/***/ },
-/* 405 */
-/***/ function(module, exports, __webpack_require__) {
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	module.exports = __webpack_require__(399)
-
-
-/***/ },
-/* 406 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(402)
-
-
-/***/ },
-/* 407 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(403)
-
-
-/***/ },
-/* 408 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Stream = __webpack_require__(392);
-	var util = __webpack_require__(409);
-
-	var Response = module.exports = function (res) {
-	    this.offset = 0;
-	    this.readable = true;
-	};
-
-	util.inherits(Response, Stream);
-
-	var capable = {
-	    streaming : true,
-	    status2 : true
-	};
-
-	function parseHeaders (res) {
-	    var lines = res.getAllResponseHeaders().split(/\r?\n/);
-	    var headers = {};
-	    for (var i = 0; i < lines.length; i++) {
-	        var line = lines[i];
-	        if (line === '') continue;
-	        
-	        var m = line.match(/^([^:]+):\s*(.*)/);
-	        if (m) {
-	            var key = m[1].toLowerCase(), value = m[2];
-	            
-	            if (headers[key] !== undefined) {
-	            
-	                if (isArray(headers[key])) {
-	                    headers[key].push(value);
-	                }
-	                else {
-	                    headers[key] = [ headers[key], value ];
-	                }
-	            }
-	            else {
-	                headers[key] = value;
-	            }
-	        }
-	        else {
-	            headers[line] = true;
-	        }
-	    }
-	    return headers;
-	}
-
-	Response.prototype.getResponse = function (xhr) {
-	    var respType = String(xhr.responseType).toLowerCase();
-	    if (respType === 'blob') return xhr.responseBlob || xhr.response;
-	    if (respType === 'arraybuffer') return xhr.response;
-	    return xhr.responseText;
-	}
-
-	Response.prototype.getHeader = function (key) {
-	    return this.headers[key.toLowerCase()];
-	};
-
-	Response.prototype.handle = function (res) {
-	    if (res.readyState === 2 && capable.status2) {
-	        try {
-	            this.statusCode = res.status;
-	            this.headers = parseHeaders(res);
-	        }
-	        catch (err) {
-	            capable.status2 = false;
-	        }
-	        
-	        if (capable.status2) {
-	            this.emit('ready');
-	        }
-	    }
-	    else if (capable.streaming && res.readyState === 3) {
-	        try {
-	            if (!this.statusCode) {
-	                this.statusCode = res.status;
-	                this.headers = parseHeaders(res);
-	                this.emit('ready');
-	            }
-	        }
-	        catch (err) {}
-	        
-	        try {
-	            this._emitData(res);
-	        }
-	        catch (err) {
-	            capable.streaming = false;
-	        }
-	    }
-	    else if (res.readyState === 4) {
-	        if (!this.statusCode) {
-	            this.statusCode = res.status;
-	            this.emit('ready');
-	        }
-	        this._emitData(res);
-	        
-	        if (res.error) {
-	            this.emit('error', this.getResponse(res));
-	        }
-	        else this.emit('end');
-	        
-	        this.emit('close');
-	    }
-	};
-
-	Response.prototype._emitData = function (res) {
-	    var respBody = this.getResponse(res);
-	    if (respBody.toString().match(/ArrayBuffer/)) {
-	        this.emit('data', new Uint8Array(respBody, this.offset));
-	        this.offset = respBody.byteLength;
-	        return;
-	    }
-	    if (respBody.length > this.offset) {
-	        this.emit('data', respBody.slice(this.offset));
-	        this.offset = respBody.length;
-	    }
-	};
-
-	var isArray = Array.isArray || function (xs) {
-	    return Object.prototype.toString.call(xs) === '[object Array]';
-	};
-
-
-/***/ },
-/* 409 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
-	//
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the
-	// "Software"), to deal in the Software without restriction, including
-	// without limitation the rights to use, copy, modify, merge, publish,
-	// distribute, sublicense, and/or sell copies of the Software, and to permit
-	// persons to whom the Software is furnished to do so, subject to the
-	// following conditions:
-	//
-	// The above copyright notice and this permission notice shall be included
-	// in all copies or substantial portions of the Software.
-	//
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-	// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-	var formatRegExp = /%[sdj%]/g;
-	exports.format = function(f) {
-	  if (!isString(f)) {
-	    var objects = [];
-	    for (var i = 0; i < arguments.length; i++) {
-	      objects.push(inspect(arguments[i]));
-	    }
-	    return objects.join(' ');
-	  }
-
-	  var i = 1;
-	  var args = arguments;
-	  var len = args.length;
-	  var str = String(f).replace(formatRegExp, function(x) {
-	    if (x === '%%') return '%';
-	    if (i >= len) return x;
-	    switch (x) {
-	      case '%s': return String(args[i++]);
-	      case '%d': return Number(args[i++]);
-	      case '%j':
-	        try {
-	          return JSON.stringify(args[i++]);
-	        } catch (_) {
-	          return '[Circular]';
-	        }
-	      default:
-	        return x;
-	    }
-	  });
-	  for (var x = args[i]; i < len; x = args[++i]) {
-	    if (isNull(x) || !isObject(x)) {
-	      str += ' ' + x;
-	    } else {
-	      str += ' ' + inspect(x);
-	    }
-	  }
-	  return str;
-	};
-
-
-	// Mark that a method should not be used.
-	// Returns a modified function which warns once by default.
-	// If --no-deprecation is set, then it is a no-op.
-	exports.deprecate = function(fn, msg) {
-	  // Allow for deprecating things in the process of starting up.
-	  if (isUndefined(global.process)) {
-	    return function() {
-	      return exports.deprecate(fn, msg).apply(this, arguments);
-	    };
-	  }
-
-	  if (process.noDeprecation === true) {
-	    return fn;
-	  }
-
-	  var warned = false;
-	  function deprecated() {
-	    if (!warned) {
-	      if (process.throwDeprecation) {
-	        throw new Error(msg);
-	      } else if (process.traceDeprecation) {
-	        console.trace(msg);
-	      } else {
-	        console.error(msg);
-	      }
-	      warned = true;
-	    }
-	    return fn.apply(this, arguments);
-	  }
-
-	  return deprecated;
-	};
-
-
-	var debugs = {};
-	var debugEnviron;
-	exports.debuglog = function(set) {
-	  if (isUndefined(debugEnviron))
-	    debugEnviron = process.env.NODE_DEBUG || '';
-	  set = set.toUpperCase();
-	  if (!debugs[set]) {
-	    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
-	      var pid = process.pid;
-	      debugs[set] = function() {
-	        var msg = exports.format.apply(exports, arguments);
-	        console.error('%s %d: %s', set, pid, msg);
-	      };
-	    } else {
-	      debugs[set] = function() {};
-	    }
-	  }
-	  return debugs[set];
-	};
-
-
-	/**
-	 * Echos the value of a value. Trys to print the value out
-	 * in the best way possible given the different types.
-	 *
-	 * @param {Object} obj The object to print out.
-	 * @param {Object} opts Optional options object that alters the output.
-	 */
-	/* legacy: obj, showHidden, depth, colors*/
-	function inspect(obj, opts) {
-	  // default options
-	  var ctx = {
-	    seen: [],
-	    stylize: stylizeNoColor
-	  };
-	  // legacy...
-	  if (arguments.length >= 3) ctx.depth = arguments[2];
-	  if (arguments.length >= 4) ctx.colors = arguments[3];
-	  if (isBoolean(opts)) {
-	    // legacy...
-	    ctx.showHidden = opts;
-	  } else if (opts) {
-	    // got an "options" object
-	    exports._extend(ctx, opts);
-	  }
-	  // set default options
-	  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
-	  if (isUndefined(ctx.depth)) ctx.depth = 2;
-	  if (isUndefined(ctx.colors)) ctx.colors = false;
-	  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
-	  if (ctx.colors) ctx.stylize = stylizeWithColor;
-	  return formatValue(ctx, obj, ctx.depth);
-	}
-	exports.inspect = inspect;
-
-
-	// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
-	inspect.colors = {
-	  'bold' : [1, 22],
-	  'italic' : [3, 23],
-	  'underline' : [4, 24],
-	  'inverse' : [7, 27],
-	  'white' : [37, 39],
-	  'grey' : [90, 39],
-	  'black' : [30, 39],
-	  'blue' : [34, 39],
-	  'cyan' : [36, 39],
-	  'green' : [32, 39],
-	  'magenta' : [35, 39],
-	  'red' : [31, 39],
-	  'yellow' : [33, 39]
-	};
-
-	// Don't use 'blue' not visible on cmd.exe
-	inspect.styles = {
-	  'special': 'cyan',
-	  'number': 'yellow',
-	  'boolean': 'yellow',
-	  'undefined': 'grey',
-	  'null': 'bold',
-	  'string': 'green',
-	  'date': 'magenta',
-	  // "name": intentionally not styling
-	  'regexp': 'red'
-	};
-
-
-	function stylizeWithColor(str, styleType) {
-	  var style = inspect.styles[styleType];
-
-	  if (style) {
-	    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
-	           '\u001b[' + inspect.colors[style][1] + 'm';
-	  } else {
-	    return str;
-	  }
-	}
-
-
-	function stylizeNoColor(str, styleType) {
-	  return str;
-	}
-
-
-	function arrayToHash(array) {
-	  var hash = {};
-
-	  array.forEach(function(val, idx) {
-	    hash[val] = true;
-	  });
-
-	  return hash;
-	}
-
-
-	function formatValue(ctx, value, recurseTimes) {
-	  // Provide a hook for user-specified inspect functions.
-	  // Check that value is an object with an inspect function on it
-	  if (ctx.customInspect &&
-	      value &&
-	      isFunction(value.inspect) &&
-	      // Filter out the util module, it's inspect function is special
-	      value.inspect !== exports.inspect &&
-	      // Also filter out any prototype objects using the circular check.
-	      !(value.constructor && value.constructor.prototype === value)) {
-	    var ret = value.inspect(recurseTimes, ctx);
-	    if (!isString(ret)) {
-	      ret = formatValue(ctx, ret, recurseTimes);
-	    }
-	    return ret;
-	  }
-
-	  // Primitive types cannot have properties
-	  var primitive = formatPrimitive(ctx, value);
-	  if (primitive) {
-	    return primitive;
-	  }
-
-	  // Look up the keys of the object.
-	  var keys = Object.keys(value);
-	  var visibleKeys = arrayToHash(keys);
-
-	  if (ctx.showHidden) {
-	    keys = Object.getOwnPropertyNames(value);
-	  }
-
-	  // IE doesn't make error fields non-enumerable
-	  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
-	  if (isError(value)
-	      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
-	    return formatError(value);
-	  }
-
-	  // Some type of object without properties can be shortcutted.
-	  if (keys.length === 0) {
-	    if (isFunction(value)) {
-	      var name = value.name ? ': ' + value.name : '';
-	      return ctx.stylize('[Function' + name + ']', 'special');
-	    }
-	    if (isRegExp(value)) {
-	      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
-	    }
-	    if (isDate(value)) {
-	      return ctx.stylize(Date.prototype.toString.call(value), 'date');
-	    }
-	    if (isError(value)) {
-	      return formatError(value);
-	    }
-	  }
-
-	  var base = '', array = false, braces = ['{', '}'];
-
-	  // Make Array say that they are Array
-	  if (isArray(value)) {
-	    array = true;
-	    braces = ['[', ']'];
-	  }
-
-	  // Make functions say that they are functions
-	  if (isFunction(value)) {
-	    var n = value.name ? ': ' + value.name : '';
-	    base = ' [Function' + n + ']';
-	  }
-
-	  // Make RegExps say that they are RegExps
-	  if (isRegExp(value)) {
-	    base = ' ' + RegExp.prototype.toString.call(value);
-	  }
-
-	  // Make dates with properties first say the date
-	  if (isDate(value)) {
-	    base = ' ' + Date.prototype.toUTCString.call(value);
-	  }
-
-	  // Make error with message first say the error
-	  if (isError(value)) {
-	    base = ' ' + formatError(value);
-	  }
-
-	  if (keys.length === 0 && (!array || value.length == 0)) {
-	    return braces[0] + base + braces[1];
-	  }
-
-	  if (recurseTimes < 0) {
-	    if (isRegExp(value)) {
-	      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
-	    } else {
-	      return ctx.stylize('[Object]', 'special');
-	    }
-	  }
-
-	  ctx.seen.push(value);
-
-	  var output;
-	  if (array) {
-	    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
-	  } else {
-	    output = keys.map(function(key) {
-	      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
-	    });
-	  }
-
-	  ctx.seen.pop();
-
-	  return reduceToSingleString(output, base, braces);
-	}
-
-
-	function formatPrimitive(ctx, value) {
-	  if (isUndefined(value))
-	    return ctx.stylize('undefined', 'undefined');
-	  if (isString(value)) {
-	    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
-	                                             .replace(/'/g, "\\'")
-	                                             .replace(/\\"/g, '"') + '\'';
-	    return ctx.stylize(simple, 'string');
-	  }
-	  if (isNumber(value))
-	    return ctx.stylize('' + value, 'number');
-	  if (isBoolean(value))
-	    return ctx.stylize('' + value, 'boolean');
-	  // For some reason typeof null is "object", so special case here.
-	  if (isNull(value))
-	    return ctx.stylize('null', 'null');
-	}
-
-
-	function formatError(value) {
-	  return '[' + Error.prototype.toString.call(value) + ']';
-	}
-
-
-	function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
-	  var output = [];
-	  for (var i = 0, l = value.length; i < l; ++i) {
-	    if (hasOwnProperty(value, String(i))) {
-	      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
-	          String(i), true));
-	    } else {
-	      output.push('');
-	    }
-	  }
-	  keys.forEach(function(key) {
-	    if (!key.match(/^\d+$/)) {
-	      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
-	          key, true));
-	    }
-	  });
-	  return output;
-	}
-
-
-	function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
-	  var name, str, desc;
-	  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
-	  if (desc.get) {
-	    if (desc.set) {
-	      str = ctx.stylize('[Getter/Setter]', 'special');
-	    } else {
-	      str = ctx.stylize('[Getter]', 'special');
-	    }
-	  } else {
-	    if (desc.set) {
-	      str = ctx.stylize('[Setter]', 'special');
-	    }
-	  }
-	  if (!hasOwnProperty(visibleKeys, key)) {
-	    name = '[' + key + ']';
-	  }
-	  if (!str) {
-	    if (ctx.seen.indexOf(desc.value) < 0) {
-	      if (isNull(recurseTimes)) {
-	        str = formatValue(ctx, desc.value, null);
-	      } else {
-	        str = formatValue(ctx, desc.value, recurseTimes - 1);
-	      }
-	      if (str.indexOf('\n') > -1) {
-	        if (array) {
-	          str = str.split('\n').map(function(line) {
-	            return '  ' + line;
-	          }).join('\n').substr(2);
-	        } else {
-	          str = '\n' + str.split('\n').map(function(line) {
-	            return '   ' + line;
-	          }).join('\n');
-	        }
-	      }
-	    } else {
-	      str = ctx.stylize('[Circular]', 'special');
-	    }
-	  }
-	  if (isUndefined(name)) {
-	    if (array && key.match(/^\d+$/)) {
-	      return str;
-	    }
-	    name = JSON.stringify('' + key);
-	    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
-	      name = name.substr(1, name.length - 2);
-	      name = ctx.stylize(name, 'name');
-	    } else {
-	      name = name.replace(/'/g, "\\'")
-	                 .replace(/\\"/g, '"')
-	                 .replace(/(^"|"$)/g, "'");
-	      name = ctx.stylize(name, 'string');
-	    }
-	  }
-
-	  return name + ': ' + str;
-	}
-
-
-	function reduceToSingleString(output, base, braces) {
-	  var numLinesEst = 0;
-	  var length = output.reduce(function(prev, cur) {
-	    numLinesEst++;
-	    if (cur.indexOf('\n') >= 0) numLinesEst++;
-	    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
-	  }, 0);
-
+<<<<<<< HEAD
 	  if (length > 60) {
 	    return braces[0] +
 	           (base === '' ? '' : base + '\n ') +
@@ -77753,15 +93728,305 @@ return /******/ (function(modules) { // webpackBootstrap
 	function Readable(options) {
 	  if (!(this instanceof Readable))
 	    return new Readable(options);
+=======
+	var Parser = __webpack_require__(451),
+	    through = __webpack_require__(452);
 
-	  this._readableState = new ReadableState(options, this);
+	/*
 
-	  // legacy
-	  this.readable = true;
+	  the value of this.stack that creationix's jsonparse has is weird.
 
-	  Stream.call(this);
+	  it makes this code ugly, but his problem is way harder that mine,
+	  so i'll forgive him.
+
+	*/
+
+	exports.parse = function (path, map) {
+	  var header, footer;
+	  var parser = new Parser();
+	  var stream = through(function (chunk) {
+	    if ('string' === typeof chunk) chunk = new Buffer(chunk);
+	    parser.write(chunk);
+	  }, function (data) {
+	    if (data) stream.write(data);
+	    if (header) stream.emit('header', header);
+	    if (footer) stream.emit('footer', footer);
+	    stream.queue(null);
+	  });
+
+	  if ('string' === typeof path) path = path.split('.').map(function (e) {
+	    if (e === '$*') return { emitKey: true };else if (e === '*') return true;else if (e === '') // '..'.split('.') returns an empty string
+	      return { recurse: true };else return e;
+	  });
+
+	  var count = 0,
+	      _key;
+	  if (!path || !path.length) path = null;
+
+	  parser.onValue = function (value) {
+	    if (!this.root) stream.root = value;
+
+	    if (!path) return;
+
+	    var i = 0; // iterates on path
+	    var j = 0; // iterates on stack
+	    var emitKey = false;
+	    var emitPath = false;
+	    while (i < path.length) {
+	      var key = path[i];
+	      var c;
+	      j++;
+
+	      if (key && !key.recurse) {
+	        c = j === this.stack.length ? this : this.stack[j];
+	        if (!c) return;
+	        if (!check(key, c.key)) {
+	          setHeaderFooter(c.key, value);
+	          return;
+	        }
+	        emitKey = !!key.emitKey;
+	        emitPath = !!key.emitPath;
+	        i++;
+	      } else {
+	        i++;
+	        var nextKey = path[i];
+	        if (!nextKey) return;
+	        while (true) {
+	          c = j === this.stack.length ? this : this.stack[j];
+	          if (!c) return;
+	          if (check(nextKey, c.key)) {
+	            i++;
+	            if (!Object.isFrozen(this.stack[j])) this.stack[j].value = null;
+	            break;
+	          } else {
+	            setHeaderFooter(c.key, value);
+	          }
+	          j++;
+	        }
+	      }
+	    }
+
+	    // emit header
+	    if (header) {
+	      stream.emit('header', header);
+	      header = false;
+	    }
+	    if (j !== this.stack.length) return;
+
+	    count++;
+	    var actualPath = this.stack.slice(1).map(function (element) {
+	      return element.key;
+	    }).concat([this.key]);
+	    var data = this.value[this.key];
+	    if (null != data) if (null != (data = map ? map(data, actualPath) : data)) {
+	      if (emitKey || emitPath) {
+	        data = { value: data };
+	        if (emitKey) data["key"] = this.key;
+	        if (emitPath) data["path"] = actualPath;
+	      }
+
+	      stream.queue(data);
+	    }
+	    delete this.value[this.key];
+	    for (var k in this.stack) {
+	      if (!Object.isFrozen(this.stack[k])) this.stack[k].value = null;
+	    }
+	  };
+	  parser._onToken = parser.onToken;
+
+	  parser.onToken = function (token, value) {
+	    parser._onToken(token, value);
+	    if (this.stack.length === 0) {
+	      if (stream.root) {
+	        if (!path) stream.queue(stream.root);
+	        count = 0;
+	        stream.root = null;
+	      }
+	    }
+	  };
+
+	  parser.onError = function (err) {
+	    if (err.message.indexOf("at position") > -1) err.message = "Invalid JSON (" + err.message + ")";
+	    stream.emit('error', err);
+	  };
+
+	  return stream;
+
+	  function setHeaderFooter(key, value) {
+	    // header has not been emitted yet
+	    if (header !== false) {
+	      header = header || {};
+	      header[key] = value;
+	    }
+
+	    // footer has not been emitted yet but header has
+	    if (footer !== false && header === false) {
+	      footer = footer || {};
+	      footer[key] = value;
+	    }
+	  }
+	};
+
+	function check(x, y) {
+	  if ('string' === typeof x) return y == x;else if (x && 'function' === typeof x.exec) return x.exec(y);else if ('boolean' === typeof x || 'object' === (typeof x === 'undefined' ? 'undefined' : _typeof(x))) return x;else if ('function' === typeof x) return x(y);
+	  return false;
 	}
 
+	exports.stringify = function (op, sep, cl, indent) {
+	  indent = indent || 0;
+	  if (op === false) {
+	    op = '';
+	    sep = '\n';
+	    cl = '';
+	  } else if (op == null) {
+
+	    op = '[\n';
+	    sep = '\n,\n';
+	    cl = '\n]\n';
+	  }
+
+	  //else, what ever you like
+
+	  var stream,
+	      first = true,
+	      anyData = false;
+	  stream = through(function (data) {
+	    anyData = true;
+	    try {
+	      var json = JSON.stringify(data, null, indent);
+	    } catch (err) {
+	      return stream.emit('error', err);
+	    }
+	    if (first) {
+	      first = false;stream.queue(op + json);
+	    } else stream.queue(sep + json);
+	  }, function (data) {
+	    if (!anyData) stream.queue(op);
+	    stream.queue(cl);
+	    stream.queue(null);
+	  });
+
+	  return stream;
+	};
+
+	exports.stringifyObject = function (op, sep, cl, indent) {
+	  indent = indent || 0;
+	  if (op === false) {
+	    op = '';
+	    sep = '\n';
+	    cl = '';
+	  } else if (op == null) {
+
+	    op = '{\n';
+	    sep = '\n,\n';
+	    cl = '\n}\n';
+	  }
+
+	  //else, what ever you like
+
+	  var first = true;
+	  var anyData = false;
+	  var stream = through(function (data) {
+	    anyData = true;
+	    var json = JSON.stringify(data[0]) + ':' + JSON.stringify(data[1], null, indent);
+	    if (first) {
+	      first = false;this.queue(op + json);
+	    } else this.queue(sep + json);
+	  }, function (data) {
+	    if (!anyData) this.queue(op);
+	    this.queue(cl);
+
+	    this.queue(null);
+	  });
+
+	  return stream;
+	};
+
+	if (!module.parent && process.title !== 'browser') {
+	  process.stdin.pipe(exports.parse(process.argv[2])).pipe(exports.stringify('[', ',\n', ']\n', 2)).pipe(process.stdout);
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(399).Buffer, __webpack_require__(24)(module), __webpack_require__(397)))
+
+/***/ },
+/* 451 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(Buffer) {/*global Buffer*/
+	// Named constants with unique integer values
+	var C = {};
+	// Tokens
+	var LEFT_BRACE    = C.LEFT_BRACE    = 0x1;
+	var RIGHT_BRACE   = C.RIGHT_BRACE   = 0x2;
+	var LEFT_BRACKET  = C.LEFT_BRACKET  = 0x3;
+	var RIGHT_BRACKET = C.RIGHT_BRACKET = 0x4;
+	var COLON         = C.COLON         = 0x5;
+	var COMMA         = C.COMMA         = 0x6;
+	var TRUE          = C.TRUE          = 0x7;
+	var FALSE         = C.FALSE         = 0x8;
+	var NULL          = C.NULL          = 0x9;
+	var STRING        = C.STRING        = 0xa;
+	var NUMBER        = C.NUMBER        = 0xb;
+	// Tokenizer States
+	var START   = C.START   = 0x11;
+	var STOP    = C.STOP    = 0x12;
+	var TRUE1   = C.TRUE1   = 0x21;
+	var TRUE2   = C.TRUE2   = 0x22;
+	var TRUE3   = C.TRUE3   = 0x23;
+	var FALSE1  = C.FALSE1  = 0x31;
+	var FALSE2  = C.FALSE2  = 0x32;
+	var FALSE3  = C.FALSE3  = 0x33;
+	var FALSE4  = C.FALSE4  = 0x34;
+	var NULL1   = C.NULL1   = 0x41;
+	var NULL2   = C.NULL2   = 0x42;
+	var NULL3   = C.NULL3   = 0x43;
+	var NUMBER1 = C.NUMBER1 = 0x51;
+	var NUMBER3 = C.NUMBER3 = 0x53;
+	var STRING1 = C.STRING1 = 0x61;
+	var STRING2 = C.STRING2 = 0x62;
+	var STRING3 = C.STRING3 = 0x63;
+	var STRING4 = C.STRING4 = 0x64;
+	var STRING5 = C.STRING5 = 0x65;
+	var STRING6 = C.STRING6 = 0x66;
+	// Parser States
+	var VALUE   = C.VALUE   = 0x71;
+	var KEY     = C.KEY     = 0x72;
+	// Parser Modes
+	var OBJECT  = C.OBJECT  = 0x81;
+	var ARRAY   = C.ARRAY   = 0x82;
+	// Character constants
+	var BACK_SLASH =      "\\".charCodeAt(0);
+	var FORWARD_SLASH =   "\/".charCodeAt(0);
+	var BACKSPACE =       "\b".charCodeAt(0);
+	var FORM_FEED =       "\f".charCodeAt(0);
+	var NEWLINE =         "\n".charCodeAt(0);
+	var CARRIAGE_RETURN = "\r".charCodeAt(0);
+	var TAB =             "\t".charCodeAt(0);
+
+	var STRING_BUFFER_SIZE = 64 * 1024;
+
+	function Parser() {
+	  this.tState = START;
+	  this.value = undefined;
+>>>>>>> dev
+
+	  this.string = undefined; // string data
+	  this.stringBuffer = Buffer.alloc ? Buffer.alloc(STRING_BUFFER_SIZE) : new Buffer(STRING_BUFFER_SIZE);
+	  this.stringBufferOffset = 0;
+	  this.unicode = undefined; // unicode escapes
+
+	  this.key = undefined;
+	  this.mode = undefined;
+	  this.stack = [];
+	  this.state = VALUE;
+	  this.bytes_remaining = 0; // number of bytes remaining in multi byte utf8 char to read after split boundary
+	  this.bytes_in_sequence = 0; // bytes in multi byte utf8 char to read
+	  this.temp_buffs = { "2": new Buffer(2), "3": new Buffer(3), "4": new Buffer(4) }; // for rebuilding chars split before boundary is reached
+
+	  // Stream offset
+	  this.offset = -1;
+	}
+
+<<<<<<< HEAD
 	// Manually shove something into the read() buffer.
 	// This returns true if the highWaterMark has not been hit yet,
 	// similar to how Writable.write() returns true if you should
@@ -77775,17 +94040,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	      chunk = new Buffer(chunk, encoding);
 	      encoding = '';
 	    }
+=======
+	// Slow code to string converter (only used when throwing syntax errors)
+	Parser.toknam = function (code) {
+	  var keys = Object.keys(C);
+	  for (var i = 0, l = keys.length; i < l; i++) {
+	    var key = keys[i];
+	    if (C[key] === code) { return key; }
+>>>>>>> dev
+	  }
+	  return code && ("0x" + code.toString(16));
+	};
+
+	var proto = Parser.prototype;
+	proto.onError = function (err) { throw err; };
+	proto.charError = function (buffer, i) {
+	  this.tState = STOP;
+	  this.onError(new Error("Unexpected " + JSON.stringify(String.fromCharCode(buffer[i])) + " at position " + i + " in state " + Parser.toknam(this.tState)));
+	};
+	proto.appendStringChar = function (char) {
+	  if (this.stringBufferOffset >= STRING_BUFFER_SIZE) {
+	    this.string += this.stringBuffer.toString('utf8');
+	    this.stringBufferOffset = 0;
 	  }
 
-	  return readableAddChunk(this, state, chunk, encoding, false);
-	};
-
-	// Unshift should *always* be something directly out of read()
-	Readable.prototype.unshift = function(chunk) {
-	  var state = this._readableState;
-	  return readableAddChunk(this, state, chunk, '', true);
-	};
-
+<<<<<<< HEAD
 	function readableAddChunk(stream, state, chunk, encoding, addToFront) {
 	  var er = chunkInvalid(state, chunk);
 	  if (er) {
@@ -77818,11 +94097,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        emitReadable(stream);
 
 	      maybeReadMore(stream, state);
+=======
+	  this.stringBuffer[this.stringBufferOffset++] = char;
+	};
+	proto.appendStringBuf = function (buf, start, end) {
+	  var size = buf.length;
+	  if (typeof start === 'number') {
+	    if (typeof end === 'number') {
+	      if (end < 0) {
+	        // adding a negative end decreeses the size
+	        size = buf.length - start + end;
+	      } else {
+	        size = end - start;
+	      }
+	    } else {
+	      size = buf.length - start;
+>>>>>>> dev
 	    }
-	  } else if (!addToFront) {
-	    state.reading = false;
 	  }
 
+<<<<<<< HEAD
 	  return needMoreData(state);
 	}
 
@@ -77860,17 +94154,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    n--;
 	    for (var p = 1; p < 32; p <<= 1) n |= n >> p;
 	    n++;
+=======
+	  if (size < 0) {
+	    size = 0;
+>>>>>>> dev
 	  }
-	  return n;
-	}
 
-	function howMuchToRead(n, state) {
-	  if (state.length === 0 && state.ended)
-	    return 0;
-
-	  if (state.objectMode)
-	    return n === 0 ? 0 : 1;
-
+<<<<<<< HEAD
 	  if (n === null || isNaN(n)) {
 	    // only flow one buffer at a time
 	    if (state.flowing && state.buffer.length)
@@ -79432,6 +95722,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	proto.charError = function (buffer, i) {
 	  this.tState = STOP;
 	  this.onError(new Error("Unexpected " + JSON.stringify(String.fromCharCode(buffer[i])) + " at position " + i + " in state " + Parser.toknam(this.tState)));
+=======
+	  if (this.stringBufferOffset + size > STRING_BUFFER_SIZE) {
+	    this.string += this.stringBuffer.toString('utf8', 0, this.stringBufferOffset);
+	    this.stringBufferOffset = 0;
+	  }
+
+	  buf.copy(this.stringBuffer, this.stringBufferOffset, start, end);
+	  this.stringBufferOffset += size;
+>>>>>>> dev
 	};
 	proto.write = function (buffer) {
 	  if (typeof buffer === "string") buffer = new Buffer(buffer);
@@ -79449,7 +95748,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }else if(n === 0x74){ this.tState = TRUE1;  // t
 	      }else if(n === 0x66){ this.tState = FALSE1;  // f
 	      }else if(n === 0x6e){ this.tState = NULL1; // n
+<<<<<<< HEAD
 	      }else if(n === 0x22){ this.string = ""; this.tState = STRING1; // "
+=======
+	      }else if(n === 0x22){ // "
+	        this.string = "";
+	        this.stringBufferOffset = 0;
+	        this.tState = STRING1;
+>>>>>>> dev
 	      }else if(n === 0x2d){ this.string = "-"; this.tState = NUMBER1; // -
 	      }else{
 	        if (n >= 0x30 && n < 0x40) { // 1-9
@@ -79468,6 +95774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        for (var j = 0; j < this.bytes_remaining; j++) {
 	          this.temp_buffs[this.bytes_in_sequence][this.bytes_in_sequence - this.bytes_remaining + j] = buffer[j];
 	        }
+<<<<<<< HEAD
 	        this.string += this.temp_buffs[this.bytes_in_sequence].toString();
 	        this.bytes_in_sequence = this.bytes_remaining = 0;
 	        i = i + j - 1;
@@ -81094,32 +97401,146 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // If we get here before consuming all the bytes, then that is a
 	  // bug in node.  Should never happen.
 	  if (state.length > 0) throw new Error('endReadable called on non-empty stream');
+=======
 
-	  if (!state.endEmitted) {
-	    state.ended = true;
-	    processNextTick(endReadableNT, state, stream);
-	  }
-	}
+	        this.appendStringBuf(this.temp_buffs[this.bytes_in_sequence]);
+	        this.bytes_in_sequence = this.bytes_remaining = 0;
+	        i = i + j - 1;
+	      } else if (this.bytes_remaining === 0 && n >= 128) { // else if no remainder bytes carried over, parse multi byte (>=128) chars one at a time
+	        if (n <= 193 || n > 244) {
+	          return this.onError(new Error("Invalid UTF-8 character at position " + i + " in state " + Parser.toknam(this.tState)));
+	        }
+	        if ((n >= 194) && (n <= 223)) this.bytes_in_sequence = 2;
+	        if ((n >= 224) && (n <= 239)) this.bytes_in_sequence = 3;
+	        if ((n >= 240) && (n <= 244)) this.bytes_in_sequence = 4;
+	        if ((this.bytes_in_sequence + i) > buffer.length) { // if bytes needed to complete char fall outside buffer length, we have a boundary split
+	          for (var k = 0; k <= (buffer.length - 1 - i); k++) {
+	            this.temp_buffs[this.bytes_in_sequence][k] = buffer[i + k]; // fill temp buffer of correct size with bytes available in this chunk
+	          }
+	          this.bytes_remaining = (i + this.bytes_in_sequence) - buffer.length;
+	          i = buffer.length - 1;
+	        } else {
+	          this.appendStringBuf(buffer, i, i + this.bytes_in_sequence);
+	          i = i + this.bytes_in_sequence - 1;
+	        }
+	      } else if (n === 0x22) {
+	        this.tState = START;
+	        this.string += this.stringBuffer.toString('utf8', 0, this.stringBufferOffset);
+	        this.stringBufferOffset = 0;
+	        this.onToken(STRING, this.string);
+	        this.offset += Buffer.byteLength(this.string, 'utf8') + 1;
+	        this.string = undefined;
+	      }
+	      else if (n === 0x5c) {
+	        this.tState = STRING2;
+	      }
+	      else if (n >= 0x20) { this.appendStringChar(n); }
+	      else {
+	          return this.charError(buffer, i);
+	      }
+	    }else if (this.tState === STRING2){ // After backslash
+	      n = buffer[i];
+	      if(n === 0x22){ this.appendStringChar(n); this.tState = STRING1;
+	      }else if(n === 0x5c){ this.appendStringChar(BACK_SLASH); this.tState = STRING1;
+	      }else if(n === 0x2f){ this.appendStringChar(FORWARD_SLASH); this.tState = STRING1;
+	      }else if(n === 0x62){ this.appendStringChar(BACKSPACE); this.tState = STRING1;
+	      }else if(n === 0x66){ this.appendStringChar(FORM_FEED); this.tState = STRING1;
+	      }else if(n === 0x6e){ this.appendStringChar(NEWLINE); this.tState = STRING1;
+	      }else if(n === 0x72){ this.appendStringChar(CARRIAGE_RETURN); this.tState = STRING1;
+	      }else if(n === 0x74){ this.appendStringChar(TAB); this.tState = STRING1;
+	      }else if(n === 0x75){ this.unicode = ""; this.tState = STRING3;
+	      }else{
+	        return this.charError(buffer, i);
+	      }
+	    }else if (this.tState === STRING3 || this.tState === STRING4 || this.tState === STRING5 || this.tState === STRING6){ // unicode hex codes
+	      n = buffer[i];
+	      // 0-9 A-F a-f
+	      if ((n >= 0x30 && n < 0x40) || (n > 0x40 && n <= 0x46) || (n > 0x60 && n <= 0x66)) {
+	        this.unicode += String.fromCharCode(n);
+	        if (this.tState++ === STRING6) {
+	          this.appendStringBuf(Buffer(String.fromCharCode(parseInt(this.unicode, 16))));
+	          this.unicode = undefined;
+	          this.tState = STRING1;
+	        }
+	      } else {
+	        return this.charError(buffer, i);
+	      }
+	    } else if (this.tState === NUMBER1 || this.tState === NUMBER3) {
+	        n = buffer[i];
+>>>>>>> dev
 
-	function endReadableNT(state, stream) {
-	  // Check that we didn't get one last unshift.
-	  if (!state.endEmitted && state.length === 0) {
-	    state.endEmitted = true;
-	    stream.readable = false;
-	    stream.emit('end');
-	  }
-	}
+	        switch (n) {
+	          case 0x30: // 0
+	          case 0x31: // 1
+	          case 0x32: // 2
+	          case 0x33: // 3
+	          case 0x34: // 4
+	          case 0x35: // 5
+	          case 0x36: // 6
+	          case 0x37: // 7
+	          case 0x38: // 8
+	          case 0x39: // 9
+	          case 0x2e: // .
+	          case 0x65: // e
+	          case 0x45: // E
+	          case 0x2b: // +
+	          case 0x2d: // -
+	            this.string += String.fromCharCode(n);
+	            this.tState = NUMBER3;
+	            break;
+	          default:
+	            this.tState = START;
+	            var result = Number(this.string);
 
-	function forEach(xs, f) {
-	  for (var i = 0, l = xs.length; i < l; i++) {
-	    f(xs[i], i);
-	  }
-	}
+	            if (isNaN(result)){
+	              return this.charError(buffer, i);
+	            }
 
-	function indexOf(xs, x) {
-	  for (var i = 0, l = xs.length; i < l; i++) {
-	    if (xs[i] === x) return i;
+	            if ((this.string.match(/[0-9]+/) == this.string) && (result.toString() != this.string)) {
+	              // Long string of digits which is an ID string and not valid and/or safe JavaScript integer Number
+	              this.onToken(STRING, this.string);
+	            } else {
+	              this.onToken(NUMBER, result);
+	            }
+
+	            this.offset += this.string.length - 1;
+	            this.string = undefined;
+	            i--;
+	            break;
+	        }
+	    }else if (this.tState === TRUE1){ // r
+	      if (buffer[i] === 0x72) { this.tState = TRUE2; }
+	      else { return this.charError(buffer, i); }
+	    }else if (this.tState === TRUE2){ // u
+	      if (buffer[i] === 0x75) { this.tState = TRUE3; }
+	      else { return this.charError(buffer, i); }
+	    }else if (this.tState === TRUE3){ // e
+	      if (buffer[i] === 0x65) { this.tState = START; this.onToken(TRUE, true); this.offset+= 3; }
+	      else { return this.charError(buffer, i); }
+	    }else if (this.tState === FALSE1){ // a
+	      if (buffer[i] === 0x61) { this.tState = FALSE2; }
+	      else { return this.charError(buffer, i); }
+	    }else if (this.tState === FALSE2){ // l
+	      if (buffer[i] === 0x6c) { this.tState = FALSE3; }
+	      else { return this.charError(buffer, i); }
+	    }else if (this.tState === FALSE3){ // s
+	      if (buffer[i] === 0x73) { this.tState = FALSE4; }
+	      else { return this.charError(buffer, i); }
+	    }else if (this.tState === FALSE4){ // e
+	      if (buffer[i] === 0x65) { this.tState = START; this.onToken(FALSE, false); this.offset+= 4; }
+	      else { return this.charError(buffer, i); }
+	    }else if (this.tState === NULL1){ // u
+	      if (buffer[i] === 0x75) { this.tState = NULL2; }
+	      else { return this.charError(buffer, i); }
+	    }else if (this.tState === NULL2){ // l
+	      if (buffer[i] === 0x6c) { this.tState = NULL3; }
+	      else { return this.charError(buffer, i); }
+	    }else if (this.tState === NULL3){ // l
+	      if (buffer[i] === 0x6c) { this.tState = START; this.onToken(NULL, null); this.offset += 3; }
+	      else { return this.charError(buffer, i); }
+	    }
 	  }
+<<<<<<< HEAD
 	  return -1;
 	}
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(384)))
@@ -81305,10 +97726,106 @@ return /******/ (function(modules) { // webpackBootstrap
 	  while (current) {
 	    out.push(current);
 	    current = current.next;
-	  }
-	  return out;
+=======
+	};
+	proto.onToken = function (token, value) {
+	  // Override this to get events
 	};
 
+	proto.parseError = function (token, value) {
+	  this.tState = STOP;
+	  this.onError(new Error("Unexpected " + Parser.toknam(token) + (value ? ("(" + JSON.stringify(value) + ")") : "") + " in state " + Parser.toknam(this.state)));
+	};
+	proto.push = function () {
+	  this.stack.push({value: this.value, key: this.key, mode: this.mode});
+	};
+	proto.pop = function () {
+	  var value = this.value;
+	  var parent = this.stack.pop();
+	  this.value = parent.value;
+	  this.key = parent.key;
+	  this.mode = parent.mode;
+	  this.emit(value);
+	  if (!this.mode) { this.state = VALUE; }
+	};
+	proto.emit = function (value) {
+	  if (this.mode) { this.state = COMMA; }
+	  this.onValue(value);
+	};
+	proto.onValue = function (value) {
+	  // Override me
+	};
+	proto.onToken = function (token, value) {
+	  if(this.state === VALUE){
+	    if(token === STRING || token === NUMBER || token === TRUE || token === FALSE || token === NULL){
+	      if (this.value) {
+	        this.value[this.key] = value;
+	      }
+	      this.emit(value);
+	    }else if(token === LEFT_BRACE){
+	      this.push();
+	      if (this.value) {
+	        this.value = this.value[this.key] = {};
+	      } else {
+	        this.value = {};
+	      }
+	      this.key = undefined;
+	      this.state = KEY;
+	      this.mode = OBJECT;
+	    }else if(token === LEFT_BRACKET){
+	      this.push();
+	      if (this.value) {
+	        this.value = this.value[this.key] = [];
+	      } else {
+	        this.value = [];
+	      }
+	      this.key = 0;
+	      this.mode = ARRAY;
+	      this.state = VALUE;
+	    }else if(token === RIGHT_BRACE){
+	      if (this.mode === OBJECT) {
+	        this.pop();
+	      } else {
+	        return this.parseError(token, value);
+	      }
+	    }else if(token === RIGHT_BRACKET){
+	      if (this.mode === ARRAY) {
+	        this.pop();
+	      } else {
+	        return this.parseError(token, value);
+	      }
+	    }else{
+	      return this.parseError(token, value);
+	    }
+	  }else if(this.state === KEY){
+	    if (token === STRING) {
+	      this.key = value;
+	      this.state = COLON;
+	    } else if (token === RIGHT_BRACE) {
+	      this.pop();
+	    } else {
+	      return this.parseError(token, value);
+	    }
+	  }else if(this.state === COLON){
+	    if (token === COLON) { this.state = VALUE; }
+	    else { return this.parseError(token, value); }
+	  }else if(this.state === COMMA){
+	    if (token === COMMA) {
+	      if (this.mode === ARRAY) { this.key++; this.state = VALUE; }
+	      else if (this.mode === OBJECT) { this.state = KEY; }
+
+	    } else if (token === RIGHT_BRACKET && this.mode === ARRAY || token === RIGHT_BRACE && this.mode === OBJECT) {
+	      this.pop();
+	    } else {
+	      return this.parseError(token, value);
+	    }
+	  }else{
+	    return this.parseError(token, value);
+>>>>>>> dev
+	  }
+	};
+
+<<<<<<< HEAD
 	(function () {
 	  try {
 	    Object.defineProperty(WritableState.prototype, 'buffer', {
@@ -81326,33 +97843,50 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // Writable ctor is applied to Duplexes, though they're not
 	  // instanceof Writable, they're instanceof Readable.
 	  if (!(this instanceof Writable) && !(this instanceof Duplex)) return new Writable(options);
+=======
+	Parser.C = C;
 
-	  this._writableState = new WritableState(options, this);
+	module.exports = Parser;
 
-	  // legacy.
-	  this.writable = true;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(399).Buffer))
 
-	  if (options) {
-	    if (typeof options.write === 'function') this._write = options.write;
+/***/ },
+/* 452 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> dev
 
-	    if (typeof options.writev === 'function') this._writev = options.writev;
-	  }
+	/* WEBPACK VAR INJECTION */(function(process) {var Stream = __webpack_require__(409)
 
-	  Stream.call(this);
-	}
+	// through
+	//
+	// a stream that does nothing but re-emit the input.
+	// useful for aggregating a series of changing but not ending streams into one stream)
 
+	exports = module.exports = through
+	through.through = through
+
+	//create a readable writable stream.
+
+	function through (write, end, opts) {
+	  write = write || function (data) { this.queue(data) }
+	  end = end || function () { this.queue(null) }
+
+<<<<<<< HEAD
 	// Otherwise people can pipe Writable streams, which is just wrong.
 	Writable.prototype.pipe = function () {
 	  this.emit('error', new Error('Cannot pipe. Not readable.'));
 	};
+=======
+	  var ended = false, destroyed = false, buffer = [], _ended = false
+	  var stream = new Stream()
+	  stream.readable = stream.writable = true
+	  stream.paused = false
+>>>>>>> dev
 
-	function writeAfterEnd(stream, cb) {
-	  var er = new Error('write after end');
-	  // TODO: defer error events consistently everywhere, not just the cb
-	  stream.emit('error', er);
-	  processNextTick(cb, er);
-	}
+	//  stream.autoPause   = !(opts && opts.autoPause   === false)
+	  stream.autoDestroy = !(opts && opts.autoDestroy === false)
 
+<<<<<<< HEAD
 	// If we get something that is not a buffer, string, null, or undefined,
 	// and we're not in objectMode, then that's an error.
 	// Otherwise stream chunks are all considered to be of length=1, and the
@@ -81366,47 +97900,72 @@ return /******/ (function(modules) { // webpackBootstrap
 	    stream.emit('error', er);
 	    processNextTick(cb, er);
 	    valid = false;
-	  }
-	  return valid;
-	}
-
-	Writable.prototype.write = function (chunk, encoding, cb) {
-	  var state = this._writableState;
-	  var ret = false;
-
-	  if (typeof encoding === 'function') {
-	    cb = encoding;
-	    encoding = null;
+=======
+	  stream.write = function (data) {
+	    write.call(this, data)
+	    return !stream.paused
+>>>>>>> dev
 	  }
 
-	  if (Buffer.isBuffer(chunk)) encoding = 'buffer';else if (!encoding) encoding = state.defaultEncoding;
-
-	  if (typeof cb !== 'function') cb = nop;
-
-	  if (state.ended) writeAfterEnd(this, cb);else if (validChunk(this, state, chunk, cb)) {
-	    state.pendingcb++;
-	    ret = writeOrBuffer(this, state, chunk, encoding, cb);
+	  function drain() {
+	    while(buffer.length && !stream.paused) {
+	      var data = buffer.shift()
+	      if(null === data)
+	        return stream.emit('end')
+	      else
+	        stream.emit('data', data)
+	    }
 	  }
 
-	  return ret;
-	};
-
-	Writable.prototype.cork = function () {
-	  var state = this._writableState;
-
-	  state.corked++;
-	};
-
-	Writable.prototype.uncork = function () {
-	  var state = this._writableState;
-
-	  if (state.corked) {
-	    state.corked--;
-
-	    if (!state.writing && !state.corked && !state.finished && !state.bufferProcessing && state.bufferedRequest) clearBuffer(this, state);
+	  stream.queue = stream.push = function (data) {
+	//    console.error(ended)
+	    if(_ended) return stream
+	    if(data === null) _ended = true
+	    buffer.push(data)
+	    drain()
+	    return stream
 	  }
-	};
 
+	  //this will be registered as the first 'end' listener
+	  //must call destroy next tick, to make sure we're after any
+	  //stream piped from here.
+	  //this is only a problem if end is not emitted synchronously.
+	  //a nicer way to do this is to make sure this is the last listener for 'end'
+
+	  stream.on('end', function () {
+	    stream.readable = false
+	    if(!stream.writable && stream.autoDestroy)
+	      process.nextTick(function () {
+	        stream.destroy()
+	      })
+	  })
+
+	  function _end () {
+	    stream.writable = false
+	    end.call(stream)
+	    if(!stream.readable && stream.autoDestroy)
+	      stream.destroy()
+	  }
+
+	  stream.end = function (data) {
+	    if(ended) return
+	    ended = true
+	    if(arguments.length) stream.write(data)
+	    _end() // will emit or queue
+	    return stream
+	  }
+
+	  stream.destroy = function () {
+	    if(destroyed) return
+	    destroyed = true
+	    ended = true
+	    buffer.length = 0
+	    stream.writable = stream.readable = false
+	    stream.emit('close')
+	    return stream
+	  }
+
+<<<<<<< HEAD
 	Writable.prototype.setDefaultEncoding = function setDefaultEncoding(encoding) {
 	  // node::ParseEncoding() requires lower case.
 	  if (typeof encoding === 'string') encoding = encoding.toLowerCase();
@@ -81417,128 +97976,87 @@ return /******/ (function(modules) { // webpackBootstrap
 	function decodeChunk(state, chunk, encoding) {
 	  if (!state.objectMode && state.decodeStrings !== false && typeof chunk === 'string') {
 	    chunk = new Buffer(chunk, encoding);
+=======
+	  stream.pause = function () {
+	    if(stream.paused) return
+	    stream.paused = true
+	    return stream
 	  }
-	  return chunk;
-	}
 
-	// if we're already writing something, then just put this
-	// in the queue, and wait our turn.  Otherwise, call _write
-	// If we return false, then we need a drain event, so set that flag.
-	function writeOrBuffer(stream, state, chunk, encoding, cb) {
-	  chunk = decodeChunk(state, chunk, encoding);
-
-	  if (Buffer.isBuffer(chunk)) encoding = 'buffer';
-	  var len = state.objectMode ? 1 : chunk.length;
-
-	  state.length += len;
-
-	  var ret = state.length < state.highWaterMark;
-	  // we must ensure that previous needDrain will not be reset to false.
-	  if (!ret) state.needDrain = true;
-
-	  if (state.writing || state.corked) {
-	    var last = state.lastBufferedRequest;
-	    state.lastBufferedRequest = new WriteReq(chunk, encoding, cb);
-	    if (last) {
-	      last.next = state.lastBufferedRequest;
-	    } else {
-	      state.bufferedRequest = state.lastBufferedRequest;
+	  stream.resume = function () {
+	    if(stream.paused) {
+	      stream.paused = false
+	      stream.emit('resume')
 	    }
-	    state.bufferedRequestCount += 1;
-	  } else {
-	    doWrite(stream, state, false, len, chunk, encoding, cb);
+	    drain()
+	    //may have become paused again,
+	    //as drain emits 'data'.
+	    if(!stream.paused)
+	      stream.emit('drain')
+	    return stream
+>>>>>>> dev
 	  }
-
-	  return ret;
+	  return stream
 	}
 
-	function doWrite(stream, state, writev, len, chunk, encoding, cb) {
-	  state.writelen = len;
-	  state.writecb = cb;
-	  state.writing = true;
-	  state.sync = true;
-	  if (writev) stream._writev(chunk, state.onwrite);else stream._write(chunk, encoding, state.onwrite);
-	  state.sync = false;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+/***/ },
+/* 453 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {var Transform = __webpack_require__(424)
+	  , inherits  = __webpack_require__(439).inherits
+	  , xtend     = __webpack_require__(429)
+
+	function DestroyableTransform(opts) {
+	  Transform.call(this, opts)
+	  this._destroyed = false
 	}
 
-	function onwriteError(stream, state, sync, er, cb) {
-	  --state.pendingcb;
-	  if (sync) processNextTick(cb, er);else cb(er);
+	inherits(DestroyableTransform, Transform)
 
-	  stream._writableState.errorEmitted = true;
-	  stream.emit('error', er);
+	DestroyableTransform.prototype.destroy = function(err) {
+	  if (this._destroyed) return
+	  this._destroyed = true
+	  
+	  var self = this
+	  process.nextTick(function() {
+	    if (err)
+	      self.emit('error', err)
+	    self.emit('close')
+	  })
 	}
 
-	function onwriteStateUpdate(state) {
-	  state.writing = false;
-	  state.writecb = null;
-	  state.length -= state.writelen;
-	  state.writelen = 0;
+	// a noop _transform function
+	function noop (chunk, enc, callback) {
+	  callback(null, chunk)
 	}
 
-	function onwrite(stream, er) {
-	  var state = stream._writableState;
-	  var sync = state.sync;
-	  var cb = state.writecb;
 
-	  onwriteStateUpdate(state);
-
-	  if (er) onwriteError(stream, state, sync, er, cb);else {
-	    // Check if we're actually ready to finish, but don't emit yet
-	    var finished = needFinish(state);
-
-	    if (!finished && !state.corked && !state.bufferProcessing && state.bufferedRequest) {
-	      clearBuffer(stream, state);
+	// create a new export function, used by both the main export and
+	// the .ctor export, contains common logic for dealing with arguments
+	function through2 (construct) {
+	  return function (options, transform, flush) {
+	    if (typeof options == 'function') {
+	      flush     = transform
+	      transform = options
+	      options   = {}
 	    }
 
-	    if (sync) {
-	      /*<replacement>*/
-	      asyncWrite(afterWrite, stream, state, finished, cb);
-	      /*</replacement>*/
-	    } else {
-	        afterWrite(stream, state, finished, cb);
-	      }
+	    if (typeof transform != 'function')
+	      transform = noop
+
+	    if (typeof flush != 'function')
+	      flush = null
+
+	    return construct(options, transform, flush)
 	  }
 	}
 
-	function afterWrite(stream, state, finished, cb) {
-	  if (!finished) onwriteDrain(stream, state);
-	  state.pendingcb--;
-	  cb();
-	  finishMaybe(stream, state);
-	}
 
-	// Must force callback to be called on nextTick, so that we don't
-	// emit 'drain' before the write() consumer gets the 'false' return
-	// value, and has a chance to attach a 'drain' listener.
-	function onwriteDrain(stream, state) {
-	  if (state.length === 0 && state.needDrain) {
-	    state.needDrain = false;
-	    stream.emit('drain');
-	  }
-	}
-
-	// if there's something in the buffer waiting, then process it
-	function clearBuffer(stream, state) {
-	  state.bufferProcessing = true;
-	  var entry = state.bufferedRequest;
-
-	  if (stream._writev && entry && entry.next) {
-	    // Fast case, write everything using _writev()
-	    var l = state.bufferedRequestCount;
-	    var buffer = new Array(l);
-	    var holder = state.corkedRequestsFree;
-	    holder.entry = entry;
-
-	    var count = 0;
-	    while (entry) {
-	      buffer[count] = entry;
-	      entry = entry.next;
-	      count += 1;
-	    }
-
-	    doWrite(stream, state, true, state.length, buffer, '', holder.finish);
-
+<<<<<<< HEAD
 	    // doWrite is always async, defer these to save a bit of time
 	    // as the hot path ends with doWrite
 	    state.pendingcb++;
@@ -81552,99 +98070,62 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var encoding = entry.encoding;
 	      var cb = entry.callback;
 	      var len = state.objectMode ? 1 : chunk.length;
+=======
+	// main export, just make me a transform stream!
+	module.exports = through2(function (options, transform, flush) {
+	  var t2 = new DestroyableTransform(options)
+>>>>>>> dev
 
-	      doWrite(stream, state, false, len, chunk, encoding, cb);
-	      entry = entry.next;
-	      // if we didn't call the onwrite immediately, then
-	      // it means that we need to wait until it does.
-	      // also, that means that the chunk and cb are currently
-	      // being processed, so move the buffer counter past them.
-	      if (state.writing) {
-	        break;
-	      }
-	    }
+	  t2._transform = transform
 
-	    if (entry === null) state.lastBufferedRequest = null;
-	  }
+	  if (flush)
+	    t2._flush = flush
 
-	  state.bufferedRequestCount = 0;
-	  state.bufferedRequest = entry;
-	  state.bufferProcessing = false;
-	}
+	  return t2
+	})
 
+<<<<<<< HEAD
 	Writable.prototype._write = function (chunk, encoding, cb) {
 	  cb(new Error('not implemented'));
 	};
+=======
+>>>>>>> dev
 
-	Writable.prototype._writev = null;
+	// make me a reusable prototype that I can `new`, or implicitly `new`
+	// with a constructor call
+	module.exports.ctor = through2(function (options, transform, flush) {
+	  function Through2 (override) {
+	    if (!(this instanceof Through2))
+	      return new Through2(override)
 
-	Writable.prototype.end = function (chunk, encoding, cb) {
-	  var state = this._writableState;
+	    this.options = xtend(options, override)
 
-	  if (typeof chunk === 'function') {
-	    cb = chunk;
-	    chunk = null;
-	    encoding = null;
-	  } else if (typeof encoding === 'function') {
-	    cb = encoding;
-	    encoding = null;
+	    DestroyableTransform.call(this, this.options)
 	  }
 
-	  if (chunk !== null && chunk !== undefined) this.write(chunk, encoding);
+	  inherits(Through2, DestroyableTransform)
 
-	  // .end() fully uncorks
-	  if (state.corked) {
-	    state.corked = 1;
-	    this.uncork();
-	  }
+	  Through2.prototype._transform = transform
 
-	  // ignore unnecessary end() calls.
-	  if (!state.ending && !state.finished) endWritable(this, state, cb);
-	};
+	  if (flush)
+	    Through2.prototype._flush = flush
 
-	function needFinish(state) {
-	  return state.ending && state.length === 0 && state.bufferedRequest === null && !state.finished && !state.writing;
-	}
+	  return Through2
+	})
 
-	function prefinish(stream, state) {
-	  if (!state.prefinished) {
-	    state.prefinished = true;
-	    stream.emit('prefinish');
-	  }
-	}
 
-	function finishMaybe(stream, state) {
-	  var need = needFinish(state);
-	  if (need) {
-	    if (state.pendingcb === 0) {
-	      prefinish(stream, state);
-	      state.finished = true;
-	      stream.emit('finish');
-	    } else {
-	      prefinish(stream, state);
-	    }
-	  }
-	  return need;
-	}
+	module.exports.obj = through2(function (options, transform, flush) {
+	  var t2 = new DestroyableTransform(xtend({ objectMode: true, highWaterMark: 16 }, options))
 
-	function endWritable(stream, state, cb) {
-	  state.ending = true;
-	  finishMaybe(stream, state);
-	  if (cb) {
-	    if (state.finished) processNextTick(cb);else stream.once('finish', cb);
-	  }
-	  state.ended = true;
-	  stream.writable = false;
-	}
+	  t2._transform = transform
 
-	// It seems a linked list but it is not
-	// there will be only 2 of these for each stream
-	function CorkedRequest(state) {
-	  var _this = this;
+	  if (flush)
+	    t2._flush = flush
 
-	  this.next = null;
-	  this.entry = null;
+	  return t2
+	})
 
+<<<<<<< HEAD
 	  this.finish = function (err) {
 	    var entry = _this.entry;
 	    _this.entry = null;
@@ -81821,15 +98302,29 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 436 */
+=======
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(397)))
+
+/***/ },
+/* 454 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
 
+<<<<<<< HEAD
 	var Readable = __webpack_require__(392).Readable;
 	var Guid = __webpack_require__(437);
 	var querystring = __webpack_require__(377);
 	var through2 = __webpack_require__(425);
 	var EventEmitter = __webpack_require__(382).EventEmitter;
+=======
+	var Readable = __webpack_require__(409).Readable;
+	var Guid = __webpack_require__(455);
+	var querystring = __webpack_require__(390);
+	var through2 = __webpack_require__(453);
+	var EventEmitter = __webpack_require__(395).EventEmitter;
+>>>>>>> dev
 
 	var wsRequest = function wsRequest(client, args) {
 		this.client = client;
@@ -81974,10 +98469,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = wsRequest;
 
+<<<<<<< HEAD
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(386).Buffer))
 
 /***/ },
 /* 437 */
+=======
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(399).Buffer))
+
+/***/ },
+/* 455 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	(function () {
@@ -82046,12 +98548,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 438 */
+=======
+/* 456 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var helpers = __webpack_require__(439);
+=======
+	var helpers = __webpack_require__(457);
+>>>>>>> dev
 
 	var indexService = function indexService(client, args) {
 		var valid = helpers.validate(args, {
@@ -82088,7 +98598,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 439 */
+=======
+/* 457 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	'use strict';
@@ -82144,12 +98658,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 440 */
+=======
+/* 458 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var helpers = __webpack_require__(439);
+=======
+	var helpers = __webpack_require__(457);
+>>>>>>> dev
 
 	var getService = function getService(client, args) {
 		var valid = helpers.validate(args, {
@@ -82179,12 +98701,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 441 */
+=======
+/* 459 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var helpers = __webpack_require__(439);
+=======
+	var helpers = __webpack_require__(457);
+>>>>>>> dev
 
 	var updateService = function updateService(client, args) {
 		var valid = helpers.validate(args, {
@@ -82217,12 +98747,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 442 */
+=======
+/* 460 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var helpers = __webpack_require__(439);
+=======
+	var helpers = __webpack_require__(457);
+>>>>>>> dev
 
 	var deleteService = function deleteService(client, args) {
 		var valid = helpers.validate(args, {
@@ -82251,12 +98789,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 443 */
+=======
+/* 461 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var helpers = __webpack_require__(439);
+=======
+	var helpers = __webpack_require__(457);
+>>>>>>> dev
 
 	var bulkService = function bulkService(client, args) {
 		var valid = helpers.validate(args, {
@@ -82290,12 +98836,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 444 */
+=======
+/* 462 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var helpers = __webpack_require__(439);
+=======
+	var helpers = __webpack_require__(457);
+>>>>>>> dev
 
 	var searchService = function searchService(client, args) {
 		var valid = helpers.validate(args, {
@@ -82336,12 +98890,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 445 */
+=======
+/* 463 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var through2 = __webpack_require__(425);
+=======
+	var through2 = __webpack_require__(453);
+>>>>>>> dev
 
 	var getTypesService = function getTypesService(client) {
 		var resultStream = through2.obj(function (chunk, enc, callback) {
@@ -82365,14 +98927,24 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 446 */
+=======
+/* 464 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var stringify = __webpack_require__(447);
 
 	var helpers = __webpack_require__(439);
+=======
+	var stringify = __webpack_require__(465);
+
+	var helpers = __webpack_require__(457);
+>>>>>>> dev
 
 	var addWebhookService = function addWebhook(client, args, webhook) {
 		var valid = helpers.validate(args, {
@@ -82480,10 +99052,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var json = typeof JSON !== 'undefined' ? JSON : __webpack_require__(448);
+=======
+/* 465 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var json = typeof JSON !== 'undefined' ? JSON : __webpack_require__(466);
+>>>>>>> dev
 
 	module.exports = function (obj, opts) {
 	    if (!opts) opts = {};
@@ -82570,6 +99149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -82579,6 +99159,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 449 */
+=======
+/* 466 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports.parse = __webpack_require__(467);
+	exports.stringify = __webpack_require__(468);
+
+
+/***/ },
+/* 467 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	var at, // The index of the current character
@@ -82857,7 +99448,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 450 */
+=======
+/* 468 */
+>>>>>>> dev
 /***/ function(module, exports) {
 
 	var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
@@ -83017,12 +99612,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 451 */
+=======
+/* 469 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var helpers = __webpack_require__(439);
+=======
+	var helpers = __webpack_require__(457);
+>>>>>>> dev
 
 	var streamDocumentService = function streamDocumentService(client, args) {
 		var valid = helpers.validate(args, {
@@ -83057,12 +99660,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+<<<<<<< HEAD
 /* 452 */
+=======
+/* 470 */
+>>>>>>> dev
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
 	var helpers = __webpack_require__(439);
+=======
+	var helpers = __webpack_require__(457);
+>>>>>>> dev
 
 	var streamSearchService = function streamSearchService(client, args) {
 		var valid = helpers.validate(args, {
