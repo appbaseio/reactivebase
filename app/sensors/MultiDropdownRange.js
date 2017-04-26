@@ -172,6 +172,6 @@ MultiDropdownRange.types = {
 	defaultSelected: TYPES.ARRAY,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
-	customQuery: TYPES.FUNCION,
+	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT
 };

@@ -660,7 +660,7 @@ ReactiveList.types = {
 	stream: TYPES.BOOLEAN,
 	componentStyle: TYPES.OBJECT,
 	initialLoader: TYPES.STRING,
-	noResults: TYPES.FUNC,
+	noResults: TYPES.FUNCTION,
 	showResultStats: TYPES.BOOLEAN,
 	onResultStats: TYPES.FUNCTION,
 	placeholder: TYPES.STRING,

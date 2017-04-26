@@ -134,7 +134,7 @@ DataController.types = {
 	appbaseField: TYPES.STRING,
 	appbaseFieldType: TYPES.STRING,
 	title: TYPES.STRING,
-	visible: TYPES.BOOL,
+	visible: TYPES.BOOLEAN,
 	dataLabel: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT
