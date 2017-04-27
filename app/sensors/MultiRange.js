@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
+import _ from "lodash";
 
 const helper = require("../middleware/helper");
-const _ = require("lodash");
 
 export default class MultiRange extends Component {
 	constructor(props) {

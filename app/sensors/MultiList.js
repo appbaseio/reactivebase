@@ -1,20 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import NativeList from "./NativeList";
 import * as TYPES from "../middleware/constants.js";
 
-export default class MultiList extends Component {
-	constructor(props, context) {
-		super(props);
-	}
-
-	render() {
-		return (
-			<NativeList
-				{...this.props}
-				multipleSelect
-			/>
-		);
-	}
+export default function MultiList(props) {
+	return (
+		<NativeList
+			{...props}
+			multipleSelect
+		/>
+	);
 }
 
 MultiList.propTypes = {
