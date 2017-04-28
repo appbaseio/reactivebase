@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import Select from "react-select";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
+import _ from "lodash";
 
 const helper = require("../middleware/helper");
-const _ = require("lodash");
 
 export default class MultiDropdownRange extends Component {
 	constructor(props) {
@@ -172,6 +172,6 @@ MultiDropdownRange.types = {
 	defaultSelected: TYPES.ARRAY,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
-	customQuery: TYPES.FUNCION,
+	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT
 };

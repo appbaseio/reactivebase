@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { DateRangePicker } from "react-dates";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
+import _ from "lodash";
+import moment from "moment";
+import momentPropTypes from "react-moment-proptypes";
 
-const moment = require("moment");
-const _ = require("lodash");
-const momentPropTypes = require("react-moment-proptypes");
 const helper = require("../middleware/helper");
 
 export default class DateRange extends Component {

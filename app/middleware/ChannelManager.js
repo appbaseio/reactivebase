@@ -1,7 +1,7 @@
 import * as ChannelHelper from "./ChannelHelper";
+import { EventEmitter } from "fbemitter";
+import _ from "lodash";
 
-const _ = require("lodash");
-const { EventEmitter } = require("fbemitter");
 const helper = require("./helper");
 
 class ChannelManager {

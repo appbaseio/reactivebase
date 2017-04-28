@@ -1,18 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class InitialLoader extends Component {
-	constructor(props, context) {
-		super(props);
-	}
-
-	// render
-	render() {
-		return (
-			<div className={"rbc rbc-initialloader"}>
-				{this.props.defaultText}
-			</div>
-		);
-	}
+export default function InitialLoader(props) {
+	return (
+		<div className="rbc rbc-initialloader">
+			{props.defaultText}
+		</div>
+	);
 }
 
 InitialLoader.propTypes = {

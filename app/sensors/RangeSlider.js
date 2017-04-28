@@ -6,9 +6,9 @@ import manager from "../middleware/ChannelManager";
 import { HistoGramComponent } from "../addons/HistoGram";
 import InitialLoader from "../addons/InitialLoader";
 import * as TYPES from "../middleware/constants";
+import _ from "lodash";
 
 const helper = require("../middleware/helper");
-const _ = require("lodash");
 
 export default class RangeSlider extends Component {
 	constructor(props) {

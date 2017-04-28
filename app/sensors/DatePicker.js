@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { SingleDatePicker } from "react-dates";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
+import moment from "moment";
+import momentPropTypes from "react-moment-proptypes";
 
-const moment = require("moment");
-const momentPropTypes = require("react-moment-proptypes");
 const helper = require("../middleware/helper");
 
 export default class DatePicker extends Component {
