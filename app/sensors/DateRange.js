@@ -67,7 +67,7 @@ export default class DateRange extends Component {
 
 		try {
 			if (this.startDate && this.endDate) {
-				if (moment(this.startDate).format("YYYY-MM-DD") !== moment(this.props.defaultSelected.start).format("YYYY-MM-DD") && moment(this.endDate).format("YYYY-MM-DD") !== moment(this.props.defaultSelected.end).format("YYYY-MM-DD")) {
+				if (moment(this.startDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(this.props.defaultSelected.start).format(helper.dateFormat[this.props.queryFormat]) && moment(this.endDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(this.props.defaultSelected.end).format(helper.dateFormat[this.props.queryFormat])) {
 					this.startDate = this.props.defaultSelected.start;
 					this.endDate = this.props.defaultSelected.end;
 					flag = true;
@@ -108,13 +108,13 @@ export default class DateRange extends Component {
 					must: [{
 						range: {
 							[this.props.appbaseField[0]]: {
-								lte: moment(value.startDate).unix()*1000
+								lte: moment(value.startDate).format(helper.dateFormat[this.props.queryFormat])
 							}
 						}
 					}, {
 						range: {
 							[this.props.appbaseField[1]]: {
-								gte: moment(value.endDate).unix()*1000
+								gte: moment(value.endDate).format(helper.dateFormat[this.props.queryFormat])
 							}
 						}
 					}]
@@ -124,8 +124,8 @@ export default class DateRange extends Component {
 			query = {
 				range: {
 					[this.props.appbaseField[0]]: {
-						gte: moment(value.startDate).unix()*1000,
-						lte: moment(value.endDate).unix()*1000
+						gte: moment(value.startDate).format(helper.dateFormat[this.props.queryFormat]),
+						lte: moment(value.endDate).format(helper.dateFormat[this.props.queryFormat])
 					}
 				}
 			};
@@ -133,8 +133,8 @@ export default class DateRange extends Component {
 			query = {
 				range: {
 					[this.props.appbaseField]: {
-						gte: moment(value.startDate).unix()*1000,
-						lte: moment(value.endDate).unix()*1000
+						gte: moment(value.startDate).format(helper.dateFormat[this.props.queryFormat]),
+						lte: moment(value.endDate).format(helper.dateFormat[this.props.queryFormat])
 					}
 				}
 			};
@@ -228,7 +228,8 @@ DateRange.propTypes = {
 	extra: React.PropTypes.any,
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat))
 };
 
 // Default props value
@@ -238,7 +239,8 @@ DateRange.defaultProps = {
 	defaultSelected: {
 		start: null,
 		end: null
-	}
+	},
+	queryFormat: "epoch_millis"
 };
 
 // context type
@@ -257,5 +259,5 @@ DateRange.types = {
 	allowAllDates: TYPES.BOOLEAN,
 	extra: TYPES.OBJECT,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT
-};
+	queryFormat: TYPES.STRING
+}

@@ -99,6 +99,7 @@ class ChannelManager {
 				searchQueryObj.preference = this.app[channelId];
 				setQueryState(channelResponse);
 				appbaseRef.search(searchQueryObj).on("data", (data) => {
+					console.log("Applied query", searchQueryObj);
 					channelResponse.mode = "historic";
 					channelResponse.data = this.highlightModify(data, channelResponse.appliedQuery);
 					self.emitter.emit(channelId, channelResponse);
