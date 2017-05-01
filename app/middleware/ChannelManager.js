@@ -50,7 +50,6 @@ class ChannelManager {
 		}
 
 		function activateStream(currentChannelId, currentQueryObj, appbaseRef) {
-			console.log("streaming activate");
 			if (this.streamRef[currentChannelId]) {
 				this.streamRef[currentChannelId].stop();
 			}
@@ -99,7 +98,6 @@ class ChannelManager {
 				searchQueryObj.preference = this.app[channelId];
 				setQueryState(channelResponse);
 				appbaseRef.search(searchQueryObj).on("data", (data) => {
-					console.log("Applied query", searchQueryObj);
 					channelResponse.mode = "historic";
 					channelResponse.data = this.highlightModify(data, channelResponse.appliedQuery);
 					self.emitter.emit(channelId, channelResponse);
