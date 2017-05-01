@@ -8,7 +8,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, "umd"),
 		filename: "reactivebase.js",
-		library: "reactivebase",
+		library: "ReactiveBase",
 		libraryTarget: "umd"
 	},
 	module: {
@@ -29,7 +29,6 @@ module.exports = {
 		noParse: /ws/
 	},
 	externals: {
-		"react": "react",
 		"react-dom": "react-dom"
 	},
 	plugins: [
