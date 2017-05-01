@@ -45,7 +45,7 @@ export default class NumberBox extends Component {
 		super(props);
 		const { defaultSelected, focused } = this.props;
 		this.state = {
-			currentValue: defaultSelected,
+			currentValue: defaultSelected ? defaultSelected : this.props.data.start,
 			focused
 		};
 		this.type = "term";
@@ -60,19 +60,65 @@ export default class NumberBox extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		setTimeout(() => {
-			if (nextProps.defaultSelected !== this.state.currentValue) {
+			if ((nextProps.defaultSelected || nextProps.defaultSelected === 0) && (nextProps.defaultSelected !== this.state.currentValue)) {
 				this.setState({
 					currentValue: nextProps.defaultSelected
 				});
+			}
+			if (nextProps.queryFormat !== this.queryFormat) {
+				this.queryFormat = nextProps.queryFormat;
+				this.updateQuery();
 			}
 		}, 300);
 	}
 
 	// build query for this sensor only
-	customQuery(value) {
+	customQuery(queryValue) {
+		let query = null;
+		if (queryValue && (queryValue.value || queryValue.value === 0)) {
+			const value = queryValue.value;
+			switch (this.props.queryFormat) {
+				case "exact":
+					query = this.exactQuery(value);
+					break;
+				case "lte":
+					query = this.lteQuery(value);
+					break;
+				case "gte":
+				default:
+					query = this.gteQuery(value);
+					break;
+			}
+		}
+		return query;
+	}
+
+	exactQuery(value) {
 		return {
 			[this.type]: {
 				[this.props.appbaseField]: value
+			}
+		};
+	}
+
+	gteQuery(value) {
+		return {
+			range: {
+				[this.props.appbaseField]: {
+					gte: value,
+					boost: 2.0
+				}
+			}
+		};
+	}
+
+	lteQuery(value) {
+		return {
+			range: {
+				[this.props.appbaseField]: {
+					lte: value,
+					boost: 2.0
+				}
 			}
 		};
 	}
@@ -107,11 +153,16 @@ export default class NumberBox extends Component {
 
 		this.setState({
 			currentValue: inputVal
-		});
+		}, this.updateQuery.bind(this));
+	}
 
+	updateQuery() {
 		const obj = {
-			key: componentId,
-			value: inputVal
+			key: this.props.componentId,
+			value: {
+				value: this.state.currentValue,
+				queryFormat: this.props.queryFormat
+			}
 		};
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
@@ -160,11 +211,13 @@ NumberBox.propTypes = {
 	labelPosition: React.PropTypes.oneOf(["top", "bottom", "left", "right"]),
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	queryFormat: React.PropTypes.oneOf(["exact", "gte", "lte"])
 };
 
 NumberBox.defaultProps = {
-	componentStyle: {}
+	componentStyle: {},
+	queryFormat: "gte"
 };
 
 // context type
@@ -182,5 +235,6 @@ NumberBox.types = {
 	defaultSelected: TYPES.NUMBER,
 	labelPosition: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT
+	componentStyle: TYPES.OBJECT,
+	queryFormat: TYPES.STRING
 };

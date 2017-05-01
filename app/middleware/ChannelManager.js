@@ -1,7 +1,7 @@
 import * as ChannelHelper from "./ChannelHelper";
+import { EventEmitter } from "fbemitter";
+import _ from "lodash";
 
-const _ = require("lodash");
-const { EventEmitter } = require("fbemitter");
 const helper = require("./helper");
 
 class ChannelManager {
@@ -50,7 +50,6 @@ class ChannelManager {
 		}
 
 		function activateStream(currentChannelId, currentQueryObj, appbaseRef) {
-			console.log("streaming activate");
 			if (this.streamRef[currentChannelId]) {
 				this.streamRef[currentChannelId].stop();
 			}

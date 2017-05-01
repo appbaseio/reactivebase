@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 import NestedList from "../sensors/NestedList";
 
 export default class NestedItem extends Component {

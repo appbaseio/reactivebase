@@ -9,10 +9,10 @@ import NoResults from "../addons/NoResults";
 import ResultStats from "../addons/ResultStats";
 import Pagination from "../addons/Pagination";
 import * as TYPES from "../middleware/constants";
+import _ from "lodash";
 
 const helper = require("../middleware/helper");
 const $ = require("jquery");
-const _ = require("lodash");
 
 export default class ReactiveList extends Component {
 	constructor(props) {
@@ -660,7 +660,7 @@ ReactiveList.types = {
 	stream: TYPES.BOOLEAN,
 	componentStyle: TYPES.OBJECT,
 	initialLoader: TYPES.STRING,
-	noResults: TYPES.FUNC,
+	noResults: TYPES.FUNCTION,
 	showResultStats: TYPES.BOOLEAN,
 	onResultStats: TYPES.FUNCTION,
 	placeholder: TYPES.STRING,

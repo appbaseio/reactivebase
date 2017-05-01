@@ -1,5 +1,4 @@
 import { default as React, Component } from "react";
-import { render } from "react-dom";
 
 export class StaticSearch extends Component {
 	constructor(props) {

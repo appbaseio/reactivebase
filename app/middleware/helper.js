@@ -1,6 +1,6 @@
 /* eslint max-lines: 0 */
-const { EventEmitter } = require("fbemitter");
-const _ = require("lodash");
+import { EventEmitter } from "fbemitter";
+import _ from "lodash";
 
 let globalI = 0;
 export const sensorEmitter = new EventEmitter();
@@ -33,9 +33,7 @@ export const WatchForDependencyChange = function (react, previousSelectedSensor,
 			if (!(depend.indexOf("channel-options-") > -1 || depend.indexOf("aggs") > -1)) {
 				checkDependExists(depend);
 				if (typeof selectedSensor[depend] === "object") {
-					const newData = _(selectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
-					const oldData = _(previousSelectedSensor[depend]).toPairs().sortBy(0).fromPairs().value();
-					if (JSON.stringify(newData) !== JSON.stringify(oldData)) {
+					if (!_.isEqual(selectedSensor[depend], previousSelectedSensor[depend])) {
 						applyDependChange(react, depend);
 					}
 				} else if (selectedSensor[depend] !== previousSelectedSensor[depend]) {

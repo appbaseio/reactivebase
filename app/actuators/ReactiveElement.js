@@ -6,9 +6,9 @@ import InitialLoader from "../addons/InitialLoader";
 import NoResults from "../addons/NoResults";
 import ResultStats from "../addons/ResultStats";
 import * as TYPES from "../middleware/constants";
+import _ from "lodash";
 
 const helper = require("../middleware/helper");
-const _ = require("lodash");
 
 export default class ReactiveElement extends Component {
 	constructor(props) {

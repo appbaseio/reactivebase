@@ -1,25 +1,18 @@
-import React, { Component } from "react";
-import classNames from "classnames";
+import React from "react";
 
-export default class ResultStats extends Component {
-	constructor(props, context) {
-		super(props);
-	}
-
-	defaultText() {
-		if (this.props.onResultStats) {
-			return this.props.onResultStats(this.props.total, this.props.took);
-		}
-		return `${this.props.total} results found in ${this.props.took} ms`;
-	}
-
-	render() {
+export default function ResultStats(props) {
+	if (props.onResultStats) {
 		return (
 			<div className={"rbc rbc-resultstats col s12 col-xs-12"}>
-				{this.defaultText()}
+				{props.onResultStats(props.total, props.took)}
 			</div>
 		);
 	}
+	return (
+		<div className={"rbc rbc-resultstats col s12 col-xs-12"}>
+			{props.total} results found in {props.took} ms
+		</div>
+	);
 }
 
 ResultStats.propTypes = {
