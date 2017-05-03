@@ -1,88 +1,36 @@
-const path = require("path");
-const webpack = require("webpack");
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
+var path = require('path');
+var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+var webpack = require('webpack');
+var env = process.env.NODE_ENV;
 
-const config = {
-	entry: "./app/app.js",
+// for lib build
+var lib_config = {
+	entry: {
+		app: './app/app.js'
+	},
 	output: {
-		path: path.resolve(__dirname, "dist"),
-		filename: "app.bundle.js",
+		path: path.join(__dirname, "dist"),
 		publicPath: "/dist/",
+		filename: '[name].bundle.js'
 	},
 	module: {
-		rules: [
+		loaders: [
 			{
 				test: /.jsx?$/,
-				include: [
-					path.resolve(__dirname, "app")
-				],
+				loader: 'babel-loader',
 				exclude: /node_modules/,
-				loader: "babel-loader"
+				query: {
+					presets: ['es2015','stage-0', 'react']
+				}
 			},
 			{
 				test: /node_modules\/JSONStream\/index\.js$/,
-				loaders: ["shebang-loader", "babel-loader"]
-			},
-		]
-	},
-	externals: {
-		ws: "ws",
-		jquery: "jQuery",
-		lodash: "lodash",
-		react: "react",
-		classnames: "classnames",
-		moment: "moment",
-		"fbemitter": "fbemitter",
-		"react-moment-proptypes": "react-moment-proptypes",
-		"appbase-js": "appbase-js",
-		"react-dom": "react-dom",
-		"react-select": "react-select",
-		"react-dates": "react-dates",
-		"rc-slider": "rc-slider"
-	},
-	plugins: [
-		new LodashModuleReplacementPlugin({
-			collections: true,
-			shorthands: true,
-			paths: true
-		})
-	]
-}
-
-if (process.env.NODE_ENV === "production") {
-	config.plugins = [
-		new webpack.DefinePlugin({ "process.env.NODE_ENV": JSON.stringify("production") }),
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false,
-				screw_ie8: true,
-				conditionals: true,
-				unused: true,
-				comparisons: true,
-				sequences: true,
-				dead_code: true,
-				evaluate: true,
-				join_vars: true,
-				if_return: true
-			},
-			output: {
-				comments: false
+				loaders: ['shebang', 'babel']
 			}
-		}),
-		new LodashModuleReplacementPlugin({
-			collections: true,
-			shorthands: true,
-			paths: true
-		}),
-		new CompressionPlugin({
-			asset: "[path].gz[query]",
-			algorithm: "gzip",
-			test: /\.(js|html)$/,
-			threshold: 10240,
-			minRatio: 0.8
-		})
-	];
-}
+		],
+		noParse: ['ws']
+	},
+	externals: ['ws']
+};
 
-module.exports = config;
+module.exports = lib_config;

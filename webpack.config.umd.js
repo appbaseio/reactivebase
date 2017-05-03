@@ -1,39 +1,73 @@
-const path = require("path");
-const webpack = require("webpack");
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+var path = require('path');
+var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+var webpack = require('webpack');
 const CompressionPlugin = require("compression-webpack-plugin");
+var env = process.env.NODE_ENV;
 
-module.exports = {
-	entry: "./app/app.js",
+var umd_config = {
+	entry: './app/app.js',
+
 	output: {
-		path: path.resolve(__dirname, "umd"),
-		filename: "reactivebase.js",
-		library: "reactivebase",
-		libraryTarget: "umd"
+		library: 'UmdReactiveBase',
+		libraryTarget: 'umd',
 	},
+
 	module: {
-		rules: [
+		preLoaders: [
+				{ test: /\.json$/, exclude: /node_modules/, loader: 'json'},
+		],
+		loaders: [
 			{
 				test: /.jsx?$/,
-				include: [
-					path.resolve(__dirname, "app")
-				],
+				loader: 'babel-loader',
 				exclude: /node_modules/,
-				loader: "babel-loader"
+				query: {
+					presets: ['es2015','stage-0', 'react']
+				}
 			},
 			{
 				test: /node_modules\/JSONStream\/index\.js$/,
-				loaders: ["shebang-loader"]
-			},
+				loaders: ['shebang', 'babel']
+			}
 		],
-		noParse: /ws/
+		noParse: ['ws']
 	},
-	externals: {
-		"react": "react",
-		"react-dom": "react-dom"
+
+	resolve: {
+		alias: {
+			react: path.resolve(__dirname, './node_modules/react'),
+			'react-dom': path.resolve(__dirname, './node_modules/react-dom')
+		},
 	},
+
+	externals: [
+		{
+			react: {
+				root: 'React',
+				commonjs2: 'react',
+				commonjs: 'react',
+				amd: 'react',
+			},
+			'react-dom': {
+				root: 'ReactDOM',
+				commonjs2: 'react-dom',
+				commonjs: 'react-dom',
+				amd: 'react-dom',
+			},
+			'react-dom/server': {
+				root: 'ReactDOMServer',
+				commonjs2: 'react-dom-server',
+				commonjs: 'react-dom-server',
+				amd: 'react-dom-server',
+			}
+		},
+		'ws'
+	],
+
 	plugins: [
-		new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify(env),
+		}),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: false,
@@ -64,4 +98,6 @@ module.exports = {
 			minRatio: 0.8
 		})
 	]
-}
+};
+
+module.exports = umd_config;

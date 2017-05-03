@@ -1,19 +1,18 @@
 {
   "name": "@appbaseio/reactivebase",
-  "version": "1.0.0-alpha20",
+  "version": "1.0.0-alpha21",
   "description": "Data components for building reactive UIs",
-  "main": "umd/reactivebase.js",
-  "module": "dist/app.bundle.js",
+  "main": "lib/app.js",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "lint": "esw app --color --watch",
     "webpack-server": "webpack-dev-server --hot --inline --progress --colors --port 8012",
     "web-server": "http-server -p 3000 .",
-    "start": "concurrently \"npm run webpack-server\" \"gulp watch\" ",
-    "build": "cross-env NODE_ENV=production webpack -p --optimize-minimize && gulp",
-    "build:lib": "gulp && babel app --out-dir lib",
-    "build:umd": "webpack --optimize-minimize --config webpack.config.umd.js",
+    "start": "cross-env CHOOSE_CONFIG=EXAMPLES && concurrently \"npm run webpack-server\" \"gulp watch\" ",
+    "build": "cross-env NODE_ENV=production && cross-env CHOOSE_CONFIG=EXAMPLES && webpack -p && gulp",
+    "build:lib": "gulp && cross-env NODE_ENV=production && cross-env CHOOSE_CONFIG=LIB babel app --out-dir lib",
+    "build:umd": "cross-env NODE_ENV=development && webpack --config webpack.config.umd.js app/app.js umd/reactivebase.js",
     "build-bro": "browserify -t [ babelify --presets [ es2015 stage-0 react ] ] main.js -o dist/main.bundle.js",
     "storybook": "start-storybook -p 9009",
     "build-storybook": "build-storybook -o playground",
@@ -91,7 +90,7 @@
     "shebang-loader": "0.0.1",
     "storybook-readme": "^1.2.0",
     "style-loader": "^0.13.1",
-    "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.4"
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.0"
   }
 }
