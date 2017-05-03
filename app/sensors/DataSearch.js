@@ -3,8 +3,8 @@ import Select from "react-select";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
 import * as TYPES from "../middleware/constants";
+import _ from "lodash";
 
-const _ = require("lodash");
 const helper = require("../middleware/helper");
 
 export default class DataSearch extends Component {

@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { SingleDatePicker } from "react-dates";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
+import moment from "moment";
+import momentPropTypes from "react-moment-proptypes";
 
-const moment = require("moment");
-const momentPropTypes = require("react-moment-proptypes");
 const helper = require("../middleware/helper");
 
 export default class DatePicker extends Component {
@@ -43,7 +43,7 @@ export default class DatePicker extends Component {
 	}
 
 	checkDefault() {
-		if (this.props.defaultSelected && moment(this.defaultDate).format("YYYY-MM-DD") !== moment(this.props.defaultSelected).format("YYYY-MM-DD")) {
+		if (this.props.defaultSelected && this.props.queryFormat && helper.dateFormat[this.props.queryFormat] && moment(this.defaultDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(this.props.defaultSelected).format(helper.dateFormat[this.props.queryFormat])) {
 			this.defaultDate = this.props.defaultSelected;
 			setTimeout(this.handleChange.bind(this, this.defaultDate), 1000);
 		}
@@ -52,12 +52,12 @@ export default class DatePicker extends Component {
 	// build query for this sensor only
 	customQuery(value) {
 		let query = null;
-		if (value) {
+		if (value && this.props.queryFormat && helper.dateFormat[this.props.queryFormat]) {
 			query = {
 				range: {
 					[this.props.appbaseField]: {
-						gte: new Date(moment(value).subtract(24, "hours").format("YYYY-MM-DD")).getTime(),
-						lte: new Date(moment(value).format("YYYY-MM-DD")).getTime()
+						gte: moment(value).subtract(24, "hours").format(helper.dateFormat[this.props.queryFormat]),
+						lte: moment(value).format(helper.dateFormat[this.props.queryFormat])
 					}
 				}
 			};
@@ -148,7 +148,8 @@ DatePicker.propTypes = {
 	extra: React.PropTypes.any,
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat))
 };
 
 // Default props value
@@ -158,7 +159,8 @@ DatePicker.defaultProps = {
 	focused: true,
 	allowAllDates: true,
 	defaultSelected: null,
-	componentStyle: {}
+	componentStyle: {},
+	queryFormat: "epoch_millis"
 };
 
 // context type
@@ -179,5 +181,6 @@ DatePicker.types = {
 	allowAllDates: TYPES.BOOLEAN,
 	extra: TYPES.OBJECT,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT
+	componentStyle: TYPES.OBJECT,
+	queryFormat: TYPES.STRING
 };

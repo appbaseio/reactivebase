@@ -3,8 +3,8 @@ import Select from "react-select";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
 import InitialLoader from "../addons/InitialLoader";
+import _ from "lodash";
 
-const _ = require("lodash");
 const helper = require("../middleware/helper");
 
 export default class DropdownList extends Component {

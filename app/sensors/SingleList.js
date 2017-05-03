@@ -1,20 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import NativeList from "./NativeList";
 import * as TYPES from "../middleware/constants.js";
 
-export default class SingleList extends Component {
-	constructor(props, context) {
-		super(props);
-	}
-
-	render() {
-		return (
-			<NativeList
-				{...this.props}
-				multipleSelect={false}
-			/>
-		);
-	}
+export default function SingleList(props) {
+	return (
+		<NativeList
+			{...props}
+			multipleSelect={false}
+		/>
+	);
 }
 
 SingleList.propTypes = {

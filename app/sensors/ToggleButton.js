@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import classNames from "classnames";
 const helper = require("../middleware/helper.js");
 import * as TYPES from "../middleware/constants.js";
-const _ = require("lodash");
+import _ from "lodash";
 
 export default class ToggleButton extends Component {
 	constructor(props, context) {

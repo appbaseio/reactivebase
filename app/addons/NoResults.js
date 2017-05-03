@@ -1,18 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class NoResults extends Component {
-	constructor(props, context) {
-		super(props);
-	}
-
-	// render
-	render() {
-		return (
-			<div className={"rbc rbc-noresults"}>
-				{this.props.defaultText}
-			</div>
-		);
-	}
+export default function NoResults(props) {
+	return (
+		<div className="rbc rbc-noresults">
+			{props.defaultText}
+		</div>
+	);
 }
 
 NoResults.propTypes = {

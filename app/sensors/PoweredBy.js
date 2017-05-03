@@ -9,8 +9,9 @@ export default function Poweredby(props) {
 			<img className="rbc-img-responsive rbc-poweredby-light" src="https://cdn.rawgit.com/appbaseio/cdn/master/appbase/logos/rbc-logo.svg" alt="Poweredby appbase" />
 		</a>
 	);
-	if (props.container) {
-		showMarkup = !($(props.container).height() < 300);
+	if(props.container) {
+		const height = $(`.${props.container}`).height() || 0;
+		showMarkup = height > 300;
 	}
 	return showMarkup ? markup : null;
 }

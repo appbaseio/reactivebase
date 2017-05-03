@@ -307,13 +307,47 @@ storiesOf("NumberBox", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(NumberBoxReadme), () => (
 		<NumberBoxDefault
-			defaultSelected={3}
 			data={{
 				label: "Car Ratings",
 				start: 1,
 				end: 5
 			}}
 			labelPosition="left"
+		/>
+	)))
+	.add("Default Selected", withReadme(removeFirstLine(NumberBoxReadme), () => (
+		<NumberBoxDefault
+			data={{
+				label: "Car Ratings",
+				start: 1,
+				end: 5
+			}}
+			defaultSelected={2}
+			labelPosition="left"
+		/>
+	)))
+	.add("Exact query", withReadme(removeFirstLine(NumberBoxReadme), () => (
+		<NumberBoxDefault
+			data={{
+				label: "Car Ratings",
+				start: 1,
+				end: 5
+			}}
+			defaultSelected={3}
+			labelPosition="left"
+			queryFormat="exact"
+		/>
+	)))
+	.add("Less than query", withReadme(removeFirstLine(NumberBoxReadme), () => (
+		<NumberBoxDefault
+			data={{
+				label: "Car Ratings",
+				start: 1,
+				end: 5
+			}}
+			defaultSelected={5}
+			labelPosition="left"
+			queryFormat="lte"
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(NumberBoxReadme), () => (
@@ -325,6 +359,7 @@ storiesOf("NumberBox", module)
 				label: "Car Ratings"
 			})}
 			labelPosition={select("labelPosition", { bottom: "bottom", top: "top", left: "left", right: "right" }, "right")}
+			queryFormat={select("queryFormat", { gte: "gte", lte: "lte", exact: "exact"}, "gte")}
 		/>
 	)));
 
@@ -449,6 +484,7 @@ storiesOf("DatePicker", module)
 			title={text("title", "Date Picker")}
 			numberOfMonths={number("numberOfMonths", 1)}
 			allowAllDates={boolean("allowAllDates", true)}
+			queryFormat={select("queryFormat", {"epoch_millis":"epoch_millis","epoch_seconds":"epoch_seconds","date":"date","date_time":"date_time","date_time_no_millis":"date_time_no_millis","basic_date":"basic_date","basic_date_time":"basic_date_time","basic_date_time_no_millis":"basic_date_time_no_millis","basic_time":"basic_time","basic_time_no_millis":"basic_time_no_millis"}, "epoch_millis")}
 		/>
 	)));
 
@@ -488,6 +524,7 @@ storiesOf("DateRange", module)
 			title={text("title", "Date Range")}
 			numberOfMonths={number("numberOfMonths", 2)}
 			allowAllDates={boolean("allowAllDates", true)}
+			queryFormat={select("queryFormat", {"epoch_millis":"epoch_millis","epoch_seconds":"epoch_seconds","date":"date","date_time":"date_time","date_time_no_millis":"date_time_no_millis","basic_date":"basic_date","basic_date_time":"basic_date_time","basic_date_time_no_millis":"basic_date_time_no_millis","basic_time":"basic_time","basic_time_no_millis":"basic_time_no_millis"}, "epoch_millis")}
 		/>
 	)));
 

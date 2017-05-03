@@ -92,3 +92,15 @@ export const reactiveBaseValidation = (props, propName) => {
 	return err;
 };
 
+export const dateFormat = {
+	"epoch_millis": "x",
+	"epoch_seconds": "X",
+	"date": "YYYY-MM-DD",
+	"date_time": "YYYY-MM-DDTHH:mm:ss.SSSZZ",
+	"date_time_no_millis": "YYYY-MM-DDTHH:mm:ssZZ",
+	"basic_date": "YYYYMMDD",
+	"basic_date_time": "YYYYMMDDTHHmmss.SSSZ",
+	"basic_date_time_no_millis": "YYYYMMDDTHHmmssZ",
+	"basic_time": "HHmmss.SSSZ",
+	"basic_time_no_millis": "HHmmssZ"
+}

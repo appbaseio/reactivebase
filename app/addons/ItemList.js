@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import classNames from "classnames";
-import { render } from "react-dom";
 
 export default class ItemList extends Component {
 	constructor(props) {

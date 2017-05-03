@@ -6,9 +6,9 @@ import InitialLoader from "../addons/InitialLoader";
 import NoResults from "../addons/NoResults";
 import ResultStats from "../addons/ResultStats";
 import * as TYPES from "../middleware/constants";
+import _ from "lodash";
 
 const helper = require("../middleware/helper");
-const _ = require("lodash");
 
 export default class ReactiveElement extends Component {
 	constructor(props) {
@@ -303,7 +303,7 @@ export default class ReactiveElement extends Component {
 		}
 
 		return (
-			<div ref={(div) => { this.resultListContainer = div; }} className="rbc-reactiveelement-container">
+			<div className="rbc-reactiveelement-container">
 				<div className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.componentStyle}>
 					{title}
 					{this.state.resultStats && this.state.resultStats.resultFound && this.props.showResultStats ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
@@ -312,7 +312,7 @@ export default class ReactiveElement extends Component {
 				</div>
 				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults.text} />) : null}
 				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader.text} />) : null}
-				<PoweredBy container={this.resultListContainer} />
+				<PoweredBy container="rbc-reactiveelement-container" />
 			</div>
 		);
 	}

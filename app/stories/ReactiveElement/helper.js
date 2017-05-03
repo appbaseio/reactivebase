@@ -1,4 +1,5 @@
-const _ = require("lodash");
+import _ from "lodash";
+
 export var GetTopTopics = function (data) {
 	const store = {};
 	let topics = [];
