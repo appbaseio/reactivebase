@@ -52,6 +52,11 @@ module.exports = {
 		new webpack.DefinePlugin({
 			"process.env.NODE_ENV": JSON.stringify("production"),
 		}),
+		new LodashModuleReplacementPlugin({
+			collections: true,
+			shorthands: true,
+			paths: true
+		}),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: false,
@@ -68,11 +73,6 @@ module.exports = {
 			output: {
 				comments: false
 			}
-		}),
-		new LodashModuleReplacementPlugin({
-			collections: true,
-			shorthands: true,
-			paths: true
 		}),
 		new CompressionPlugin({
 			asset: "[path].gz[query]",
