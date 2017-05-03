@@ -1,5 +1,3 @@
-global.process = { env: {} };
-
 // sensors
 import SingleList from "./sensors/SingleList";
 import MultiList from "./sensors/MultiList";

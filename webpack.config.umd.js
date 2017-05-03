@@ -50,26 +50,29 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.DefinePlugin({
-			"process.env": {
-				"NODE_ENV": JSON.stringify("production")
+			"process.env.NODE_ENV": JSON.stringify("production"),
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false,
+				screw_ie8: true,
+				conditionals: true,
+				unused: true,
+				comparisons: true,
+				sequences: true,
+				dead_code: true,
+				evaluate: true,
+				join_vars: true,
+				if_return: true
+			},
+			output: {
+				comments: false
 			}
 		}),
 		new LodashModuleReplacementPlugin({
 			collections: true,
 			shorthands: true,
 			paths: true
-		}),
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				pure_getters: true,
-				unsafe: true,
-				unsafe_comps: true,
-				warnings: false
-			},
-			output: {
-				comments: false
-			},
-			sourceMap: false
 		}),
 		new CompressionPlugin({
 			asset: "[path].gz[query]",
