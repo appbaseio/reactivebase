@@ -1,38 +1,36 @@
-const path = require("path");
-const webpack = require("webpack");
-const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
+var path = require('path');
+var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+var webpack = require('webpack');
+var env = process.env.NODE_ENV;
 
-const config = {
-	entry: "./app/app.js",
+// for lib build
+var lib_config = {
+	entry: {
+		app: './app/app.js'
+	},
 	output: {
-		path: path.resolve(__dirname, "dist"),
-		filename: "app.bundle.js",
+		path: path.join(__dirname, "dist"),
 		publicPath: "/dist/",
+		filename: '[name].bundle.js'
 	},
 	module: {
-		rules: [
+		loaders: [
 			{
 				test: /.jsx?$/,
-				include: [
-					path.resolve(__dirname, "app")
-				],
+				loader: 'babel-loader',
 				exclude: /node_modules/,
-				loader: "babel-loader"
+				query: {
+					presets: ['es2015','stage-0', 'react']
+				}
 			},
 			{
 				test: /node_modules\/JSONStream\/index\.js$/,
-				loaders: ["shebang-loader", "babel-loader"]
-			},
-		]
+				loaders: ['shebang', 'babel']
+			}
+		],
+		noParse: ['ws']
 	},
-	externals: ["ws"],
-	plugins: [
-		new LodashModuleReplacementPlugin({
-			collections: true,
-			shorthands: true,
-			paths: true
-		})
-	]
-}
+	externals: ['ws']
+};
 
-module.exports = config;
+module.exports = lib_config;
