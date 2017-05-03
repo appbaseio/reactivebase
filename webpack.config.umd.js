@@ -1,6 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
@@ -28,27 +28,49 @@ module.exports = {
 		],
 		noParse: /ws/
 	},
+	resolve: {
+		alias: {
+			react: path.resolve(__dirname, "./node_modules/react"),
+			"react-dom": path.resolve(__dirname, "./node_modules/react-dom")
+		}
+	},
 	externals: {
-		"react-dom": "react-dom"
+		react: {
+			root: "React",
+			commonjs2: "react",
+			commonjs: "react",
+			amd: "react"
+		},
+		"react-dom": {
+			root: "ReactDOM",
+			commonjs2: "react-dom",
+			commonjs: "react-dom",
+			amd: "react-dom"
+		}
 	},
 	plugins: [
-		// new webpack.optimize.UglifyJsPlugin({
-		// 	compress: {
-		// 		warnings: false,
-		// 		screw_ie8: true,
-		// 		conditionals: true,
-		// 		unused: true,
-		// 		comparisons: true,
-		// 		sequences: true,
-		// 		dead_code: true,
-		// 		evaluate: true,
-		// 		join_vars: true,
-		// 		if_return: true
-		// 	},
-		// 	output: {
-		// 		comments: false
-		// 	}
-		// }),
+		new webpack.DefinePlugin({
+			"process.env": {
+				"NODE_ENV": JSON.stringify("production")
+			}
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false,
+				screw_ie8: true,
+				conditionals: true,
+				unused: true,
+				comparisons: true,
+				sequences: true,
+				dead_code: true,
+				evaluate: true,
+				join_vars: true,
+				if_return: true
+			},
+			output: {
+				comments: false
+			}
+		}),
 		new LodashModuleReplacementPlugin({
 			collections: true,
 			shorthands: true,

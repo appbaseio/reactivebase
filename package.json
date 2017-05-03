@@ -1,9 +1,8 @@
 {
   "name": "@appbaseio/reactivebase",
-  "version": "1.0.0-alpha20",
+  "version": "1.0.0-alpha21",
   "description": "Data components for building reactive UIs",
-  "main": "umd/reactivebase.js",
-  "module": "dist/app.bundle.js",
+  "main": "lib/app.js",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
