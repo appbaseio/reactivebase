@@ -69,7 +69,6 @@ class Main extends Component {
 								appbaseField="group.group_city.raw"
 								title="SingleList"
 								defaultSelected="London"
-								URLParam={true}
 								size={100}
 							/>
 						</div>

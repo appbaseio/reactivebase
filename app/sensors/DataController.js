@@ -9,6 +9,7 @@ export default class DataController extends Component {
 		super(props);
 		this.type = "match";
 		this.value = "customValue";
+		this.urlParams = helper.URLParams.get(this.props.componentId);
 	}
 
 	// Set query information
@@ -22,8 +23,9 @@ export default class DataController extends Component {
 	}
 
 	checkDefault() {
-		if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
-			this.defaultSelected = this.props.defaultSelected;
+		this.defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+		if (this.defaultValue && this.defaultSelected != this.defaultValue) {
+			this.defaultSelected = this.defaultValue;
 			setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
 		}
 	}
@@ -54,6 +56,7 @@ export default class DataController extends Component {
 		}
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
+		helper.URLParams.update(this.props.componentId, value, this.props.URLParam);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -108,7 +111,8 @@ DataController.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	defaultSelected: React.PropTypes.any
+	defaultSelected: React.PropTypes.any,
+	URLParam: React.PropTypes.bool
 };
 
 React.PropTypes.oneOfType([
@@ -120,7 +124,8 @@ React.PropTypes.oneOfType([
 DataController.defaultProps = {
 	visible: false,
 	defaultSelected: "default",
-	componentStyle: {}
+	componentStyle: {},
+	URLParam: false
 };
 
 // context type
@@ -137,5 +142,6 @@ DataController.types = {
 	visible: TYPES.BOOLEAN,
 	dataLabel: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT
+	componentStyle: TYPES.OBJECT,
+	URLParam: TYPES.BOOLEAN
 };

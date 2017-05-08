@@ -15,6 +15,7 @@ export default class DatePicker extends Component {
 			focused: this.props.focused
 		};
 		this.type = "range";
+		this.urlParams = helper.URLParams.get(this.props.componentId);
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -43,7 +44,10 @@ export default class DatePicker extends Component {
 	}
 
 	checkDefault() {
-		if (this.props.defaultSelected && this.props.queryFormat && helper.dateFormat[this.props.queryFormat] && moment(this.defaultDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(this.props.defaultSelected).format(helper.dateFormat[this.props.queryFormat])) {
+		if(this.urlParams !== null && this.props.queryFormat && helper.dateFormat[this.props.queryFormat] && moment(this.defaultDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(this.urlParams).format(helper.dateFormat[this.props.queryFormat])) {
+			this.defaultDate = moment(this.urlParams);
+			setTimeout(this.handleChange.bind(this, this.defaultDate), 1000);
+		} else if (this.props.defaultSelected && this.props.queryFormat && helper.dateFormat[this.props.queryFormat] && moment(this.defaultDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(this.props.defaultSelected).format(helper.dateFormat[this.props.queryFormat])) {
 			this.defaultDate = this.props.defaultSelected;
 			setTimeout(this.handleChange.bind(this, this.defaultDate), 1000);
 		}
@@ -79,6 +83,7 @@ export default class DatePicker extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
+		helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParam);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -149,7 +154,8 @@ DatePicker.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat))
+	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat)),
+	URLParam: React.PropTypes.bool
 };
 
 // Default props value
@@ -160,7 +166,8 @@ DatePicker.defaultProps = {
 	allowAllDates: true,
 	defaultSelected: null,
 	componentStyle: {},
-	queryFormat: "epoch_millis"
+	queryFormat: "epoch_millis",
+	URLParam: false
 };
 
 // context type
@@ -182,5 +189,6 @@ DatePicker.types = {
 	extra: TYPES.OBJECT,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	queryFormat: TYPES.STRING
+	queryFormat: TYPES.STRING,
+	URLParam: TYPES.BOOLEAN
 };

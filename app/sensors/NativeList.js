@@ -274,7 +274,7 @@ export default class NativeList extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, value);
+		helper.URLParams.update(this.props.componentId, value, this.props.URLParam);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -407,7 +407,8 @@ NativeList.propTypes = {
 	]),
 	react: React.PropTypes.object,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	URLParam: React.PropTypes.bool
 };
 
 // Default props value
@@ -420,7 +421,8 @@ NativeList.defaultProps = {
 	title: null,
 	placeholder: "Search",
 	selectAllLabel: null,
-	componentStyle: {}
+	componentStyle: {},
+	URLParam: false
 };
 
 // context type

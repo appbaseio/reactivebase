@@ -36,6 +36,7 @@ export default class DataSearch extends Component {
 		this.setValue = this.setValue.bind(this);
 		this.defaultSearchQuery = this.defaultSearchQuery.bind(this);
 		this.previousSelectedSensor = {};
+		this.urlParams = helper.URLParams.get(this.props.componentId);
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -109,6 +110,7 @@ export default class DataSearch extends Component {
 			key: this.searchInputId,
 			value
 		};
+		helper.URLParams.update(this.props.componentId, value, this.props.URLParam);
 		helper.selectedSensor.set(obj, true);
 		if (value && value.trim() !== "") {
 			this.setState({
@@ -241,8 +243,9 @@ export default class DataSearch extends Component {
 	}
 
 	checkDefault() {
-		if (this.props.defaultSelected && this.defaultSelected !== this.props.defaultSelected) {
-			this.defaultSelected = this.props.defaultSelected;
+		this.defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+		if (this.defaultValue && this.defaultSelected != this.defaultValue) {
+			this.defaultSelected = this.defaultValue;
 			setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
 			this.handleSearch({
 				value: this.defaultSelected
@@ -346,7 +349,8 @@ DataSearch.propTypes = {
 	highlightFields: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
-	])
+	]),
+	URLParam: React.PropTypes.bool
 };
 
 // Default props value
@@ -354,7 +358,8 @@ DataSearch.defaultProps = {
 	placeholder: "Search",
 	autocomplete: true,
 	componentStyle: {},
-	highlight: false
+	highlight: false,
+	URLParam: false
 };
 
 // context type
@@ -374,5 +379,6 @@ DataSearch.types = {
 	defaultSelected: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	highlight: TYPES.BOOLEAN
+	highlight: TYPES.BOOLEAN,
+	URLParam: TYPES.BOOLEAN
 };

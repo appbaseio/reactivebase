@@ -30,7 +30,8 @@ MultiList.propTypes = {
 		React.PropTypes.element
 	]),
 	react: React.PropTypes.object,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	URLParam: React.PropTypes.bool
 };
 
 // Default props value
@@ -40,7 +41,8 @@ MultiList.defaultProps = {
 	size: 100,
 	showSearch: false,
 	title: null,
-	placeholder: "Search"
+	placeholder: "Search",
+	URLParam: false
 };
 
 // context type
