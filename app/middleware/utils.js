@@ -1,6 +1,6 @@
 const $ = require("jquery");
 
-export const ResponsiveStory = function () {
+export const ResponsiveStory = function() {
 	const paginationHeight = () => $(".rbc-pagination").length * 85;
 
 	const getHeight = item => item.height() ? item.height() : 0;
@@ -33,7 +33,7 @@ export const ResponsiveStory = function () {
 	});
 };
 
-export const sizeValidation = function (props, propName) {
+export const sizeValidation = function(props, propName) {
 	let err = null;
 	if (props[propName] < 1 || props[propName] > 1000) {
 		err = new Error("Size value is invalid, it should be between 1 and 1000.");
@@ -41,7 +41,7 @@ export const sizeValidation = function (props, propName) {
 	return err;
 };
 
-export const stepValidation = function (props, propName) {
+export const stepValidation = function(props, propName) {
 	let err = null;
 	if (props[propName] > Math.floor((props.range.end - props.range.start) / 2)) {
 		err = new Error(`Step value is invalid, it should be less than or equal to ${Math.floor((props.range.end - props.range.start) / 2)}.`);
@@ -51,7 +51,7 @@ export const stepValidation = function (props, propName) {
 	return err;
 };
 
-export const validateThreshold = function (props, propName, componentName) {
+export const validateThreshold = function(props, propName, componentName) {
 	let err = null;
 	if (!(!isNaN(props[propName]) && props.end > props.start)) {
 		err = new Error("Threshold value validation has failed, end value should be greater than start value.");
@@ -64,7 +64,7 @@ export const validateThreshold = function (props, propName, componentName) {
 	return err;
 };
 
-export const valueValidation = function (props, propName) {
+export const valueValidation = function(props, propName) {
 	let err = null;
 	const end = props.data.end ? props.data.end : props.defaultSelected;
 	const start = props.data.start ? props.data.start : props.defaultSelected;

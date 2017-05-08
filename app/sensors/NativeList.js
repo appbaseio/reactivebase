@@ -29,7 +29,8 @@ export default class NativeList extends Component {
 		this.previousSelectedSensor = {};
 		this.channelId = null;
 		this.channelListener = null;
-		this.defaultSelected = this.props.defaultSelected;
+		this.urlParams = helper.URLParams.get(this.props.componentId, this.props.multipleSelect);
+		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleRemove = this.handleRemove.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
@@ -43,7 +44,9 @@ export default class NativeList extends Component {
 	componentDidMount() {
 		this.size = this.props.size;
 		this.setQueryInfo();
-		this.handleSelect("");
+		if(this.urlParams === null) {
+			this.handleSelect("");
+		}
 		this.createChannel(true);
 	}
 
@@ -76,8 +79,9 @@ export default class NativeList extends Component {
 
 	componentWillUpdate() {
 		setTimeout(() => {
-			if (this.defaultSelected !== this.props.defaultSelected) {
-				this.defaultSelected = this.props.defaultSelected;
+			this.defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+			if (this.defaultSelected !== this.defaultValue) {
+				this.defaultSelected = this.defaultValue;
 				let items = this.state.items;
 				items = items.map((item) => {
 					item.key = item.key.toString();
@@ -270,6 +274,7 @@ export default class NativeList extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
+		helper.URLParams.update(this.props.componentId, value);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -324,7 +329,7 @@ export default class NativeList extends Component {
 				onRemove={this.handleRemove}
 				showCount={this.props.showCount}
 				selectAll={this.selectAll}
-				defaultSelected={this.props.defaultSelected}
+				defaultSelected={this.defaultSelected}
 				selectAllLabel={this.props.selectAllLabel}
 				selectAllValue={this.state.selectAll}
 			/>);
@@ -334,7 +339,7 @@ export default class NativeList extends Component {
 				onSelect={this.handleSelect}
 				onRemove={this.handleRemove}
 				showCount={this.props.showCount}
-				defaultSelected={this.props.defaultSelected}
+				defaultSelected={this.defaultSelected}
 				selectAllLabel={this.props.selectAllLabel}
 				selectAll={this.selectAll}
 			/>);

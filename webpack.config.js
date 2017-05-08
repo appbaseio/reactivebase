@@ -6,7 +6,8 @@ var env = process.env.NODE_ENV;
 // for lib build
 var lib_config = {
 	entry: {
-		app: './app/app.js'
+		app: './app/app.js',
+		testurl: './examples/testurl/main.js'
 	},
 	output: {
 		path: path.join(__dirname, "dist"),
