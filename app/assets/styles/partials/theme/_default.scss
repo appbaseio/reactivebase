@@ -64,6 +64,13 @@ $map in $themes {
 					a.active {
 						color: map-get($map, color);
 					}
+					
+					&.rbc-radio-inactive,
+					&.rbc-checkbox-inactive {
+						&.rbc-list-item-active .rbc-label {
+							color: map-get($map, color);
+						}
+					}
 				}
 			}
 			.rbc-tag-item {

@@ -27,6 +27,26 @@
 			.rbc-label {
 				font-weight: normal;
 			}
+			
+			&.rbc-radio-inactive,
+			&.rbc-checkbox-inactive {
+				.rbc-radio-item,
+				.rbc-checkbox-item {
+					visibility: hidden;
+				}
+
+				.rbc-label {
+					padding-left: 0;
+
+					&::before, &::after {
+						visibility: hidden;
+					}
+				}
+
+				&.rbc-list-item-active .rbc-label {
+					font-family: $font-bold;
+				}
+			}
 		}
 
 		.row {
