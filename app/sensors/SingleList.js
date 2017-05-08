@@ -31,7 +31,11 @@ SingleList.propTypes = {
 	]),
 	react: React.PropTypes.object,
 	componentStyle: React.PropTypes.object,
+<<<<<<< HEAD
 	showRadio: React.PropTypes.bool
+=======
+	URLParam: React.PropTypes.bool
+>>>>>>> 1bdf75562eb56b2497b7e205bf4d44bf3f8c3ccc
 };
 
 // Default props value
@@ -43,7 +47,8 @@ SingleList.defaultProps = {
 	title: null,
 	placeholder: "Search",
 	componentStyle: {},
-	showRadio: true
+	showRadio: true,
+	URLParam: false
 };
 
 // context type

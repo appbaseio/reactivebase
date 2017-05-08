@@ -4,8 +4,7 @@ var ReactDOM = require('react-dom');
 
 import {
 	ReactiveBase,
-	SingleList,
-	MultiList,
+	DataSearch,
 	ReactiveList
 } from '../../app/app.js';
 
@@ -50,47 +49,39 @@ class Main extends Component {
 
 	render() {
 		return (
-			<div className="row m-0 h-100">
-				<ReactiveBase
-					app="meetup_demo"
-					credentials="LPpISlEBe:2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
-					type="meetupdata1"
-				>
-					<div className="row">
-						<div className="col s6 col-xs-6">
-							<MultiList
-								componentId="TopicSensor"
-								appbaseField="group.group_topics.topic_name_raw.raw"
-								title="MultiList"
-								size={100}
-							/>
-							<SingleList
-								componentId="CitySensor"
-								appbaseField="group.group_city.raw"
-								title="SingleList"
-								defaultSelected="London"
-								URLParam={true}
-								size={100}
-							/>
-						</div>
-						<div className="col s6 col-xs-6">
-							<ReactiveList
-								componentId="SearchResult"
-								appbaseField="group.group_topics.topic_name_raw"
-								title="Results"
-								sortBy="asc"
-								from={0}
-								size={20}
-								size={2}
-								onData={this.onData}
-								react={{
-									and: ["CitySensor", "TopicSensor"]
-								}}
-							/>
-						</div>
+			<ReactiveBase
+				app="reactivemap_demo"
+				credentials="kvHgC64RP:e96d86fb-a1bc-465e-8756-02661ffebc05"
+				type="meetupdata1"
+			>
+				<div className="row">
+					<div className="col s6 col-xs-6">
+						<DataSearch
+							appbaseField={["group.group_topics.topic_name_raw", "venue_name_ngrams"]}
+							componentId="VenueSensor"
+							title="DataSearch"
+							searchInputId="CityVenue"
+							URLParam={true}
+						/>
 					</div>
-				</ReactiveBase>
-			</div>
+
+					<div className="col s6 col-xs-6">
+						<ReactiveList
+							componentId="SearchResult"
+							appbaseField="group.group_topics.topic_name_raw"
+							title="Results"
+							sortBy="asc"
+							from={0}
+							size={20}
+							stream
+							onData={this.onData}
+							react={{
+								and: "VenueSensor"
+							}}
+						/>
+					</div>
+				</div>
+			</ReactiveBase>
 		);
 	}
 }

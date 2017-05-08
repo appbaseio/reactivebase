@@ -7,7 +7,12 @@ var env = process.env.NODE_ENV;
 var lib_config = {
 	entry: {
 		app: './app/app.js',
-		testurl: './examples/testurl/main.js'
+		testurl: './examples/testurl/main.js',
+		NativeList: './examples/NativeList/main.js',
+		DataController: './examples/DataController/main.js',
+		DataSearch: './examples/DataSearch/main.js',
+		DatePicker: './examples/DatePicker/main.js',
+		DateRange: './examples/DateRange/main.js'
 	},
 	output: {
 		path: path.join(__dirname, "dist"),

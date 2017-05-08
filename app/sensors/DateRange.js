@@ -19,6 +19,7 @@ export default class DateRange extends Component {
 			focusedInput: null
 		};
 		this.type = "range";
+		this.urlParams = this.getURLParams();
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 		this.onFocusChange = this.onFocusChange.bind(this);
@@ -32,6 +33,17 @@ export default class DateRange extends Component {
 
 	componentWillUpdate() {
 		this.checkDefault();
+	}
+
+	getURLParams() {
+		let urlParams = helper.URLParams.get(this.props.componentId, false, true);
+		if(urlParams !== null) {
+			urlParams = {
+				start: moment(urlParams.start),
+				end: moment(urlParams.end)
+			};
+		}
+		return urlParams;
 	}
 
 	// handle focus
@@ -55,28 +67,33 @@ export default class DateRange extends Component {
 	isDateChange() {
 		let flag = false;
 
-		function checkDefault() {
+		const checkDefault = (defaultSelected) => {
 			let flag1 = false;
-			if (this.props.defaultSelected.start && this.props.defaultSelected.end) {
-				this.startDate = this.props.defaultSelected.start;
-				this.endDate = this.props.defaultSelected.end;
+			if (defaultSelected.start && defaultSelected.end) {
+				this.startDate = defaultSelected.start;
+				this.endDate = defaultSelected.end;
 				flag1 = true;
 			}
 			return flag1;
 		}
 
+		const isChanged = (defaultSelected) => {
+			if (moment(this.startDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(defaultSelected.start).format(helper.dateFormat[this.props.queryFormat]) && moment(this.endDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(defaultSelected.end).format(helper.dateFormat[this.props.queryFormat])) {
+				this.startDate = defaultSelected.start;
+				this.endDate = defaultSelected.end;
+				flag = true;
+			}
+			return flag;
+		}
+		const defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		try {
 			if (this.startDate && this.endDate) {
-				if (moment(this.startDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(this.props.defaultSelected.start).format(helper.dateFormat[this.props.queryFormat]) && moment(this.endDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(this.props.defaultSelected.end).format(helper.dateFormat[this.props.queryFormat])) {
-					this.startDate = this.props.defaultSelected.start;
-					this.endDate = this.props.defaultSelected.end;
-					flag = true;
-				}
+				flag = isChanged(defaultSelected);
 			} else {
-				flag = checkDefault.call(this);
+				flag = checkDefault.call(this, defaultSelected);
 			}
 		} catch (e) {
-			flag = checkDefault.call(this);
+			flag = checkDefault.call(this, defaultSelected);
 		}
 		return flag;
 	}
@@ -162,7 +179,21 @@ export default class DateRange extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
+		helper.URLParams.update(this.props.componentId, this.urlFriendlyValue(inputVal), this.props.URLParam);
 		helper.selectedSensor.set(obj, isExecuteQuery);
+	}
+
+	urlFriendlyValue(value) {
+		if(value && value.startDate && value.endDate) {
+			value = {
+				start: value.startDate,
+				end: value.endDate
+			};
+			value = JSON.stringify(value);
+		} else {
+			value = null;
+		}
+		return value
 	}
 
 	// allow all dates
@@ -229,7 +260,8 @@ DateRange.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat))
+	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat)),
+	URLParam: React.PropTypes.bool
 };
 
 // Default props value
@@ -240,7 +272,8 @@ DateRange.defaultProps = {
 		start: null,
 		end: null
 	},
-	queryFormat: "epoch_millis"
+	queryFormat: "epoch_millis",
+	URLParam: false
 };
 
 // context type
@@ -259,5 +292,6 @@ DateRange.types = {
 	allowAllDates: TYPES.BOOLEAN,
 	extra: TYPES.OBJECT,
 	customQuery: TYPES.FUNCTION,
-	queryFormat: TYPES.STRING
+	queryFormat: TYPES.STRING,
+	URLParam: TYPES.BOOLEAN
 }
