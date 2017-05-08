@@ -59,10 +59,16 @@ class Main extends Component {
 					<div className="row">
 						<div className="col s6 col-xs-6">
 							<MultiList
+								componentId="TopicSensor"
+								appbaseField="group.group_topics.topic_name_raw.raw"
+								title="MultiList"
+								size={100}
+							/>
+							<SingleList
 								componentId="CitySensor"
 								appbaseField="group.group_city.raw"
 								title="SingleList"
-								defaultSelected={["London"]}
+								defaultSelected="London"
 								size={100}
 							/>
 						</div>
@@ -77,7 +83,7 @@ class Main extends Component {
 								size={2}
 								onData={this.onData}
 								react={{
-									and: ["CitySensor"]
+									and: ["CitySensor", "TopicSensor"]
 								}}
 							/>
 						</div>
