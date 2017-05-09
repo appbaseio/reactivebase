@@ -173,6 +173,7 @@ export default class ItemCheckboxList extends Component {
 					countField={this.props.showCount}
 					handleClick={this.handleListClick}
 					visible={visibleFlag}
+					showCheckbox={this.props.showCheckbox}
 					status={item.status || false}
 					ref={
 						(listitem) => {
@@ -191,6 +192,7 @@ export default class ItemCheckboxList extends Component {
 					value={this.props.selectAllLabel}
 					countField={false}
 					visible
+					showCheckbox={this.props.showCheckbox}
 					handleClick={this.handleListClickAll}
 					status={this.props.selectAllValue}
 					ref={(listitem) => { this.refStore.refselectall = listitem; }}

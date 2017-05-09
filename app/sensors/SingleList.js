@@ -31,6 +31,7 @@ SingleList.propTypes = {
 	]),
 	react: React.PropTypes.object,
 	componentStyle: React.PropTypes.object,
+	showRadio: React.PropTypes.bool,
 	URLParam: React.PropTypes.bool
 };
 
@@ -43,6 +44,7 @@ SingleList.defaultProps = {
 	title: null,
 	placeholder: "Search",
 	componentStyle: {},
+	showRadio: true,
 	URLParam: false
 };
 
@@ -67,5 +69,6 @@ SingleList.types = {
 	customQuery: TYPES.FUNCTION,
 	initialLoader: TYPES.OBJECT,
 	componentStyle: TYPES.OBJECT,
-	URLParam: TYPES.BOOLEAN
+	URLParam: TYPES.BOOLEAN,
+	showRadio: TYPES.BOOLEAN
 };

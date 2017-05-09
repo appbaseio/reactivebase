@@ -31,6 +31,7 @@ MultiList.propTypes = {
 	]),
 	react: React.PropTypes.object,
 	componentStyle: React.PropTypes.object,
+	showCheckbox: React.PropTypes.bool,
 	URLParam: React.PropTypes.bool
 };
 
@@ -42,6 +43,7 @@ MultiList.defaultProps = {
 	showSearch: false,
 	title: null,
 	placeholder: "Search",
+	showCheckbox: true,
 	URLParam: false
 };
 
@@ -66,5 +68,6 @@ MultiList.types = {
 	customQuery: TYPES.FUNCTION,
 	initialLoader: TYPES.OBJECT,
 	componentStyle: TYPES.OBJECT,
-	URLParam: TYPES.BOOLEAN
+	URLParam: TYPES.BOOLEAN,
+	showCheckbox: TYPES.BOOLEAN
 };

@@ -329,6 +329,7 @@ export default class NativeList extends Component {
 				onRemove={this.handleRemove}
 				showCount={this.props.showCount}
 				selectAll={this.selectAll}
+				showCheckbox={this.props.showCheckbox}
 				defaultSelected={this.defaultSelected}
 				selectAllLabel={this.props.selectAllLabel}
 				selectAllValue={this.state.selectAll}
@@ -339,6 +340,7 @@ export default class NativeList extends Component {
 				onSelect={this.handleSelect}
 				onRemove={this.handleRemove}
 				showCount={this.props.showCount}
+				showRadio={this.props.showRadio}
 				defaultSelected={this.defaultSelected}
 				selectAllLabel={this.props.selectAllLabel}
 				selectAll={this.selectAll}
@@ -408,6 +410,8 @@ NativeList.propTypes = {
 	react: React.PropTypes.object,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
+	showRadio: React.PropTypes.bool,
+	showCheckbox: React.PropTypes.bool,
 	URLParam: React.PropTypes.bool
 };
 
@@ -422,6 +426,8 @@ NativeList.defaultProps = {
 	placeholder: "Search",
 	selectAllLabel: null,
 	componentStyle: {},
+	showRadio: true,
+	showCheckbox: true,
 	URLParam: false
 };
 
