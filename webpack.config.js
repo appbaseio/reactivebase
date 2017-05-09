@@ -3,8 +3,7 @@ var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 var webpack = require('webpack');
 var env = process.env.NODE_ENV;
 
-// for lib build
-var lib_config = {
+var dev_config = {
 	entry: {
 		app: './app/app.js',
 		testurl: './examples/testurl/main.js',
@@ -49,4 +48,39 @@ var lib_config = {
 	externals: ['ws']
 };
 
-module.exports = lib_config;
+var main_config = {
+	entry: {
+		app: './app/app.js'
+	},
+	output: {
+		path: path.join(__dirname, "dist"),
+		publicPath: "/dist/",
+		filename: '[name].bundle.js'
+	},
+	module: {
+		loaders: [
+			{
+				test: /.jsx?$/,
+				loader: 'babel-loader',
+				exclude: /node_modules/,
+				query: {
+					presets: ['es2015','stage-0', 'react']
+				}
+			},
+			{
+				test: /node_modules\/JSONStream\/index\.js$/,
+				loaders: ['shebang', 'babel']
+			}
+		],
+		noParse: ['ws']
+	},
+	externals: ['ws']
+};
+
+let config = dev_config;
+
+if (env === "production") {
+	config = main_config;
+}
+
+module.exports = config;
