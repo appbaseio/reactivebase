@@ -17,7 +17,8 @@ export default class MultiDropdownRange extends Component {
 			item.value = item.label;
 			return item;
 		});
-		this.defaultSelected = this.props.defaultSelected;
+		this.urlParams = helper.URLParams.get(this.props.componentId, true);
+		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -35,8 +36,9 @@ export default class MultiDropdownRange extends Component {
 
 	componentWillUpdate() {
 		setTimeout(() => {
-			if (!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
-				this.defaultSelected = this.props.defaultSelected;
+			const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+			if (!_.isEqual(this.defaultSelected, defaultValue)) {
+				this.defaultSelected = defaultValue;
 				const records = this.state.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 				if (records && records.length) {
 					setTimeout(this.handleChange.bind(this, records), 1000);
@@ -103,6 +105,7 @@ export default class MultiDropdownRange extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
+		helper.URLParams.update(this.props.componentId, selected, this.props.URLParam);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -152,11 +155,14 @@ MultiDropdownRange.propTypes = {
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	URLParam: React.PropTypes.bool
 };
 
 // Default props value
-MultiDropdownRange.defaultProps = {};
+MultiDropdownRange.defaultProps = {
+	URLParam: false
+};
 
 // context type
 MultiDropdownRange.contextTypes = {
@@ -173,5 +179,6 @@ MultiDropdownRange.types = {
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT
+	componentStyle: TYPES.OBJECT,
+	URLParam: TYPES.BOOLEAN
 };

@@ -12,7 +12,8 @@ export default class MultiRange extends Component {
 			selected: []
 		};
 		this.type = "range";
-		this.defaultSelected = this.props.defaultSelected;
+		this.urlParams = helper.URLParams.get(this.props.componentId, true);
+		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.resetState = this.resetState.bind(this);
 		this.handleTagClick = this.handleTagClick.bind(this);
@@ -22,8 +23,8 @@ export default class MultiRange extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if (this.props.defaultSelected) {
-			const records = this.props.data.filter(record => this.props.defaultSelected.indexOf(record.label) > -1);
+		if (this.defaultSelected) {
+			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 			if (records && records.length) {
 				setTimeout(this.handleChange.bind(this, records), 1000);
 			}
@@ -32,10 +33,11 @@ export default class MultiRange extends Component {
 
 	componentWillUpdate() {
 		setTimeout(() => {
-			if (!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
-				this.defaultSelected = this.props.defaultSelected;
+			const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+			if (!_.isEqual(this.defaultSelected, defaultValue)) {
+				this.defaultSelected = defaultValue;
 				this.resetState();
-				const records = this.props.data.filter(record => this.props.defaultSelected.indexOf(record.label) > -1);
+				const records = this.props.data.filter(record => defaultValue.indexOf(record.label) > -1);
 				if (records && records.length) {
 					setTimeout(this.handleChange.bind(this, records), 1000);
 				}
@@ -129,7 +131,12 @@ export default class MultiRange extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
+		helper.URLParams.update(this.props.componentId, this.getSelectedLabels(selected), this.props.URLParam);
 		helper.selectedSensor.set(obj, isExecuteQuery);
+	}
+
+	getSelectedLabels(selected) {
+		return selected.map(item => item.label);
 	}
 
 	resetState() {
@@ -142,6 +149,7 @@ export default class MultiRange extends Component {
 		};
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
+		helper.URLParams.update(this.props.componentId, null, this.props.URLParam);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -238,11 +246,14 @@ MultiRange.propTypes = {
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	URLParam: React.PropTypes.bool
 };
 
 // Default props value
-MultiRange.defaultProps = {};
+MultiRange.defaultProps = {
+	URLParam: false
+};
 
 // context type
 MultiRange.contextTypes = {
@@ -258,5 +269,6 @@ MultiRange.types = {
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT
+	componentStyle: TYPES.OBJECT,
+	URLParam: TYPES.BOOLEAN
 };

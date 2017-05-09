@@ -11,7 +11,8 @@ export default class ToggleButton extends Component {
 			selected: []
 		};
 		this.type = "term";
-		this.defaultSelected = this.props.defaultSelected;
+		this.urlParams = helper.URLParams.get(this.props.componentId, true);
+		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -31,8 +32,9 @@ export default class ToggleButton extends Component {
 	}
 
 	componentWillUpdate() {
-		if (this.defaultSelected != this.props.defaultSelected) {
-			this.defaultSelected = this.props.defaultSelected;
+		const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+		if (this.defaultSelected != defaultValue) {
+			this.defaultSelected = defaultValue;
 			this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
 			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 			if (records && records.length) {
@@ -114,7 +116,12 @@ export default class ToggleButton extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
+		helper.URLParams.update(this.props.componentId, this.setURLValue(newSelection), this.props.URLParam);
 		helper.selectedSensor.set(obj, isExecuteQuery);
+	}
+
+	setURLValue(records) {
+		return records.map(item => item.label);
 	}
 
 	renderButtons() {
@@ -174,13 +181,15 @@ ToggleButton.propTypes = {
 	multiSelect: React.PropTypes.bool,
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	URLParam: React.PropTypes.bool
 };
 
 // Default props value
 ToggleButton.defaultProps = {
 	multiSelect: true,
-	componentStyle: {}
+	componentStyle: {},
+	URLParam: false
 };
 
 // context type
@@ -198,5 +207,6 @@ ToggleButton.types = {
 	defaultSelected: TYPES.ARRAY,
 	multiSelect: TYPES.BOOLEAN,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT
+	componentStyle: TYPES.OBJECT,
+	URLParam: TYPES.BOOLEAN
 };

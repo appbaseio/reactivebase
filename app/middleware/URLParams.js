@@ -4,7 +4,7 @@ class RbcURLParams {
 	constructor() {
 		this.params = new URLSearchParams(window.location.search);
 	}
-	get(componentId, multipleSelect=false, jsonParse=true) {
+	get(componentId, multipleSelect=false, jsonParse=false) {
 		let value = this.params.get(componentId);
 		if(jsonParse && value) {
 			try {

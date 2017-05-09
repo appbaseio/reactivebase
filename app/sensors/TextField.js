@@ -10,6 +10,7 @@ export default class TextField extends Component {
 			currentValue: ""
 		};
 		this.type = "match";
+		this.urlParams = helper.URLParams.get(this.props.componentId, this.props.multipleSelect);
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -25,8 +26,9 @@ export default class TextField extends Component {
 	}
 
 	checkDefault() {
-		if (this.props.defaultSelected && this.defaultSelected != this.props.defaultSelected) {
-			this.defaultSelected = this.props.defaultSelected;
+		const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+		if (defaultValue && this.defaultSelected != defaultValue) {
+			this.defaultSelected = defaultValue;
 			setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
 		}
 	}
@@ -73,6 +75,7 @@ export default class TextField extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
+		helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParam);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -112,12 +115,14 @@ TextField.propTypes = {
 	placeholder: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	URLParam: React.PropTypes.bool
 };
 
 // Default props value
 TextField.defaultProps = {
-	componentStyle: {}
+	componentStyle: {},
+	URLParam: false
 };
 
 // context type
@@ -134,5 +139,6 @@ TextField.types = {
 	defaultSelected: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT
+	componentStyle: TYPES.OBJECT,
+	URLParam: TYPES.BOOLEAN
 };

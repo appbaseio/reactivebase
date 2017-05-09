@@ -26,7 +26,7 @@ export default class DropdownList extends Component {
 		this.channelId = null;
 		this.channelListener = null;
 		this.previousSelectedSensor = {};
-		this.defaultSelected = this.props.defaultSelected;
+		this.urlParams = helper.URLParams.get(this.props.componentId, this.props.multipleSelect);
 		this.handleChange = this.handleChange.bind(this);
 		this.type = this.props.multipleSelect ? "Terms" : "Term";
 		this.customQuery = this.customQuery.bind(this);
@@ -54,17 +54,18 @@ export default class DropdownList extends Component {
 	}
 
 	componentWillUpdate() {
+		const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		setTimeout(() => {
 			if (this.props.multipleSelect) {
-				if (!_.isEqual(this.defaultSelected, this.props.defaultSelected)) {
-					this.defaultSelected = this.props.defaultSelected;
+				if (!_.isEqual(this.defaultSelected, defaultValue)) {
+					this.defaultSelected = defaultValue;
 					const records = this.state.items.filter(record => this.defaultSelected.indexOf(record.value) > -1);
 					if (records.length) {
 						setTimeout(this.handleChange.bind(this, records), 1000);
 					}
 				}
-			} else if (this.defaultSelected !== this.props.defaultSelected) {
-				this.defaultSelected = this.props.defaultSelected;
+			} else if (this.defaultSelected !== defaultValue) {
+				this.defaultSelected = defaultValue;
 				const records = this.state.items.filter(record => record.value === this.defaultSelected);
 				if (records.length) {
 					setTimeout(this.handleChange.bind(this, records), 1000);
@@ -295,6 +296,7 @@ export default class DropdownList extends Component {
 			key: this.props.componentId,
 			value
 		};
+		helper.URLParams.update(this.props.componentId, value, this.props.URLParam);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -367,7 +369,8 @@ DropdownList.propTypes = {
 	customQuery: React.PropTypes.func,
 	react: React.PropTypes.object,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	URLParam: React.PropTypes.bool
 };
 
 // Default props value
@@ -377,7 +380,8 @@ DropdownList.defaultProps = {
 	size: 100,
 	title: null,
 	placeholder: "Select...",
-	selectAllLabel: null
+	selectAllLabel: null,
+	URLParam: false
 };
 
 // context type

@@ -16,8 +16,10 @@ export default class RangeSlider extends Component {
 		const startThreshold = this.props.range.start ? this.props.range.start : 0;
 		const endThreshold = this.props.range.end ? this.props.range.end : 5;
 		const values = {};
-		values.min = this.props.defaultSelected.start < startThreshold ? startThreshold : this.props.defaultSelected.start;
-		values.max = this.props.defaultSelected.end < endThreshold ? this.props.defaultSelected.end : endThreshold;
+		this.urlParams = helper.URLParams.get(this.props.componentId, false, true);
+		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+		values.min = this.defaultSelected.start < startThreshold ? startThreshold : this.defaultSelected.start;
+		values.max = this.defaultSelected.end < endThreshold ? this.defaultSelected.end : endThreshold;
 		this.state = {
 			values,
 			startThreshold,
@@ -49,36 +51,38 @@ export default class RangeSlider extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		setTimeout(() => {
+			const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 			// check defaultSelected
-			if (nextProps.defaultSelected.start !== this.state.values.min ||
-				nextProps.defaultSelected.end !== this.state.values.max &&
-				nextProps.range.start <= nextProps.defaultSelected.start &&
-				nextProps.range.end >= nextProps.defaultSelected.end) {
-				const rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
+			if (defaultValue.start !== this.state.values.min ||
+				defaultValue.end !== this.state.values.max &&
+				nextProps.range.start <= defaultValue.start &&
+				nextProps.range.end >= defaultValue.end) {
+				const rem = (defaultValue.end - defaultValue.start) % nextProps.stepValue;
 				if (rem) {
 					this.setState({
 						values: {
 							min: this.state.values.min,
-							max: nextProps.defaultSelected.end - rem
+							max: defaultValue.end - rem
 						}
 					});
 					const obj = {
 						key: this.props.componentId,
 						value: {
 							from: this.state.values.min,
-							to: nextProps.defaultSelected.end - rem
+							to: defaultValue.end - rem
 						}
 					};
 					setTimeout(() => {
 						if (this.props.onValueChange) {
 							this.props.onValueChange(obj.value);
 						}
+						helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParam);
 						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				} else {
 					const values = {};
-					values.min = nextProps.defaultSelected.start;
-					values.max = nextProps.defaultSelected.end;
+					values.min = defaultValue.start;
+					values.max = defaultValue.end;
 					this.setState({
 						values,
 						currentValues: values
@@ -94,6 +98,7 @@ export default class RangeSlider extends Component {
 						if (this.props.onValueChange) {
 							this.props.onValueChange(obj.value);
 						}
+						helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParam);
 						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				}
@@ -101,8 +106,8 @@ export default class RangeSlider extends Component {
 			// check range
 			if (nextProps.range.start !== this.state.startThreshold ||
 				nextProps.range.end !== this.state.endThreshold) {
-				if (nextProps.range.start <= nextProps.defaultSelected.start &&
-					nextProps.range.end >= nextProps.defaultSelected.end) {
+				if (nextProps.range.start <= defaultValue.start &&
+					nextProps.range.end >= defaultValue.end) {
 					this.setState({
 						startThreshold: nextProps.range.start,
 						endThreshold: nextProps.range.end
@@ -134,30 +139,32 @@ export default class RangeSlider extends Component {
 					if (this.props.onValueChange) {
 						this.props.onValueChange(obj.value);
 					}
+					helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParam);
 					helper.selectedSensor.set(obj, true);
 				}
 				this.setRangeValue();
 			}
 			// drop value if it exceeds the threshold (based on step value)
 			if (nextProps.stepValue !== this.props.stepValue) {
-				const rem = (nextProps.defaultSelected.end - nextProps.defaultSelected.start) % nextProps.stepValue;
+				const rem = (defaultValue.end - defaultValue.start) % nextProps.stepValue;
 				if (rem) {
 					this.setState({
 						values: {
 							min: this.state.values.min,
-							max: nextProps.defaultSelected.end - rem
+							max: defaultValue.end - rem
 						}
 					});
 					const obj = {
 						key: this.props.componentId,
 						value: {
 							from: this.state.values.min,
-							to: nextProps.defaultSelected.end - rem
+							to: defaultValue.end - rem
 						}
 					};
 					if (this.props.onValueChange) {
 						this.props.onValueChange(obj.value);
 					}
+					helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParam);
 					helper.selectedSensor.set(obj, true);
 				}
 			}
@@ -186,6 +193,16 @@ export default class RangeSlider extends Component {
 		if (this.loadListener) {
 			this.loadListener.remove();
 		}
+	}
+
+	setURLParam(value) {
+		if("from" in value && "to" in value) {
+			value = {
+				start: value.from,
+				to: value.to
+			};
+		}
+		return JSON.stringify(value);
 	}
 
 	// set the query type and input data
@@ -378,6 +395,7 @@ export default class RangeSlider extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
+		helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParam);
 		helper.selectedSensor.set(obj, true);
 		this.setState({
 			currentValues: values,
@@ -462,7 +480,8 @@ RangeSlider.propTypes = {
 	react: React.PropTypes.object,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	interval: React.PropTypes.number
+	interval: React.PropTypes.number,
+	URLParam: React.PropTypes.bool
 };
 
 RangeSlider.defaultProps = {
@@ -481,7 +500,8 @@ RangeSlider.defaultProps = {
 	},
 	stepValue: 1,
 	showHistogram: true,
-	componentStyle: {}
+	componentStyle: {},
+	URLParam: false
 };
 
 // context type
@@ -504,5 +524,6 @@ RangeSlider.types = {
 	customQuery: TYPES.FUNCTION,
 	initialLoader: TYPES.OBJECT,
 	componentStyle: TYPES.OBJECT,
-	interval: TYPES.NUMBER
+	interval: TYPES.NUMBER,
+	URLParam: TYPES.BOOLEAN
 };

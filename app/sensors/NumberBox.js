@@ -43,7 +43,9 @@ const NumberComponent = (props) => {
 export default class NumberBox extends Component {
 	constructor(props, context) {
 		super(props);
-		const { defaultSelected, focused } = this.props;
+		const { focused } = this.props;
+		this.urlParams = helper.URLParams.get(this.props.componentId);
+		const defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.state = {
 			currentValue: defaultSelected ? defaultSelected : this.props.data.start,
 			focused
@@ -60,9 +62,10 @@ export default class NumberBox extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		setTimeout(() => {
-			if ((nextProps.defaultSelected || nextProps.defaultSelected === 0) && (nextProps.defaultSelected !== this.state.currentValue)) {
+			const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+			if ((defaultValue || defaultValue === 0) && (defaultValue !== this.state.currentValue)) {
 				this.setState({
-					currentValue: nextProps.defaultSelected
+					currentValue: defaultValue
 				});
 			}
 			if (nextProps.queryFormat !== this.queryFormat) {
@@ -167,6 +170,7 @@ export default class NumberBox extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
+		helper.URLParams.update(this.props.componentId, this.state.currentValue, this.props.URLParam);
 		helper.selectedSensor.set(obj, true);
 	}
 
@@ -212,12 +216,14 @@ NumberBox.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	queryFormat: React.PropTypes.oneOf(["exact", "gte", "lte"])
+	queryFormat: React.PropTypes.oneOf(["exact", "gte", "lte"]),
+	URLParam: React.PropTypes.bool
 };
 
 NumberBox.defaultProps = {
 	componentStyle: {},
-	queryFormat: "gte"
+	queryFormat: "gte",
+	URLParam: false
 };
 
 // context type
@@ -236,5 +242,6 @@ NumberBox.types = {
 	labelPosition: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	queryFormat: TYPES.STRING
+	queryFormat: TYPES.STRING,
+	URLParam: TYPES.BOOLEAN
 };

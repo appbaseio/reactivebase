@@ -12,7 +12,17 @@ var lib_config = {
 		DataController: './examples/DataController/main.js',
 		DataSearch: './examples/DataSearch/main.js',
 		DatePicker: './examples/DatePicker/main.js',
-		DateRange: './examples/DateRange/main.js'
+		DateRange: './examples/DateRange/main.js',
+		MultiDropdownList: './examples/MultiDropdownList/main.js',
+		MultiDropdownRange: './examples/MultiDropdownRange/main.js',
+		MultiRange: './examples/MultiRange/main.js',
+		RangeSlider: './examples/RangeSlider/main.js',
+		SingleDropdownList: './examples/SingleDropdownList/main.js',
+		SingleDropdownRange: './examples/SingleDropdownRange/main.js',
+		SingleRange: './examples/SingleRange/main.js',
+		NumberBox: './examples/NumberBox/main.js',
+		TextField: './examples/TextField/main.js',
+		ToggleButton: './examples/ToggleButton/main.js'
 	},
 	output: {
 		path: path.join(__dirname, "dist"),
