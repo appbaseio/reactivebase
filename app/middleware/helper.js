@@ -445,3 +445,5 @@ export const updateStats = function (total, newData) {
 };
 
 export * from "./utils";
+
+export * from "./URLParams";

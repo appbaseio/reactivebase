@@ -71,6 +71,7 @@ export default class ItemList extends Component {
 				countField={this.props.showCount}
 				handleClick={this.handleClick}
 				visible={visibleFlag}
+				showRadio={this.props.showRadio}
 				selectedItem={this.state.selectedItem}
 			/>);
 		});
@@ -83,6 +84,7 @@ export default class ItemList extends Component {
 					visible={true}
 					value={this.props.selectAllLabel}
 					countField={false}
+					showRadio={this.props.showRadio}
 					handleClick={this.handleListClickAll}
 					selectedItem={this.state.selectedItem}
 					ref={"refselectall"}
@@ -146,7 +148,11 @@ class ItemRow extends Component {
 			"rbc-count-active": this.props.countField,
 			"rbc-count-inactive": !this.props.countField,
 			"rbc-item-show": this.props.visible,
-			"rbc-item-hide": !this.props.visible
+			"rbc-item-hide": !this.props.visible,
+			"rbc-radio-active": this.props.showRadio,
+			"rbc-radio-inactive": !this.props.showRadio,
+			"rbc-list-item-active": this.props.value === this.props.selectedItem,
+			"rbc-list-item-inactive": this.props.value !== this.props.selectedItem
 		});
 		// let activeClass = this.props.value === this.props.selectedItem ? 'active' : '';
 		return (

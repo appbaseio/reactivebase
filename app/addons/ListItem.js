@@ -41,7 +41,11 @@ export default class ListItem extends Component {
 		}
 		const cx = classNames({
 			"rbc-count-active": this.props.countField,
-			"rbc-count-inactive": !this.props.countField
+			"rbc-count-inactive": !this.props.countField,
+			"rbc-checkbox-active": this.props.showCheckbox,
+			"rbc-checkbox-inactive": !this.props.showCheckbox,
+			"rbc-list-item-active": this.state.status,
+			"rbc-list-item-inactive": !this.state.status
 		});
 		return (
 			<div onClick={this.handleClick.bind(this)} className={`rbc-list-item row ${cx}`}>

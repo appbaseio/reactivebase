@@ -258,6 +258,11 @@ a {
 .rbc-red .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active {
   color: red; }
 
+.rbc-red .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-red .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: red; }
+
 .rbc-red .rbc.rbc-singlelist .rbc-tag-item,
 .rbc-red .rbc.rbc-multilist .rbc-tag-item {
   background-color: rgba(255, 0, 0, 0.08);
@@ -430,6 +435,11 @@ a {
 
 .rbc-orange .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
 .rbc-orange .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active {
+  color: orange; }
+
+.rbc-orange .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-orange .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
   color: orange; }
 
 .rbc-orange .rbc.rbc-singlelist .rbc-tag-item,
@@ -606,6 +616,11 @@ a {
 .rbc-yellow .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active {
   color: yellow; }
 
+.rbc-yellow .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-yellow .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: yellow; }
+
 .rbc-yellow .rbc.rbc-singlelist .rbc-tag-item,
 .rbc-yellow .rbc.rbc-multilist .rbc-tag-item {
   background-color: rgba(255, 255, 0, 0.08);
@@ -778,6 +793,11 @@ a {
 
 .rbc-green .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
 .rbc-green .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active {
+  color: green; }
+
+.rbc-green .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-green .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
   color: green; }
 
 .rbc-green .rbc.rbc-singlelist .rbc-tag-item,
@@ -954,6 +974,11 @@ a {
 .rbc-blue .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active {
   color: #1893e7; }
 
+.rbc-blue .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-blue .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: #1893e7; }
+
 .rbc-blue .rbc.rbc-singlelist .rbc-tag-item,
 .rbc-blue .rbc.rbc-multilist .rbc-tag-item {
   background-color: rgba(24, 147, 231, 0.08);
@@ -1126,6 +1151,11 @@ a {
 
 .rbc-dark .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
 .rbc-dark .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active {
+  color: #ccc; }
+
+.rbc-dark .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-dark .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
   color: #ccc; }
 
 .rbc-dark .rbc.rbc-singlelist .rbc-tag-item,
@@ -1380,6 +1410,28 @@ a {
       .rbc.rbc-singlelist .rbc-list-container .rbc-list-item .rbc-label,
       .rbc.rbc-multilist .rbc-list-container .rbc-list-item .rbc-label {
         font-weight: normal; }
+      .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-radio-item,
+      .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-checkbox-item, .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-radio-item,
+      .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-checkbox-item,
+      .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-radio-item,
+      .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-checkbox-item,
+      .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-radio-item,
+      .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-checkbox-item {
+        visibility: hidden; }
+      .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label, .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label,
+      .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label,
+      .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label {
+        padding-left: 0; }
+        .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label::before, .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label::after, .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label::before, .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label::after,
+        .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label::before,
+        .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label::after,
+        .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label::before,
+        .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label::after {
+          visibility: hidden; }
+      .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc.rbc-singlelist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+      .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+      .rbc.rbc-multilist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+        font-family: "Lato Bold"; }
     .rbc.rbc-singlelist .rbc-list-container .row,
     .rbc.rbc-multilist .rbc-list-container .row {
       margin: 10px 0; }

@@ -12,7 +12,8 @@ export default class SingleDropdownRange extends Component {
 			selected: null
 		};
 		this.type = "range";
-		this.defaultSelected = this.props.defaultSelected;
+		this.urlParams = helper.URLParams.get(this.props.componentId);
+		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -30,8 +31,9 @@ export default class SingleDropdownRange extends Component {
 
 	componentWillUpdate() {
 		setTimeout(() => {
-			if (this.defaultSelected !== this.props.defaultSelected) {
-				this.defaultSelected = this.props.defaultSelected;
+			const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+			if (this.defaultSelected !== defaultValue) {
+				this.defaultSelected = defaultValue;
 				const records = this.props.data.filter(record => record.label === this.defaultSelected);
 				if (records && records.length) {
 					setTimeout(this.handleChange.bind(this, records[0]), 1000);
@@ -82,6 +84,7 @@ export default class SingleDropdownRange extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
+		helper.URLParams.update(this.props.componentId, record.label, this.props.URLParam);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -131,12 +134,14 @@ SingleDropdownRange.propTypes = {
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	URLParam: React.PropTypes.bool
 };
 
 // Default props value
 SingleDropdownRange.defaultProps = {
-	componentStyle: {}
+	componentStyle: {},
+	URLParam: false
 };
 
 // context type
@@ -154,5 +159,6 @@ SingleDropdownRange.types = {
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT
+	componentStyle: TYPES.OBJECT,
+	URLParam: TYPES.BOOLEAN
 };
