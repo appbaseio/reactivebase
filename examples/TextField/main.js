@@ -64,7 +64,7 @@ class Main extends Component {
 							appbaseField={this.props.mapping.name}
 							title="TextField"
 							customQuery={this.NameQuery}
-							URLParam={true}
+							URLParams={true}
 						/>
 					</div>
 

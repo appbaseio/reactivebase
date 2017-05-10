@@ -179,7 +179,7 @@ export default class DateRange extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, this.urlFriendlyValue(inputVal), this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, this.urlFriendlyValue(inputVal), this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -261,7 +261,7 @@ DateRange.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat)),
-	URLParam: React.PropTypes.bool
+	URLParams: React.PropTypes.bool
 };
 
 // Default props value
@@ -273,7 +273,7 @@ DateRange.defaultProps = {
 		end: null
 	},
 	queryFormat: "epoch_millis",
-	URLParam: false
+	URLParams: false
 };
 
 // context type
@@ -293,5 +293,5 @@ DateRange.types = {
 	extra: TYPES.OBJECT,
 	customQuery: TYPES.FUNCTION,
 	queryFormat: TYPES.STRING,
-	URLParam: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN
 }

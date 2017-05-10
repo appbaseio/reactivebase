@@ -62,7 +62,7 @@ class Main extends Component {
 							componentId="DateRangeSensor"
 							appbaseField="mtime"
 							title="Date Range"
-							URLParam={true}
+							URLParams={true}
 						/>
 					</div>
 

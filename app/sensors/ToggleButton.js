@@ -116,7 +116,7 @@ export default class ToggleButton extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, this.setURLValue(newSelection), this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, this.setURLValue(newSelection), this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -182,14 +182,14 @@ ToggleButton.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	URLParam: React.PropTypes.bool
+	URLParams: React.PropTypes.bool
 };
 
 // Default props value
 ToggleButton.defaultProps = {
 	multiSelect: true,
 	componentStyle: {},
-	URLParam: false
+	URLParams: false
 };
 
 // context type
@@ -208,5 +208,5 @@ ToggleButton.types = {
 	multiSelect: TYPES.BOOLEAN,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	URLParam: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN
 };

@@ -170,7 +170,7 @@ export default class NumberBox extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, this.state.currentValue, this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, this.state.currentValue, this.props.URLParams);
 		helper.selectedSensor.set(obj, true);
 	}
 
@@ -217,13 +217,13 @@ NumberBox.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	queryFormat: React.PropTypes.oneOf(["exact", "gte", "lte"]),
-	URLParam: React.PropTypes.bool
+	URLParams: React.PropTypes.bool
 };
 
 NumberBox.defaultProps = {
 	componentStyle: {},
 	queryFormat: "gte",
-	URLParam: false
+	URLParams: false
 };
 
 // context type
@@ -243,5 +243,5 @@ NumberBox.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	queryFormat: TYPES.STRING,
-	URLParam: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN
 };

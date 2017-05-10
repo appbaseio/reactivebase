@@ -56,7 +56,7 @@ export default class DataController extends Component {
 		}
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
-		helper.URLParams.update(this.props.componentId, value, this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -112,7 +112,7 @@ DataController.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	defaultSelected: React.PropTypes.any,
-	URLParam: React.PropTypes.bool
+	URLParams: React.PropTypes.bool
 };
 
 React.PropTypes.oneOfType([
@@ -125,7 +125,7 @@ DataController.defaultProps = {
 	visible: false,
 	defaultSelected: "default",
 	componentStyle: {},
-	URLParam: false
+	URLParams: false
 };
 
 // context type
@@ -143,5 +143,5 @@ DataController.types = {
 	dataLabel: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	URLParam: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN
 };

@@ -75,7 +75,7 @@ export default class TextField extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -116,13 +116,13 @@ TextField.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	URLParam: React.PropTypes.bool
+	URLParams: React.PropTypes.bool
 };
 
 // Default props value
 TextField.defaultProps = {
 	componentStyle: {},
-	URLParam: false
+	URLParams: false
 };
 
 // context type
@@ -140,5 +140,5 @@ TextField.types = {
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	URLParam: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN
 };

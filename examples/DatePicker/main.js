@@ -63,7 +63,7 @@ class Main extends Component {
 							componentId="DateSensor"
 							appbaseField="mtime"
 							title="title"
-							URLParam={true}
+							URLParams={true}
 						/>
 					</div>
 

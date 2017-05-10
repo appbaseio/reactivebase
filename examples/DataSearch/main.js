@@ -61,7 +61,7 @@ class Main extends Component {
 							componentId="VenueSensor"
 							title="DataSearch"
 							searchInputId="CityVenue"
-							URLParam={true}
+							URLParams={true}
 						/>
 					</div>
 

@@ -72,7 +72,7 @@ class Main extends Component {
 							componentId="MeetupTops"
 							title="ToggleButton"
 							data={this.toggleData}
-							URLParam={true}
+							URLParams={true}
 						/>
 					</div>
 

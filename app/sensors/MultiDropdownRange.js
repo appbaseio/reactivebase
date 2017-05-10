@@ -105,7 +105,7 @@ export default class MultiDropdownRange extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, selected, this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, selected, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -156,12 +156,12 @@ MultiDropdownRange.propTypes = {
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	URLParam: React.PropTypes.bool
+	URLParams: React.PropTypes.bool
 };
 
 // Default props value
 MultiDropdownRange.defaultProps = {
-	URLParam: false
+	URLParams: false
 };
 
 // context type
@@ -180,5 +180,5 @@ MultiDropdownRange.types = {
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	URLParam: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN
 };

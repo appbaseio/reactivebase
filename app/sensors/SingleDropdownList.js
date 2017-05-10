@@ -31,5 +31,5 @@ SingleDropdownList.types = {
 	customQuery: TYPES.FUNCTION,
 	initialLoader: TYPES.OBJECT,
 	componentStyle: TYPES.OBJECT,
-	URLParam: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN
 };

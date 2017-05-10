@@ -76,7 +76,7 @@ export default class RangeSlider extends Component {
 						if (this.props.onValueChange) {
 							this.props.onValueChange(obj.value);
 						}
-						helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParam);
+						helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
 						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				} else {
@@ -98,7 +98,7 @@ export default class RangeSlider extends Component {
 						if (this.props.onValueChange) {
 							this.props.onValueChange(obj.value);
 						}
-						helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParam);
+						helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
 						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				}
@@ -139,7 +139,7 @@ export default class RangeSlider extends Component {
 					if (this.props.onValueChange) {
 						this.props.onValueChange(obj.value);
 					}
-					helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParam);
+					helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
 					helper.selectedSensor.set(obj, true);
 				}
 				this.setRangeValue();
@@ -164,7 +164,7 @@ export default class RangeSlider extends Component {
 					if (this.props.onValueChange) {
 						this.props.onValueChange(obj.value);
 					}
-					helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParam);
+					helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
 					helper.selectedSensor.set(obj, true);
 				}
 			}
@@ -395,7 +395,7 @@ export default class RangeSlider extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
 		helper.selectedSensor.set(obj, true);
 		this.setState({
 			currentValues: values,
@@ -481,7 +481,7 @@ RangeSlider.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	interval: React.PropTypes.number,
-	URLParam: React.PropTypes.bool
+	URLParams: React.PropTypes.bool
 };
 
 RangeSlider.defaultProps = {
@@ -501,7 +501,7 @@ RangeSlider.defaultProps = {
 	stepValue: 1,
 	showHistogram: true,
 	componentStyle: {},
-	URLParam: false
+	URLParams: false
 };
 
 // context type
@@ -525,5 +525,5 @@ RangeSlider.types = {
 	initialLoader: TYPES.OBJECT,
 	componentStyle: TYPES.OBJECT,
 	interval: TYPES.NUMBER,
-	URLParam: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN
 };

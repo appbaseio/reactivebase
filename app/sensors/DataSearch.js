@@ -110,7 +110,7 @@ export default class DataSearch extends Component {
 			key: this.searchInputId,
 			value
 		};
-		helper.URLParams.update(this.props.componentId, value, this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
 		helper.selectedSensor.set(obj, true);
 		if (value && value.trim() !== "") {
 			this.setState({
@@ -350,7 +350,7 @@ DataSearch.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
-	URLParam: React.PropTypes.bool
+	URLParams: React.PropTypes.bool
 };
 
 // Default props value
@@ -359,7 +359,7 @@ DataSearch.defaultProps = {
 	autocomplete: true,
 	componentStyle: {},
 	highlight: false,
-	URLParam: false
+	URLParams: false
 };
 
 // context type
@@ -380,5 +380,5 @@ DataSearch.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	highlight: TYPES.BOOLEAN,
-	URLParam: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN
 };

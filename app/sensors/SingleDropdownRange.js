@@ -84,7 +84,7 @@ export default class SingleDropdownRange extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, record.label, this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, record.label, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -135,13 +135,13 @@ SingleDropdownRange.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	URLParam: React.PropTypes.bool
+	URLParams: React.PropTypes.bool
 };
 
 // Default props value
 SingleDropdownRange.defaultProps = {
 	componentStyle: {},
-	URLParam: false
+	URLParams: false
 };
 
 // context type
@@ -160,5 +160,5 @@ SingleDropdownRange.types = {
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	URLParam: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN
 };

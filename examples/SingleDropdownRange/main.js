@@ -58,7 +58,7 @@ class Main extends Component {
 								{ start: 201, end: 500, label: "Pricey" },
 								{ start: 501, end: 1000, label: "First Date" }]
 							}
-							URLParam={true}
+							URLParams={true}
 						/>
 					</div>
 

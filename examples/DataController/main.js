@@ -61,7 +61,7 @@ class Main extends Component {
 							componentId="CustomSensor"
 							appbaseField="name"
 							customQuery={this.CustomQuery}
-							URLParam={true}
+							URLParams={true}
 						/>
 					</div>
 
