@@ -199,7 +199,7 @@ export default class RangeSlider extends Component {
 		if("from" in value && "to" in value) {
 			value = {
 				start: value.from,
-				to: value.to
+				end: value.to
 			};
 		}
 		return JSON.stringify(value);
