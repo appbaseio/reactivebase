@@ -131,7 +131,7 @@ export default class MultiRange extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, this.getSelectedLabels(selected), this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, this.getSelectedLabels(selected), this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -149,7 +149,7 @@ export default class MultiRange extends Component {
 		};
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
-		helper.URLParams.update(this.props.componentId, null, this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, null, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -247,12 +247,12 @@ MultiRange.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	URLParam: React.PropTypes.bool
+	URLParams: React.PropTypes.bool
 };
 
 // Default props value
 MultiRange.defaultProps = {
-	URLParam: false
+	URLParams: false
 };
 
 // context type
@@ -270,5 +270,5 @@ MultiRange.types = {
 	defaultSelected: TYPES.ARRAY,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	URLParam: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN
 };

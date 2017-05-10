@@ -59,7 +59,7 @@ class Main extends Component {
 								{ start: 501, end: 1000, label: "First Date" }]
 							}
 							defaultSelected={["Cheap"]}
-							URLParam={true}
+							URLParams={true}
 						/>
 					</div>
 

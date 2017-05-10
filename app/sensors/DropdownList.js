@@ -296,7 +296,7 @@ export default class DropdownList extends Component {
 			key: this.props.componentId,
 			value
 		};
-		helper.URLParams.update(this.props.componentId, value, this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -370,7 +370,7 @@ DropdownList.propTypes = {
 	react: React.PropTypes.object,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	URLParam: React.PropTypes.bool
+	URLParams: React.PropTypes.bool
 };
 
 // Default props value
@@ -381,7 +381,7 @@ DropdownList.defaultProps = {
 	title: null,
 	placeholder: "Select...",
 	selectAllLabel: null,
-	URLParam: false
+	URLParams: false
 };
 
 // context type

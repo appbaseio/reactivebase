@@ -83,7 +83,7 @@ export default class DatePicker extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -155,7 +155,7 @@ DatePicker.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat)),
-	URLParam: React.PropTypes.bool
+	URLParams: React.PropTypes.bool
 };
 
 // Default props value
@@ -167,7 +167,7 @@ DatePicker.defaultProps = {
 	defaultSelected: null,
 	componentStyle: {},
 	queryFormat: "epoch_millis",
-	URLParam: false
+	URLParams: false
 };
 
 // context type
@@ -190,5 +190,5 @@ DatePicker.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	queryFormat: TYPES.STRING,
-	URLParam: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN
 };

@@ -58,7 +58,7 @@ class Main extends Component {
 								start: 1,
 								end: 5
 							}}
-							URLParam={true}
+							URLParams={true}
 						/>
 					</div>
 

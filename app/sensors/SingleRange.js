@@ -82,7 +82,7 @@ export default class SingleRange extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, record.label, this.props.URLParam);
+		helper.URLParams.update(this.props.componentId, record.label, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 

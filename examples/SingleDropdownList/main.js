@@ -60,7 +60,7 @@ class Main extends Component {
 							appbaseField={this.props.mapping.city}
 							title="SingleDropdownList"
 							size={100}
-							URLParam={true}
+							URLParams={true}
 						/>
 					</div>
 
