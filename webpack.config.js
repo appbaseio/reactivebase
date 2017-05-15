@@ -77,6 +77,7 @@ var main_config = {
 	externals: ['ws']
 };
 
+
 let config = dev_config;
 
 if (env === "production") {

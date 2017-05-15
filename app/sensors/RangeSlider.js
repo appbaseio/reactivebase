@@ -368,7 +368,9 @@ export default class RangeSlider extends Component {
 				}
 			};
 			this.setState(rangeValue, () => {
-				this.handleResults(null, rangeValue.values);
+				if(!_.isEqual(rangeValue.values, this.state.currentValues)) {
+					this.handleResults(null, rangeValue.values);
+				}
 			});
 		}
 	}

@@ -274,7 +274,8 @@ export default class NativeList extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
+		const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
+		helper.URLParams.update(this.props.componentId, selectedValue, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
