@@ -23,6 +23,9 @@ export default class DatePicker extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
+		if(this.urlParams !== null) {
+			this.handleChange(moment(this.urlParams), true);
+		}
 		this.checkDefault();
 	}
 

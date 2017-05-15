@@ -46,6 +46,8 @@ export default class NativeList extends Component {
 		this.setQueryInfo();
 		if(this.urlParams === null) {
 			this.handleSelect("");
+		} else {
+			this.handleSelect(this.urlParams);
 		}
 		this.createChannel(true);
 	}
@@ -78,32 +80,30 @@ export default class NativeList extends Component {
 	}
 
 	componentWillUpdate() {
-		setTimeout(() => {
-			this.defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
-			if (this.defaultSelected !== this.defaultValue) {
-				this.defaultSelected = this.defaultValue;
-				let items = this.state.items;
-				items = items.map((item) => {
-					item.key = item.key.toString();
-					item.status = !!((this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1) || (this.selectedValue && this.selectedValue.indexOf(item.key) > -1));
-					return item;
-				});
-				this.setState({
-					items,
-					storedItems: items
-				});
-				setTimeout(this.handleSelect.bind(this, this.defaultSelected), 1000);
-			}
-			if (this.sortBy !== this.props.sortBy) {
-				this.sortBy = this.props.sortBy;
-				this.handleSortSelect();
-			}
-			if (this.size !== this.props.size) {
-				this.size = this.props.size;
-				this.removeChannel();
-				this.createChannel();
-			}
-		}, 300);
+		this.defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+		if (this.defaultSelected !== this.defaultValue) {
+			this.defaultSelected = this.defaultValue;
+			let items = this.state.items;
+			items = items.map((item) => {
+				item.key = item.key.toString();
+				item.status = !!((this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1) || (this.selectedValue && this.selectedValue.indexOf(item.key) > -1));
+				return item;
+			});
+			this.setState({
+				items,
+				storedItems: items
+			});
+			setTimeout(this.handleSelect.bind(this, this.defaultSelected), 1000);
+		}
+		if (this.sortBy !== this.props.sortBy) {
+			this.sortBy = this.props.sortBy;
+			this.handleSortSelect();
+		}
+		if (this.size !== this.props.size) {
+			this.size = this.props.size;
+			this.removeChannel();
+			this.createChannel();
+		}
 	}
 
 	// stop streaming request and remove listener when component will unmount

@@ -27,7 +27,8 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 		const sensorInfo = helper.selectedSensor.get(depend, "sensorInfo");
 		let sQuery = null;
 		if (sensorInfo && sensorInfo.customQuery) {
-			sQuery = sensorInfo.customQuery(previousSelectedSensor[depend]);
+			const sensorValue = depend in previousSelectedSensor ? previousSelectedSensor[depend] : helper.selectedSensor.get(depend);
+			sQuery = sensorInfo.customQuery(sensorValue);
 		} else if (previousSelectedSensor[depend]) {
 			sQuery = {};
 			sQuery[sensorInfo.queryType] = {};

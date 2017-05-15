@@ -25,7 +25,11 @@ export default class ToggleButton extends Component {
 			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 			if (records && records.length) {
 				records.forEach((singleRecord) => {
-					setTimeout(this.handleChange.bind(this, singleRecord), 1000);
+					if(this.urlParams !== null) {
+						this.handleChange(singleRecord);
+					} else {
+						setTimeout(this.handleChange.bind(this, singleRecord), 1000);
+					}
 				});
 			}
 		}

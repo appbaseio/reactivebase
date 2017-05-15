@@ -41,7 +41,11 @@ export default class MultiDropdownRange extends Component {
 				this.defaultSelected = defaultValue;
 				const records = this.state.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 				if (records && records.length) {
-					setTimeout(this.handleChange.bind(this, records), 1000);
+					if(this.urlParams !== null) {
+						this.handleChange(records);
+					} else {
+						setTimeout(this.handleChange.bind(this, records), 1000);
+					}
 				}
 			}
 		}, 300);
