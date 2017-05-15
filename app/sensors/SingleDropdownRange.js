@@ -24,7 +24,11 @@ export default class SingleDropdownRange extends Component {
 		if (this.defaultSelected) {
 			const records = this.props.data.filter(record => record.label === this.defaultSelected);
 			if (records && records.length) {
-				setTimeout(this.handleChange.bind(this, records[0]), 1000);
+				if(this.urlParams !== null) {
+					this.handleChange(records[0]);
+				} else {
+					setTimeout(this.handleChange.bind(this, records[0]), 1000);
+				}
 			}
 		}
 	}
