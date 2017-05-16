@@ -37,6 +37,11 @@ export default class DropdownList extends Component {
 	componentDidMount() {
 		this.size = this.props.size;
 		this.setQueryInfo();
+		if(this.urlParams !== null) {
+			this.setValue(this.urlParams, true);
+		} else {
+			this.checkDefault();
+		}
 		this.createChannel(true);
 	}
 
@@ -54,33 +59,35 @@ export default class DropdownList extends Component {
 	}
 
 	componentWillUpdate() {
+		this.checkDefault();
+	}
+
+	checkDefault() {
 		const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
-		setTimeout(() => {
-			if (this.props.multipleSelect) {
-				if (!_.isEqual(this.defaultSelected, defaultValue)) {
-					this.defaultSelected = defaultValue;
-					const records = this.state.items.filter(record => this.defaultSelected.indexOf(record.value) > -1);
-					if (records.length) {
-						setTimeout(this.handleChange.bind(this, records), 1000);
-					}
-				}
-			} else if (this.defaultSelected !== defaultValue) {
+		if (this.props.multipleSelect) {
+			if (!_.isEqual(this.defaultSelected, defaultValue)) {
 				this.defaultSelected = defaultValue;
-				const records = this.state.items.filter(record => record.value === this.defaultSelected);
+				const records = this.state.items.filter(record => this.defaultSelected.indexOf(record.value) > -1);
 				if (records.length) {
-					setTimeout(this.handleChange.bind(this, records), 1000);
+					this.handleChange(records);
 				}
 			}
-			if (this.sortBy !== this.props.sortBy) {
-				this.sortBy = this.props.sortBy;
-				this.handleSortSelect();
+		} else if (this.defaultSelected !== defaultValue) {
+			this.defaultSelected = defaultValue;
+			const records = this.state.items.filter(record => record.value === this.defaultSelected);
+			if (records.length) {
+				this.handleChange(records);
 			}
-			if (this.size !== this.props.size) {
-				this.size = this.props.size;
-				this.removeChannel();
-				this.createChannel();
-			}
-		}, 300);
+		}
+		if (this.sortBy !== this.props.sortBy) {
+			this.sortBy = this.props.sortBy;
+			this.handleSortSelect();
+		}
+		if (this.size !== this.props.size) {
+			this.size = this.props.size;
+			this.removeChannel();
+			this.createChannel();
+		}
 	}
 
 	// stop streaming request and remove listener when component will unmount

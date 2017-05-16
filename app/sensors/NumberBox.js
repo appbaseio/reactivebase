@@ -57,7 +57,11 @@ export default class NumberBox extends Component {
 
 	componentDidMount() {
 		this.setQueryInfo();
-		setTimeout(this.handleChange.bind(this), 1000);
+		if(this.urlParams !== null) {
+			this.updateQuery(this.urlParams);
+		} else {
+			setTimeout(this.handleChange.bind(this), 1000);
+		}
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -159,18 +163,18 @@ export default class NumberBox extends Component {
 		}, this.updateQuery.bind(this));
 	}
 
-	updateQuery() {
+	updateQuery(currentValue=this.start.currentValue) {
 		const obj = {
 			key: this.props.componentId,
 			value: {
-				value: this.state.currentValue,
+				value: currentValue,
 				queryFormat: this.props.queryFormat
 			}
 		};
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, this.state.currentValue, this.props.URLParams);
+		helper.URLParams.update(this.props.componentId, currentValue, this.props.URLParams);
 		helper.selectedSensor.set(obj, true);
 	}
 

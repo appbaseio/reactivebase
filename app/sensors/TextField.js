@@ -29,7 +29,11 @@ export default class TextField extends Component {
 		const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		if (defaultValue && this.defaultSelected != defaultValue) {
 			this.defaultSelected = defaultValue;
-			setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
+			if(this.urlParams !== null) {
+				this.setValue(this.defaultSelected);
+			} else {
+				setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
+			}
 		}
 	}
 

@@ -26,7 +26,11 @@ export default class MultiRange extends Component {
 		if (this.defaultSelected) {
 			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 			if (records && records.length) {
-				setTimeout(this.handleChange.bind(this, records), 1000);
+				if(this.urlParams !== null) {
+					this.handleChange(records);
+				} else {
+					setTimeout(this.handleChange.bind(this, records), 1000);
+				}
 			}
 		}
 	}
