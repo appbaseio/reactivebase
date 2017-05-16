@@ -32,8 +32,9 @@ class RbcURLParams {
 		}
 	}
 	applyURLUpdate() {
-		if (history.pushState && this.params.toString()) {
-			const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?" +this.params.toString();
+		if (history.pushState) {
+			const paramsSting = this.params.toString() ? "?" + this.params.toString() : "";
+			const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + paramsSting;
 			window.history.pushState({ path: newurl }, '', newurl);
 		}
 	}
