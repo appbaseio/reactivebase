@@ -5,3 +5,5 @@ export const BOOLEAN = "boolean";
 export const ARRAY = "array";
 export const OBJECT = "object";
 export const FUNCTION = "function";
+export const GEO_POINT = "geo_point";
+export const DATE = "date";
