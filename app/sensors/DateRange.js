@@ -306,7 +306,7 @@ DateRange.contextTypes = {
 DateRange.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.STRING,
+	appbaseFieldType: TYPES.DATE,
 	title: TYPES.STRING,
 	defaultSelected: TYPES.OBJECT,
 	numberOfMonths: TYPES.NUMBER,
