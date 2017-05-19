@@ -14,7 +14,8 @@ export default function MultiDropdownList(props) {
 MultiDropdownList.propTypes = {
 	defaultSelected: React.PropTypes.array,
 	componentStyle: React.PropTypes.object,
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	allowFilter: React.PropTypes.bool
 };
 
 MultiDropdownList.types = {
@@ -32,5 +33,6 @@ MultiDropdownList.types = {
 	customQuery: TYPES.FUNCTION,
 	initialLoader: TYPES.OBJECT,
 	componentStyle: TYPES.OBJECT,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	allowFilter: TYPES.BOOLEAN
 };

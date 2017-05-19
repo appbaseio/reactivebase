@@ -10,7 +10,7 @@ export default class TextField extends Component {
 			currentValue: ""
 		};
 		this.type = "match";
-		this.urlParams = helper.URLParams.get(this.props.componentId, this.props.multipleSelect);
+		this.urlParams = helper.URLParams.get(this.props.componentId);
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -18,22 +18,38 @@ export default class TextField extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		this.checkDefault();
+		this.checkDefault(this.props);
+		this.listenFilter();
 	}
 
-	componentWillUpdate() {
-		this.checkDefault();
+	componentWillReceiveProps(nextProps) {
+		this.checkDefault(nextProps);
 	}
 
-	checkDefault() {
-		const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
-		if (defaultValue && this.defaultSelected != defaultValue) {
-			this.defaultSelected = defaultValue;
-			if(this.urlParams !== null) {
-				this.setValue(this.defaultSelected);
-			} else {
-				setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
+	componentWillUnmount() {
+		if(this.filterListener) {
+			this.filterListener.remove();
+		}
+	}
+
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if(data === this.props.componentId) {
+				this.valueChange(null);
 			}
+		});
+	}
+
+	checkDefault(props) {
+		this.urlParams = helper.URLParams.get(this.props.componentId);
+		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
+		this.valueChange(defaultValue);
+	}
+
+	valueChange(defaultValue) {
+		if (this.defaultSelected != defaultValue) {
+			this.defaultSelected = defaultValue;
+			this.setValue(this.defaultSelected);
 		}
 	}
 
@@ -73,7 +89,7 @@ export default class TextField extends Component {
 			key: this.props.componentId,
 			value: inputVal
 		};
-
+		this.defaultSelected = inputVal;
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
 		if (this.props.onValueChange) {
@@ -101,7 +117,7 @@ export default class TextField extends Component {
 			<div className={`rbc rbc-textfield col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{title}
 				<div className="rbc-input-container col s12 col-xs-12">
-					<input className="rbc-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue} />
+					<input className="rbc-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue ? this.state.currentValue : ""} />
 				</div>
 			</div>
 		);
@@ -120,13 +136,15 @@ TextField.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
 TextField.defaultProps = {
 	componentStyle: {},
-	URLParams: false
+	URLParams: false,
+	allowFilter: true
 };
 
 // context type
@@ -144,5 +162,6 @@ TextField.types = {
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	allowFilter: TYPES.BOOLEAN
 };

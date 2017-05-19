@@ -32,23 +32,42 @@ export default class MultiDropdownRange extends Component {
 				setTimeout(this.handleChange.bind(this, records), 1000);
 			}
 		}
+		this.listenFilter();
 	}
 
-	componentWillUpdate() {
-		setTimeout(() => {
-			const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
-			if (!_.isEqual(this.defaultSelected, defaultValue)) {
-				this.defaultSelected = defaultValue;
-				const records = this.state.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
-				if (records && records.length) {
-					if(this.urlParams !== null) {
-						this.handleChange(records);
-					} else {
-						setTimeout(this.handleChange.bind(this, records), 1000);
-					}
+	componentWillReceiveProps() {
+		this.urlParams = helper.URLParams.get(nextProps.componentId, true);
+		const defaultValue = this.urlParams !== null ? this.urlParams : nextProps.defaultSelected;
+		this.valueChange(defaultValue);
+	}
+
+	componentWillUnmount() {
+		if(this.filterListener) {
+			this.filterListener.remove();
+		}
+	}
+
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if(data === this.props.componentId) {
+				this.defaultSelected = null;
+				this.handleChange(null);
+			}
+		});
+	}
+
+	valueChange(defaultValue) {
+		if (!_.isEqual(this.defaultSelected, defaultValue)) {
+			this.defaultSelected = defaultValue;
+			const records = this.state.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
+			if (records && records.length) {
+				if(this.urlParams !== null) {
+					this.handleChange(records);
+				} else {
+					setTimeout(this.handleChange.bind(this, records), 1000);
 				}
 			}
-		}, 300);
+		}
 	}
 
 	// set the query type and input data
@@ -94,9 +113,11 @@ export default class MultiDropdownRange extends Component {
 
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
-		let selected = [];
-		selected = record.map(item => item.label);
-		selected = selected.join();
+		let selected = record ? [] : null;
+		if(record) {
+			selected = record.map(item => item.label);
+			selected = selected.join();
+		}
 		this.setState({
 			selected
 		});
@@ -160,12 +181,14 @@ MultiDropdownRange.propTypes = {
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
 MultiDropdownRange.defaultProps = {
-	URLParams: false
+	URLParams: false,
+	allowFilter: true
 };
 
 // context type
@@ -184,5 +207,6 @@ MultiDropdownRange.types = {
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	allowFilter: TYPES.BOOLEAN
 };

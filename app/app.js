@@ -18,6 +18,7 @@ import ReactiveList from "./actuators/ReactiveList";
 import ReactiveElement from "./actuators/ReactiveElement";
 import PoweredBy from "./sensors/PoweredBy";
 import DataController from "./sensors/DataController";
+import SelectedFilters from "./sensors/SelectedFilters";
 
 // addons
 import InitialLoader from "./addons/InitialLoader";
@@ -57,5 +58,6 @@ module.exports = {
 	TYPES,
 	InitialLoader,
 	NoResults,
-	ResultStats
+	ResultStats,
+	SelectedFilters
 };

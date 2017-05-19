@@ -5,7 +5,8 @@ import moment from "moment";
 import {
 	ReactiveBase,
 	SingleDropdownList,
-	ReactiveList
+	ReactiveList,
+	SelectedFilters
 } from '../../app/app.js';
 
 import { Img } from "../../app/stories/Img.js";
@@ -53,6 +54,7 @@ class Main extends Component {
 				app="reactivemap_demo"
 				credentials="kvHgC64RP:e96d86fb-a1bc-465e-8756-02661ffebc05"
 			>
+				<SelectedFilters componentId="SelectedFilters" />
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<SingleDropdownList

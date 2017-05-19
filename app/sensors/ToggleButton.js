@@ -12,7 +12,6 @@ export default class ToggleButton extends Component {
 		};
 		this.type = "term";
 		this.urlParams = helper.URLParams.get(this.props.componentId, true);
-		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -20,31 +19,61 @@ export default class ToggleButton extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if (this.defaultSelected) {
-			this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
-			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
-			if (records && records.length) {
-				records.forEach((singleRecord) => {
-					if(this.urlParams !== null) {
-						this.handleChange(singleRecord);
-					} else {
-						setTimeout(this.handleChange.bind(this, singleRecord), 1000);
-					}
-				});
-			}
+		this.checkDefault(this.props);
+		this.listenFilter();
+		// if (this.defaultSelected) {
+		// 	this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
+		// 	const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
+		// 	if (records && records.length) {
+		// 		records.forEach((singleRecord) => {
+		// 			if(this.urlParams !== null) {
+		// 				this.handleChange(singleRecord);
+		// 			} else {
+		// 				setTimeout(this.handleChange.bind(this, singleRecord), 1000);
+		// 			}
+		// 		});
+		// 	}
+		// }
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.checkDefault(nextProps);
+	}
+
+	componentWillUnmount() {
+		if(this.filterListener) {
+			this.filterListener.remove();
 		}
 	}
 
-	componentWillUpdate() {
-		const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
-		if (this.defaultSelected != defaultValue) {
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if(data === this.props.componentId) {
+				this.defaultSelected = null;
+				this.handleChange(null);
+			}
+		});
+	}
+
+	checkDefault(props) {
+		this.urlParams = helper.URLParams.get(props.componentId, true);
+		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
+		this.valueChange(defaultValue);
+	}
+
+	valueChange(defaultValue) {
+		if (!_.isEqual(this.defaultSelected, defaultValue)) {
 			this.defaultSelected = defaultValue;
-			this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
-			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
-			if (records && records.length) {
-				records.forEach((singleRecord) => {
-					setTimeout(this.handleChange.bind(this, singleRecord), 1000);
-				});
+			if(this.defaultSelected) {
+				this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
+				const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
+				if (records && records.length) {
+					records.forEach((singleRecord) => {
+						setTimeout(this.handleChange.bind(this, singleRecord), 1000);
+					});
+				}
+			} else {
+				this.handleChange(null);
 			}
 		}
 	}
@@ -89,24 +118,29 @@ export default class ToggleButton extends Component {
 
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
-		const selected = this.state.selected;
+		let selected = this.state.selected;
 		let newSelection = [];
 		let selectedIndex = null;
-		selected.forEach((selectedRecord, index) => {
-			if (record.label === selectedRecord.label) {
-				selectedIndex = index;
-				selected.splice(index, 1);
-			}
-		});
-		if (selectedIndex === null) {
-			if (this.props.multiSelect) {
-				selected.push(record);
-				newSelection = selected;
+		if(record) {
+			selected = selected ? selected : [];
+			selected.forEach((selectedRecord, index) => {
+				if (record.label === selectedRecord.label) {
+					selectedIndex = index;
+					selected.splice(index, 1);
+				}
+			});
+			if (selectedIndex === null) {
+				if (this.props.multiSelect) {
+					selected.push(record);
+					newSelection = selected;
+				} else {
+					newSelection.push(record);
+				}
 			} else {
-				newSelection.push(record);
+				newSelection = selected;
 			}
 		} else {
-			newSelection = selected;
+			newSelection = null;
 		}
 		this.setState({
 			selected: newSelection
@@ -125,12 +159,12 @@ export default class ToggleButton extends Component {
 	}
 
 	setURLValue(records) {
-		return records.map(item => item.label);
+		return records ? records.map(item => item.label) : null;
 	}
 
 	renderButtons() {
 		let buttons;
-		const selectedText = this.state.selected.map(record => record.label);
+		const selectedText = this.state.selected ? this.state.selected.map(record => record.label) : "";
 		if (this.props.data) {
 			buttons = this.props.data.map((record, i) => (
 				<button
@@ -186,14 +220,16 @@ ToggleButton.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
 ToggleButton.defaultProps = {
 	multiSelect: true,
 	componentStyle: {},
-	URLParams: false
+	URLParams: false,
+	allowFilter: true
 };
 
 // context type
@@ -212,5 +248,6 @@ ToggleButton.types = {
 	multiSelect: TYPES.BOOLEAN,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	allowFilter: TYPES.BOOLEAN
 };

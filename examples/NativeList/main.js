@@ -6,7 +6,8 @@ import {
 	ReactiveBase,
 	SingleList,
 	MultiList,
-	ReactiveList
+	ReactiveList,
+	SelectedFilters
 } from '../../app/app.js';
 
 import { Img } from "../../app/stories/Img.js";
@@ -57,6 +58,9 @@ class Main extends Component {
 					type="meetupdata1"
 				>
 					<div className="row">
+						<div className="col s12 col-xs-12">
+							<SelectedFilters componentId="SelectedFilters" />
+						</div>
 						<div className="col s6 col-xs-6">
 							<MultiList
 								componentId="TopicSensor"

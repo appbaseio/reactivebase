@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import manager from "./ChannelManager";
 const Appbase = require("appbase-js");
 const helper = require("./helper.js");
+const _ = require("lodash");
 
 export default class ReactiveBase extends Component {
 	constructor(props, context) {
@@ -13,6 +14,37 @@ export default class ReactiveBase extends Component {
 			appname: this.props.app,
 			credentials: this.props.credentials,
 			type: this.type
+		});
+		this.reactiveId = helper.RecactivebaseComponents.length;
+		helper.RecactivebaseComponents[this.reactiveId] = [];
+	}
+
+	componentWillMount() {
+		this.setupComponents(this.props.children);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setupComponents(nextProps.children);
+	}
+
+	setupComponents(children) {
+		this.components = [];
+		this.getComponents(children);
+		helper.RecactivebaseComponents[this.reactiveId] = this.components;
+	}
+
+	getComponents(children) {
+		children = _.isArray(children) ? children : [children];
+		children.forEach(child => {
+			if(child.props && child.props.componentId && child.props.allowFilter !== false) {
+				this.components.push({
+					component: child.type.name,
+					componentId: child.props.componentId
+				});
+			}
+			if(child.props.children) {
+				this.getComponents(child.props.children);
+			}
 		});
 	}
 

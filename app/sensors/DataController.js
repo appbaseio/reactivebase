@@ -112,7 +112,8 @@ DataController.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	defaultSelected: React.PropTypes.any,
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	allowFilter: React.PropTypes.bool
 };
 
 React.PropTypes.oneOfType([
@@ -125,7 +126,8 @@ DataController.defaultProps = {
 	visible: false,
 	defaultSelected: "default",
 	componentStyle: {},
-	URLParams: false
+	URLParams: false,
+	allowFilter: true
 };
 
 // context type
@@ -143,5 +145,6 @@ DataController.types = {
 	dataLabel: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	allowFilter: TYPES.BOOLEAN
 };

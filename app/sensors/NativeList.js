@@ -21,7 +21,8 @@ export default class NativeList extends Component {
 				}
 			},
 			queryStart: false,
-			defaultSelectAll: false
+			defaultSelectAll: false,
+			defaultSelected: null
 		};
 		this.sortObj = {
 			aggSort: this.props.sortBy
@@ -30,7 +31,6 @@ export default class NativeList extends Component {
 		this.channelId = null;
 		this.channelListener = null;
 		this.urlParams = helper.URLParams.get(this.props.componentId, this.props.multipleSelect);
-		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleRemove = this.handleRemove.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
@@ -45,11 +45,20 @@ export default class NativeList extends Component {
 		this.size = this.props.size;
 		this.setQueryInfo();
 		if(this.urlParams === null) {
-			this.handleSelect("");
+			const value = this.props.multipleSelect ? null : null;
+			this.handleSelect(value);
 		} else {
 			this.handleSelect(this.urlParams);
 		}
 		this.createChannel(true);
+		this.defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+		this.changeValues(this.defaultValue);
+		this.listenFilter();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.defaultValue = this.urlParams !== null ? nextProps.urlParams : nextProps.defaultSelected;
+		this.changeValues(this.defaultValue);
 	}
 
 	// build query for this sensor only
@@ -79,10 +88,9 @@ export default class NativeList extends Component {
 		return query;
 	}
 
-	componentWillUpdate() {
-		this.defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
-		if (this.defaultSelected !== this.defaultValue) {
-			this.defaultSelected = this.defaultValue;
+	changeValues(defaultValue) {
+		if (this.defaultSelected !== defaultValue) {
+			this.defaultSelected = defaultValue;
 			let items = this.state.items;
 			items = items.map((item) => {
 				item.key = item.key.toString();
@@ -111,6 +119,15 @@ export default class NativeList extends Component {
 		this.removeChannel();
 	}
 
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if(data === this.props.componentId) {
+				const value = this.props.multipleSelect ? null : null;
+				this.changeValues(value);
+			}
+		});
+	}
+
 	removeChannel() {
 		if (this.channelId) {
 			manager.stopStream(this.channelId);
@@ -120,6 +137,9 @@ export default class NativeList extends Component {
 		}
 		if (this.loadListener) {
 			this.loadListener.remove();
+		}
+		if(this.filterListener) {
+			this.filterListener.remove();
 		}
 	}
 
@@ -269,7 +289,9 @@ export default class NativeList extends Component {
 				}
 				return item;
 			});
-			this.setState({ items });
+			this.setState({ items, defaultSelected: this.selectedValue });
+		} else {
+			this.setState({ defaultSelected: this.selectedValue });
 		}
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
@@ -331,7 +353,7 @@ export default class NativeList extends Component {
 				showCount={this.props.showCount}
 				selectAll={this.selectAll}
 				showCheckbox={this.props.showCheckbox}
-				defaultSelected={this.defaultSelected}
+				defaultSelected={this.state.defaultSelected}
 				selectAllLabel={this.props.selectAllLabel}
 				selectAllValue={this.state.selectAll}
 			/>);
@@ -342,7 +364,7 @@ export default class NativeList extends Component {
 				onRemove={this.handleRemove}
 				showCount={this.props.showCount}
 				showRadio={this.props.showRadio}
-				defaultSelected={this.defaultSelected}
+				defaultSelected={this.state.defaultSelected}
 				selectAllLabel={this.props.selectAllLabel}
 				selectAll={this.selectAll}
 			/>);
@@ -413,7 +435,8 @@ NativeList.propTypes = {
 	componentStyle: React.PropTypes.object,
 	showRadio: React.PropTypes.bool,
 	showCheckbox: React.PropTypes.bool,
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
@@ -429,7 +452,8 @@ NativeList.defaultProps = {
 	componentStyle: {},
 	showRadio: true,
 	showCheckbox: true,
-	URLParams: false
+	URLParams: false,
+	allowFilter: true
 };
 
 // context type

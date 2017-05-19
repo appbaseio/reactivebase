@@ -444,6 +444,8 @@ export const updateStats = function (total, newData) {
 	return total;
 };
 
+export const RecactivebaseComponents = [];
+
 export * from "./utils";
 
 export * from "./URLParams";
