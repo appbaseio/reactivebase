@@ -67,6 +67,7 @@ class Main extends Component {
 								appbaseField="group.group_topics.topic_name_raw.raw"
 								title="MultiList"
 								size={100}
+								URLParams={true}
 							/>
 							<SingleList
 								componentId="CitySensor"

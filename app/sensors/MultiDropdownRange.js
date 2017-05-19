@@ -118,6 +118,9 @@ export default class MultiDropdownRange extends Component {
 			selected = record.map(item => item.label);
 			selected = selected.join();
 		}
+		selected = selected === "" ? null : selected;
+		record = record === "" ? null : record;
+		record = record && record.length ? record : null;
 		this.setState({
 			selected
 		});

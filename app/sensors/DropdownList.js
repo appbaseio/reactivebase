@@ -324,7 +324,9 @@ export default class DropdownList extends Component {
 	setValue(value, isExecuteQuery = false) {
 		if (this.props.multipleSelect && value) {
 			value = _.isArray(value) ? value : value.split(",");
+			value = value.length ? value : null;
 		}
+		value = value === "" ? null : value;
 		const obj = {
 			key: this.props.componentId,
 			value

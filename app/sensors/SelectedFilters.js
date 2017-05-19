@@ -28,19 +28,30 @@ export default class SelectedFilters extends Component {
 	}
 
 	updateSensors(data) {
+		let isanyChange = false;
+		let filters = this.state.filters;
 		Object.keys(data).forEach(item => {
 			const selectedFilter = this.isSibling(item);
-			if(selectedFilter && data[item] !== null) {
-				let filters = this.state.filters;
-				filters[item] = {
-					value: data[item],
-					component: selectedFilter.component
-				};
-				this.setState({
-					filters
-				});
+			if(selectedFilter) {
+				if(data[item] !== null) {
+					filters[item] = {
+						value: data[item],
+						component: selectedFilter.component
+					};
+				} else {
+					if(item in filters) {
+						delete filters[item];
+					}
+				}
+				isanyChange = true;
 			}
 		})
+		if(!isanyChange) {
+			filters = [];
+		}
+		this.setState({
+			filters
+		});
 	}
 
 	isSibling(siblingComponentId) {

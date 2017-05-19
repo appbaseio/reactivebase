@@ -21,19 +21,6 @@ export default class ToggleButton extends Component {
 		this.setQueryInfo();
 		this.checkDefault(this.props);
 		this.listenFilter();
-		// if (this.defaultSelected) {
-		// 	this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
-		// 	const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
-		// 	if (records && records.length) {
-		// 		records.forEach((singleRecord) => {
-		// 			if(this.urlParams !== null) {
-		// 				this.handleChange(singleRecord);
-		// 			} else {
-		// 				setTimeout(this.handleChange.bind(this, singleRecord), 1000);
-		// 			}
-		// 		});
-		// 	}
-		// }
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -119,9 +106,10 @@ export default class ToggleButton extends Component {
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
 		let selected = this.state.selected;
-		let newSelection = [];
+		let newSelection = null;
 		let selectedIndex = null;
 		if(record) {
+			newSelection = [];
 			selected = selected ? selected : [];
 			selected.forEach((selectedRecord, index) => {
 				if (record.label === selectedRecord.label) {
@@ -139,6 +127,7 @@ export default class ToggleButton extends Component {
 			} else {
 				newSelection = selected;
 			}
+			newSelection = newSelection.length ? newSelection : null ;
 		} else {
 			newSelection = null;
 		}

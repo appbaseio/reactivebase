@@ -289,6 +289,8 @@ export default class NativeList extends Component {
 				}
 				return item;
 			});
+			value = value && value.length ? value : null;
+			obj.value = value;
 			this.setState({ items, defaultSelected: this.selectedValue });
 		} else {
 			this.setState({ defaultSelected: this.selectedValue });

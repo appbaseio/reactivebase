@@ -142,7 +142,8 @@ export default class MultiRange extends Component {
 		} else {
 			selected = null;
 		}
-
+		selected = selected === "" ? null : selected;
+		selected = selected && selected.length ? selected : null;
 		this.defaultSelected = selected;
 
 		this.setState({
