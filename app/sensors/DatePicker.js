@@ -200,7 +200,7 @@ DatePicker.contextTypes = {
 DatePicker.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.NUMBER,
+	appbaseFieldType: TYPES.DATE,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	defaultSelected: TYPES.OBJECT,
