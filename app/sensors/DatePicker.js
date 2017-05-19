@@ -27,10 +27,26 @@ export default class DatePicker extends Component {
 			this.handleChange(moment(this.urlParams), true);
 		}
 		this.checkDefault();
+		this.listenFilter();
 	}
 
-	componentWillUpdate() {
+	componentWillReceiveProps() {
 		this.checkDefault();
+	}
+
+	componentWillUnmount() {
+		if(this.filterListener) {
+			this.filterListener.remove();
+		}
+	}
+
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if(data === this.props.componentId) {
+				this.defaultDate = null;
+				this.handleChange(this.defaultDate);
+			}
+		});
 	}
 
 	// set the query type and input data
@@ -158,7 +174,8 @@ DatePicker.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat)),
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
@@ -170,7 +187,8 @@ DatePicker.defaultProps = {
 	defaultSelected: null,
 	componentStyle: {},
 	queryFormat: "epoch_millis",
-	URLParams: false
+	URLParams: false,
+	allowFilter: true
 };
 
 // context type
@@ -182,7 +200,7 @@ DatePicker.contextTypes = {
 DatePicker.types = {
 	componentId: TYPES.STRING,
 	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.NUMBER,
+	appbaseFieldType: TYPES.DATE,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	defaultSelected: TYPES.OBJECT,
@@ -193,5 +211,6 @@ DatePicker.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	queryFormat: TYPES.STRING,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	allowFilter: TYPES.BOOLEAN
 };

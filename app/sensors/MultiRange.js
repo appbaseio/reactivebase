@@ -13,7 +13,6 @@ export default class MultiRange extends Component {
 		};
 		this.type = "range";
 		this.urlParams = helper.URLParams.get(this.props.componentId, true);
-		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.resetState = this.resetState.bind(this);
 		this.handleTagClick = this.handleTagClick.bind(this);
@@ -23,30 +22,47 @@ export default class MultiRange extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if (this.defaultSelected) {
-			const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
-			if (records && records.length) {
-				if(this.urlParams !== null) {
-					this.handleChange(records);
-				} else {
-					setTimeout(this.handleChange.bind(this, records), 1000);
-				}
-			}
+		this.checkDefault(this.props);
+		this.listenFilter();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.checkDefault(nextProps);
+	}
+
+	componentWillUnmount() {
+		if(this.filterListener) {
+			this.filterListener.remove();
 		}
 	}
 
-	componentWillUpdate() {
-		setTimeout(() => {
-			const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
-			if (!_.isEqual(this.defaultSelected, defaultValue)) {
-				this.defaultSelected = defaultValue;
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if(data === this.props.componentId) {
+				this.changeValue(null);
+			}
+		});
+	}
+
+	checkDefault(props) {
+		this.urlParams = helper.URLParams.get(props.componentId, true);
+		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
+		this.changeValue(defaultValue);
+	}
+
+	changeValue(defaultValue) {
+		if (!_.isEqual(this.defaultSelected, defaultValue)) {
+			this.defaultSelected = defaultValue;
+			if(defaultValue) {
 				this.resetState();
 				const records = this.props.data.filter(record => defaultValue.indexOf(record.label) > -1);
 				if (records && records.length) {
 					setTimeout(this.handleChange.bind(this, records), 1000);
 				}
+			} else {
+				this.handleChange(null);
 			}
-		}, 300);
+		}
 	}
 
 	// set the query type and input data
@@ -94,13 +110,9 @@ export default class MultiRange extends Component {
 
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
-		const selected = this.state.selected;
+		let selected = this.state.selected;
 		let selectedIndex = null;
 		let records = record;
-
-		if (!_.isArray(record)) {
-			records = [record];
-		}
 
 		function setRecord(selectedRecord, index, item) {
 			if (item.label === selectedRecord.label) {
@@ -109,17 +121,30 @@ export default class MultiRange extends Component {
 			}
 		}
 
-		records.forEach((item) => {
-			selected.forEach((selectedRecord, index) => {
-				setRecord(selectedRecord, index, item);
-			});
-		});
-
-		if (selectedIndex === null) {
+		if(record) {
+			if (selected === null) {
+				selected = [];
+			}
+			if (!_.isArray(record)) {
+				records = [record];
+			}
 			records.forEach((item) => {
-				selected.push(item);
+				selected.forEach((selectedRecord, index) => {
+					setRecord(selectedRecord, index, item);
+				});
 			});
+
+			if (selectedIndex === null) {
+				records.forEach((item) => {
+					selected.push(item);
+				});
+			}
+		} else {
+			selected = null;
 		}
+		selected = selected === "" ? null : selected;
+		selected = selected && selected.length ? selected : null;
+		this.defaultSelected = selected;
 
 		this.setState({
 			selected
@@ -140,7 +165,7 @@ export default class MultiRange extends Component {
 	}
 
 	getSelectedLabels(selected) {
-		return selected.map(item => item.label);
+		return selected ? selected.map(item => item.label) : null;
 	}
 
 	resetState() {
@@ -164,7 +189,7 @@ export default class MultiRange extends Component {
 
 	renderButtons() {
 		let buttons;
-		const selectedText = this.state.selected.map(record => record.label);
+		const selectedText = this.state.selected ? this.state.selected.map(record => record.label) : "";
 		if (this.props.data) {
 			buttons = this.props.data.map(record => (
 				<div className="rbc-list-item row" key={record.label} onClick={() => this.handleChange(record)}>
@@ -251,12 +276,14 @@ MultiRange.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
 MultiRange.defaultProps = {
-	URLParams: false
+	URLParams: false,
+	allowFilter: true
 };
 
 // context type
@@ -274,5 +301,6 @@ MultiRange.types = {
 	defaultSelected: TYPES.ARRAY,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	allowFilter: TYPES.BOOLEAN
 };

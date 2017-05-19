@@ -37,12 +37,9 @@ export default class DropdownList extends Component {
 	componentDidMount() {
 		this.size = this.props.size;
 		this.setQueryInfo();
-		if(this.urlParams !== null) {
-			this.setValue(this.urlParams, true);
-		} else {
-			this.checkDefault();
-		}
+		this.checkDefault(this.props);
 		this.createChannel(true);
+		this.listenFilter();
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -58,18 +55,40 @@ export default class DropdownList extends Component {
 		}
 	}
 
-	componentWillUpdate() {
-		this.checkDefault();
+	componentWillUnmount() {
+		if(this.filterListener) {
+			this.filterListener.remove();
+		}
 	}
 
-	checkDefault() {
-		const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+	componentWillReceiveProps() {
+		this.checkDefault(nextProps);
+	}
+
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if(data === this.props.componentId) {
+				this.defaultSelected = null;
+				this.handleChange(null);
+			}
+		});
+	}
+
+	checkDefault(props) {
+		this.urlParams = helper.URLParams.get(props.componentId, props.multipleSelect);
+		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
+		this.changeValue(defaultValue);
+	}
+
+	changeValue(defaultValue) {
 		if (this.props.multipleSelect) {
 			if (!_.isEqual(this.defaultSelected, defaultValue)) {
 				this.defaultSelected = defaultValue;
 				const records = this.state.items.filter(record => this.defaultSelected.indexOf(record.value) > -1);
 				if (records.length) {
 					this.handleChange(records);
+				} else {
+					this.handleChange([{value: this.defaultSelected}]);
 				}
 			}
 		} else if (this.defaultSelected !== defaultValue) {
@@ -77,6 +96,8 @@ export default class DropdownList extends Component {
 			const records = this.state.items.filter(record => record.value === this.defaultSelected);
 			if (records.length) {
 				this.handleChange(records);
+			} else {
+				this.handleChange({value: this.defaultSelected});
 			}
 		}
 		if (this.sortBy !== this.props.sortBy) {
@@ -272,18 +293,22 @@ export default class DropdownList extends Component {
 		let result;
 		this.selectAll = false;
 		if (this.props.multipleSelect) {
-			result = [];
-			value.map((item) => {
-				result.push(item.value);
-			});
-			if (this.props.selectAllLabel && (result.indexOf(this.props.selectAllLabel) > -1)) {
-				result = this.props.selectAllLabel;
-				this.selectAll = true;
+			if(value) {
+				result = [];
+				value.map((item) => {
+					result.push(item.value);
+				});
+				if (this.props.selectAllLabel && (result.indexOf(this.props.selectAllLabel) > -1)) {
+					result = this.props.selectAllLabel;
+					this.selectAll = true;
+				} else {
+					result = result.join();
+				}
 			} else {
-				result = result.join();
+				result = null;
 			}
 		} else {
-			result = value.value;
+			result = value ? value.value : value;
 			if (this.props.selectAllLabel && result === this.props.selectAllLabel) {
 				this.selectAll = true;
 			}
@@ -291,14 +316,17 @@ export default class DropdownList extends Component {
 		this.setState({
 			value: result
 		});
+
 		this.setValue(result, true);
 	}
 
 	// set value
 	setValue(value, isExecuteQuery = false) {
-		if (this.props.multipleSelect) {
-			value = value.split(",");
+		if (this.props.multipleSelect && value) {
+			value = _.isArray(value) ? value : value.split(",");
+			value = value.length ? value : null;
 		}
+		value = value === "" ? null : value;
 		const obj = {
 			key: this.props.componentId,
 			value
@@ -377,7 +405,8 @@ DropdownList.propTypes = {
 	react: React.PropTypes.object,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
@@ -388,7 +417,8 @@ DropdownList.defaultProps = {
 	title: null,
 	placeholder: "Select...",
 	selectAllLabel: null,
-	URLParams: false
+	URLParams: false,
+	allowFilter: true
 };
 
 // context type

@@ -5,7 +5,8 @@ import moment from "moment";
 import {
 	ReactiveBase,
 	DateRange,
-	ReactiveList
+	ReactiveList,
+	SelectedFilters
 } from '../../app/app.js';
 
 import { Img } from "../../app/stories/Img.js";
@@ -56,6 +57,7 @@ class Main extends Component {
 				app="reactivemap-demo"
 				credentials="IvfKUzoER:8330c43a-e453-4d43-9a66-a4986b3714c6"
 			>
+				<SelectedFilters componentId="SelectedFilters" />
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<DateRange

@@ -44,6 +44,7 @@ export default class DataSearch extends Component {
 		this.setQueryInfo();
 		this.createChannel();
 		this.checkDefault();
+		this.listenFilter();
 	}
 
 	componentWillUpdate() {
@@ -58,6 +59,18 @@ export default class DataSearch extends Component {
 		if (this.channelListener) {
 			this.channelListener.remove();
 		}
+		if(this.filterListener) {
+			this.filterListener.remove();
+		}
+	}
+
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if(data === this.props.componentId) {
+				this.defaultValue = "";
+				this.changeValue(this.defaultValue);
+			}
+		});
 	}
 
 	highlightQuery() {
@@ -244,8 +257,12 @@ export default class DataSearch extends Component {
 
 	checkDefault() {
 		this.defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
-		if (this.defaultValue && this.defaultSelected != this.defaultValue) {
-			this.defaultSelected = this.defaultValue;
+		this.changeValue(this.defaultValue);
+	}
+
+	changeValue(defaultValue) {
+		if (this.defaultSelected != defaultValue) {
+			this.defaultSelected = defaultValue;
 			setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
 			this.handleSearch({
 				value: this.defaultSelected
@@ -350,7 +367,8 @@ DataSearch.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
@@ -359,7 +377,8 @@ DataSearch.defaultProps = {
 	autocomplete: true,
 	componentStyle: {},
 	highlight: false,
-	URLParams: false
+	URLParams: false,
+	allowFilter: true
 };
 
 // context type
@@ -380,5 +399,6 @@ DataSearch.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	highlight: TYPES.BOOLEAN,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	allowFilter: TYPES.BOOLEAN
 };

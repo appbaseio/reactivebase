@@ -5,7 +5,8 @@ var ReactDOM = require('react-dom');
 import {
 	ReactiveBase,
 	ToggleButton,
-	ReactiveList
+	ReactiveList,
+	SelectedFilters
 } from '../../app/app.js';
 
 import { Img } from "../../app/stories/Img.js";
@@ -65,6 +66,7 @@ class Main extends Component {
 				app="meetup_demo"
 				credentials="LPpISlEBe:2a8935f5-0f63-4084-bc3e-2b2b4d1a8e02"
 			>
+				<SelectedFilters componentId="SelectedFilters" />
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<ToggleButton
