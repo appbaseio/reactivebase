@@ -15,6 +15,12 @@ export default class ReactiveBase extends Component {
 			credentials: this.props.credentials,
 			type: this.type
 		});
+		this.appbaseCrdentials = {
+			url: "https://scalr.api.appbase.io",
+			credentials: this.props.credentials,
+			appname: this.props.app,
+			type: this.type
+		};
 		this.reactiveId = helper.RecactivebaseComponents.length;
 		helper.RecactivebaseComponents[this.reactiveId] = [];
 	}
@@ -52,7 +58,8 @@ export default class ReactiveBase extends Component {
 		return {
 			appbaseRef: this.appbaseRef,
 			type: this.type,
-			app: this.props.app
+			app: this.props.app,
+			appbaseCrdentials: this.appbaseCrdentials
 		};
 	}
 
@@ -80,5 +87,6 @@ ReactiveBase.defaultProps = {
 ReactiveBase.childContextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired,
-	app: React.PropTypes.any
+	app: React.PropTypes.any,
+	appbaseCrdentials: React.PropTypes.any.isRequired
 };

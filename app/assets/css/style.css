@@ -1703,6 +1703,19 @@ a {
   padding: 0; }
   .rbc.rbc-pagination li i {
     font-size: 1rem; }
+  .rbc.rbc-pagination .rbc-page-one {
+    position: relative;
+    padding-right: 20px; }
+    .rbc.rbc-pagination .rbc-page-one:before {
+      content: "...";
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 20px;
+      height: 30px;
+      background: transparent;
+      text-align: center;
+      padding: 0; }
 
 .rbc-pagination-container.col.s12 {
   padding: 0; }

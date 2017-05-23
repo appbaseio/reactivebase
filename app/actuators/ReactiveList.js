@@ -172,7 +172,7 @@ export default class ReactiveList extends Component {
 			this.enableSort(react);
 		}
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.context.app);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.context.app, this.context.appbaseCrdentials);
 		this.channelId = channelObj.channelId;
 
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
@@ -436,6 +436,7 @@ export default class ReactiveList extends Component {
 						componentId="pagination"
 						onPageChange={this.props.onPageChange}
 						title={this.props.paginationTitle}
+						pages={this.props.pages}
 					/>
 				</div>
 			);
@@ -626,7 +627,8 @@ ReactiveList.propTypes = {
 	]),
 	react: React.PropTypes.object,
 	paginationAt: React.PropTypes.string,
-	pagination: React.PropTypes.bool
+	pagination: React.PropTypes.bool,
+	pages: React.PropTypes.number
 };
 
 ReactiveList.defaultProps = {
@@ -636,14 +638,16 @@ ReactiveList.defaultProps = {
 	componentStyle: {},
 	showResultStats: true,
 	pagination: false,
-	paginationAt: "bottom"
+	paginationAt: "bottom",
+	pages: 5
 };
 
 // context type
 ReactiveList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired,
-	app: React.PropTypes.any.isRequired
+	app: React.PropTypes.any.isRequired,
+	appbaseCrdentials: React.PropTypes.any.isRequired
 };
 
 ReactiveList.types = {
@@ -665,5 +669,6 @@ ReactiveList.types = {
 	onResultStats: TYPES.FUNCTION,
 	placeholder: TYPES.STRING,
 	pagination: TYPES.BOOLEAN,
-	paginationAt: TYPES.STRING
+	paginationAt: TYPES.STRING,
+	pages: TYPES.NUMBER
 };

@@ -588,6 +588,9 @@ storiesOf("ReactiveList", module)
 	.add("With pagination at both", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault pagination paginationAt="both" title="Meetups" />
 	)))
+	.add("With pages", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+		<ReactiveListDefault pagination paginationAt="top" title="Meetups" pages={10} />
+	)))
 	.add("With Sort Options", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault
 			title="Meetups"
@@ -629,6 +632,7 @@ storiesOf("ReactiveList", module)
 			showResultStats={boolean("showResultStats", true)}
 			pagination={boolean("requestOnScroll", true)}
 			paginationAt={select("paginationAt", { bottom: "bottom", top: "top", both: "both" }, "bottom")}
+			pages={number("pages", 5)}
 			stream={boolean("stream", false)}
 		/>
 	)));

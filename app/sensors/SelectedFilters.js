@@ -32,21 +32,21 @@ export default class SelectedFilters extends Component {
 		let filters = this.state.filters;
 		Object.keys(data).forEach(item => {
 			const selectedFilter = this.isSibling(item);
-			if(selectedFilter) {
-				if(data[item] !== null) {
+			if (selectedFilter) {
+				if (data[item] !== null) {
 					filters[item] = {
 						value: data[item],
 						component: selectedFilter.component
 					};
 				} else {
-					if(item in filters) {
+					if (item in filters) {
 						delete filters[item];
 					}
 				}
 				isanyChange = true;
 			}
 		})
-		if(!isanyChange) {
+		if (!isanyChange) {
 			filters = [];
 		}
 		this.setState({
@@ -65,9 +65,9 @@ export default class SelectedFilters extends Component {
 	getItem(items, siblingComponentId) {
 		let selectedItem = null;
 		items.forEach(item => {
-			if(this.blacklist.indexOf(item.component) < 0 && item.componentId === siblingComponentId) {
+			if (this.blacklist.indexOf(item.component) < 0 && item.componentId === siblingComponentId) {
 				const isSameReactivebase = !items.every(subitem => subitem.componentId !== this.props.componentId);
-				if(isSameReactivebase) {
+				if (isSameReactivebase) {
 					selectedItem = item;
 				}
 			}
@@ -86,22 +86,32 @@ export default class SelectedFilters extends Component {
 
 	parseValue(item) {
 		let value = item.value;
-		if(item.component === "DatePicker") {
+		if (item.component === "DatePicker") {
 			value = moment(item.value).format("YYYY-MM-DD");
-		} else if(item.component === "DateRange") {
+		} else if (item.component === "DateRange") {
 			value = {
 				start: item.value.startDate ? moment(item.value.startDate).format("YYYY-MM-DD") : null,
 				end: item.value.endDate ? moment(item.value.endDate).format("YYYY-MM-DD") : null
 			}
 			value = JSON.stringify(value);
-		} else if(item.component === "MultiDropdownRange" || item.component === "MultiRange" || item.component === "ToggleButton") {
+		} else if (item.component === "MultiDropdownRange" || item.component === "MultiRange" || item.component === "ToggleButton") {
 			value = item.value.map(range => range.label);
 			value = value.join(", ");
-		} else if(item.component === "SingleRange" || item.component === "SingleDropdownRange") {
+		} else if (item.component === "SingleRange" || item.component === "SingleDropdownRange") {
 			value = item.value.label;
-		} else if(_.isArray(item.value)) {
+		} else if (item.component === "GeoDistanceSlider") {
+			value = item.value.currentValue;
+			if (value && item.value.currentDistance) {
+				value += " (" + item.value.currentDistance + ")";
+			}
+		} else if (item.component === "GeoDistanceDropdown") {
+			value = item.value.currentValue;
+			if (value && item.value.unit && item.value.end) {
+				value += " (" + item.value.start + item.value.unit + " - " + item.value.end + item.value.unit + ")";
+			}
+		} else if (_.isArray(item.value)) {
 			value = item.value.join(", ");
-		} else if(_.isObject(item.value)) {
+		} else if (_.isObject(item.value)) {
 			value = JSON.stringify(item.value);
 		}
 		return value;
