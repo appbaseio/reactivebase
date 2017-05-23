@@ -410,11 +410,19 @@ storiesOf("DataSearch", module)
 			autocomplete={false}
 		/>
 	)))
+	.add("With Weights", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venue"
+			weights={[1, 3]}
+		/>
+	)))
 	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title={text("title", "DataSearch")}
 			placeholder={text("placeholder", "Search Venue")}
 			autocomplete={boolean("autocomplete", true)}
+			weights={array("weights", [1,3])}
 		/>
 	)));
 

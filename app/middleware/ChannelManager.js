@@ -97,7 +97,7 @@ class ChannelManager {
 				searchQueryObj.type = this.type[channelId] === "*" ? "" : this.type[channelId];
 				searchQueryObj.preference = this.app[channelId];
 				setQueryState(channelResponse);
-				// console.log(JSON.stringify(searchQueryObj, null, 4));
+				console.log(JSON.stringify(searchQueryObj, null, 4));
 				appbaseRef.search(searchQueryObj).on("data", (data) => {
 					channelResponse.mode = "historic";
 					channelResponse.data = this.highlightModify(data, channelResponse.appliedQuery);
