@@ -94,10 +94,10 @@ export default class SelectedFilters extends Component {
 				end: item.value.endDate ? moment(item.value.endDate).format("YYYY-MM-DD") : null
 			}
 			value = JSON.stringify(value);
-		} else if (item.component === "MultiDropdownRange" || item.component === "MultiRange" || item.component === "ToggleButton") {
+		} else if (item.component === "MultiDropdownRange" || item.component === "MultiRange" || item.component === "ToggleButton" || item.component === "ToggleList") {
 			value = item.value.map(range => range.label);
 			value = value.join(", ");
-		} else if (item.component === "SingleRange" || item.component === "SingleDropdownRange") {
+		} else if (item.component === "SingleRange" || item.component === "SingleDropdownRange" || item.component === "RatingsFilter") {
 			value = item.value.label;
 		} else if (item.component === "GeoDistanceSlider") {
 			value = item.value.currentValue;
@@ -109,6 +109,13 @@ export default class SelectedFilters extends Component {
 			if (value && item.value.unit && item.value.end) {
 				value += " (" + item.value.start + item.value.unit + " - " + item.value.end + item.value.unit + ")";
 			}
+		} else if (item.component === "CategorySearch") {
+			value = item && item.value && item.value.value ? item.value.value : null;
+			if (item.value.category) {
+				value += " in " + item.value.category;
+			}
+		} else if (item.component === "NestedList") {
+			value = item.value.join(" > ");
 		} else if (_.isArray(item.value)) {
 			value = item.value.join(", ");
 		} else if (_.isObject(item.value)) {
