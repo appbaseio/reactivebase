@@ -42,13 +42,13 @@ export default class ReactiveBase extends Component {
 	getComponents(children) {
 		children = _.isArray(children) ? children : [children];
 		children.forEach(child => {
-			if(child.props && child.props.componentId && child.props.allowFilter !== false) {
+			if(child && child.props && child.props.componentId && child.props.allowFilter !== false) {
 				this.components.push({
 					component: child.type.name,
 					componentId: child.props.componentId
 				});
 			}
-			if(child.props.children) {
+			if(child && child.props && child.props.children) {
 				this.getComponents(child.props.children);
 			}
 		});
