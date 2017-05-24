@@ -13,7 +13,6 @@ export default class SingleDropdownRange extends Component {
 		};
 		this.type = "range";
 		this.urlParams = helper.URLParams.get(this.props.componentId);
-		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -21,29 +20,46 @@ export default class SingleDropdownRange extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if (this.defaultSelected) {
-			const records = this.props.data.filter(record => record.label === this.defaultSelected);
-			if (records && records.length) {
-				if(this.urlParams !== null) {
-					this.handleChange(records[0]);
-				} else {
-					setTimeout(this.handleChange.bind(this, records[0]), 1000);
-				}
-			}
+		this.checkDefault(this.props);
+		this.listenFilter();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.checkDefault(nextProps);
+	}
+
+	componentWillUnmount() {
+		if(this.filterListener) {
+			this.filterListener.remove();
 		}
 	}
 
-	componentWillUpdate() {
-		setTimeout(() => {
-			const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
-			if (this.defaultSelected !== defaultValue) {
-				this.defaultSelected = defaultValue;
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if(data === this.props.componentId) {
+				this.changeValue(null);
+			}
+		});
+	}
+
+	checkDefault(props) {
+		this.urlParams = helper.URLParams.get(props.componentId);
+		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
+		this.changeValue(defaultValue);
+	}
+
+	changeValue(defaultValue) {
+		if (!_.isEqual(this.defaultSelected, defaultValue)) {
+			this.defaultSelected = defaultValue;
+			if(this.defaultSelected) {
 				const records = this.props.data.filter(record => record.label === this.defaultSelected);
 				if (records && records.length) {
 					setTimeout(this.handleChange.bind(this, records[0]), 1000);
 				}
+			} else {
+				this.handleChange(null);
 			}
-		}, 300);
+		}
 	}
 
 	// set the query type and input data
@@ -88,7 +104,8 @@ export default class SingleDropdownRange extends Component {
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, record.label, this.props.URLParams);
+		this.defaultSelected = record;
+		helper.URLParams.update(this.props.componentId, record ? record.label : null, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 

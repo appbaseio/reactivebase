@@ -17,18 +17,27 @@ export default class ItemCheckboxList extends Component {
 
 	componentDidMount() {
 		if (this.props.defaultSelected) {
-			this.defaultUpdate();
+			this.defaultUpdate(this.props);
 		}
 	}
 
-	defaultUpdate() {
-		const defaultSelectAll = this.props.defaultSelected.indexOf(this.props.selectAllLabel) > -1;
+	componentWillReceiveProps(nextProps) {
+		if(nextProps.defaultSelected && nextProps.defaultSelected.length === 0) {
+			this.setState({
+				selectedItems: [],
+				defaultSelectall: null
+			});
+		}
+	}
+
+	defaultUpdate(props) {
+		const defaultSelectAll = props.defaultSelected.indexOf(props.selectAllLabel) > -1;
 		if (defaultSelectAll) {
 			this.setDefaultSelectAll();
 		} else {
 			this.setState({
-				selectedItems: this.props.defaultSelected,
-				defaultSelectall: this.props.defaultSelectall
+				selectedItems: props.defaultSelected,
+				defaultSelectall: props.defaultSelectall
 			}, () => {
 				this.updateAction.bind(this);
 				this.props.onSelect(this.state.selectedItems);

@@ -5,7 +5,8 @@ var ReactDOM = require('react-dom');
 import {
 	ReactiveBase,
 	SingleRange,
-	ReactiveList
+	ReactiveList,
+	SelectedFilters
 } from '../../app/app.js';
 
 import { Img } from "../../app/stories/Img.js";
@@ -46,6 +47,7 @@ class Main extends Component {
 				app="car-store"
 				credentials="cf7QByt5e:d2d60548-82a9-43cc-8b40-93cbbe75c34c"
 			>
+				<SelectedFilters componentId="SelectedFilters" />
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<SingleRange

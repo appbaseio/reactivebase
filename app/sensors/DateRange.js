@@ -29,10 +29,28 @@ export default class DateRange extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		this.checkDefault();
+		this.listenFilter();
 	}
 
-	componentWillUpdate() {
+	componentWillReceiveProps() {
 		this.checkDefault();
+	}
+
+	componentWillUnmount() {
+		if(this.filterListener) {
+			this.filterListener.remove();
+		}
+	}
+
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if(data === this.props.componentId) {
+				this.startDate = null;
+				this.endDate = null;
+				const dateSelectionObj = null;
+				this.handleChange(dateSelectionObj);
+			}
+		});
 	}
 
 	getURLParams() {
@@ -164,9 +182,10 @@ export default class DateRange extends Component {
 		this.setState({
 			currentValue: inputVal
 		});
-		if (inputVal.startDate && inputVal.endDate) {
-			this.setValue(inputVal);
-		}
+		// if (inputVal.startDate && inputVal.endDate) {
+		// 	this.setValue(inputVal);
+		// }
+		this.setValue(inputVal);
 	}
 
 	setValue(inputVal) {
@@ -225,8 +244,8 @@ export default class DateRange extends Component {
 				<div className="rbc-daterange-component col s12 col-xs-12">
 					<DateRangePicker
 						id={this.props.componentId}
-						startDate={this.state.currentValue.startDate}
-						endDate={this.state.currentValue.endDate}
+						startDate={this.state.currentValue ? this.state.currentValue.startDate : null}
+						endDate={this.state.currentValue ? this.state.currentValue.endDate : null}
 						focusedInput={this.state.focusedInput}
 						numberOfMonths={this.props.numberOfMonths}
 						{...this.props.extra}
@@ -261,7 +280,8 @@ DateRange.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat)),
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
@@ -273,7 +293,8 @@ DateRange.defaultProps = {
 		end: null
 	},
 	queryFormat: "epoch_millis",
-	URLParams: false
+	URLParams: false,
+	allowFilter: true
 };
 
 // context type
@@ -284,8 +305,8 @@ DateRange.contextTypes = {
 
 DateRange.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.STRING,
+	appbaseField: TYPES.ARRAY,
+	appbaseFieldType: TYPES.DATE,
 	title: TYPES.STRING,
 	defaultSelected: TYPES.OBJECT,
 	numberOfMonths: TYPES.NUMBER,
@@ -293,5 +314,6 @@ DateRange.types = {
 	extra: TYPES.OBJECT,
 	customQuery: TYPES.FUNCTION,
 	queryFormat: TYPES.STRING,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	allowFilter: TYPES.BOOLEAN
 }

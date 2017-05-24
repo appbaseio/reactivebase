@@ -11,6 +11,7 @@ class ChannelManager {
 		this.streamRef = {};
 		this.queryOptions = {};
 		this.appbaseRef = {};
+		this.appbaseCrdentials = {};
 		this.type = {};
 		this.app = {};
 		this.receive = this.receive.bind(this);
@@ -72,6 +73,32 @@ class ChannelManager {
 				console.log(error);
 			});
 		}
+
+		const appbaseQuery = (appbaseRef, searchQueryObj, channelResponse, channelObj, queryObj) => {
+			appbaseRef.search(searchQueryObj).on("data", (data) => {
+				channelResponse.mode = "historic";
+				channelResponse.data = this.highlightModify(data, channelResponse.appliedQuery);
+				self.emitter.emit(channelId, channelResponse);
+				const globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
+				self.emitter.emit("global", {
+					channelResponse,
+					react: channelObj.react,
+					queryOptions: globalQueryOptions
+				});
+			}).on("error", (error) => {
+				const channelError = {
+					appliedQuery: channelResponse.appliedQuery,
+					error,
+					startTime: channelResponse.startTime
+				};
+				self.emitter.emit(channelId, channelError);
+			});
+			// apply searchStream query and emit streaming data
+			if (channelObj.stream) {
+				activateStream.call(this, channelId, queryObj, appbaseRef);
+			}
+		}
+
 		if (!queryOptions) {
 			queryObj = ChannelHelper.queryBuild(channelObj, channelObj.previousSelectedSensor);
 			this.queryOptions[channelId] = channelObj.previousSelectedSensor[`channel-options-${channelId}`];
@@ -97,29 +124,8 @@ class ChannelManager {
 				searchQueryObj.type = this.type[channelId] === "*" ? "" : this.type[channelId];
 				searchQueryObj.preference = this.app[channelId];
 				setQueryState(channelResponse);
-				// console.log(JSON.stringify(searchQueryObj, null, 4));
-				appbaseRef.search(searchQueryObj).on("data", (data) => {
-					channelResponse.mode = "historic";
-					channelResponse.data = this.highlightModify(data, channelResponse.appliedQuery);
-					self.emitter.emit(channelId, channelResponse);
-					const globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
-					self.emitter.emit("global", {
-						channelResponse,
-						react: channelObj.react,
-						queryOptions: globalQueryOptions
-					});
-				}).on("error", (error) => {
-					const channelError = {
-						appliedQuery: channelResponse.appliedQuery,
-						error,
-						startTime: channelResponse.startTime
-					};
-					self.emitter.emit(channelId, channelError);
-				});
-				// apply searchStream query and emit streaming data
-				if (channelObj.stream) {
-					activateStream.call(this, channelId, queryObj, appbaseRef);
-				}
+				console.log(JSON.stringify(searchQueryObj, null, 4));
+				appbaseQuery(appbaseRef, searchQueryObj, channelResponse, channelObj, queryObj);
 			} else {
 				console.error(`appbaseRef is not set for ${channelId}`);
 			}
@@ -188,7 +194,7 @@ class ChannelManager {
 
 	// Create the channel by passing react
 	// if react are same it will create single channel for them
-	create(appbaseRef, type, react, size = 100, from = 0, stream = false, app="reactivebase") {
+	create(appbaseRef, type, react, size = 100, from = 0, stream = false, app = "reactivebase", appbaseCrdentials=null) {
 		const channelId = btoa(JSON.stringify(react));
 		const optionValues = {
 			size,
@@ -198,6 +204,7 @@ class ChannelManager {
 		this.type[channelId] = type;
 		this.app[channelId] = app;
 		this.appbaseRef[channelId] = appbaseRef;
+		this.appbaseCrdentials[channelId] = appbaseCrdentials;
 		react[`channel-options-${channelId}`] = optionValues;
 		const previousSelectedSensor = {
 			[`channel-options-${channelId}`]: optionValues

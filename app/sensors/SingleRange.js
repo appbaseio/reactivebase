@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classNames from "classnames";
 const helper = require("../middleware/helper.js");
 import * as TYPES from "../middleware/constants.js";
+import _ from "lodash";
 
 export default class SingleRange extends Component {
 	constructor(props, context) {
@@ -11,7 +12,6 @@ export default class SingleRange extends Component {
 		};
 		this.type = "range";
 		this.urlParams = helper.URLParams.get(this.props.componentId);
-		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -19,29 +19,46 @@ export default class SingleRange extends Component {
 	// Set query information
 	componentDidMount() {
 		this.setQueryInfo();
-		if (this.defaultSelected) {
-			const records = this.props.data.filter(record => record.label === this.defaultSelected);
-			if (records && records.length) {
-				if(this.urlParams !== null) {
-					this.handleChange(records[0]);
-				} else {
-					setTimeout(this.handleChange.bind(this, records[0]), 1000);
-				}
-			}
+		this.checkDefault(this.props);
+		this.listenFilter();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.checkDefault(nextProps);
+	}
+
+	componentWillUnmount() {
+		if(this.filterListener) {
+			this.filterListener.remove();
 		}
 	}
 
-	componentWillUpdate() {
-		setTimeout(() => {
-			const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
-			if (this.defaultSelected != defaultValue) {
-				this.defaultSelected = defaultValue;
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if(data === this.props.componentId) {
+				this.changeValue(null);
+			}
+		});
+	}
+
+	checkDefault(props) {
+		this.urlParams = helper.URLParams.get(props.componentId);
+		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
+		this.changeValue(defaultValue);
+	}
+
+	changeValue(defaultValue) {
+		if (!_.isEqual(this.defaultSelected, defaultValue)) {
+			this.defaultSelected = defaultValue;
+			if(this.defaultSelected) {
 				const records = this.props.data.filter(record => record.label === this.defaultSelected);
 				if (records && records.length) {
 					setTimeout(this.handleChange.bind(this, records[0]), 1000);
 				}
+			} else {
+				this.handleChange(null);
 			}
-		}, 300);
+		}
 	}
 
 	// set the query type and input data
@@ -81,12 +98,13 @@ export default class SingleRange extends Component {
 			key: this.props.componentId,
 			value: record
 		};
+		this.defaultSelected = record;
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
 		if (this.props.onValueChange) {
 			this.props.onValueChange(obj.value);
 		}
-		helper.URLParams.update(this.props.componentId, record.label, this.props.URLParams);
+		helper.URLParams.update(this.props.componentId, record ? record.label : null, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -145,13 +163,15 @@ SingleRange.propTypes = {
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object
+	componentStyle: React.PropTypes.object,
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
 SingleRange.defaultProps = {
 	title: null,
-	componentStyle: {}
+	componentStyle: {},
+	allowFilter: true
 };
 
 // context type
@@ -168,5 +188,6 @@ SingleRange.types = {
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT
+	componentStyle: TYPES.OBJECT,
+	allowFilter: TYPES.BOOLEAN
 };

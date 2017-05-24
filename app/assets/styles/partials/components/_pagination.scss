@@ -1,8 +1,22 @@
 .rbc.rbc-pagination {
 	padding: 0;
-	
 	li i {
 		font-size: 1rem;
+	}
+	.rbc-page-one {
+		position: relative;
+		padding-right: 20px;
+		&:before {
+			content: "...";
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 20px;
+			height: 30px;
+			background: transparent;
+			text-align: center;
+			padding: 0;
+		}
 	}
 }
 

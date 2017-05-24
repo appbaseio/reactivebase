@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import classNames from "classnames";
+const _ = require("lodash");
 
 export default class ItemList extends Component {
 	constructor(props) {
@@ -13,27 +14,38 @@ export default class ItemList extends Component {
 		this.handleListClickAll = this.handleListClickAll.bind(this);
 	}
 
-	componentWillUpdate() {
-		if (this.defaultSelected != this.props.defaultSelected) {
-			this.defaultSelected = this.props.defaultSelected;
-			this.defaultSelection();
-		}
-	}
+	// componentWillUpdate() {
+	// 	if (this.defaultSelected != this.props.defaultSelected) {
+	// 		this.defaultSelected = this.props.defaultSelected;
+	// 		this.defaultSelection();
+	// 	}
+	// }
 
 	componentDidUpdate() {
 		if (this.props.items.length && this.defaultAllowed) {
 			this.defaultAllowed = false;
-			this.defaultSelection();
+			// this.defaultSelection();
 		}
 	}
 
-	defaultSelection() {
-		if (this.props.defaultSelected) {
-			if (this.props.defaultSelected === this.props.selectAllLabel) {
-				this.handleListClickAll(this.props.selectAllLabel);
+	componentWillReceiveProps(nextProps) {
+		if(typeof nextProps.defaultSelected !== "undefined" && !_.isArray(nextProps.defaultSelected) && !_.isEqual(this.defaultSelected, nextProps.defaultSelected)) {
+			this.defaultSelected = nextProps.defaultSelected;
+			if(nextProps.defaultSelected === null) {
+				this.setState({
+					selectedItem: null
+				});
 			} else {
-				this.handleClick(this.props.defaultSelected);
+				this.defaultSelection(nextProps.defaultSelected);
 			}
+		}
+	}
+
+	defaultSelection(defaultSelected) {
+		if (defaultSelected === this.props.selectAllLabel) {
+			this.handleListClickAll(this.props.selectAllLabel);
+		} else {
+			this.handleClick(defaultSelected);
 		}
 	}
 

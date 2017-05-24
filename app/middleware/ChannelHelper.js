@@ -126,6 +126,5 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 		const query = combineQuery(dependsQuery);
 		return query;
 	}
-
 	return initialize();
 };

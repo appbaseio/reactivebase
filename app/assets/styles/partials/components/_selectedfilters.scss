@@ -1,0 +1,36 @@
+.rbc-selectedfilters {
+	padding: 0 5px 5px 0;
+	.rbc-tag-item {
+		border-radius: 2px;
+		border: 1px solid;
+		display: inline-block;
+		margin-left: 5px;
+		margin-top: 5px;
+		vertical-align: middle;
+		font-size: .9em;
+		line-height: 1.4;
+		padding: 0;
+		display: inline-block;
+		cursor: pointer;
+
+		span {
+			padding: 0 5px;
+			position: relative;
+			top: 1px;
+		}
+
+		strong {
+			font-weight: bold;
+		}
+
+		.close {
+			display: inline-block;
+			border-bottom-left-radius: 2px;
+			border-top-left-radius: 2px;
+			padding: 1px 5px 3px;
+			background: transparent;
+			border: none;
+			border-right: 1px solid;
+		}
+	}
+}

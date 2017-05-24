@@ -84,6 +84,14 @@ export const validation = {
 	}
 };
 
+export const pagesValidation = function(props, propName) {
+	let err = null;
+	if (!(!isNaN(props[propName]) && props[propName] > 2 && props[propName] < 21)) {
+		err = new Error("Pages should be between 3 and 20.");
+	}
+	return err;
+}
+
 export const reactiveBaseValidation = (props, propName) => {
 	let err = null;
 	if (!props.credentials) {

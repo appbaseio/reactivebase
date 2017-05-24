@@ -109,12 +109,12 @@ export default class Pagination extends Component {
 		let start,
 			numbers = [];
 		for (let i = this.state.currentValue; i > 0; i--) {
-			if (i % 5 === 0 || i === 1) {
+			if (i % this.props.pages === 0 || i % (this.props.pages-1) === 0 || i === 1) {
 				start = i;
 				break;
 			}
 		}
-		for (let i = start; i <= start + 5; i++) {
+		for (let i = start; i < start + this.props.pages; i++) {
 			const singleItem = (
 				<li key={i} className={`rbc-page-number ${this.state.currentValue === i ? "active rbc-pagination-active" : "waves-effect"}`}>
 					<a onClick={() => this.handleChange(i)}>{i}</a>
@@ -125,11 +125,14 @@ export default class Pagination extends Component {
 		}
 		return (
 			<ul className="pagination">
-				<li className={(this.state.currentValue === 1 ? "disabled" : "waves-effect")}><a className="rbc-page-previous" onClick={this.firstPage}><i className="fa fa-angle-double-left" /></a></li>
 				<li className={(this.state.currentValue === 1 ? "disabled" : "waves-effect")}><a className="rbc-page-previous" onClick={this.prePage}><i className="fa fa-angle-left" /></a></li>
+				{
+					this.state.currentValue > this.props.pages ? (
+						<li className={"rbc-page-one "+(this.state.currentValue === 1 ? "disabled" : "waves-effect")}><a className="rbc-page-previous" onClick={this.firstPage}>1</a></li>
+					) : null
+				}
 				{numbers}
 				<li className={(this.state.currentValue === this.state.maxPageNumber ? "disabled" : "waves-effect")}><a className="rbc-page-next" onClick={this.nextPage}><i className="fa fa-angle-right" /></a></li>
-				<li className={(this.state.currentValue === this.state.maxPageNumber ? "disabled" : "waves-effect")}><a className="rbc-page-previous" onClick={this.lastPage}><i className="fa fa-angle-double-right" /></a></li>
 			</ul>
 		);
 	}
@@ -161,11 +164,14 @@ export default class Pagination extends Component {
 Pagination.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	title: React.PropTypes.string,
-	onPageChange: React.PropTypes.func
+	onPageChange: React.PropTypes.func,
+	pages: helper.pagesValidation
 };
 
 // Default props value
-Pagination.defaultProps = {};
+Pagination.defaultProps = {
+	pages: 10
+};
 
 // context type
 Pagination.contextTypes = {

@@ -44,6 +44,7 @@ export default class DataSearch extends Component {
 		this.setQueryInfo();
 		this.createChannel();
 		this.checkDefault();
+		this.listenFilter();
 	}
 
 	componentWillUpdate() {
@@ -58,6 +59,18 @@ export default class DataSearch extends Component {
 		if (this.channelListener) {
 			this.channelListener.remove();
 		}
+		if(this.filterListener) {
+			this.filterListener.remove();
+		}
+	}
+
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if(data === this.props.componentId) {
+				this.defaultValue = "";
+				this.changeValue(this.defaultValue);
+			}
+		});
 	}
 
 	highlightQuery() {
@@ -194,23 +207,37 @@ export default class DataSearch extends Component {
 			}
 			finalQuery = {
 				bool: {
-					should: [{
-						multi_match: {
-							query: value,
-							fields,
-							type: "phrase_prefix"
-						}
-					}, {
-						multi_match: {
-							query: value,
-							fields
-						}
-					}],
+					should: this.shouldQuery(value, fields),
 					minimum_should_match: "1"
 				}
 			};
 		}
 		return finalQuery;
+	}
+
+	shouldQuery(value, fields) {
+		let queries = [];
+		fields.forEach((field, index) => {
+			const query = [{
+				match: {
+					[field]: {
+						query: value
+					}
+				}
+			}, {
+				match_phrase_prefix: {
+					[field]: {
+						query: value
+					}
+				}
+			}];
+			if(_.isArray(this.props.weights) && this.props.weights[index]) {
+				query[0].match[field].boost = this.props.weights[index];
+				query[1].match_phrase_prefix[field].boost = this.props.weights[index];
+			}
+			queries = queries.concat(query);
+		});
+		return queries;
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
@@ -244,8 +271,12 @@ export default class DataSearch extends Component {
 
 	checkDefault() {
 		this.defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
-		if (this.defaultValue && this.defaultSelected != this.defaultValue) {
-			this.defaultSelected = this.defaultValue;
+		this.changeValue(this.defaultValue);
+	}
+
+	changeValue(defaultValue) {
+		if (this.defaultSelected != defaultValue) {
+			this.defaultSelected = defaultValue;
 			setTimeout(this.setValue.bind(this, this.defaultSelected), 100);
 			this.handleSearch({
 				value: this.defaultSelected
@@ -261,6 +292,7 @@ export default class DataSearch extends Component {
 			key: this.props.componentId,
 			value
 		};
+		helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
 		helper.selectedSensor.set(obj, true);
 		this.setState({
 			currentValue: value
@@ -281,6 +313,7 @@ export default class DataSearch extends Component {
 		}
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
+		helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -334,6 +367,7 @@ DataSearch.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
+	weights: React.PropTypes.arrayOf(React.PropTypes.number),
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -350,7 +384,8 @@ DataSearch.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
@@ -359,7 +394,8 @@ DataSearch.defaultProps = {
 	autocomplete: true,
 	componentStyle: {},
 	highlight: false,
-	URLParams: false
+	URLParams: false,
+	allowFilter: true
 };
 
 // context type
@@ -380,5 +416,7 @@ DataSearch.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	highlight: TYPES.BOOLEAN,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	allowFilter: TYPES.BOOLEAN,
+	weights: TYPES.OBJECT
 };
