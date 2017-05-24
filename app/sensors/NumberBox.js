@@ -163,7 +163,7 @@ export default class NumberBox extends Component {
 		}, this.updateQuery.bind(this));
 	}
 
-	updateQuery(currentValue=this.start.currentValue) {
+	updateQuery(currentValue=this.state.currentValue) {
 		const obj = {
 			key: this.props.componentId,
 			value: {
