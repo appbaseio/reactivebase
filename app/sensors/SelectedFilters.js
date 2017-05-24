@@ -114,6 +114,8 @@ export default class SelectedFilters extends Component {
 			if (item.value.category) {
 				value += " in " + item.value.category;
 			}
+		} else if (item.component === "PlacesSearch") {
+			value = item.value.currentValue;
 		} else if (item.component === "NestedList") {
 			value = item.value.join(" > ");
 		} else if (_.isArray(item.value)) {
