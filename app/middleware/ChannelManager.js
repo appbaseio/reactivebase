@@ -124,7 +124,7 @@ class ChannelManager {
 				searchQueryObj.type = this.type[channelId] === "*" ? "" : this.type[channelId];
 				searchQueryObj.preference = this.app[channelId];
 				setQueryState(channelResponse);
-				console.log(JSON.stringify(searchQueryObj, null, 4));
+				// console.log(JSON.stringify(searchQueryObj, null, 4));
 				appbaseQuery(appbaseRef, searchQueryObj, channelResponse, channelObj, queryObj);
 			} else {
 				console.error(`appbaseRef is not set for ${channelId}`);
