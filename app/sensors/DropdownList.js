@@ -44,6 +44,7 @@ export default class DropdownList extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		const items = this.state.items;
+		this.checkDefault(nextProps);
 		if (nextProps.selectAllLabel !== this.props.selectAllLabel) {
 			if (this.props.selectAllLabel) {
 				items.shift();
@@ -59,10 +60,6 @@ export default class DropdownList extends Component {
 		if(this.filterListener) {
 			this.filterListener.remove();
 		}
-	}
-
-	componentWillReceiveProps() {
-		this.checkDefault(nextProps);
 	}
 
 	listenFilter() {
