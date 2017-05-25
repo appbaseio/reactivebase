@@ -105,15 +105,15 @@ export default class Pagination extends Component {
 		}
 	}
 
+	getStart() {
+		const midValue = parseInt(this.props.pages/2, 10);
+		const start =  this.state.currentValue - midValue;
+		return start > 1 ? start : 1;
+	}
+
 	renderPageNumber() {
-		let start,
+		let start = this.getStart(),
 			numbers = [];
-		for (let i = this.state.currentValue; i > 0; i--) {
-			if (i % this.props.pages === 0 || i % (this.props.pages-1) === 0 || i === 1) {
-				start = i;
-				break;
-			}
-		}
 		for (let i = start; i < start + this.props.pages; i++) {
 			const singleItem = (
 				<li key={i} className={`rbc-page-number ${this.state.currentValue === i ? "active rbc-pagination-active" : "waves-effect"}`}>
@@ -127,7 +127,7 @@ export default class Pagination extends Component {
 			<ul className="pagination">
 				<li className={(this.state.currentValue === 1 ? "disabled" : "waves-effect")}><a className="rbc-page-previous" onClick={this.prePage}><i className="fa fa-angle-left" /></a></li>
 				{
-					this.state.currentValue > this.props.pages ? (
+					start !== 1 ? (
 						<li className={"rbc-page-one "+(this.state.currentValue === 1 ? "disabled" : "waves-effect")}><a className="rbc-page-previous" onClick={this.firstPage}>1</a></li>
 					) : null
 				}
