@@ -353,12 +353,12 @@ export default class DropdownList extends Component {
 			"rbc-initialloader-inactive": !this.props.initialLoader
 		});
 
-		return (
-			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
-				<div className="row">
-					{title}
-					<div className="col s12 col-xs-12">
-						{this.state.items.length ?
+		if (this.state.items.length) {
+			return (
+				<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
+					<div className="row">
+						{title}
+						<div className="col s12 col-xs-12">
 							<Select
 								options={this.state.items}
 								clearable={false}
@@ -369,12 +369,15 @@ export default class DropdownList extends Component {
 								placeholder={this.props.placeholder}
 								optionRenderer={this.renderOption}
 								searchable
-							/> : null }
+							/>
+						</div>
 					</div>
+					{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader} />) : null}
 				</div>
-				{this.props.initialLoader && this.state.queryStart ? (<InitialLoader defaultText={this.props.initialLoader} />) : null}
-			</div>
-		);
+			);
+		}
+
+		return null;
 	}
 }
 
