@@ -1359,7 +1359,8 @@ a {
         -webkit-font-smoothing: antialiased; }
         .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow:before {
           content: "\f002"; }
-  .rbc.rbc-datasearch .Select--single > .Select-control .Select-value, .rbc.rbc-datasearch .Select-placeholder {
+  .rbc.rbc-datasearch .Select--single > .Select-control .Select-value,
+  .rbc.rbc-datasearch .Select-placeholder {
     line-height: 50px; }
   .rbc.rbc-datasearch .Select-placeholder,
   .rbc.rbc-datasearch .Select-control,
@@ -1397,6 +1398,14 @@ a {
       -webkit-font-smoothing: antialiased; }
       .rbc.rbc-datasearch .rbc-search-container .rbc-search-icon:before {
         content: "\f002"; }
+
+.rbc .Select .Select-menu-outer .Select-menu .Select-option {
+  max-height: 42px;
+  overflow: hidden;
+  line-height: 22px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all; }
 
 .rbc.rbc-singledropdownlist, .rbc.rbc-multidropdownlist,
 .rbc.rbc-singledropdownrange, .rbc.rbc-multidropdownrange {
