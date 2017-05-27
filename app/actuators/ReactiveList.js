@@ -98,7 +98,7 @@ export default class ReactiveList extends Component {
 
 	// check the height and set scroll if scroll not exists
 	componentDidUpdate() {
-		if (!this.state.showPlaceholder) {
+		if (!this.state.showPlaceholder && !this.props.scrollOnTarget) {
 			this.applyScroll();
 		}
 	}
@@ -498,15 +498,19 @@ export default class ReactiveList extends Component {
 		function setScroll(node) {
 			if (node) {
 				node.addEventListener("scroll", () => {
-					if (this.state.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= node.scrollHeight && this.state.resultStats.total > this.state.currentData.length && !this.state.queryStart) {
+					const scrollHeight = node.scrollHeight || node.scrollHeight === 0 ? node.scrollHeight : $(node).height();
+					if (this.state.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= scrollHeight && this.state.resultStats.total > this.state.currentData.length && !this.state.queryStart) {
 						this.nextPage();
 					}
 				});
 			}
 		}
-
-		setScroll.call(this, this.listParentElement);
-		setScroll.call(this, this.listChildElement);
+		if (this.props.scrollOnTarget) {
+			setScroll.call(this, this.props.scrollOnTarget);
+		} else {
+			setScroll.call(this, this.listParentElement);
+			setScroll.call(this, this.listChildElement);
+		}
 	}
 
 	handleSortSelect(event) {
@@ -521,6 +525,16 @@ export default class ReactiveList extends Component {
 			value: this.sortObj
 		};
 		helper.selectedSensor.set(obj, true, "sortChange");
+	}
+
+	getComponentStyle() {
+		let componentStyle = {};
+		if(this.props.scrollOnTarget) {
+			componentStyle.maxHeight = "none";
+			componentStyle.height = "auto";
+		}
+		componentStyle = Object.assign(componentStyle, this.props.componentStyle);
+		return componentStyle;
 	}
 
 	render() {
@@ -567,7 +581,7 @@ export default class ReactiveList extends Component {
 
 		return (
 			<div className="rbc-reactivelist-container">
-				<div ref={(div) => { this.listParentElement = div; }} className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.props.componentStyle}>
+				<div ref={(div) => { this.listParentElement = div; }} className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.getComponentStyle()}>
 					{title}
 					{sortOptions}
 					{this.props.showResultStats && this.state.resultStats.resultFound ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
@@ -628,7 +642,8 @@ ReactiveList.propTypes = {
 	react: React.PropTypes.object,
 	paginationAt: React.PropTypes.string,
 	pagination: React.PropTypes.bool,
-	pages: React.PropTypes.number
+	pages: React.PropTypes.number,
+	scrollOnTarget: React.PropTypes.object
 };
 
 ReactiveList.defaultProps = {
@@ -670,5 +685,6 @@ ReactiveList.types = {
 	placeholder: TYPES.STRING,
 	pagination: TYPES.BOOLEAN,
 	paginationAt: TYPES.STRING,
-	pages: TYPES.NUMBER
+	pages: TYPES.NUMBER,
+	scrollOnTarget: TYPES.OBJECT
 };
