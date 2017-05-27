@@ -343,6 +343,8 @@ export default class DataSearch extends Component {
 							onInputChange={this.setValue}
 							onChange={this.handleSearch}
 							onBlurResetsInput={false}
+							backspaceRemoves={false}
+							deleteRemoves={false}
 							{...this.props}
 						/> :
 						<div className="rbc-search-container col s12 col-xs-12">

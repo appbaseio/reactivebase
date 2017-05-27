@@ -264,6 +264,7 @@ export default class DropdownList extends Component {
 			}
 			return item;
 		});
+		newItems = newItems.filter(item => item && item.label && item.label.trim());
 		if (this.props.selectAllLabel) {
 			newItems.unshift({ label: this.props.selectAllLabel, value: this.props.selectAllLabel });
 		}
