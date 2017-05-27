@@ -14,6 +14,12 @@ export default class ItemList extends Component {
 		this.handleListClickAll = this.handleListClickAll.bind(this);
 	}
 
+	componentDidMount() {
+		if (this.props.defaultSelected) {
+			this.handleClick(this.props.defaultSelected);
+		}
+	}
+
 	// componentWillUpdate() {
 	// 	if (this.defaultSelected != this.props.defaultSelected) {
 	// 		this.defaultSelected = this.props.defaultSelected;
