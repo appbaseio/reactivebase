@@ -347,6 +347,10 @@ export default class NativeList extends Component {
 			searchComponent = null,
 			title = null;
 
+		if (this.state.items.length === 0) {
+			return null;
+		}
+
 		if (this.props.multipleSelect) {
 			listComponent = (<ItemCheckboxList
 				items={this.state.items}
