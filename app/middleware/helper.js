@@ -248,13 +248,13 @@ const SerializeDepends = function () {
 			delete query.query;
 			return query;
 		});
+		
 
 		function setQuery(depend) {
 			let subQuery = [];
 			let queryArray = null;
 			const getParent = serializeResultQuery.filter(dep => dep.componentId === depend.parentId);
-
-			if (Object.prototype.toString.call(depend.components) === "[object Array]") {
+			if (_.isArray(depend.components)) {
 				depend.components.forEach((comp) => {
 					if (dependsQuery[comp]) {
 						if (queryArray) {
@@ -265,7 +265,7 @@ const SerializeDepends = function () {
 						}
 					}
 				});
-			}			else if (typeof depend.components === "string") {
+			} else if (typeof depend.components === "string") {
 				if (dependsQuery[depend.components]) {
 					queryArray = dependsQuery[depend.components];
 				}
@@ -276,6 +276,8 @@ const SerializeDepends = function () {
 			} else {
 				subQuery = queryArray;
 			}
+			console.log("depend", depend.componentId, depend.components, depend.parentId, getParent.length);
+			// console.log(serializeResultQuery);
 			if (subQuery) {
 				serializeResultQuery = serializeResultQuery.map((dep) => {
 					if (getParent.length && dep.componentId === getParent[0].componentId) {
@@ -294,6 +296,36 @@ const SerializeDepends = function () {
 			return flag;
 		}
 
+		function mixQuery() {
+			serializeResultQuery.forEach((sub) => {
+				setnewquery(sub);
+			});
+		}
+
+		function setnewquery(sub) {
+			if(!sub.query && sub.components) {
+				sub.query = [];
+				const child = serializeResultQuery.filter(item => item.parentId === sub.componentId);
+				child.forEach((sub2, index2) => {
+					const semiquery = setnewquery(sub2);
+					if(semiquery) {
+						if(_.isArray(semiquery)) {
+							if(semiquery.length) {
+								sub.query.push(semiquery);
+							}
+						} else {
+							sub.query.push(semiquery);
+						}
+					}
+					if(index2 === child.length -1 && sub.query.length && sub.conjunction && sub.conjunction !== "aggs") {
+						sub.query = createBoolQuery(sub.conjunction, sub.query);
+					}
+				});
+			} else {
+				return sub.query;
+			}
+		}
+
 		function finalQuery() {
 			let query = {};
 			let aggs = null;
@@ -310,9 +342,7 @@ const SerializeDepends = function () {
 			if (query && Object.keys(query).length) {
 				fullQuery = {
 					body: {
-						query: {
-							bool: query
-						}
+						query: query
 					}
 				};
 			}
@@ -342,6 +372,7 @@ const SerializeDepends = function () {
 			if (uncheckedQueryFound) {
 				return checkAndMake();
 			}
+			mixQuery();
 			return finalQuery();
 		}
 
@@ -374,7 +405,9 @@ const SerializeDepends = function () {
 			const operation = getOperation(conjunction);
 			if (conjunctions.indexOf(conjunction) > -1) {
 				query = {
-					[operation]: queryArray
+					bool: {
+						[operation]: queryArray
+					}
 				};
 			}
 			return query;
