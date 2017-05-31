@@ -276,8 +276,6 @@ const SerializeDepends = function () {
 			} else {
 				subQuery = queryArray;
 			}
-			console.log("depend", depend.componentId, depend.components, depend.parentId, getParent.length);
-			// console.log(serializeResultQuery);
 			if (subQuery) {
 				serializeResultQuery = serializeResultQuery.map((dep) => {
 					if (getParent.length && dep.componentId === getParent[0].componentId) {
