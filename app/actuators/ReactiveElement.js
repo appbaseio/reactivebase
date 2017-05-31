@@ -101,18 +101,10 @@ export default class ReactiveElement extends Component {
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel(executeChannel = false) {
 		// Set the react - add self aggs query as well with react
-		const react = this.props.react ? this.props.react : {};
-		if (react && react.and) {
-			if (typeof react.and === "string") {
-				react.and = [react.and];
-			}
-		} else {
-			react.and = [];
-		}
-		react.and.push("streamChanges");
-		if (this.sortObj) {
-			this.enableSort(react);
-		}
+		let react = this.props.react ? this.props.react : {};
+		const reactAnd = ["streamChanges"];
+		react = helper.setupReact(react, reactAnd);
+		
 		// create a channel and listen the changes
 		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.context.app);
 		this.channelId = channelObj.channelId;
