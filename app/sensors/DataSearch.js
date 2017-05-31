@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Select from "react-select";
+import Autosuggest from "react-autosuggest";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
 import * as TYPES from "../middleware/constants";
@@ -8,11 +8,6 @@ import _ from "lodash";
 const helper = require("../middleware/helper");
 
 export default class DataSearch extends Component {
-	// Search results often contain duplicate results, so display only unique values
-	removeDuplicates(myArr, prop) {
-		return myArr.filter((obj, pos, arr) => arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos);
-	}
-
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -34,6 +29,9 @@ export default class DataSearch extends Component {
 		this.handleSearch = this.handleSearch.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.setValue = this.setValue.bind(this);
+		this.onInputChange = this.onInputChange.bind(this);
+		this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
+		this.clearSuggestions = this.clearSuggestions.bind(this);
 		this.defaultSearchQuery = this.defaultSearchQuery.bind(this);
 		this.previousSelectedSensor = {};
 		this.urlParams = helper.URLParams.get(this.props.componentId);
@@ -163,6 +161,11 @@ export default class DataSearch extends Component {
 			});
 		}
 		return val;
+	}
+
+	// Search results often contain duplicate results, so display only unique values
+	removeDuplicates(myArr, prop) {
+		return myArr.filter((obj, pos, arr) => arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos);
 	}
 
 	// set data after get the result
@@ -317,6 +320,32 @@ export default class DataSearch extends Component {
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
+	onInputChange(event, { method, newValue }) {
+		if (method === "type") {
+			this.setValue(newValue);
+		}
+	}
+
+	onSuggestionSelected(event, { suggestion }) {
+		this.handleSearch(suggestion);
+	}
+
+	clearSuggestions() {
+		this.setState({
+			options: []
+		});
+	}
+
+	getSuggestionValue(suggestion) {
+		return suggestion.label;
+	}
+
+	renderSuggestion(suggestion) {
+		return (
+			<span>{suggestion.label}</span>
+		);
+	}
+
 	render() {
 		let title = null;
 		if (this.props.title) {
@@ -332,20 +361,23 @@ export default class DataSearch extends Component {
 		});
 
 		return (
-			<div className={`rbc rbc-datasearch col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
+			<div className={`rbc rbc-datasearch col s12 col-xs-12 card thumbnail ${cx} ${this.state.isLoadingOptions ? "is-loading" : ""}`} style={this.props.componentStyle}>
 				{title}
 				{
 					this.props.autocomplete ?
-						<Select
-							isLoading={this.state.isLoadingOptions}
-							value={this.state.currentValue}
-							options={this.state.options}
-							onInputChange={this.setValue}
-							onChange={this.handleSearch}
-							onBlurResetsInput={false}
-							backspaceRemoves={false}
-							deleteRemoves={false}
-							{...this.props}
+						<Autosuggest
+							suggestions={this.state.options}
+							onSuggestionsFetchRequested={() => {}}
+							onSuggestionsClearRequested={this.clearSuggestions}
+							onSuggestionSelected={this.onSuggestionSelected}
+							getSuggestionValue={this.getSuggestionValue}
+							renderSuggestion={this.renderSuggestion}
+							focusInputOnSuggestionClick={false}
+							inputProps={{
+								placeholder: this.props.placeholder,
+								value: this.state.currentValue === null ? "" : this.state.currentValue,
+								onChange: this.onInputChange
+							}}
 						/> :
 						<div className="rbc-search-container col s12 col-xs-12">
 							<input
