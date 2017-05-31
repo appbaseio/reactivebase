@@ -32,6 +32,8 @@ export default class DataSearch extends Component {
 		this.onInputChange = this.onInputChange.bind(this);
 		this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
 		this.clearSuggestions = this.clearSuggestions.bind(this);
+		this.handleBlur = this.handleBlur.bind(this);
+		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.defaultSearchQuery = this.defaultSearchQuery.bind(this);
 		this.previousSelectedSensor = {};
 		this.urlParams = helper.URLParams.get(this.props.componentId);
@@ -215,6 +217,13 @@ export default class DataSearch extends Component {
 				}
 			};
 		}
+
+		if (value === "") {
+			finalQuery = {
+				"match_all": {}
+			}
+		}
+
 		return finalQuery;
 	}
 
@@ -320,6 +329,18 @@ export default class DataSearch extends Component {
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
+	handleBlur() {
+		this.handleSearch({
+			value: this.state.currentValue
+		});
+	}
+
+	handleKeyPress(event) {
+		if (event.key === "Enter") {
+			event.target.blur();
+		}
+	}
+
 	onInputChange(event, { method, newValue }) {
 		if (method === "type") {
 			this.setValue(newValue);
@@ -376,7 +397,9 @@ export default class DataSearch extends Component {
 							inputProps={{
 								placeholder: this.props.placeholder,
 								value: this.state.currentValue === null ? "" : this.state.currentValue,
-								onChange: this.onInputChange
+								onChange: this.onInputChange,
+								onBlur: this.handleBlur,
+								onKeyPress: this.handleKeyPress
 							}}
 						/> :
 						<div className="rbc-search-container col s12 col-xs-12">
