@@ -206,7 +206,7 @@ a {
 .rbc-highlight {
   background: yellow; }
 
-.rbc-red .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
+.rbc-red .rbc.rbc-datasearch .react-autosuggest__container:before {
   color: red; }
 
 .rbc-red .rbc-poweredby .rbc-img-responsive.rbc-poweredby-dark {
@@ -390,7 +390,7 @@ a {
 .rbc-red a {
   color: #777; }
 
-.rbc-orange .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
+.rbc-orange .rbc.rbc-datasearch .react-autosuggest__container:before {
   color: orange; }
 
 .rbc-orange .rbc-poweredby .rbc-img-responsive.rbc-poweredby-dark {
@@ -574,7 +574,7 @@ a {
 .rbc-orange a {
   color: #777; }
 
-.rbc-yellow .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
+.rbc-yellow .rbc.rbc-datasearch .react-autosuggest__container:before {
   color: yellow; }
 
 .rbc-yellow .rbc-poweredby .rbc-img-responsive.rbc-poweredby-dark {
@@ -758,7 +758,7 @@ a {
 .rbc-yellow a {
   color: #777; }
 
-.rbc-green .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
+.rbc-green .rbc.rbc-datasearch .react-autosuggest__container:before {
   color: green; }
 
 .rbc-green .rbc-poweredby .rbc-img-responsive.rbc-poweredby-dark {
@@ -942,7 +942,7 @@ a {
 .rbc-green a {
   color: #777; }
 
-.rbc-blue .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
+.rbc-blue .rbc.rbc-datasearch .react-autosuggest__container:before {
   color: #1893e7; }
 
 .rbc-blue .rbc-poweredby .rbc-img-responsive.rbc-poweredby-dark {
@@ -1126,7 +1126,7 @@ a {
 .rbc-blue a {
   color: #777; }
 
-.rbc-dark .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
+.rbc-dark .rbc.rbc-datasearch .react-autosuggest__container:before {
   color: #ccc; }
 
 .rbc-dark .rbc-poweredby .rbc-img-responsive.rbc-poweredby-dark {
@@ -1327,63 +1327,19 @@ a {
   background-color: #444; }
 
 .rbc.rbc-datasearch {
-  margin-top: 10px;
+  margin: 0;
   padding: 0;
-  z-index: 100; }
-  .rbc.rbc-datasearch .is-focused:not(.is-open) > .Select-control {
-    box-shadow: none;
-    border: 0; }
-  .rbc.rbc-datasearch .Select-control {
-    border: 0;
-    height: 48px;
-    border-radius: 0;
-    font-family: "Lato Regular";
-    background: whitesmoke;
-    outline: none; }
-    .rbc.rbc-datasearch .Select-control:hover, .rbc.rbc-datasearch .Select-control:focus {
-      outline: none; }
-    .rbc.rbc-datasearch .Select-control .Select-clear {
-      background: whitesmoke; }
-    .rbc.rbc-datasearch .Select-control .Select-arrow-zone {
-      position: absolute;
-      right: 6px;
-      top: 12px; }
-      .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow {
-        border: 0;
-        width: 30px;
-        height: 30px;
-        display: inline-block;
-        font: normal normal normal 14px/1 FontAwesome;
-        font-size: inherit;
-        text-rendering: auto;
-        -webkit-font-smoothing: antialiased; }
-        .rbc.rbc-datasearch .Select-control .Select-arrow-zone .Select-arrow:before {
-          content: "\f002"; }
-  .rbc.rbc-datasearch .Select--single > .Select-control .Select-value, .rbc.rbc-datasearch .Select-placeholder {
-    line-height: 50px; }
-  .rbc.rbc-datasearch .Select-placeholder,
-  .rbc.rbc-datasearch .Select-control,
-  .rbc.rbc-datasearch .Select--single > .Select-control .Select-value {
-    padding-right: 30px; }
-  .rbc.rbc-datasearch .Select-input {
-    height: 48px; }
-    .rbc.rbc-datasearch .Select-input input {
-      height: 48px;
-      line-height: 36px;
-      padding: 0;
-      -webkit-transition: none;
-      -moz-transition: none;
-      -ms-transition: none;
-      -o-transition: none;
-      transition: none; }
-    .rbc.rbc-datasearch .Select-input:hover, .rbc.rbc-datasearch .Select-input:focus {
-      outline: none; }
-  .rbc.rbc-datasearch .Select-menu-outer .Select-option em {
-    font-family: "Lato Bold"; }
-  .rbc.rbc-datasearch .rbc-search-container {
-    padding: 0;
+  display: flex;
+  flex-direction: column; }
+  .rbc.rbc-datasearch input {
+    margin: 0;
+    padding: 0 35px 0 10px;
+    background-color: whitesmoke;
+    box-sizing: border-box; }
+  .rbc.rbc-datasearch .react-autosuggest__container {
     position: relative; }
-    .rbc.rbc-datasearch .rbc-search-container .rbc-search-icon {
+    .rbc.rbc-datasearch .react-autosuggest__container:before {
+      content: "\f002";
       position: absolute;
       top: 15px;
       right: -6px;
@@ -1395,8 +1351,46 @@ a {
       font-size: inherit;
       text-rendering: auto;
       -webkit-font-smoothing: antialiased; }
-      .rbc.rbc-datasearch .rbc-search-container .rbc-search-icon:before {
-        content: "\f002"; }
+  .rbc.rbc-datasearch .react-autosuggest__input--focused {
+    outline: none; }
+  .rbc.rbc-datasearch .react-autosuggest__input--open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; }
+  .rbc.rbc-datasearch .react-autosuggest__suggestions-container {
+    display: none; }
+  .rbc.rbc-datasearch .react-autosuggest__suggestions-container--open {
+    display: block;
+    position: absolute;
+    top: calc(3em - 2px);
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 16px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    z-index: 2; }
+  .rbc.rbc-datasearch .react-autosuggest__suggestions-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    max-height: 210px;
+    overflow-y: scroll; }
+  .rbc.rbc-datasearch .react-autosuggest__suggestion {
+    cursor: pointer;
+    padding: 10px;
+    word-wrap: break-word; }
+    .rbc.rbc-datasearch .react-autosuggest__suggestion span {
+      display: block;
+      display: -webkit-box;
+      height: auto;
+      max-height: 44px;
+      line-height: 1.375em;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+  .rbc.rbc-datasearch .react-autosuggest__suggestion--highlighted {
+    background-color: #ddd; }
 
 .rbc.rbc-singledropdownlist, .rbc.rbc-multidropdownlist,
 .rbc.rbc-singledropdownrange, .rbc.rbc-multidropdownrange {

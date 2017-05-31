@@ -3,12 +3,8 @@ $themes: ( rbc-red: (color: red, background: #fff, font-color: #777, input-bg: #
 $map in $themes {
 	.#{$theme} {
 		.rbc.rbc-datasearch {
-			.Select-control {
-				.Select-arrow-zone {
-					.Select-arrow {
-						color: map-get($map, color);
-					}
-				}
+			.react-autosuggest__container:before {
+				color: map-get($map, color);
 			}
 		}
 		.rbc-poweredby {
