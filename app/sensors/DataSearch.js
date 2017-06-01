@@ -325,10 +325,12 @@ export default class DataSearch extends Component {
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
-	handleBlur() {
-		this.handleSearch({
-			value: this.state.currentValue
-		});
+	handleBlur(event, { highlightedSuggestion }) {
+		if (!highlightedSuggestion || !highlightedSuggestion.label) {
+			this.handleSearch({
+				value: this.state.currentValue
+			});
+		}
 	}
 
 	handleKeyPress(event) {
