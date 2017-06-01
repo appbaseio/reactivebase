@@ -42,7 +42,7 @@ export default class DataSearchHighlight extends Component {
 							componentId="InputSensor"
 							appbaseField={["title", "text", "by"]}
 							placeholder="Search posts by title, text or author..."
-							autocomplete={false}
+							autoSuggest={false}
 							highlight={true}
 						/>
 					</div>

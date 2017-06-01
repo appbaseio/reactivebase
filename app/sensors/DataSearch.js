@@ -271,7 +271,7 @@ export default class DataSearch extends Component {
 			this.setState({
 				rawData
 			});
-			if (this.props.autocomplete) {
+			if (this.props.autoSuggest) {
 				this.setData(rawData);
 			}
 		});
@@ -321,7 +321,7 @@ export default class DataSearch extends Component {
 		}
 		// pass the selected sensor value with componentId as key,
 		const isExecuteQuery = true;
-		helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
+		helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
@@ -375,15 +375,15 @@ export default class DataSearch extends Component {
 			"rbc-title-inactive": !this.props.title,
 			"rbc-placeholder-active": this.props.placeholder,
 			"rbc-placeholder-inactive": !this.props.placeholder,
-			"rbc-autocomplete-active": this.props.autocomplete,
-			"rbc-autocomplete-inactive": !this.props.autocomplete
+			"rbc-autoSuggest-active": this.props.autoSuggest,
+			"rbc-autoSuggest-inactive": !this.props.autoSuggest
 		});
 
 		return (
 			<div className={`rbc rbc-datasearch col s12 col-xs-12 card thumbnail ${cx} ${this.state.isLoadingOptions ? "is-loading" : ""}`} style={this.props.componentStyle}>
 				{title}
 				{
-					this.props.autocomplete ?
+					this.props.autoSuggest ?
 						<Autosuggest
 							suggestions={this.state.options}
 							onSuggestionsFetchRequested={() => {}}
@@ -428,7 +428,7 @@ DataSearch.propTypes = {
 		React.PropTypes.element
 	]),
 	placeholder: React.PropTypes.string,
-	autocomplete: React.PropTypes.bool,
+	autoSuggest: React.PropTypes.bool,
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
@@ -446,7 +446,7 @@ DataSearch.propTypes = {
 // Default props value
 DataSearch.defaultProps = {
 	placeholder: "Search",
-	autocomplete: true,
+	autoSuggest: true,
 	componentStyle: {},
 	highlight: false,
 	URLParams: false,
@@ -466,7 +466,7 @@ DataSearch.types = {
 	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
-	autocomplete: TYPES.BOOLEAN,
+	autoSuggest: TYPES.BOOLEAN,
 	defaultSelected: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,

@@ -6,14 +6,24 @@ $input-bg: darken($light-grey, 2%);
 	display: flex;
 	flex-direction: column;
 
+	.rbc-search-container {
+		padding: 0;
+
+		input {
+			border-bottom: 2px solid $input-bg;
+		}
+	}
+
 	input {
+		width: 100%;
 		margin: 0;
 		padding: 0 35px 0 10px;
 		background-color: $input-bg;
 		box-sizing: border-box;
 	}
 	
-	.react-autosuggest__container {
+	.react-autosuggest__container,
+	.rbc-search-container {
 		position: relative;
 
 		&:before {
@@ -23,6 +33,7 @@ $input-bg: darken($light-grey, 2%);
 			right: -6px;
 			border: 0;
 			width: 30px;
+			z-index: 1;
 			height: 30px;
 			display: inline-block;
 			font: normal normal normal 14px/1 FontAwesome;
