@@ -215,7 +215,7 @@ export default class MultiRange extends Component {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
-		if (this.state.selected) {
+		if (this.state.selected && this.props.showTags) {
 			this.state.selected.forEach((item) => {
 				TagItemsArray.push(<Tag
 					key={item.label}
@@ -277,13 +277,15 @@ MultiRange.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool
+	allowFilter: React.PropTypes.bool,
+	showTags: React.PropTypes.bool
 };
 
 // Default props value
 MultiRange.defaultProps = {
 	URLParams: false,
-	allowFilter: true
+	allowFilter: true,
+	showTags: true
 };
 
 // context type
@@ -302,5 +304,6 @@ MultiRange.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN
+	allowFilter: TYPES.BOOLEAN,
+	showTags: TYPES.BOOLEAN
 };
