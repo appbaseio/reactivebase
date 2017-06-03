@@ -357,6 +357,7 @@ export default class NativeList extends Component {
 				defaultSelected={this.state.defaultSelected}
 				selectAllLabel={this.props.selectAllLabel}
 				selectAllValue={this.state.selectAll}
+				showTags={this.props.showTags}
 			/>);
 		} else {
 			listComponent = (<ItemList
@@ -437,7 +438,8 @@ NativeList.propTypes = {
 	showRadio: React.PropTypes.bool,
 	showCheckbox: React.PropTypes.bool,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool
+	allowFilter: React.PropTypes.bool,
+	showTags: React.PropTypes.bool
 };
 
 // Default props value
@@ -454,7 +456,8 @@ NativeList.defaultProps = {
 	showRadio: true,
 	showCheckbox: true,
 	URLParams: false,
-	allowFilter: true
+	allowFilter: true,
+	showTags: true
 };
 
 // context type
