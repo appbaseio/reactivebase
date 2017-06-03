@@ -73,7 +73,7 @@ export default class ReactiveElement extends Component {
 		return result;
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		this.streamProp = this.props.stream;
 		this.initialize();
 	}
@@ -104,7 +104,7 @@ export default class ReactiveElement extends Component {
 		let react = this.props.react ? this.props.react : {};
 		const reactAnd = ["streamChanges"];
 		react = helper.setupReact(react, reactAnd);
-		
+
 		// create a channel and listen the changes
 		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.context.app);
 		this.channelId = channelObj.channelId;
