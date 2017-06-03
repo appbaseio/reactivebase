@@ -14,6 +14,7 @@ class ChannelManager {
 		this.appbaseCrdentials = {};
 		this.type = {};
 		this.app = {};
+		this.channelQueries = {};
 		this.receive = this.receive.bind(this);
 		this.nextPage = this.nextPage.bind(this);
 		this.paginationChanges = this.paginationChanges.bind(this);
@@ -123,9 +124,11 @@ class ChannelManager {
 				const searchQueryObj = queryObj;
 				searchQueryObj.type = this.type[channelId] === "*" ? "" : this.type[channelId];
 				searchQueryObj.preference = this.app[channelId];
-				setQueryState(channelResponse);
-				// console.log(JSON.stringify(searchQueryObj, null, 4));
-				appbaseQuery(appbaseRef, searchQueryObj, channelResponse, channelObj, queryObj);
+				if(!_.isEqual(this.channelQueries[channelId], searchQueryObj)) {
+					this.channelQueries[channelId] = searchQueryObj;
+					setQueryState(channelResponse);
+					appbaseQuery(appbaseRef, searchQueryObj, channelResponse, channelObj, queryObj);
+				}
 			} else {
 				console.error(`appbaseRef is not set for ${channelId}`);
 			}
@@ -155,6 +158,9 @@ class ChannelManager {
 		if (this.channels[channelId] && this.channels[channelId].watchDependency) {
 			this.channels[channelId].watchDependency.stop();
 			delete this.channels[channelId];
+		}
+		if(this.channelQueries[channelId]) {
+			delete this.channelQueries[channelId];
 		}
 	}
 
