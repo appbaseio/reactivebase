@@ -56,7 +56,7 @@ export default class ReactiveList extends Component {
 		this.appliedQuery = {};
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		this.streamProp = this.props.stream;
 		this.size = this.props.size;
 		this.initialize();

@@ -13,7 +13,7 @@ export default class DataController extends Component {
 	}
 
 	// Set query information
-	componentDidMount() {
+	componentWillMount() {
 		this.setQueryInfo();
 		this.checkDefault();
 	}
