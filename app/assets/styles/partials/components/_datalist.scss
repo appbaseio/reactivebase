@@ -1,0 +1,46 @@
+.rbc.rbc-singledatalist, .rbc.rbc-multidatalist {
+	height: auto;
+	max-height: 250px;
+	position: relative;
+	overflow: auto;
+	padding: 0;
+
+	.rbc-list-container {
+		position: relative;
+		padding: 0 0 10px;
+
+		.rbc-list-item {
+			padding: 4px 10px;
+
+			&.row {
+				margin: 0;
+			}
+
+			a {
+				padding: 5px 10px;
+				display: block;
+				color: $dark-grey;
+
+				&.active {
+					font-weight: bold;
+				}
+			}
+
+			.rbc-label {
+				font-weight: normal;
+			}
+		}
+
+		.row {
+			margin: 10px 0;
+		}
+	}
+}
+
+.rbc.rbc-multidatalist {
+	.rbc-list-container {
+		.rbc-list-item {
+			padding: 4px 12px;
+		}
+	}
+}

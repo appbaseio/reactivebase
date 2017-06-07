@@ -108,7 +108,7 @@ class ChannelManager {
 		}
 		let validQuery = true;
 		try {
-			validQuery = !!(queryObj && Object.keys(queryObj).length);
+			validQuery = queryObj && Object.keys(queryObj).length;
 		} catch (e) {
 			console.log(e);
 		}
