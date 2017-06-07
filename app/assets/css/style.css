@@ -288,15 +288,21 @@ a {
   background-color: red;
   border-color: red; }
 
+.rbc-red .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item a.active,
+.rbc-red .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #e60000; }
 
+.rbc-red .rbc.rbc-singledatalist .rbc-tag-item,
+.rbc-red .rbc.rbc-multidatalist .rbc-tag-item,
 .rbc-red .rbc.rbc-singlerange .rbc-tag-item,
 .rbc-red .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(255, 0, 0, 0.08);
   border-color: rgba(255, 0, 0, 0.24);
   color: red; }
+  .rbc-red .rbc.rbc-singledatalist .rbc-tag-item .close,
+  .rbc-red .rbc.rbc-multidatalist .rbc-tag-item .close,
   .rbc-red .rbc.rbc-singlerange .rbc-tag-item .close,
   .rbc-red .rbc.rbc-multirange .rbc-tag-item .close {
     color: red;
@@ -473,15 +479,21 @@ a {
   background-color: orange;
   border-color: orange; }
 
+.rbc-orange .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item a.active,
+.rbc-orange .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #e69500; }
 
+.rbc-orange .rbc.rbc-singledatalist .rbc-tag-item,
+.rbc-orange .rbc.rbc-multidatalist .rbc-tag-item,
 .rbc-orange .rbc.rbc-singlerange .rbc-tag-item,
 .rbc-orange .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(255, 165, 0, 0.08);
   border-color: rgba(255, 165, 0, 0.24);
   color: orange; }
+  .rbc-orange .rbc.rbc-singledatalist .rbc-tag-item .close,
+  .rbc-orange .rbc.rbc-multidatalist .rbc-tag-item .close,
   .rbc-orange .rbc.rbc-singlerange .rbc-tag-item .close,
   .rbc-orange .rbc.rbc-multirange .rbc-tag-item .close {
     color: orange;
@@ -658,15 +670,21 @@ a {
   background-color: yellow;
   border-color: yellow; }
 
+.rbc-yellow .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item a.active,
+.rbc-yellow .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #e6e600; }
 
+.rbc-yellow .rbc.rbc-singledatalist .rbc-tag-item,
+.rbc-yellow .rbc.rbc-multidatalist .rbc-tag-item,
 .rbc-yellow .rbc.rbc-singlerange .rbc-tag-item,
 .rbc-yellow .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(255, 255, 0, 0.08);
   border-color: rgba(255, 255, 0, 0.24);
   color: yellow; }
+  .rbc-yellow .rbc.rbc-singledatalist .rbc-tag-item .close,
+  .rbc-yellow .rbc.rbc-multidatalist .rbc-tag-item .close,
   .rbc-yellow .rbc.rbc-singlerange .rbc-tag-item .close,
   .rbc-yellow .rbc.rbc-multirange .rbc-tag-item .close {
     color: yellow;
@@ -843,15 +861,21 @@ a {
   background-color: green;
   border-color: green; }
 
+.rbc-green .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item a.active,
+.rbc-green .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #006700; }
 
+.rbc-green .rbc.rbc-singledatalist .rbc-tag-item,
+.rbc-green .rbc.rbc-multidatalist .rbc-tag-item,
 .rbc-green .rbc.rbc-singlerange .rbc-tag-item,
 .rbc-green .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(0, 128, 0, 0.08);
   border-color: rgba(0, 128, 0, 0.24);
   color: green; }
+  .rbc-green .rbc.rbc-singledatalist .rbc-tag-item .close,
+  .rbc-green .rbc.rbc-multidatalist .rbc-tag-item .close,
   .rbc-green .rbc.rbc-singlerange .rbc-tag-item .close,
   .rbc-green .rbc.rbc-multirange .rbc-tag-item .close {
     color: green;
@@ -1028,15 +1052,21 @@ a {
   background-color: #1893e7;
   border-color: #1893e7; }
 
+.rbc-blue .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item a.active,
+.rbc-blue .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #1684d0; }
 
+.rbc-blue .rbc.rbc-singledatalist .rbc-tag-item,
+.rbc-blue .rbc.rbc-multidatalist .rbc-tag-item,
 .rbc-blue .rbc.rbc-singlerange .rbc-tag-item,
 .rbc-blue .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(24, 147, 231, 0.08);
   border-color: rgba(24, 147, 231, 0.24);
   color: #1893e7; }
+  .rbc-blue .rbc.rbc-singledatalist .rbc-tag-item .close,
+  .rbc-blue .rbc.rbc-multidatalist .rbc-tag-item .close,
   .rbc-blue .rbc.rbc-singlerange .rbc-tag-item .close,
   .rbc-blue .rbc.rbc-multirange .rbc-tag-item .close {
     color: #1893e7;
@@ -1213,15 +1243,21 @@ a {
   background-color: #ccc;
   border-color: #ccc; }
 
+.rbc-dark .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item a.active,
+.rbc-dark .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-dark .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-dark .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
   color: #bfbfbf; }
 
+.rbc-dark .rbc.rbc-singledatalist .rbc-tag-item,
+.rbc-dark .rbc.rbc-multidatalist .rbc-tag-item,
 .rbc-dark .rbc.rbc-singlerange .rbc-tag-item,
 .rbc-dark .rbc.rbc-multirange .rbc-tag-item {
   background-color: rgba(204, 204, 204, 0.08);
   border-color: rgba(204, 204, 204, 0.24);
   color: #ccc; }
+  .rbc-dark .rbc.rbc-singledatalist .rbc-tag-item .close,
+  .rbc-dark .rbc.rbc-multidatalist .rbc-tag-item .close,
   .rbc-dark .rbc.rbc-singlerange .rbc-tag-item .close,
   .rbc-dark .rbc.rbc-multirange .rbc-tag-item .close {
     color: #ccc;
@@ -1358,7 +1394,6 @@ a {
       right: -6px;
       border: 0;
       width: 30px;
-      z-index: 1;
       height: 30px;
       display: inline-block;
       font: normal normal normal 14px/1 FontAwesome;
@@ -1550,6 +1585,33 @@ a {
 
 .rbc-item-hide {
   display: none; }
+
+.rbc.rbc-singledatalist, .rbc.rbc-multidatalist {
+  height: auto;
+  max-height: 250px;
+  position: relative;
+  overflow: auto;
+  padding: 0; }
+  .rbc.rbc-singledatalist .rbc-list-container, .rbc.rbc-multidatalist .rbc-list-container {
+    position: relative;
+    padding: 0 0 10px; }
+    .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item, .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item {
+      padding: 4px 10px; }
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.row, .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.row {
+        margin: 0; }
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item a, .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a {
+        padding: 5px 10px;
+        display: block;
+        color: #777; }
+        .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item a.active, .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active {
+          font-weight: bold; }
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item .rbc-label, .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item .rbc-label {
+        font-weight: normal; }
+    .rbc.rbc-singledatalist .rbc-list-container .row, .rbc.rbc-multidatalist .rbc-list-container .row {
+      margin: 10px 0; }
+
+.rbc.rbc-multidatalist .rbc-list-container .rbc-list-item {
+  padding: 4px 12px; }
 
 .rbc.rbc-singlerange, .rbc.rbc-multirange {
   height: 250px;

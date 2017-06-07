@@ -1,6 +1,8 @@
 // sensors
 import SingleList from "./sensors/SingleList";
 import MultiList from "./sensors/MultiList";
+import SingleDataList from "./sensors/SingleDataList";
+import MultiDataList from "./sensors/MultiDataList";
 import SingleDropdownList from "./sensors/SingleDropdownList";
 import MultiDropdownList from "./sensors/MultiDropdownList";
 import RangeSlider from "./sensors/RangeSlider";
@@ -35,6 +37,8 @@ const helper = require("./middleware/helper");
 module.exports = {
 	SingleList,
 	MultiList,
+	SingleDataList,
+	MultiDataList,
 	SingleDropdownList,
 	MultiDropdownList,
 	RangeSlider,
