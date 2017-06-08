@@ -12,6 +12,8 @@ var dev_config = {
 		DataSearch: './examples/DataSearch/main.js',
 		DatePicker: './examples/DatePicker/main.js',
 		DateRange: './examples/DateRange/main.js',
+		SingleDataList: './examples/SingleDataList/main.js',
+		MultiDataList: './examples/MultiDataList/main.js',
 		MultiDropdownList: './examples/MultiDropdownList/main.js',
 		MultiDropdownRange: './examples/MultiDropdownRange/main.js',
 		MultiRange: './examples/MultiRange/main.js',

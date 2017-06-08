@@ -46,7 +46,7 @@ export default class DataList extends Component {
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
 			if(data === this.props.componentId) {
-				this.changeValue(null);
+				this.reset();
 			}
 		});
 	}
@@ -82,6 +82,12 @@ export default class DataList extends Component {
 						}
 					});
 				}
+			} else if (defaultValue === null) {
+				if (this.props.multipleSelect) {
+					this.handleCheckboxChange(null);
+				} else {
+					this.handleChange(null);
+				}
 			}
 		}
 	}
@@ -100,12 +106,33 @@ export default class DataList extends Component {
 	}
 
 	customQuery(record) {
-		const listQuery= {
-			[this.type]: {
-				[this.props.appbaseField]: record
-			}
+		if (record) {
+			const listQuery= {
+				[this.type]: {
+					[this.props.appbaseField]: record
+				}
+			};
+			return this.props.multipleSelect ? (record.length ? listQuery : null) : listQuery;
+		}
+		return null;
+	}
+
+	reset() {
+		this.setState({
+			selected: this.props.multipleSelect ? [] : ""
+		});
+
+		const obj = {
+			key: this.props.componentId,
+			value: null
 		};
-		return this.props.multipleSelect ? (record.length ? listQuery : null) : listQuery;
+
+		if (this.props.onValueChange) {
+			this.props.onValueChange(null);
+		}
+
+		helper.URLParams.update(this.props.componentId, null, this.props.URLParams);
+		helper.selectedSensor.set(obj, true);
 	}
 
 	handleChange(record) {
@@ -159,13 +186,9 @@ export default class DataList extends Component {
 			this.props.onValueChange(value);
 		}
 
-		const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : this.getSelectedLabels(value);
+		const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
 		helper.URLParams.update(this.props.componentId, selectedValue, this.props.URLParams);
 		helper.selectedSensor.set(obj, true);
-	}
-
-	getSelectedLabels(selected) {
-		return selected ? selected.map(item => item.label) : null;
 	}
 
 	renderObjectList() {
