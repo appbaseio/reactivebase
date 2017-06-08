@@ -197,25 +197,25 @@ export default class DataList extends Component {
 
 		if (data) {
 			if (this.props.multipleSelect) {
-				list = data.map(record => (
-					<div className="rbc-list-item row" key={record.label} onClick={() => this.handleCheckboxChange(record)}>
+				list = data.map((record, i) => (
+					<div className="rbc-list-item row" key={`${record.label}-${i}`} onClick={() => this.handleCheckboxChange(record)}>
 						<input
 							type="checkbox"
 							className="rbc-checkbox-item"
-							name={this.props.componentId}
-							defaultChecked={selected && selected.indexOf(record.value) >= 0}
+							checked={selected && selected.indexOf(record.value) >= 0}
+							onChange={() => {}}
 						/>
 						<label className="rbc-label">{record.label}</label>
 					</div>
 				));
 			} else {
-				list = data.map(record => (
-					<div className="rbc-list-item row" key={record.label} onClick={() => this.handleChange(record)}>
+				list = data.map((record, i) => (
+					<div className="rbc-list-item row" key={`${record.label}-${i}`} onClick={() => this.handleChange(record)}>
 						<input
 							type="radio"
 							className="rbc-radio-item"
-							name={this.props.componentId}
-							defaultChecked={selected && selected === record.value}
+							checked={selected && selected === record.value}
+							onChange={() => {}}
 						/>
 						<label className="rbc-label">{record.label}</label>
 					</div>
@@ -231,25 +231,25 @@ export default class DataList extends Component {
 
 		if (data) {
 			if (this.props.multipleSelect) {
-				list = data.map(record => (
-					<div className="rbc-list-item row" key={record} onClick={() => this.handleCheckboxChange(record)}>
+				list = data.map((record, i) => (
+					<div className="rbc-list-item row" key={`${record}-${i}`} onClick={() => this.handleCheckboxChange(record)}>
 						<input
 							type="checkbox"
 							className="rbc-checkbox-item"
-							name={this.props.componentId}
-							defaultChecked={selected && selected.indexOf(record) >= 0}
+							checked={selected && selected.indexOf(record) >= 0}
+							onChange={() => {}}
 						/>
 						<label className="rbc-label">{record}</label>
 					</div>
 				));
 			} else {
 				list = data.map(record => (
-					<div className="rbc-list-item row" key={record} onClick={() => this.handleChange(record)}>
+					<div className="rbc-list-item row" key={`${record}-${i}`} onClick={() => this.handleChange(record)}>
 						<input
 							type="radio"
 							className="rbc-radio-item"
-							name={this.props.componentId}
 							checked={selected === record}
+							onChange={() => {}}
 						/>
 						<label className="rbc-label">{record}</label>
 					</div>

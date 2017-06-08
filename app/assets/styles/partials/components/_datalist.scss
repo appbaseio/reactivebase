@@ -1,13 +1,14 @@
 .rbc.rbc-singledatalist, .rbc.rbc-multidatalist {
 	height: auto;
-	max-height: 250px;
 	position: relative;
-	overflow: auto;
 	padding: 0;
 
 	.rbc-list-container {
 		position: relative;
 		padding: 0 0 10px;
+		height: auto;
+		max-height: 250px;
+		overflow: auto;
 
 		.rbc-list-item {
 			padding: 4px 10px;

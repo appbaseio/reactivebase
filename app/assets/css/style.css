@@ -1588,13 +1588,14 @@ a {
 
 .rbc.rbc-singledatalist, .rbc.rbc-multidatalist {
   height: auto;
-  max-height: 250px;
   position: relative;
-  overflow: auto;
   padding: 0; }
   .rbc.rbc-singledatalist .rbc-list-container, .rbc.rbc-multidatalist .rbc-list-container {
     position: relative;
-    padding: 0 0 10px; }
+    padding: 0 0 10px;
+    height: auto;
+    max-height: 250px;
+    overflow: auto; }
     .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item, .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item {
       padding: 4px 10px; }
       .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.row, .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.row {
