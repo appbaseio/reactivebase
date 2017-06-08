@@ -34,6 +34,8 @@ import SingleListDefault from "./SingleList.stories";
 import MultiListDefault from "./MultiList.stories";
 import SingleDropdownListDefault from "./SingleDropdownList.stories";
 import MultiDropdownListDefault from "./MultiDropdownList.stories";
+import SingleDataListDefault from "./SingleDataList.stories";
+import MultiDataListDefault from "./MultiDataList.stories";
 
 import SingleRangeDefault from "./SingleRange.stories";
 import MultiRangeDefault from "./MultiRange.stories";
@@ -192,6 +194,16 @@ storiesOf("MultiDropdownList", module)
 			placeholder={text("placeholder", "Select Cities")}
 		/>
 	)));
+
+storiesOf("SingleDataList", module)
+	.add("Basic", () => (
+		<SingleDataListDefault />
+	));
+
+storiesOf("MultiDataList", module)
+	.add("Basic", () => (
+		<MultiDataListDefault />
+	));
 
 storiesOf("SingleRange", module)
 	.addDecorator(withKnobs)
