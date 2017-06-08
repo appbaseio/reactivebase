@@ -203,19 +203,19 @@ export default class DataList extends Component {
 							type="checkbox"
 							className="rbc-checkbox-item"
 							checked={selected && selected.indexOf(record.value) >= 0}
-							value={record.value}
+							onChange={() => {}}
 						/>
 						<label className="rbc-label">{record.label}</label>
 					</div>
 				));
 			} else {
-				list = data.map(record => (
+				list = data.map((record, i) => (
 					<div className="rbc-list-item row" key={`${record.label}-${i}`} onClick={() => this.handleChange(record)}>
 						<input
 							type="radio"
 							className="rbc-radio-item"
 							checked={selected && selected === record.value}
-							value={record.value}
+							onChange={() => {}}
 						/>
 						<label className="rbc-label">{record.label}</label>
 					</div>
@@ -237,7 +237,7 @@ export default class DataList extends Component {
 							type="checkbox"
 							className="rbc-checkbox-item"
 							checked={selected && selected.indexOf(record) >= 0}
-							value={record}
+							onChange={() => {}}
 						/>
 						<label className="rbc-label">{record}</label>
 					</div>
@@ -249,7 +249,7 @@ export default class DataList extends Component {
 							type="radio"
 							className="rbc-radio-item"
 							checked={selected === record}
-							value={record}
+							onChange={() => {}}
 						/>
 						<label className="rbc-label">{record}</label>
 					</div>
