@@ -67,14 +67,18 @@ class Main extends Component {
 								appbaseField="group.group_topics.topic_name_raw.raw"
 								title="MultiList"
 								size={100}
+								selectAllLabel="Select All"
+								defaultSelected={["Social"]}
 								URLParams={true}
 							/>
 							<SingleList
 								componentId="CitySensor"
 								appbaseField="group.group_city.raw"
 								title="SingleList"
-								defaultSelected="London"
 								size={100}
+								URLParams={true}
+								selectAllLabel="Select All"
+								defaultSelected="London"
 							/>
 						</div>
 						<div className="col s6 col-xs-6">

@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import classNames from "classnames";
-const _ = require("lodash");
 
 export default class ItemList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedItem: []
+			selectedItem: null
 		};
 		this.defaultSelected = this.props.defaultSelected;
 		this.defaultAllowed = true;
@@ -16,26 +15,29 @@ export default class ItemList extends Component {
 
 	componentDidMount() {
 		if (this.props.defaultSelected) {
-			this.handleClick(this.props.defaultSelected);
+			if (this.props.selectAllLabel === this.props.defaultSelected) {
+				this.handleListClickAll(this.props.defaultSelected, true);
+			} else {
+				this.handleClick(this.props.defaultSelected, true);
+			}
 		}
 	}
-
-	// componentWillUpdate() {
-	// 	if (this.defaultSelected != this.props.defaultSelected) {
-	// 		this.defaultSelected = this.props.defaultSelected;
-	// 		this.defaultSelection();
-	// 	}
-	// }
 
 	componentDidUpdate() {
 		if (this.props.items.length && this.defaultAllowed) {
 			this.defaultAllowed = false;
-			// this.defaultSelection();
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if(typeof nextProps.defaultSelected !== "undefined" && !_.isArray(nextProps.defaultSelected) && !_.isEqual(this.defaultSelected, nextProps.defaultSelected)) {
+		if (nextProps.selectAll) {
+			if (this.state.selectedItem !== nextProps.selectAllLabel) {
+				this.setState({
+					selectedItem: nextProps.selectAllLabel
+				});
+			}
+		} else if(nextProps.defaultSelected !== "undefined" && !Array.isArray(nextProps.defaultSelected)
+			&& this.defaultSelected !== nextProps.defaultSelected) {
 			this.defaultSelected = nextProps.defaultSelected;
 			if(nextProps.defaultSelected === null) {
 				this.setState({
@@ -49,30 +51,47 @@ export default class ItemList extends Component {
 
 	defaultSelection(defaultSelected) {
 		if (defaultSelected === this.props.selectAllLabel) {
-			this.handleListClickAll(this.props.selectAllLabel);
+			this.handleListClickAll(this.props.selectAllLabel, true);
 		} else {
-			this.handleClick(defaultSelected);
+			this.handleClick(defaultSelected, true);
 		}
 	}
 
-	handleListClickAll(value) {
-		const selectedItems = this.props.items.map(item => item.key);
-		this.props.selectAll(value, selectedItems);
-		this.setState({
-			selectedItem: value
-		}, () => {
-			this.props.onSelect(selectedItems, value);
-		});
+	handleListClickAll(value, execute = false) {
+		if (execute || this.defaultSelected !== value) {
+			// const selectedItems = this.props.items.map(item => item.key);
+			this.setState({
+				selectedItem: value
+			}, () => {
+				this.props.onSelectAll(value);
+				this.defaultSelected = value;
+			});
+		} else {
+			this.reset();
+		}
 	}
 
 	// Handler function is called when the list item is clicked
-	handleClick(value) {
-		// Pass the previously selected value to be removed from the query
-		this.props.onRemove(this.state.selectedItem);
-		// Pass the new selected value to be added to the query
-		this.props.onSelect(value);
+	handleClick(value, execute = false) {
+		if (execute || this.defaultSelected !== value) {
+			// Pass the new selected value to be added to the query
+			this.setState({
+				selectedItem: value
+			}, () => {
+				this.props.onSelect(value);
+				this.defaultSelected = value;
+			});
+		} else {
+			this.reset();
+		}
+	}
+
+	reset() {
+		this.defaultSelected = null;
 		this.setState({
-			selectedItem: value
+			selectedItem: null
+		}, () => {
+			this.props.onSelect(null);
 		});
 	}
 
@@ -123,10 +142,6 @@ export default class ItemList extends Component {
 }
 
 class ItemRow extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	renderItem() {
 		let count;
 		// Check if user wants to show count field
