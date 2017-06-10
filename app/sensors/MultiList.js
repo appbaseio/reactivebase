@@ -33,8 +33,7 @@ MultiList.propTypes = {
 	componentStyle: React.PropTypes.object,
 	showCheckbox: React.PropTypes.bool,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool,
-	showTags: React.PropTypes.bool
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
@@ -46,8 +45,7 @@ MultiList.defaultProps = {
 	title: null,
 	placeholder: "Search",
 	showCheckbox: true,
-	URLParams: false,
-	showTags: true
+	URLParams: false
 };
 
 // context type
@@ -73,6 +71,5 @@ MultiList.types = {
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showCheckbox: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN,
-	showTags: TYPES.BOOLEAN
+	allowFilter: TYPES.BOOLEAN
 };

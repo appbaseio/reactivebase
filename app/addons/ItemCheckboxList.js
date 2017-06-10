@@ -1,78 +1,44 @@
 import React, { Component } from "react";
 import ListItem from "./ListItem";
-import Tag from "./Tag";
 
 export default class ItemCheckboxList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedItems: []
+			selectedItems: [],
+			selectAll: false
 		};
 		this.refStore = {};
 		this.handleListClick = this.handleListClick.bind(this);
-		this.handleTagClick = this.handleTagClick.bind(this);
+		this.removeItem = this.removeItem.bind(this);
 		this.handleListClickAll = this.handleListClickAll.bind(this);
-		this.clearAll = this.clearAll.bind(this);
 	}
 
 	componentDidMount() {
-		if (this.props.defaultSelected) {
-			this.defaultUpdate(this.props);
+		if (Array.isArray(this.props.defaultSelected)) {
+			if (this.props.defaultSelected.indexOf(this.props.selectAllLabel) >= 0) {
+				this.handleListClickAll(this.props.selectAllLabel, true);
+			} else {
+				let items = [];
+				this.props.items.forEach(item => {
+					if (this.props.defaultSelected.indexOf(item.key) >= 0) {
+						items.push(item.key);
+					}
+				});
+				this.setState({
+					selectedItems: items.length ? items : null
+				}, () => {
+					this.props.onSelect(this.state.selectedItems);
+				});
+			}
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if(nextProps.defaultSelected && nextProps.defaultSelected.length === 0) {
+		if (nextProps.defaultSelected === null && !nextProps.selectAll) {
 			this.setState({
-				selectedItems: [],
-				defaultSelectall: null
+				selectedItems: []
 			});
-		}
-	}
-
-	defaultUpdate(props) {
-		const defaultSelectAll = props.defaultSelected.indexOf(props.selectAllLabel) > -1;
-		if (defaultSelectAll) {
-			this.setDefaultSelectAll();
-		} else {
-			this.setState({
-				selectedItems: props.defaultSelected,
-				defaultSelectall: props.defaultSelectall
-			}, () => {
-				this.updateAction.bind(this);
-				this.props.onSelect(this.state.selectedItems);
-			});
-		}
-	}
-
-	setDefaultSelectAll() {
-		if (this.props.items && this.props.items.length) {
-			setTimeout(this.handleListClickAll.bind(this, this.props.selectAllLabel, true), 1000);
-		} else {
-			setTimeout(this.setDefaultSelectAll.bind(this), 1000);
-		}
-	}
-
-	// remove selected types if not in the list
-	componentDidUpdate() {
-		let updated = null;
-		let isExecutable = true;
-		if (this.state.selectedItems) {
-			updated = JSON.parse(JSON.stringify(this.state.selectedItems));
-		}
-		if (updated && updated.length && this.props.items && this.props.items.length) {
-			updated = updated.filter((item) => {
-				const updatedFound = this.props.items.filter(propItem => propItem.key === item);
-				return !!updatedFound.length;
-			});
-			if (updated.length !== this.state.selectedItems.length) {
-				isExecutable = !updated.length;
-				this.props.onRemove(this.state.selectedItems, isExecutable);
-				this.updateSelectedItems(updated);
-				if (updated.length) {
-					this.props.onSelect(updated);
-				}
-			}
 		}
 	}
 
@@ -81,46 +47,43 @@ export default class ItemCheckboxList extends Component {
 		let updated;
 		// If the checkbox selectedStatus is true, then update selectedItems array
 		if (selectedStatus) {
-			this.props.onRemove(this.state.selectedItems, false);
 			updated = this.state.selectedItems;
 			updated.push(value);
 			this.setState({
 				selectedItems: updated
-			}, this.updateAction.bind(this));
-			// Pass the props to parent components to add to the Query
-			if (this.state.selectedItems.length) {
-				this.props.onSelect(this.state.selectedItems);
-			}
+			}, () => {
+				this.props.onSelect(updated);
+			});
 		} else {
 			// If the checkbox selectedStatus is false
-			// Call handleTagClick to remove it from the selected Items
-			this.handleTagClick(value);
+			// Call removeItem to remove it from the selected Items
+			this.removeItem(value);
 		}
 	}
 
 	// Handler function when a cancel button on tag is clicked to remove it
-	handleTagClick(value) {
+	removeItem(value) {
 		// Pass the older value props to parent components to remove older list in terms query
-		const isExecutable = this.state.selectedItems.length === 1;
-		this.props.onRemove(this.state.selectedItems, isExecutable);
 		const keyRef = value.toString().replace(/ /g, "_");
 		const ref = `ref${keyRef}`;
 		const checkboxElement = this.refStore[ref];
 		checkboxElement.state.status = false;
-		const updated = this.state.selectedItems;
-		const index = updated.indexOf(value);
-		updated.splice(index, 1);
-		this.setState({
-			selectedItems: updated
-		}, this.updateAction.bind(this));
-		// Pass the removed value props to parent components to add updated list in terms query
-		// if(updated.length) {
-		this.props.onSelect(updated);
-		// }
-	}
 
-	clearAll() {
-		this.handleListClickAll(this.props.selectAllLabel, false);
+		const updated = this.state.selectedItems;
+		let index = updated.indexOf(value);
+		updated.splice(index, 1);
+
+		if (this.state.selectAll) {
+			index = updated.indexOf(this.props.selectAllLabel);
+			updated.splice(index, 1);
+		}
+
+		this.setState({
+			selectedItems: updated,
+			selectAll: false
+		}, () => {
+			this.props.onRemove(this.state.selectedItems);
+		});
 	}
 
 	getSelectedItems() {
@@ -137,35 +100,27 @@ export default class ItemCheckboxList extends Component {
 
 	// handler function for select all
 	handleListClickAll(value, selectedStatus) {
-		this.props.selectAll(selectedStatus);
-		let selectedItems = this.props.items.map(item => item.key);
-		selectedItems = selectedStatus ? selectedItems : [];
-		this.setState({
-			defaultSelectall: selectedStatus,
-			selectedItems
-		}, () => {
-			this.updateAction.bind(this);
-			this.props.onSelect(this.state.selectedItems, selectedItems);
-		});
-	}
-
-	updateSelectedItems(updated) {
-		this.setState({
-			selectedItems: updated
-		});
-	}
-
-	updateAction() {
-		if (!this.state.selectedItems.length) {
-			this.props.onSelect(null);
+		if (selectedStatus) {
+			let selectedItems = this.props.items.map(item => item.key);
+			selectedItems = selectedStatus ? selectedItems : [];
+			this.setState({
+				selectedItems: [this.props.selectAllLabel, ...selectedItems],
+				selectAll: true
+			}, () => {
+				this.props.onSelectAll(value);
+			});
+		} else {
+			this.setState({
+				selectedItems: []
+			}, () => {
+				this.props.onSelect(null);
+			});
 		}
 	}
 
 	render() {
 		const items = this.props.items;
-		const selectedItems = this.getSelectedItems();
 		const ListItemsArray = [];
-		const TagItemsArray = [];
 		// Build the array for the checkboxList items
 		items.forEach((item, index) => {
 			try {
@@ -183,7 +138,7 @@ export default class ItemCheckboxList extends Component {
 					handleClick={this.handleListClick}
 					visible={visibleFlag}
 					showCheckbox={this.props.showCheckbox}
-					status={item.status || false}
+					status={this.state.selectedItems.indexOf(item.key) >= 0}
 					ref={
 						(listitem) => {
 							const currentItemRef = `ref${item.keyRef}`;
@@ -203,38 +158,14 @@ export default class ItemCheckboxList extends Component {
 					visible
 					showCheckbox={this.props.showCheckbox}
 					handleClick={this.handleListClickAll}
-					status={this.props.selectAllValue}
+					status={this.props.selectAll}
 					ref={(listitem) => { this.refStore.refselectall = listitem; }}
 				/>
 			);
 		}
-		// Build the array of Tags for selected items
-		if (this.props.showTags && selectedItems) {
-			if (selectedItems.length <= 5) {
-				selectedItems.forEach((item) => {
-					TagItemsArray.push(<Tag
-						key={item}
-						value={item}
-						onClick={this.handleTagClick}
-					/>);
-				});
-			} else {
-				TagItemsArray.unshift(<Tag
-					key={"Clear All"}
-					value={"Clear All"}
-					onClick={this.clearAll}
-				/>);
-			}
-		}
+
 		return (
 			<div className="rbc-list-container col s12 col-xs-12">
-				{
-					TagItemsArray.length ?
-						<div className="row rbc-tag-container">
-							{TagItemsArray}
-						</div> :
-					null
-				}
 				<div className="row">
 					{ListItemsArray}
 				</div>
@@ -248,14 +179,9 @@ ItemCheckboxList.propTypes = {
 	items: React.PropTypes.array,
 	onRemove: React.PropTypes.func,
 	onSelect: React.PropTypes.func,
-	selectAll: React.PropTypes.func,
+	onSelectAll: React.PropTypes.func,
 	selectAllLabel: React.PropTypes.string,
-	selectAllValue: React.PropTypes.bool,
+	selectAll: React.PropTypes.bool,
 	showCount: React.PropTypes.bool,
-	showTags: React.PropTypes.bool,
 	defaultSelectall: React.PropTypes.bool
-};
-
-ItemCheckboxList.defaultProps = {
-	showTags: true
 };

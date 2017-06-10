@@ -21,12 +21,13 @@ export default class NativeList extends Component {
 				}
 			},
 			queryStart: false,
-			defaultSelectAll: false,
-			defaultSelected: null
+			defaultSelected: null,
+			selectAll: false
 		};
 		this.sortObj = {
 			aggSort: this.props.sortBy
 		};
+		this.selectAllWhenReady = false;
 		this.previousSelectedSensor = {};
 		this.channelId = null;
 		this.channelListener = null;
@@ -34,7 +35,7 @@ export default class NativeList extends Component {
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleRemove = this.handleRemove.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
-		this.selectAll = this.selectAll.bind(this);
+		this.onSelectAll = this.onSelectAll.bind(this);
 		this.type = this.props.multipleSelect ? "Terms" : "Term";
 		this.customQuery = this.customQuery.bind(this);
 		this.defaultCustomQuery = this.defaultCustomQuery.bind(this);
@@ -66,12 +67,12 @@ export default class NativeList extends Component {
 	// customQuery will receive 2 arguments, selected sensor value and select all.
 	customQuery(value) {
 		const defaultQuery = this.props.customQuery ? this.props.customQuery : this.defaultCustomQuery;
-		return defaultQuery(value, this.state.selectAll);
+		return defaultQuery(value);
 	}
 
-	defaultCustomQuery(value, selectAll) {
+	defaultCustomQuery(value) {
 		let query = null;
-		if (selectAll) {
+		if (this.state.selectAll) {
 			query = {
 				exists: {
 					field: [this.props.appbaseField]
@@ -89,19 +90,20 @@ export default class NativeList extends Component {
 	}
 
 	changeValues(defaultValue) {
-		if (this.defaultSelected !== defaultValue) {
-			this.defaultSelected = defaultValue;
-			let items = this.state.items;
+		let items = this.state.items;
+		if (this.props.selectAllLabel && defaultValue === this.props.selectAllLabel) {
+			this.selectAllWhenReady = true;
+		} else if (defaultValue !== undefined) {
 			items = items.map((item) => {
 				item.key = item.key.toString();
-				item.status = !!((this.defaultSelected && this.defaultSelected.indexOf(item.key) > -1) || (this.selectedValue && this.selectedValue.indexOf(item.key) > -1));
+				item.status = ((defaultValue && defaultValue.indexOf(item.key) > -1) || (this.selectedValue && this.selectedValue.indexOf(item.key) > -1));
 				return item;
 			});
 			this.setState({
 				items,
 				storedItems: items
 			});
-			setTimeout(this.handleSelect.bind(this, this.defaultSelected), 1000);
+			this.handleSelect(defaultValue);
 		}
 		if (this.sortBy !== this.props.sortBy) {
 			this.sortBy = this.props.sortBy;
@@ -122,8 +124,7 @@ export default class NativeList extends Component {
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
 			if(data === this.props.componentId) {
-				const value = this.props.multipleSelect ? null : null;
-				this.changeValues(value);
+				this.changeValues(null);
 			}
 		});
 	}
@@ -250,26 +251,34 @@ export default class NativeList extends Component {
 		this.setState({
 			items: newItems,
 			storedItems: newItems
+		}, () => {
+			if (this.selectAllWhenReady) {
+				this.onSelectAll(this.props.selectAllLabel);
+			}
 		});
 	}
 
 	// Handler function when a value is selected
-	handleSelect(handleValue, selectAll = false) {
-		if (this.state.selectAll && !selectAll) {
-			this.setState({
-				selectAll: false
-			});
-		}
+	handleSelect(handleValue) {
 		this.setValue(handleValue, true);
 	}
 
 	// Handler function when a value is deselected or removed
-	handleRemove(value, isExecuteQuery = false) {
-		this.setValue(value, isExecuteQuery);
+	handleRemove(value) {
+		this.setValue(value, true);
 	}
 
 	// set value
 	setValue(value, isExecuteQuery = false) {
+		const onUpdate = () => {
+			if (this.props.onValueChange) {
+				this.props.onValueChange(obj.value);
+			}
+			const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
+			helper.URLParams.update(this.props.componentId, selectedValue, this.props.URLParams);
+			helper.selectedSensor.set(obj, isExecuteQuery);
+		}
+
 		const obj = {
 			key: this.props.componentId,
 			value
@@ -286,33 +295,37 @@ export default class NativeList extends Component {
 			});
 			value = value && value.length ? value : null;
 			obj.value = value;
-			this.setState({ items, defaultSelected: this.selectedValue });
+			const isSelectAll = !!(this.selectedValue && this.selectedValue.indexOf(this.props.selectAllLabel) >= 0);
+			this.setState({
+				items,
+				defaultSelected: isSelectAll ? [this.props.selectAllLabel] : this.selectedValue,
+				selectAll: isSelectAll
+			}, () => {
+				onUpdate();
+			});
 		} else {
-			this.setState({ defaultSelected: this.selectedValue });
+			this.setState({
+				defaultSelected: this.selectedValue,
+				selectAll: this.selectedValue && this.selectedValue === this.props.selectAllLabel
+			}, () => {
+				onUpdate();
+			});
 		}
-		if (this.props.onValueChange) {
-			this.props.onValueChange(obj.value);
-		}
-		const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
-		helper.URLParams.update(this.props.componentId, selectedValue, this.props.URLParams);
-		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
-	// selectAll
-	selectAll(value, selectedValue, cb) {
+	onSelectAll(selectedValue) {
 		const items = this.state.items.map((item) => {
-			item.status = value;
+			item.status = true;
 			return item;
 		});
-		if (value) {
-			this.selectedValue = selectedValue;
-		}
+		this.selectedValue = selectedValue;
 		this.setState({
 			items,
 			storedItems: items,
-			defaultSelectAll: value,
-			selectAll: value
-		}, cb);
+			selectAll: true
+		}, () => {
+			this.setValue(selectedValue, true);
+		});
 	}
 
 	// filter
@@ -352,12 +365,11 @@ export default class NativeList extends Component {
 				onSelect={this.handleSelect}
 				onRemove={this.handleRemove}
 				showCount={this.props.showCount}
-				selectAll={this.selectAll}
 				showCheckbox={this.props.showCheckbox}
 				defaultSelected={this.state.defaultSelected}
 				selectAllLabel={this.props.selectAllLabel}
-				selectAllValue={this.state.selectAll}
-				showTags={this.props.showTags}
+				selectAll={this.state.selectAll}
+				onSelectAll={this.onSelectAll}
 			/>);
 		} else {
 			listComponent = (<ItemList
@@ -368,7 +380,8 @@ export default class NativeList extends Component {
 				showRadio={this.props.showRadio}
 				defaultSelected={this.state.defaultSelected}
 				selectAllLabel={this.props.selectAllLabel}
-				selectAll={this.selectAll}
+				selectAll={this.state.selectAll}
+				onSelectAll={this.onSelectAll}
 			/>);
 		}
 
@@ -438,8 +451,7 @@ NativeList.propTypes = {
 	showRadio: React.PropTypes.bool,
 	showCheckbox: React.PropTypes.bool,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool,
-	showTags: React.PropTypes.bool
+	allowFilter: React.PropTypes.bool
 };
 
 // Default props value
@@ -456,8 +468,7 @@ NativeList.defaultProps = {
 	showRadio: true,
 	showCheckbox: true,
 	URLParams: false,
-	allowFilter: true,
-	showTags: true
+	allowFilter: true
 };
 
 // context type
