@@ -99,7 +99,10 @@ export default class DataSearch extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery,
+				reactiveId: this.context.reactiveId,
+				allowFilter: this.props.allowFilter,
+				component: "DataSearch"
 			}
 		};
 		if (this.props.highlight) {
@@ -456,7 +459,8 @@ DataSearch.defaultProps = {
 // context type
 DataSearch.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	reactiveId: React.PropTypes.number
 };
 
 DataSearch.types = {

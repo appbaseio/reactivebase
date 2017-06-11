@@ -6,6 +6,7 @@ export default function MultiDropdownList(props) {
 	return (
 		<DropdownList
 			{...props}
+			component="MultiDropdownList"
 			multipleSelect
 		/>
 	);

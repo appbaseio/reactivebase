@@ -149,7 +149,10 @@ export default class DropdownList extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				reactiveId: this.context.reactiveId,
+				allowFilter: this.props.allowFilter,
+				component: this.props.component
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -420,5 +423,6 @@ DropdownList.defaultProps = {
 // context type
 DropdownList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	reactiveId: React.PropTypes.number
 };

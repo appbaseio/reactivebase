@@ -60,7 +60,10 @@ export default class TextField extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				reactiveId: this.context.reactiveId,
+				allowFilter: this.props.allowFilter,
+				component: "TextField"
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -150,7 +153,8 @@ TextField.defaultProps = {
 // context type
 TextField.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	reactiveId: React.PropTypes.number
 };
 
 TextField.types = {

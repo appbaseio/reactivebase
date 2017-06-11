@@ -59,7 +59,8 @@ export default class ReactiveBase extends Component {
 			appbaseRef: this.appbaseRef,
 			type: this.type,
 			app: this.props.app,
-			appbaseCrdentials: this.appbaseCrdentials
+			appbaseCrdentials: this.appbaseCrdentials,
+			reactiveId: this.reactiveId
 		};
 	}
 
@@ -88,5 +89,6 @@ ReactiveBase.childContextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired,
 	app: React.PropTypes.any,
-	appbaseCrdentials: React.PropTypes.any.isRequired
+	appbaseCrdentials: React.PropTypes.any.isRequired,
+	reactiveId: React.PropTypes.number
 };

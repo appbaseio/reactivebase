@@ -69,7 +69,10 @@ export default class SingleDropdownRange extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				reactiveId: this.context.reactiveId,
+				allowFilter: this.props.allowFilter,
+				component: "SingleDropdownRange"
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -168,7 +171,8 @@ SingleDropdownRange.defaultProps = {
 // context type
 SingleDropdownRange.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	reactiveId: React.PropTypes.number
 };
 
 SingleDropdownRange.types = {

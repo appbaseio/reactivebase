@@ -34,7 +34,10 @@ export default class DataController extends Component {
 	setQueryInfo() {
 		const valObj = {
 			queryType: this.type,
-			inputData: this.props.appbaseField
+			inputData: this.props.appbaseField,
+			reactiveId: this.context.reactiveId,
+			allowFilter: this.props.allowFilter,
+			component: "DataController"
 		};
 		if (this.props.customQuery) {
 			valObj.customQuery = this.props.customQuery;
@@ -133,7 +136,8 @@ DataController.defaultProps = {
 // context type
 DataController.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	reactiveId: React.PropTypes.number
 };
 
 DataController.types = {
