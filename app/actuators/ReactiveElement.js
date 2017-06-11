@@ -106,7 +106,7 @@ export default class ReactiveElement extends Component {
 		react = helper.setupReact(react, reactAnd);
 
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.context.app);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.props.componentId);
 		this.channelId = channelObj.channelId;
 
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {

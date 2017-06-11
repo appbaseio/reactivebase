@@ -257,7 +257,7 @@ export default class DataSearch extends Component {
 		let react = this.props.react ? this.props.react : {};
 		const reactAnd = [this.searchInputId];
 		react = helper.setupReact(react, reactAnd);
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, 100, 0, false, this.props.componentId);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
 			const data = res.data;
