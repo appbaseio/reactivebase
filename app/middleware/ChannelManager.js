@@ -99,7 +99,6 @@ class ChannelManager {
 				activateStream.call(this, channelId, queryObj, appbaseRef);
 			}
 		}
-
 		if (!queryOptions) {
 			queryObj = ChannelHelper.queryBuild(channelObj, channelObj.previousSelectedSensor);
 			this.queryOptions[channelId] = channelObj.previousSelectedSensor[`channel-options-${channelId}`];
@@ -112,7 +111,6 @@ class ChannelManager {
 		} catch (e) {
 			console.log(e);
 		}
-
 		if (validQuery) {
 			const channelResponse = {
 				startTime: (new Date()).getTime(),
@@ -130,9 +128,11 @@ class ChannelManager {
 					appbaseQuery(appbaseRef, searchQueryObj, channelResponse, channelObj, queryObj);
 				}
 			} else {
+				this.channelQueries[channelId] = queryObj;
 				console.error(`appbaseRef is not set for ${channelId}`);
 			}
 		} else {
+			this.channelQueries[channelId] = queryObj;
 			const obj = {
 				mode: "historic",
 				startTime: (new Date()).getTime(),

@@ -56,23 +56,13 @@ export default class SelectedFilters extends Component {
 
 	isSibling(siblingComponentId) {
 		let filter = null;
-		helper.RecactivebaseComponents.forEach(item => {
-			filter = this.getItem(item, siblingComponentId);
-		});
+		const sensorInfo = helper.selectedSensor.get(siblingComponentId, "sensorInfo");
+		if (sensorInfo && sensorInfo.allowFilter && sensorInfo.component && (sensorInfo.reactiveId === 0 || sensorInfo.reactiveId) && this.blacklist.indexOf(sensorInfo.component) < 0 && this.context.reactiveId === sensorInfo.reactiveId) {
+			filter = {
+				component: sensorInfo.component
+			};
+		}
 		return filter;
-	}
-
-	getItem(items, siblingComponentId) {
-		let selectedItem = null;
-		items.forEach(item => {
-			if (this.blacklist.indexOf(item.component) < 0 && item.componentId === siblingComponentId) {
-				const isSameReactivebase = !items.every(subitem => subitem.componentId !== this.props.componentId);
-				if (isSameReactivebase) {
-					selectedItem = item;
-				}
-			}
-		});
-		return selectedItem;
 	}
 
 	clearFilter(item) {
@@ -151,4 +141,9 @@ SelectedFilters.propTypes = {
 
 SelectedFilters.defaultProps = {
 	componentStyle: {}
+};
+
+// context type
+SelectedFilters.contextTypes = {
+	reactiveId: React.PropTypes.number
 };

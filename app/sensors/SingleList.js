@@ -6,6 +6,7 @@ export default function SingleList(props) {
 	return (
 		<NativeList
 			{...props}
+			component="SingleList"
 			multipleSelect={false}
 		/>
 	);

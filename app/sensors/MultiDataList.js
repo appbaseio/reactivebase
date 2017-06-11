@@ -6,6 +6,7 @@ export default function MultiDataList(props) {
 	return (
 		<DataList
 			{...props}
+			component="MultiDataList"
 			multipleSelect
 		/>
 	);

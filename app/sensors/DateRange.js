@@ -76,7 +76,10 @@ export default class DateRange extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				reactiveId: this.context.reactiveId,
+				allowFilter: this.props.allowFilter,
+				component: "DateRange"
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -300,7 +303,8 @@ DateRange.defaultProps = {
 // context type
 DateRange.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	reactiveId: React.PropTypes.number
 };
 
 DateRange.types = {

@@ -6,6 +6,7 @@ export default function MultiList(props) {
 	return (
 		<NativeList
 			{...props}
+			component="MultiList"
 			multipleSelect
 		/>
 	);

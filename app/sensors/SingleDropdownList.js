@@ -6,6 +6,7 @@ export default function SingleDropdownList(props) {
 	return (
 		<DropdownList
 			{...props}
+			component="SingleDropdownList"
 			multipleSelect={false}
 		/>
 	);

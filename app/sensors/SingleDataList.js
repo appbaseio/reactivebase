@@ -6,6 +6,7 @@ export default function SingleDataList(props) {
 	return (
 		<DataList
 			{...props}
+			component="SingleDataList"
 			multipleSelect={false}
 		/>
 	);

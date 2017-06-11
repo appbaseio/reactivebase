@@ -99,7 +99,10 @@ export default class DataSearch extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery,
+				reactiveId: this.context.reactiveId,
+				allowFilter: this.props.allowFilter,
+				component: "DataSearch"
 			}
 		};
 		if (this.props.highlight) {
@@ -257,7 +260,7 @@ export default class DataSearch extends Component {
 		let react = this.props.react ? this.props.react : {};
 		const reactAnd = [this.searchInputId];
 		react = helper.setupReact(react, reactAnd);
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, 100, 0, false, this.props.componentId);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
 			const data = res.data;
@@ -456,7 +459,8 @@ DataSearch.defaultProps = {
 // context type
 DataSearch.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	reactiveId: React.PropTypes.number
 };
 
 DataSearch.types = {

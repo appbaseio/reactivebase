@@ -72,7 +72,10 @@ export default class MultiRange extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				reactiveId: this.context.reactiveId,
+				allowFilter: this.props.allowFilter,
+				component: "MultiRange"
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
@@ -291,7 +294,8 @@ MultiRange.defaultProps = {
 // context type
 MultiRange.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	reactiveId: React.PropTypes.number
 };
 
 MultiRange.types = {
