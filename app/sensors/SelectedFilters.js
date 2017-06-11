@@ -101,7 +101,7 @@ export default class SelectedFilters extends Component {
 			}
 		} else if (item.component === "CategorySearch") {
 			value = item && item.value && item.value.value ? item.value.value : null;
-			if (item.value.category) {
+			if (item.value.category && value) {
 				value += " in " + item.value.category;
 			}
 		} else if (item.component === "PlacesSearch") {
