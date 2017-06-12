@@ -177,6 +177,10 @@ class ItemRow extends Component {
 	}
 
 	render() {
+		if (this.props.value && this.props.value.trim() === "") {
+			return null;
+		}
+
 		const cx = classNames({
 			"rbc-count-active": this.props.countField,
 			"rbc-count-inactive": !this.props.countField,

@@ -59,7 +59,7 @@ class Main extends Component {
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<DataSearch
-							appbaseField={["group.group_topics.topic_name_raw", "venue_name_ngrams"]}
+							appbaseField={"group.group_topics.topic_name_raw"}
 							componentId="VenueSensor"
 							title="DataSearch"
 							searchInputId="CityVenue"

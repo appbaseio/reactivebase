@@ -74,8 +74,8 @@ class Main extends Component {
 							componentId="MeetupTops"
 							title="SingleDataList"
 							data={this.data}
-							defaultSelected={["Social"]}
 							URLParams={true}
+							defaultSelected={"Social"}
 						/>
 					</div>
 

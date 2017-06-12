@@ -35,10 +35,14 @@ export default class ListItem extends Component {
 
 	render() {
 		let count;
-		// Check if the user has set to display countField
 		if (this.props.countField) {
 			count = <span className="rbc-count"> {this.props.doc_count} </span>;
 		}
+
+		if (this.props.value && this.props.value.trim() === "") {
+			return null;
+		}
+
 		const cx = classNames({
 			"rbc-count-active": this.props.countField,
 			"rbc-count-inactive": !this.props.countField,
@@ -47,6 +51,7 @@ export default class ListItem extends Component {
 			"rbc-list-item-active": this.state.status,
 			"rbc-list-item-inactive": !this.state.status
 		});
+
 		return (
 			<div onClick={this.handleClick.bind(this)} className={`rbc-list-item row ${cx}`}>
 				<input

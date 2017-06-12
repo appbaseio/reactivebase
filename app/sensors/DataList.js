@@ -15,7 +15,7 @@ export default class DataList extends Component {
 		};
 
 		this.type = this.props.multipleSelect ? "Terms" : "Term";
-		this.urlParams = helper.URLParams.get(this.props.componentId, true);
+		this.urlParams = helper.URLParams.get(this.props.componentId, props.multipleSelect);
 		this.customQuery = this.customQuery.bind(this);
 		this.renderObjectList = this.renderObjectList.bind(this);
 		this.renderStringList = this.renderStringList.bind(this);
@@ -25,10 +25,6 @@ export default class DataList extends Component {
 		this.setQueryInfo();
 		this.checkDefault(this.props);
 		this.listenFilter();
-	}
-
-	componentWillReceiveProps(nextProps) {
-		this.checkDefault(nextProps);
 	}
 
 	componentWillUnmount() {
@@ -41,6 +37,7 @@ export default class DataList extends Component {
 		this.setState({
 			data: nextProps.data
 		});
+		this.checkDefault(nextProps);
 	}
 
 	listenFilter() {
@@ -52,7 +49,7 @@ export default class DataList extends Component {
 	}
 
 	checkDefault(props) {
-		this.urlParams = helper.URLParams.get(props.componentId, true);
+		this.urlParams = helper.URLParams.get(props.componentId, props.multipleSelect);
 		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
 		this.changeValue(defaultValue);
 	}
@@ -246,7 +243,7 @@ export default class DataList extends Component {
 					</div>
 				));
 			} else {
-				list = data.map(record => (
+				list = data.map((record, i) => (
 					<div className="rbc-list-item row" key={`${record}-${i}`} onClick={() => this.handleChange(record)}>
 						<input
 							type="radio"

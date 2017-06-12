@@ -47,10 +47,6 @@ export default class DataSearch extends Component {
 		this.listenFilter();
 	}
 
-	componentWillUpdate() {
-		this.checkDefault();
-	}
-
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
 		if (this.channelId) {
@@ -363,9 +359,7 @@ export default class DataSearch extends Component {
 	}
 
 	renderSuggestion(suggestion) {
-		return (
-			<span>{suggestion.label}</span>
-		);
+		return suggestion.label
 	}
 
 	render() {

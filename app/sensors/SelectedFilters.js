@@ -33,7 +33,7 @@ export default class SelectedFilters extends Component {
 		Object.keys(data).forEach(item => {
 			const selectedFilter = this.isSibling(item);
 			if (selectedFilter) {
-				if (data[item] !== null) {
+				if (data[item] && (typeof data[item] === "string" ? data[item].trim() !== "" : true)) {
 					filters[item] = {
 						value: data[item],
 						component: selectedFilter.component
@@ -101,7 +101,7 @@ export default class SelectedFilters extends Component {
 			}
 		} else if (item.component === "CategorySearch") {
 			value = item && item.value && item.value.value ? item.value.value : null;
-			if (item.value.category) {
+			if (item.value.category && value) {
 				value += " in " + item.value.category;
 			}
 		} else if (item.component === "PlacesSearch") {
