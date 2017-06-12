@@ -177,7 +177,7 @@ class ItemRow extends Component {
 	}
 
 	render() {
-		if (this.props.value && this.props.value.trim() === "") {
+		if (this.props.value.trim() === "") {
 			return null;
 		}
 
