@@ -1586,29 +1586,37 @@ a {
 .rbc-item-hide {
   display: none; }
 
-.rbc.rbc-singledatalist, .rbc.rbc-multidatalist {
+.rbc.rbc-singledatalist,
+.rbc.rbc-multidatalist {
   height: auto;
   position: relative;
   padding: 0; }
-  .rbc.rbc-singledatalist .rbc-list-container, .rbc.rbc-multidatalist .rbc-list-container {
+  .rbc.rbc-singledatalist .rbc-list-container,
+  .rbc.rbc-multidatalist .rbc-list-container {
     position: relative;
     padding: 0 0 10px;
     height: auto;
     max-height: 250px;
     overflow: auto; }
-    .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item, .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item {
+    .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item,
+    .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item {
       padding: 4px 10px; }
-      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.row, .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.row {
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.row,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.row {
         margin: 0; }
-      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item a, .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a {
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item a,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a {
         padding: 5px 10px;
         display: block;
         color: #777; }
-        .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item a.active, .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active {
+        .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item a.active,
+        .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active {
           font-weight: bold; }
-      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item .rbc-label, .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item .rbc-label {
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item .rbc-label,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item .rbc-label {
         font-weight: normal; }
-    .rbc.rbc-singledatalist .rbc-list-container .row, .rbc.rbc-multidatalist .rbc-list-container .row {
+    .rbc.rbc-singledatalist .rbc-list-container .row,
+    .rbc.rbc-multidatalist .rbc-list-container .row {
       margin: 10px 0; }
 
 .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item {

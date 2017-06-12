@@ -27,10 +27,6 @@ export default class DataList extends Component {
 		this.listenFilter();
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.checkDefault(nextProps);
-	}
-
 	componentWillUnmount() {
 		if(this.filterListener) {
 			this.filterListener.remove();
@@ -41,6 +37,7 @@ export default class DataList extends Component {
 		this.setState({
 			data: nextProps.data
 		});
+		this.checkDefault(nextProps);
 	}
 
 	listenFilter() {
@@ -246,7 +243,7 @@ export default class DataList extends Component {
 					</div>
 				));
 			} else {
-				list = data.map(record => (
+				list = data.map((record, i) => (
 					<div className="rbc-list-item row" key={`${record}-${i}`} onClick={() => this.handleChange(record)}>
 						<input
 							type="radio"
