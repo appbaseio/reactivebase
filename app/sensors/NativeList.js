@@ -246,14 +246,18 @@ export default class NativeList extends Component {
 	}
 
 	addItemsToList(newItems) {
-		newItems = newItems.map((item) => {
-			item.key = item.key.toString();
-			item.status = !!((this.selectedValue && this.selectedValue.indexOf(item.key) > -1));
-			return item;
+		let items = [];
+		newItems.forEach((item) => {
+			const key = item.key.toString();
+			if (key.trim() !== "") {
+				item.key = key;
+				item.status = !!((this.selectedValue && this.selectedValue.indexOf(item.key) > -1));
+				items.push(item);
+			}
 		});
 		this.setState({
-			items: newItems,
-			storedItems: newItems
+			items,
+			storedItems: items
 		}, () => {
 			if (this.selectAllWhenReady) {
 				this.onSelectAll(this.props.selectAllLabel);
