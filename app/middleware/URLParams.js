@@ -5,6 +5,7 @@ class RbcURLParams {
 	constructor() {
 		this.params = new URLSearchParams(window.location.search);
 	}
+
 	get(componentId, multipleSelect=false, jsonParse=false) {
 		let value = this.params.get(componentId);
 		if(jsonParse && value) {
@@ -16,21 +17,24 @@ class RbcURLParams {
 		}
 		return multipleSelect ? ( value && value.trim() ? value.split(",") : null ) : value;
 	}
+
 	update(componentId, value, allowUpdate = false) {
 		if(allowUpdate) {
 			this.setOrDelete(componentId, value);
 			this.applyURLUpdate();
 		}
 	}
+
 	setOrDelete(componentId, value) {
 		if(componentId) {
-			if(value === null || value === undefined) {
-				this.params.delete(componentId);
-			} else {
+			if(value) {
 				this.params.set(componentId, value);
+			} else {
+				this.params.delete(componentId);
 			}
 		}
 	}
+
 	applyURLUpdate() {
 		if (history.pushState) {
 			const paramsSting = this.params.toString() ? "?" + this.params.toString() : "";
