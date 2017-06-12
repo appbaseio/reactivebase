@@ -75,6 +75,7 @@ class Main extends Component {
 							title="SingleDataList"
 							data={this.data}
 							URLParams={true}
+							defaultSelected={"Social"}
 						/>
 					</div>
 
