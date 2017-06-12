@@ -33,7 +33,7 @@ export default class SelectedFilters extends Component {
 		Object.keys(data).forEach(item => {
 			const selectedFilter = this.isSibling(item);
 			if (selectedFilter) {
-				if (data[item]) {
+				if (data[item] && (typeof data[item] === "string" ? data[item].trim() !== "" : true)) {
 					filters[item] = {
 						value: data[item],
 						component: selectedFilter.component

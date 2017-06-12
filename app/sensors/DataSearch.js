@@ -47,10 +47,6 @@ export default class DataSearch extends Component {
 		this.listenFilter();
 	}
 
-	componentWillUpdate() {
-		this.checkDefault();
-	}
-
 	// stop streaming request and remove listener when component will unmount
 	componentWillUnmount() {
 		if (this.channelId) {
