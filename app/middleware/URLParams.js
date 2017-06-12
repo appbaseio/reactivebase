@@ -28,7 +28,11 @@ class RbcURLParams {
 	setOrDelete(componentId, value) {
 		if(componentId) {
 			if(value) {
-				this.params.set(componentId, value);
+				if ((typeof value === "string" && value.trim() === "") || (Array.isArray(value) && value.length === 0)) {
+					this.params.delete(componentId);
+				} else {
+					this.params.set(componentId, value);
+				}
 			} else {
 				this.params.delete(componentId);
 			}
