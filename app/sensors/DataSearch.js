@@ -359,9 +359,7 @@ export default class DataSearch extends Component {
 	}
 
 	renderSuggestion(suggestion) {
-		return (
-			<span>{suggestion.label}</span>
-		);
+		return suggestion.label
 	}
 
 	render() {
