@@ -36,8 +36,9 @@ export default class DataList extends Component {
 	componentWillReceiveProps(nextProps) {
 		this.setState({
 			data: nextProps.data
+		}, () => {
+			this.checkDefault(nextProps);
 		});
-		this.checkDefault(nextProps);
 	}
 
 	listenFilter() {
@@ -144,6 +145,8 @@ export default class DataList extends Component {
 
 		this.setState({
 			selected: value
+		}, () => {
+			this.defaultSelected = value;
 		});
 
 		this.executeQuery(value);
@@ -170,7 +173,9 @@ export default class DataList extends Component {
 		}
 
 		this.setState({
-			selected
+			selected: selected
+		}, () => {
+			this.defaultSelected = selected;
 		});
 
 		this.executeQuery(selected);
@@ -324,7 +329,8 @@ DataList.defaultProps = {
 	title: null,
 	componentStyle: {},
 	URLParams: false,
-	multipleSelect: false
+	multipleSelect: false,
+	allowFilter: true
 };
 
 DataList.contextTypes = {

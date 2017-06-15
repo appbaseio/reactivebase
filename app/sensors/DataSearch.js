@@ -122,6 +122,7 @@ export default class DataSearch extends Component {
 			key: this.searchInputId,
 			value
 		};
+		this.defaultSelected = value;
 		helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
 		helper.selectedSensor.set(obj, true);
 		if (value && value.trim() !== "") {
