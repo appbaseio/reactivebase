@@ -110,7 +110,8 @@ export default class DataSearch extends Component {
 			value: {
 				queryType: "multi_match",
 				inputData: this.props.appbaseField,
-				customQuery: this.defaultSearchQuery
+				customQuery: this.defaultSearchQuery,
+				component: "DataSearchInternal"
 			}
 		};
 		helper.selectedSensor.setSensorInfo(searchObj);

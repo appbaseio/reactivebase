@@ -81,6 +81,13 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 
 	function generateQuery() {
 		const dependsQuery = {};
+		let isDataSearchInternal = false;
+		channelObj.serializeDepends.dependsList.forEach((depend) => {
+			const sensorInfo = helper.selectedSensor.get(depend, "sensorInfo");
+			if (sensorInfo && sensorInfo.component === "DataSearchInternal") {
+				isDataSearchInternal = true;
+			}
+		});
 		channelObj.serializeDepends.dependsList.forEach((depend) => {
 			if (depend === "aggs") {
 				dependsQuery[depend] = aggsQuery(depend);
@@ -90,7 +97,7 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 			} else {
 				dependsQuery[depend] = singleQuery(depend);
 				const externalQuery = isExternalQuery(depend);
-				if (externalQuery) {
+				if (externalQuery && !isDataSearchInternal) {
 					requestOptions = requestOptions || {};
 					requestOptions = Object.assign(requestOptions, externalQuery);
 				}
