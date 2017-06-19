@@ -36,7 +36,8 @@ export default class SelectedFilters extends Component {
 				if (data[item] && (typeof data[item] === "string" ? data[item].trim() !== "" : true)) {
 					filters[item] = {
 						value: data[item],
-						component: selectedFilter.component
+						component: selectedFilter.component,
+						filterLabel: selectedFilter.filterLabel
 					};
 				} else {
 					if (item in filters) {
@@ -59,7 +60,8 @@ export default class SelectedFilters extends Component {
 		const sensorInfo = helper.selectedSensor.get(siblingComponentId, "sensorInfo");
 		if (sensorInfo && sensorInfo.allowFilter && sensorInfo.component && (sensorInfo.reactiveId === 0 || sensorInfo.reactiveId) && this.blacklist.indexOf(sensorInfo.component) < 0 && this.context.reactiveId === sensorInfo.reactiveId) {
 			filter = {
-				component: sensorInfo.component
+				component: sensorInfo.component,
+				filterLabel: sensorInfo.filterLabel
 			};
 		}
 		return filter;
@@ -124,7 +126,7 @@ export default class SelectedFilters extends Component {
 						<span key={item} className="rbc-tag-item col">
 							<button className="close" onClick={() => this.clearFilter(item)}>x</button>
 							<span className="rb-tag-text">
-								<strong>{item}</strong> : {this.parseValue(this.state.filters[item])}
+								<strong>{this.state.filters[item].filterLabel}</strong> : {this.parseValue(this.state.filters[item])}
 							</span>
 						</span>
 					))

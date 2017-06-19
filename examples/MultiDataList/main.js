@@ -71,6 +71,7 @@ class Main extends Component {
 							data={this.data}
 							defaultSelected={["Social"]}
 							URLParams={true}
+							filterLabel="Meetup Label"
 						/>
 					</div>
 
