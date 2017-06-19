@@ -311,5 +311,6 @@ MultiRange.types = {
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	allowFilter: TYPES.BOOLEAN,
-	showTags: TYPES.BOOLEAN
+	showTags: TYPES.BOOLEAN,
+	filterLabel: TYPES.STRING
 };

@@ -218,5 +218,6 @@ DatePicker.types = {
 	componentStyle: TYPES.OBJECT,
 	queryFormat: TYPES.STRING,
 	URLParams: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN
+	allowFilter: TYPES.BOOLEAN,
+	filterLabel: TYPES.STRING
 };

@@ -195,5 +195,6 @@ SingleRange.types = {
 	defaultSelected: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	allowFilter: TYPES.BOOLEAN
+	allowFilter: TYPES.BOOLEAN,
+	filterLabel: TYPES.STRING
 };

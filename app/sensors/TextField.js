@@ -169,5 +169,6 @@ TextField.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN
+	allowFilter: TYPES.BOOLEAN,
+	filterLabel: TYPES.STRING
 };

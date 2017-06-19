@@ -321,5 +321,6 @@ DateRange.types = {
 	customQuery: TYPES.FUNCTION,
 	queryFormat: TYPES.STRING,
 	URLParams: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN
+	allowFilter: TYPES.BOOLEAN,
+	filterLabel: TYPES.STRING
 }

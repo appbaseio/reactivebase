@@ -475,5 +475,6 @@ DataSearch.types = {
 	highlight: TYPES.BOOLEAN,
 	URLParams: TYPES.BOOLEAN,
 	allowFilter: TYPES.BOOLEAN,
+	filterLabel: TYPES.STRING,
 	weights: TYPES.OBJECT
 };
