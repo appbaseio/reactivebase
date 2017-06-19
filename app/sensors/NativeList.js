@@ -154,6 +154,7 @@ export default class NativeList extends Component {
 				customQuery: this.customQuery,
 				reactiveId: this.context.reactiveId,
 				allowFilter: this.props.allowFilter,
+				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
 				component: this.props.component
 			}
 		};
@@ -458,7 +459,8 @@ NativeList.propTypes = {
 	showRadio: React.PropTypes.bool,
 	showCheckbox: React.PropTypes.bool,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool
+	allowFilter: React.PropTypes.bool,
+	filterLabel: React.PropTypes.string
 };
 
 // Default props value
