@@ -62,6 +62,7 @@ class Main extends Component {
 							appbaseField="name"
 							customQuery={this.CustomQuery}
 							URLParams={true}
+							filterLabel="Name label"
 						/>
 					</div>
 

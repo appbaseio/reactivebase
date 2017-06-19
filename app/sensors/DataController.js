@@ -37,6 +37,7 @@ export default class DataController extends Component {
 			inputData: this.props.appbaseField,
 			reactiveId: this.context.reactiveId,
 			allowFilter: this.props.allowFilter,
+			filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
 			component: "DataController"
 		};
 		if (this.props.customQuery) {
@@ -116,7 +117,8 @@ DataController.propTypes = {
 	componentStyle: React.PropTypes.object,
 	defaultSelected: React.PropTypes.any,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool
+	allowFilter: React.PropTypes.bool,
+	filterLabel: React.PropTypes.string
 };
 
 React.PropTypes.oneOfType([
