@@ -75,6 +75,7 @@ class Main extends Component {
 							title="ToggleButton"
 							data={this.toggleData}
 							URLParams={true}
+							filterLabel="Toggle Label"
 						/>
 					</div>
 

@@ -61,6 +61,7 @@ class Main extends Component {
 								{ start: 501, end: 1000, label: "First Date" }]
 							}
 							URLParams={true}
+							filterLabel="Price Label"
 						/>
 					</div>
 

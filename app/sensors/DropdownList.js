@@ -152,6 +152,7 @@ export default class DropdownList extends Component {
 				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
 				allowFilter: this.props.allowFilter,
+				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
 				component: this.props.component
 			}
 		};
@@ -405,7 +406,8 @@ DropdownList.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool
+	allowFilter: React.PropTypes.bool,
+	filterLabel: React.PropTypes.string
 };
 
 // Default props value

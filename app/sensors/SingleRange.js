@@ -71,6 +71,7 @@ export default class SingleRange extends Component {
 				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
 				allowFilter: this.props.allowFilter,
+				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
 				component: "SingleRange"
 			}
 		};
@@ -167,7 +168,8 @@ SingleRange.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	allowFilter: React.PropTypes.bool
+	allowFilter: React.PropTypes.bool,
+	filterLabel: React.PropTypes.string
 };
 
 // Default props value
@@ -193,5 +195,6 @@ SingleRange.types = {
 	defaultSelected: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	allowFilter: TYPES.BOOLEAN
+	allowFilter: TYPES.BOOLEAN,
+	filterLabel: TYPES.STRING
 };

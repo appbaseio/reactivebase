@@ -61,16 +61,18 @@ class Main extends Component {
 						<DataSearch
 							appbaseField={"venue_name_ngrams"}
 							componentId="VenueSensor"
-							title="DataSearch"
+							title="VenueSearch"
 							URLParams={true}
 							highlight={true}
+							filterLabel="Venue Label"
 						/>
 						<DataSearch
 							appbaseField={"group.group_topics.topic_name_raw"}
 							componentId="TopicSensor"
-							title="DataSearch"
+							title="TopicSearch"
 							URLParams={true}
 							highlight={true}
+							filterLabel="Topic Label"
 							react={{
 								and: "VenueSensor"
 							}}

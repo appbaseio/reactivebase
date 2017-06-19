@@ -65,6 +65,7 @@ class Main extends Component {
 							appbaseField="mtime"
 							title="Date Range"
 							URLParams={true}
+							filterLabel="Date Range Label"
 						/>
 					</div>
 
