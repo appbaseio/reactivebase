@@ -29,7 +29,7 @@ export default class SelectedFilters extends Component {
 
 	updateSensors(data) {
 		let isanyChange = false;
-		let filters = this.state.filters;
+		let filters = { ...this.state.filters };
 		Object.keys(data).forEach(item => {
 			const selectedFilter = this.isSibling(item);
 			if (selectedFilter) {
