@@ -68,7 +68,7 @@ export default class SelectedFilters extends Component {
 	}
 
 	clearFilter(item) {
-		let filters = this.state.filters;
+		let filters = { ...this.state.filters };
 		delete filters[item];
 		this.setState({
 			filters
