@@ -34,7 +34,7 @@ MultiList.propTypes = {
 	componentStyle: React.PropTypes.object,
 	showCheckbox: React.PropTypes.bool,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool
+	showFilter: React.PropTypes.bool
 };
 
 // Default props value
@@ -72,5 +72,5 @@ MultiList.types = {
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showCheckbox: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN
 };

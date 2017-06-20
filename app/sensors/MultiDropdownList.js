@@ -16,7 +16,7 @@ MultiDropdownList.propTypes = {
 	defaultSelected: React.PropTypes.array,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool
+	showFilter: React.PropTypes.bool
 };
 
 MultiDropdownList.types = {
@@ -35,5 +35,5 @@ MultiDropdownList.types = {
 	initialLoader: TYPES.OBJECT,
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN
 };

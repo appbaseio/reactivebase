@@ -97,7 +97,7 @@ export default class DataSearch extends Component {
 				inputData: this.props.appbaseField,
 				customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery,
 				reactiveId: this.context.reactiveId,
-				allowFilter: this.props.allowFilter,
+				showFilter: this.props.showFilter,
 				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
 				component: "DataSearch"
 			}
@@ -440,7 +440,7 @@ DataSearch.propTypes = {
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool,
+	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string
 };
 
@@ -451,7 +451,7 @@ DataSearch.defaultProps = {
 	componentStyle: {},
 	highlight: false,
 	URLParams: false,
-	allowFilter: true
+	showFilter: true
 };
 
 // context type
@@ -474,7 +474,7 @@ DataSearch.types = {
 	componentStyle: TYPES.OBJECT,
 	highlight: TYPES.BOOLEAN,
 	URLParams: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN,
+	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,
 	weights: TYPES.OBJECT
 };

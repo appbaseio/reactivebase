@@ -58,7 +58,7 @@ export default class SelectedFilters extends Component {
 	isSibling(siblingComponentId) {
 		let filter = null;
 		const sensorInfo = helper.selectedSensor.get(siblingComponentId, "sensorInfo");
-		if (sensorInfo && sensorInfo.allowFilter && sensorInfo.component && (sensorInfo.reactiveId === 0 || sensorInfo.reactiveId) && this.blacklist.indexOf(sensorInfo.component) < 0 && this.context.reactiveId === sensorInfo.reactiveId) {
+		if (sensorInfo && sensorInfo.showFilter && sensorInfo.component && (sensorInfo.reactiveId === 0 || sensorInfo.reactiveId) && this.blacklist.indexOf(sensorInfo.component) < 0 && this.context.reactiveId === sensorInfo.reactiveId) {
 			filter = {
 				component: sensorInfo.component,
 				filterLabel: sensorInfo.filterLabel

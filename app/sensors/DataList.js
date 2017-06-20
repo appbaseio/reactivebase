@@ -99,7 +99,7 @@ export default class DataList extends Component {
 				inputData: this.props.appbaseField,
 				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
-				allowFilter: this.props.allowFilter,
+				showFilter: this.props.showFilter,
 				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
 				component: this.props.component
 			}
@@ -322,7 +322,7 @@ DataList.propTypes = {
 	customQuery: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool,
+	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string
 };
 
@@ -332,7 +332,7 @@ DataList.defaultProps = {
 	componentStyle: {},
 	URLParams: false,
 	multipleSelect: false,
-	allowFilter: true
+	showFilter: true
 };
 
 DataList.contextTypes = {
