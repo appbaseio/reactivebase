@@ -71,7 +71,7 @@ export default class SingleDropdownRange extends Component {
 				inputData: this.props.appbaseField,
 				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
-				allowFilter: this.props.allowFilter,
+				showFilter: this.props.showFilter,
 				component: "SingleDropdownRange"
 			}
 		};

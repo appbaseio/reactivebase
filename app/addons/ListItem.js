@@ -39,7 +39,7 @@ export default class ListItem extends Component {
 			count = <span className="rbc-count"> {this.props.doc_count} </span>;
 		}
 
-		if (this.props.value.trim() === "") {
+		if (this.props.value.trim() === "" || !this.props.visible) {
 			return null;
 		}
 

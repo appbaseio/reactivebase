@@ -34,7 +34,7 @@ SingleList.propTypes = {
 	componentStyle: React.PropTypes.object,
 	showRadio: React.PropTypes.bool,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool
+	showFilter: React.PropTypes.bool
 };
 
 // Default props value
@@ -73,5 +73,5 @@ SingleList.types = {
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showRadio: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN
 };

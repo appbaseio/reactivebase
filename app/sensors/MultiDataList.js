@@ -24,7 +24,7 @@ MultiDataList.propTypes = {
 	customQuery: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool
+	showFilter: React.PropTypes.bool
 };
 
 // Default props value
@@ -50,5 +50,5 @@ MultiDataList.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN
 };

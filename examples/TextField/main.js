@@ -67,6 +67,7 @@ class Main extends Component {
 							title="TextField"
 							customQuery={this.NameQuery}
 							URLParams={true}
+							filterLabel="Text Label"
 						/>
 					</div>
 

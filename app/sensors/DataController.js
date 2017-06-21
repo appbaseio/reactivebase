@@ -36,7 +36,8 @@ export default class DataController extends Component {
 			queryType: this.type,
 			inputData: this.props.appbaseField,
 			reactiveId: this.context.reactiveId,
-			allowFilter: this.props.allowFilter,
+			showFilter: this.props.showFilter,
+			filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
 			component: "DataController"
 		};
 		if (this.props.customQuery) {
@@ -116,7 +117,8 @@ DataController.propTypes = {
 	componentStyle: React.PropTypes.object,
 	defaultSelected: React.PropTypes.any,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool
+	showFilter: React.PropTypes.bool,
+	filterLabel: React.PropTypes.string
 };
 
 React.PropTypes.oneOfType([
@@ -130,7 +132,7 @@ DataController.defaultProps = {
 	defaultSelected: "default",
 	componentStyle: {},
 	URLParams: false,
-	allowFilter: true
+	showFilter: true
 };
 
 // context type
@@ -150,5 +152,6 @@ DataController.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN,
+	filterLabel: TYPES.STRING
 };

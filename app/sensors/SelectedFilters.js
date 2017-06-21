@@ -29,14 +29,15 @@ export default class SelectedFilters extends Component {
 
 	updateSensors(data) {
 		let isanyChange = false;
-		let filters = this.state.filters;
+		let { filters } = this.state;
 		Object.keys(data).forEach(item => {
 			const selectedFilter = this.isSibling(item);
 			if (selectedFilter) {
-				if (data[item] && (typeof data[item] === "string" ? data[item].trim() !== "" : true)) {
+				if (data[item] && ((typeof data[item] === "string" && data[item].trim() !== "") || (Array.isArray(data[item]) && data[item].length > 0))) {
 					filters[item] = {
 						value: data[item],
-						component: selectedFilter.component
+						component: selectedFilter.component,
+						filterLabel: selectedFilter.filterLabel
 					};
 				} else {
 					if (item in filters) {
@@ -57,16 +58,17 @@ export default class SelectedFilters extends Component {
 	isSibling(siblingComponentId) {
 		let filter = null;
 		const sensorInfo = helper.selectedSensor.get(siblingComponentId, "sensorInfo");
-		if (sensorInfo && sensorInfo.allowFilter && sensorInfo.component && (sensorInfo.reactiveId === 0 || sensorInfo.reactiveId) && this.blacklist.indexOf(sensorInfo.component) < 0 && this.context.reactiveId === sensorInfo.reactiveId) {
+		if (sensorInfo && sensorInfo.showFilter && sensorInfo.component && (sensorInfo.reactiveId === 0 || sensorInfo.reactiveId) && this.blacklist.indexOf(sensorInfo.component) < 0 && this.context.reactiveId === sensorInfo.reactiveId) {
 			filter = {
-				component: sensorInfo.component
+				component: sensorInfo.component,
+				filterLabel: sensorInfo.filterLabel
 			};
 		}
 		return filter;
 	}
 
 	clearFilter(item) {
-		let filters = this.state.filters;
+		const { filters } = this.state;
 		delete filters[item];
 		this.setState({
 			filters
@@ -124,7 +126,7 @@ export default class SelectedFilters extends Component {
 						<span key={item} className="rbc-tag-item col">
 							<button className="close" onClick={() => this.clearFilter(item)}>x</button>
 							<span className="rb-tag-text">
-								<strong>{item}</strong> : {this.parseValue(this.state.filters[item])}
+								<strong>{this.state.filters[item].filterLabel}</strong> : {this.parseValue(this.state.filters[item])}
 							</span>
 						</span>
 					))

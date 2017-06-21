@@ -59,11 +59,23 @@ class Main extends Component {
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<DataSearch
-							appbaseField={"group.group_topics.topic_name_raw"}
+							appbaseField={"venue_name_ngrams"}
 							componentId="VenueSensor"
-							title="DataSearch"
-							searchInputId="CityVenue"
+							title="VenueSearch"
 							URLParams={true}
+							highlight={true}
+							filterLabel="Venue Label"
+						/>
+						<DataSearch
+							appbaseField={"group.group_topics.topic_name_raw"}
+							componentId="TopicSensor"
+							title="TopicSearch"
+							URLParams={true}
+							highlight={true}
+							filterLabel="Topic Label"
+							react={{
+								and: "VenueSensor"
+							}}
 						/>
 					</div>
 
@@ -78,7 +90,7 @@ class Main extends Component {
 							stream
 							onData={this.onData}
 							react={{
-								and: "VenueSensor"
+								and: ["VenueSensor", "TopicSensor"]
 							}}
 						/>
 					</div>

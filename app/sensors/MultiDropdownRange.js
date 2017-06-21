@@ -185,13 +185,13 @@ MultiDropdownRange.propTypes = {
 	customQuery: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
-	allowFilter: React.PropTypes.bool
+	showFilter: React.PropTypes.bool
 };
 
 // Default props value
 MultiDropdownRange.defaultProps = {
 	URLParams: false,
-	allowFilter: true
+	showFilter: true
 };
 
 // context type
@@ -211,5 +211,5 @@ MultiDropdownRange.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN
 };

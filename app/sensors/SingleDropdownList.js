@@ -15,7 +15,7 @@ export default function SingleDropdownList(props) {
 SingleDropdownList.propTypes = {
 	defaultSelected: React.PropTypes.string,
 	componentStyle: React.PropTypes.object,
-	allowFilter: React.PropTypes.bool
+	showFilter: React.PropTypes.bool
 };
 
 SingleDropdownList.types = {
@@ -34,5 +34,5 @@ SingleDropdownList.types = {
 	initialLoader: TYPES.OBJECT,
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
-	allowFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN
 };

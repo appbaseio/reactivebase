@@ -63,6 +63,7 @@ class Main extends Component {
 							title="MultiDropdownList"
 							size={100}
 							URLParams={true}
+							filterLabel="City Label"
 						/>
 					</div>
 
