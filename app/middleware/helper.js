@@ -16,28 +16,28 @@ export const WatchForDependencyChange = function (react, previousSelectedSensor,
 		}
 	};
 	// apply depend changes when new value received
-	const applyDependChange = function (currentReact, depend) {
+	const applyDependChange = function (currentReact, depend, rbcInitialize) {
 		if (selectedSensor[depend] && typeof selectedSensor[depend] === "object") {
 			previousSelectedSensor[depend] = JSON.parse(JSON.stringify(selectedSensor[depend]));
 		} else {
 			previousSelectedSensor[depend] = selectedSensor[depend];
 		}
-		// if (!selectedSensor[depend].doNotExecute) {
-		cb(depend, channelId);
-		// }
+		if (!rbcInitialize) {
+			cb(depend, channelId);
+		}
 	};
 
 	// initialize the process
-	this.init = function () {
+	this.init = function (rbcInitialize=false) {
 		react.forEach((depend) => {
 			if (!(depend.indexOf("channel-options-") > -1 || depend.indexOf("aggs") > -1)) {
 				checkDependExists(depend);
 				if (typeof selectedSensor[depend] === "object") {
 					if (!_.isEqual(selectedSensor[depend], previousSelectedSensor[depend])) {
-						applyDependChange(react, depend);
+						applyDependChange(react, depend, rbcInitialize);
 					}
 				} else if (selectedSensor[depend] !== previousSelectedSensor[depend]) {
-					applyDependChange(react, depend);
+					applyDependChange(react, depend, rbcInitialize);
 				}
 			}
 		});
@@ -47,8 +47,8 @@ export const WatchForDependencyChange = function (react, previousSelectedSensor,
 		const self = this;
 		this.sensorListener = sensorEmitter.addListener("sensorChange", (data) => {
 			let foundDepend = false;
-
-			Object.keys(data).forEach((item) => {
+			const dataValue = data.rbcInitialize ? data.value : data;
+			Object.keys(dataValue).forEach((item) => {
 				if (item.indexOf("channel-options-") < 0 && react.indexOf(item) > -1) {
 					foundDepend = true;
 				}
@@ -56,7 +56,7 @@ export const WatchForDependencyChange = function (react, previousSelectedSensor,
 
 			if (foundDepend) {
 				selectedSensor = data;
-				self.init();
+				self.init(data.rbcInitialize);
 			}
 		});
 
@@ -134,6 +134,9 @@ function SelectedSensorFn() {
 	// Set fieldname
 	const setSensorInfo = function (obj) {
 		self.sensorInfo[obj.key] = obj.value;
+		if(obj.value && obj.value.defaultSelected) {
+			self.selectedSensor[obj.key] = obj.value.defaultSelected;
+		}
 	};
 
 	// Set sort info

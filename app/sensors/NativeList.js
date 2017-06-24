@@ -42,15 +42,9 @@ export default class NativeList extends Component {
 	}
 
 	// Get the items from Appbase when component is mounted
-	componentDidMount() {
+	componentWillMount() {
 		this.size = this.props.size;
 		this.setQueryInfo();
-		if(this.urlParams === null) {
-			const value = this.props.multipleSelect ? null : null;
-			this.handleSelect(value);
-		} else {
-			this.handleSelect(this.urlParams);
-		}
 		this.createChannel(true);
 		this.defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.changeValues(this.defaultValue);
@@ -155,7 +149,8 @@ export default class NativeList extends Component {
 				reactiveId: this.context.reactiveId,
 				showFilter: this.props.showFilter,
 				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
-				component: this.props.component
+				component: this.props.component,
+				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);

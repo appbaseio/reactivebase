@@ -44,7 +44,7 @@ export default class RangeSlider extends Component {
 	}
 
 	// Get the items from Appbase when component is mounted
-	componentDidMount() {
+	componentWillMount() {
 		this.setQueryInfo();
 		this.createChannel();
 	}
@@ -219,7 +219,8 @@ export default class RangeSlider extends Component {
 			value: {
 				queryType: "range",
 				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);

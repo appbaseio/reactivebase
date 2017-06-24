@@ -16,7 +16,7 @@ export default class TextField extends Component {
 	}
 
 	// Set query information
-	componentDidMount() {
+	componentWillMount() {
 		this.setQueryInfo();
 		this.checkDefault(this.props);
 		this.listenFilter();
@@ -64,7 +64,8 @@ export default class TextField extends Component {
 				reactiveId: this.context.reactiveId,
 				showFilter: this.props.showFilter,
 				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
-				component: "TextField"
+				component: "TextField",
+				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);

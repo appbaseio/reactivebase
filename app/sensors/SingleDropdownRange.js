@@ -18,7 +18,7 @@ export default class SingleDropdownRange extends Component {
 	}
 
 	// Set query information
-	componentDidMount() {
+	componentWillMount() {
 		this.setQueryInfo();
 		this.checkDefault(this.props);
 		this.listenFilter();
@@ -72,7 +72,8 @@ export default class SingleDropdownRange extends Component {
 				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: this.props.showFilter,
-				component: "SingleDropdownRange"
+				component: "SingleDropdownRange",
+				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);

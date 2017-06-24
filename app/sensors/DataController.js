@@ -38,7 +38,8 @@ export default class DataController extends Component {
 			reactiveId: this.context.reactiveId,
 			showFilter: this.props.showFilter,
 			filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
-			component: "DataController"
+			component: "DataController",
+			defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
 		};
 		if (this.props.customQuery) {
 			valObj.customQuery = this.props.customQuery;

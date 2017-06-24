@@ -55,7 +55,7 @@ export default class NumberBox extends Component {
 		this.customQuery = this.customQuery.bind(this);
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		this.setQueryInfo();
 		if(this.urlParams !== null) {
 			this.updateQuery(this.urlParams);
@@ -137,7 +137,8 @@ export default class NumberBox extends Component {
 			value: {
 				queryType: this.type,
 				inputData: appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
