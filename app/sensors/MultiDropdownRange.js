@@ -24,7 +24,7 @@ export default class MultiDropdownRange extends Component {
 	}
 
 	// Set query information
-	componentDidMount() {
+	componentWillMount() {
 		this.setQueryInfo();
 		if (this.defaultSelected) {
 			const records = this.state.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
@@ -77,7 +77,8 @@ export default class MultiDropdownRange extends Component {
 			value: {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery
+				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
