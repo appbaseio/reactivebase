@@ -31,6 +31,7 @@ export default class DropdownList extends Component {
 		this.type = this.props.multipleSelect ? "Terms" : "Term";
 		this.customQuery = this.customQuery.bind(this);
 		this.renderOption = this.renderOption.bind(this);
+		this.handleOnValueChange = this.handleOnValueChange.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -180,9 +181,9 @@ export default class DropdownList extends Component {
 			key: `${this.props.componentId}-sort`,
 			value: this.sortObj
 		};
-		if (this.props.onValueChange) {
-			this.props.onValueChange(obj.value);
-		}
+		// if (this.props.onValueChange) {
+		// 	this.props.onValueChange(obj.value);
+		// }
 		helper.selectedSensor.set(obj, true, "sortChange");
 	}
 
@@ -290,6 +291,13 @@ export default class DropdownList extends Component {
 		}
 	}
 
+	// for both MultiDropdownList as array and SingleDropdownList as string
+	handleOnValueChange(nextValue) {
+		if (this.props.onValueChange) {
+			this.props.onValueChange(nextValue);
+		}
+	}
+
 	// Handler function when a value is selected
 	handleChange(value) {
 		let result;
@@ -304,6 +312,7 @@ export default class DropdownList extends Component {
 					result = this.props.selectAllLabel;
 					this.selectAll = true;
 				} else {
+					this.handleOnValueChange(result);
 					result = result.join();
 				}
 			} else {
@@ -311,6 +320,7 @@ export default class DropdownList extends Component {
 			}
 		} else {
 			result = value ? value.value : value;
+			this.handleOnValueChange(result);
 			if (this.props.selectAllLabel && result === this.props.selectAllLabel) {
 				this.selectAll = true;
 			}

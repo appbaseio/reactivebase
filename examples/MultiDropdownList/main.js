@@ -64,6 +64,7 @@ class Main extends Component {
 							size={100}
 							URLParams={true}
 							filterLabel="City Label"
+							onValueChange={value => console.log(value)}
 						/>
 					</div>
 
