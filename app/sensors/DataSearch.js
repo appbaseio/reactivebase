@@ -71,11 +71,11 @@ export default class DataSearch extends Component {
 
 	highlightQuery() {
 		const fields = {};
-		const highlightFields = this.props.highlightFields ? this.props.highlightFields : this.props.appbaseField;
-		if (typeof highlightFields === "string") {
-			fields[highlightFields] = {};
-		} else if (_.isArray(highlightFields)) {
-			highlightFields.forEach((item) => {
+		const highlightField = this.props.highlightField ? this.props.highlightField : this.props.appbaseField;
+		if (typeof highlightField === "string") {
+			fields[highlightField] = {};
+		} else if (_.isArray(highlightField)) {
+			highlightField.forEach((item) => {
 				fields[item] = {};
 			});
 		}
@@ -436,7 +436,7 @@ DataSearch.propTypes = {
 	react: React.PropTypes.object,
 	componentStyle: React.PropTypes.object,
 	highlight: React.PropTypes.bool,
-	highlightFields: React.PropTypes.oneOfType([
+	highlightField: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
@@ -474,6 +474,7 @@ DataSearch.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	highlight: TYPES.BOOLEAN,
+	highlightField: TYPES.STRING,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,
