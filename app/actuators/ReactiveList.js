@@ -63,35 +63,30 @@ export default class ReactiveList extends Component {
 	}
 
 	componentWillUpdate() {
-		setTimeout(() => {
-			if (this.streamProp !== this.props.stream) {
-				this.streamProp = this.props.stream;
-				this.removeChannel();
-				this.initialize(true);
-			}
-			if (this.size !== this.props.size) {
-				this.size = this.props.size;
-				this.setState({
-					currentData: []
-				});
-				this.removeChannel();
-				this.initialize(true);
-			}
-			if (this.props.pagination && this.paginationAtVal !== this.props.paginationAt) {
-				this.paginationAtVal = this.props.paginationAt;
-				this.executePaginationUpdate();
-			}
-		}, 300);
+		if (this.streamProp !== this.props.stream) {
+			this.streamProp = this.props.stream;
+		}
+		if (this.size !== this.props.size) {
+			this.size = this.props.size;
+			this.setState({
+				currentData: []
+			});
+		}
+		if (this.props.pagination && this.paginationAtVal !== this.props.paginationAt) {
+			this.paginationAtVal = this.props.paginationAt;
+			this.executePaginationUpdate();
+		}
 	}
 
 	componentWillReceiveProps(nextProps) {
+		if (!_.isEqual(this.props, nextProps)) {
+			this.setReact(nextProps);
+			manager.update(this.channelId, this.react, nextProps.size, nextProps.from, nextProps.stream);
+		}
 		if (nextProps.pagination !== this.pagination) {
 			this.pagination = nextProps.pagination;
 			this.setState({
 				requestOnScroll: !nextProps.pagination
-			}, () => {
-				this.removeChannel();
-				this.initialize(true);
 			});
 		}
 	}
@@ -152,21 +147,27 @@ export default class ReactiveList extends Component {
 		}
 	}
 
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel(executeChannel = false) {
+	setReact(props) {
 		// Set the react - add self aggs query as well with react
-		let react = this.props.react ? this.props.react : {};
+		const react = Object.assign({}, props.react);
+
 		const reactAnd = ["streamChanges"];
-		if (this.props.pagination) {
+		if (props.pagination) {
 			reactAnd.push("paginationChanges");
 			react.pagination = null;
 		}
 		if (this.sortObj) {
 			this.enableSort(reactAnd);
 		}
-		react = helper.setupReact(react, reactAnd);
+
+		this.react = helper.setupReact(react, reactAnd);
+		console.log("react ", this.react);
+	}
+
+	// Create a channel which passes the react and receive results whenever react changes
+	createChannel(executeChannel = false) {
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.props.componentId, this.context.appbaseCrdentials);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, this.react, this.props.size, this.props.from, this.props.stream, this.props.componentId, this.context.appbaseCrdentials);
 		this.channelId = channelObj.channelId;
 
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
@@ -389,6 +390,7 @@ export default class ReactiveList extends Component {
 	}
 
 	initialize(executeChannel = false) {
+		this.setReact(this.props);
 		this.createChannel(executeChannel);
 		if (this.state.requestOnScroll) {
 			this.listComponent();

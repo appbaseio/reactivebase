@@ -243,6 +243,39 @@ class ChannelManager {
 			emitter: this.emitter
 		};
 	}
+
+	update(channelId, react, size = 100, from = 0, stream = false) {
+		const optionValues = {
+			size,
+			from
+		};
+		this.queryOptions[channelId] = optionValues;
+		react[`channel-options-${channelId}`] = optionValues;
+		const previousSelectedSensor = {
+			[`channel-options-${channelId}`]: optionValues
+		};
+		const obj = {
+			key: `channel-options-${channelId}`,
+			value: optionValues
+		};
+		const serializeDepends = helper.serializeDepends.serialize(react);
+		helper.selectedSensor.set(obj);
+		this.channels[channelId] = {
+			react,
+			size,
+			from,
+			stream,
+			previousSelectedSensor,
+			serializeDepends,
+			watchDependency: new helper.WatchForDependencyChange(serializeDepends.dependsList, previousSelectedSensor, this.receive, channelId, this.paginationChanges, this.sortChanges)
+		};
+		this.channels[channelId].watchDependency.start();
+		setTimeout(() => {
+			if ("aggs" in react) {
+				this.receive("aggs", channelId);
+			}
+		}, 100);
+	}
 }
 const manager = new ChannelManager();
 export default manager;
