@@ -114,7 +114,7 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 				dependsQuery[depend] = aggsQuery(depend);
 			} else if (depend && depend.indexOf("channel-options-") > -1) {
 				requestOptions = requestOptions || {};
-				requestOptions = mergeDeep(requestOptions, previousSelectedSensor[depend]);
+				requestOptions = mergeDeep(previousSelectedSensor[depend], requestOptions);
 			} else {
 				dependsQuery[depend] = singleQuery(depend);
 				const externalQuery = isExternalQuery(depend);
