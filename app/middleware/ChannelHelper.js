@@ -1,5 +1,26 @@
 const helper = require("./helper");
 
+function isObject(item) {
+	return (item && typeof item === 'object' && !Array.isArray(item));
+}
+
+function mergeDeep(target, source) {
+	let output = Object.assign({}, target);
+	if (isObject(target) && isObject(source)) {
+		Object.keys(source).forEach(key => {
+			if (isObject(source[key])) {
+				if (!(key in target))
+					Object.assign(output, { [key]: source[key] });
+				else
+					output[key] = mergeDeep(target[key], source[key]);
+			} else {
+				Object.assign(output, { [key]: source[key] });
+			}
+		});
+	}
+	return output;
+}
+
 // queryBuild
 // Builds the query by using react object and values of sensor
 export const queryBuild = function(channelObj, previousSelectedSensor) {
@@ -93,13 +114,13 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 				dependsQuery[depend] = aggsQuery(depend);
 			} else if (depend && depend.indexOf("channel-options-") > -1) {
 				requestOptions = requestOptions || {};
-				requestOptions = Object.assign(requestOptions, previousSelectedSensor[depend]);
+				requestOptions = mergeDeep(requestOptions, previousSelectedSensor[depend]);
 			} else {
 				dependsQuery[depend] = singleQuery(depend);
 				const externalQuery = isExternalQuery(depend);
 				if (externalQuery && !isDataSearchInternal) {
 					requestOptions = requestOptions || {};
-					requestOptions = Object.assign(requestOptions, externalQuery);
+					requestOptions = mergeDeep(externalQuery, requestOptions);
 				}
 			}
 			const sortField = sortAvailable(depend);

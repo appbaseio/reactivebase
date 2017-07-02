@@ -161,7 +161,6 @@ export default class ReactiveList extends Component {
 		}
 
 		this.react = helper.setupReact(react, reactAnd);
-		console.log("react ", this.react);
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
