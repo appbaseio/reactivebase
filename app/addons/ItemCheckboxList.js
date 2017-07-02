@@ -26,7 +26,7 @@ export default class ItemCheckboxList extends Component {
 					}
 				});
 				this.setState({
-					selectedItems: items.length ? items : null
+					selectedItems: items.length ? items : []
 				}, () => {
 					this.props.onSelect(this.state.selectedItems);
 				});

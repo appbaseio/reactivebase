@@ -70,7 +70,13 @@ class Main extends Component {
 								selectAllLabel="Select All"
 								defaultSelected={["Social"]}
 								URLParams={true}
+								showCount={true}
+								showCheckbox={true}
+								showSearch={true}
 								filterLabel="Topic Label"
+								react={{
+									and: "CitySensor"
+								}}
 							/>
 							<SingleList
 								componentId="CitySensor"
@@ -81,6 +87,9 @@ class Main extends Component {
 								selectAllLabel="Select All"
 								defaultSelected="London"
 								filterLabel="City Label"
+								react={{
+									and: "TopicSensor"
+								}}
 							/>
 						</div>
 						<div className="col s6 col-xs-6">
