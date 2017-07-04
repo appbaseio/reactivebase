@@ -81,7 +81,13 @@ export default class ReactiveList extends Component {
 	componentWillReceiveProps(nextProps) {
 		if (!_.isEqual(this.props, nextProps)) {
 			this.setReact(nextProps);
-			manager.update(this.channelId, this.react, nextProps.size, nextProps.from, nextProps.stream);
+			let size = null,
+				from = null;
+			if (this.props.size !== nextProps.size || this.props.from != nextProps.from) {
+				size = nextProps.size;
+				from = nextProps.from;
+			}
+			manager.update(this.channelId, this.react, size, from, nextProps.stream);
 		}
 		if (nextProps.pagination !== this.pagination) {
 			this.pagination = nextProps.pagination;

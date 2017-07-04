@@ -158,7 +158,7 @@ class ChannelManager {
 			this.channels[channelId].watchDependency.stop();
 			delete this.channels[channelId];
 		}
-		if(this.channelQueries[channelId]) {
+		if (this.channelQueries[channelId]) {
 			delete this.channelQueries[channelId];
 		}
 	}
@@ -232,23 +232,23 @@ class ChannelManager {
 			};
 			this.channels[channelId].watchDependency.start();
 		}
-		// setTimeout(() => {
-			if ("aggs" in react) {
-				this.receive("aggs", channelId);
-			}
-		// }, 100);
+		if ("aggs" in react) {
+			this.receive("aggs", channelId);
+		}
 		return {
 			channelId,
 			emitter: this.emitter
 		};
 	}
 
-	update(channelId, react, size = 100, from = 0, stream = false) {
-		const optionValues = {
-			size,
-			from
-		};
-		this.queryOptions[channelId] = optionValues;
+	update(channelId, react, size, from, stream = false) {
+		let optionValues = this.queryOptions[channelId];
+		if (size !== null && from !== null) {
+			optionValues = {
+				size,
+				from
+			};
+		}
 		react[`channel-options-${channelId}`] = optionValues;
 		const previousSelectedSensor = {
 			[`channel-options-${channelId}`]: optionValues
@@ -269,11 +269,9 @@ class ChannelManager {
 			watchDependency: new helper.WatchForDependencyChange(serializeDepends.dependsList, previousSelectedSensor, this.receive, channelId, this.paginationChanges, this.sortChanges)
 		};
 		this.channels[channelId].watchDependency.start();
-		// setTimeout(() => {
-			if ("aggs" in react) {
-				this.receive("aggs", channelId);
-			}
-		// }, 100);
+		if ("aggs" in react) {
+			this.receive("aggs", channelId);
+		}
 	}
 }
 const manager = new ChannelManager();
