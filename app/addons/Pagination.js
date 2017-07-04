@@ -46,7 +46,7 @@ export default class Pagination extends Component {
 				const totalHits = res.channelResponse && res.channelResponse.data && res.channelResponse.data.hits ? res.channelResponse.data.hits.total : 0;
 				const maxPageNumber = Math.ceil(totalHits / res.queryOptions.size) < 1 ? 1 : Math.ceil(totalHits / res.queryOptions.size);
 				const size = res.queryOptions.size ? res.queryOptions.size : 20;
-				const currentPage = Math.round(res.queryOptions.from / size) + 1;
+				const currentPage = Math.floor(res.queryOptions.from / size) + 1;
 				this.setState({
 					totalHits,
 					size,

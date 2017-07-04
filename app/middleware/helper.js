@@ -251,7 +251,7 @@ const SerializeDepends = function () {
 			delete query.query;
 			return query;
 		});
-		
+
 
 		function setQuery(depend) {
 			let subQuery = [];

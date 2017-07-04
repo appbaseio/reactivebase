@@ -102,6 +102,7 @@ class Main extends Component {
 								size={20}
 								size={2}
 								onData={this.onData}
+								pagination={true}
 								react={{
 									and: ["CitySensor", "TopicSensor"]
 								}}

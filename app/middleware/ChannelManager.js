@@ -75,16 +75,15 @@ class ChannelManager {
 			});
 		}
 
-		const appbaseQuery = (appbaseRef, searchQueryObj, channelResponse, channelObj, queryObj) => {
+		const appbaseQuery = (appbaseRef, searchQueryObj, channelResponse, channelObj, queryObj, queryOptions) => {
 			appbaseRef.search(searchQueryObj).on("data", (data) => {
 				channelResponse.mode = "historic";
 				channelResponse.data = this.highlightModify(data, channelResponse.appliedQuery);
-				self.emitter.emit(channelId, channelResponse);
-				const globalQueryOptions = self.queryOptions && self.queryOptions[channelId] ? self.queryOptions[channelId] : {};
-				self.emitter.emit("global", {
+				this.emitter.emit(channelId, channelResponse);
+				this.emitter.emit("global", {
 					channelResponse,
 					react: channelObj.react,
-					queryOptions: globalQueryOptions
+					queryOptions
 				});
 			}).on("error", (error) => {
 				const channelError = {
@@ -92,7 +91,7 @@ class ChannelManager {
 					error,
 					startTime: channelResponse.startTime
 				};
-				self.emitter.emit(channelId, channelError);
+				this.emitter.emit(channelId, channelError);
 			});
 			// apply searchStream query and emit streaming data
 			if (channelObj.stream) {
@@ -125,7 +124,8 @@ class ChannelManager {
 				if(!_.isEqual(this.channelQueries[channelId], searchQueryObj)) {
 					this.channelQueries[channelId] = searchQueryObj;
 					setQueryState(channelResponse);
-					appbaseQuery(appbaseRef, searchQueryObj, channelResponse, channelObj, queryObj);
+					const qOptions = this.queryOptions && this.queryOptions[channelId] ? this.queryOptions[channelId] : {};
+					appbaseQuery(appbaseRef, searchQueryObj, channelResponse, channelObj, queryObj, qOptions);
 				}
 			} else {
 				this.channelQueries[channelId] = queryObj;
@@ -151,7 +151,6 @@ class ChannelManager {
 	// stopStream
 	// Clear channel streaming request
 	stopStream(channelId) {
-		// debugger
 		if (this.streamRef[channelId]) {
 			this.streamRef[channelId].stop();
 		}
@@ -233,11 +232,11 @@ class ChannelManager {
 			};
 			this.channels[channelId].watchDependency.start();
 		}
-		setTimeout(() => {
+		// setTimeout(() => {
 			if ("aggs" in react) {
 				this.receive("aggs", channelId);
 			}
-		}, 100);
+		// }, 100);
 		return {
 			channelId,
 			emitter: this.emitter
@@ -270,11 +269,11 @@ class ChannelManager {
 			watchDependency: new helper.WatchForDependencyChange(serializeDepends.dependsList, previousSelectedSensor, this.receive, channelId, this.paginationChanges, this.sortChanges)
 		};
 		this.channels[channelId].watchDependency.start();
-		setTimeout(() => {
+		// setTimeout(() => {
 			if ("aggs" in react) {
 				this.receive("aggs", channelId);
 			}
-		}, 100);
+		// }, 100);
 	}
 }
 const manager = new ChannelManager();

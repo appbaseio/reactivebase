@@ -1,26 +1,5 @@
 const helper = require("./helper");
 
-function isObject(item) {
-	return (item && typeof item === 'object' && !Array.isArray(item));
-}
-
-function mergeDeep(target, source) {
-	let output = Object.assign({}, target);
-	if (isObject(target) && isObject(source)) {
-		Object.keys(source).forEach(key => {
-			if (isObject(source[key])) {
-				if (!(key in target))
-					Object.assign(output, { [key]: source[key] });
-				else
-					output[key] = mergeDeep(target[key], source[key]);
-			} else {
-				Object.assign(output, { [key]: source[key] });
-			}
-		});
-	}
-	return output;
-}
-
 // queryBuild
 // Builds the query by using react object and values of sensor
 export const queryBuild = function(channelObj, previousSelectedSensor) {
@@ -114,13 +93,27 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 				dependsQuery[depend] = aggsQuery(depend);
 			} else if (depend && depend.indexOf("channel-options-") > -1) {
 				requestOptions = requestOptions || {};
-				requestOptions = mergeDeep(previousSelectedSensor[depend], requestOptions);
+				if ("highlight" in previousSelectedSensor[depend] && "highlight" in requestOptions) {
+					requestOptions.highlight.fields = Object.assign(
+						{},
+						previousSelectedSensor[depend].highlight.fields,
+						requestOptions.highlight.fields
+					);
+				}
+				requestOptions = Object.assign(previousSelectedSensor[depend], requestOptions);
 			} else {
 				dependsQuery[depend] = singleQuery(depend);
 				const externalQuery = isExternalQuery(depend);
 				if (externalQuery && !isDataSearchInternal) {
 					requestOptions = requestOptions || {};
-					requestOptions = mergeDeep(externalQuery, requestOptions);
+					if ("highlight" in externalQuery && "highlight" in requestOptions) {
+						requestOptions.highlight.fields = Object.assign(
+							{},
+							externalQuery.highlight.fields,
+							requestOptions.highlight.fields
+						);
+					}
+					requestOptions = Object.assign(externalQuery, requestOptions);
 				}
 			}
 			const sortField = sortAvailable(depend);
