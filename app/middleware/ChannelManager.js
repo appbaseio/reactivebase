@@ -172,7 +172,6 @@ class ChannelManager {
 		queryOptions[`channel-options-${channelId}`] = JSON.parse(JSON.stringify(options));
 		// queryOptions["channel-options-"+channelId].from += 1;
 		this.queryOptions[channelId] = options;
-		debugger;
 		this.receive(`channel-options-${channelId}`, channelId, queryOptions);
 	}
 
