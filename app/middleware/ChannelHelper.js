@@ -93,14 +93,14 @@ export const queryBuild = function(channelObj, previousSelectedSensor) {
 				dependsQuery[depend] = aggsQuery(depend);
 			} else if (depend && depend.indexOf("channel-options-") > -1) {
 				requestOptions = requestOptions || {};
-				if ("highlight" in previousSelectedSensor[depend] && "highlight" in requestOptions) {
+				if (previousSelectedSensor[depend] && "highlight" in previousSelectedSensor[depend] && "highlight" in requestOptions) {
 					requestOptions.highlight.fields = Object.assign(
 						{},
 						previousSelectedSensor[depend].highlight.fields,
 						requestOptions.highlight.fields
 					);
 				}
-				requestOptions = Object.assign(previousSelectedSensor[depend], requestOptions);
+				requestOptions = Object.assign({}, previousSelectedSensor[depend], requestOptions);
 			} else {
 				dependsQuery[depend] = singleQuery(depend);
 				const externalQuery = isExternalQuery(depend);
