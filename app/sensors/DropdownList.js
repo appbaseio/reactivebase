@@ -31,7 +31,6 @@ export default class DropdownList extends Component {
 		this.type = this.props.multipleSelect ? "Terms" : "Term";
 		this.customQuery = this.customQuery.bind(this);
 		this.renderOption = this.renderOption.bind(this);
-		this.handleOnValueChange = this.handleOnValueChange.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
@@ -291,13 +290,6 @@ export default class DropdownList extends Component {
 		}
 	}
 
-	// for both MultiDropdownList as array and SingleDropdownList as string
-	handleOnValueChange(nextValue) {
-		if (this.props.onValueChange) {
-			this.props.onValueChange(nextValue);
-		}
-	}
-
 	// Handler function when a value is selected
 	handleChange(value) {
 		let result;
@@ -306,25 +298,27 @@ export default class DropdownList extends Component {
 			if(value) {
 				result = [];
 				value.map((item) => {
-					result.push(item.value);
+					if (_.isArray(item.value)) {
+						result.push(...item.value);	// initially for defaultSelected values received as array
+					} else {
+						result.push(item.value);
+					}
 				});
 				if (this.props.selectAllLabel && (result.indexOf(this.props.selectAllLabel) > -1)) {
 					result = this.props.selectAllLabel;
 					this.selectAll = true;
-				} else {
-					this.handleOnValueChange(result);
-					result = result.join();
 				}
 			} else {
 				result = null;
 			}
 		} else {
 			result = value ? value.value : value;
-			this.handleOnValueChange(result);
 			if (this.props.selectAllLabel && result === this.props.selectAllLabel) {
 				this.selectAll = true;
 			}
 		}
+
+		// string for single and array for multiple
 		this.setState({
 			value: result
 		});
@@ -334,8 +328,10 @@ export default class DropdownList extends Component {
 
 	// set value
 	setValue(value, isExecuteQuery = false) {
+		if (this.props.onValueChange) {
+			this.props.onValueChange(value);
+		}
 		if (this.props.multipleSelect && value) {
-			value = _.isArray(value) ? value : value.split(",");
 			value = value.length ? value : null;
 		}
 		value = value === "" ? null : value;
@@ -376,7 +372,7 @@ export default class DropdownList extends Component {
 							<Select
 								options={this.state.items}
 								clearable={false}
-								value={this.state.value}
+								value={_.isArray(this.state.value) ? this.state.value.join() : this.state.value}
 								onChange={this.handleChange}
 								multi={this.props.multipleSelect}
 								cache={false}
