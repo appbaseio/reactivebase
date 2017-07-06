@@ -298,7 +298,7 @@ export default class DropdownList extends Component {
 			if(value) {
 				result = [];
 				value.map((item) => {
-					if (_.isArray(item.value)) {
+					if (Array.isArray(item.value)) {
 						result.push(...item.value);	// initially for defaultSelected values received as array
 					} else {
 						result.push(item.value);
@@ -372,7 +372,7 @@ export default class DropdownList extends Component {
 							<Select
 								options={this.state.items}
 								clearable={false}
-								value={_.isArray(this.state.value) ? this.state.value.join() : this.state.value}
+								value={Array.isArray(this.state.value) ? this.state.value.join() : this.state.value}
 								onChange={this.handleChange}
 								multi={this.props.multipleSelect}
 								cache={false}
