@@ -61,9 +61,11 @@ export default class DropdownList extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.filterListener) {
+		if (this.filterListener) {
 			this.filterListener.remove();
 		}
+		// stop streaming request and remove listener when component will unmount
+		this.removeChannel();
 	}
 
 	listenFilter() {
@@ -89,12 +91,15 @@ export default class DropdownList extends Component {
 				if (records.length) {
 					this.handleChange(records);
 				} else {
-					this.handleChange([{value: this.defaultSelected}]);
+					this.handleChange(this.defaultSelected.map(item => ({
+						value: item
+					})));
 				}
 			}
 		} else if (this.defaultSelected !== defaultValue) {
 			this.defaultSelected = defaultValue;
 			const records = this.state.items.filter(record => record.value === this.defaultSelected);
+
 			if (records.length) {
 				this.handleChange(records);
 			} else {
@@ -110,11 +115,6 @@ export default class DropdownList extends Component {
 			this.removeChannel();
 			this.createChannel();
 		}
-	}
-
-	// stop streaming request and remove listener when component will unmount
-	componentWillUnmount() {
-		this.removeChannel();
 	}
 
 	removeChannel() {
@@ -295,15 +295,9 @@ export default class DropdownList extends Component {
 		let result;
 		this.selectAll = false;
 		if (this.props.multipleSelect) {
-			if(value) {
-				result = [];
-				value.map((item) => {
-					if (Array.isArray(item.value)) {
-						result.push(...item.value);	// initially for defaultSelected values received as array
-					} else {
-						result.push(item.value);
-					}
-				});
+			if (value) {
+				result = value.map(item => item.value);
+
 				if (this.props.selectAllLabel && (result.indexOf(this.props.selectAllLabel) > -1)) {
 					result = this.props.selectAllLabel;
 					this.selectAll = true;
@@ -372,7 +366,7 @@ export default class DropdownList extends Component {
 							<Select
 								options={this.state.items}
 								clearable={false}
-								value={Array.isArray(this.state.value) ? this.state.value.join() : this.state.value}
+								value={this.state.value}
 								onChange={this.handleChange}
 								multi={this.props.multipleSelect}
 								cache={false}
