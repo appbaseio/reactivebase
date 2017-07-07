@@ -254,6 +254,12 @@ a {
 .rbc-red .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon,
 .rbc-red .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon {
   border-color: rgba(255, 0, 0, 0.24); }
+  .rbc-red .rbc.rbc-singledropdownlist .Select--multi .Select-value-icon:hover,
+  .rbc-red .rbc.rbc-multidropdownlist .Select--multi .Select-value-icon:hover,
+  .rbc-red .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon:hover,
+  .rbc-red .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon:hover {
+    color: red;
+    background-color: rgba(255, 0, 0, 0.08); }
 
 .rbc-red .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
 .rbc-red .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active,
@@ -455,6 +461,12 @@ a {
 .rbc-orange .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon,
 .rbc-orange .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon {
   border-color: rgba(255, 165, 0, 0.24); }
+  .rbc-orange .rbc.rbc-singledropdownlist .Select--multi .Select-value-icon:hover,
+  .rbc-orange .rbc.rbc-multidropdownlist .Select--multi .Select-value-icon:hover,
+  .rbc-orange .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon:hover,
+  .rbc-orange .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon:hover {
+    color: orange;
+    background-color: rgba(255, 165, 0, 0.08); }
 
 .rbc-orange .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
 .rbc-orange .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active,
@@ -656,6 +668,12 @@ a {
 .rbc-yellow .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon,
 .rbc-yellow .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon {
   border-color: rgba(255, 255, 0, 0.24); }
+  .rbc-yellow .rbc.rbc-singledropdownlist .Select--multi .Select-value-icon:hover,
+  .rbc-yellow .rbc.rbc-multidropdownlist .Select--multi .Select-value-icon:hover,
+  .rbc-yellow .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon:hover,
+  .rbc-yellow .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon:hover {
+    color: yellow;
+    background-color: rgba(255, 255, 0, 0.08); }
 
 .rbc-yellow .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
 .rbc-yellow .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active,
@@ -857,6 +875,12 @@ a {
 .rbc-green .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon,
 .rbc-green .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon {
   border-color: rgba(0, 128, 0, 0.24); }
+  .rbc-green .rbc.rbc-singledropdownlist .Select--multi .Select-value-icon:hover,
+  .rbc-green .rbc.rbc-multidropdownlist .Select--multi .Select-value-icon:hover,
+  .rbc-green .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon:hover,
+  .rbc-green .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon:hover {
+    color: green;
+    background-color: rgba(0, 128, 0, 0.08); }
 
 .rbc-green .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
 .rbc-green .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active,
@@ -1058,6 +1082,12 @@ a {
 .rbc-blue .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon,
 .rbc-blue .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon {
   border-color: rgba(24, 147, 231, 0.24); }
+  .rbc-blue .rbc.rbc-singledropdownlist .Select--multi .Select-value-icon:hover,
+  .rbc-blue .rbc.rbc-multidropdownlist .Select--multi .Select-value-icon:hover,
+  .rbc-blue .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon:hover,
+  .rbc-blue .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon:hover {
+    color: #1893e7;
+    background-color: rgba(24, 147, 231, 0.08); }
 
 .rbc-blue .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
 .rbc-blue .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active,
@@ -1259,6 +1289,12 @@ a {
 .rbc-dark .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon,
 .rbc-dark .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon {
   border-color: rgba(204, 204, 204, 0.24); }
+  .rbc-dark .rbc.rbc-singledropdownlist .Select--multi .Select-value-icon:hover,
+  .rbc-dark .rbc.rbc-multidropdownlist .Select--multi .Select-value-icon:hover,
+  .rbc-dark .rbc.rbc-singledropdownrange .Select--multi .Select-value-icon:hover,
+  .rbc-dark .rbc.rbc-multidropdownrange .Select--multi .Select-value-icon:hover {
+    color: #ccc;
+    background-color: rgba(204, 204, 204, 0.08); }
 
 .rbc-dark .rbc.rbc-singlelist .rbc-list-container .rbc-list-item a.active,
 .rbc-dark .rbc.rbc-multilist .rbc-list-container .rbc-list-item a.active,

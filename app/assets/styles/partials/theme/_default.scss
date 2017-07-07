@@ -51,6 +51,11 @@ $map in $themes {
 				}
 				.Select-value-icon {
 					border-color: rgba(map-get($map, color), .24);
+
+					&:hover {
+						color: map-get($map, color);
+						background-color: rgba(map-get($map, color), .08);
+					}
 				}
 			}
 		}
