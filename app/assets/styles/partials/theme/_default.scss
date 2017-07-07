@@ -56,13 +56,15 @@ $map in $themes {
 		}
 		.rbc.rbc-singlelist,
 		.rbc.rbc-multilist,
+		.rbc.rbc-singlerange,
+		.rbc.rbc-multirange,
 		.rbc.rbc-selectedfilters {
 			.rbc-list-container {
 				.rbc-list-item {
 					a.active {
 						color: map-get($map, color);
 					}
-					
+
 					&.rbc-radio-inactive,
 					&.rbc-checkbox-inactive {
 						&.rbc-list-item-active .rbc-label {

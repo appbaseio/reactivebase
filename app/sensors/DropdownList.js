@@ -61,9 +61,11 @@ export default class DropdownList extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.filterListener) {
+		if (this.filterListener) {
 			this.filterListener.remove();
 		}
+		// stop streaming request and remove listener when component will unmount
+		this.removeChannel();
 	}
 
 	listenFilter() {
@@ -89,12 +91,15 @@ export default class DropdownList extends Component {
 				if (records.length) {
 					this.handleChange(records);
 				} else {
-					this.handleChange([{value: this.defaultSelected}]);
+					this.handleChange(this.defaultSelected.map(item => ({
+						value: item
+					})));
 				}
 			}
 		} else if (this.defaultSelected !== defaultValue) {
 			this.defaultSelected = defaultValue;
 			const records = this.state.items.filter(record => record.value === this.defaultSelected);
+
 			if (records.length) {
 				this.handleChange(records);
 			} else {
@@ -110,11 +115,6 @@ export default class DropdownList extends Component {
 			this.removeChannel();
 			this.createChannel();
 		}
-	}
-
-	// stop streaming request and remove listener when component will unmount
-	componentWillUnmount() {
-		this.removeChannel();
 	}
 
 	removeChannel() {
@@ -180,9 +180,9 @@ export default class DropdownList extends Component {
 			key: `${this.props.componentId}-sort`,
 			value: this.sortObj
 		};
-		if (this.props.onValueChange) {
-			this.props.onValueChange(obj.value);
-		}
+		// if (this.props.onValueChange) {
+		// 	this.props.onValueChange(obj.value);
+		// }
 		helper.selectedSensor.set(obj, true, "sortChange");
 	}
 
@@ -295,16 +295,12 @@ export default class DropdownList extends Component {
 		let result;
 		this.selectAll = false;
 		if (this.props.multipleSelect) {
-			if(value) {
-				result = [];
-				value.map((item) => {
-					result.push(item.value);
-				});
+			if (value) {
+				result = value.map(item => item.value);
+
 				if (this.props.selectAllLabel && (result.indexOf(this.props.selectAllLabel) > -1)) {
 					result = this.props.selectAllLabel;
 					this.selectAll = true;
-				} else {
-					result = result.join();
 				}
 			} else {
 				result = null;
@@ -315,6 +311,8 @@ export default class DropdownList extends Component {
 				this.selectAll = true;
 			}
 		}
+
+		// string for single and array for multiple
 		this.setState({
 			value: result
 		});
@@ -324,8 +322,10 @@ export default class DropdownList extends Component {
 
 	// set value
 	setValue(value, isExecuteQuery = false) {
+		if (this.props.onValueChange) {
+			this.props.onValueChange(value);
+		}
 		if (this.props.multipleSelect && value) {
-			value = _.isArray(value) ? value : value.split(",");
 			value = value.length ? value : null;
 		}
 		value = value === "" ? null : value;

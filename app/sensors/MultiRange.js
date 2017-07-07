@@ -196,17 +196,26 @@ export default class MultiRange extends Component {
 		let buttons;
 		const selectedText = this.state.selected ? this.state.selected.map(record => record.label) : "";
 		if (this.props.data) {
-			buttons = this.props.data.map(record => (
-				<div className="rbc-list-item row" key={record.label} onClick={() => this.handleChange(record)}>
-					<input
-						type="checkbox"
-						className="rbc-checkbox-item"
-						checked={selectedText.indexOf(record.label) > -1}
-						value={record.label}
-					/>
-					<label className="rbc-label">{record.label}</label>
-				</div>
-				));
+			buttons = this.props.data.map((record) => {
+				const cx = classNames({
+					"rbc-checkbox-active": this.props.showCheckbox,
+					"rbc-checkbox-inactive": !this.props.showCheckbox,
+					"rbc-list-item-active": selectedText.indexOf(record.label) !== -1,
+					"rbc-list-item-inactive": selectedText.indexOf(record.label) === -1
+				});
+
+				return (
+					<div className={`rbc-list-item row ${cx}`} key={record.label} onClick={() => this.handleChange(record)}>
+						<input
+							type="checkbox"
+							className="rbc-checkbox-item"
+							checked={selectedText.indexOf(record.label) > -1}
+							value={record.label}
+						/>
+						<label className="rbc-label">{record.label}</label>
+					</div>
+				);
+			});
 		}
 		return buttons;
 	}
@@ -232,7 +241,9 @@ export default class MultiRange extends Component {
 
 		const cx = classNames({
 			"rbc-title-active": this.props.title,
-			"rbc-title-inactive": !this.props.title
+			"rbc-title-inactive": !this.props.title,
+			"rbc-checkbox-active": this.props.showCheckbox,
+			"rbc-checkbox-inactive": !this.props.showCheckbox
 		});
 
 		return (
@@ -284,14 +295,16 @@ MultiRange.propTypes = {
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
-	showTags: React.PropTypes.bool
+	showTags: React.PropTypes.bool,
+	showCheckbox: React.PropTypes.bool
 };
 
 // Default props value
 MultiRange.defaultProps = {
 	URLParams: false,
 	showFilter: true,
-	showTags: true
+	showTags: true,
+	showCheckbox: true
 };
 
 // context type
@@ -313,5 +326,6 @@ MultiRange.types = {
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	showTags: TYPES.BOOLEAN,
-	filterLabel: TYPES.STRING
+	filterLabel: TYPES.STRING,
+	showCheckbox: TYPES.BOOLEAN
 };
