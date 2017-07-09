@@ -117,17 +117,26 @@ export default class SingleRange extends Component {
 		let buttons;
 		const selectedText = this.state.selected && this.state.selected.label ? this.state.selected.label : "";
 		if (this.props.data) {
-			buttons = this.props.data.map((record, i) => (
-				<div className="rbc-list-item row" key={i} onClick={() => this.handleChange(record)}>
-					<input
-						type="radio"
-						className="rbc-radio-item"
-						checked={selectedText === record.label}
-						value={record.label}
-					/>
-					<label className="rbc-label">{record.label}</label>
-				</div>
-				));
+			buttons = this.props.data.map((record, i) => {
+				const cx = classNames({
+					"rbc-radio-active": this.props.showRadio,
+					"rbc-radio-inactive": !this.props.showRadio,
+					"rbc-list-item-active": selectedText === record.label,
+					"rbc-list-item-inactive": selectedText !== record.label
+				});
+
+				return (
+					<div className={`rbc-list-item row ${cx}`} key={i} onClick={() => this.handleChange(record)}>
+						<input
+							type="radio"
+							className="rbc-radio-item"
+							checked={selectedText === record.label}
+							value={record.label}
+						/>
+						<label className="rbc-label">{record.label}</label>
+					</div>
+				);
+			});
 		}
 		return buttons;
 	}
@@ -141,7 +150,9 @@ export default class SingleRange extends Component {
 
 		const cx = classNames({
 			"rbc-title-active": this.props.title,
-			"rbc-title-inactive": !this.props.title
+			"rbc-title-inactive": !this.props.title,
+			"rbc-radio-active": this.props.showRadio,
+			"rbc-radio-inactive": !this.props.showRadio
 		});
 
 		return (
@@ -170,14 +181,16 @@ SingleRange.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	showRadio: React.PropTypes.bool
 };
 
 // Default props value
 SingleRange.defaultProps = {
 	title: null,
 	componentStyle: {},
-	showFilter: true
+	showFilter: true,
+	showRadio: true
 };
 
 // context type
@@ -197,5 +210,6 @@ SingleRange.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	showFilter: TYPES.BOOLEAN,
-	filterLabel: TYPES.STRING
+	filterLabel: TYPES.STRING,
+	showRadio: TYPES.BOOLEAN
 };

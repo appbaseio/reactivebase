@@ -64,6 +64,8 @@ class Main extends Component {
 							size={100}
 							URLParams={true}
 							filterLabel="City Label"
+							defaultSelected="Sydney"
+							onValueChange={value => console.log('callback', value)}
 						/>
 					</div>
 
