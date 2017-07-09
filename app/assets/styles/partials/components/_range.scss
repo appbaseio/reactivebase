@@ -4,6 +4,26 @@
 	overflow: auto;
 	padding: 0;
 
+	&.rbc-radio-inactive,
+	&.rbc-checkbox-inactive {
+		.rbc-radio-item,
+		.rbc-checkbox-item {
+			visibility: hidden;
+		}
+
+		.rbc-label {
+			padding-left: 0;
+
+			&::before, &::after {
+				visibility: hidden;
+			}
+		}
+
+		.rbc-list-item-active .rbc-label {
+			font-family: $font-bold;
+		}
+	}
+
 	.rbc-list-container {
 		height: 100%;
 		padding: 0;
@@ -48,13 +68,13 @@
 		padding: 0;
 		display: inline-block;
 		cursor: pointer;
-		
+
 		span {
 			padding: 0 5px;
 			position: relative;
 			top: 1px;
 		}
-		
+
 		.close {
 			display: inline-block;
 			border-bottom-left-radius: 2px;

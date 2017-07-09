@@ -3,9 +3,22 @@ $themes: ( rbc-red: (color: red, background: #fff, font-color: #777, input-bg: #
 $map in $themes {
 	.#{$theme} {
 		.rbc.rbc-datasearch {
-			.rbc-search-container:before,
+			input {
+				color: map-get($map, font-color);
+				background-color: map-get($map, input-bg);
+			}
+
 			.react-autosuggest__container:before {
 				color: map-get($map, color);
+			}
+
+			.react-autosuggest__suggestion {
+				color: map-get($map, font-color);
+				background-color: map-get($map, input-bg);
+			}
+
+			.react-autosuggest__suggestion--highlighted {
+				background-color: #ddd;	// TODO: for both light and dark themes
 			}
 		}
 		.rbc-poweredby {
@@ -51,18 +64,25 @@ $map in $themes {
 				}
 				.Select-value-icon {
 					border-color: rgba(map-get($map, color), .24);
+
+					&:hover {
+						color: map-get($map, color);
+						background-color: rgba(map-get($map, color), .08);
+					}
 				}
 			}
 		}
 		.rbc.rbc-singlelist,
 		.rbc.rbc-multilist,
+		.rbc.rbc-singlerange,
+		.rbc.rbc-multirange,
 		.rbc.rbc-selectedfilters {
 			.rbc-list-container {
 				.rbc-list-item {
 					a.active {
 						color: map-get($map, color);
 					}
-					
+
 					&.rbc-radio-inactive,
 					&.rbc-checkbox-inactive {
 						&.rbc-list-item-active .rbc-label {

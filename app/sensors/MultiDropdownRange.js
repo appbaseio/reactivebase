@@ -35,7 +35,7 @@ export default class MultiDropdownRange extends Component {
 		this.listenFilter();
 	}
 
-	componentWillReceiveProps() {
+	componentWillReceiveProps(nextProps) {
 		this.urlParams = helper.URLParams.get(nextProps.componentId, true);
 		const defaultValue = this.urlParams !== null ? this.urlParams : nextProps.defaultSelected;
 		this.valueChange(defaultValue);
