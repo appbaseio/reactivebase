@@ -34,7 +34,7 @@ import * as TYPES from "./middleware/constants";
 
 const helper = require("./middleware/helper");
 
-module.exports = {
+export {
 	SingleList,
 	MultiList,
 	SingleDataList,
@@ -55,8 +55,8 @@ module.exports = {
 	ReactiveBase,
 	ReactiveList,
 	ReactiveElement,
-	AppbaseChannelManager: manager,
-	AppbaseSensorHelper: helper,
+	manager as AppbaseChannelManager,
+	helper as AppbaseSensorHelper,
 	PoweredBy,
 	DataController,
 	TYPES,
