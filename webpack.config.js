@@ -18,7 +18,7 @@ const dev_config = {
 		MultiDropdownRange: "./examples/MultiDropdownRange/main.js",
 		MultiRange: "./examples/MultiRange/main.js",
 		RangeSlider: "./examples/RangeSlider/main.js",
-		SingleDropdownList: "./examples/Sin gleDropdownList/main.js",
+		SingleDropdownList: "./examples/SingleDropdownList/main.js",
 		SingleDropdownRange: "./examples/SingleDropdownRange/main.js",
 		SingleRange: "./examples/SingleRange/main.js",
 		NumberBox: "./examples/NumberBox/main.js",
