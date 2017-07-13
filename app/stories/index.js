@@ -1,7 +1,7 @@
 /* eslint max-lines: 0 */
 import React from "react";
-import { storiesOf } from "@kadira/storybook";
-import { withKnobs, text, boolean, number, array, select, object } from "@kadira/storybook-addon-knobs";
+import { storiesOf } from "@storybook/react";
+import { withKnobs, text, boolean, number, array, select, object } from "@storybook/addon-knobs";
 
 // importing READMEs first, to be used in playground for each component
 import withReadme from "storybook-readme/with-readme";

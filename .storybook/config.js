@@ -1,9 +1,9 @@
-import { configure } from '@kadira/storybook';
-import { setOptions } from '@kadira/storybook-addon-options';
+import { configure } from "@storybook/react";
+import { setOptions } from "@storybook/addon-options";
 
 setOptions({
-	name: 'reactivebase',
-	url: 'https://github.com/appbaseio/reactivebase',
+	name: "reactivebase",
+	url: "https://github.com/appbaseio/reactivebase",
 	goFullScreen: false,
 	showLeftPanel: true,
 	showDownPanel: true,
@@ -12,7 +12,7 @@ setOptions({
 });
 
 function loadStories() {
-	require('../app/stories');
+	require("../app/stories");
 }
 
 configure(loadStories, module);
