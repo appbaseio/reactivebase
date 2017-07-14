@@ -9,13 +9,17 @@ module.exports = {
 	cache: true,
 	entry: "./app/app.js",
 	output: {
-		path: path.resolve(__dirname, "umd"),
-		filename: "reactivebase.js",
-		library: "ReactiveBase",
-		libraryTarget: "umd"
+		library: "UmdReactiveBase",
+		libraryTarget: "umd",
 	},
 	module: {
 		rules: [
+			{
+				enforce: "pre",
+				test: /\.json$/,
+				use: "json-loader",
+				exclude: /node_modules/
+			},
 			{
 				test: /.jsx?$/,
 				use: "babel-loader",
@@ -26,12 +30,6 @@ module.exports = {
 				use: ["shebang-loader", "babel-loader"]
 			}
 		]
-	},
-	resolve: {
-		alias: {
-			react: path.resolve(__dirname, "./node_modules/react"),
-			"react-dom": path.resolve(__dirname, "./node_modules/react-dom")
-		},
 	},
 	externals: [
 		{
@@ -46,6 +44,12 @@ module.exports = {
 				commonjs2: "react-dom",
 				commonjs: "react-dom",
 				amd: "react-dom",
+			},
+			"react-dom/server": {
+				root: "ReactDOMServer",
+				commonjs2: "react-dom-server",
+				commonjs: "react-dom-server",
+				amd: "react-dom-server",
 			}
 		},
 		"ws"

@@ -12,7 +12,7 @@
     "start": "concurrently \"npm run webpack-server\" \"gulp watch\" ",
     "storybook": "start-storybook -p 9009",
     "build": "gulp && babel app --out-dir lib",
-    "build:umd": "webpack --config webpack.config.umd.js",
+    "build:umd": "cross-env NODE_ENV=production webpack --config webpack.config.umd.js app/app.js umd/reactivebase.js",
     "build:storybook": "build-storybook -o playground",
     "build:all": "npm run build && npm run build:umd && npm run build:storybook"
   },
