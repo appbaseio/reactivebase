@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import manager from "./ChannelManager";
 const Appbase = require("appbase-js");
 const helper = require("./helper.js");
-const _ = require("lodash");
 
 export default class ReactiveBase extends Component {
 	constructor(props, context) {

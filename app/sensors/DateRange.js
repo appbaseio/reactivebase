@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { DateRangePicker } from "react-dates";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
-import _ from "lodash";
 import moment from "moment";
 import momentPropTypes from "react-moment-proptypes";
 
