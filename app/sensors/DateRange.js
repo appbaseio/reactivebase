@@ -141,7 +141,7 @@ export default class DateRange extends Component {
 
 	generateQuery(value) {
 		let query;
-		if (_.isArray(this.props.appbaseField) && this.props.appbaseField.length === 2) {
+		if (Array.isArray(this.props.appbaseField) && this.props.appbaseField.length === 2) {
 			query = {
 				bool: {
 					must: [{
@@ -159,7 +159,7 @@ export default class DateRange extends Component {
 					}]
 				}
 			};
-		} else if (_.isArray(this.props.appbaseField)) {
+		} else if (Array.isArray(this.props.appbaseField)) {
 			query = {
 				range: {
 					[this.props.appbaseField[0]]: {

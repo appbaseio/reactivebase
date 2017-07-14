@@ -74,7 +74,7 @@ export default class DataSearch extends Component {
 		const highlightField = this.props.highlightField ? this.props.highlightField : this.props.appbaseField;
 		if (typeof highlightField === "string") {
 			fields[highlightField] = {};
-		} else if (_.isArray(highlightField)) {
+		} else if (Array.isArray(highlightField)) {
 			highlightField.forEach((item) => {
 				fields[item] = {};
 			});
@@ -155,7 +155,7 @@ export default class DataSearch extends Component {
 			const fieldSplit = field.split(".");
 			fieldSplit.forEach((item, index) => {
 				prefix += item;
-				if (_.isArray(_.get(hit, prefix))) {
+				if (Array.isArray(_.get(hit, prefix))) {
 					prefix += `[${index}]`;
 				}
 				if (fieldSplit.length - 1 !== index) {
@@ -176,7 +176,7 @@ export default class DataSearch extends Component {
 	// set data after get the result
 	setData(data) {
 		let options = [];
-		const appbaseField = _.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
+		const appbaseField = Array.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
 		data.hits.hits.map((hit) => {
 			if (this.fieldType === "string") {
 				const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
@@ -246,7 +246,7 @@ export default class DataSearch extends Component {
 					}
 				}
 			}];
-			if(_.isArray(this.props.weights) && this.props.weights[index]) {
+			if(Array.isArray(this.props.weights) && this.props.weights[index]) {
 				query[0].match[field].boost = this.props.weights[index];
 				query[1].match_phrase_prefix[field].boost = this.props.weights[index];
 			}

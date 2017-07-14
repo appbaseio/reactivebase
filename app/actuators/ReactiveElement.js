@@ -246,7 +246,7 @@ export default class ReactiveElement extends Component {
 	}
 
 	combineCurrentData(newData) {
-		if (_.isArray(newData)) {
+		if (Array.isArray(newData)) {
 			return this.state.currentData.concat(newData);
 		}
 		return this.streamDataModify(this.state.currentData, newData);

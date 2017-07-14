@@ -130,7 +130,7 @@ export default class MultiRange extends Component {
 			if (selected === null) {
 				selected = [];
 			}
-			if (!_.isArray(record)) {
+			if (!Array.isArray(record)) {
 				records = [record];
 			}
 			records.forEach((item) => {

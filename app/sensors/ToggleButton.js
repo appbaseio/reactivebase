@@ -52,7 +52,7 @@ export default class ToggleButton extends Component {
 		if (!_.isEqual(this.defaultSelected, defaultValue)) {
 			this.defaultSelected = defaultValue;
 			if(this.defaultSelected) {
-				this.defaultSelected = _.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
+				this.defaultSelected = Array.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
 				const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 				if (records && records.length) {
 					records.forEach((singleRecord) => {

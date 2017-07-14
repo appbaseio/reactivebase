@@ -294,7 +294,7 @@ export default class ReactiveList extends Component {
 
 	wrapMarkup(generatedData) {
 		let markup = null;
-		if (_.isArray(generatedData)) {
+		if (Array.isArray(generatedData)) {
 			markup = generatedData.map((item, index) => (
 				<div key={index} className="rbc-list-item">
 					{item}
@@ -341,7 +341,7 @@ export default class ReactiveList extends Component {
 	}
 
 	combineCurrentData(newData) {
-		if (_.isArray(newData)) {
+		if (Array.isArray(newData)) {
 			newData = newData.map((item) => {
 				item.stream = false;
 				return item;
