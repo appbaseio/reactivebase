@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
+import _ from "lodash";
 
 const helper = require("../middleware/helper");
 
