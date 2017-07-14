@@ -1,9 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
-const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
-const env = process.env.NODE_ENV;
 
-const dev_config = {
+module.exports = {
 	entry: {
 		app: "./app/app.js",
 		testurl: "./examples/testurl/main.js",
@@ -49,46 +47,3 @@ const dev_config = {
 	},
 	externals: ["ws"]
 };
-
-const main_config = {
-	entry: {
-		app: "./app/app.js"
-	},
-	output: {
-		path: path.join(__dirname, "dist"),
-		filename: "[name].bundle.js",
-		publicPath: "/dist/"
-	},
-	module: {
-		rules: [
-			{
-				test: /.jsx?$/,
-				use: "babel-loader",
-				exclude: /node_modules/
-			},
-			{
-				test: /node_modules\/JSONStream\/index\.js$/,
-				use: ["shebang-loader", "babel-loader"]
-			}
-		]
-	},
-	externals: ["ws"],
-	plugins: [
-		new webpack.DefinePlugin({
-			"process.env.NODE_ENV": JSON.stringify("production")
-		}),
-		new LodashModuleReplacementPlugin({
-			collections: true,
-			shorthands: true,
-			paths: true
-		})
-	]
-};
-
-let config = dev_config;
-
-if (env === "production") {
-	config = main_config;
-}
-
-module.exports = config;

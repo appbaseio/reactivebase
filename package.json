@@ -3,28 +3,27 @@
   "version": "1.0.0-alpha58",
   "description": "Data components for building reactive UIs",
   "main": "lib/app.js",
+  "module": "app/app.js",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "lint": "esw app --color --watch",
     "webpack-server": "webpack-dev-server --hot --inline --progress --colors --port 8012",
-    "web-server": "http-server -p 3000 .",
     "start": "concurrently \"npm run webpack-server\" \"gulp watch\" ",
-    "build": "cross-env NODE_ENV=production webpack -p && gulp",
-    "build:lib": "gulp && babel app --out-dir lib",
-    "build:umd": "cross-env NODE_ENV=production webpack --config webpack.config.umd.js app/app.js umd/reactivebase.js",
     "storybook": "start-storybook -p 9009",
-    "build-storybook": "build-storybook -o playground",
-    "build:all": "npm run build && npm run build:lib && npm run build:umd && npm run build-storybook"
+    "build": "gulp && babel app --out-dir lib",
+    "build:umd": "webpack --config webpack.config.umd.js",
+    "build:storybook": "build-storybook -o playground",
+    "build:all": "npm run build && npm run build:umd && npm run build:storybook"
   },
   "jest": {
     "rootDir": "./tests"
   },
   "files": [
+    "app/",
     "lib/",
     "dist/",
-    "umd/",
-    "examples/"
+    "umd/"
   ],
   "license": "Apache-2.0",
   "dependencies": {
@@ -61,7 +60,9 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babelify": "^7.3.0",
+    "babili-webpack-plugin": "^0.1.2",
     "bootstrap": "^3.3.7",
+    "brotli-webpack-plugin": "^0.3.0",
     "compression-webpack-plugin": "^0.4.0",
     "concurrently": "^2.0.0",
     "coveralls": "^2.11.16",
