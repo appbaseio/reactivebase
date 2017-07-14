@@ -14,7 +14,11 @@ import { Img } from "../../app/stories/Img.js";
 class Main extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			defaultSelected: "Home"
+		};
 		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
+		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
 	onData(markerData) {
@@ -48,6 +52,13 @@ class Main extends Component {
 		);
 	}
 
+	handleInputChange(e) {
+		const defaultSelected = e.target.value;
+		this.setState({
+			defaultSelected
+		});
+	}
+
 	render() {
 		return (
 			<ReactiveBase
@@ -58,12 +69,14 @@ class Main extends Component {
 				<SelectedFilters componentId="SelectedFilters" />
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<input value={this.state.defaultSelected} onChange={this.handleInputChange} placeholder="defaultSelected" />
 						<DataSearch
 							appbaseField={"venue_name_ngrams"}
 							componentId="VenueSensor"
 							title="VenueSearch"
 							URLParams={true}
 							highlight={true}
+							defaultSelected={this.state.defaultSelected}
 							filterLabel="Venue Label"
 						/>
 						<DataSearch
