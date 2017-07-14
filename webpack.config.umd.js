@@ -11,7 +11,7 @@ module.exports = {
 	output: {
 		path: __dirname + "/umd",
 		filename: "reactivebase.js",
-		library: "ReactiveBase",
+		library: "UmdReactiveBase",
 		libraryTarget: "umd",
 		umdNamedDefine: true
 	},
