@@ -9,8 +9,11 @@ module.exports = {
 	cache: true,
 	entry: "./app/app.js",
 	output: {
-		library: "UmdReactiveBase",
+		path: __dirname + "/umd",
+		filename: "reactivebase.js",
+		library: "ReactiveBase",
 		libraryTarget: "umd",
+		umdNamedDefine: true
 	},
 	module: {
 		rules: [
