@@ -14,6 +14,11 @@ class Main extends Component {
 	constructor(props) {
 		super(props);
 		this.CustomQuery = this.CustomQuery.bind(this);
+
+		this.state = {
+			defaultSelected: "Default"
+		};
+		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
 	CustomQuery(value) {
@@ -49,6 +54,13 @@ class Main extends Component {
 		);
 	}
 
+	handleInputChange(e) {
+		const defaultSelected = e.target.value;
+		this.setState({
+			defaultSelected
+		});
+	}
+
 	render() {
 		return (
 			<ReactiveBase
@@ -62,8 +74,10 @@ class Main extends Component {
 							appbaseField="name"
 							customQuery={this.CustomQuery}
 							URLParams={true}
+							defaultSelected={this.state.defaultSelected}
 							filterLabel="Name label"
 						/>
+						<input value={this.state.defaultSelected} onChange={this.handleInputChange} placeholder="defaultSelected" />
 					</div>
 
 					<div className="col s6 col-xs-6">

@@ -60,6 +60,12 @@ export default class DataSearch extends Component {
 		}
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (this.props.defaultSelected !== nextProps.defaultSelected) {
+			this.changeValue(nextProps.defaultSelected);
+		}
+	}
+
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
 			if(data === this.props.componentId) {

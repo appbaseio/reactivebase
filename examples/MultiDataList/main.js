@@ -15,6 +15,10 @@ class Main extends Component {
 	constructor(props) {
 		super(props);
 
+		this.state = {
+			defaultSelected: ["Social"]
+		};
+
 		this.data = [
 			"Social",
 			"Travel",
@@ -22,6 +26,7 @@ class Main extends Component {
 		];
 
 		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
+		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
 	onData(markerData) {
@@ -55,6 +60,13 @@ class Main extends Component {
 		);
 	}
 
+	handleInputChange(e) {
+		const defaultSelected = e.target.value.split(",");
+		this.setState({
+			defaultSelected
+		});
+	}
+
 	render() {
 		return (
 			<ReactiveBase
@@ -69,10 +81,11 @@ class Main extends Component {
 							componentId="MeetupTops"
 							title="MultiDataList"
 							data={this.data}
-							defaultSelected={["Social"]}
+							defaultSelected={this.state.defaultSelected}
 							URLParams={true}
 							filterLabel="Meetup Label"
 						/>
+						<input value={this.state.defaultSelected} onChange={this.handleInputChange} placeholder="defaultSelected" />
 					</div>
 
 					<div className="col s6 col-xs-6">
