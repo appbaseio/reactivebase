@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
+import _ from "lodash";
 
 const helper = require("../middleware/helper");
 
@@ -36,9 +37,10 @@ export default class DataList extends Component {
 	componentWillReceiveProps(nextProps) {
 		this.setState({
 			data: nextProps.data
-		}, () => {
-			this.checkDefault(nextProps);
 		});
+		if (this.props.defaultSelected !== nextProps.defaultSelected) {
+			this.changeValue(nextProps.defaultSelected);
+		}
 	}
 
 	listenFilter() {
@@ -61,13 +63,21 @@ export default class DataList extends Component {
 			if(defaultValue) {
 				if (this.props.multipleSelect) {
 					if (Array.isArray(defaultValue)) {
+						let selected = [];
 						defaultValue.forEach(item => {
 							this.state.data.some(record => {
 								if (record.label ? record.label === item : record === item) {
-									setTimeout(() => { this.handleCheckboxChange(record) }, 100);
+									selected.push(record);
 									return true;
 								}
 							});
+						});
+						// when defaultSelected is updated, the selected values should be set without depending on their previous state
+						this.setState({
+							selected
+						}, () => {
+							this.defaultSelected = selected;
+							this.executeQuery(selected);
 						});
 					} else {
 						console.error(`${this.props.componentId} - defaultSelected should be an array`);
