@@ -189,7 +189,7 @@ export default class DropdownList extends Component {
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel(executeChannel = false) {
 		// Set the react - add self aggs query as well with react
-		let react = this.props.react ? this.props.react : {};
+		const react = Object.assign({}, this.props.react);
 		react.aggs = {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
@@ -197,10 +197,10 @@ export default class DropdownList extends Component {
 			sortRef: `${this.props.componentId}-sort`
 		};
 		const reactAnd = [`${this.props.componentId}-sort`, "dropdownListChanges"]
-		react = helper.setupReact(react, reactAnd);
+		this.react = helper.setupReact(react, reactAnd);
 		this.includeAggQuery();
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, 100, 0, false, this.props.componentId);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, this.react, 100, 0, false, this.props.componentId);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
 			if (res.error) {

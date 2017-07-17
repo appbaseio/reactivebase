@@ -192,10 +192,10 @@ export default class NativeList extends Component {
 			sortRef: `${this.props.componentId}-sort`
 		};
 		const reactAnd = [`${this.props.componentId}-sort`, "nativeListChanges"]
-		react = helper.setupReact(react, reactAnd);
+		this.react = helper.setupReact(react, reactAnd);
 		this.includeAggQuery();
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, 100, 0, false, this.props.componentId);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, this.react, 100, 0, false, this.props.componentId);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(this.channelId, (res) => {
 			if (res.error) {
