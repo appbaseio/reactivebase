@@ -41,10 +41,21 @@ export default class DataSearch extends Component {
 
 	// Get the items from Appbase when component is mounted
 	componentWillMount() {
+		this.setReact(this.props);
 		this.setQueryInfo();
 		this.createChannel();
 		this.checkDefault();
 		this.listenFilter();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (this.props.defaultSelected !== nextProps.defaultSelected) {
+			this.changeValue(nextProps.defaultSelected);
+		}
+		if (!_.isEqual(this.props.react, nextProps.react)) {
+			this.setReact(nextProps);
+			manager.update(this.channelId, this.react, null, null, false);
+		}
 	}
 
 	// stop streaming request and remove listener when component will unmount
@@ -57,12 +68,6 @@ export default class DataSearch extends Component {
 		}
 		if(this.filterListener) {
 			this.filterListener.remove();
-		}
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (this.props.defaultSelected !== nextProps.defaultSelected) {
-			this.changeValue(nextProps.defaultSelected);
 		}
 	}
 
@@ -261,12 +266,14 @@ export default class DataSearch extends Component {
 		return queries;
 	}
 
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
-		const react = Object.assign({}, this.props.react);
+	setReact(props) {
+		const react = Object.assign({}, props.react);
 		const reactAnd = [this.searchInputId];
 		this.react = helper.setupReact(react, reactAnd);
+	}
 
+	// Create a channel which passes the react and receive results whenever react changes
+	createChannel() {
 		const channelObj = manager.create(this.context.appbaseRef, this.context.type, this.react, 100, 0, false, this.props.componentId);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
