@@ -15,7 +15,6 @@ export default class MultiRange extends Component {
 		this.urlParams = helper.URLParams.get(this.props.componentId, true);
 		this.handleChange = this.handleChange.bind(this);
 		this.resetState = this.resetState.bind(this);
-		this.handleTagClick = this.handleTagClick.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
 
@@ -187,11 +186,6 @@ export default class MultiRange extends Component {
 		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
-	handleTagClick(label) {
-		const target = this.state.selected.filter(record => record.label === label);
-		this.handleChange(target[0]);
-	}
-
 	renderButtons() {
 		let buttons;
 		const selectedText = this.state.selected ? this.state.selected.map(record => record.label) : "";
@@ -223,20 +217,9 @@ export default class MultiRange extends Component {
 	// render
 	render() {
 		let title = null;
-		const TagItemsArray = [];
 
 		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
-		}
-
-		if (this.state.selected && this.props.showTags) {
-			this.state.selected.forEach((item) => {
-				TagItemsArray.push(<Tag
-					key={item.label}
-					value={item.label}
-					onClick={this.handleTagClick}
-				/>);
-			});
 		}
 
 		const cx = classNames({
@@ -251,13 +234,6 @@ export default class MultiRange extends Component {
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12 rbc-list-container">
-						{
-							TagItemsArray.length ?
-								<div className="row" style={{ marginTop: "0" }}>
-									{TagItemsArray}
-								</div> :
-							null
-						}
 						{this.renderButtons()}
 					</div>
 				</div>
@@ -265,20 +241,6 @@ export default class MultiRange extends Component {
 		);
 	}
 }
-
-const Tag = (props) => {
-	return (
-		<span onClick={() => props.onClick(props.value)} className="rbc-tag-item col">
-			<a className="close">×</a>
-			<span>{props.value}</span>
-		</span>
-	);
-}
-
-Tag.propTypes = {
-	onClick: React.PropTypes.func.isRequired,
-	value: React.PropTypes.string.isRequired
-};
 
 MultiRange.propTypes = {
 	appbaseField: React.PropTypes.string.isRequired,
@@ -295,7 +257,6 @@ MultiRange.propTypes = {
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
-	showTags: React.PropTypes.bool,
 	showCheckbox: React.PropTypes.bool
 };
 
@@ -303,7 +264,6 @@ MultiRange.propTypes = {
 MultiRange.defaultProps = {
 	URLParams: false,
 	showFilter: true,
-	showTags: true,
 	showCheckbox: true
 };
 
@@ -325,7 +285,6 @@ MultiRange.types = {
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
-	showTags: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,
 	showCheckbox: TYPES.BOOLEAN
 };
