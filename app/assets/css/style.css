@@ -206,11 +206,12 @@ a {
 .rbc-highlight {
   background: yellow; }
 
-.rbc-red .rbc.rbc-datasearch input {
+.rbc-red .rbc.rbc-datasearch input, .rbc-red .rbc.rbc-datasearch .rbc-search-container input {
   color: #777;
-  background-color: #f5f5f5; }
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #f5f5f5; }
 
-.rbc-red .rbc.rbc-datasearch .react-autosuggest__container:before {
+.rbc-red .rbc.rbc-datasearch .react-autosuggest__container:before, .rbc-red .rbc.rbc-datasearch .rbc-search-container:before {
   color: red; }
 
 .rbc-red .rbc.rbc-datasearch .react-autosuggest__suggestion {
@@ -423,11 +424,12 @@ a {
 .rbc-red a {
   color: #777; }
 
-.rbc-orange .rbc.rbc-datasearch input {
+.rbc-orange .rbc.rbc-datasearch input, .rbc-orange .rbc.rbc-datasearch .rbc-search-container input {
   color: #777;
-  background-color: #f5f5f5; }
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #f5f5f5; }
 
-.rbc-orange .rbc.rbc-datasearch .react-autosuggest__container:before {
+.rbc-orange .rbc.rbc-datasearch .react-autosuggest__container:before, .rbc-orange .rbc.rbc-datasearch .rbc-search-container:before {
   color: orange; }
 
 .rbc-orange .rbc.rbc-datasearch .react-autosuggest__suggestion {
@@ -640,11 +642,12 @@ a {
 .rbc-orange a {
   color: #777; }
 
-.rbc-yellow .rbc.rbc-datasearch input {
+.rbc-yellow .rbc.rbc-datasearch input, .rbc-yellow .rbc.rbc-datasearch .rbc-search-container input {
   color: #777;
-  background-color: #f5f5f5; }
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #f5f5f5; }
 
-.rbc-yellow .rbc.rbc-datasearch .react-autosuggest__container:before {
+.rbc-yellow .rbc.rbc-datasearch .react-autosuggest__container:before, .rbc-yellow .rbc.rbc-datasearch .rbc-search-container:before {
   color: yellow; }
 
 .rbc-yellow .rbc.rbc-datasearch .react-autosuggest__suggestion {
@@ -857,11 +860,12 @@ a {
 .rbc-yellow a {
   color: #777; }
 
-.rbc-green .rbc.rbc-datasearch input {
+.rbc-green .rbc.rbc-datasearch input, .rbc-green .rbc.rbc-datasearch .rbc-search-container input {
   color: #777;
-  background-color: #f5f5f5; }
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #f5f5f5; }
 
-.rbc-green .rbc.rbc-datasearch .react-autosuggest__container:before {
+.rbc-green .rbc.rbc-datasearch .react-autosuggest__container:before, .rbc-green .rbc.rbc-datasearch .rbc-search-container:before {
   color: green; }
 
 .rbc-green .rbc.rbc-datasearch .react-autosuggest__suggestion {
@@ -1074,11 +1078,12 @@ a {
 .rbc-green a {
   color: #777; }
 
-.rbc-blue .rbc.rbc-datasearch input {
+.rbc-blue .rbc.rbc-datasearch input, .rbc-blue .rbc.rbc-datasearch .rbc-search-container input {
   color: #777;
-  background-color: #f5f5f5; }
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #f5f5f5; }
 
-.rbc-blue .rbc.rbc-datasearch .react-autosuggest__container:before {
+.rbc-blue .rbc.rbc-datasearch .react-autosuggest__container:before, .rbc-blue .rbc.rbc-datasearch .rbc-search-container:before {
   color: #1893e7; }
 
 .rbc-blue .rbc.rbc-datasearch .react-autosuggest__suggestion {
@@ -1291,11 +1296,12 @@ a {
 .rbc-blue a {
   color: #777; }
 
-.rbc-dark .rbc.rbc-datasearch input {
+.rbc-dark .rbc.rbc-datasearch input, .rbc-dark .rbc.rbc-datasearch .rbc-search-container input {
   color: #eee;
-  background-color: #aaa; }
+  background-color: #aaa;
+  border-bottom: 2px solid #aaa; }
 
-.rbc-dark .rbc.rbc-datasearch .react-autosuggest__container:before {
+.rbc-dark .rbc.rbc-datasearch .react-autosuggest__container:before, .rbc-dark .rbc.rbc-datasearch .rbc-search-container:before {
   color: #ccc; }
 
 .rbc-dark .rbc.rbc-datasearch .react-autosuggest__suggestion {
@@ -1534,9 +1540,13 @@ a {
     margin: 0;
     padding: 0 35px 0 10px;
     box-sizing: border-box; }
-  .rbc.rbc-datasearch .react-autosuggest__container {
+  .rbc.rbc-datasearch .rbc-search-container {
+    padding: 0; }
+  .rbc.rbc-datasearch .react-autosuggest__container,
+  .rbc.rbc-datasearch .rbc-search-container {
     position: relative; }
-    .rbc.rbc-datasearch .react-autosuggest__container:before {
+    .rbc.rbc-datasearch .react-autosuggest__container:before,
+    .rbc.rbc-datasearch .rbc-search-container:before {
       content: "\f002";
       position: absolute;
       top: 15px;
@@ -1544,6 +1554,7 @@ a {
       border: 0;
       width: 30px;
       height: 30px;
+      z-index: 1;
       display: inline-block;
       font: normal normal normal 14px/1 FontAwesome;
       font-size: inherit;

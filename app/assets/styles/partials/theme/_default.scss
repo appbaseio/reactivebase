@@ -3,13 +3,16 @@ $themes: ( rbc-red: (color: red, background: #fff, font-color: #777, input-bg: #
 $map in $themes {
 	.#{$theme} {
 		.rbc.rbc-datasearch {
-			input {
+			input, .rbc-search-container input {
 				color: map-get($map, font-color);
 				background-color: map-get($map, input-bg);
+				border-bottom: 2px solid map-get($map, input-bg);
 			}
 
-			.react-autosuggest__container:before {
-				color: map-get($map, color);
+			.react-autosuggest__container, .rbc-search-container {
+				&:before {
+					color: map-get($map, color);
+				}
 			}
 
 			.react-autosuggest__suggestion {

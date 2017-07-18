@@ -11,7 +11,12 @@
 		box-sizing: border-box;
 	}
 
-	.react-autosuggest__container {
+	.rbc-search-container {
+		padding: 0;
+	}
+
+	.react-autosuggest__container,
+	.rbc-search-container {
 		position: relative;
 
 		&:before {
@@ -22,6 +27,7 @@
 			border: 0;
 			width: 30px;
 			height: 30px;
+			z-index: 1;
 			display: inline-block;
 			font: normal normal normal 14px/1 FontAwesome;
 			font-size: inherit;
