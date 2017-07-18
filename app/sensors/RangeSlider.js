@@ -45,11 +45,17 @@ export default class RangeSlider extends Component {
 
 	// Get the items from Appbase when component is mounted
 	componentWillMount() {
+		this.setReact(this.props);
 		this.setQueryInfo();
 		this.createChannel();
 	}
 
 	componentWillReceiveProps(nextProps) {
+		if (!_.isEqual(this.props.react, nextProps.react)) {
+			this.setReact(nextProps);
+			manager.update(this.channelId, this.react, nextProps.size, 0, false);
+		}
+
 		setTimeout(() => {
 			let defaultValue = this.urlParams !== null ? this.urlParams : nextProps.defaultSelected;
 			if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
@@ -267,18 +273,21 @@ export default class RangeSlider extends Component {
 		};
 	}
 
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
+	setReact(props) {
 		// Set the react - add self aggs query as well with react
-		const react = Object.assign({}, this.props.react);
+		const react = Object.assign({}, props.react);
 		react.aggs = {
-			key: this.props.appbaseField,
+			key: props.appbaseField,
 			sort: "asc",
 			size: 1000,
 			customQuery: this.histogramQuery
 		};
-		const reactAnd = [`${this.props.componentId}-internal`]
+		const reactAnd = [`${props.componentId}-internal`]
 		this.react = helper.setupReact(react, reactAnd);
+	}
+
+	// Create a channel which passes the react and receive results whenever react changes
+	createChannel() {
 		// create a channel and listen the changes
 		const channelObj = manager.create(this.context.appbaseRef, this.context.type, this.react, 100, 0, false, this.props.componentId);
 		this.channelId = channelObj.channelId;
