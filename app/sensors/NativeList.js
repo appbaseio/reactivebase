@@ -43,6 +43,7 @@ export default class NativeList extends Component {
 
 	// Get the items from Appbase when component is mounted
 	componentWillMount() {
+		this.setReact(this.props);
 		this.size = this.props.size;
 		this.setQueryInfo();
 		this.createChannel(true);
@@ -52,7 +53,13 @@ export default class NativeList extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.urlParams = helper.URLParams.get(this.props.componentId, this.props.multipleSelect);
+		this.urlParams = helper.URLParams.get(nextProps.componentId, nextProps.multipleSelect);
+
+		if (!_.isEqual(this.props.react, nextProps.react)) {
+			this.setReact(nextProps);
+			manager.update(this.channelId, this.react, nextProps.size, 0, false);
+		}
+
 		if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
 			this.defaultValue = nextProps.defaultSelected;
 			this.changeValues(this.defaultValue);
@@ -181,10 +188,9 @@ export default class NativeList extends Component {
 		helper.selectedSensor.set(obj, true, "sortChange");
 	}
 
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel(executeChannel = false) {
+	setReact(props) {
 		// Set the react - add self aggs query as well with react
-		let react = Object.assign({}, this.props.react);
+		const react = Object.assign({}, props.react);
 		react.aggs = {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
@@ -193,6 +199,10 @@ export default class NativeList extends Component {
 		};
 		const reactAnd = [`${this.props.componentId}-sort`, "nativeListChanges"]
 		this.react = helper.setupReact(react, reactAnd);
+	}
+
+	// Create a channel which passes the react and receive results whenever react changes
+	createChannel(executeChannel = false) {
 		this.includeAggQuery();
 		// create a channel and listen the changes
 		const channelObj = manager.create(this.context.appbaseRef, this.context.type, this.react, 100, 0, false, this.props.componentId);
