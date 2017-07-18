@@ -139,26 +139,26 @@ export default class DropdownList extends Component {
 			};
 		} else if (value) {
 			// queryFormat should not affect SingleDropdownList
-			if (this.props.queryFormat === "or" || !this.props.multipleSelect) {
+			if (this.props.queryFormat === "and" && this.props.multipleSelect) {
+				// adds a sub-query with must as an array of objects for each terms/value
+				const queryArray = value.map(item => (
+					{
+						[this.type]: {
+							[this.props.appbaseField]: [item]
+						}
+					}
+				));
 				return {
-					[this.type]: {
-						[this.props.appbaseField]: value
+					bool: {
+						must: queryArray
 					}
 				};
 			}
 
-			// for queryFormat = "and"
-			const queryArray = value.map(item => (
-				{
-					[this.type]: {
-						[this.props.appbaseField]: [item]
-					}
-				}
-			));
-			// adds a sub-query with must as an array of objects for each terms/value
+			// for the default queryFormat = "or" and SingleDropdownList
 			return {
-				bool: {
-					must: queryArray
+				[this.type]: {
+					[this.props.appbaseField]: value
 				}
 			};
 		}
