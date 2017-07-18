@@ -51,7 +51,10 @@ export default class RangeSlider extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		setTimeout(() => {
-			const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+			let defaultValue = this.urlParams !== null ? this.urlParams : nextProps.defaultSelected;
+			if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
+				defaultValue = nextProps.defaultSelected;
+			}
 			// check defaultSelected
 			if (defaultValue.start !== this.state.values.min ||
 				defaultValue.end !== this.state.values.max &&
@@ -66,17 +69,17 @@ export default class RangeSlider extends Component {
 						}
 					});
 					const obj = {
-						key: this.props.componentId,
+						key: nextProps.componentId,
 						value: {
 							from: this.state.values.min,
 							to: defaultValue.end - rem
 						}
 					};
 					setTimeout(() => {
-						if (this.props.onValueChange) {
-							this.props.onValueChange(obj.value);
+						if (nextProps.onValueChange) {
+							nextProps.onValueChange(obj.value);
 						}
-						helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
+						helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
 						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				} else {
@@ -88,17 +91,17 @@ export default class RangeSlider extends Component {
 						currentValues: values
 					});
 					const obj = {
-						key: this.props.componentId,
+						key: nextProps.componentId,
 						value: {
 							from: values.min,
 							to: values.max
 						}
 					};
 					setTimeout(() => {
-						if (this.props.onValueChange) {
-							this.props.onValueChange(obj.value);
+						if (nextProps.onValueChange) {
+							nextProps.onValueChange(obj.value);
 						}
-						helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
+						helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
 						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				}
