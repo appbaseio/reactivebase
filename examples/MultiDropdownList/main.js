@@ -79,6 +79,17 @@ class Main extends Component {
 							onValueChange={value => console.log('callback', value)}
 						/>
 						<input value={this.state.defaultSelected} onChange={this.handleInputChange} placeholder="defaultSelected" />
+
+						<MultiDropdownList
+							componentId="TopicsSensor"
+							appbaseField={this.props.mapping.topic}
+							title="queryFormat = and"
+							size={100}
+							URLParams={true}
+							showCount={true}
+							filterLabel="Topics"
+							queryFormat="or"
+						/>
 					</div>
 
 					<div className="col s6 col-xs-6">
@@ -91,7 +102,7 @@ class Main extends Component {
 							size={20}
 							onData={this.onData}
 							react={{
-								and: "CitySensor"
+								and: ["CitySensor", "TopicsSensor"]
 							}}
 						/>
 					</div>
