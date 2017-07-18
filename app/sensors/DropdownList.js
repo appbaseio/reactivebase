@@ -138,6 +138,24 @@ export default class DropdownList extends Component {
 				}
 			};
 		} else if (value) {
+			// queryFormat should not affect SingleDropdownList
+			if (this.props.queryFormat === "and" && this.props.multipleSelect) {
+				// adds a sub-query with must as an array of objects for each terms/value
+				const queryArray = value.map(item => (
+					{
+						[this.type]: {
+							[this.props.appbaseField]: [item]
+						}
+					}
+				));
+				return {
+					bool: {
+						must: queryArray
+					}
+				};
+			}
+
+			// for the default queryFormat = "or" and SingleDropdownList
 			return {
 				[this.type]: {
 					[this.props.appbaseField]: value
@@ -412,7 +430,8 @@ DropdownList.propTypes = {
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	queryFormat: React.PropTypes.oneOf(["and", "or"])
 };
 
 // Default props value
@@ -424,7 +443,8 @@ DropdownList.defaultProps = {
 	placeholder: "Select...",
 	selectAllLabel: null,
 	URLParams: false,
-	showFilter: true
+	showFilter: true,
+	queryFormat: "or"
 };
 
 // context type
