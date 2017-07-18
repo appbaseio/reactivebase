@@ -35,6 +35,7 @@ export default class DropdownList extends Component {
 
 	// Get the items from Appbase when component is mounted
 	componentWillMount() {
+		this.setReact(this.props);
 		this.size = this.props.size;
 		this.setQueryInfo();
 		this.checkDefault(this.props);
@@ -44,11 +45,18 @@ export default class DropdownList extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		const { items } = this.state;
+
+		if (!_.isEqual(this.props.react, nextProps.react)) {
+			this.setReact(nextProps);
+			manager.update(this.channelId, this.react, nextProps.size, 0, false);
+		}
+
 		if (nextProps.multipleSelect && !_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
 			this.changeValue(nextProps.defaultSelected);
 		} else if (!nextProps.multipleSelect && this.props.defaultSelected !== nextProps.defaultSelected) {
 			this.changeValue(nextProps.defaultSelected);
 		}
+
 		if (nextProps.selectAllLabel !== this.props.selectAllLabel) {
 			if (this.props.selectAllLabel) {
 				items.shift();
@@ -204,18 +212,21 @@ export default class DropdownList extends Component {
 		helper.selectedSensor.set(obj, true, "sortChange");
 	}
 
+	setReact(props) {
+		// Set the react - add self aggs query as well with react
+		const react = Object.assign({}, props.react);
+		react.aggs = {
+			key: props.appbaseField,
+			sort: props.sortBy,
+			size: props.size,
+			sortRef: `${props.componentId}-sort`
+		};
+		const reactAnd = [`${props.componentId}-sort`, "dropdownListChanges"]
+		this.react = helper.setupReact(react, reactAnd);
+	}
+
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel(executeChannel = false) {
-		// Set the react - add self aggs query as well with react
-		const react = Object.assign({}, this.props.react);
-		react.aggs = {
-			key: this.props.appbaseField,
-			sort: this.props.sortBy,
-			size: this.props.size,
-			sortRef: `${this.props.componentId}-sort`
-		};
-		const reactAnd = [`${this.props.componentId}-sort`, "dropdownListChanges"]
-		this.react = helper.setupReact(react, reactAnd);
 		this.includeAggQuery();
 		// create a channel and listen the changes
 		const channelObj = manager.create(this.context.appbaseRef, this.context.type, this.react, 100, 0, false, this.props.componentId);
