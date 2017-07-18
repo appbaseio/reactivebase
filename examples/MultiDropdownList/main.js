@@ -88,7 +88,7 @@ class Main extends Component {
 							URLParams={true}
 							showCount={true}
 							filterLabel="Topics"
-							queryFormat="or"
+							queryFormat="and"
 						/>
 					</div>
 
