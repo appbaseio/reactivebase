@@ -36,7 +36,7 @@ export default class NativeList extends Component {
 		this.handleRemove = this.handleRemove.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
 		this.onSelectAll = this.onSelectAll.bind(this);
-		this.type = this.props.multipleSelect ? "Terms" : "Term";
+		this.type = this.props.multipleSelect && this.props.queryFormat === "or" ? "Terms" : "Term";
 		this.customQuery = this.customQuery.bind(this);
 		this.defaultCustomQuery = this.defaultCustomQuery.bind(this);
 	}
@@ -79,11 +79,31 @@ export default class NativeList extends Component {
 				}
 			};
 		} else if (value) {
-			const listQuery = {
-				[this.type]: {
-					[this.props.appbaseField]: value
-				}
-			};
+			let listQuery;
+			// queryFormat should not affect SingleList
+			if (this.props.queryFormat === "and" && this.props.multipleSelect) {
+				// adds a sub-query with must as an array of objects for each term/value
+				const queryArray = value.map(item => (
+					{
+						[this.type]: {
+							[this.props.appbaseField]: item
+						}
+					}
+				));
+				listQuery = {
+					bool: {
+						must: queryArray
+					}
+				};
+			} else {
+				// for the default queryFormat = "or" and SingleList
+				listQuery = {
+					[this.type]: {
+						[this.props.appbaseField]: value
+					}
+				};
+			}
+
 			query = this.props.multipleSelect ? (value.length ? listQuery : null) : listQuery;
 		}
 		return query;
@@ -461,7 +481,8 @@ NativeList.propTypes = {
 	showCheckbox: React.PropTypes.bool,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	queryFormat: React.PropTypes.oneOf(["and", "or"])
 };
 
 // Default props value
@@ -478,7 +499,8 @@ NativeList.defaultProps = {
 	showRadio: true,
 	showCheckbox: true,
 	URLParams: false,
-	showFilter: true
+	showFilter: true,
+	queryFormat: "or"
 };
 
 // context type
