@@ -32,6 +32,39 @@ export default class ReactiveElement extends Component {
 		this.appliedQuery = {};
 	}
 
+	componentWillMount() {
+		this.setReact(this.props);
+		this.streamProp = this.props.stream;
+		this.initialize();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (!_.isEqual(this.props.react, nextProps.react)) {
+			this.setReact(nextProps);
+			manager.update(this.channelId, this.react, nextProps.size, nextProps.from, nextProps.size, nextProps.stream);
+		}
+	}
+
+	componentWillUpdate() {
+		setTimeout(() => {
+			if (this.streamProp !== this.props.stream) {
+				this.streamProp = this.props.stream;
+				this.removeChannel();
+				this.initialize(true);
+			}
+			if (this.size !== this.props.size) {
+				this.size = this.props.size;
+				this.removeChannel();
+				this.initialize(true);
+			}
+		}, 300);
+	}
+
+	// stop streaming request and remove listener when component will unmount
+	componentWillUnmount() {
+		this.removeChannel();
+	}
+
 	// tranform the raw data to marker data
 	setMarkersData(hits) {
 		if (hits) {
@@ -72,40 +105,17 @@ export default class ReactiveElement extends Component {
 		return result;
 	}
 
-	componentWillMount() {
-		this.streamProp = this.props.stream;
-		this.initialize();
-	}
-
-	componentWillUpdate() {
-		setTimeout(() => {
-			if (this.streamProp !== this.props.stream) {
-				this.streamProp = this.props.stream;
-				this.removeChannel();
-				this.initialize(true);
-			}
-			if (this.size !== this.props.size) {
-				this.size = this.props.size;
-				this.removeChannel();
-				this.initialize(true);
-			}
-		}, 300);
-	}
-
-	// stop streaming request and remove listener when component will unmount
-	componentWillUnmount() {
-		this.removeChannel();
+	setReact(props) {
+		// Set the react - add self aggs query as well with react
+		const react = Object.assign({}, props.react);
+		const reactAnd = ["streamChanges"];
+		this.react = helper.setupReact(react, reactAnd);
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel(executeChannel = false) {
-		// Set the react - add self aggs query as well with react
-		const react = Object.assign({}, this.props.react);
-		const reactAnd = ["streamChanges"];
-		this.react = helper.setupReact(react, reactAnd);
-
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, this.props.size, this.props.from, this.props.stream, this.props.componentId);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, this.react, this.props.size, this.props.from, this.props.stream, this.props.componentId);
 		this.channelId = channelObj.channelId;
 
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
