@@ -28,7 +28,7 @@ export default class DropdownList extends Component {
 		this.previousSelectedSensor = {};
 		this.urlParams = helper.URLParams.get(this.props.componentId, this.props.multipleSelect);
 		this.handleChange = this.handleChange.bind(this);
-		this.type = this.props.multipleSelect ? "Terms" : "Term";
+		this.type = this.props.multipleSelect && this.props.queryFormat === "or" ? "Terms" : "Term";
 		this.customQuery = this.customQuery.bind(this);
 		this.renderOption = this.renderOption.bind(this);
 	}
@@ -152,7 +152,7 @@ export default class DropdownList extends Component {
 				const queryArray = value.map(item => (
 					{
 						[this.type]: {
-							[this.props.appbaseField]: [item]
+							[this.props.appbaseField]: item
 						}
 					}
 				));

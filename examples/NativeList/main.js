@@ -73,6 +73,7 @@ class Main extends Component {
 								showCount={true}
 								showCheckbox={true}
 								showSearch={true}
+								queryFormat="or"
 								filterLabel="Topic Label"
 								react={{
 									and: "CitySensor"
