@@ -49,12 +49,25 @@ export default class DataSearch extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (this.props.defaultSelected !== nextProps.defaultSelected) {
-			this.changeValue(nextProps.defaultSelected);
-		}
 		if (!_.isEqual(this.props.react, nextProps.react)) {
 			this.setReact(nextProps);
 			manager.update(this.channelId, this.react, null, null, false);
+		}
+
+		if (this.props.defaultSelected !== nextProps.defaultSelected) {
+			this.changeValue(nextProps.defaultSelected);
+		} else if (nextProps.customQuery) {
+			if (this.props.customQuery) {
+				if (!_isEqual(nextProps.customQuery(this.state.currentValue), this.props.customQuery(this.state.currentValue))) {
+					this.handleSearch({
+						value: this.state.currentValue
+					});
+				}
+			} else {
+				this.handleSearch({
+					value: this.state.currentValue
+				});
+			}
 		}
 	}
 
