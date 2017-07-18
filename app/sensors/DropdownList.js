@@ -43,7 +43,7 @@ export default class DropdownList extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const items = this.state.items;
+		const { items } = this.state;
 		if (nextProps.multipleSelect && !_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
 			this.changeValue(nextProps.defaultSelected);
 		} else if (!nextProps.multipleSelect && this.props.defaultSelected !== nextProps.defaultSelected) {
