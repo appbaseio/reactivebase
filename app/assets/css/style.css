@@ -375,8 +375,6 @@ a {
     background-color: red; }
   .rbc-red .rbc .rbc-input {
     background-color: #f5f5f5; }
-  .rbc-red .rbc .rbc-search-icon {
-    color: red; }
   .rbc-red .rbc .rc-slider .rc-slider-track {
     background: red; }
   .rbc-red .rbc .rc-slider .rc-slider-handle {
@@ -593,8 +591,6 @@ a {
     background-color: orange; }
   .rbc-orange .rbc .rbc-input {
     background-color: #f5f5f5; }
-  .rbc-orange .rbc .rbc-search-icon {
-    color: orange; }
   .rbc-orange .rbc .rc-slider .rc-slider-track {
     background: orange; }
   .rbc-orange .rbc .rc-slider .rc-slider-handle {
@@ -811,8 +807,6 @@ a {
     background-color: yellow; }
   .rbc-yellow .rbc .rbc-input {
     background-color: #f5f5f5; }
-  .rbc-yellow .rbc .rbc-search-icon {
-    color: yellow; }
   .rbc-yellow .rbc .rc-slider .rc-slider-track {
     background: yellow; }
   .rbc-yellow .rbc .rc-slider .rc-slider-handle {
@@ -1029,8 +1023,6 @@ a {
     background-color: green; }
   .rbc-green .rbc .rbc-input {
     background-color: #f5f5f5; }
-  .rbc-green .rbc .rbc-search-icon {
-    color: green; }
   .rbc-green .rbc .rc-slider .rc-slider-track {
     background: green; }
   .rbc-green .rbc .rc-slider .rc-slider-handle {
@@ -1247,8 +1239,6 @@ a {
     background-color: #1893e7; }
   .rbc-blue .rbc .rbc-input {
     background-color: #f5f5f5; }
-  .rbc-blue .rbc .rbc-search-icon {
-    color: #1893e7; }
   .rbc-blue .rbc .rc-slider .rc-slider-track {
     background: #1893e7; }
   .rbc-blue .rbc .rc-slider .rc-slider-handle {
@@ -1465,8 +1455,6 @@ a {
     background-color: #ccc; }
   .rbc-dark .rbc .rbc-input {
     background-color: #aaa; }
-  .rbc-dark .rbc .rbc-search-icon {
-    color: #ccc; }
   .rbc-dark .rbc .rc-slider .rc-slider-track {
     background: #ccc; }
   .rbc-dark .rbc .rc-slider .rc-slider-handle {

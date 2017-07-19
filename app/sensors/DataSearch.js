@@ -379,11 +379,11 @@ export default class DataSearch extends Component {
 	}
 
 	getSuggestionValue(suggestion) {
-		return suggestion.label;
+		return suggestion.label.innerText || suggestion.label;
 	}
 
 	renderSuggestion(suggestion) {
-		return suggestion.label
+		return <span>{suggestion.label}</span>
 	}
 
 	render() {
@@ -400,18 +400,25 @@ export default class DataSearch extends Component {
 			"rbc-autoSuggest-inactive": !this.props.autoSuggest
 		});
 
+		const options = this.state.currentValue === "" || this.state.currentValue === null
+							? this.props.initialSuggestions && this.props.initialSuggestions.length
+							? this.props.initialSuggestions
+							: []
+							: this.state.options;
+
 		return (
 			<div className={`rbc rbc-datasearch col s12 col-xs-12 card thumbnail ${cx} ${this.state.isLoadingOptions ? "is-loading" : ""}`} style={this.props.componentStyle}>
 				{title}
 				{
 					this.props.autoSuggest ?
 						<Autosuggest
-							suggestions={this.state.options}
+							suggestions={options}
 							onSuggestionsFetchRequested={() => {}}
 							onSuggestionsClearRequested={() => {}}
 							onSuggestionSelected={this.onSuggestionSelected}
 							getSuggestionValue={this.getSuggestionValue}
 							renderSuggestion={this.renderSuggestion}
+							shouldRenderSuggestions={() => true}
 							focusInputOnSuggestionClick={false}
 							inputProps={{
 								placeholder: this.props.placeholder,
@@ -430,7 +437,6 @@ export default class DataSearch extends Component {
 								value={this.state.currentValue ? this.state.currentValue : ""}
 								onChange={this.handleInputChange}
 							/>
-							<span className="rbc-search-icon" />
 						</div>
 				}
 			</div>
@@ -455,6 +461,15 @@ DataSearch.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	react: React.PropTypes.object,
+	initialSuggestions: React.PropTypes.arrayOf(
+		React.PropTypes.shape({
+			label: React.PropTypes.oneOfType([
+				React.PropTypes.string,
+				React.PropTypes.element
+			]),
+			value: React.PropTypes.string
+		})
+	),
 	componentStyle: React.PropTypes.object,
 	highlight: React.PropTypes.bool,
 	highlightField: React.PropTypes.oneOfType([
@@ -463,7 +478,7 @@ DataSearch.propTypes = {
 	]),
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
 };
 
 // Default props value

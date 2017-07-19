@@ -78,6 +78,16 @@ class Main extends Component {
 							highlight={true}
 							defaultSelected={this.state.defaultSelected}
 							filterLabel="Venue Label"
+							initialSuggestions={[
+								{
+									label: "Home",
+									value: "home"
+								},
+								{
+									label: <span>HootSuite</span>,
+									value: "HootSuite"
+								}
+							]}
 						/>
 						<DataSearch
 							appbaseField={"group.group_topics.topic_name_raw"}
