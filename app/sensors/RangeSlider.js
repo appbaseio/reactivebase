@@ -50,13 +50,19 @@ export default class RangeSlider extends Component {
 		this.createChannel();
 	}
 
+	componentDidMount() {
+		if (this.props.defaultSelected) {
+			this.handleResults(null, {min: this.props.defaultSelected.start, max: this.props.defaultSelected.end});
+		}
+	}
+
 	componentWillReceiveProps(nextProps) {
 		if (!_.isEqual(this.props.react, nextProps.react)) {
 			this.setReact(nextProps);
 			manager.update(this.channelId, this.react, nextProps.size, 0, false);
 		}
 
-		setTimeout(() => {
+		// setTimeout(() => {
 			let defaultValue = this.urlParams !== null ? this.urlParams : nextProps.defaultSelected;
 			if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
 				defaultValue = nextProps.defaultSelected;
@@ -81,13 +87,13 @@ export default class RangeSlider extends Component {
 							to: defaultValue.end - rem
 						}
 					};
-					setTimeout(() => {
+					// setTimeout(() => {
 						if (nextProps.onValueChange) {
 							nextProps.onValueChange(obj.value);
 						}
 						helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
 						helper.selectedSensor.set(obj, true);
-					}, 1000);
+					// }, 1000);
 				} else {
 					const values = {};
 					values.min = defaultValue.start;
@@ -103,13 +109,13 @@ export default class RangeSlider extends Component {
 							to: values.max
 						}
 					};
-					setTimeout(() => {
+					// setTimeout(() => {
 						if (nextProps.onValueChange) {
 							nextProps.onValueChange(obj.value);
 						}
 						helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
 						helper.selectedSensor.set(obj, true);
-					}, 1000);
+					// }, 1000);
 				}
 			}
 			// check range
@@ -177,7 +183,7 @@ export default class RangeSlider extends Component {
 					helper.selectedSensor.set(obj, true);
 				}
 			}
-		}, 300);
+		// }, 300);
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
