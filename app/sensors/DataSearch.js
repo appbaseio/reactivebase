@@ -502,7 +502,11 @@ DataSearch.propTypes = {
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
-	queryFormat: React.PropTypes.oneOf(["and", "or"])
+	queryFormat: React.PropTypes.oneOf(["and", "or"]),
+	fuzziness: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+	])
 };
 
 // Default props value
