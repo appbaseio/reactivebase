@@ -1866,10 +1866,6 @@ a {
     margin: 0;
     padding: 0 12px;
     float: left; }
-  .rbc.rbc-reactivelist .rbc-list-item {
-    border-bottom: 1px solid;
-    float: left;
-    width: 100%; }
   .rbc.rbc-reactivelist.rbc-sort-active .rbc-sortoptions {
     position: absolute;
     right: 0;
