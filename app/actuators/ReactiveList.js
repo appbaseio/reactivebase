@@ -286,25 +286,10 @@ export default class ReactiveList extends Component {
 			modifiedData = helper.prepareResultData(modifiedData, data);
 			const generatedData = this.props.onAllData ? this.props.onAllData(modifiedData.res, modifiedData.err) : this.defaultonAllData(modifiedData.res, modifiedData.err);
 			this.setState({
-				resultMarkup: this.wrapMarkup(generatedData),
+				resultMarkup: generatedData,
 				currentData: this.combineCurrentData(newData)
 			});
 		});
-	}
-
-	wrapMarkup(generatedData) {
-		let markup = null;
-		if (Array.isArray(generatedData)) {
-			markup = generatedData.map((item, index) => (
-				<div key={index} className="rbc-list-item">
-					{item}
-				</div>
-				)
-			);
-		} else {
-			markup = generatedData;
-		}
-		return markup;
 	}
 
 	// normalize current data
