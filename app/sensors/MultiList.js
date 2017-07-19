@@ -34,7 +34,8 @@ MultiList.propTypes = {
 	componentStyle: React.PropTypes.object,
 	showCheckbox: React.PropTypes.bool,
 	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool
+	showFilter: React.PropTypes.bool,
+	queryFormat: React.PropTypes.oneOf(["and", "or"])
 };
 
 // Default props value
@@ -72,5 +73,6 @@ MultiList.types = {
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showCheckbox: TYPES.BOOLEAN,
-	showFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN,
+	queryFormat: TYPES.STRING
 };
