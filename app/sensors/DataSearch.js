@@ -540,5 +540,6 @@ DataSearch.types = {
 	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,
 	weights: TYPES.ARRAY,
-	queryFormat: TYPES.STRING
+	queryFormat: TYPES.STRING,
+	fuzziness: TYPES.NUMBER
 };
