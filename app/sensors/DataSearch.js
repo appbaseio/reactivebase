@@ -31,7 +31,6 @@ export default class DataSearch extends Component {
 		this.setValue = this.setValue.bind(this);
 		this.onInputChange = this.onInputChange.bind(this);
 		this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
-		this.clearSuggestions = this.clearSuggestions.bind(this);
 		this.handleBlur = this.handleBlur.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.defaultSearchQuery = this.defaultSearchQuery.bind(this);
@@ -379,12 +378,6 @@ export default class DataSearch extends Component {
 		this.handleSearch(suggestion);
 	}
 
-	clearSuggestions() {
-		this.setState({
-			options: []
-		});
-	}
-
 	getSuggestionValue(suggestion) {
 		return suggestion.label;
 	}
@@ -415,7 +408,7 @@ export default class DataSearch extends Component {
 						<Autosuggest
 							suggestions={this.state.options}
 							onSuggestionsFetchRequested={() => {}}
-							onSuggestionsClearRequested={this.clearSuggestions}
+							onSuggestionsClearRequested={() => {}}
 							onSuggestionSelected={this.onSuggestionSelected}
 							getSuggestionValue={this.getSuggestionValue}
 							renderSuggestion={this.renderSuggestion}
@@ -425,6 +418,7 @@ export default class DataSearch extends Component {
 								value: this.state.currentValue === null ? "" : this.state.currentValue,
 								onChange: this.onInputChange,
 								onBlur: this.handleBlur,
+								onFocus: this.onInputFocus,
 								onKeyPress: this.handleKeyPress
 							}}
 						/> :
