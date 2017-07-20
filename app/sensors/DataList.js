@@ -12,8 +12,9 @@ export default class DataList extends Component {
 		super(props);
 
 		this.state = {
-			data: props.data,
-			selected: null
+			data: [...props.data],
+			selected: null,
+			selectAll: false
 		};
 
 		this.type = this.props.multipleSelect ? "Terms" : "Term";
@@ -22,6 +23,7 @@ export default class DataList extends Component {
 		this.renderObjectList = this.renderObjectList.bind(this);
 		this.renderStringList = this.renderStringList.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
+		this.onSelectAll = this.onSelectAll.bind(this);
 	}
 
 	componentWillMount() {
@@ -41,7 +43,11 @@ export default class DataList extends Component {
 			data: nextProps.data
 		});
 		if (this.props.defaultSelected !== nextProps.defaultSelected) {
-			this.changeValue(nextProps.defaultSelected);
+			if (nextProps.defaultSelected && nextProps.defaultSelected === nextProps.selectAllLabel) {
+				this.onSelectAll();
+			} else {
+				this.changeValue(nextProps.defaultSelected);
+			}
 		}
 	}
 
@@ -56,7 +62,12 @@ export default class DataList extends Component {
 	checkDefault(props) {
 		this.urlParams = helper.URLParams.get(props.componentId, props.multipleSelect);
 		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
-		this.changeValue(defaultValue);
+		if (props.multipleSelect && props.selectAllLabel === defaultValue[0] ||
+			!props.multipleSelect && props.selectAllLabel === defaultValue) {
+			this.onSelectAll();
+		} else {
+			this.changeValue(defaultValue);
+		}
 	}
 
 	changeValue(defaultValue) {
@@ -123,7 +134,13 @@ export default class DataList extends Component {
 	}
 
 	customQuery(record) {
-		if (record) {
+		if (this.state.selectAll) {
+			return {
+				exists: {
+					field: [this.props.appbaseField]
+				}
+			};
+		} else if (record) {
 			const listQuery= {
 				[this.type]: {
 					[this.props.appbaseField]: record
@@ -160,19 +177,19 @@ export default class DataList extends Component {
 		}
 
 		this.setState({
-			selected: value
+			selected: value,
+			selectAll: false
 		}, () => {
 			this.defaultSelected = value;
+			this.executeQuery(value);
 		});
-
-		this.executeQuery(value);
 	}
 
 	handleCheckboxChange(record) {
 		let { selected, data } = this.state;
 		let value = record;
 
-		if (typeof data[0] === "object") {
+		if (typeof this.props.data[0] === "object") {
 			value = record.value;
 		}
 
@@ -189,12 +206,12 @@ export default class DataList extends Component {
 		}
 
 		this.setState({
-			selected: selected
+			selected: selected,
+			selectAll: false
 		}, () => {
 			this.defaultSelected = selected;
+			this.executeQuery(selected);
 		});
-
-		this.executeQuery(selected);
 	}
 
 	executeQuery(value) {
@@ -204,7 +221,11 @@ export default class DataList extends Component {
 		};
 
 		if (this.props.onValueChange) {
-			this.props.onValueChange(value);
+			if (this.state.selectAll) {
+				this.props.onValueChange(this.props.data);
+			} else {
+				this.props.onValueChange(value);
+			}
 		}
 
 		const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
@@ -253,6 +274,9 @@ export default class DataList extends Component {
 				));
 			}
 		}
+		if (this.props.selectAllLabel) {
+			list.unshift(this.getSelectAll());
+		}
 		return list;
 	}
 
@@ -297,7 +321,77 @@ export default class DataList extends Component {
 				));
 			}
 		}
+		if (this.props.selectAllLabel) {
+			list.unshift(this.getSelectAll());
+		}
 		return list;
+	}
+
+	getSelectAll(list) {
+		let selectAllItem = null;
+		if (this.props.multipleSelect) {
+			const cx = classNames({
+				"rbc-checkbox-active": this.props.showCheckbox,
+				"rbc-checkbox-inactive": !this.props.showCheckbox
+			});
+			selectAllItem = (
+				<div className={`rbc-list-item row ${cx} ${this.state.selectAll ? "rbc-list-item-active" : ""}`} key="select-all">
+					<input
+						type="checkbox"
+						className="rbc-checkbox-item"
+						checked={this.state.selectAll}
+						onChange={this.onSelectAll}
+						id="select-all"
+					/>
+					<label className="rbc-label" htmlFor="select-all">{this.props.selectAllLabel}</label>
+				</div>
+			);
+		} else {
+			const cx = classNames({
+				"rbc-radio-active": this.props.showRadio,
+				"rbc-radio-inactive": !this.props.showRadio
+			});
+			selectAllItem = (
+				<div className={`rbc-list-item row ${cx} ${this.state.selectAll ? "rbc-list-item-active" : ""}`} key="select-all">
+					<input
+						type="radio"
+						className="rbc-radio-item"
+						checked={this.state.selectAll}
+						onChange={this.onSelectAll}
+						id="select-all"
+					/>
+					<label className="rbc-label" htmlFor="select-all">{this.props.selectAllLabel}</label>
+				</div>
+			);
+		}
+		return selectAllItem;
+	}
+
+	onSelectAll() {
+		if (this.props.multipleSelect) {
+			if (this.state.selectAll) {
+				this.setState({
+					selected: [],
+					selectAll: false
+				}, () => {
+					this.executeQuery(null);
+				});
+			} else {
+				this.setState({
+					selected: [...this.props.data],
+					selectAll: true
+				}, () => {
+					this.executeQuery(this.props.selectAllLabel);
+				});
+			}
+		} else {
+			this.setState({
+				selected: this.props.selectAllLabel,
+				selectAll: true
+			}, () => {
+				this.executeQuery(this.props.selectAllLabel);
+			});
+		}
 	}
 
 	filterBySearch(value) {
@@ -387,7 +481,8 @@ DataList.propTypes = {
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
 	showRadio: React.PropTypes.bool,
-	showCheckbox: React.PropTypes.bool
+	showCheckbox: React.PropTypes.bool,
+	selectAllLabel: React.PropTypes.string
 };
 
 // Default props value
