@@ -1,5 +1,7 @@
 .rbc.rbc-pagination {
 	padding: 0;
+	position: relative;
+	z-index: 0;	// else will overlay MultiDropdownList outer select box
 	li i {
 		font-size: 1rem;
 	}

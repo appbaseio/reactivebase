@@ -31,7 +31,6 @@ export default class DataSearch extends Component {
 		this.setValue = this.setValue.bind(this);
 		this.onInputChange = this.onInputChange.bind(this);
 		this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
-		this.clearSuggestions = this.clearSuggestions.bind(this);
 		this.handleBlur = this.handleBlur.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.defaultSearchQuery = this.defaultSearchQuery.bind(this);
@@ -41,10 +40,34 @@ export default class DataSearch extends Component {
 
 	// Get the items from Appbase when component is mounted
 	componentWillMount() {
+		this.setReact(this.props);
 		this.setQueryInfo();
 		this.createChannel();
 		this.checkDefault();
 		this.listenFilter();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (!_.isEqual(this.props.react, nextProps.react)) {
+			this.setReact(nextProps);
+			manager.update(this.channelId, this.react, null, null, false);
+		}
+
+		if (this.props.defaultSelected !== nextProps.defaultSelected) {
+			this.changeValue(nextProps.defaultSelected);
+		} else if (nextProps.customQuery) {
+			if (this.props.customQuery) {
+				if (!_isEqual(nextProps.customQuery(this.state.currentValue), this.props.customQuery(this.state.currentValue))) {
+					this.handleSearch({
+						value: this.state.currentValue
+					});
+				}
+			} else {
+				this.handleSearch({
+					value: this.state.currentValue
+				});
+			}
+		}
 	}
 
 	// stop streaming request and remove listener when component will unmount
@@ -74,7 +97,7 @@ export default class DataSearch extends Component {
 		const highlightField = this.props.highlightField ? this.props.highlightField : this.props.appbaseField;
 		if (typeof highlightField === "string") {
 			fields[highlightField] = {};
-		} else if (_.isArray(highlightField)) {
+		} else if (Array.isArray(highlightField)) {
 			highlightField.forEach((item) => {
 				fields[item] = {};
 			});
@@ -155,7 +178,7 @@ export default class DataSearch extends Component {
 			const fieldSplit = field.split(".");
 			fieldSplit.forEach((item, index) => {
 				prefix += item;
-				if (_.isArray(_.get(hit, prefix))) {
+				if (Array.isArray(_.get(hit, prefix))) {
 					prefix += `[${index}]`;
 				}
 				if (fieldSplit.length - 1 !== index) {
@@ -176,7 +199,7 @@ export default class DataSearch extends Component {
 	// set data after get the result
 	setData(data) {
 		let options = [];
-		const appbaseField = _.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
+		const appbaseField = Array.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
 		data.hits.hits.map((hit) => {
 			if (this.fieldType === "string") {
 				const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
@@ -230,37 +253,63 @@ export default class DataSearch extends Component {
 		return finalQuery;
 	}
 
-	shouldQuery(value, fields) {
-		let queries = [];
-		fields.forEach((field, index) => {
-			const query = [{
-				match: {
-					[field]: {
-						query: value
+	shouldQuery(value, appbaseFields) {
+		const fields = appbaseFields.map(
+			(field, index) => `${field}${(Array.isArray(this.props.weights) && this.props.weights[index]) ? ("^" + this.props.weights[index]) : ""}`
+		);
+
+		if (this.props.queryFormat === "and") {
+			return [
+				{
+					multi_match: {
+						query: value,
+						fields,
+						type: "cross_fields",
+						operator: "and",
+						fuzziness: this.props.fuzziness ? this.props.fuzziness : 0
+					}
+				},
+				{
+					multi_match: {
+						query: value,
+						fields,
+						type: "phrase_prefix",
+						operator: "and"
 					}
 				}
-			}, {
-				match_phrase_prefix: {
-					[field]: {
-						query: value
-					}
+			];
+		}
+
+		return [
+			{
+				multi_match: {
+					query: value,
+					fields,
+					type: "best_fields",
+					operator: "or",
+					fuzziness: this.props.fuzziness ? this.props.fuzziness : 0
 				}
-			}];
-			if(_.isArray(this.props.weights) && this.props.weights[index]) {
-				query[0].match[field].boost = this.props.weights[index];
-				query[1].match_phrase_prefix[field].boost = this.props.weights[index];
+			},
+			{
+				multi_match: {
+					query: value,
+					fields,
+					type: "phrase_prefix",
+					operator: "or"
+				}
 			}
-			queries = queries.concat(query);
-		});
-		return queries;
+		];
+	}
+
+	setReact(props) {
+		const react = Object.assign({}, props.react);
+		const reactAnd = [this.searchInputId];
+		this.react = helper.setupReact(react, reactAnd);
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel() {
-		let react = this.props.react ? this.props.react : {};
-		const reactAnd = [this.searchInputId];
-		react = helper.setupReact(react, reactAnd);
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, 100, 0, false, this.props.componentId);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, this.react, 100, 0, false, this.props.componentId);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
 			const data = res.data;
@@ -352,18 +401,12 @@ export default class DataSearch extends Component {
 		this.handleSearch(suggestion);
 	}
 
-	clearSuggestions() {
-		this.setState({
-			options: []
-		});
-	}
-
 	getSuggestionValue(suggestion) {
-		return suggestion.label;
+		return suggestion.label.innerText || suggestion.label;
 	}
 
 	renderSuggestion(suggestion) {
-		return suggestion.label
+		return <span>{suggestion.label}</span>
 	}
 
 	render() {
@@ -380,24 +423,32 @@ export default class DataSearch extends Component {
 			"rbc-autoSuggest-inactive": !this.props.autoSuggest
 		});
 
+		const options = this.state.currentValue === "" || this.state.currentValue === null
+							? this.props.initialSuggestions && this.props.initialSuggestions.length
+							? this.props.initialSuggestions
+							: []
+							: this.state.options;
+
 		return (
 			<div className={`rbc rbc-datasearch col s12 col-xs-12 card thumbnail ${cx} ${this.state.isLoadingOptions ? "is-loading" : ""}`} style={this.props.componentStyle}>
 				{title}
 				{
 					this.props.autoSuggest ?
 						<Autosuggest
-							suggestions={this.state.options}
+							suggestions={options}
 							onSuggestionsFetchRequested={() => {}}
-							onSuggestionsClearRequested={this.clearSuggestions}
+							onSuggestionsClearRequested={() => {}}
 							onSuggestionSelected={this.onSuggestionSelected}
 							getSuggestionValue={this.getSuggestionValue}
 							renderSuggestion={this.renderSuggestion}
+							shouldRenderSuggestions={() => true}
 							focusInputOnSuggestionClick={false}
 							inputProps={{
 								placeholder: this.props.placeholder,
 								value: this.state.currentValue === null ? "" : this.state.currentValue,
 								onChange: this.onInputChange,
 								onBlur: this.handleBlur,
+								onFocus: this.onInputFocus,
 								onKeyPress: this.handleKeyPress
 							}}
 						/> :
@@ -409,7 +460,6 @@ export default class DataSearch extends Component {
 								value={this.state.currentValue ? this.state.currentValue : ""}
 								onChange={this.handleInputChange}
 							/>
-							<span className="rbc-search-icon" />
 						</div>
 				}
 			</div>
@@ -434,6 +484,15 @@ DataSearch.propTypes = {
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	react: React.PropTypes.object,
+	initialSuggestions: React.PropTypes.arrayOf(
+		React.PropTypes.shape({
+			label: React.PropTypes.oneOfType([
+				React.PropTypes.string,
+				React.PropTypes.element
+			]),
+			value: React.PropTypes.string
+		})
+	),
 	componentStyle: React.PropTypes.object,
 	highlight: React.PropTypes.bool,
 	highlightField: React.PropTypes.oneOfType([
@@ -442,7 +501,12 @@ DataSearch.propTypes = {
 	]),
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	queryFormat: React.PropTypes.oneOf(["and", "or"]),
+	fuzziness: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number,
+	])
 };
 
 // Default props value
@@ -452,7 +516,8 @@ DataSearch.defaultProps = {
 	componentStyle: {},
 	highlight: false,
 	URLParams: false,
-	showFilter: true
+	showFilter: true,
+	queryFormat: "or"
 };
 
 // context type
@@ -478,5 +543,7 @@ DataSearch.types = {
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,
-	weights: TYPES.OBJECT
+	weights: TYPES.ARRAY,
+	queryFormat: TYPES.STRING,
+	fuzziness: TYPES.NUMBER
 };

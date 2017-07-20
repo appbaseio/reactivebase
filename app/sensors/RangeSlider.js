@@ -18,6 +18,12 @@ export default class RangeSlider extends Component {
 		const values = {};
 		this.urlParams = helper.URLParams.get(this.props.componentId, false, true);
 		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+		if (!this.defaultSelected) {
+			this.defaultSelected = {
+				start: startThreshold,
+				end: endThreshold
+			};
+		}
 		values.min = this.defaultSelected.start < startThreshold ? startThreshold : this.defaultSelected.start;
 		values.max = this.defaultSelected.end < endThreshold ? this.defaultSelected.end : endThreshold;
 		this.state = {
@@ -45,13 +51,28 @@ export default class RangeSlider extends Component {
 
 	// Get the items from Appbase when component is mounted
 	componentWillMount() {
+		this.setReact(this.props);
 		this.setQueryInfo();
 		this.createChannel();
 	}
 
+	componentDidMount() {
+		if (this.props.defaultSelected) {
+			this.handleResults(null, {min: this.props.defaultSelected.start, max: this.props.defaultSelected.end});
+		}
+	}
+
 	componentWillReceiveProps(nextProps) {
+		if (!_.isEqual(this.props.react, nextProps.react)) {
+			this.setReact(nextProps);
+			manager.update(this.channelId, this.react, nextProps.size, 0, false);
+		}
+
 		setTimeout(() => {
-			const defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+			let defaultValue = this.urlParams !== null ? this.urlParams : nextProps.defaultSelected;
+			if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
+				defaultValue = nextProps.defaultSelected;
+			}
 			// check defaultSelected
 			if (defaultValue.start !== this.state.values.min ||
 				defaultValue.end !== this.state.values.max &&
@@ -66,17 +87,17 @@ export default class RangeSlider extends Component {
 						}
 					});
 					const obj = {
-						key: this.props.componentId,
+						key: nextProps.componentId,
 						value: {
 							from: this.state.values.min,
 							to: defaultValue.end - rem
 						}
 					};
 					setTimeout(() => {
-						if (this.props.onValueChange) {
-							this.props.onValueChange(obj.value);
+						if (nextProps.onValueChange) {
+							nextProps.onValueChange(obj.value);
 						}
-						helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
+						helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
 						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				} else {
@@ -88,17 +109,17 @@ export default class RangeSlider extends Component {
 						currentValues: values
 					});
 					const obj = {
-						key: this.props.componentId,
+						key: nextProps.componentId,
 						value: {
 							from: values.min,
 							to: values.max
 						}
 					};
 					setTimeout(() => {
-						if (this.props.onValueChange) {
-							this.props.onValueChange(obj.value);
+						if (nextProps.onValueChange) {
+							nextProps.onValueChange(obj.value);
 						}
-						helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
+						helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
 						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				}
@@ -264,20 +285,23 @@ export default class RangeSlider extends Component {
 		};
 	}
 
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel() {
+	setReact(props) {
 		// Set the react - add self aggs query as well with react
-		let react = this.props.react ? this.props.react : {};
+		const react = Object.assign({}, props.react);
 		react.aggs = {
-			key: this.props.appbaseField,
+			key: props.appbaseField,
 			sort: "asc",
 			size: 1000,
 			customQuery: this.histogramQuery
 		};
-		const reactAnd = [`${this.props.componentId}-internal`]
-		react = helper.setupReact(react, reactAnd);
+		const reactAnd = [`${props.componentId}-internal`]
+		this.react = helper.setupReact(react, reactAnd);
+	}
+
+	// Create a channel which passes the react and receive results whenever react changes
+	createChannel() {
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, 100, 0, false, this.props.componentId);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, this.react, 100, 0, false, this.props.componentId);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
 			if (res.error) {
@@ -335,17 +359,6 @@ export default class RangeSlider extends Component {
 	}
 
 	countCalc(min, max, newItems) {
-		// const counts = [];
-		// const storeItems = {};
-		// newItems.forEach((item) => {
-		// 	item.key = Math.floor(item.key);
-		// 	if (!(item.key in storeItems)) {
-		// 		storeItems[item.key] = item.doc_count;
-		// 	} else {
-		// 		storeItems[item.key] += item.doc_count;
-		// 	}
-		// });
-		// return counts;
 		return newItems.map(item => item.doc_count);
 	}
 
@@ -492,10 +505,6 @@ RangeSlider.defaultProps = {
 	rangeLabels: {
 		start: "",
 		end: ""
-	},
-	defaultSelected: {
-		start: 0,
-		end: 10
 	},
 	stepValue: 1,
 	showHistogram: true,

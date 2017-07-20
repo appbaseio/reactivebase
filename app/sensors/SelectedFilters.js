@@ -110,7 +110,7 @@ export default class SelectedFilters extends Component {
 			value = item.value.currentValue;
 		} else if (item.component === "NestedList") {
 			value = item.value.join(" > ");
-		} else if (_.isArray(item.value)) {
+		} else if (Array.isArray(item.value)) {
 			value = item.value.join(", ");
 		} else if (_.isObject(item.value)) {
 			value = JSON.stringify(item.value);

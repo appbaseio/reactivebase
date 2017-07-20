@@ -28,13 +28,14 @@ export default class DropdownList extends Component {
 		this.previousSelectedSensor = {};
 		this.urlParams = helper.URLParams.get(this.props.componentId, this.props.multipleSelect);
 		this.handleChange = this.handleChange.bind(this);
-		this.type = this.props.multipleSelect ? "Terms" : "Term";
+		this.type = this.props.multipleSelect && this.props.queryFormat === "or" ? "Terms" : "Term";
 		this.customQuery = this.customQuery.bind(this);
 		this.renderOption = this.renderOption.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
 	componentWillMount() {
+		this.setReact(this.props);
 		this.size = this.props.size;
 		this.setQueryInfo();
 		this.checkDefault(this.props);
@@ -43,12 +44,19 @@ export default class DropdownList extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const items = this.state.items;
+		const { items } = this.state;
+
+		if (!_.isEqual(this.props.react, nextProps.react)) {
+			this.setReact(nextProps);
+			manager.update(this.channelId, this.react, nextProps.size, 0, false);
+		}
+
 		if (nextProps.multipleSelect && !_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
 			this.changeValue(nextProps.defaultSelected);
 		} else if (!nextProps.multipleSelect && this.props.defaultSelected !== nextProps.defaultSelected) {
 			this.changeValue(nextProps.defaultSelected);
 		}
+
 		if (nextProps.selectAllLabel !== this.props.selectAllLabel) {
 			if (this.props.selectAllLabel) {
 				items.shift();
@@ -138,6 +146,24 @@ export default class DropdownList extends Component {
 				}
 			};
 		} else if (value) {
+			// queryFormat should not affect SingleDropdownList
+			if (this.props.queryFormat === "and" && this.props.multipleSelect) {
+				// adds a sub-query with must as an array of objects for each terms/value
+				const queryArray = value.map(item => (
+					{
+						[this.type]: {
+							[this.props.appbaseField]: item
+						}
+					}
+				));
+				return {
+					bool: {
+						must: queryArray
+					}
+				};
+			}
+
+			// for the default queryFormat = "or" and SingleDropdownList
 			return {
 				[this.type]: {
 					[this.props.appbaseField]: value
@@ -180,27 +206,27 @@ export default class DropdownList extends Component {
 			key: `${this.props.componentId}-sort`,
 			value: this.sortObj
 		};
-		// if (this.props.onValueChange) {
-		// 	this.props.onValueChange(obj.value);
-		// }
 		helper.selectedSensor.set(obj, true, "sortChange");
+	}
+
+	setReact(props) {
+		// Set the react - add self aggs query as well with react
+		const react = Object.assign({}, props.react);
+		react.aggs = {
+			key: props.appbaseField,
+			sort: props.sortBy,
+			size: props.size,
+			sortRef: `${props.componentId}-sort`
+		};
+		const reactAnd = [`${props.componentId}-sort`, "dropdownListChanges"]
+		this.react = helper.setupReact(react, reactAnd);
 	}
 
 	// Create a channel which passes the react and receive results whenever react changes
 	createChannel(executeChannel = false) {
-		// Set the react - add self aggs query as well with react
-		let react = this.props.react ? this.props.react : {};
-		react.aggs = {
-			key: this.props.appbaseField,
-			sort: this.props.sortBy,
-			size: this.props.size,
-			sortRef: `${this.props.componentId}-sort`
-		};
-		const reactAnd = [`${this.props.componentId}-sort`, "dropdownListChanges"]
-		react = helper.setupReact(react, reactAnd);
 		this.includeAggQuery();
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, 100, 0, false, this.props.componentId);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, this.react, 100, 0, false, this.props.componentId);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(channelObj.channelId, (res) => {
 			if (res.error) {
@@ -412,7 +438,8 @@ DropdownList.propTypes = {
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	queryFormat: React.PropTypes.oneOf(["and", "or"])
 };
 
 // Default props value
@@ -424,7 +451,8 @@ DropdownList.defaultProps = {
 	placeholder: "Select...",
 	selectAllLabel: null,
 	URLParams: false,
-	showFilter: true
+	showFilter: true,
+	queryFormat: "or"
 };
 
 // context type

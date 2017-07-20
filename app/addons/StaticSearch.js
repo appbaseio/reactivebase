@@ -1,4 +1,4 @@
-import { default as React, Component } from "react";
+import React, { Component } from "react";
 
 export class StaticSearch extends Component {
 	constructor(props) {
@@ -13,9 +13,8 @@ export class StaticSearch extends Component {
 		const value = event.target.value;
 		this.setState({
 			searchValue: value
-		}, () => {
-			this.props.changeCallback(this.state.searchValue);
 		});
+		this.props.changeCallback(value);
 	}
 
 	render() {

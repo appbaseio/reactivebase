@@ -14,7 +14,11 @@ import { Img } from "../../app/stories/Img.js";
 class Main extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			defaultSelected: ["London"]
+		};
 		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
+		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
 	onData(markerData) {
@@ -48,6 +52,13 @@ class Main extends Component {
 		);
 	}
 
+	handleInputChange(e) {
+		const defaultSelected = e.target.value.split(",");
+		this.setState({
+			defaultSelected
+		});
+	}
+
 	render() {
 		return (
 			<ReactiveBase
@@ -64,8 +75,20 @@ class Main extends Component {
 							size={100}
 							URLParams={true}
 							filterLabel="City Label"
-							defaultSelected={["London", "Sydney"]}
+							defaultSelected={this.state.defaultSelected}
 							onValueChange={value => console.log('callback', value)}
+						/>
+						<input value={this.state.defaultSelected} onChange={this.handleInputChange} placeholder="defaultSelected" />
+
+						<MultiDropdownList
+							componentId="TopicsSensor"
+							appbaseField={this.props.mapping.topic}
+							title="queryFormat = and"
+							size={100}
+							URLParams={true}
+							showCount={true}
+							filterLabel="Topics"
+							queryFormat="and"
 						/>
 					</div>
 
@@ -79,7 +102,7 @@ class Main extends Component {
 							size={20}
 							onData={this.onData}
 							react={{
-								and: "CitySensor"
+								and: ["CitySensor", "TopicsSensor"]
 							}}
 						/>
 					</div>

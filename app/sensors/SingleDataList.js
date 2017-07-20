@@ -19,19 +19,26 @@ SingleDataList.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
+	showSearch: React.PropTypes.bool,
+	placeholder: React.PropTypes.string,
 	data: React.PropTypes.array,
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool
+	showFilter: React.PropTypes.bool,
+	showRadio: React.PropTypes.bool,
+	selectAllLabel: React.PropTypes.string
 };
 
 // Default props value
 SingleDataList.defaultProps = {
 	title: null,
 	componentStyle: {},
-	URLParams: false
+	URLParams: false,
+	showSearch: false,
+	placeholder: "Search",
+	showRadio: true
 };
 
 // context type
@@ -50,5 +57,9 @@ SingleDataList.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
-	showFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN,
+	showSearch: TYPES.BOOLEAN,
+	placeholder: TYPES.STRING,
+	showRadio: TYPES.BOOLEAN,
+	selectAllLabel: TYPES.STRING
 };

@@ -1,4 +1,3 @@
-import _ from "lodash";
 const URLSearchParams = require("url-search-params");
 
 class RbcURLParams {

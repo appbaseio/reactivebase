@@ -3,13 +3,16 @@ $themes: ( rbc-red: (color: red, background: #fff, font-color: #777, input-bg: #
 $map in $themes {
 	.#{$theme} {
 		.rbc.rbc-datasearch {
-			input {
+			input, .rbc-search-container input {
 				color: map-get($map, font-color);
 				background-color: map-get($map, input-bg);
+				border-bottom: 2px solid map-get($map, input-bg);
 			}
 
-			.react-autosuggest__container:before {
-				color: map-get($map, color);
+			.react-autosuggest__container, .rbc-search-container {
+				&:before {
+					color: map-get($map, color);
+				}
 			}
 
 			.react-autosuggest__suggestion {
@@ -125,9 +128,14 @@ $map in $themes {
 		.rbc.rbc-multirange {
 			.rbc-list-container {
 				.rbc-list-item {
-					a {
-						&.active {
-							color: darken(map-get($map, color), 5%);
+					a.active {
+						color: map-get($map, color);
+					}
+
+					&.rbc-radio-inactive,
+					&.rbc-checkbox-inactive {
+						&.rbc-list-item-active .rbc-label {
+							color: map-get($map, color);
 						}
 					}
 				}
@@ -197,9 +205,6 @@ $map in $themes {
 			}
 			.rbc-input {
 				background-color: map-get($map, input-bg);
-			}
-			.rbc-search-icon {
-				color: map-get($map, color);
 			}
 			.rc-slider {
 				.rc-slider-track {

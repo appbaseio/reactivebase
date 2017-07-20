@@ -118,7 +118,7 @@ export const setupReact = (react, reactAnd) => {
 		if (typeof react.and === "string") {
 			react.and = [react.and];
 			react.and = react.and.concat(reactAnd);
-		} else if (_.isArray(react.and)) {
+		} else if (Array.isArray(react.and)) {
 			react.and = react.and.concat(reactAnd);
 		} else if (_.isObject(react.and)) {
 			react.and = setupReact(react.and, reactAnd);

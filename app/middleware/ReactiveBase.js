@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import manager from "./ChannelManager";
 const Appbase = require("appbase-js");
 const helper = require("./helper.js");
-const _ = require("lodash");
 
 export default class ReactiveBase extends Component {
 	constructor(props, context) {
@@ -40,7 +39,7 @@ export default class ReactiveBase extends Component {
 	}
 
 	getComponents(children) {
-		children = _.isArray(children) ? children : [children];
+		children = Array.isArray(children) ? children : [children];
 		children.forEach(child => {
 			if(child && child.props && child.props.componentId && child.props.showFilter !== false) {
 				this.components.push({

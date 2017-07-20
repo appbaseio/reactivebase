@@ -36,13 +36,14 @@ export default class NativeList extends Component {
 		this.handleRemove = this.handleRemove.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
 		this.onSelectAll = this.onSelectAll.bind(this);
-		this.type = this.props.multipleSelect ? "Terms" : "Term";
+		this.type = this.props.multipleSelect && this.props.queryFormat === "or" ? "Terms" : "Term";
 		this.customQuery = this.customQuery.bind(this);
 		this.defaultCustomQuery = this.defaultCustomQuery.bind(this);
 	}
 
 	// Get the items from Appbase when component is mounted
 	componentWillMount() {
+		this.setReact(this.props);
 		this.size = this.props.size;
 		this.setQueryInfo();
 		this.createChannel(true);
@@ -52,7 +53,13 @@ export default class NativeList extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.urlParams = helper.URLParams.get(this.props.componentId, this.props.multipleSelect);
+		this.urlParams = helper.URLParams.get(nextProps.componentId, nextProps.multipleSelect);
+
+		if (!_.isEqual(this.props.react, nextProps.react)) {
+			this.setReact(nextProps);
+			manager.update(this.channelId, this.react, nextProps.size, 0, false);
+		}
+
 		if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
 			this.defaultValue = nextProps.defaultSelected;
 			this.changeValues(this.defaultValue);
@@ -79,11 +86,31 @@ export default class NativeList extends Component {
 				}
 			};
 		} else if (value) {
-			const listQuery = {
-				[this.type]: {
-					[this.props.appbaseField]: value
-				}
-			};
+			let listQuery;
+			// queryFormat should not affect SingleList
+			if (this.props.queryFormat === "and" && this.props.multipleSelect) {
+				// adds a sub-query with must as an array of objects for each term/value
+				const queryArray = value.map(item => (
+					{
+						[this.type]: {
+							[this.props.appbaseField]: item
+						}
+					}
+				));
+				listQuery = {
+					bool: {
+						must: queryArray
+					}
+				};
+			} else {
+				// for the default queryFormat = "or" and SingleList
+				listQuery = {
+					[this.type]: {
+						[this.props.appbaseField]: value
+					}
+				};
+			}
+
 			query = this.props.multipleSelect ? (value.length ? listQuery : null) : listQuery;
 		}
 		return query;
@@ -181,10 +208,9 @@ export default class NativeList extends Component {
 		helper.selectedSensor.set(obj, true, "sortChange");
 	}
 
-	// Create a channel which passes the react and receive results whenever react changes
-	createChannel(executeChannel = false) {
+	setReact(props) {
 		// Set the react - add self aggs query as well with react
-		let react = Object.assign({}, this.props.react);
+		const react = Object.assign({}, props.react);
 		react.aggs = {
 			key: this.props.appbaseField,
 			sort: this.props.sortBy,
@@ -192,10 +218,14 @@ export default class NativeList extends Component {
 			sortRef: `${this.props.componentId}-sort`
 		};
 		const reactAnd = [`${this.props.componentId}-sort`, "nativeListChanges"]
-		react = helper.setupReact(react, reactAnd);
+		this.react = helper.setupReact(react, reactAnd);
+	}
+
+	// Create a channel which passes the react and receive results whenever react changes
+	createChannel(executeChannel = false) {
 		this.includeAggQuery();
 		// create a channel and listen the changes
-		const channelObj = manager.create(this.context.appbaseRef, this.context.type, react, 100, 0, false, this.props.componentId);
+		const channelObj = manager.create(this.context.appbaseRef, this.context.type, this.react, 100, 0, false, this.props.componentId);
 		this.channelId = channelObj.channelId;
 		this.channelListener = channelObj.emitter.addListener(this.channelId, (res) => {
 			if (res.error) {
@@ -461,7 +491,8 @@ NativeList.propTypes = {
 	showCheckbox: React.PropTypes.bool,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	queryFormat: React.PropTypes.oneOf(["and", "or"])
 };
 
 // Default props value
@@ -478,7 +509,8 @@ NativeList.defaultProps = {
 	showRadio: true,
 	showCheckbox: true,
 	URLParams: false,
-	showFilter: true
+	showFilter: true,
+	queryFormat: "or"
 };
 
 // context type

@@ -206,11 +206,12 @@ a {
 .rbc-highlight {
   background: yellow; }
 
-.rbc-red .rbc.rbc-datasearch input {
+.rbc-red .rbc.rbc-datasearch input, .rbc-red .rbc.rbc-datasearch .rbc-search-container input {
   color: #777;
-  background-color: #f5f5f5; }
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #f5f5f5; }
 
-.rbc-red .rbc.rbc-datasearch .react-autosuggest__container:before {
+.rbc-red .rbc.rbc-datasearch .react-autosuggest__container:before, .rbc-red .rbc.rbc-datasearch .rbc-search-container:before {
   color: red; }
 
 .rbc-red .rbc.rbc-datasearch .react-autosuggest__suggestion {
@@ -318,7 +319,16 @@ a {
 .rbc-red .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-  color: #e60000; }
+  color: red; }
+
+.rbc-red .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-red .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: red; }
 
 .rbc-red .rbc.rbc-singledatalist .rbc-tag-item,
 .rbc-red .rbc.rbc-multidatalist .rbc-tag-item,
@@ -374,8 +384,6 @@ a {
     background-color: red; }
   .rbc-red .rbc .rbc-input {
     background-color: #f5f5f5; }
-  .rbc-red .rbc .rbc-search-icon {
-    color: red; }
   .rbc-red .rbc .rc-slider .rc-slider-track {
     background: red; }
   .rbc-red .rbc .rc-slider .rc-slider-handle {
@@ -423,11 +431,12 @@ a {
 .rbc-red a {
   color: #777; }
 
-.rbc-orange .rbc.rbc-datasearch input {
+.rbc-orange .rbc.rbc-datasearch input, .rbc-orange .rbc.rbc-datasearch .rbc-search-container input {
   color: #777;
-  background-color: #f5f5f5; }
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #f5f5f5; }
 
-.rbc-orange .rbc.rbc-datasearch .react-autosuggest__container:before {
+.rbc-orange .rbc.rbc-datasearch .react-autosuggest__container:before, .rbc-orange .rbc.rbc-datasearch .rbc-search-container:before {
   color: orange; }
 
 .rbc-orange .rbc.rbc-datasearch .react-autosuggest__suggestion {
@@ -535,7 +544,16 @@ a {
 .rbc-orange .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-  color: #e69500; }
+  color: orange; }
+
+.rbc-orange .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-orange .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: orange; }
 
 .rbc-orange .rbc.rbc-singledatalist .rbc-tag-item,
 .rbc-orange .rbc.rbc-multidatalist .rbc-tag-item,
@@ -591,8 +609,6 @@ a {
     background-color: orange; }
   .rbc-orange .rbc .rbc-input {
     background-color: #f5f5f5; }
-  .rbc-orange .rbc .rbc-search-icon {
-    color: orange; }
   .rbc-orange .rbc .rc-slider .rc-slider-track {
     background: orange; }
   .rbc-orange .rbc .rc-slider .rc-slider-handle {
@@ -640,11 +656,12 @@ a {
 .rbc-orange a {
   color: #777; }
 
-.rbc-yellow .rbc.rbc-datasearch input {
+.rbc-yellow .rbc.rbc-datasearch input, .rbc-yellow .rbc.rbc-datasearch .rbc-search-container input {
   color: #777;
-  background-color: #f5f5f5; }
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #f5f5f5; }
 
-.rbc-yellow .rbc.rbc-datasearch .react-autosuggest__container:before {
+.rbc-yellow .rbc.rbc-datasearch .react-autosuggest__container:before, .rbc-yellow .rbc.rbc-datasearch .rbc-search-container:before {
   color: yellow; }
 
 .rbc-yellow .rbc.rbc-datasearch .react-autosuggest__suggestion {
@@ -752,7 +769,16 @@ a {
 .rbc-yellow .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-  color: #e6e600; }
+  color: yellow; }
+
+.rbc-yellow .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-yellow .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: yellow; }
 
 .rbc-yellow .rbc.rbc-singledatalist .rbc-tag-item,
 .rbc-yellow .rbc.rbc-multidatalist .rbc-tag-item,
@@ -808,8 +834,6 @@ a {
     background-color: yellow; }
   .rbc-yellow .rbc .rbc-input {
     background-color: #f5f5f5; }
-  .rbc-yellow .rbc .rbc-search-icon {
-    color: yellow; }
   .rbc-yellow .rbc .rc-slider .rc-slider-track {
     background: yellow; }
   .rbc-yellow .rbc .rc-slider .rc-slider-handle {
@@ -857,11 +881,12 @@ a {
 .rbc-yellow a {
   color: #777; }
 
-.rbc-green .rbc.rbc-datasearch input {
+.rbc-green .rbc.rbc-datasearch input, .rbc-green .rbc.rbc-datasearch .rbc-search-container input {
   color: #777;
-  background-color: #f5f5f5; }
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #f5f5f5; }
 
-.rbc-green .rbc.rbc-datasearch .react-autosuggest__container:before {
+.rbc-green .rbc.rbc-datasearch .react-autosuggest__container:before, .rbc-green .rbc.rbc-datasearch .rbc-search-container:before {
   color: green; }
 
 .rbc-green .rbc.rbc-datasearch .react-autosuggest__suggestion {
@@ -969,7 +994,16 @@ a {
 .rbc-green .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-  color: #006700; }
+  color: green; }
+
+.rbc-green .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-green .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: green; }
 
 .rbc-green .rbc.rbc-singledatalist .rbc-tag-item,
 .rbc-green .rbc.rbc-multidatalist .rbc-tag-item,
@@ -1025,8 +1059,6 @@ a {
     background-color: green; }
   .rbc-green .rbc .rbc-input {
     background-color: #f5f5f5; }
-  .rbc-green .rbc .rbc-search-icon {
-    color: green; }
   .rbc-green .rbc .rc-slider .rc-slider-track {
     background: green; }
   .rbc-green .rbc .rc-slider .rc-slider-handle {
@@ -1074,11 +1106,12 @@ a {
 .rbc-green a {
   color: #777; }
 
-.rbc-blue .rbc.rbc-datasearch input {
+.rbc-blue .rbc.rbc-datasearch input, .rbc-blue .rbc.rbc-datasearch .rbc-search-container input {
   color: #777;
-  background-color: #f5f5f5; }
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #f5f5f5; }
 
-.rbc-blue .rbc.rbc-datasearch .react-autosuggest__container:before {
+.rbc-blue .rbc.rbc-datasearch .react-autosuggest__container:before, .rbc-blue .rbc.rbc-datasearch .rbc-search-container:before {
   color: #1893e7; }
 
 .rbc-blue .rbc.rbc-datasearch .react-autosuggest__suggestion {
@@ -1186,7 +1219,16 @@ a {
 .rbc-blue .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-  color: #1684d0; }
+  color: #1893e7; }
+
+.rbc-blue .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-blue .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: #1893e7; }
 
 .rbc-blue .rbc.rbc-singledatalist .rbc-tag-item,
 .rbc-blue .rbc.rbc-multidatalist .rbc-tag-item,
@@ -1242,8 +1284,6 @@ a {
     background-color: #1893e7; }
   .rbc-blue .rbc .rbc-input {
     background-color: #f5f5f5; }
-  .rbc-blue .rbc .rbc-search-icon {
-    color: #1893e7; }
   .rbc-blue .rbc .rc-slider .rc-slider-track {
     background: #1893e7; }
   .rbc-blue .rbc .rc-slider .rc-slider-handle {
@@ -1291,11 +1331,12 @@ a {
 .rbc-blue a {
   color: #777; }
 
-.rbc-dark .rbc.rbc-datasearch input {
+.rbc-dark .rbc.rbc-datasearch input, .rbc-dark .rbc.rbc-datasearch .rbc-search-container input {
   color: #eee;
-  background-color: #aaa; }
+  background-color: #aaa;
+  border-bottom: 2px solid #aaa; }
 
-.rbc-dark .rbc.rbc-datasearch .react-autosuggest__container:before {
+.rbc-dark .rbc.rbc-datasearch .react-autosuggest__container:before, .rbc-dark .rbc.rbc-datasearch .rbc-search-container:before {
   color: #ccc; }
 
 .rbc-dark .rbc.rbc-datasearch .react-autosuggest__suggestion {
@@ -1403,7 +1444,16 @@ a {
 .rbc-dark .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-dark .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-dark .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-  color: #bfbfbf; }
+  color: #ccc; }
+
+.rbc-dark .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-dark .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: #ccc; }
 
 .rbc-dark .rbc.rbc-singledatalist .rbc-tag-item,
 .rbc-dark .rbc.rbc-multidatalist .rbc-tag-item,
@@ -1459,8 +1509,6 @@ a {
     background-color: #ccc; }
   .rbc-dark .rbc .rbc-input {
     background-color: #aaa; }
-  .rbc-dark .rbc .rbc-search-icon {
-    color: #ccc; }
   .rbc-dark .rbc .rc-slider .rc-slider-track {
     background: #ccc; }
   .rbc-dark .rbc .rc-slider .rc-slider-handle {
@@ -1534,9 +1582,13 @@ a {
     margin: 0;
     padding: 0 35px 0 10px;
     box-sizing: border-box; }
-  .rbc.rbc-datasearch .react-autosuggest__container {
+  .rbc.rbc-datasearch .rbc-search-container {
+    padding: 0; }
+  .rbc.rbc-datasearch .react-autosuggest__container,
+  .rbc.rbc-datasearch .rbc-search-container {
     position: relative; }
-    .rbc.rbc-datasearch .react-autosuggest__container:before {
+    .rbc.rbc-datasearch .react-autosuggest__container:before,
+    .rbc.rbc-datasearch .rbc-search-container:before {
       content: "\f002";
       position: absolute;
       top: 15px;
@@ -1544,6 +1596,7 @@ a {
       border: 0;
       width: 30px;
       height: 30px;
+      z-index: 1;
       display: inline-block;
       font: normal normal normal 14px/1 FontAwesome;
       font-size: inherit;
@@ -1764,6 +1817,28 @@ a {
       .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item .rbc-label,
       .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item .rbc-label {
         font-weight: normal; }
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-radio-item,
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-checkbox-item, .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-radio-item,
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-checkbox-item,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-radio-item,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-checkbox-item,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-radio-item,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-checkbox-item {
+        visibility: hidden; }
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label, .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label {
+        padding-left: 0; }
+        .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label::before, .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label::after, .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label::before, .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label::after,
+        .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label::before,
+        .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label::after,
+        .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label::before,
+        .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label::after {
+          visibility: hidden; }
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label, .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label {
+        font-family: "Lato Bold"; }
     .rbc.rbc-singledatalist .rbc-list-container .row,
     .rbc.rbc-multidatalist .rbc-list-container .row {
       margin: 10px 0; }
@@ -1867,10 +1942,6 @@ a {
     margin: 0;
     padding: 0 12px;
     float: left; }
-  .rbc.rbc-reactivelist .rbc-list-item {
-    border-bottom: 1px solid;
-    float: left;
-    width: 100%; }
   .rbc.rbc-reactivelist.rbc-sort-active .rbc-sortoptions {
     position: absolute;
     right: 0;
@@ -1917,9 +1988,10 @@ a {
       height: 100%; }
 
 .rbc.rbc-rangeslider {
-  padding: 0 6px; }
+  padding: 0; }
   .rbc.rbc-rangeslider .rbc-rangeslider-container {
-    margin: 25px 0; }
+    margin: 25px 0;
+    padding: 0 12px; }
     .rbc.rbc-rangeslider .rbc-rangeslider-container .rbc-title {
       padding: 0;
       padding-bottom: 15px; }
@@ -1927,6 +1999,17 @@ a {
       padding: 15px 6px; }
   .rbc.rbc-rangeslider.rbc-labels-active .rbc-rangeslider-container {
     margin: 25px 0 35px; }
+  .rbc.rbc-rangeslider .rc-slider-mark > span:first-child {
+    width: 50% !important;
+    margin-left: 0 !important;
+    left: -4px !important;
+    text-align: left; }
+  .rbc.rbc-rangeslider .rc-slider-mark > span:last-child {
+    width: 50% !important;
+    margin-left: 0 !important;
+    left: calc(50% + 4px) !important;
+    right: -4px;
+    text-align: right; }
 
 .rbc.rbc-textfield {
   padding: 0; }
@@ -1940,7 +2023,9 @@ a {
     text-transform: inherit; }
 
 .rbc.rbc-pagination {
-  padding: 0; }
+  padding: 0;
+  position: relative;
+  z-index: 0; }
   .rbc.rbc-pagination li i {
     font-size: 1rem; }
   .rbc.rbc-pagination .rbc-page-one {

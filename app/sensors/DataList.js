@@ -2,6 +2,8 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
+import { StaticSearch } from "../addons/StaticSearch";
+import _ from "lodash";
 
 const helper = require("../middleware/helper");
 
@@ -10,8 +12,9 @@ export default class DataList extends Component {
 		super(props);
 
 		this.state = {
-			data: props.data,
-			selected: null
+			data: [...props.data],
+			selected: null,
+			selectAll: false
 		};
 
 		this.type = this.props.multipleSelect ? "Terms" : "Term";
@@ -19,6 +22,8 @@ export default class DataList extends Component {
 		this.customQuery = this.customQuery.bind(this);
 		this.renderObjectList = this.renderObjectList.bind(this);
 		this.renderStringList = this.renderStringList.bind(this);
+		this.filterBySearch = this.filterBySearch.bind(this);
+		this.onSelectAll = this.onSelectAll.bind(this);
 	}
 
 	componentWillMount() {
@@ -36,9 +41,14 @@ export default class DataList extends Component {
 	componentWillReceiveProps(nextProps) {
 		this.setState({
 			data: nextProps.data
-		}, () => {
-			this.checkDefault(nextProps);
 		});
+		if (this.props.defaultSelected !== nextProps.defaultSelected) {
+			if (nextProps.defaultSelected && nextProps.defaultSelected === nextProps.selectAllLabel) {
+				this.onSelectAll();
+			} else {
+				this.changeValue(nextProps.defaultSelected);
+			}
+		}
 	}
 
 	listenFilter() {
@@ -52,7 +62,12 @@ export default class DataList extends Component {
 	checkDefault(props) {
 		this.urlParams = helper.URLParams.get(props.componentId, props.multipleSelect);
 		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
-		this.changeValue(defaultValue);
+		if (props.multipleSelect && props.selectAllLabel === defaultValue[0] ||
+			!props.multipleSelect && props.selectAllLabel === defaultValue) {
+			this.onSelectAll();
+		} else {
+			this.changeValue(defaultValue);
+		}
 	}
 
 	changeValue(defaultValue) {
@@ -61,13 +76,21 @@ export default class DataList extends Component {
 			if(defaultValue) {
 				if (this.props.multipleSelect) {
 					if (Array.isArray(defaultValue)) {
+						let selected = [];
 						defaultValue.forEach(item => {
 							this.state.data.some(record => {
 								if (record.label ? record.label === item : record === item) {
-									setTimeout(() => { this.handleCheckboxChange(record) }, 100);
+									selected.push(record);
 									return true;
 								}
 							});
+						});
+						// when defaultSelected is updated, the selected values should be set without depending on their previous state
+						this.setState({
+							selected
+						}, () => {
+							this.defaultSelected = selected;
+							this.executeQuery(selected);
 						});
 					} else {
 						console.error(`${this.props.componentId} - defaultSelected should be an array`);
@@ -75,7 +98,9 @@ export default class DataList extends Component {
 				} else {
 					this.state.data.some(record => {
 						if (record.label ? record.label === defaultValue : record === defaultValue) {
-							this.handleChange(record);
+							setTimeout(() => {
+								this.handleChange(record);
+							}, 100);
 							return true;
 						}
 					});
@@ -109,7 +134,13 @@ export default class DataList extends Component {
 	}
 
 	customQuery(record) {
-		if (record) {
+		if (this.state.selectAll) {
+			return {
+				exists: {
+					field: [this.props.appbaseField]
+				}
+			};
+		} else if (record) {
 			const listQuery= {
 				[this.type]: {
 					[this.props.appbaseField]: record
@@ -146,19 +177,19 @@ export default class DataList extends Component {
 		}
 
 		this.setState({
-			selected: value
+			selected: value,
+			selectAll: false
 		}, () => {
 			this.defaultSelected = value;
+			this.executeQuery(value);
 		});
-
-		this.executeQuery(value);
 	}
 
 	handleCheckboxChange(record) {
 		let { selected, data } = this.state;
 		let value = record;
 
-		if (typeof data[0] === "object") {
+		if (typeof this.props.data[0] === "object") {
 			value = record.value;
 		}
 
@@ -175,12 +206,12 @@ export default class DataList extends Component {
 		}
 
 		this.setState({
-			selected: selected
+			selected: selected,
+			selectAll: false
 		}, () => {
 			this.defaultSelected = selected;
+			this.executeQuery(selected);
 		});
-
-		this.executeQuery(selected);
 	}
 
 	executeQuery(value) {
@@ -190,7 +221,11 @@ export default class DataList extends Component {
 		};
 
 		if (this.props.onValueChange) {
-			this.props.onValueChange(value);
+			if (this.state.selectAll) {
+				this.props.onValueChange(this.props.data);
+			} else {
+				this.props.onValueChange(value);
+			}
 		}
 
 		const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
@@ -204,30 +239,43 @@ export default class DataList extends Component {
 
 		if (data) {
 			if (this.props.multipleSelect) {
+				const cx = classNames({
+					"rbc-checkbox-active": this.props.showCheckbox,
+					"rbc-checkbox-inactive": !this.props.showCheckbox
+				});
 				list = data.map((record, i) => (
-					<div className="rbc-list-item row" key={`${record.label}-${i}`} onClick={() => this.handleCheckboxChange(record)}>
+					<div className={`rbc-list-item row ${cx} ${selected && selected === record.value ? "rbc-list-item-active" : ""}`} key={`${record.label}-${i}`}>
 						<input
 							type="checkbox"
 							className="rbc-checkbox-item"
 							checked={selected && selected.indexOf(record.value) >= 0}
-							onChange={() => {}}
+							onChange={() => this.handleCheckboxChange(record)}
+							id={`${record.label}-${i}`}
 						/>
-						<label className="rbc-label">{record.label}</label>
+						<label className="rbc-label" htmlFor={`${record.label}-${i}`}>{record.label}</label>
 					</div>
 				));
 			} else {
+				const cx = classNames({
+					"rbc-radio-active": this.props.showRadio,
+					"rbc-radio-inactive": !this.props.showRadio
+				});
 				list = data.map((record, i) => (
-					<div className="rbc-list-item row" key={`${record.label}-${i}`} onClick={() => this.handleChange(record)}>
+					<div className={`rbc-list-item row ${cx} ${selected && selected === record.value ? "rbc-list-item-active" : ""}`} key={`${record.label}-${i}`}>
 						<input
 							type="radio"
 							className="rbc-radio-item"
 							checked={selected && selected === record.value}
-							onChange={() => {}}
+							onChange={() => this.handleChange(record)}
+							id={`${record.label}-${i}`}
 						/>
-						<label className="rbc-label">{record.label}</label>
+						<label className="rbc-label" htmlFor={`${record.label}-${i}`}>{record.label}</label>
 					</div>
 				));
 			}
+		}
+		if (this.props.selectAllLabel) {
+			list.unshift(this.getSelectAll());
 		}
 		return list;
 	}
@@ -238,43 +286,140 @@ export default class DataList extends Component {
 
 		if (data) {
 			if (this.props.multipleSelect) {
+				const cx = classNames({
+					"rbc-checkbox-active": this.props.showCheckbox,
+					"rbc-checkbox-inactive": !this.props.showCheckbox
+				});
 				list = data.map((record, i) => (
-					<div className="rbc-list-item row" key={`${record}-${i}`} onClick={() => this.handleCheckboxChange(record)}>
+					<div className={`rbc-list-item row ${cx} ${selected === record ? "rbc-list-item-active" : ""}`} key={`${record}-${i}`}>
 						<input
 							type="checkbox"
 							className="rbc-checkbox-item"
 							checked={selected && selected.indexOf(record) >= 0}
-							onChange={() => {}}
+							onChange={() =>  this.handleCheckboxChange(record)}
+							id={`${record}-${i}`}
 						/>
-						<label className="rbc-label">{record}</label>
+						<label className="rbc-label" htmlFor={`${record}-${i}`}>{record}</label>
 					</div>
 				));
 			} else {
+				const cx = classNames({
+					"rbc-radio-active": this.props.showRadio,
+					"rbc-radio-inactive": !this.props.showRadio
+				});
 				list = data.map((record, i) => (
-					<div className="rbc-list-item row" key={`${record}-${i}`} onClick={() => this.handleChange(record)}>
+					<div className={`rbc-list-item row ${cx} ${selected === record ? "rbc-list-item-active" : ""}`} key={`${record}-${i}`}>
 						<input
 							type="radio"
 							className="rbc-radio-item"
 							checked={selected === record}
-							onChange={() => {}}
+							onChange={() => this.handleChange(record)}
+							id={`${record}-${i}`}
 						/>
-						<label className="rbc-label">{record}</label>
+						<label className="rbc-label" htmlFor={`${record}-${i}`}>{record}</label>
 					</div>
 				));
 			}
 		}
+		if (this.props.selectAllLabel) {
+			list.unshift(this.getSelectAll());
+		}
 		return list;
+	}
+
+	getSelectAll(list) {
+		let selectAllItem = null;
+		if (this.props.multipleSelect) {
+			const cx = classNames({
+				"rbc-checkbox-active": this.props.showCheckbox,
+				"rbc-checkbox-inactive": !this.props.showCheckbox
+			});
+			selectAllItem = (
+				<div className={`rbc-list-item row ${cx} ${this.state.selectAll ? "rbc-list-item-active" : ""}`} key="select-all">
+					<input
+						type="checkbox"
+						className="rbc-checkbox-item"
+						checked={this.state.selectAll}
+						onChange={this.onSelectAll}
+						id="select-all"
+					/>
+					<label className="rbc-label" htmlFor="select-all">{this.props.selectAllLabel}</label>
+				</div>
+			);
+		} else {
+			const cx = classNames({
+				"rbc-radio-active": this.props.showRadio,
+				"rbc-radio-inactive": !this.props.showRadio
+			});
+			selectAllItem = (
+				<div className={`rbc-list-item row ${cx} ${this.state.selectAll ? "rbc-list-item-active" : ""}`} key="select-all">
+					<input
+						type="radio"
+						className="rbc-radio-item"
+						checked={this.state.selectAll}
+						onChange={this.onSelectAll}
+						id="select-all"
+					/>
+					<label className="rbc-label" htmlFor="select-all">{this.props.selectAllLabel}</label>
+				</div>
+			);
+		}
+		return selectAllItem;
+	}
+
+	onSelectAll() {
+		if (this.props.multipleSelect) {
+			if (this.state.selectAll) {
+				this.setState({
+					selected: [],
+					selectAll: false
+				}, () => {
+					this.executeQuery(null);
+				});
+			} else {
+				this.setState({
+					selected: [...this.props.data],
+					selectAll: true
+				}, () => {
+					this.executeQuery(this.props.selectAllLabel);
+				});
+			}
+		} else {
+			this.setState({
+				selected: this.props.selectAllLabel,
+				selectAll: true
+			}, () => {
+				this.executeQuery(this.props.selectAllLabel);
+			});
+		}
+	}
+
+	filterBySearch(value) {
+		if (value && value.trim() !== "") {
+			let data = null;
+			if (typeof this.props.data[0] === "object") {
+				data = this.props.data.filter(item => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1);
+			} else {
+				data = this.props.data.filter(item => item.toLowerCase().indexOf(value.toLowerCase()) > -1);
+			}
+			this.setState({
+				data
+			});
+		} else if (value.trim() === "") {
+			this.setState({
+				data: this.props.data
+			});
+		}
 	}
 
 	render() {
 		let listComponent = null,
-			searchComponent = null,
 			title = null;
 
-		if (this.state.data.length === 0) {
+		if (this.props.data.length === 0) {
 			return null;
 		} else {
-			if (typeof this.state.data[0] === "object") {
+			if (typeof this.props.data[0] === "object") {
 				listComponent = this.renderObjectList();
 			} else {
 				listComponent = this.renderStringList();
@@ -299,6 +444,14 @@ export default class DataList extends Component {
 		return (
 			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{title}
+				{
+					this.props.showSearch
+						? (<StaticSearch
+							placeholder={this.props.placeholder}
+							changeCallback={this.filterBySearch}
+						/>)
+						: null
+				}
 				<div className="rbc-list-container clearfix">
 					{listComponent}
 				</div>
@@ -314,6 +467,8 @@ DataList.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
+	showSearch: React.PropTypes.bool,
+	placeholder: React.PropTypes.string,
 	data: React.PropTypes.array,
 	defaultSelected: React.PropTypes.oneOfType([
 		React.PropTypes.string,
@@ -324,16 +479,23 @@ DataList.propTypes = {
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	showRadio: React.PropTypes.bool,
+	showCheckbox: React.PropTypes.bool,
+	selectAllLabel: React.PropTypes.string
 };
 
 // Default props value
 DataList.defaultProps = {
 	title: null,
+	showSearch: false,
+	placeholder: "Search",
 	componentStyle: {},
 	URLParams: false,
 	multipleSelect: false,
-	showFilter: true
+	showFilter: true,
+	showRadio: true,
+	showCheckbox: true
 };
 
 DataList.contextTypes = {

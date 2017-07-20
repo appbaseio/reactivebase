@@ -257,7 +257,7 @@ const SerializeDepends = function () {
 			let subQuery = [];
 			let queryArray = null;
 			const getParent = serializeResultQuery.filter(dep => dep.componentId === depend.parentId);
-			if (_.isArray(depend.components)) {
+			if (Array.isArray(depend.components)) {
 				depend.components.forEach((comp) => {
 					if (dependsQuery[comp]) {
 						if (queryArray) {
@@ -310,7 +310,7 @@ const SerializeDepends = function () {
 				child.forEach((sub2, index2) => {
 					const semiquery = setnewquery(sub2);
 					if(semiquery) {
-						if(_.isArray(semiquery)) {
+						if(Array.isArray(semiquery)) {
 							if(semiquery.length) {
 								sub.query.push(semiquery);
 							}
