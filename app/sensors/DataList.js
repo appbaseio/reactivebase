@@ -251,26 +251,28 @@ export default class DataList extends Component {
 		if (data) {
 			if (this.props.multipleSelect) {
 				list = data.map((record, i) => (
-					<div className="rbc-list-item row" key={`${record}-${i}`} onClick={() => this.handleCheckboxChange(record)}>
+					<div className="rbc-list-item row" key={`${record}-${i}`}>
 						<input
 							type="checkbox"
 							className="rbc-checkbox-item"
 							checked={selected && selected.indexOf(record) >= 0}
-							onChange={() => {}}
+							onChange={() =>  this.handleCheckboxChange(record)}
+							id={`${record}-${i}`}
 						/>
-						<label className="rbc-label">{record}</label>
+						<label className="rbc-label" htmlFor={`${record}-${i}`}>{record}</label>
 					</div>
 				));
 			} else {
 				list = data.map((record, i) => (
-					<div className="rbc-list-item row" key={`${record}-${i}`} onClick={() => this.handleChange(record)}>
+					<div className="rbc-list-item row" key={`${record}-${i}`}>
 						<input
 							type="radio"
 							className="rbc-radio-item"
 							checked={selected === record}
-							onChange={() => {}}
+							onChange={() => this.handleChange(record)}
+							id={`${record}-${i}`}
 						/>
-						<label className="rbc-label">{record}</label>
+						<label className="rbc-label" htmlFor={`${record}-${i}`}>{record}</label>
 					</div>
 				));
 			}
