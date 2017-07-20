@@ -87,7 +87,9 @@ export default class DataList extends Component {
 				} else {
 					this.state.data.some(record => {
 						if (record.label ? record.label === defaultValue : record === defaultValue) {
-							this.handleChange(record);
+							setTimeout(() => {
+								this.handleChange(record);
+							}, 100);
 							return true;
 						}
 					});
