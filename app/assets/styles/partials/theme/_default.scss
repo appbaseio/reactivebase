@@ -128,9 +128,14 @@ $map in $themes {
 		.rbc.rbc-multirange {
 			.rbc-list-container {
 				.rbc-list-item {
-					a {
-						&.active {
-							color: darken(map-get($map, color), 5%);
+					a.active {
+						color: map-get($map, color);
+					}
+
+					&.rbc-radio-inactive,
+					&.rbc-checkbox-inactive {
+						&.rbc-list-item-active .rbc-label {
+							color: map-get($map, color);
 						}
 					}
 				}

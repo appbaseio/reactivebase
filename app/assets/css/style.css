@@ -319,7 +319,16 @@ a {
 .rbc-red .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-  color: #e60000; }
+  color: red; }
+
+.rbc-red .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-red .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-red .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: red; }
 
 .rbc-red .rbc.rbc-singledatalist .rbc-tag-item,
 .rbc-red .rbc.rbc-multidatalist .rbc-tag-item,
@@ -535,7 +544,16 @@ a {
 .rbc-orange .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-  color: #e69500; }
+  color: orange; }
+
+.rbc-orange .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-orange .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-orange .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: orange; }
 
 .rbc-orange .rbc.rbc-singledatalist .rbc-tag-item,
 .rbc-orange .rbc.rbc-multidatalist .rbc-tag-item,
@@ -751,7 +769,16 @@ a {
 .rbc-yellow .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-  color: #e6e600; }
+  color: yellow; }
+
+.rbc-yellow .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-yellow .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-yellow .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: yellow; }
 
 .rbc-yellow .rbc.rbc-singledatalist .rbc-tag-item,
 .rbc-yellow .rbc.rbc-multidatalist .rbc-tag-item,
@@ -967,7 +994,16 @@ a {
 .rbc-green .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-  color: #006700; }
+  color: green; }
+
+.rbc-green .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-green .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-green .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: green; }
 
 .rbc-green .rbc.rbc-singledatalist .rbc-tag-item,
 .rbc-green .rbc.rbc-multidatalist .rbc-tag-item,
@@ -1183,7 +1219,16 @@ a {
 .rbc-blue .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-  color: #1684d0; }
+  color: #1893e7; }
+
+.rbc-blue .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-blue .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-blue .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: #1893e7; }
 
 .rbc-blue .rbc.rbc-singledatalist .rbc-tag-item,
 .rbc-blue .rbc.rbc-multidatalist .rbc-tag-item,
@@ -1399,7 +1444,16 @@ a {
 .rbc-dark .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item a.active,
 .rbc-dark .rbc.rbc-singlerange .rbc-list-container .rbc-list-item a.active,
 .rbc-dark .rbc.rbc-multirange .rbc-list-container .rbc-list-item a.active {
-  color: #bfbfbf; }
+  color: #ccc; }
+
+.rbc-dark .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label, .rbc-dark .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-singlerange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+.rbc-dark .rbc.rbc-multirange .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label {
+  color: #ccc; }
 
 .rbc-dark .rbc.rbc-singledatalist .rbc-tag-item,
 .rbc-dark .rbc.rbc-multidatalist .rbc-tag-item,
@@ -1763,6 +1817,28 @@ a {
       .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item .rbc-label,
       .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item .rbc-label {
         font-weight: normal; }
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-radio-item,
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-checkbox-item, .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-radio-item,
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-checkbox-item,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-radio-item,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-checkbox-item,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-radio-item,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-checkbox-item {
+        visibility: hidden; }
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label, .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label {
+        padding-left: 0; }
+        .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label::before, .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label::after, .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label::before, .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label::after,
+        .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label::before,
+        .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive .rbc-label::after,
+        .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label::before,
+        .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive .rbc-label::after {
+          visibility: hidden; }
+      .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label, .rbc.rbc-singledatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-checkbox-inactive.rbc-list-item-active .rbc-label,
+      .rbc.rbc-multidatalist .rbc-list-container .rbc-list-item.rbc-radio-inactive.rbc-list-item-active .rbc-label {
+        font-family: "Lato Bold"; }
     .rbc.rbc-singledatalist .rbc-list-container .row,
     .rbc.rbc-multidatalist .rbc-list-container .row {
       margin: 10px 0; }

@@ -216,27 +216,37 @@ export default class DataList extends Component {
 
 		if (data) {
 			if (this.props.multipleSelect) {
+				const cx = classNames({
+					"rbc-checkbox-active": this.props.showCheckbox,
+					"rbc-checkbox-inactive": !this.props.showCheckbox
+				});
 				list = data.map((record, i) => (
-					<div className="rbc-list-item row" key={`${record.label}-${i}`} onClick={() => this.handleCheckboxChange(record)}>
+					<div className={`rbc-list-item row ${cx} ${selected && selected === record.value ? "rbc-list-item-active" : ""}`} key={`${record.label}-${i}`}>
 						<input
 							type="checkbox"
 							className="rbc-checkbox-item"
 							checked={selected && selected.indexOf(record.value) >= 0}
-							onChange={() => {}}
+							onChange={() => this.handleCheckboxChange(record)}
+							id={`${record.label}-${i}`}
 						/>
-						<label className="rbc-label">{record.label}</label>
+						<label className="rbc-label" htmlFor={`${record.label}-${i}`}>{record.label}</label>
 					</div>
 				));
 			} else {
+				const cx = classNames({
+					"rbc-radio-active": this.props.showRadio,
+					"rbc-radio-inactive": !this.props.showRadio
+				});
 				list = data.map((record, i) => (
-					<div className="rbc-list-item row" key={`${record.label}-${i}`} onClick={() => this.handleChange(record)}>
+					<div className={`rbc-list-item row ${cx} ${selected && selected === record.value ? "rbc-list-item-active" : ""}`} key={`${record.label}-${i}`}>
 						<input
 							type="radio"
 							className="rbc-radio-item"
 							checked={selected && selected === record.value}
-							onChange={() => {}}
+							onChange={() => this.handleChange(record)}
+							id={`${record.label}-${i}`}
 						/>
-						<label className="rbc-label">{record.label}</label>
+						<label className="rbc-label" htmlFor={`${record.label}-${i}`}>{record.label}</label>
 					</div>
 				));
 			}
@@ -250,8 +260,12 @@ export default class DataList extends Component {
 
 		if (data) {
 			if (this.props.multipleSelect) {
+				const cx = classNames({
+					"rbc-checkbox-active": this.props.showCheckbox,
+					"rbc-checkbox-inactive": !this.props.showCheckbox
+				});
 				list = data.map((record, i) => (
-					<div className="rbc-list-item row" key={`${record}-${i}`}>
+					<div className={`rbc-list-item row ${cx} ${selected === record ? "rbc-list-item-active" : ""}`} key={`${record}-${i}`}>
 						<input
 							type="checkbox"
 							className="rbc-checkbox-item"
@@ -263,8 +277,12 @@ export default class DataList extends Component {
 					</div>
 				));
 			} else {
+				const cx = classNames({
+					"rbc-radio-active": this.props.showRadio,
+					"rbc-radio-inactive": !this.props.showRadio
+				});
 				list = data.map((record, i) => (
-					<div className="rbc-list-item row" key={`${record}-${i}`}>
+					<div className={`rbc-list-item row ${cx} ${selected === record ? "rbc-list-item-active" : ""}`} key={`${record}-${i}`}>
 						<input
 							type="radio"
 							className="rbc-radio-item"
@@ -288,7 +306,6 @@ export default class DataList extends Component {
 			} else {
 				data = this.props.data.filter(item => item.toLowerCase().indexOf(value.toLowerCase()) > -1);
 			}
-			console.log(data);
 			this.setState({
 				data
 			});
@@ -366,7 +383,9 @@ DataList.propTypes = {
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	showRadio: React.PropTypes.bool,
+	showCheckbox: React.PropTypes.bool
 };
 
 // Default props value
@@ -377,7 +396,9 @@ DataList.defaultProps = {
 	componentStyle: {},
 	URLParams: false,
 	multipleSelect: false,
-	showFilter: true
+	showFilter: true,
+	showRadio: true,
+	showCheckbox: true
 };
 
 DataList.contextTypes = {
