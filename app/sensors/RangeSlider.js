@@ -18,6 +18,12 @@ export default class RangeSlider extends Component {
 		const values = {};
 		this.urlParams = helper.URLParams.get(this.props.componentId, false, true);
 		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+		if (!this.defaultSelected) {
+			this.defaultSelected = {
+				start: startThreshold,
+				end: endThreshold
+			};
+		}
 		values.min = this.defaultSelected.start < startThreshold ? startThreshold : this.defaultSelected.start;
 		values.max = this.defaultSelected.end < endThreshold ? this.defaultSelected.end : endThreshold;
 		this.state = {
@@ -353,17 +359,6 @@ export default class RangeSlider extends Component {
 	}
 
 	countCalc(min, max, newItems) {
-		// const counts = [];
-		// const storeItems = {};
-		// newItems.forEach((item) => {
-		// 	item.key = Math.floor(item.key);
-		// 	if (!(item.key in storeItems)) {
-		// 		storeItems[item.key] = item.doc_count;
-		// 	} else {
-		// 		storeItems[item.key] += item.doc_count;
-		// 	}
-		// });
-		// return counts;
 		return newItems.map(item => item.doc_count);
 	}
 
@@ -510,10 +505,6 @@ RangeSlider.defaultProps = {
 	rangeLabels: {
 		start: "",
 		end: ""
-	},
-	defaultSelected: {
-		start: 0,
-		end: 10
 	},
 	stepValue: 1,
 	showHistogram: true,

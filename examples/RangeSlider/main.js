@@ -72,6 +72,10 @@ class Main extends Component {
 								start: 0,
 								end: 8
 							}}
+							defaultSelected={{
+								start: 4,
+								end: 8
+							}}
 							rangeLabels={{
 								start: "0",
 								end: "8"
