@@ -19,6 +19,8 @@ MultiDataList.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
+	showSearch: React.PropTypes.bool,
+	placeholder: React.PropTypes.string,
 	data: React.PropTypes.array,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
@@ -31,7 +33,9 @@ MultiDataList.propTypes = {
 MultiDataList.defaultProps = {
 	title: null,
 	componentStyle: {},
-	URLParams: false
+	URLParams: false,
+	showSearch: false,
+	placeholder: "Search"
 };
 
 // context type
@@ -50,5 +54,7 @@ MultiDataList.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
-	showFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN,
+	showSearch: TYPES.BOOLEAN,
+	placeholder: TYPES.STRING
 };

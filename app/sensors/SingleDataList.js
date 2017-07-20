@@ -19,6 +19,8 @@ SingleDataList.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
+	showSearch: React.PropTypes.bool,
+	placeholder: React.PropTypes.string,
 	data: React.PropTypes.array,
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
@@ -31,7 +33,9 @@ SingleDataList.propTypes = {
 SingleDataList.defaultProps = {
 	title: null,
 	componentStyle: {},
-	URLParams: false
+	URLParams: false,
+	showSearch: false,
+	placeholder: "Search"
 };
 
 // context type
@@ -50,5 +54,7 @@ SingleDataList.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
-	showFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN,
+	showSearch: TYPES.BOOLEAN,
+	placeholder: TYPES.STRING
 };

@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
+import { StaticSearch } from "../addons/StaticSearch";
 import _ from "lodash";
 
 const helper = require("../middleware/helper");
@@ -20,6 +21,7 @@ export default class DataList extends Component {
 		this.customQuery = this.customQuery.bind(this);
 		this.renderObjectList = this.renderObjectList.bind(this);
 		this.renderStringList = this.renderStringList.bind(this);
+		this.filterBySearch = this.filterBySearch.bind(this);
 	}
 
 	componentWillMount() {
@@ -276,15 +278,33 @@ export default class DataList extends Component {
 		return list;
 	}
 
+	filterBySearch(value) {
+		if (value && value.trim() !== "") {
+			let data = null;
+			if (typeof this.props.data[0] === "object") {
+				data = this.props.data.filter(item => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1);
+			} else {
+				data = this.props.data.filter(item => item.toLowerCase().indexOf(value.toLowerCase()) > -1);
+			}
+			console.log(data);
+			this.setState({
+				data
+			});
+		} else if (value.trim() === "") {
+			this.setState({
+				data: this.props.data
+			});
+		}
+	}
+
 	render() {
 		let listComponent = null,
-			searchComponent = null,
 			title = null;
 
-		if (this.state.data.length === 0) {
+		if (this.props.data.length === 0) {
 			return null;
 		} else {
-			if (typeof this.state.data[0] === "object") {
+			if (typeof this.props.data[0] === "object") {
 				listComponent = this.renderObjectList();
 			} else {
 				listComponent = this.renderStringList();
@@ -309,6 +329,14 @@ export default class DataList extends Component {
 		return (
 			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{title}
+				{
+					this.props.showSearch
+						? (<StaticSearch
+							placeholder={this.props.placeholder}
+							changeCallback={this.filterBySearch}
+						/>)
+						: null
+				}
 				<div className="rbc-list-container clearfix">
 					{listComponent}
 				</div>
@@ -324,6 +352,8 @@ DataList.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
+	showSearch: React.PropTypes.bool,
+	placeholder: React.PropTypes.string,
 	data: React.PropTypes.array,
 	defaultSelected: React.PropTypes.oneOfType([
 		React.PropTypes.string,
@@ -340,6 +370,8 @@ DataList.propTypes = {
 // Default props value
 DataList.defaultProps = {
 	title: null,
+	showSearch: false,
+	placeholder: "Search",
 	componentStyle: {},
 	URLParams: false,
 	multipleSelect: false,
