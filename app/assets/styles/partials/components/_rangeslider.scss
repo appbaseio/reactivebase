@@ -1,10 +1,11 @@
 @import "histogram";
 
 .rbc.rbc-rangeslider {
-	padding: 0 6px;
+	padding: 0;
 	
 	.rbc-rangeslider-container {
 		margin: 25px 0;
+		padding: 0 12px;
 
 		.rbc-title {
 			padding: 0;
@@ -17,5 +18,22 @@
 
 	&.rbc-labels-active .rbc-rangeslider-container {
 		margin: 25px 0 35px;
+	}
+
+	.rc-slider-mark {
+		& > span:first-child {
+			width: 50% !important;
+			margin-left: 0 !important;
+			left: -4px !important;
+			text-align: left;
+		}
+
+		& > span:last-child {
+			width: 50% !important;
+			margin-left: 0 !important;
+			left: calc(50% + 4px) !important;
+			right: -4px;
+			text-align: right;
+		}
 	}
 }

@@ -5,6 +5,7 @@ var ReactDOM = require('react-dom');
 import {
 	ReactiveBase,
 	RangeSlider,
+	DateRange,
 	ReactiveList
 } from '../../app/app.js';
 
@@ -15,7 +16,7 @@ class Main extends Component {
 		super(props);
 		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
 	}
-	
+
 	onData(markerData) {
 		const marker = markerData._source;
 		return (
@@ -55,6 +56,13 @@ class Main extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<DateRange
+							componentId="DateRangeSensor"
+							appbaseField="mtime"
+							title="Date Range"
+							URLParams={true}
+							filterLabel="Date Range Label"
+						/>
 						<RangeSlider
 							componentId="RangeSensor"
 							appbaseField={this.props.mapping.guests}
@@ -63,6 +71,10 @@ class Main extends Component {
 							range={{
 								start: 0,
 								end: 8
+							}}
+							rangeLabels={{
+								start: "0",
+								end: "8"
 							}}
 							URLParams={true}
 						/>

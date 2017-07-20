@@ -1912,9 +1912,10 @@ a {
       height: 100%; }
 
 .rbc.rbc-rangeslider {
-  padding: 0 6px; }
+  padding: 0; }
   .rbc.rbc-rangeslider .rbc-rangeslider-container {
-    margin: 25px 0; }
+    margin: 25px 0;
+    padding: 0 12px; }
     .rbc.rbc-rangeslider .rbc-rangeslider-container .rbc-title {
       padding: 0;
       padding-bottom: 15px; }
@@ -1922,6 +1923,17 @@ a {
       padding: 15px 6px; }
   .rbc.rbc-rangeslider.rbc-labels-active .rbc-rangeslider-container {
     margin: 25px 0 35px; }
+  .rbc.rbc-rangeslider .rc-slider-mark > span:first-child {
+    width: 50% !important;
+    margin-left: 0 !important;
+    left: -4px !important;
+    text-align: left; }
+  .rbc.rbc-rangeslider .rc-slider-mark > span:last-child {
+    width: 50% !important;
+    margin-left: 0 !important;
+    left: calc(50% + 4px) !important;
+    right: -4px;
+    text-align: right; }
 
 .rbc.rbc-textfield {
   padding: 0; }
