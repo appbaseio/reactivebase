@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classNames from "classnames";
 import Select from "react-select";
 import * as TYPES from "../middleware/constants";
+import _ from "lodash";
 
 const helper = require("../middleware/helper");
 
@@ -120,6 +121,11 @@ export default class SingleDropdownRange extends Component {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
 		}
 
+		const data = this.props.data.map((item) => {
+			item.value = item.label;
+			return item;
+		});
+
 		const cx = classNames({
 			"rbc-title-active": this.props.title,
 			"rbc-title-inactive": !this.props.title,
@@ -133,7 +139,7 @@ export default class SingleDropdownRange extends Component {
 					{title}
 					<div className="col s12 col-xs-12">
 						<Select
-							options={this.props.data}
+							options={data}
 							clearable={false}
 							value={this.state.selected}
 							onChange={this.handleChange}
