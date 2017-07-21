@@ -6,6 +6,7 @@ import ItemList from "../addons/ItemList";
 import manager from "../middleware/ChannelManager";
 import { StaticSearch } from "../addons/StaticSearch";
 import InitialLoader from "../addons/InitialLoader";
+import _ from "lodash";
 
 const helper = require("../middleware/helper");
 
