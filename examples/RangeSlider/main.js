@@ -104,7 +104,7 @@ class Main extends Component {
 							size={20}
 							onData={this.onData}
 							react={{
-								and: ["RangeSensor", "TopicSensor"]
+								and: ["TopicSensor", "RangeSensor"]
 							}}
 						/>
 					</div>
