@@ -5,7 +5,7 @@ var ReactDOM = require('react-dom');
 import {
 	ReactiveBase,
 	RangeSlider,
-	DateRange,
+	MultiList,
 	ReactiveList
 } from '../../app/app.js';
 
@@ -56,12 +56,19 @@ class Main extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
-						<DateRange
-							componentId="DateRangeSensor"
-							appbaseField="mtime"
-							title="Date Range"
+						<MultiList
+							componentId="TopicSensor"
+							appbaseField="group.group_topics.topic_name_raw.raw"
+							title="MultiList"
+							size={100}
+							selectAllLabel="Select All"
+							defaultSelected={["Social"]}
 							URLParams={true}
-							filterLabel="Date Range Label"
+							showCount={true}
+							showCheckbox={true}
+							showSearch={true}
+							queryFormat="or"
+							filterLabel="Topic Label"
 						/>
 						<RangeSlider
 							componentId="RangeSensor"
@@ -73,14 +80,17 @@ class Main extends Component {
 								end: 8
 							}}
 							defaultSelected={{
-								start: 4,
-								end: 8
+								start: 0,
+								end: 4
 							}}
 							rangeLabels={{
 								start: "0",
 								end: "8"
 							}}
 							URLParams={true}
+							react={{
+								and: "TopicSensor"
+							}}
 						/>
 					</div>
 
@@ -94,7 +104,7 @@ class Main extends Component {
 							size={20}
 							onData={this.onData}
 							react={{
-								and: "RangeSensor"
+								and: ["TopicSensor", "RangeSensor"]
 							}}
 						/>
 					</div>

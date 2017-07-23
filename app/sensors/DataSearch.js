@@ -57,7 +57,7 @@ export default class DataSearch extends Component {
 			this.changeValue(nextProps.defaultSelected);
 		} else if (nextProps.customQuery) {
 			if (this.props.customQuery) {
-				if (!_isEqual(nextProps.customQuery(this.state.currentValue), this.props.customQuery(this.state.currentValue))) {
+				if (!_.isEqual(nextProps.customQuery(this.state.currentValue), this.props.customQuery(this.state.currentValue))) {
 					this.handleSearch({
 						value: this.state.currentValue
 					});
