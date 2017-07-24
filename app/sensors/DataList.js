@@ -244,15 +244,17 @@ export default class DataList extends Component {
 					"rbc-checkbox-inactive": !this.props.showCheckbox
 				});
 				list = data.map((record, i) => (
-					<div className={`rbc-list-item row ${cx} ${selected && selected === record.value ? "rbc-list-item-active" : ""}`} key={`${record.label}-${i}`}>
+					<div
+						className={`rbc-list-item row ${cx} ${selected && selected === record.value ? "rbc-list-item-active" : ""}`}
+						key={`${record.label}-${i}`}
+						onClick={() => {this.handleCheckboxChange(record)}}>
 						<input
 							type="checkbox"
 							className="rbc-checkbox-item"
 							checked={selected && selected.indexOf(record.value) >= 0}
-							onChange={() => this.handleCheckboxChange(record)}
-							id={`${record.label}-${i}`}
+							onChange={() => {}}
 						/>
-						<label className="rbc-label" htmlFor={`${record.label}-${i}`}>{record.label}</label>
+						<label className="rbc-label">{record.label}</label>
 					</div>
 				));
 			} else {
@@ -261,15 +263,17 @@ export default class DataList extends Component {
 					"rbc-radio-inactive": !this.props.showRadio
 				});
 				list = data.map((record, i) => (
-					<div className={`rbc-list-item row ${cx} ${selected && selected === record.value ? "rbc-list-item-active" : ""}`} key={`${record.label}-${i}`}>
+					<div
+						className={`rbc-list-item row ${cx} ${selected && selected === record.value ? "rbc-list-item-active" : ""}`}
+						key={`${record.label}-${i}`}
+						onClick={() => this.handleChange(record)}>
 						<input
 							type="radio"
 							className="rbc-radio-item"
 							checked={selected && selected === record.value}
-							onChange={() => this.handleChange(record)}
-							id={`${record.label}-${i}`}
+							onChange={() => {}}
 						/>
-						<label className="rbc-label" htmlFor={`${record.label}-${i}`}>{record.label}</label>
+						<label className="rbc-label">{record.label}</label>
 					</div>
 				));
 			}
@@ -291,15 +295,17 @@ export default class DataList extends Component {
 					"rbc-checkbox-inactive": !this.props.showCheckbox
 				});
 				list = data.map((record, i) => (
-					<div className={`rbc-list-item row ${cx} ${selected === record ? "rbc-list-item-active" : ""}`} key={`${record}-${i}`}>
+					<div
+						className={`rbc-list-item row ${cx} ${selected === record ? "rbc-list-item-active" : ""}`}
+						key={`${record}-${i}`}
+						onClick={() => {this.handleCheckboxChange(record)}}>
 						<input
 							type="checkbox"
 							className="rbc-checkbox-item"
 							checked={selected && selected.indexOf(record) >= 0}
-							onChange={() =>  this.handleCheckboxChange(record)}
-							id={`${record}-${i}`}
+							onChange={() =>  {}}
 						/>
-						<label className="rbc-label" htmlFor={`${record}-${i}`}>{record}</label>
+						<label className="rbc-label">{record}</label>
 					</div>
 				));
 			} else {
@@ -308,15 +314,17 @@ export default class DataList extends Component {
 					"rbc-radio-inactive": !this.props.showRadio
 				});
 				list = data.map((record, i) => (
-					<div className={`rbc-list-item row ${cx} ${selected === record ? "rbc-list-item-active" : ""}`} key={`${record}-${i}`}>
+					<div
+						className={`rbc-list-item row ${cx} ${selected === record ? "rbc-list-item-active" : ""}`}
+						key={`${record}-${i}`}
+						onClick={() => this.handleChange(record)}>
 						<input
 							type="radio"
 							className="rbc-radio-item"
 							checked={selected === record}
-							onChange={() => this.handleChange(record)}
-							id={`${record}-${i}`}
+							onChange={() => {}}
 						/>
-						<label className="rbc-label" htmlFor={`${record}-${i}`}>{record}</label>
+						<label className="rbc-label">{record}</label>
 					</div>
 				));
 			}
@@ -335,15 +343,17 @@ export default class DataList extends Component {
 				"rbc-checkbox-inactive": !this.props.showCheckbox
 			});
 			selectAllItem = (
-				<div className={`rbc-list-item row ${cx} ${this.state.selectAll ? "rbc-list-item-active" : ""}`} key="select-all">
+				<div
+					className={`rbc-list-item row ${cx} ${this.state.selectAll ? "rbc-list-item-active" : ""}`}
+					key="select-all"
+					onClick={this.onSelectAll}>
 					<input
 						type="checkbox"
 						className="rbc-checkbox-item"
 						checked={this.state.selectAll}
-						onChange={this.onSelectAll}
-						id="select-all"
+						onChange={() => {}}
 					/>
-					<label className="rbc-label" htmlFor="select-all">{this.props.selectAllLabel}</label>
+					<label className="rbc-label">{this.props.selectAllLabel}</label>
 				</div>
 			);
 		} else {
@@ -352,15 +362,17 @@ export default class DataList extends Component {
 				"rbc-radio-inactive": !this.props.showRadio
 			});
 			selectAllItem = (
-				<div className={`rbc-list-item row ${cx} ${this.state.selectAll ? "rbc-list-item-active" : ""}`} key="select-all">
+				<div
+					className={`rbc-list-item row ${cx} ${this.state.selectAll ? "rbc-list-item-active" : ""}`}
+					key="select-all"
+					onClick={this.onSelectAll}>
 					<input
 						type="radio"
 						className="rbc-radio-item"
 						checked={this.state.selectAll}
-						onChange={this.onSelectAll}
-						id="select-all"
+						onChange={() => {}}
 					/>
-					<label className="rbc-label" htmlFor="select-all">{this.props.selectAllLabel}</label>
+					<label className="rbc-label">{this.props.selectAllLabel}</label>
 				</div>
 			);
 		}
