@@ -448,7 +448,6 @@ export default class DataSearch extends Component {
 								value: this.state.currentValue === null ? "" : this.state.currentValue,
 								onChange: this.onInputChange,
 								onBlur: this.handleBlur,
-								onFocus: this.onInputFocus,
 								onKeyPress: this.handleKeyPress
 							}}
 						/> :

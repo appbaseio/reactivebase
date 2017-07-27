@@ -347,7 +347,7 @@ const SerializeDepends = function () {
 					}
 				};
 			}
-			if (aggs) {
+			if (aggs && Object.keys(aggs).length !== 0) {
 				if (fullQuery) {
 					fullQuery.body.aggs = aggs;
 				} else {
