@@ -5,6 +5,7 @@ var ReactDOM = require('react-dom');
 import {
 	ReactiveBase,
 	ToggleButton,
+	SingleRange,
 	ReactiveList,
 	SelectedFilters
 } from '../../app/app.js';
@@ -16,15 +17,17 @@ class Main extends Component {
 		super(props);
 
 		this.toggleData = [{
-			label: "Social",
+			label: "Social V",
 			value: "Social"
-		}, {
+		}
+		/*, {
 			label: "Travel",
 			value: "Travel"
 		}, {
 			label: "Outdoors",
 			value: "Outdoors"
-		}];
+		}*/
+		];
 
 		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
 	}
@@ -60,6 +63,15 @@ class Main extends Component {
 		);
 	}
 
+	beforeValueChange(value) {
+		return new Promise((resolve, reject) => {
+			console.log("Changing the value to", value, "in 2 seconds");
+			setTimeout(() => {
+				resolve();
+			}, 2000);
+		});
+	}
+
 	render() {
 		return (
 			<ReactiveBase
@@ -74,8 +86,24 @@ class Main extends Component {
 							componentId="MeetupTops"
 							title="ToggleButton"
 							data={this.toggleData}
+							defaultSelected={"Social V"}
 							URLParams={true}
 							filterLabel="Toggle Label"
+							beforeValueChange={this.beforeValueChange}
+						/>
+						<SingleRange
+							componentId="PriceSensor"
+							appbaseField="price"
+							title="SingleRange"
+							showFilter={true}
+							data={
+							[{ start: 0, end: 100, label: "Cheap" },
+								{ start: 101, end: 200, label: "Moderate" },
+								{ start: 201, end: 500, label: "Pricey" },
+								{ start: 501, end: 1000, label: "First Date" }]
+							}
+							URLParams={true}
+							filterLabel="Price Label"
 						/>
 					</div>
 
@@ -89,7 +117,7 @@ class Main extends Component {
 							size={20}
 							onData={this.onData}
 							react={{
-								and: "MeetupTops"
+								and: ["PriceSensor", "MeetupTops"]
 							}}
 						/>
 					</div>
