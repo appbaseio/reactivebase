@@ -60,6 +60,15 @@ class Main extends Component {
 		);
 	}
 
+	beforeValueChange(value) {
+		return new Promise((resolve, reject) => {
+			console.log("Changing the value to", value, "in 2 seconds");
+			setTimeout(() => {
+				resolve();
+			}, 2000);
+		});
+	}
+
 	render() {
 		return (
 			<ReactiveBase
@@ -76,6 +85,7 @@ class Main extends Component {
 							data={this.toggleData}
 							URLParams={true}
 							filterLabel="Toggle Label"
+							beforeValueChange={this.beforeValueChange}
 						/>
 					</div>
 

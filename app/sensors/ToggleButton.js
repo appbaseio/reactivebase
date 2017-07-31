@@ -113,6 +113,7 @@ export default class ToggleButton extends Component {
 		let selected = this.state.selected;
 		let newSelection = null;
 		let selectedIndex = null;
+
 		if(record) {
 			newSelection = [];
 			selected = selected ? selected : [];
@@ -136,20 +137,36 @@ export default class ToggleButton extends Component {
 		} else {
 			newSelection = null;
 		}
+
 		this.setState({
 			selected: newSelection
 		});
+
 		const obj = {
 			key: this.props.componentId,
 			value: newSelection
 		};
-		// pass the selected sensor value with componentId as key,
-		const isExecuteQuery = true;
-		if (this.props.onValueChange) {
-			this.props.onValueChange(obj.value);
+
+		const execQuery = () => {
+			const isExecuteQuery = true;
+			if (this.props.onValueChange) {
+				this.props.onValueChange(obj.value);
+			}
+			helper.URLParams.update(this.props.componentId, this.setURLValue(newSelection), this.props.URLParams);
+			helper.selectedSensor.set(obj, isExecuteQuery);
 		}
-		helper.URLParams.update(this.props.componentId, this.setURLValue(newSelection), this.props.URLParams);
-		helper.selectedSensor.set(obj, isExecuteQuery);
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(obj.value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
+		}
 	}
 
 	setURLValue(records) {
@@ -212,6 +229,7 @@ ToggleButton.propTypes = {
 	]),
 	multiSelect: React.PropTypes.bool,
 	customQuery: React.PropTypes.func,
+	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
