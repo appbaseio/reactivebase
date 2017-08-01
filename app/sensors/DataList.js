@@ -220,17 +220,31 @@ export default class DataList extends Component {
 			value
 		};
 
-		if (this.props.onValueChange) {
-			if (this.state.selectAll) {
-				this.props.onValueChange(this.props.data);
-			} else {
-				this.props.onValueChange(value);
+		const execQuery = () => {
+			if (this.props.onValueChange) {
+				if (this.state.selectAll) {
+					this.props.onValueChange(this.props.data);
+				} else {
+					this.props.onValueChange(value);
+				}
 			}
-		}
 
-		const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
-		helper.URLParams.update(this.props.componentId, selectedValue, this.props.URLParams);
-		helper.selectedSensor.set(obj, true);
+			const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
+			helper.URLParams.update(this.props.componentId, selectedValue, this.props.URLParams);
+			helper.selectedSensor.set(obj, true);
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
+		}
 	}
 
 	renderObjectList() {

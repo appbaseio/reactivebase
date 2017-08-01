@@ -65,7 +65,7 @@ export default class DataController extends Component {
 			const isExecuteQuery = true;
 			helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
 			helper.selectedSensor.set(obj, isExecuteQuery);
-		}
+		};
 
 		if (this.props.beforeValueChange) {
 			this.props.beforeValueChange(obj.value)
