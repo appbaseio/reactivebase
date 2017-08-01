@@ -148,24 +148,44 @@ export default class DataSearch extends Component {
 			key: this.searchInputId,
 			value
 		};
-		this.defaultSelected = value;
-		helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
-		helper.selectedSensor.set(obj, true);
-		if (value && value.trim() !== "") {
-			this.setState({
-				options: [{
-					label: value,
-					value
-				}],
-				isLoadingOptions: true,
-				currentValue: value
+
+		const execQuery = () => {
+			if (this.props.onValueChange) {
+				this.props.onValueChange(obj.value);
+			}
+
+			this.defaultSelected = value;
+			helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
+			helper.selectedSensor.set(obj, true);
+
+			if (value && value.trim() !== "") {
+				this.setState({
+					options: [{
+						label: value,
+						value
+					}],
+					isLoadingOptions: true,
+					currentValue: value
+				});
+			} else {
+				this.setState({
+					options: [],
+					isLoadingOptions: false,
+					currentValue: value
+				});
+			}
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(obj.value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
 			});
 		} else {
-			this.setState({
-				options: [],
-				isLoadingOptions: false,
-				currentValue: value
-			});
+			execQuery();
 		}
 	}
 
@@ -348,15 +368,35 @@ export default class DataSearch extends Component {
 	handleSearch(currentValue) {
 		let value = currentValue ? currentValue.value : null;
 		value = value === "null" ? null : value;
+
 		const obj = {
 			key: this.props.componentId,
 			value
 		};
-		helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
-		helper.selectedSensor.set(obj, true);
-		this.setState({
-			currentValue: value
-		});
+
+		const execQuery = () => {
+			if (this.props.onValueChange) {
+				this.props.onValueChange(obj.value);
+			}
+
+			helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
+			helper.selectedSensor.set(obj, true);
+			this.setState({
+				currentValue: value
+			});
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(obj.value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
+		}
 	}
 
 	handleInputChange(event) {
@@ -368,13 +408,28 @@ export default class DataSearch extends Component {
 			key: this.props.componentId,
 			value: inputVal
 		};
-		if (this.props.onValueChange) {
-			this.props.onValueChange(obj.value);
+
+		const execQuery = () => {
+			if (this.props.onValueChange) {
+				this.props.onValueChange(obj.value);
+			}
+			// pass the selected sensor value with componentId as key,
+			const isExecuteQuery = true;
+			helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
+			helper.selectedSensor.set(obj, isExecuteQuery);
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(obj.value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
 		}
-		// pass the selected sensor value with componentId as key,
-		const isExecuteQuery = true;
-		helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
-		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	handleBlur(event, { highlightedSuggestion }) {
@@ -482,6 +537,7 @@ DataSearch.propTypes = {
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
+	beforeValueChange: React.PropTypes.func,
 	react: React.PropTypes.object,
 	initialSuggestions: React.PropTypes.arrayOf(
 		React.PropTypes.shape({
