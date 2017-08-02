@@ -494,6 +494,7 @@ NativeList.propTypes = {
 		React.PropTypes.array
 	]),
 	react: React.PropTypes.object,
+	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	showRadio: React.PropTypes.bool,
