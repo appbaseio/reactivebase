@@ -177,6 +177,7 @@ SingleDropdownRange.propTypes = {
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
+	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool
