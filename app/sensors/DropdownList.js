@@ -440,6 +440,7 @@ DropdownList.propTypes = {
 	]),
 	customQuery: React.PropTypes.func,
 	react: React.PropTypes.object,
+	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,

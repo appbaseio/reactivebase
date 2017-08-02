@@ -196,6 +196,8 @@ MultiDropdownRange.propTypes = {
 	]),
 	placeholder: React.PropTypes.string,
 	data: React.PropTypes.any.isRequired,
+	beforeValueChange: React.PropTypes.func,
+	onValueChange: React.PropTypes.func,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
