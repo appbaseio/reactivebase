@@ -75,6 +75,7 @@ class Main extends Component {
 								showSearch={true}
 								queryFormat="or"
 								filterLabel="Topic Label"
+								beforeValueChange={() => new Promise((resolve, reject) => resolve())}
 								react={{
 									and: "CitySensor"
 								}}
@@ -88,6 +89,7 @@ class Main extends Component {
 								selectAllLabel="Select All"
 								defaultSelected="London"
 								filterLabel="City Label"
+								beforeValueChange={() => new Promise((resolve, reject) => resolve())}
 								react={{
 									and: "TopicSensor"
 								}}

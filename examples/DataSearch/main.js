@@ -78,6 +78,7 @@ class Main extends Component {
 							highlight={true}
 							defaultSelected={this.state.defaultSelected}
 							filterLabel="Venue Label"
+							beforeValueChange={() => new Promise((resolve) => resolve())}
 							initialSuggestions={[
 								{
 									label: "Home",

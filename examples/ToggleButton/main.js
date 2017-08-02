@@ -17,16 +17,16 @@ class Main extends Component {
 		super(props);
 
 		this.toggleData = [{
-			label: "Social V",
+			label: "Social",
 			value: "Social"
 		}
-		/*, {
+		, {
 			label: "Travel",
 			value: "Travel"
 		}, {
 			label: "Outdoors",
 			value: "Outdoors"
-		}*/
+		}
 		];
 
 		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
@@ -63,15 +63,6 @@ class Main extends Component {
 		);
 	}
 
-	beforeValueChange(value) {
-		return new Promise((resolve, reject) => {
-			console.log("Changing the value to", value, "in 2 seconds");
-			setTimeout(() => {
-				resolve();
-			}, 2000);
-		});
-	}
-
 	render() {
 		return (
 			<ReactiveBase
@@ -86,10 +77,10 @@ class Main extends Component {
 							componentId="MeetupTops"
 							title="ToggleButton"
 							data={this.toggleData}
-							defaultSelected={"Social V"}
+							defaultSelected={"Social"}
 							URLParams={true}
+							multiSelect={false}
 							filterLabel="Toggle Label"
-							beforeValueChange={this.beforeValueChange}
 						/>
 						<SingleRange
 							componentId="PriceSensor"

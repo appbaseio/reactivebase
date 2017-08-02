@@ -24,7 +24,9 @@ export default class ToggleButton extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.checkDefault(nextProps);
+		if (nextProps.defaultSelected && !_.isEqual(nextProps.defaultSelected, this.props.defaultSelected)) {
+			this.checkDefault(nextProps);
+		}
 	}
 
 	componentWillUnmount() {
@@ -97,7 +99,6 @@ export default class ToggleButton extends Component {
 			return query;
 		}
 		return query;
-
 
 		function generateTermQuery(appbaseField) {
 			return record.map((singleRecord, index) => ({

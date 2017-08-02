@@ -74,9 +74,10 @@ class Main extends Component {
 							title="SingleDropdownList"
 							size={100}
 							URLParams={true}
-							filterLabel="City Label"
 							defaultSelected={this.state.defaultSelected}
+							filterLabel="City Label"
 							onValueChange={value => console.log('callback', value)}
+							beforeValueChange={() => new Promise((resolve, reject) => resolve())}
 						/>
 						<input value={this.state.defaultSelected} onChange={this.handleInputChange} placeholder="defaultSelected" />
 					</div>

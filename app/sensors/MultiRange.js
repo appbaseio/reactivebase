@@ -159,13 +159,26 @@ export default class MultiRange extends Component {
 			value: selected
 		};
 
-		// pass the selected sensor value with componentId as key,
-		const isExecuteQuery = true;
-		if (this.props.onValueChange) {
-			this.props.onValueChange(obj.value);
+		const execQuery = () => {
+			const isExecuteQuery = true;
+			if (this.props.onValueChange) {
+				this.props.onValueChange(obj.value);
+			}
+			helper.URLParams.update(this.props.componentId, this.getSelectedLabels(selected), this.props.URLParams);
+			helper.selectedSensor.set(obj, isExecuteQuery);
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(obj.value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
 		}
-		helper.URLParams.update(this.props.componentId, this.getSelectedLabels(selected), this.props.URLParams);
-		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	getSelectedLabels(selected) {
@@ -252,6 +265,7 @@ MultiRange.propTypes = {
 	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
+	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,

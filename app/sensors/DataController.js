@@ -56,13 +56,28 @@ export default class DataController extends Component {
 			key: this.props.componentId,
 			value
 		};
-		if (this.props.onValueChange) {
-			this.props.onValueChange(obj.value);
+
+		const execQuery = () => {
+			if (this.props.onValueChange) {
+				this.props.onValueChange(obj.value);
+			}
+			// pass the selected sensor value with componentId as key,
+			const isExecuteQuery = true;
+			helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
+			helper.selectedSensor.set(obj, isExecuteQuery);
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(obj.value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
 		}
-		// pass the selected sensor value with componentId as key,
-		const isExecuteQuery = true;
-		helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
-		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	// render
@@ -115,6 +130,7 @@ DataController.propTypes = {
 	]),
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
+	beforeValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	defaultSelected: React.PropTypes.any,
 	URLParams: React.PropTypes.bool,

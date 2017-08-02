@@ -76,6 +76,7 @@ class Main extends Component {
 							URLParams={true}
 							defaultSelected={this.state.defaultSelected}
 							filterLabel="Name label"
+							beforeValueChange={() => new Promise((resolve) => resolve())}
 						/>
 						<input value={this.state.defaultSelected} onChange={this.handleInputChange} placeholder="defaultSelected" />
 					</div>

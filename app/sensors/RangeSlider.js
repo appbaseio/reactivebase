@@ -68,11 +68,20 @@ export default class RangeSlider extends Component {
 			manager.update(this.channelId, this.react, nextProps.size, 0, false);
 		}
 
+		const execQuery = () => {
+			if (nextProps.onValueChange) {
+				nextProps.onValueChange(obj.value);
+			}
+			helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
+			helper.selectedSensor.set(obj, true);
+		};
+
 		setTimeout(() => {
 			let defaultValue = this.urlParams !== null ? this.urlParams : nextProps.defaultSelected;
 			if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
 				defaultValue = nextProps.defaultSelected;
 			}
+
 			// check defaultSelected
 			if (defaultValue.start !== this.state.values.min ||
 				defaultValue.end !== this.state.values.max &&
@@ -94,11 +103,17 @@ export default class RangeSlider extends Component {
 						}
 					};
 					setTimeout(() => {
-						if (nextProps.onValueChange) {
-							nextProps.onValueChange(obj.value);
+						if (this.props.beforeValueChange) {
+							this.props.beforeValueChange(value)
+							.then(() => {
+								execQuery();
+							})
+							.catch((e) => {
+								console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+							});
+						} else {
+							execQuery();
 						}
-						helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
-						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				} else {
 					const values = {};
@@ -116,11 +131,17 @@ export default class RangeSlider extends Component {
 						}
 					};
 					setTimeout(() => {
-						if (nextProps.onValueChange) {
-							nextProps.onValueChange(obj.value);
+						if (this.props.beforeValueChange) {
+							this.props.beforeValueChange(value)
+							.then(() => {
+								execQuery();
+							})
+							.catch((e) => {
+								console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+							});
+						} else {
+							execQuery();
 						}
-						helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
-						helper.selectedSensor.set(obj, true);
 					}, 1000);
 				}
 			}
@@ -157,11 +178,17 @@ export default class RangeSlider extends Component {
 						key: this.props.componentId,
 						value: currentRange
 					};
-					if (this.props.onValueChange) {
-						this.props.onValueChange(obj.value);
+					if (this.props.beforeValueChange) {
+						this.props.beforeValueChange(value)
+						.then(() => {
+							execQuery();
+						})
+						.catch((e) => {
+							console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+						});
+					} else {
+						execQuery();
 					}
-					helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
-					helper.selectedSensor.set(obj, true);
 				}
 				this.setRangeValue();
 			}
@@ -254,9 +281,6 @@ export default class RangeSlider extends Component {
 			key: `${this.props.componentId}-internal`,
 			value: this.props.range
 		};
-		if (this.props.onValueChange) {
-			this.props.onValueChange(objValue.value);
-		}
 		helper.selectedSensor.set(objValue, true);
 	}
 
@@ -404,11 +428,27 @@ export default class RangeSlider extends Component {
 			key: this.props.componentId,
 			value: realValues
 		};
-		if (this.props.onValueChange) {
-			this.props.onValueChange(obj.value);
+
+		const execQuery = () => {
+			if (this.props.onValueChange) {
+				this.props.onValueChange(obj.value);
+			}
+			helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
+			helper.selectedSensor.set(obj, true);
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
 		}
-		helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
-		helper.selectedSensor.set(obj, true);
+
 		this.setState({
 			currentValues: values,
 			values
@@ -449,10 +489,10 @@ export default class RangeSlider extends Component {
 				<div className="rbc-rangeslider-container col s12 col-xs-12">
 					<Slider
 						range
-						value={[this.state.values.min, this.state.values.max]}
+						defaultValue={[this.state.values.min, this.state.values.max]}
 						min={this.state.startThreshold}
 						max={this.state.endThreshold}
-						onChange={this.handleResults}
+						onAfterChange={this.handleResults}
 						step={this.props.stepValue}
 						marks={marks}
 					/>

@@ -62,6 +62,7 @@ class Main extends Component {
 							}
 							defaultSelected={["Cheap"]}
 							URLParams={true}
+							beforeValueChange={() => new Promise((resolve, reject) => resolve())}
 						/>
 					</div>
 

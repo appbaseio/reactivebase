@@ -95,13 +95,27 @@ export default class TextField extends Component {
 			value: inputVal
 		};
 		this.defaultSelected = inputVal;
-		// pass the selected sensor value with componentId as key,
-		const isExecuteQuery = true;
-		if (this.props.onValueChange) {
-			this.props.onValueChange(obj.value);
+
+		const execQuery = () => {
+			const isExecuteQuery = true;
+			if (this.props.onValueChange) {
+				this.props.onValueChange(obj.value);
+			}
+			helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
+			helper.selectedSensor.set(obj, isExecuteQuery);
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(obj.value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
 		}
-		helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
-		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	// render
@@ -139,6 +153,7 @@ TextField.propTypes = {
 	defaultSelected: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
+	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,

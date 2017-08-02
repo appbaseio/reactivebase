@@ -250,15 +250,6 @@ export default class DropdownList extends Component {
 				this.setData(rawData);
 			}
 		});
-		if (executeChannel) {
-			setTimeout(() => {
-				const obj = {
-					key: "dropdownListChanges",
-					value: ""
-				};
-				helper.selectedSensor.set(obj, true);
-			}, 100);
-		}
 		this.listenLoadingChannel(channelObj);
 	}
 
@@ -348,9 +339,6 @@ export default class DropdownList extends Component {
 
 	// set value
 	setValue(value, isExecuteQuery = false) {
-		if (this.props.onValueChange) {
-			this.props.onValueChange(value);
-		}
 		if (this.props.multipleSelect && value) {
 			value = value.length ? value : null;
 		}
@@ -359,8 +347,26 @@ export default class DropdownList extends Component {
 			key: this.props.componentId,
 			value
 		};
-		helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
-		helper.selectedSensor.set(obj, isExecuteQuery);
+
+		const execQuery = () => {
+			if (this.props.onValueChange) {
+				this.props.onValueChange(value);
+			}
+			helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
+			helper.selectedSensor.set(obj, isExecuteQuery);
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(obj.value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
+		}
 	}
 
 	render() {
@@ -434,6 +440,7 @@ DropdownList.propTypes = {
 	]),
 	customQuery: React.PropTypes.func,
 	react: React.PropTypes.object,
+	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
