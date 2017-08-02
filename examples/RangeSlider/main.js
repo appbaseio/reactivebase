@@ -89,6 +89,7 @@ class Main extends Component {
 							}}
 							URLParams={true}
 							onValueChange={(value) => {console.log("value changed to", value)}}
+							beforeValueChange={() => new Promise((resolve) => resolve())}
 							react={{
 								and: "TopicSensor"
 							}}
