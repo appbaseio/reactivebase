@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, SingleRange, ReactiveList } from "../app.js";
+import { ReactiveBase, SingleRange, ReactiveList, SelectedFilters } from "../app.js";
 import { ResponsiveStory } from "../middleware/helper.js";
 
 export default class SingleRangeDefault extends Component {
@@ -44,6 +44,7 @@ export default class SingleRangeDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<SingleRange
 							componentId="PriceSensor"
 							appbaseField={this.props.mapping.price}

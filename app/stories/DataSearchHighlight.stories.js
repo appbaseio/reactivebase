@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, DataSearch, ReactiveList, SingleDropdownList } from "../app.js";
+import { ReactiveBase, DataSearch, ReactiveList, SingleDropdownList, SelectedFilters } from "../app.js";
 import { ResponsiveStory } from "../middleware/helper.js";
 import moment from "moment";
 
@@ -38,6 +38,7 @@ export default class DataSearchHighlight extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<DataSearch
 							componentId="InputSensor"
 							appbaseField={["title", "text", "by"]}

@@ -82,11 +82,17 @@ storiesOf("SingleList", module)
 	.add("Default Selected", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault showSearch defaultSelected="San Francisco" placeholder="Search City" />
 	)))
+	.add("Without Radio", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch defaultSelected="San Francisco" showRadio={false} placeholder="Search City" />
+	)))
 	.add("Custom Sort", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault title="SingleList: Ascending Sort" showSearch defaultSelected="London" sortBy="asc" placeholder="Search City" />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault showSearch selectAllLabel="All Cities" placeholder="Search City" />
+	)))
+	.add("With filterLabel", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch selectAllLabel="All Cities" filterLabel="Custom Filter Name" placeholder="Search City" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault
@@ -96,6 +102,7 @@ storiesOf("SingleList", module)
 			defaultSelected={text("defaultSelected", "San Francisco")}
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
+			showRadio={boolean("showRadio", true)}
 			placeholder={text("placeholder", "Search City")}
 			selectAllLabel={text("selectAllLabel", "All cities")}
 		/>
@@ -112,11 +119,23 @@ storiesOf("MultiList", module)
 	.add("Default Selected", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault showSearch defaultSelected={["London", "Sydney"]} placeholder="Search City" />
 	)))
+	.add("Without Checkbox", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch defaultSelected={["London", "Sydney"]} showCheckbox={false} placeholder="Search City" />
+	)))
 	.add("Custom Sort", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault title="MultiList: Ascending Sort" showSearch defaultSelected={["London"]} sortBy="asc" placeholder="Search City" />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault showSearch selectAllLabel="All Cities" placeholder="Search City" />
+	)))
+	.add("With queryFormat as and", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch queryFormat="and" placeholder="Search City" />
+	)))
+	.add("With queryFormat as or", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch queryFormat="or" placeholder="Search City" />
+	)))
+	.add("With filterLabel", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch queryFormat="or" placeholder="Search City" filterLabel="Custom Filter Name" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
@@ -126,6 +145,8 @@ storiesOf("MultiList", module)
 			defaultSelected={array("defaultSelected", ["London", "Sydney"])}
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
+			showCheckbox={boolean("showCheckbox", true)}
+			queryFormat={select("queryFormat", { and: "and", or: "or" }, "and")}
 			placeholder={text("placeholder", "Search City")}
 			selectAllLabel={text("selectAllLabel", "All cities")}
 		/>
@@ -145,6 +166,13 @@ storiesOf("SingleDropdownList", module)
 		<SingleDropdownListDefault
 			selectAllLabel="All Cities"
 			defaultSelected="London"
+		/>
+	)))
+	.add("With filterLabel", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<SingleDropdownListDefault
+			selectAllLabel="All Cities"
+			defaultSelected="London"
+			filterLabel="Custom Filter Name"
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
@@ -183,12 +211,41 @@ storiesOf("MultiDropdownList", module)
 			defaultSelected={["London", "Melbourne"]}
 		/>
 	)))
+	.add("With queryFormat as and", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
+		<MultiDropdownListDefault
+			placeholder="Select Cities"
+			size={100}
+			sortBy="count"
+			defaultSelected={["London"]}
+			queryFormat="and"
+		/>
+	)))
+	.add("With queryFormat as or", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
+		<MultiDropdownListDefault
+			placeholder="Select Cities"
+			size={100}
+			sortBy="count"
+			defaultSelected={["London", "Melbourne"]}
+			queryFormat="or"
+		/>
+	)))
+	.add("With filterLabel", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
+		<MultiDropdownListDefault
+			placeholder="Select Cities"
+			size={100}
+			sortBy="count"
+			defaultSelected={["London", "Melbourne"]}
+			queryFormat="or"
+			filterLabel="Custom Filter Name"
+		/>
+	)))
 	.add("Playground", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
 		<MultiDropdownListDefault
 			title={text("title", "MultiDropdownList")}
 			size={number("size", 100)}
 			showCount={boolean("showCount", true)}
 			sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "count")}
+			queryFormat={select("queryFormat", { and: "and", or: "or" }, "and")}
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
 			placeholder={text("placeholder", "Select Cities")}
@@ -198,11 +255,29 @@ storiesOf("MultiDropdownList", module)
 storiesOf("SingleDataList", module)
 	.add("Basic", () => (
 		<SingleDataListDefault />
+	))
+	.add("With defaultSelected", () => (
+		<SingleDataListDefault defaultSelected={"Social"} />
+	))
+	.add("Without Radio", () => (
+		<SingleDataListDefault showRadio={false} />
+	))
+	.add("With filterLabel", () => (
+		<SingleDataListDefault defaultSelected={"Social"} filterLabel="Custom Filter Name" />
 	));
 
 storiesOf("MultiDataList", module)
 	.add("Basic", () => (
 		<MultiDataListDefault />
+	))
+	.add("With defaultSelected", () => (
+		<MultiDataListDefault defaultSelected={["Social", "Travel"]} />
+	))
+	.add("Without Checkbox", () => (
+		<MultiDataListDefault showCheckbox={false} />
+	))
+	.add("With filterLabel", () => (
+		<MultiDataListDefault defaultSelected={["Social", "Travel"]} filterLabel="Custom Filter Name" />
 	));
 
 storiesOf("SingleRange", module)
@@ -213,10 +288,17 @@ storiesOf("SingleRange", module)
 	.add("With Default Selected", withReadme(removeFirstLine(SingleRangeReadme), () => (
 		<SingleRangeDefault defaultSelected="Cheap" />
 	)))
+	.add("Without Radio", withReadme(removeFirstLine(SingleRangeReadme), () => (
+		<SingleRangeDefault showRadio={false} />
+	)))
+	.add("With filterLabel", withReadme(removeFirstLine(SingleRangeReadme), () => (
+		<SingleRangeDefault filterLabel="Custom Filter Name" />
+	)))
 	.add("Playground", withReadme(removeFirstLine(SingleRangeReadme), () => (
 		<SingleRangeDefault
 			title={text("title", "SingleRange: Price Filter")}
 			defaultSelected={text("defaultSelected", "Cheap")}
+			showRadio={boolean("showRadio", true)}
 		/>
 	)));
 
@@ -228,10 +310,17 @@ storiesOf("MultiRange", module)
 	.add("With Default Selected", withReadme(removeFirstLine(MultiRangeReadme), () => (
 		<MultiRangeDefault defaultSelected={["Cheap", "Moderate"]} />
 	)))
+	.add("Without Checkbox", withReadme(removeFirstLine(MultiRangeReadme), () => (
+		<MultiRangeDefault showCheckbox={false} />
+	)))
+	.add("With filterLabel", withReadme(removeFirstLine(MultiRangeReadme), () => (
+		<MultiRangeDefault filterLabel="Custom Filter Name" />
+	)))
 	.add("Playground", withReadme(removeFirstLine(MultiRangeReadme), () => (
 		<MultiRangeDefault
 			title={text("title", "MultiRange: Price Filter")}
 			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
+			showCheckbox={boolean("showCheckbox", true)}
 		/>
 	)));
 
@@ -242,6 +331,9 @@ storiesOf("SingleDropdownRange", module)
 	)))
 	.add("With Default Selected", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
 		<SingleDropdownRangeDefault defaultSelected="Cheap" />
+	)))
+	.add("With filterLabel", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
+		<SingleDropdownRangeDefault defaultSelected="Cheap" filterLabel="Custom Filter Name" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
 		<SingleDropdownRangeDefault
@@ -257,6 +349,9 @@ storiesOf("MultiDropdownRange", module)
 	)))
 	.add("With Default Selected", withReadme(removeFirstLine(MultiDropdownRangeReadme), () => (
 		<MultiDropdownRangeDefault defaultSelected={["Cheap", "Moderate"]} />
+	)))
+	.add("With filterLabel", withReadme(removeFirstLine(MultiDropdownRangeReadme), () => (
+		<MultiDropdownRangeDefault defaultSelected={["Cheap", "Moderate"]} filterLabel="Custom Filter Name" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiDropdownRangeReadme), () => (
 		<MultiDropdownRangeDefault
@@ -362,6 +457,18 @@ storiesOf("NumberBox", module)
 			queryFormat="lte"
 		/>
 	)))
+	.add("With filterLabel", withReadme(removeFirstLine(NumberBoxReadme), () => (
+		<NumberBoxDefault
+			data={{
+				label: "Car Ratings",
+				start: 1,
+				end: 5
+			}}
+			defaultSelected={5}
+			labelPosition="left"
+			filterLabel="Custom Filter Name"
+		/>
+	)))
 	.add("Playground", withReadme(removeFirstLine(NumberBoxReadme), () => (
 		<NumberBoxDefault
 			defaultSelected={number("defaultSelected", 3)}
@@ -383,6 +490,9 @@ storiesOf("ToggleButton", module)
 	.add("With Default Selected", withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault defaultSelected={["Social"]} />
 	)))
+	.add("With filterLabel", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault defaultSelected={["Social"]} filterLabel="Custom Filter Name" />
+	)))
 	.add("Playground", withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault
 			title={text("title", "ToggleButton: Meetup Categories")}
@@ -398,6 +508,9 @@ storiesOf("TextField", module)
 	)))
 	.add("DefaultSelected", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault defaultSelected="nissan" />
+	)))
+	.add("With filterLabel", withReadme(removeFirstLine(TextFieldReadme), () => (
+		<TextFieldDefault defaultSelected="nissan" filterLabel="Custom Filter Name" />
 	)))
 	.add("Playground", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault
@@ -429,6 +542,14 @@ storiesOf("DataSearch", module)
 			weights={[1, 3]}
 		/>
 	)))
+	.add("With filterLabel", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venue"
+			weights={[1, 3]}
+			filterLabel="Custom Filter Name"
+		/>
+	)))
 	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title={text("title", "DataSearch")}
@@ -444,6 +565,12 @@ storiesOf("DataSearchHighlight", module)
 		<DataSearchHighlight
 			title="DataSearch"
 		/>
+	)))
+	.add("With filterLabel", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchHighlight
+			title="DataSearch"
+			filterLabel="Custom Filter Name"
+		/>
 	)));
 
 storiesOf("DataController", module)
@@ -458,6 +585,16 @@ storiesOf("DataController", module)
 			dataLabel={
 				<p>★ A customizable UI widget ★</p>
 			}
+		/>
+	)))
+	.add("With filterLabel", withReadme(removeFirstLine(DataControllerReadme), () => (
+		<DataControllerDefault
+			title="DataController"
+			visible={true}
+			dataLabel={
+				<p>★ A customizable UI widget ★</p>
+			}
+			filterLabel="Custom Filter Name"
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(DataControllerReadme), () => (
@@ -499,6 +636,12 @@ storiesOf("DatePicker", module)
 			}}
 		/>
 	)))
+	.add("With filterLabel", withReadme(removeFirstLine(DatePickerReadme), () => (
+		<DatePickerDefault
+			allowAllDates={false}
+			filterLabel="Custom Filter Name"
+		/>
+	)))
 	.add("Playground", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
 			title={text("title", "Date Picker")}
@@ -537,6 +680,12 @@ storiesOf("DateRange", module)
 				withFullScreenPortal: true,
 				showClearDate: true
 			}}
+		/>
+	)))
+	.add("With filterLabel", withReadme(removeFirstLine(DateRangeReadme), () => (
+		<DateRangeDefault
+			allowAllDates={false}
+			filterLabel="Custom Filter Name"
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(DateRangeReadme), () => (

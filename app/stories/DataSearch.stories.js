@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, DataSearch, ReactiveList } from "../app.js";
+import { ReactiveBase, DataSearch, ReactiveList, SelectedFilters } from "../app.js";
 import { ResponsiveStory } from "../middleware/helper.js";
 import { Img } from "./Img.js";
 
@@ -53,6 +53,7 @@ export default class DataSearchDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<DataSearch
 							appbaseField={[this.props.mapping.venue, this.props.mapping.topic]}
 							componentId="VenueSensor"

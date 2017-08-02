@@ -18,8 +18,11 @@ export default class TextField extends Component {
 	// Set query information
 	componentWillMount() {
 		this.setQueryInfo();
-		this.checkDefault(this.props);
 		this.listenFilter();
+	}
+
+	componentDidMount() {
+		this.checkDefault(this.props);
 	}
 
 	componentWillReceiveProps(nextProps) {

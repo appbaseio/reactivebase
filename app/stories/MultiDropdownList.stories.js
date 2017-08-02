@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, MultiDropdownList, ReactiveList } from "../app.js";
+import { ReactiveBase, MultiDropdownList, ReactiveList, SelectedFilters } from "../app.js";
 import { ResponsiveStory } from "../middleware/helper.js";
 import { Img } from "./Img.js";
 
@@ -52,6 +52,7 @@ export default class MultiDropdownListDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<MultiDropdownList
 							componentId="CitySensor"
 							appbaseField={this.props.mapping.city}

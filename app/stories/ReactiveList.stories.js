@@ -67,6 +67,7 @@ export default class ReactiveListDefault extends Component {
 			>
 				<div className="row reverse-labels">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<ReactiveList
 							componentId="SearchResult"
 							appbaseField="group.group_topics.topic_name.topic_name_simple"

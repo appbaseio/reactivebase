@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, NumberBox, ReactiveList } from "../app.js";
+import { ReactiveBase, NumberBox, ReactiveList, SelectedFilters } from "../app.js";
 import { ResponsiveStory } from "../middleware/helper.js";
 
 export default class NumberBoxDefault extends Component {
@@ -45,6 +45,7 @@ export default class NumberBoxDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<NumberBox
 							componentId="CarRatingSensor"
 							appbaseField={this.props.mapping.rating}

@@ -80,7 +80,7 @@ export default class DataList extends Component {
 						defaultValue.forEach(item => {
 							this.state.data.some(record => {
 								if (record.label ? record.label === item : record === item) {
-									selected.push(record);
+									selected.push(item);
 									return true;
 								}
 							});
@@ -161,12 +161,26 @@ export default class DataList extends Component {
 			value: null
 		};
 
-		if (this.props.onValueChange) {
-			this.props.onValueChange(null);
-		}
+		const execQuery = () => {
+			if (this.props.onValueChange) {
+				this.props.onValueChange(null);
+			}
 
-		helper.URLParams.update(this.props.componentId, null, this.props.URLParams);
-		helper.selectedSensor.set(obj, true);
+			helper.URLParams.update(this.props.componentId, null, this.props.URLParams);
+			helper.selectedSensor.set(obj, true);
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
+		}
 	}
 
 	handleChange(record) {
@@ -250,7 +264,6 @@ export default class DataList extends Component {
 	renderObjectList() {
 		const { data, selected } = this.state;
 		let list;
-
 		if (data) {
 			if (this.props.multipleSelect) {
 				const cx = classNames({
@@ -259,7 +272,7 @@ export default class DataList extends Component {
 				});
 				list = data.map((record, i) => (
 					<div
-						className={`rbc-list-item row ${cx} ${selected && selected === record.value ? "rbc-list-item-active" : ""}`}
+						className={`rbc-list-item row ${cx} ${selected && selected.indexOf(record.value) >= 0 ? "rbc-list-item-active" : ""}`}
 						key={`${record.label}-${i}`}
 						onClick={() => {this.handleCheckboxChange(record)}}>
 						<input
@@ -310,7 +323,7 @@ export default class DataList extends Component {
 				});
 				list = data.map((record, i) => (
 					<div
-						className={`rbc-list-item row ${cx} ${selected === record ? "rbc-list-item-active" : ""}`}
+						className={`rbc-list-item row ${cx} ${selected && selected.indexOf(record) >= 0 ? "rbc-list-item-active" : ""}`}
 						key={`${record}-${i}`}
 						onClick={() => {this.handleCheckboxChange(record)}}>
 						<input

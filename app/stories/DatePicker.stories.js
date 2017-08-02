@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, DatePicker, ReactiveList } from "../app";
+import { ReactiveBase, DatePicker, ReactiveList, SelectedFilters } from "../app";
 import { ResponsiveStory } from "../middleware/helper";
 import { Img } from "./Img";
 
@@ -59,6 +59,7 @@ export default class DatePickerDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<DatePicker
 							componentId="DateSensor"
 							appbaseField="mtime"

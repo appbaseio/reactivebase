@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, MultiDropdownRange, ReactiveList } from "../app.js";
+import { ReactiveBase, MultiDropdownRange, ReactiveList, SelectedFilters } from "../app.js";
 import { ResponsiveStory } from "../middleware/helper.js";
 
 export default class MultiDropdownRangeDefault extends Component {
@@ -44,6 +44,7 @@ export default class MultiDropdownRangeDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<MultiDropdownRange
 							componentId="PriceSensor"
 							appbaseField={this.props.mapping.price}

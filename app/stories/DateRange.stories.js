@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, DateRange, ReactiveList } from "../app";
+import { ReactiveBase, DateRange, ReactiveList, SelectedFilters } from "../app";
 import { ResponsiveStory } from "../middleware/helper";
 import { Img } from "./Img";
 
@@ -58,6 +58,7 @@ export default class DateRangeDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<DateRange
 							componentId="DateRangeSensor"
 							appbaseField="mtime"
