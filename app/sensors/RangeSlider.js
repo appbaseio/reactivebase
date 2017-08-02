@@ -254,9 +254,6 @@ export default class RangeSlider extends Component {
 			key: `${this.props.componentId}-internal`,
 			value: this.props.range
 		};
-		if (this.props.onValueChange) {
-			this.props.onValueChange(objValue.value);
-		}
 		helper.selectedSensor.set(objValue, true);
 	}
 
@@ -449,10 +446,10 @@ export default class RangeSlider extends Component {
 				<div className="rbc-rangeslider-container col s12 col-xs-12">
 					<Slider
 						range
-						value={[this.state.values.min, this.state.values.max]}
+						defaultValue={[this.state.values.min, this.state.values.max]}
 						min={this.state.startThreshold}
 						max={this.state.endThreshold}
-						onChange={this.handleResults}
+						onAfterChange={this.handleResults}
 						step={this.props.stepValue}
 						marks={marks}
 					/>
