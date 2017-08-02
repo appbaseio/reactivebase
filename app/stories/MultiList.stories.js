@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, MultiList, ReactiveList } from "../app.js";
+import { ReactiveBase, MultiList, ReactiveList, SelectedFilters } from "../app.js";
 import { ResponsiveStory } from "../middleware/helper.js";
 import { Img } from "./Img.js";
 
@@ -52,6 +52,7 @@ export default class MultiListDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<MultiList
 							componentId="CitySensor"
 							appbaseField={this.props.mapping.city}

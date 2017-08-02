@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, TextField, ReactiveList } from "../app.js";
+import { ReactiveBase, TextField, ReactiveList, SelectedFilters } from "../app.js";
 import { ResponsiveStory } from "../middleware/helper.js";
 
 export default class TextFieldDefault extends Component {
@@ -55,6 +55,7 @@ export default class TextFieldDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<TextField
 							componentId="NameTextSensor"
 							appbaseField={this.props.mapping.name}

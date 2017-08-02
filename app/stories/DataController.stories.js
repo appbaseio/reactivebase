@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, DataController, ReactiveList } from "../app.js";
+import { ReactiveBase, DataController, ReactiveList, SelectedFilters } from "../app.js";
 import { ResponsiveStory } from "../middleware/helper.js";
 
 export default class DataControllerDefault extends Component {
@@ -53,6 +53,7 @@ export default class DataControllerDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<DataController
 							componentId="CustomSensor"
 							appbaseField="name"

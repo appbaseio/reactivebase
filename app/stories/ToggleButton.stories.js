@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, ToggleButton, ReactiveList } from "../app.js";
+import { ReactiveBase, ToggleButton, ReactiveList, SelectedFilters } from "../app.js";
 import { ResponsiveStory } from "../middleware/helper.js";
 import { Img } from "./Img.js";
 
@@ -64,6 +64,7 @@ export default class ToggleButtonDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<ToggleButton
 							appbaseField={this.props.mapping.topic}
 							componentId="MeetupTops"

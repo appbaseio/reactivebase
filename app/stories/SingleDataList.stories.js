@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactiveBase, SingleDataList, ReactiveList } from "../app.js";
+import { ReactiveBase, SingleDataList, ReactiveList, SelectedFilters } from "../app.js";
 import { ResponsiveStory } from "../middleware/helper.js";
 import { Img } from "./Img.js";
 
@@ -64,6 +64,7 @@ export default class SingleDataListDefault extends Component {
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
+						<SelectedFilters componentId="SelectedFilters" />
 						<SingleDataList
 							appbaseField={this.props.mapping.topic}
 							componentId="MeetupTops"
