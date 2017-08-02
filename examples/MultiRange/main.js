@@ -62,6 +62,7 @@ class Main extends Component {
 							}
 							URLParams={true}
 							filterLabel="Price Label"
+							beforeValueChange={() => new Promise((resolve, reject) => resolve())}
 						/>
 					</div>
 
