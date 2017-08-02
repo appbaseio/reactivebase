@@ -172,11 +172,26 @@ export default class NumberBox extends Component {
 				queryFormat: this.props.queryFormat
 			}
 		};
-		if (this.props.onValueChange) {
-			this.props.onValueChange(obj.value);
+
+		const execQuery = () => {
+			if (this.props.onValueChange) {
+				this.props.onValueChange(obj.value);
+			}
+			helper.URLParams.update(this.props.componentId, currentValue, this.props.URLParams);
+			helper.selectedSensor.set(obj, true);
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(obj.value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
 		}
-		helper.URLParams.update(this.props.componentId, currentValue, this.props.URLParams);
-		helper.selectedSensor.set(obj, true);
 	}
 
 	render() {
@@ -219,6 +234,7 @@ NumberBox.propTypes = {
 	defaultSelected: helper.valueValidation,
 	labelPosition: React.PropTypes.oneOf(["top", "bottom", "left", "right"]),
 	customQuery: React.PropTypes.func,
+	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	queryFormat: React.PropTypes.oneOf(["exact", "gte", "lte"]),

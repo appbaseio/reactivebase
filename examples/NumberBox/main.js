@@ -59,6 +59,7 @@ class Main extends Component {
 								end: 5
 							}}
 							URLParams={true}
+							beforeValueChange={() => new Promise((resolve, reject) => resolve())}
 						/>
 					</div>
 
