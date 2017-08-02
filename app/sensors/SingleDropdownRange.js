@@ -104,14 +104,27 @@ export default class SingleDropdownRange extends Component {
 			key: this.props.componentId,
 			value: record
 		};
-		// pass the selected sensor value with componentId as key,
-		const isExecuteQuery = true;
-		if (this.props.onValueChange) {
-			this.props.onValueChange(obj.value);
+		const execQuery = () => {
+			const isExecuteQuery = true;
+			if (this.props.onValueChange) {
+				this.props.onValueChange(obj.value);
+			}
+			this.defaultSelected = record;
+			helper.URLParams.update(this.props.componentId, record ? record.label : null, this.props.URLParams);
+			helper.selectedSensor.set(obj, isExecuteQuery);
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(obj.value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
 		}
-		this.defaultSelected = record;
-		helper.URLParams.update(this.props.componentId, record ? record.label : null, this.props.URLParams);
-		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	// render
