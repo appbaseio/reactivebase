@@ -129,13 +129,27 @@ export default class MultiDropdownRange extends Component {
 			key: this.props.componentId,
 			value: record
 		};
-		// pass the selected sensor value with componentId as key,
-		const isExecuteQuery = true;
-		if (this.props.onValueChange) {
-			this.props.onValueChange(obj.value);
+
+		const execQuery = () => {
+			const isExecuteQuery = true;
+			if (this.props.onValueChange) {
+				this.props.onValueChange(obj.value);
+			}
+			helper.URLParams.update(this.props.componentId, selected, this.props.URLParams);
+			helper.selectedSensor.set(obj, isExecuteQuery);
+		};
+
+		if (this.props.beforeValueChange) {
+			this.props.beforeValueChange(obj.value)
+			.then(() => {
+				execQuery();
+			})
+			.catch((e) => {
+				console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+			});
+		} else {
+			execQuery();
 		}
-		helper.URLParams.update(this.props.componentId, selected, this.props.URLParams);
-		helper.selectedSensor.set(obj, isExecuteQuery);
 	}
 
 	// render
