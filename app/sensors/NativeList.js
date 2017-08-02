@@ -250,15 +250,6 @@ export default class NativeList extends Component {
 				this.setData(rawData);
 			}
 		});
-		if (executeChannel) {
-			setTimeout(() => {
-				const obj = {
-					key: "nativeListChanges",
-					value: ""
-				};
-				helper.selectedSensor.set(obj, true);
-			}, 100);
-		}
 		this.listenLoadingChannel(channelObj);
 	}
 
@@ -311,18 +302,33 @@ export default class NativeList extends Component {
 	// set value
 	setValue(value, isExecuteQuery = false) {
 		const onUpdate = () => {
-			if (this.props.onValueChange) {
-				this.props.onValueChange(obj.value);
+			const execQuery = () => {
+				if (this.props.onValueChange) {
+					this.props.onValueChange(value);
+				}
+				const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
+				helper.URLParams.update(this.props.componentId, selectedValue, this.props.URLParams);
+				helper.selectedSensor.set(obj, isExecuteQuery);
+			};
+
+			if (this.props.beforeValueChange) {
+				this.props.beforeValueChange(value)
+				.then(() => {
+					execQuery();
+				})
+				.catch((e) => {
+					console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+				});
+			} else {
+				execQuery();
 			}
-			const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
-			helper.URLParams.update(this.props.componentId, selectedValue, this.props.URLParams);
-			helper.selectedSensor.set(obj, isExecuteQuery);
 		}
 
 		const obj = {
 			key: this.props.componentId,
 			value
 		};
+
 		this.selectedValue = value;
 		if (this.props.multipleSelect) {
 			const items = this.state.items.map((item) => {
@@ -333,9 +339,11 @@ export default class NativeList extends Component {
 				}
 				return item;
 			});
+
 			value = value && value.length ? value : null;
 			obj.value = value;
 			const isSelectAll = !!(this.selectedValue && this.selectedValue.indexOf(this.props.selectAllLabel) >= 0);
+
 			this.setState({
 				items,
 				defaultSelected: isSelectAll ? [this.props.selectAllLabel] : this.selectedValue,
