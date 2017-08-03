@@ -12,7 +12,6 @@ import * as TYPES from "../middleware/constants";
 import _ from "lodash";
 
 const helper = require("../middleware/helper");
-const $ = require("jquery");
 
 export default class ReactiveList extends Component {
 	constructor(props) {
@@ -116,32 +115,26 @@ export default class ReactiveList extends Component {
 	}
 
 	applyScroll() {
-		const resultElement = $(this.listParentElement);
-		const scrollElement = $(this.listChildElement);
+		const resultElement = this.listParentElement;
+		const scrollElement = this.listChildElement;
 		const padding = 45;
 
-		const getHeight = item => item.height() ? item.height() : 0;
-
 		const checkHeight = () => {
-			const flag = resultElement.get(0).scrollHeight - padding > resultElement.height();
-			const scrollFlag = scrollElement.get(0).scrollHeight > scrollElement.height();
-			if (!flag && !scrollFlag && scrollElement.length && !this.props.pagination) {
-				const headerHeight = getHeight(resultElement.find(".rbc-title")) + (getHeight(resultElement.find(".rbc-pagination")) * resultElement.find(".rbc-pagination").length);
-				const finalHeight = resultElement.height() - 60 - headerHeight;
+			const flag = resultElement.scrollHeight - padding > resultElement.clientHeight;
+			const scrollFlag = scrollElement.scrollHeight > resultElement.clientHeight;
+			if (!flag && !scrollFlag && scrollElement && !this.props.pagination) {
+				const headerHeight = this.titleContainer.clientHeight + this.paginationAtTop.clientHeight + this.paginationAtBottom.clientHeight;
+				const finalHeight = resultElement.clientHeight - 60 - headerHeight;
 				if (finalHeight > 0) {
-					scrollElement.css({
-						height: scrollElement.height() + 15,
-						"padding-bottom": 20
-					});
+					scrollElement.style.height = `${scrollElement.clientHeight + 15}px`;
+					scrollElement.style.paddingBottom = "20px";
 				}
 			}
 		};
 
-		if (resultElement && resultElement.length && scrollElement && scrollElement.length) {
-			scrollElement.css({
-				"height": "auto",
-				"padding-bottom": 0
-			});
+		if (resultElement && scrollElement) {
+			scrollElement.style.height = "auto";
+			scrollElement.style.paddingBottom = 0;
 			setTimeout(checkHeight.bind(this), 1000);
 		}
 	}
@@ -321,9 +314,7 @@ export default class ReactiveList extends Component {
 			});
 		}
 		if (!isSameQuery) {
-			$(".rbc.rbc-reactivelist").animate({
-				scrollTop: 0
-			}, 100);
+			this.listParentElement.scrollTop = 0;
 		}
 		return {
 			currentData,
@@ -490,8 +481,11 @@ export default class ReactiveList extends Component {
 		function setScroll(node) {
 			if (node) {
 				node.addEventListener("scroll", () => {
-					const scrollHeight = node.scrollHeight || node.scrollHeight === 0 ? node.scrollHeight : $(node).height();
-					if (this.state.requestOnScroll && $(node).scrollTop() + $(node).innerHeight() >= scrollHeight && this.state.resultStats.total > this.state.currentData.length && !this.state.queryStart) {
+					// since a window object has different properties, referencing document.body to get the complete page
+					if (node === window) {
+						node = node.document.body;
+					}
+					if (this.state.requestOnScroll && node.scrollTop + node.clientHeight >= node.scrollHeight && this.state.resultStats.total > this.state.currentData.length && !this.state.queryStart) {
 						this.nextPage();
 					}
 				});
@@ -553,7 +547,7 @@ export default class ReactiveList extends Component {
 		});
 
 		if (this.props.title) {
-			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
+			title = (<h4 className="rbc-title col s12 col-xs-12" ref={(node) => { this.titleContainer = node; }}>{this.props.title}</h4>);
 		}
 		if (this.props.placeholder) {
 			placeholder = (<div className="rbc-placeholder col s12 col-xs-12">{this.props.placeholder}</div>);
@@ -577,7 +571,9 @@ export default class ReactiveList extends Component {
 					{title}
 					{sortOptions}
 					{this.props.showResultStats && this.state.resultStats.resultFound ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
-					{this.paginationAt("top")}
+					<div ref={(node) => { this.paginationAtTop = node; }}>
+						{this.paginationAt("top")}
+					</div>
 					<div ref={(div) => { this.listChildElement = div; }} className="rbc-reactivelist-scroll-container col s12 col-xs-12">
 						{this.state.resultMarkup}
 					</div>
@@ -587,7 +583,9 @@ export default class ReactiveList extends Component {
 						null
 					}
 					{this.state.showPlaceholder ? placeholder : null}
-					{this.paginationAt("bottom")}
+					<div ref={(node) => { this.paginationAtBottom = node; }}>
+						{this.paginationAt("bottom")}
+					</div>
 				</div>
 				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults} />) : null}
 				{this.props.initialLoader && this.state.queryStart && this.state.showInitialLoader ? (<InitialLoader defaultText={this.props.initialLoader} />) : null}
