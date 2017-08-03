@@ -31,8 +31,7 @@ export default class ReactiveList extends Component {
 			},
 			showPlaceholder: true,
 			showInitialLoader: false,
-			requestOnScroll: !this.props.pagination,
-			containerHeight: 0
+			requestOnScroll: !this.props.pagination
 		};
 		if (this.props.sortOptions) {
 			const obj = this.props.sortOptions[0];
@@ -103,10 +102,11 @@ export default class ReactiveList extends Component {
 		if (!this.state.showPlaceholder && !this.props.scrollOnTarget) {
 			this.applyScroll();
 		}
-		if (this.state.containerHeight !== this.listContainer.clientHeight) {
-			this.setState({
-				containerHeight: this.listContainer.clientHeight
-			});
+		// only display PoweredBy if the parent container's height is above 300
+		if (this.listContainer.clientHeight > 300) {
+			this.poweredByContainer.style.display = "block";
+		} else {
+			this.poweredByContainer.style.display = "none";
 		}
 	}
 
@@ -591,7 +591,9 @@ export default class ReactiveList extends Component {
 				</div>
 				{this.props.noResults && this.state.visibleNoResults ? (<NoResults defaultText={this.props.noResults} />) : null}
 				{this.props.initialLoader && this.state.queryStart && this.state.showInitialLoader ? (<InitialLoader defaultText={this.props.initialLoader} />) : null}
-				{this.state.containerHeight > 300 ? <PoweredBy /> : null}
+				<div ref={(node) => { this.poweredByContainer = node; }} style={{ display: "none" }}>
+					<PoweredBy />
+				</div>
 			</div>
 		);
 	}
