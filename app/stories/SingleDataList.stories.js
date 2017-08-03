@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ReactiveBase, SingleDataList, ReactiveList } from "../app.js";
-import { ResponsiveStory } from "../middleware/helper.js";
+import ResponsiveStory from "./ReactiveElement/ResponsiveStory";
 import { Img } from "./Img.js";
 
 export default class SingleDataListDefault extends Component {

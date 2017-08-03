@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ReactiveBase, DataSearch, ReactiveList, SingleDropdownList } from "../app.js";
-import { ResponsiveStory } from "../middleware/helper.js";
+import ResponsiveStory from "./ReactiveElement/ResponsiveStory";
 import moment from "moment";
 
 export default class DataSearchHighlight extends Component {

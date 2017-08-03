@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ReactiveBase, SingleDropdownList, ReactiveList } from "../app.js";
-import { ResponsiveStory, combineStreamData } from "../middleware/helper.js";
+import { combineStreamData } from "../middleware/helper.js";
+import ResponsiveStory from "./ReactiveElement/ResponsiveStory";
 import { Img } from "./Img.js";
 
 export default class SingleDropdownListDefault extends Component {

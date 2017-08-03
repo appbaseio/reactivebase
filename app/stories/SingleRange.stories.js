@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ReactiveBase, SingleRange, ReactiveList } from "../app.js";
-import { ResponsiveStory } from "../middleware/helper.js";
+import ResponsiveStory from "./ReactiveElement/ResponsiveStory";
 
 export default class SingleRangeDefault extends Component {
 	constructor(props) {

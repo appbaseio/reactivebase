@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ReactiveBase, DataController, ReactiveList } from "../app.js";
-import { ResponsiveStory } from "../middleware/helper.js";
+import ResponsiveStory from "./ReactiveElement/ResponsiveStory";
 
 export default class DataControllerDefault extends Component {
 	constructor(props) {
@@ -79,4 +79,3 @@ export default class DataControllerDefault extends Component {
 		);
 	}
 }
-
