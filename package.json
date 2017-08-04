@@ -1,6 +1,6 @@
 {
   "name": "@appbaseio/reactivebase",
-  "version": "1.0.0-beta08",
+  "version": "1.0.0-beta09",
   "description": "Data components for building reactive UIs",
   "main": "lib/app.js",
   "scripts": {
@@ -28,7 +28,6 @@
     "appbase-js": "^0.11.0",
     "classnames": "^2.2.5",
     "fbemitter": "^2.1.1",
-    "jquery": "^3.1.1",
     "lodash": "^4.17.4",
     "moment": "^2.14.1",
     "rc-slider": "^5.4.0",
@@ -82,6 +81,7 @@
     "gulp-uglify": "^1.5.3",
     "jest": "^18.1.0",
     "json-loader": "^0.5.4",
+    "jquery": "^3.1.1",
     "lodash-webpack-plugin": "^0.11.4",
     "materialize-css": "^0.98.0",
     "raw-loader": "^0.5.1",

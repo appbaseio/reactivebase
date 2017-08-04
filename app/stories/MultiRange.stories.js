@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ReactiveBase, MultiRange, ReactiveList, SelectedFilters } from "../app.js";
-import { ResponsiveStory } from "../middleware/helper.js";
+import ResponsiveStory from "./ReactiveElement/ResponsiveStory";
 
 export default class MultiRangeDefault extends Component {
 	constructor(props) {

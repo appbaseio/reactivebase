@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ReactiveBase, SingleDropdownRange, ReactiveList, SelectedFilters } from "../app.js";
-import { ResponsiveStory, combineStreamData } from "../middleware/helper.js";
+import { combineStreamData } from "../middleware/helper.js";
+import ResponsiveStory from "./ReactiveElement/ResponsiveStory";
 
 export default class SingleDropdownRangeDefault extends Component {
 	constructor(props) {

@@ -1,5 +1,4 @@
 import { default as React, Component } from "react";
-import { render } from "react-dom";
 
 export class Img extends Component {
 	constructor(props) {
