@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ReactiveBase, DatePicker, ReactiveList, SelectedFilters } from "../app";
-import { ResponsiveStory } from "../middleware/helper";
+import ResponsiveStory from "./ReactiveElement/ResponsiveStory";
 import { Img } from "./Img";
 
 const moment = require("moment");
