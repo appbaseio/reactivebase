@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ReactiveBase, MultiList, ReactiveList } from "../app";
-import { ResponsiveStory } from "../middleware/helper";
+import ResponsiveStory from "./ReactiveElement/ResponsiveStory";
 import { Img } from "./Img";
 
 require("./list.css");

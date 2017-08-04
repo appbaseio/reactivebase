@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ReactiveBase, MultiList, ReactiveElement } from "../../app.js";
-import { ResponsiveStory, combineStreamData } from "../../middleware/helper.js";
+import { combineStreamData } from "../../middleware/helper.js";
+import ResponsiveStory from "./ResponsiveStory";
 import { Img } from "../Img.js";
 
 require("../list.css");
