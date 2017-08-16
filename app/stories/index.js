@@ -168,6 +168,9 @@ storiesOf("SingleDropdownList", module)
 			defaultSelected="London"
 		/>
 	)))
+	.add("Without showCount", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<SingleDropdownListDefault showCount={boolean("showCount", false)} />
+	)))
 	.add("With filterLabel", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
 		<SingleDropdownListDefault
 			selectAllLabel="All Cities"
@@ -202,6 +205,9 @@ storiesOf("MultiDropdownList", module)
 			placeholder="Select Cities"
 			selectAllLabel="All Cities"
 		/>
+	)))
+	.add("Without showCount", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
+		<MultiDropdownListDefault showCount={boolean("showCount", false)} />
 	)))
 	.add("With Default Selected", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
 		<MultiDropdownListDefault
