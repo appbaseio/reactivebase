@@ -279,31 +279,75 @@ storiesOf("MultiDropdownList", module)
 	)));
 
 storiesOf("SingleDataList", module)
+	.addDecorator(withKnobs)
 	.add("Basic", () => (
-		<SingleDataListDefault />
+		<SingleDataListDefault showFilter={false} />
+	))
+	.add("With title", () => (
+		<SingleDataListDefault showFilter={false} title={text("title", "Topics")} />
 	))
 	.add("With defaultSelected", () => (
-		<SingleDataListDefault defaultSelected={"Social"} />
+		<SingleDataListDefault defaultSelected={text("defaultSelected", "Social")} showFilter={false} />
+	))
+	.add("With showSearch", () => (
+		<SingleDataListDefault showFilter={false} showSearch={boolean("showSearch", true)} placeholder={text("placeholder", "Search topics")} />
 	))
 	.add("Without Radio", () => (
-		<SingleDataListDefault showRadio={false} />
+		<SingleDataListDefault showRadio={boolean("showRadio", false)} showFilter={false} />
 	))
-	.add("With filterLabel", () => (
-		<SingleDataListDefault defaultSelected={"Social"} filterLabel="Custom Filter Name" />
+	.add("With selectAllLabel", () => (
+		<SingleDataListDefault showFilter={false} selectAllLabel={text("selectAllLabel", "Select All")} />
+	))
+	.add("With filter", () => (
+		<SingleDataListDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Custom Filter Name")} />
+	))
+	.add("Playground", () => (
+		<SingleDataListDefault
+			title={text("title", "Topics")}
+			defaultSelected={text("defaultSelected", "Social")}
+			showSearch={boolean("showSearch", true)}
+			placeholder={text("placeholder", "Search topics")}
+			showRadio={boolean("showRadio", true)}
+			selectAllLabel={text("selectAllLabel", "Select All")}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Custom Filter Name")}
+		/>
 	));
 
 storiesOf("MultiDataList", module)
+	.addDecorator(withKnobs)
 	.add("Basic", () => (
-		<MultiDataListDefault />
+		<MultiDataListDefault showFilter={false} />
+	))
+	.add("With title", () => (
+		<MultiDataListDefault showFilter={false} title={text("title", "Topics")} />
 	))
 	.add("With defaultSelected", () => (
-		<MultiDataListDefault defaultSelected={["Social", "Travel"]} />
+		<MultiDataListDefault defaultSelected={array("defaultSelected", ["Social", "Travel"])} showFilter={false} />
+	))
+	.add("With showSearch", () => (
+		<MultiDataListDefault showFilter={false} showSearch={boolean("showSearch", true)} placeholder={text("placeholder", "Search topics")} />
 	))
 	.add("Without Checkbox", () => (
-		<MultiDataListDefault showCheckbox={false} />
+		<MultiDataListDefault showCheckbox={boolean("showCheckbox", false)} showFilter={false} />
 	))
-	.add("With filterLabel", () => (
-		<MultiDataListDefault defaultSelected={["Social", "Travel"]} filterLabel="Custom Filter Name" />
+	.add("With selectAllLabel", () => (
+		<MultiDataListDefault showFilter={false} selectAllLabel={text("selectAllLabel", "Select All")} />
+	))
+	.add("With filter", () => (
+		<MultiDataListDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Custom Filter Name")} />
+	))
+	.add("Playground", () => (
+		<MultiDataListDefault
+			title={text("title", "Topics")}
+			defaultSelected={array("defaultSelected", ["Social", "Travel"])}
+			showSearch={boolean("showSearch", true)}
+			placeholder={text("placeholder", "Search topics")}
+			showCheckbox={boolean("showCheckbox", true)}
+			selectAllLabel={text("selectAllLabel", "Select All")}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Custom Filter Name")}
+		/>
 	));
 
 storiesOf("SingleRange", module)
