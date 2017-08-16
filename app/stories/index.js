@@ -221,56 +221,46 @@ storiesOf("SingleDropdownList", module)
 storiesOf("MultiDropdownList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
-		<MultiDropdownListDefault />
+		<MultiDropdownListDefault showFilter={false} />
+	)))
+	.add("With title", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<MultiDropdownListDefault showFilter={false} title={text("title", "City list")} />
 	)))
 	.add("With Placeholder", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
 		<MultiDropdownListDefault
-			placeholder="Select Cities"
+			placeholder={text("placeholder", "Select Cities")}
+			showFilter={false}
 		/>
+	)))
+	.add("With size", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<MultiDropdownListDefault showFilter={false} size={number("size", 10)} />
+	)))
+	.add("With filter", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<MultiDropdownListDefault filterLabel="Cities filter" />
+	)))
+	.add("Without count", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<MultiDropdownListDefault showFilter={false} showCount={boolean("showCount", false)} />
+	)))
+	.add("With custom sort", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<MultiDropdownListDefault showFilter={false} sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "asc")} />
+	)))
+	.add("With queryFormat", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
+		<MultiDropdownListDefault showFilter={false} queryFormat={select("queryFormat", { and: "and", or: "or" }, "and")} />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
 		<MultiDropdownListDefault
 			placeholder="Select Cities"
-			selectAllLabel="All Cities"
+			selectAllLabel={text("selectAllLabel", "All Cities")}
+			showFilter={false}
 		/>
-	)))
-	.add("Without showCount", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
-		<MultiDropdownListDefault showCount={boolean("showCount", false)} />
 	)))
 	.add("With Default Selected", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
 		<MultiDropdownListDefault
 			placeholder="Select Cities"
 			size={100}
 			sortBy="count"
-			defaultSelected={["London", "Melbourne"]}
-		/>
-	)))
-	.add("With queryFormat as and", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
-		<MultiDropdownListDefault
-			placeholder="Select Cities"
-			size={100}
-			sortBy="count"
-			defaultSelected={["London"]}
-			queryFormat="and"
-		/>
-	)))
-	.add("With queryFormat as or", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
-		<MultiDropdownListDefault
-			placeholder="Select Cities"
-			size={100}
-			sortBy="count"
-			defaultSelected={["London", "Melbourne"]}
-			queryFormat="or"
-		/>
-	)))
-	.add("With filterLabel", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
-		<MultiDropdownListDefault
-			placeholder="Select Cities"
-			size={100}
-			sortBy="count"
-			defaultSelected={["London", "Melbourne"]}
-			queryFormat="or"
-			filterLabel="Custom Filter Name"
+			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
+			showFilter={false}
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
@@ -283,6 +273,8 @@ storiesOf("MultiDropdownList", module)
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
 			placeholder={text("placeholder", "Select Cities")}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "City filter")}
 		/>
 	)));
 
