@@ -51,6 +51,10 @@ export default class DropdownList extends Component {
 			manager.update(this.channelId, this.react, nextProps.size, 0, false);
 		}
 
+		if (this.props.queryFormat !== nextProps.queryFormat) {
+			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "Terms" : "Term";
+		}
+
 		if (nextProps.multipleSelect && !_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
 			this.changeValue(nextProps.defaultSelected);
 		} else if (!nextProps.multipleSelect && this.props.defaultSelected !== nextProps.defaultSelected) {
@@ -109,7 +113,7 @@ export default class DropdownList extends Component {
 			const records = this.state.items.filter(record => record.value === this.defaultSelected);
 
 			if (records.length) {
-				this.handleChange(records);
+				this.handleChange(records[0]);	// multipleSelect is false
 			} else {
 				this.handleChange({value: this.defaultSelected});
 			}
@@ -279,10 +283,7 @@ export default class DropdownList extends Component {
 		newItems = newItems.map((item) => {
 			item.label = item.key.toString();
 			item.value = item.key.toString();
-			item.count = null;
-			if (this.props.showCount) {
-				item.count = item.doc_count;
-			}
+			item.count = item.doc_count;
 			return item;
 		});
 		newItems = newItems.filter(item => item && item.label && item.label.trim());
