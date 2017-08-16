@@ -74,25 +74,34 @@ function removeFirstLine(str, number = 1) {
 storiesOf("SingleList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch placeholder="Search City" />
+		<SingleListDefault showSearch placeholder="Search City" showFilter={false} />
+	)))
+	.add("With title", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch placeholder="Search City" showFilter={false} title={text("title", "Cities")} />
+	)))
+	.add("With size", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch placeholder="Search City" showFilter={false} size={number("size", 10)} />
+	)))
+	.add("Without count", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch placeholder="Search City" showFilter={false} showCount={boolean("showCount", false)} />
 	)))
 	.add("Without Search", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={false} placeholder="Search City" />
+		<SingleListDefault showSearch={boolean("showSearch", false)} placeholder="Search City" showFilter={false} />
+	)))
+	.add("With filter", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch placeholder="Search City" showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "City filter")} />
+	)))
+	.add("Wihout radio buttons", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch placeholder="Search City" showFilter={false} showRadio={boolean("showRadio", false)} />
 	)))
 	.add("Default Selected", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch defaultSelected="San Francisco" placeholder="Search City" />
-	)))
-	.add("Without Radio", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch defaultSelected="San Francisco" showRadio={false} placeholder="Search City" />
+		<SingleListDefault showSearch defaultSelected={text("defaultSelected", "London")} placeholder="Search City" showFilter={false} />
 	)))
 	.add("Custom Sort", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault title="SingleList: Ascending Sort" showSearch defaultSelected="London" sortBy="asc" placeholder="Search City" />
+		<SingleListDefault title="SingleList: Custom Sort" showSearch defaultSelected="London" sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "asc")} placeholder="Search City" showFilter={false} />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch selectAllLabel="All Cities" placeholder="Search City" />
-	)))
-	.add("With filterLabel", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch selectAllLabel="All Cities" filterLabel="Custom Filter Name" placeholder="Search City" />
+		<SingleListDefault showSearch selectAllLabel={text("selectAllLabel", "All Cities")} placeholder="Search City" showFilter={false} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault
@@ -102,40 +111,48 @@ storiesOf("SingleList", module)
 			defaultSelected={text("defaultSelected", "San Francisco")}
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
-			showRadio={boolean("showRadio", true)}
 			placeholder={text("placeholder", "Search City")}
 			selectAllLabel={text("selectAllLabel", "All cities")}
+			showRadio={boolean("showRadio", true)}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "City filter")}
 		/>
 	)));
 
 storiesOf("MultiList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch placeholder="Search City" />
+		<MultiListDefault showSearch placeholder="Search City" showFilter={false} />
+	)))
+	.add("With title", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch placeholder="Search City" showFilter={false} title={text("title", "MultiList: City Filter")} />
+	)))
+	.add("With size", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch placeholder="Search City" showFilter={false} size={number("size", 10)} />
+	)))
+	.add("With filter", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch placeholder="Search City" showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "City filter")} />
+	)))
+	.add("With queryFormat", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch placeholder="Search City" queryFormat={select("queryFormat", { and: "and", or: "or" }, "and")} />
+	)))
+	.add("Wihout count", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch placeholder="Search City" showFilter={false} showCount={boolean("showCount", false)} />
 	)))
 	.add("Without Search", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={false} placeholder="Search City" />
+		<MultiListDefault showSearch={boolean("showSearch", false)} placeholder="Search City" showFilter={false} />
+	)))
+	.add("Without checkbox", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch placeholder="Search City" showFilter={false} showCheckbox={boolean("showCheckbox", false)} />
 	)))
 	.add("Default Selected", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch defaultSelected={["London", "Sydney"]} placeholder="Search City" />
-	)))
-	.add("Without Checkbox", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch defaultSelected={["London", "Sydney"]} showCheckbox={false} placeholder="Search City" />
+		<MultiListDefault showSearch defaultSelected={array("defaultSelected", ["London", "Sydney"])} placeholder="Search City" showFilter={false} />
 	)))
 	.add("Custom Sort", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault title="MultiList: Ascending Sort" showSearch defaultSelected={["London"]} sortBy="asc" placeholder="Search City" />
+		<MultiListDefault title="MultiList: Custom Sort" showSearch defaultSelected={["London"]} sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "asc")} placeholder="Search City" showFilter={false} />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch selectAllLabel="All Cities" placeholder="Search City" />
-	)))
-	.add("With queryFormat as and", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch queryFormat="and" placeholder="Search City" />
-	)))
-	.add("With queryFormat as or", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch queryFormat="or" placeholder="Search City" />
-	)))
-	.add("With filterLabel", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch queryFormat="or" placeholder="Search City" filterLabel="Custom Filter Name" />
+		<MultiListDefault showSearch selectAllLabel={text("selectAllLabel", "All Cities")} placeholder="Search City" showFilter={false} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
@@ -146,33 +163,45 @@ storiesOf("MultiList", module)
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
 			showCheckbox={boolean("showCheckbox", true)}
-			queryFormat={select("queryFormat", { and: "and", or: "or" }, "and")}
 			placeholder={text("placeholder", "Search City")}
 			selectAllLabel={text("selectAllLabel", "All cities")}
+			queryFormat={select("queryFormat", { and: "and", or: "or" }, "or")}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "City filter")}
 		/>
 	)));
 
 storiesOf("SingleDropdownList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
-		<SingleDropdownListDefault />
+		<SingleDropdownListDefault showFilter={false} />
+	)))
+	.add("With title", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<SingleDropdownListDefault showFilter={false} title={text("title", "City list")} />
+	)))
+	.add("With size", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<SingleDropdownListDefault showFilter={false} size={number("size", 10)} />
+	)))
+	.add("With filter", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<SingleDropdownListDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "City filter")} />
+	)))
+	.add("With custom sort", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<SingleDropdownListDefault showFilter={false} sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "asc")} />
+	)))
+	.add("Without count", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<SingleDropdownListDefault showFilter={false} showCount={boolean("showCount", false)} />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
 		<SingleDropdownListDefault
-			selectAllLabel="All Cities"
+			selectAllLabel={text("selectAllLabel", "All Cities")}
+			showFilter={false}
 		/>
 	)))
 	.add("With Default Selected", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
 		<SingleDropdownListDefault
 			selectAllLabel="All Cities"
-			defaultSelected="London"
-		/>
-	)))
-	.add("With filterLabel", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
-		<SingleDropdownListDefault
-			selectAllLabel="All Cities"
-			defaultSelected="London"
-			filterLabel="Custom Filter Name"
+			defaultSelected={text("defaultSelected", "London")}
+			showFilter={false}
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
@@ -184,23 +213,45 @@ storiesOf("SingleDropdownList", module)
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={text("defaultSelected", "London")}
 			placeholder={text("placeholder", "Select a City")}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "City filter")}
 		/>
 	)));
 
 storiesOf("MultiDropdownList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
-		<MultiDropdownListDefault />
+		<MultiDropdownListDefault showFilter={false} />
+	)))
+	.add("With title", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<MultiDropdownListDefault showFilter={false} title={text("title", "City list")} />
 	)))
 	.add("With Placeholder", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
 		<MultiDropdownListDefault
-			placeholder="Select Cities"
+			placeholder={text("placeholder", "Select Cities")}
+			showFilter={false}
 		/>
+	)))
+	.add("With size", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<MultiDropdownListDefault showFilter={false} size={number("size", 10)} />
+	)))
+	.add("With filter", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<MultiDropdownListDefault filterLabel="Cities filter" />
+	)))
+	.add("Without count", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<MultiDropdownListDefault showFilter={false} showCount={boolean("showCount", false)} />
+	)))
+	.add("With custom sort", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
+		<MultiDropdownListDefault showFilter={false} sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "asc")} />
+	)))
+	.add("With queryFormat", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
+		<MultiDropdownListDefault showFilter={false} queryFormat={select("queryFormat", { and: "and", or: "or" }, "and")} />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
 		<MultiDropdownListDefault
 			placeholder="Select Cities"
-			selectAllLabel="All Cities"
+			selectAllLabel={text("selectAllLabel", "All Cities")}
+			showFilter={false}
 		/>
 	)))
 	.add("With Default Selected", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
@@ -208,35 +259,8 @@ storiesOf("MultiDropdownList", module)
 			placeholder="Select Cities"
 			size={100}
 			sortBy="count"
-			defaultSelected={["London", "Melbourne"]}
-		/>
-	)))
-	.add("With queryFormat as and", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
-		<MultiDropdownListDefault
-			placeholder="Select Cities"
-			size={100}
-			sortBy="count"
-			defaultSelected={["London"]}
-			queryFormat="and"
-		/>
-	)))
-	.add("With queryFormat as or", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
-		<MultiDropdownListDefault
-			placeholder="Select Cities"
-			size={100}
-			sortBy="count"
-			defaultSelected={["London", "Melbourne"]}
-			queryFormat="or"
-		/>
-	)))
-	.add("With filterLabel", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
-		<MultiDropdownListDefault
-			placeholder="Select Cities"
-			size={100}
-			sortBy="count"
-			defaultSelected={["London", "Melbourne"]}
-			queryFormat="or"
-			filterLabel="Custom Filter Name"
+			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
+			showFilter={false}
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiDropdownListReadme), () => (
@@ -249,35 +273,81 @@ storiesOf("MultiDropdownList", module)
 			selectAllLabel={text("selectAllLabel", "All Cities")}
 			defaultSelected={array("defaultSelected", ["London", "Melbourne"])}
 			placeholder={text("placeholder", "Select Cities")}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "City filter")}
 		/>
 	)));
 
 storiesOf("SingleDataList", module)
+	.addDecorator(withKnobs)
 	.add("Basic", () => (
-		<SingleDataListDefault />
+		<SingleDataListDefault showFilter={false} />
+	))
+	.add("With title", () => (
+		<SingleDataListDefault showFilter={false} title={text("title", "Topics")} />
 	))
 	.add("With defaultSelected", () => (
-		<SingleDataListDefault defaultSelected={"Social"} />
+		<SingleDataListDefault defaultSelected={text("defaultSelected", "Social")} showFilter={false} />
+	))
+	.add("With showSearch", () => (
+		<SingleDataListDefault showFilter={false} showSearch={boolean("showSearch", true)} placeholder={text("placeholder", "Search topics")} />
 	))
 	.add("Without Radio", () => (
-		<SingleDataListDefault showRadio={false} />
+		<SingleDataListDefault showRadio={boolean("showRadio", false)} showFilter={false} />
 	))
-	.add("With filterLabel", () => (
-		<SingleDataListDefault defaultSelected={"Social"} filterLabel="Custom Filter Name" />
+	.add("With selectAllLabel", () => (
+		<SingleDataListDefault showFilter={false} selectAllLabel={text("selectAllLabel", "Select All")} />
+	))
+	.add("With filter", () => (
+		<SingleDataListDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Custom Filter Name")} />
+	))
+	.add("Playground", () => (
+		<SingleDataListDefault
+			title={text("title", "Topics")}
+			defaultSelected={text("defaultSelected", "Social")}
+			showSearch={boolean("showSearch", true)}
+			placeholder={text("placeholder", "Search topics")}
+			showRadio={boolean("showRadio", true)}
+			selectAllLabel={text("selectAllLabel", "Select All")}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Custom Filter Name")}
+		/>
 	));
 
 storiesOf("MultiDataList", module)
+	.addDecorator(withKnobs)
 	.add("Basic", () => (
-		<MultiDataListDefault />
+		<MultiDataListDefault showFilter={false} />
+	))
+	.add("With title", () => (
+		<MultiDataListDefault showFilter={false} title={text("title", "Topics")} />
 	))
 	.add("With defaultSelected", () => (
-		<MultiDataListDefault defaultSelected={["Social", "Travel"]} />
+		<MultiDataListDefault defaultSelected={array("defaultSelected", ["Social", "Travel"])} showFilter={false} />
+	))
+	.add("With showSearch", () => (
+		<MultiDataListDefault showFilter={false} showSearch={boolean("showSearch", true)} placeholder={text("placeholder", "Search topics")} />
 	))
 	.add("Without Checkbox", () => (
-		<MultiDataListDefault showCheckbox={false} />
+		<MultiDataListDefault showCheckbox={boolean("showCheckbox", false)} showFilter={false} />
 	))
-	.add("With filterLabel", () => (
-		<MultiDataListDefault defaultSelected={["Social", "Travel"]} filterLabel="Custom Filter Name" />
+	.add("With selectAllLabel", () => (
+		<MultiDataListDefault showFilter={false} selectAllLabel={text("selectAllLabel", "Select All")} />
+	))
+	.add("With filter", () => (
+		<MultiDataListDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Custom Filter Name")} />
+	))
+	.add("Playground", () => (
+		<MultiDataListDefault
+			title={text("title", "Topics")}
+			defaultSelected={array("defaultSelected", ["Social", "Travel"])}
+			showSearch={boolean("showSearch", true)}
+			placeholder={text("placeholder", "Search topics")}
+			showCheckbox={boolean("showCheckbox", true)}
+			selectAllLabel={text("selectAllLabel", "Select All")}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Custom Filter Name")}
+		/>
 	));
 
 storiesOf("SingleRange", module)
