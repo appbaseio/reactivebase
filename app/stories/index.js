@@ -74,25 +74,34 @@ function removeFirstLine(str, number = 1) {
 storiesOf("SingleList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch placeholder="Search City" />
+		<SingleListDefault showSearch placeholder="Search City" showFilter={false} />
+	)))
+	.add("With title", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch placeholder="Search City" showFilter={false} title={text("title", "Cities")} />
+	)))
+	.add("With size", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch placeholder="Search City" showFilter={false} size={number("size", 10)} />
+	)))
+	.add("Without count", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch placeholder="Search City" showFilter={false} showCount={boolean("showCount", false)} />
 	)))
 	.add("Without Search", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch={false} placeholder="Search City" />
+		<SingleListDefault showSearch={boolean("showSearch", false)} placeholder="Search City" showFilter={false} />
+	)))
+	.add("With filter", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch placeholder="Search City" showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "City filter")} />
+	)))
+	.add("Wihout radio buttons", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch placeholder="Search City" showFilter={false} showRadio={boolean("showRadio", false)} />
 	)))
 	.add("Default Selected", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch defaultSelected="San Francisco" placeholder="Search City" />
-	)))
-	.add("Without Radio", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch defaultSelected="San Francisco" showRadio={false} placeholder="Search City" />
+		<SingleListDefault showSearch defaultSelected={text("defaultSelected", "London")} placeholder="Search City" showFilter={false} />
 	)))
 	.add("Custom Sort", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault title="SingleList: Ascending Sort" showSearch defaultSelected="London" sortBy="asc" placeholder="Search City" />
+		<SingleListDefault title="SingleList: Custom Sort" showSearch defaultSelected="London" sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "asc")} placeholder="Search City" showFilter={false} />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch selectAllLabel="All Cities" placeholder="Search City" />
-	)))
-	.add("With filterLabel", withReadme(removeFirstLine(SingleListReadme), () => (
-		<SingleListDefault showSearch selectAllLabel="All Cities" filterLabel="Custom Filter Name" placeholder="Search City" />
+		<SingleListDefault showSearch selectAllLabel={text("selectAllLabel", "All Cities")} placeholder="Search City" showFilter={false} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault
@@ -102,9 +111,11 @@ storiesOf("SingleList", module)
 			defaultSelected={text("defaultSelected", "San Francisco")}
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
-			showRadio={boolean("showRadio", true)}
 			placeholder={text("placeholder", "Search City")}
 			selectAllLabel={text("selectAllLabel", "All cities")}
+			showRadio={boolean("showRadio", true)}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "City filter")}
 		/>
 	)));
 
