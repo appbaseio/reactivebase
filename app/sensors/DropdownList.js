@@ -271,7 +271,7 @@ export default class DropdownList extends Component {
 
 	renderOption(option) {
 		return (
-			<span key={option.value}>{option.value} {this.props.showCount ? (<span className="rbc-count">{option.count}</span>) : null}</span>
+			<span key={option.value}>{option.value} {this.props.showCount && option.count ? (<span className="rbc-count">{option.count}</span>) : null}</span>
 		);
 	}
 
