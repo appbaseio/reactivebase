@@ -56,6 +56,10 @@ export default class NativeList extends Component {
 	componentWillReceiveProps(nextProps) {
 		this.urlParams = helper.URLParams.get(nextProps.componentId, nextProps.multipleSelect);
 
+		if (this.props.queryFormat !== nextProps.queryFormat) {
+			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "Terms" : "Term";
+		}
+
 		if (!_.isEqual(this.props.react, nextProps.react)) {
 			this.setReact(nextProps);
 			manager.update(this.channelId, this.react, nextProps.size, 0, false);
