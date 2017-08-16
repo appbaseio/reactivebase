@@ -122,31 +122,37 @@ storiesOf("SingleList", module)
 storiesOf("MultiList", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch placeholder="Search City" />
+		<MultiListDefault showSearch placeholder="Search City" showFilter={false} />
+	)))
+	.add("With title", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch placeholder="Search City" showFilter={false} title={text("title", "MultiList: City Filter")} />
+	)))
+	.add("With size", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch placeholder="Search City" showFilter={false} size={number("size", 10)} />
+	)))
+	.add("With filter", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch placeholder="Search City" showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "City filter")} />
+	)))
+	.add("With queryFormat", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch placeholder="Search City" queryFormat={select("queryFormat", { and: "and", or: "or" }, "and")} />
+	)))
+	.add("Wihout count", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch placeholder="Search City" showFilter={false} showCount={boolean("showCount", false)} />
 	)))
 	.add("Without Search", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch={false} placeholder="Search City" />
+		<MultiListDefault showSearch={boolean("showSearch", false)} placeholder="Search City" showFilter={false} />
+	)))
+	.add("Without checkbox", withReadme(removeFirstLine(MultiListReadme), () => (
+		<MultiListDefault showSearch placeholder="Search City" showFilter={false} showCheckbox={boolean("showCheckbox", false)} />
 	)))
 	.add("Default Selected", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch defaultSelected={["London", "Sydney"]} placeholder="Search City" />
-	)))
-	.add("Without Checkbox", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch defaultSelected={["London", "Sydney"]} showCheckbox={false} placeholder="Search City" />
+		<MultiListDefault showSearch defaultSelected={array("defaultSelected", ["London", "Sydney"])} placeholder="Search City" showFilter={false} />
 	)))
 	.add("Custom Sort", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault title="MultiList: Ascending Sort" showSearch defaultSelected={["London"]} sortBy="asc" placeholder="Search City" />
+		<MultiListDefault title="MultiList: Custom Sort" showSearch defaultSelected={["London"]} sortBy={select("sortBy", { asc: "asc", desc: "desc", count: "count" }, "asc")} placeholder="Search City" showFilter={false} />
 	)))
 	.add("With Select All", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch selectAllLabel="All Cities" placeholder="Search City" />
-	)))
-	.add("With queryFormat as and", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch queryFormat="and" placeholder="Search City" />
-	)))
-	.add("With queryFormat as or", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch queryFormat="or" placeholder="Search City" />
-	)))
-	.add("With filterLabel", withReadme(removeFirstLine(MultiListReadme), () => (
-		<MultiListDefault showSearch queryFormat="or" placeholder="Search City" filterLabel="Custom Filter Name" />
+		<MultiListDefault showSearch selectAllLabel={text("selectAllLabel", "All Cities")} placeholder="Search City" showFilter={false} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiListReadme), () => (
 		<MultiListDefault
@@ -157,9 +163,11 @@ storiesOf("MultiList", module)
 			showCount={boolean("showCount", true)}
 			showSearch={boolean("showSearch", true)}
 			showCheckbox={boolean("showCheckbox", true)}
-			queryFormat={select("queryFormat", { and: "and", or: "or" }, "and")}
 			placeholder={text("placeholder", "Search City")}
 			selectAllLabel={text("selectAllLabel", "All cities")}
+			queryFormat={select("queryFormat", { and: "and", or: "or" }, "or")}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "City filter")}
 		/>
 	)));
 
