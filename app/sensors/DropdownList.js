@@ -51,6 +51,10 @@ export default class DropdownList extends Component {
 			manager.update(this.channelId, this.react, nextProps.size, 0, false);
 		}
 
+		if (this.props.queryFormat !== nextProps.queryFormat) {
+			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "Terms" : "Term";
+		}
+
 		if (nextProps.multipleSelect && !_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
 			this.changeValue(nextProps.defaultSelected);
 		} else if (!nextProps.multipleSelect && this.props.defaultSelected !== nextProps.defaultSelected) {
