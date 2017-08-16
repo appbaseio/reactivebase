@@ -109,7 +109,7 @@ export default class DropdownList extends Component {
 			const records = this.state.items.filter(record => record.value === this.defaultSelected);
 
 			if (records.length) {
-				this.handleChange(records);
+				this.handleChange(records[0]);	// multipleSelect is false
 			} else {
 				this.handleChange({value: this.defaultSelected});
 			}
