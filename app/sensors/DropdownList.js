@@ -271,7 +271,7 @@ export default class DropdownList extends Component {
 
 	renderOption(option) {
 		return (
-			<span key={option.value}>{option.value} {this.props.showCount && option.count ? (<span className="rbc-count">{option.count}</span>) : null}</span>
+			<span key={option.value}>{option.value} {this.props.showCount ? (<span className="rbc-count">{option.count}</span>) : null}</span>
 		);
 	}
 
@@ -279,10 +279,7 @@ export default class DropdownList extends Component {
 		newItems = newItems.map((item) => {
 			item.label = item.key.toString();
 			item.value = item.key.toString();
-			item.count = null;
-			if (this.props.showCount) {
-				item.count = item.doc_count;
-			}
+			item.count = item.doc_count;
 			return item;
 		});
 		newItems = newItems.filter(item => item && item.label && item.label.trim());
