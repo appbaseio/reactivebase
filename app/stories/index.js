@@ -493,30 +493,35 @@ storiesOf("RangeSlider", module)
 	.add("Basic", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault />
 	)))
+	.add("With title", withReadme(removeFirstLine(RangeSliderReadme), () => (
+		<RangeSliderDefault title={text("title", "RangeSlider: Prices")} />
+	)))
 	.add("With Default Selected", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
-			defaultSelected={{
-				start: 0,
-				end: 2
-			}}
+			defaultSelected={object("defaultSelected", {
+				start: 10,
+				end: 50
+			})}
 		/>
 	)))
 	.add("Without histogram", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
-			showHistogram={false}
+			showHistogram={boolean("showHistogram", false)}
 		/>
+	)))
+	.add("With custom histogram interval", withReadme(removeFirstLine(RangeSliderReadme), () => (
+		<RangeSliderDefault interval={number("interval", 50)} />
 	)))
 	.add("With Range Labels", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
-			defaultSelected={{
-				start: 0,
-				end: 2
-			}}
-			rangeLabels={{
-				start: "Start",
-				end: "End"
-			}}
+			rangeLabels={object("rangeLabels", {
+				start: "$10",
+				end: "$250"
+			})}
 		/>
+	)))
+	.add("With URLParams", withReadme(removeFirstLine(RangeSliderReadme), () => (
+		<RangeSliderDefault URLParams={boolean("URLParams (not visible on storybook)", true)} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
@@ -535,6 +540,7 @@ storiesOf("RangeSlider", module)
 				end: "End"
 			})}
 			showHistogram={boolean("showHistogram", true)}
+			URLParams={boolean("URLParams (not visible on storybook)", true)}
 		/>
 	)));
 
