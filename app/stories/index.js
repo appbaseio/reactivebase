@@ -556,51 +556,56 @@ storiesOf("NumberBox", module)
 			labelPosition="left"
 		/>
 	)))
-	.add("Default Selected", withReadme(removeFirstLine(NumberBoxReadme), () => (
+	.add("With title", withReadme(removeFirstLine(NumberBoxReadme), () => (
 		<NumberBoxDefault
-			data={{
-				label: "Car Ratings",
-				start: 1,
-				end: 5
-			}}
 			defaultSelected={2}
+			data={{
+				start: 1,
+				end: 16
+			}}
 			labelPosition="left"
+			title={text("title", "Number of Guests")}
 		/>
 	)))
-	.add("Exact query", withReadme(removeFirstLine(NumberBoxReadme), () => (
+	.add("With data", withReadme(removeFirstLine(NumberBoxReadme), () => (
 		<NumberBoxDefault
-			data={{
-				label: "Car Ratings",
+			defaultSelected={2}
+			data={object("data", {
 				start: 1,
-				end: 5
-			}}
-			defaultSelected={3}
-			labelPosition="left"
-			queryFormat="exact"
+				end: 16,
+				label: "Guests"
+			})}
+			labelPosition="right"
 		/>
 	)))
-	.add("Less than query", withReadme(removeFirstLine(NumberBoxReadme), () => (
+	.add("With defaultSelected", withReadme(removeFirstLine(NumberBoxReadme), () => (
 		<NumberBoxDefault
+			defaultSelected={number("defaultSelected", 2)}
 			data={{
-				label: "Car Ratings",
 				start: 1,
-				end: 5
+				end: 16
 			}}
-			defaultSelected={5}
-			labelPosition="left"
-			queryFormat="lte"
 		/>
 	)))
-	.add("With filterLabel", withReadme(removeFirstLine(NumberBoxReadme), () => (
+	.add("With queryFormat", withReadme(removeFirstLine(NumberBoxReadme), () => (
 		<NumberBoxDefault
+			defaultSelected={2}
 			data={{
-				label: "Car Ratings",
 				start: 1,
-				end: 5
+				end: 16
 			}}
-			defaultSelected={5}
+			queryFormat={select("queryFormat", { exact: "exact", gte: "gte", lte: "lte" }, "exact")}
+		/>
+	)))
+	.add("With URLParams", withReadme(removeFirstLine(NumberBoxReadme), () => (
+		<NumberBoxDefault
+			defaultSelected={2}
+			data={{
+				start: 1,
+				end: 16
+			}}
 			labelPosition="left"
-			filterLabel="Custom Filter Name"
+			URLParams={boolean("URLParams (not visible on storybook)", true)}
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(NumberBoxReadme), () => (
@@ -612,7 +617,8 @@ storiesOf("NumberBox", module)
 				label: "Car Ratings"
 			})}
 			labelPosition={select("labelPosition", { bottom: "bottom", top: "top", left: "left", right: "right" }, "right")}
-			queryFormat={select("queryFormat", { gte: "gte", lte: "lte", exact: "exact"}, "gte")}
+			queryFormat={select("queryFormat", { gte: "gte", lte: "lte", exact: "exact" }, "gte")}
+			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
 	)));
 
