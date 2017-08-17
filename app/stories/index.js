@@ -687,36 +687,92 @@ storiesOf("DataSearch", module)
 		<DataSearchDefault
 			title="DataSearch"
 			placeholder="Search Venue"
+			showFilter={false}
 		/>
 	)))
-	.add("Without Autocomplete", withReadme(removeFirstLine(DataSearchReadme), () => (
+	.add("With title", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title={text("title", "Venue Search")}
+			placeholder="Search Venues"
+			showFilter={false}
+		/>
+	)))
+	.add("With filter", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venues"
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Venues filter")}
+		/>
+	)))
+	.add("Without autoSuggest", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
 			placeholder="Search Venue"
-			autoSuggest={false}
+			autoSuggest={boolean("autoSuggest", false)}
+			showFilter={false}
+		/>
+	)))
+	.add("With defaultSelected", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venues"
+			showFilter={false}
+			defaultSelected={text("defaultSelected", "Jazz")}
+		/>
+	)))
+	.add("With initialSuggestions", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venues"
+			showFilter={false}
+			initialSuggestions={[{ label: "Songwriting", value: "Songwriting" }, { label: "Jazz", value: "Jazz" }]}
 		/>
 	)))
 	.add("With Weights", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venue"
+			placeholder="Search Venues"
 			weights={[1, 3]}
+			showFilter={false}
 		/>
 	)))
-	.add("With filterLabel", withReadme(removeFirstLine(DataSearchReadme), () => (
+	.add("With fuzziness", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venue"
-			weights={[1, 3]}
-			filterLabel="Custom Filter Name"
+			placeholder="Search Venues"
+			showFilter={false}
+			fuzziness={number("fuzziness", 1)}
+		/>
+	)))
+	.add("With highlight", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venues"
+			showFilter={false}
+			highlight={boolean("highlight", true)}
+		/>
+	)))
+	.add("With URLParams", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venues"
+			showFilter={false}
+			URLParams={boolean("URLParams (not visible on storybook)", true)}
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
-			title={text("title", "DataSearch")}
-			placeholder={text("placeholder", "Search Venue")}
+			title={text("title", "DataSearch: Venues")}
+			placeholder={text("placeholder", "Search Venues")}
 			autoSuggest={boolean("autoSuggest", true)}
-			weights={array("weights", [1,3])}
+			defaultSelected={text("defaultSelected", "")}
+			weights={array("weights", [1, 3])}
+			fuzziness={number("fuzziness", 1)}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Venue filter")}
+			highlight={boolean("highlight", false)}
+			URLParams={boolean("URLParams (not visible on storybook)", true)}
 		/>
 	)));
 
