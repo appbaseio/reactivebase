@@ -896,7 +896,7 @@ storiesOf("DatePicker", module)
 			queryFormat={select("queryFormat", {"epoch_millis":"epoch_millis","epoch_seconds":"epoch_seconds","date":"date","date_time":"date_time","date_time_no_millis":"date_time_no_millis","basic_date":"basic_date","basic_date_time":"basic_date_time","basic_date_time_no_millis":"basic_date_time_no_millis","basic_time":"basic_time","basic_time_no_millis":"basic_time_no_millis"}, "epoch_millis")}
 			showFilter={boolean("showFilter", true)}
 			filterLabel={text("filterLabel", "Date")}
-			URLParams={boolean("URLParams (not visible on storybook)", true)}
+			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
 	)));
 
@@ -905,13 +905,21 @@ storiesOf("DateRange", module)
 	.add("Basic", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault />
 	)))
+	.add("With title", withReadme(removeFirstLine(DateRangeReadme), () => (
+		<DateRangeDefault showFilter={false} title={text("title", "Date Range")} />
+	)))
+	.add("With filter", withReadme(removeFirstLine(DateRangeReadme), () => (
+		<DateRangeDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Date range")} />
+	)))
 	.add("Show more than 1 month", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault
-			numberOfMonths={3}
+			numberOfMonths={number("numberOfMonths", 3)}
+			showFilter={false}
 		/>
 	)))
 	.add("Default date", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault
+			showFilter={false}
 			defaultSelected={{
 				start: moment().subtract(7, "days"),
 				end: moment()
@@ -920,29 +928,35 @@ storiesOf("DateRange", module)
 	)))
 	.add("Enable days from today only", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault
-			allowAllDates={false}
+			allowAllDates={boolean("allowAllDates", false)}
+			showFilter={false}
 		/>
 	)))
 	.add("Using extra prop object", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault
-			extra={{
+			showFilter={false}
+			extra={object("extra", {
 				withFullScreenPortal: true,
 				showClearDate: true
-			}}
+			})}
 		/>
 	)))
-	.add("With filterLabel", withReadme(removeFirstLine(DateRangeReadme), () => (
-		<DateRangeDefault
-			allowAllDates={false}
-			filterLabel="Custom Filter Name"
-		/>
+	.add("With URLParams", withReadme(removeFirstLine(DateRangeReadme), () => (
+		<DateRangeDefault showFilter={false} URLParams={boolean("URLParams (not visible on storybook)", true)} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(DateRangeReadme), () => (
 		<DateRangeDefault
 			title={text("title", "Date Range")}
 			numberOfMonths={number("numberOfMonths", 2)}
 			allowAllDates={boolean("allowAllDates", true)}
+			extra={object("extra", {
+				withFullScreenPortal: true,
+				showClearDate: true
+			})}
 			queryFormat={select("queryFormat", {"epoch_millis":"epoch_millis","epoch_seconds":"epoch_seconds","date":"date","date_time":"date_time","date_time_no_millis":"date_time_no_millis","basic_date":"basic_date","basic_date_time":"basic_date_time","basic_date_time_no_millis":"basic_date_time_no_millis","basic_time":"basic_time","basic_time_no_millis":"basic_time_no_millis"}, "epoch_millis")}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Date range")}
+			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
 	)));
 
@@ -956,6 +970,15 @@ storiesOf("ReactiveElement", module)
 	.add("Basic", withReadme(removeFirstLine(ReactiveElementReadme, 3), () => (
 		<ReactiveElement.Basic />
 	)))
+	.add("With title", withReadme(removeFirstLine(ReactiveElementReadme, 3), () => (
+		<ReactiveElement.Basic title={text("title", "ReactiveElement")} />
+	)))
+	.add("With placeholder", withReadme(removeFirstLine(ReactiveElementReadme, 3), () => (
+		<ReactiveElement.Basic placeholder={text("placeholder", "Select city from the list")} />
+	)))
+	.add("Without result stats", withReadme(removeFirstLine(ReactiveElementReadme, 3), () => (
+		<ReactiveElement.Basic showResultStats={boolean("showResultStats", false)} />
+	)))
 	.add("Stream", withReadme(removeFirstLine(ReactiveElementReadme, 3), () => (
 		<ReactiveElement.WithStream />
 	)))
@@ -968,8 +991,8 @@ storiesOf("ReactiveElement", module)
 			placeholder={text("placeholder", "Select city from the list")}
 			from={number("from", 0)}
 			size={number("size", 5)}
-			initialLoader="Loading results.."
-			noResults="No results found! Try a different filter duh.."
+			initialLoader={text("initialLoader", "Loading results..")}
+			noResults={text("noResults", "No results found! Try a different filter duh..")}
 			stream={boolean("stream", false)}
 			showResultStats={boolean("showResultStats", true)}
 		/>
