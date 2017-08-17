@@ -1006,23 +1006,28 @@ storiesOf("ReactiveList", module)
 	.add("With Custom Markup", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault stream={false} />
 	)))
-	.add("Without Title", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault title="" stream={false} />
+	.add("With Title", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+		<ReactiveListDefault title={text("title", "People")} stream={false} />
+	)))
+	.add("With placeholder", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+		<ReactiveListDefault onAllData={null} stream={false} placeholder={text("placeholder", "Select from list")} />
+	)))
+	.add("Without resultStats", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+		<ReactiveListDefault onAllData={null} stream={false} showResultStats={boolean("showResultStats", false)} />
 	)))
 	.add("With Streaming Enabled", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault title="Meetups" stream />
+		<ReactiveListDefault title="Meetups" stream={boolean("stream", true)} />
 	)))
 	.add("With pagination", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault pagination title="Meetups" />
+		<ReactiveListDefault
+			pagination={boolean("pagination", true)}
+			paginationAt={select("paginationAt", { bottom: "bottom", top: "top", both: "both" }, "bottom")}
+			pages={number("pages", 5)}
+			title="Meetups"
+		/>
 	)))
-	.add("With pagination at top", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault pagination paginationAt="top" title="Meetups" />
-	)))
-	.add("With pagination at both", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault pagination paginationAt="both" title="Meetups" />
-	)))
-	.add("With pages", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
-		<ReactiveListDefault pagination paginationAt="top" title="Meetups" pages={number("pages", 9)} />
+	.add("With custom sort order", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+		<ReactiveListDefault onAllData={null} stream={false} sortBy={select("sortBy", { asc: "asc", desc: "desc", default: "default" }, "asc")} />
 	)))
 	.add("With Sort Options", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault
@@ -1047,16 +1052,18 @@ storiesOf("ReactiveList", module)
 			]}
 		/>
 	)))
-	.add("With Loader", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+	.add("With custom messages", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault
 			title="Meetups"
 			stream={false}
-			initialLoader="Loading results.."
+			initialLoader={text("initialLoader", "Loading results..")}
+			noResults={text("noResults", "No results found!")}
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault
 			title={text("title", "ReactiveList: Results")}
+			placeholder={text("placeholder", "Select from list")}
 			from={number("from", 0)}
 			size={number("size", 5)}
 			initialLoader={text("initialLoader", "Loading results..")}
@@ -1066,5 +1073,23 @@ storiesOf("ReactiveList", module)
 			paginationAt={select("paginationAt", { bottom: "bottom", top: "top", both: "both" }, "bottom")}
 			pages={number("pages", 5)}
 			stream={boolean("stream", false)}
+			sortBy={select("sortBy", { asc: "asc", desc: "desc", default: "default" }, "default")}
+			sortOptions={[
+				{
+					label: "Most Recent RSVP",
+					appbaseField: "mtime",
+					sortBy: "desc"
+				},
+				{
+					label: "Guests - High to Low",
+					appbaseField: "guests",
+					sortBy: "desc"
+				},
+				{
+					label: "Guests - Low to High",
+					appbaseField: "guests",
+					sortBy: "asc"
+				}
+			]}
 		/>
 	)));
