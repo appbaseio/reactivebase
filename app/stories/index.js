@@ -839,43 +839,64 @@ storiesOf("DataController", module)
 storiesOf("DatePicker", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(DatePickerReadme), () => (
-		<DatePickerDefault />
+		<DatePickerDefault showFilter={false} />
+	)))
+	.add("With title", withReadme(removeFirstLine(DatePickerReadme), () => (
+		<DatePickerDefault title={text("title", "Date Picker")} showFilter={false} />
+	)))
+	.add("With placeholder", withReadme(removeFirstLine(DatePickerReadme), () => (
+		<DatePickerDefault placeholder={text("placeholder", "Pick date")} showFilter={false} />
+	)))
+	.add("With filter", withReadme(removeFirstLine(DatePickerReadme), () => (
+		<DatePickerDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Date")} />
+	)))
+	.add("Without focus", withReadme(removeFirstLine(DatePickerReadme), () => (
+		<DatePickerDefault showFilter={false} focused={boolean("focused", false)} />
 	)))
 	.add("Show more than 1 month", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
-			numberOfMonths={2}
+			numberOfMonths={number("numberOfMonths", 2)}
+			showFilter={false}
 		/>
 	)))
 	.add("Default date", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
 			defaultSelected={moment().subtract(1, "day")}
+			showFilter={false}
 		/>
 	)))
 	.add("Enable days from today only", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
-			allowAllDates={false}
+			allowAllDates={boolean("allowAllDates", false)}
+			showFilter={false}
 		/>
 	)))
 	.add("Using extra prop object", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
-			extra={{
+			extra={object("extra", {
 				withFullScreenPortal: true,
 				showClearDate: true
-			}}
+			})}
+			showFilter={false}
 		/>
 	)))
-	.add("With filterLabel", withReadme(removeFirstLine(DatePickerReadme), () => (
-		<DatePickerDefault
-			allowAllDates={false}
-			filterLabel="Custom Filter Name"
-		/>
+	.add("With URLParams", withReadme(removeFirstLine(DatePickerReadme), () => (
+		<DatePickerDefault showFilter={false} URLParams={boolean("URLParams (not visible on storybook)", true)} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(DatePickerReadme), () => (
 		<DatePickerDefault
 			title={text("title", "Date Picker")}
+			placeholder={text("placeholder", "Pick date")}
 			numberOfMonths={number("numberOfMonths", 1)}
 			allowAllDates={boolean("allowAllDates", true)}
+			extra={object("extra", {
+				withFullScreenPortal: false,
+				showClearDate: false
+			})}
 			queryFormat={select("queryFormat", {"epoch_millis":"epoch_millis","epoch_seconds":"epoch_seconds","date":"date","date_time":"date_time","date_time_no_millis":"date_time_no_millis","basic_date":"basic_date","basic_date_time":"basic_date_time","basic_date_time_no_millis":"basic_date_time_no_millis","basic_time":"basic_time","basic_time_no_millis":"basic_time_no_millis"}, "epoch_millis")}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Date")}
+			URLParams={boolean("URLParams (not visible on storybook)", true)}
 		/>
 	)));
 
