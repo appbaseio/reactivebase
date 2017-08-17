@@ -62,6 +62,7 @@ export default class NumberBox extends Component {
 		} else {
 			setTimeout(this.handleChange.bind(this), 1000);
 		}
+		this.listenFilter();
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -77,6 +78,12 @@ export default class NumberBox extends Component {
 				this.updateQuery();
 			}
 		}, 300);
+	}
+
+	componentWillUnmount() {
+		if (this.filterListener) {
+			this.filterListener.remove();
+		}
 	}
 
 	// build query for this sensor only
@@ -138,10 +145,24 @@ export default class NumberBox extends Component {
 				queryType: this.type,
 				inputData: appbaseField,
 				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
-				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
+				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected,
+				showFilter: this.props.showFilter,
+				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
+				component: "NumberBox",
+				reactiveId: this.context.reactiveId
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
+	}
+
+	listenFilter() {
+		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
+			if (data === this.props.componentId) {
+				this.setState({
+					currentValue: this.props.defaultSelected ? this.props.defaultSelected : this.props.data.start
+				}, this.updateQuery.bind(this));
+			}
+		});
 	}
 
 	// handle the input change and pass the value inside sensor info
@@ -238,19 +259,23 @@ NumberBox.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	queryFormat: React.PropTypes.oneOf(["exact", "gte", "lte"]),
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	showFilter: React.PropTypes.bool,
+	filterLabel: React.PropTypes.string
 };
 
 NumberBox.defaultProps = {
 	componentStyle: {},
 	queryFormat: "gte",
-	URLParams: false
+	URLParams: false,
+	showFilter: true
 };
 
 // context type
 NumberBox.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	reactiveId: React.PropTypes.number
 };
 
 NumberBox.types = {
