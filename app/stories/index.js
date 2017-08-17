@@ -793,26 +793,34 @@ storiesOf("DataSearchHighlight", module)
 storiesOf("DataController", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(DataControllerReadme), () => (
-		<DataControllerDefault />
+		<DataControllerDefault showFilter={false} />
 	)))
 	.add("With UI", withReadme(removeFirstLine(DataControllerReadme), () => (
 		<DataControllerDefault
 			title="DataController"
-			visible={true}
+			visible={boolean("visible", true)}
 			dataLabel={
 				<p>★ A customizable UI widget ★</p>
 			}
+			showFilter={false}
 		/>
 	)))
-	.add("With filterLabel", withReadme(removeFirstLine(DataControllerReadme), () => (
+	.add("With defaultSelected", withReadme(removeFirstLine(DataControllerReadme), () => (
+		<DataControllerDefault defaultSelected={text("defaultSelected", "Audi")} />
+	)))
+	.add("With filter", withReadme(removeFirstLine(DataControllerReadme), () => (
 		<DataControllerDefault
 			title="DataController"
 			visible={true}
 			dataLabel={
 				<p>★ A customizable UI widget ★</p>
 			}
-			filterLabel="Custom Filter Name"
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Custom Filter Name")}
 		/>
+	)))
+	.add("With URLParams", withReadme(removeFirstLine(DataControllerReadme), () => (
+		<DataControllerDefault showFilter={false} URLParams={boolean("URLParams (not visible on storybook)", true)} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(DataControllerReadme), () => (
 		<DataControllerDefault
@@ -821,6 +829,9 @@ storiesOf("DataController", module)
 			dataLabel={text("dataLabel", "★  A customizable UI widget ★")}
 			defaultSelected={text("defaultSelected", "default")}
 			componentStyle={object("componentStyle", { "padding-bottom": "10px" })}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Custom Filter Name")}
+			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
 	)));
 
