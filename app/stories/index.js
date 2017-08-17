@@ -625,19 +625,31 @@ storiesOf("NumberBox", module)
 storiesOf("ToggleButton", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(ToggleButtonReadme), () => (
-		<ToggleButtonDefault />
+		<ToggleButtonDefault showFilter={false} />
+	)))
+	.add("With title", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault showFilter={false} title={text("title", "ToggleButton: Meetup Categories")} />
 	)))
 	.add("With Default Selected", withReadme(removeFirstLine(ToggleButtonReadme), () => (
-		<ToggleButtonDefault defaultSelected={["Social"]} />
+		<ToggleButtonDefault defaultSelected={array("defaultSelected", ["Social", "Travel"])} showFilter={false} />
 	)))
-	.add("With filterLabel", withReadme(removeFirstLine(ToggleButtonReadme), () => (
-		<ToggleButtonDefault defaultSelected={["Social"]} filterLabel="Custom Filter Name" />
+	.add("With filter", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Category filter")} />
+	)))
+	.add("Without multiSelect", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault showFilter={false} multiSelect={boolean("multiSelect", false)} />
+	)))
+	.add("With URLParams", withReadme(removeFirstLine(ToggleButtonReadme), () => (
+		<ToggleButtonDefault showFilter={false} URLParams={boolean("URLParams (not visible on storybook)", true)} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(ToggleButtonReadme), () => (
 		<ToggleButtonDefault
 			title={text("title", "ToggleButton: Meetup Categories")}
 			multiSelect={boolean("multiSelect", true)}
 			defaultSelected={array("defaultSelected", ["Social", "Travel"])}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Category filter")}
+			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
 	)));
 
