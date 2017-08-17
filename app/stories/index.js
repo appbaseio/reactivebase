@@ -103,6 +103,9 @@ storiesOf("SingleList", module)
 	.add("With Select All", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault showSearch selectAllLabel={text("selectAllLabel", "All Cities")} placeholder="Search City" showFilter={false} />
 	)))
+	.add("With URLParams", withReadme(removeFirstLine(SingleListReadme), () => (
+		<SingleListDefault showSearch placeholder="Search City" showFilter={false} URLParams={boolean("URLParams (not visible on storybook)", true)} />
+	)))
 	.add("Playground", withReadme(removeFirstLine(SingleListReadme), () => (
 		<SingleListDefault
 			title={text("title", "SingleList: City Filter")}
@@ -116,6 +119,7 @@ storiesOf("SingleList", module)
 			showRadio={boolean("showRadio", true)}
 			showFilter={boolean("showFilter", true)}
 			filterLabel={text("filterLabel", "City filter")}
+			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
 	)));
 
