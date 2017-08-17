@@ -377,44 +377,62 @@ storiesOf("MultiDataList", module)
 storiesOf("SingleRange", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(SingleRangeReadme), () => (
-		<SingleRangeDefault />
+		<SingleRangeDefault showFilter={false} />
+	)))
+	.add("With title", withReadme(removeFirstLine(SingleRangeReadme), () => (
+		<SingleRangeDefault showFilter={false} title={text("title", "SingleRange: Price Filter")} />
 	)))
 	.add("With Default Selected", withReadme(removeFirstLine(SingleRangeReadme), () => (
-		<SingleRangeDefault defaultSelected="Cheap" />
+		<SingleRangeDefault defaultSelected={text("defaultSelected", "Cheap")} showFilter={false} />
 	)))
-	.add("Without Radio", withReadme(removeFirstLine(SingleRangeReadme), () => (
-		<SingleRangeDefault showRadio={false} />
+	.add("With filter", withReadme(removeFirstLine(SingleRangeReadme), () => (
+		<SingleRangeDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Price filter")} />
 	)))
-	.add("With filterLabel", withReadme(removeFirstLine(SingleRangeReadme), () => (
-		<SingleRangeDefault filterLabel="Custom Filter Name" />
+	.add("Without radio buttons", withReadme(removeFirstLine(SingleRangeReadme), () => (
+		<SingleRangeDefault showFilter={false} showRadio={boolean("showRadio", false)} />
+	)))
+	.add("With URLParams", withReadme(removeFirstLine(SingleRangeReadme), () => (
+		<SingleRangeDefault showFilter={false} URLParams={boolean("URLParams (not visible on storybook)", true)} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleRangeReadme), () => (
 		<SingleRangeDefault
 			title={text("title", "SingleRange: Price Filter")}
 			defaultSelected={text("defaultSelected", "Cheap")}
 			showRadio={boolean("showRadio", true)}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Price filter")}
+			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
 	)));
 
 storiesOf("MultiRange", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(MultiRangeReadme), () => (
-		<MultiRangeDefault />
+		<MultiRangeDefault showFilter={false} />
+	)))
+	.add("With title", withReadme(removeFirstLine(MultiRangeReadme), () => (
+		<MultiRangeDefault title={text("title", "MultiRange: Price Filter")} showFilter={false} />
 	)))
 	.add("With Default Selected", withReadme(removeFirstLine(MultiRangeReadme), () => (
-		<MultiRangeDefault defaultSelected={["Cheap", "Moderate"]} />
+		<MultiRangeDefault defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])} showFilter={false} />
 	)))
-	.add("Without Checkbox", withReadme(removeFirstLine(MultiRangeReadme), () => (
-		<MultiRangeDefault showCheckbox={false} />
+	.add("With filter", withReadme(removeFirstLine(MultiRangeReadme), () => (
+		<MultiRangeDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Price filter")} />
 	)))
-	.add("With filterLabel", withReadme(removeFirstLine(MultiRangeReadme), () => (
-		<MultiRangeDefault filterLabel="Custom Filter Name" />
+	.add("Without checkbox", withReadme(removeFirstLine(MultiRangeReadme), () => (
+		<MultiRangeDefault showFilter={false} showCheckbox={boolean("showCheckbox", false)} />
+	)))
+	.add("With URLParams", withReadme(removeFirstLine(MultiRangeReadme), () => (
+		<MultiRangeDefault showFilter={false} URLParams={boolean("URLParams (not visible on storybook)", true)} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiRangeReadme), () => (
 		<MultiRangeDefault
 			title={text("title", "MultiRange: Price Filter")}
 			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
 			showCheckbox={boolean("showCheckbox", true)}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Price filter")}
+			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
 	)));
 
@@ -423,16 +441,24 @@ storiesOf("SingleDropdownRange", module)
 	.add("Basic", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
 		<SingleDropdownRangeDefault />
 	)))
-	.add("With Default Selected", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
-		<SingleDropdownRangeDefault defaultSelected="Cheap" />
+	.add("With title", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
+		<SingleDropdownRangeDefault title={text("title", "SingleDropdownRange: Price Filter")} />
 	)))
-	.add("With filterLabel", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
-		<SingleDropdownRangeDefault defaultSelected="Cheap" filterLabel="Custom Filter Name" />
+	.add("With placeholder", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
+		<SingleDropdownRangeDefault placeholder={text("placeholder", "Search prices")} />
+	)))
+	.add("With Default Selected", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
+		<SingleDropdownRangeDefault defaultSelected={text("defaultSelected", "Cheap")} />
+	)))
+	.add("With URLParams", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
+		<SingleDropdownRangeDefault URLParams={boolean("URLParams (not visible on storybook)", true)} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
 		<SingleDropdownRangeDefault
 			title={text("title", "SingleDropdownRange: Price Filter")}
+			placeholder={text("placeholder", "Search prices")}
 			defaultSelected={text("defaultSelected", "Cheap")}
+			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
 	)));
 
@@ -441,16 +467,24 @@ storiesOf("MultiDropdownRange", module)
 	.add("Basic", withReadme(removeFirstLine(MultiDropdownRangeReadme), () => (
 		<MultiDropdownRangeDefault />
 	)))
-	.add("With Default Selected", withReadme(removeFirstLine(MultiDropdownRangeReadme), () => (
-		<MultiDropdownRangeDefault defaultSelected={["Cheap", "Moderate"]} />
+	.add("With title", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
+		<MultiDropdownRangeDefault title={text("title", "SingleDropdownRange: Price Filter")} />
 	)))
-	.add("With filterLabel", withReadme(removeFirstLine(MultiDropdownRangeReadme), () => (
-		<MultiDropdownRangeDefault defaultSelected={["Cheap", "Moderate"]} filterLabel="Custom Filter Name" />
+	.add("With placeholder", withReadme(removeFirstLine(SingleDropdownRangeReadme), () => (
+		<MultiDropdownRangeDefault placeholder={text("placeholder", "Search prices")} />
+	)))
+	.add("With Default Selected", withReadme(removeFirstLine(MultiDropdownRangeReadme), () => (
+		<MultiDropdownRangeDefault defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])} />
+	)))
+	.add("With URLParams", withReadme(removeFirstLine(MultiDropdownRangeReadme), () => (
+		<MultiDropdownRangeDefault URLParams={boolean("URLParams (not visible on storybook)", true)} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(MultiDropdownRangeReadme), () => (
 		<MultiDropdownRangeDefault
 			title={text("title", "MultiDropdownRange: Price Filter")}
+			placeholder={text("placeholder", "Search prices")}
 			defaultSelected={array("defaultSelected", ["Cheap", "Moderate"])}
+			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
 	)));
 
