@@ -656,19 +656,28 @@ storiesOf("ToggleButton", module)
 storiesOf("TextField", module)
 	.addDecorator(withKnobs)
 	.add("Basic", withReadme(removeFirstLine(TextFieldReadme), () => (
-		<TextFieldDefault />
+		<TextFieldDefault showFilter={false} />
+	)))
+	.add("With title", withReadme(removeFirstLine(TextFieldReadme), () => (
+		<TextFieldDefault title={text("title", "Cars")} showFilter={false} />
 	)))
 	.add("DefaultSelected", withReadme(removeFirstLine(TextFieldReadme), () => (
-		<TextFieldDefault defaultSelected="nissan" />
+		<TextFieldDefault defaultSelected={text("defaultSelected", "Nissan")} showFilter={false} />
 	)))
-	.add("With filterLabel", withReadme(removeFirstLine(TextFieldReadme), () => (
-		<TextFieldDefault defaultSelected="nissan" filterLabel="Custom Filter Name" />
+	.add("With filter", withReadme(removeFirstLine(TextFieldReadme), () => (
+		<TextFieldDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Cars filter")} />
+	)))
+	.add("With URLParams", withReadme(removeFirstLine(TextFieldReadme), () => (
+		<TextFieldDefault showFilter={false} URLParams={boolean("URLParams (not visible on storybook)", true)} />
 	)))
 	.add("Playground", withReadme(removeFirstLine(TextFieldReadme), () => (
 		<TextFieldDefault
 			title={text("title", "TextField: Car Search")}
 			placeholder={text("placeholder", "Type a car name")}
 			defaultSelected={text("defaultSelected", "nissan")}
+			showFilter={boolean("showFilter", true)}
+			filterLabel={text("filterLabel", "Cars filter")}
+			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
 	)));
 
