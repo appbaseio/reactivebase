@@ -65,6 +65,11 @@ export default class NativeList extends Component {
 			manager.update(this.channelId, this.react, nextProps.size, 0, false);
 		}
 
+		if (this.props.size !== nextProps.size) {
+			this.setReact(nextProps);
+			manager.update(this.channelId, this.react, nextProps.size, 0, false);
+		}
+
 		if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
 			this.defaultValue = nextProps.defaultSelected;
 			this.changeValues(this.defaultValue);
@@ -217,12 +222,12 @@ export default class NativeList extends Component {
 		// Set the react - add self aggs query as well with react
 		const react = Object.assign({}, props.react);
 		react.aggs = {
-			key: this.props.appbaseField,
-			sort: this.props.sortBy,
-			size: this.props.size,
-			sortRef: `${this.props.componentId}-sort`
+			key: props.appbaseField,
+			sort: props.sortBy,
+			size: props.size,
+			sortRef: `${props.componentId}-sort`
 		};
-		const reactAnd = [`${this.props.componentId}-sort`, "nativeListChanges"]
+		const reactAnd = [`${props.componentId}-sort`, "nativeListChanges"];
 		this.react = helper.setupReact(react, reactAnd);
 	}
 
