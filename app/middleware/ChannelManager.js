@@ -42,7 +42,7 @@ class ChannelManager {
 	// It receives which dependency changes and which channeldId should be affected.
 	receive(depend, channelId, queryOptions = null) {
 		const self = this;
-		const channelObj = this.channels[channelId];
+		var channelObj = this.channels[channelId];
 		let queryObj;
 
 		function setQueryState(channelResponse) {
@@ -98,11 +98,14 @@ class ChannelManager {
 				activateStream.call(this, channelId, queryObj, appbaseRef);
 			}
 		}
-		if (!queryOptions) {
-			queryObj = ChannelHelper.queryBuild(channelObj, channelObj.previousSelectedSensor);
-			this.queryOptions[channelId] = channelObj.previousSelectedSensor[`channel-options-${channelId}`];
-		} else {
-			queryObj = ChannelHelper.queryBuild(channelObj, queryOptions);
+
+		if (channelObj) {
+			if (!queryOptions) {
+				queryObj = ChannelHelper.queryBuild(channelObj, channelObj.previousSelectedSensor);
+				this.queryOptions[channelId] = channelObj.previousSelectedSensor[`channel-options-${channelId}`];
+			} else {
+				queryObj = ChannelHelper.queryBuild(channelObj, queryOptions);
+			}
 		}
 		let validQuery = true;
 		try {

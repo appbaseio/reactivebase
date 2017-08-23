@@ -60,14 +60,14 @@ export default class NativeList extends Component {
 			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "Terms" : "Term";
 		}
 
-		if (!_.isEqual(this.props.react, nextProps.react)) {
+		if (!_.isEqual(this.props.react, nextProps.react) || this.props.size !== nextProps.size) {
 			this.setReact(nextProps);
 			manager.update(this.channelId, this.react, nextProps.size, 0, false);
 		}
 
-		if (this.props.size !== nextProps.size) {
-			this.setReact(nextProps);
-			manager.update(this.channelId, this.react, nextProps.size, 0, false);
+		if (this.sortBy !== nextProps.sortBy) {
+			this.sortBy = nextProps.sortBy;
+			this.handleSortSelect();
 		}
 
 		if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
