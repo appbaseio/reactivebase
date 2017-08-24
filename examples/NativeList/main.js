@@ -106,6 +106,7 @@ class Main extends Component {
 								size={2}
 								onData={this.onData}
 								pagination={true}
+								pageURLParams
 								react={{
 									and: ["CitySensor", "TopicSensor"]
 								}}

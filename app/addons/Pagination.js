@@ -4,11 +4,13 @@ import manager from "../middleware/ChannelManager";
 const helper = require("../middleware/helper.js");
 
 export default class Pagination extends Component {
-	constructor(props, context) {
+	constructor(props) {
 		super(props);
+
+		const page = parseInt(helper.URLParams.get("page"));
 		this.state = {
-			currentValue: 1,
-			maxPageNumber: 1
+			currentValue: props.pageURLParams ? page : 1 || 1,
+			maxPageNumber: props.pageURLParams ? page : 1 || 1
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.prePage = this.prePage.bind(this);
@@ -21,6 +23,18 @@ export default class Pagination extends Component {
 	componentDidMount() {
 		this.setQueryInfo();
 		this.listenGlobal();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.pageURLParams && nextProps.pageURLParams !== this.props.pageURLParams) {
+			const page = parseInt(helper.URLParams.get("page")) || 1;
+			this.setState({
+				currentValue: page,
+				maxPageNumber: page
+			});
+			helper.URLParams.update("page", page, true);
+			this.handleChange(page);
+		}
 	}
 
 	// stop streaming request and remove listener when component will unmount
@@ -47,7 +61,17 @@ export default class Pagination extends Component {
 				const maxPageNumber = Math.ceil(totalHits / res.queryOptions.size) < 1 ? 1 : Math.ceil(totalHits / res.queryOptions.size);
 				const size = res.queryOptions.size ? res.queryOptions.size : 20;
 				const currentPage = Math.floor(res.queryOptions.from / size) + 1;
-				if (currentPage > maxPageNumber) {
+
+				const page = parseInt(helper.URLParams.get("page"));
+				if (this.props.pageURLParams && page && currentPage !== page) {
+					this.setState({
+						totalHits,
+						size,
+						maxPageNumber,
+						currentValue: page
+					});
+					this.handleChange(page);
+				} else if (currentPage > maxPageNumber) {
 					this.handleChange(1);
 				} else {
 					this.setState({
@@ -76,6 +100,9 @@ export default class Pagination extends Component {
 		helper.selectedSensor.set(obj, isExecuteQuery, "paginationChange");
 		if (this.props.onPageChange) {
 			this.props.onPageChange(inputVal);
+		}
+		if (this.props.pageURLParams) {
+			helper.URLParams.update("page", inputVal, true);
 		}
 	}
 
@@ -172,7 +199,8 @@ Pagination.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	title: React.PropTypes.string,
 	onPageChange: React.PropTypes.func,
-	pages: helper.pagesValidation
+	pages: helper.pagesValidation,
+	pageURLParams: React.PropTypes.bool
 };
 
 // Default props value

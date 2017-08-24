@@ -419,6 +419,7 @@ export default class ReactiveList extends Component {
 					onPageChange={this.props.onPageChange}
 					title={this.props.paginationTitle}
 					pages={this.props.pages}
+					pageURLParams={this.props.pageURLParams}
 				/>
 			</div>
 		);
@@ -632,7 +633,8 @@ ReactiveList.propTypes = {
 	paginationAt: React.PropTypes.string,
 	pagination: React.PropTypes.bool,
 	pages: React.PropTypes.number,
-	scrollOnTarget: React.PropTypes.object
+	scrollOnTarget: React.PropTypes.object,
+	pageURLParams: React.PropTypes.bool
 };
 
 ReactiveList.defaultProps = {
@@ -643,7 +645,8 @@ ReactiveList.defaultProps = {
 	showResultStats: true,
 	pagination: false,
 	paginationAt: "bottom",
-	pages: 5
+	pages: 5,
+	pageURLParams: false
 };
 
 // context type
@@ -675,5 +678,6 @@ ReactiveList.types = {
 	pagination: TYPES.BOOLEAN,
 	paginationAt: TYPES.STRING,
 	pages: TYPES.NUMBER,
-	scrollOnTarget: TYPES.OBJECT
+	scrollOnTarget: TYPES.OBJECT,
+	pageURLParams: TYPES.BOOLEAN
 };
