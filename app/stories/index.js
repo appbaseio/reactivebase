@@ -357,6 +357,9 @@ storiesOf("MultiDataList", module)
 	.add("With filter", () => (
 		<MultiDataListDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Custom Filter Name")} />
 	))
+	.add("With queryFormat", () => (
+		<MultiDataListDefault showFilter={false} queryFormat={select("queryFormat", { and: "and", or: "or" }, "and")} />
+	))
 	.add("With URLParams", () => (
 		<MultiDataListDefault showFilter={false} URLParams={boolean("URLParams (not visible on storybook)", true)} />
 	))
@@ -370,6 +373,7 @@ storiesOf("MultiDataList", module)
 			selectAllLabel={text("selectAllLabel", "Select All")}
 			showFilter={boolean("showFilter", true)}
 			filterLabel={text("filterLabel", "Custom Filter Name")}
+			queryFormat={select("queryFormat", { and: "and", or: "or" }, "or")}
 			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
 	));
