@@ -410,21 +410,18 @@ export default class ReactiveList extends Component {
 	}
 
 	paginationAt(method) {
-		let pageinationComp;
-		if (this.props.pagination && (this.props.paginationAt === method || this.props.paginationAt === "both")) {
-			pageinationComp = (
-				<div className="rbc-pagination-container col s12 col-xs-12">
-					<Pagination
-						className={`rbc-pagination-${method}`}
-						componentId="pagination"
-						onPageChange={this.props.onPageChange}
-						title={this.props.paginationTitle}
-						pages={this.props.pages}
-					/>
-				</div>
-			);
-		}
-		return pageinationComp;
+		return (
+			<div className="rbc-pagination-container col s12 col-xs-12">
+				<Pagination
+					show={this.props.pagination && (this.props.paginationAt === method || this.props.paginationAt === "both")}
+					className={`rbc-pagination-${method}`}
+					componentId="pagination"
+					onPageChange={this.props.onPageChange}
+					title={this.props.paginationTitle}
+					pages={this.props.pages}
+				/>
+			</div>
+		);
 	}
 
 	defaultonAllData(res) {

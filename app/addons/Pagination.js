@@ -154,14 +154,17 @@ export default class Pagination extends Component {
 			"rbc-title-inactive": !this.props.title
 		});
 
-		return (
-			<div className={`rbc rbc-pagination col s12 col-xs-12 ${cx} ${this.props.className}`}>
-				{title}
-				<div className="col s12 col-xs-12">
-					{this.renderPageNumber()}
+		if (this.props.show) {
+			return (
+				<div className={`rbc rbc-pagination col s12 col-xs-12 ${cx} ${this.props.className}`}>
+					{title}
+					<div className="col s12 col-xs-12">
+						{this.renderPageNumber()}
+					</div>
 				</div>
-			</div>
-		);
+			);
+		}
+		return null;
 	}
 }
 
