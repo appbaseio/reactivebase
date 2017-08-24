@@ -83,28 +83,29 @@ export default class RangeSlider extends Component {
 			}
 
 			// check defaultSelected
-			if (defaultValue.start !== this.state.values.min ||
-				defaultValue.end !== this.state.values.max &&
+			if ((defaultValue && defaultValue.start !== this.state.values.min) ||
+				(defaultValue && defaultValue.end !== this.state.values.max) &&
 				nextProps.range.start <= defaultValue.start &&
 				nextProps.range.end >= defaultValue.end) {
 				const rem = (defaultValue.end - defaultValue.start) % nextProps.stepValue;
 				if (rem) {
+					const values = {
+						min: this.state.values.min,
+						max: defaultValue.end - rem
+					}
 					this.setState({
-						values: {
-							min: this.state.values.min,
-							max: defaultValue.end - rem
-						}
+						values
 					});
 					const obj = {
 						key: nextProps.componentId,
 						value: {
-							from: this.state.values.min,
-							to: defaultValue.end - rem
+							from: values.min,
+							to: values.max
 						}
 					};
 					setTimeout(() => {
 						if (this.props.beforeValueChange) {
-							this.props.beforeValueChange(value)
+							this.props.beforeValueChange(values)
 							.then(() => {
 								execQuery();
 							})
@@ -132,7 +133,7 @@ export default class RangeSlider extends Component {
 					};
 					setTimeout(() => {
 						if (this.props.beforeValueChange) {
-							this.props.beforeValueChange(value)
+							this.props.beforeValueChange(values)
 							.then(() => {
 								execQuery();
 							})
@@ -179,7 +180,7 @@ export default class RangeSlider extends Component {
 						value: currentRange
 					};
 					if (this.props.beforeValueChange) {
-						this.props.beforeValueChange(value)
+						this.props.beforeValueChange(values)
 						.then(() => {
 							execQuery();
 						})
@@ -438,7 +439,7 @@ export default class RangeSlider extends Component {
 		};
 
 		if (this.props.beforeValueChange) {
-			this.props.beforeValueChange(value)
+			this.props.beforeValueChange(values)
 			.then(() => {
 				execQuery();
 			})
