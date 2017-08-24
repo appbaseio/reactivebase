@@ -24,6 +24,7 @@ export default class DataList extends Component {
 		this.renderStringList = this.renderStringList.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
 		this.onSelectAll = this.onSelectAll.bind(this);
+		this.type = this.props.multipleSelect && this.props.queryFormat === "or" ? "Terms" : "Term";
 	}
 
 	componentWillMount() {
@@ -48,6 +49,9 @@ export default class DataList extends Component {
 			} else {
 				this.changeValue(nextProps.defaultSelected);
 			}
+		}
+		if (this.props.queryFormat !== nextProps.queryFormat) {
+			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "Terms" : "Term";
 		}
 	}
 
@@ -141,12 +145,29 @@ export default class DataList extends Component {
 				}
 			};
 		} else if (record) {
-			const listQuery= {
+			// queryFormat should not affect SingleDataList
+			if (this.props.queryFormat === "and" && this.props.multipleSelect) {
+				// adds a sub-query with must as an array of objects for each terms/value
+				const queryArray = record.map(item => (
+					{
+						[this.type]: {
+							[this.props.appbaseField]: item
+						}
+					}
+				));
+				return {
+					bool: {
+						must: queryArray
+					}
+				};
+			}
+
+			// for the default queryFormat = "or" and SingleDataList
+			return {
 				[this.type]: {
 					[this.props.appbaseField]: record
 				}
 			};
-			return this.props.multipleSelect ? (record.length ? listQuery : null) : listQuery;
 		}
 		return null;
 	}
@@ -521,7 +542,8 @@ DataList.propTypes = {
 	filterLabel: React.PropTypes.string,
 	showRadio: React.PropTypes.bool,
 	showCheckbox: React.PropTypes.bool,
-	selectAllLabel: React.PropTypes.string
+	selectAllLabel: React.PropTypes.string,
+	queryFormat: React.PropTypes.oneOf(["and", "or"])
 };
 
 // Default props value
@@ -534,7 +556,8 @@ DataList.defaultProps = {
 	multipleSelect: false,
 	showFilter: true,
 	showRadio: true,
-	showCheckbox: true
+	showCheckbox: true,
+	queryFormat: "or"
 };
 
 DataList.contextTypes = {
