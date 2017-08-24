@@ -192,7 +192,7 @@ class ChannelManager {
 	}
 
 	getFrom(pageNumber, channelId) {
-		return pageNumber !== 1 ? (this.queryOptions[channelId].size * (pageNumber - 1)) + 1 : 0;
+		return pageNumber !== 1 ? (this.queryOptions[channelId].size * (pageNumber - 1)) : 0;
 	}
 
 	// sort changes
