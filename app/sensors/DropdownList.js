@@ -55,6 +55,11 @@ export default class DropdownList extends Component {
 			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "Terms" : "Term";
 		}
 
+		if (this.sortBy !== nextProps.sortBy) {
+			this.sortBy = nextProps.sortBy;
+			this.handleSortSelect(nextProps);
+		}
+
 		if (nextProps.multipleSelect && !_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
 			this.changeValue(nextProps.defaultSelected);
 		} else if (!nextProps.multipleSelect && this.props.defaultSelected !== nextProps.defaultSelected) {
@@ -120,7 +125,7 @@ export default class DropdownList extends Component {
 		}
 		if (this.sortBy !== this.props.sortBy) {
 			this.sortBy = this.props.sortBy;
-			this.handleSortSelect();
+			this.handleSortSelect(this.props);
 		}
 		if (this.size !== this.props.size) {
 			this.size = this.props.size;
@@ -202,12 +207,12 @@ export default class DropdownList extends Component {
 		helper.selectedSensor.setSortInfo(obj);
 	}
 
-	handleSortSelect() {
+	handleSortSelect(props) {
 		this.sortObj = {
-			aggSort: this.props.sortBy
+			aggSort: props.sortBy
 		};
 		const obj = {
-			key: `${this.props.componentId}-sort`,
+			key: `${props.componentId}-sort`,
 			value: this.sortObj
 		};
 		helper.selectedSensor.set(obj, true, "sortChange");
