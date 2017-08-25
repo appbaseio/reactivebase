@@ -67,7 +67,7 @@ export default class NativeList extends Component {
 
 		if (this.sortBy !== nextProps.sortBy) {
 			this.sortBy = nextProps.sortBy;
-			this.handleSortSelect();
+			this.handleSortSelect(nextProps);
 		}
 
 		if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
@@ -144,7 +144,7 @@ export default class NativeList extends Component {
 		}
 		if (this.sortBy !== this.props.sortBy) {
 			this.sortBy = this.props.sortBy;
-			this.handleSortSelect();
+			this.handleSortSelect(this.props);
 		}
 		if (this.size !== this.props.size) {
 			this.size = this.props.size;
@@ -207,12 +207,12 @@ export default class NativeList extends Component {
 		helper.selectedSensor.setSortInfo(obj);
 	}
 
-	handleSortSelect() {
+	handleSortSelect(props) {
 		this.sortObj = {
-			aggSort: this.props.sortBy
+			aggSort: props.sortBy
 		};
 		const obj = {
-			key: `${this.props.componentId}-sort`,
+			key: `${props.componentId}-sort`,
 			value: this.sortObj
 		};
 		helper.selectedSensor.set(obj, true, "sortChange");
