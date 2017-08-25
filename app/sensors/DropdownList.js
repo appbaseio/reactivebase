@@ -46,7 +46,7 @@ export default class DropdownList extends Component {
 	componentWillReceiveProps(nextProps) {
 		const { items } = this.state;
 
-		if (!_.isEqual(this.props.react, nextProps.react)) {
+		if (!_.isEqual(this.props.react, nextProps.react) || this.props.size !== nextProps.size) {
 			this.setReact(nextProps);
 			manager.update(this.channelId, this.react, nextProps.size, 0, false);
 		}
