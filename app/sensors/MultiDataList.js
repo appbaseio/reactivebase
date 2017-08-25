@@ -28,7 +28,8 @@ MultiDataList.propTypes = {
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	showCheckbox: React.PropTypes.bool,
-	selectAllLabel: React.PropTypes.string
+	selectAllLabel: React.PropTypes.string,
+	queryFormat: React.PropTypes.oneOf(["and", "or"])
 };
 
 // Default props value
@@ -38,7 +39,8 @@ MultiDataList.defaultProps = {
 	URLParams: false,
 	showSearch: false,
 	placeholder: "Search",
-	showCheckbox: true
+	showCheckbox: true,
+	queryFormat: "or"
 };
 
 // context type
