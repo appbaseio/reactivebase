@@ -26,6 +26,7 @@ import SelectedFilters from "./sensors/SelectedFilters";
 import InitialLoader from "./addons/InitialLoader";
 import NoResults from "./addons/NoResults";
 import ResultStats from "./addons/ResultStats";
+import Pagination from "./addons/Pagination";
 
 // middleware
 import ReactiveBase from "./middleware/ReactiveBase";
@@ -63,5 +64,6 @@ export {
 	InitialLoader,
 	NoResults,
 	ResultStats,
-	SelectedFilters
+	SelectedFilters,
+	Pagination
 };
