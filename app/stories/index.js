@@ -737,8 +737,16 @@ storiesOf("DataSearch", module)
 		<DataSearchDefault
 			title="DataSearch"
 			placeholder="Search Venues"
-			weights={[1, 3]}
+			weights={array("weights", [1,3])}
 			showFilter={false}
+		/>
+	)))
+	.add("With queryFormat", withReadme(removeFirstLine(DataSearchReadme), () => (
+		<DataSearchDefault
+			title="DataSearch"
+			placeholder="Search Venue"
+			showFilter={false}
+			queryFormat={select("queryFormat", { and: "and", or: "or" }, "and")}
 		/>
 	)))
 	.add("With fuzziness", withReadme(removeFirstLine(DataSearchReadme), () => (
@@ -772,6 +780,7 @@ storiesOf("DataSearch", module)
 			autoSuggest={boolean("autoSuggest", true)}
 			defaultSelected={text("defaultSelected", "")}
 			weights={array("weights", [1, 3])}
+			queryFormat={select("queryFormat", { and: "and", or: "or" }, "or")}
 			fuzziness={number("fuzziness", 1)}
 			showFilter={boolean("showFilter", true)}
 			filterLabel={text("filterLabel", "Venue filter")}
