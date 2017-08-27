@@ -34,7 +34,6 @@ export default class DataController extends Component {
 	setQueryInfo() {
 		const valObj = {
 			queryType: this.type,
-			inputData: this.props.appbaseField,
 			reactiveId: this.context.reactiveId,
 			showFilter: this.props.showFilter,
 			filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
@@ -118,7 +117,6 @@ export default class DataController extends Component {
 
 DataController.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -128,7 +126,7 @@ DataController.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
-	customQuery: React.PropTypes.func,
+	customQuery: React.PropTypes.func.isRequired,
 	onValueChange: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
@@ -161,8 +159,6 @@ DataController.contextTypes = {
 
 DataController.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.STRING,
 	title: TYPES.STRING,
 	visible: TYPES.BOOLEAN,
 	dataLabel: TYPES.STRING,
