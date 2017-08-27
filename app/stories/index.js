@@ -725,19 +725,19 @@ storiesOf("DataSearch", module)
 			defaultSelected={text("defaultSelected", "Jazz")}
 		/>
 	)))
-	.add("With initialSuggestions", withReadme(removeFirstLine(DataSearchReadme), () => (
+	.add("With defaultSuggestions", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
 			placeholder="Search Venues"
 			showFilter={false}
-			initialSuggestions={[{ label: "Songwriting", value: "Songwriting" }, { label: "Jazz", value: "Jazz" }]}
+			defaultSuggestions={[{ label: "Songwriting", value: "Songwriting" }, { label: "Jazz", value: "Jazz" }]}
 		/>
 	)))
-	.add("With Weights", withReadme(removeFirstLine(DataSearchReadme), () => (
+	.add("With searchWeight", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
 			placeholder="Search Venues"
-			weights={array("weights", [1,3])}
+			searchWeight={array("searchWeight", [1,3])}
 			showFilter={false}
 		/>
 	)))
@@ -779,7 +779,7 @@ storiesOf("DataSearch", module)
 			placeholder={text("placeholder", "Search Venues")}
 			autoSuggest={boolean("autoSuggest", true)}
 			defaultSelected={text("defaultSelected", "")}
-			weights={array("weights", [1, 3])}
+			searchWeight={array("searchWeight", [1, 3])}
 			queryFormat={select("queryFormat", { and: "and", or: "or" }, "or")}
 			fuzziness={number("fuzziness", 1)}
 			showFilter={boolean("showFilter", true)}

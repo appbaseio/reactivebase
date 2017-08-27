@@ -275,7 +275,7 @@ export default class DataSearch extends Component {
 
 	shouldQuery(value, appbaseFields) {
 		const fields = appbaseFields.map(
-			(field, index) => `${field}${(Array.isArray(this.props.weights) && this.props.weights[index]) ? ("^" + this.props.weights[index]) : ""}`
+			(field, index) => `${field}${(Array.isArray(this.props.searchWeight) && this.props.searchWeight[index]) ? ("^" + this.props.searchWeight[index]) : ""}`
 		);
 
 		if (this.props.queryFormat === "and") {
@@ -479,8 +479,8 @@ export default class DataSearch extends Component {
 		});
 
 		const options = this.state.currentValue === "" || this.state.currentValue === null
-							? this.props.initialSuggestions && this.props.initialSuggestions.length
-							? this.props.initialSuggestions
+							? this.props.defaultSuggestions && this.props.defaultSuggestions.length
+							? this.props.defaultSuggestions
 							: []
 							: this.state.options;
 
@@ -527,7 +527,7 @@ DataSearch.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
-	weights: React.PropTypes.arrayOf(React.PropTypes.number),
+	searchWeight: React.PropTypes.arrayOf(React.PropTypes.number),
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -539,7 +539,7 @@ DataSearch.propTypes = {
 	onValueChange: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
 	react: React.PropTypes.object,
-	initialSuggestions: React.PropTypes.arrayOf(
+	defaultSuggestions: React.PropTypes.arrayOf(
 		React.PropTypes.shape({
 			label: React.PropTypes.oneOfType([
 				React.PropTypes.string,
@@ -598,7 +598,7 @@ DataSearch.types = {
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,
-	weights: TYPES.ARRAY,
+	searchWeight: TYPES.ARRAY,
 	queryFormat: TYPES.STRING,
 	fuzziness: TYPES.NUMBER
 };
