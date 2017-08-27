@@ -248,7 +248,7 @@ storiesOf("MultiDropdownList", module)
 		<MultiDropdownListDefault showFilter={false} size={number("size", 10)} />
 	)))
 	.add("With filter", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
-		<MultiDropdownListDefault filterLabel="Cities filter" />
+		<MultiDropdownListDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Cities filter")} />
 	)))
 	.add("Without count", withReadme(removeFirstLine(SingleDropdownListReadme), () => (
 		<MultiDropdownListDefault showFilter={false} showCount={boolean("showCount", false)} />
