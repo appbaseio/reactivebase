@@ -796,6 +796,7 @@ storiesOf("DataSearchHighlight", module)
 	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchHighlight
 			title="DataSearch"
+			highlight={boolean("highlight", true)}
 		/>
 	)))
 	.add("With filterLabel", withReadme(removeFirstLine(DataSearchReadme), () => (

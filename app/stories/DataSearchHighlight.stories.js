@@ -44,7 +44,7 @@ export default class DataSearchHighlight extends Component {
 							appbaseField={["title", "text", "by"]}
 							placeholder="Search posts by title, text or author..."
 							autoSuggest={false}
-							highlight={true}
+							{...this.props}
 						/>
 					</div>
 
