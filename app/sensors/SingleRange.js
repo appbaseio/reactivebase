@@ -24,7 +24,9 @@ export default class SingleRange extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.checkDefault(nextProps);
+		if (this.props.defaultSelected !== nextProps.defaultSelected) {
+			this.checkDefault(nextProps);
+		}
 		if (this.props.showFilter !== nextProps.showFilter || this.props.filterLabel !== nextProps.filterLabel) {
 			this.setQueryInfo(nextProps);
 			this.handleChange(this.state.selected);
