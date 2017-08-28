@@ -46,7 +46,7 @@ export default class NativeList extends Component {
 	componentWillMount() {
 		this.setReact(this.props);
 		this.size = this.props.size;
-		this.setQueryInfo();
+		this.setQueryInfo(this.props);
 		this.createChannel(true);
 		this.defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.changeValues(this.defaultValue);
@@ -76,6 +76,11 @@ export default class NativeList extends Component {
 		} else if (this.urlParams !== null) {
 			this.defaultValue = this.urlParams;
 			this.changeValues(this.defaultValue);
+		}
+
+		if (this.props.showFilter !== nextProps.showFilter || this.props.filterLabel !== nextProps.filterLabel) {
+			this.setQueryInfo(nextProps);
+			this.setValue(this.state.defaultSelected, true);
 		}
 	}
 
@@ -182,18 +187,18 @@ export default class NativeList extends Component {
 	}
 
 	// set the query type and input data
-	setQueryInfo() {
+	setQueryInfo(props) {
 		const obj = {
-			key: this.props.componentId,
+			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: this.props.appbaseField,
+				inputData: props.appbaseField,
 				customQuery: this.customQuery,
 				reactiveId: this.context.reactiveId,
-				showFilter: this.props.showFilter,
-				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
-				component: this.props.component,
-				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
+				showFilter: props.showFilter,
+				filterLabel: props.filterLabel ? props.filterLabel : props.componentId,
+				component: props.component,
+				defaultSelected: this.urlParams !== null ? this.urlParams : props.defaultSelected
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
