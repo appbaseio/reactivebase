@@ -44,7 +44,7 @@
     "react-dom": "^15.4.2"
   },
   "devDependencies": {
-    "@appbaseio/reactivemaps-manual": "1.0.0-alpha",
+    "@appbaseio/reactive-manual": "^1.0.0-beta",
     "@storybook/addon-info": "^3.1.6",
     "@storybook/addon-knobs": "^3.1.8",
     "@storybook/addon-options": "^3.1.6",
@@ -80,8 +80,8 @@
     "gulp-sass": "^2.3.1",
     "gulp-uglify": "^1.5.3",
     "jest": "^18.1.0",
-    "json-loader": "^0.5.4",
     "jquery": "^3.1.1",
+    "json-loader": "^0.5.4",
     "lodash-webpack-plugin": "^0.11.4",
     "materialize-css": "^0.98.0",
     "raw-loader": "^0.5.1",
