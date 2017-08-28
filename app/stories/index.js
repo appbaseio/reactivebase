@@ -52,7 +52,6 @@ import DateRangeDefault from "./DateRange.stories";
 
 import TextFieldDefault from "./TextField.stories";
 import DataSearchDefault from "./DataSearch.stories";
-import DataSearchHighlight from "./DataSearchHighlight.stories";
 
 import DataControllerDefault from "./DataController.stories";
 import PoweredByDefault from "./PoweredBy.stories";
@@ -692,29 +691,29 @@ storiesOf("DataSearch", module)
 	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venue"
+			placeholder="Search Cars"
 			showFilter={false}
 		/>
 	)))
 	.add("With title", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
-			title={text("title", "Venue Search")}
-			placeholder="Search Venues"
+			title={text("title", "Cars")}
+			placeholder="Search cars"
 			showFilter={false}
 		/>
 	)))
 	.add("With filter", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venues"
+			placeholder="Search Cars"
 			showFilter={boolean("showFilter", true)}
-			filterLabel={text("filterLabel", "Venues filter")}
+			filterLabel={text("filterLabel", "Cars filter")}
 		/>
 	)))
 	.add("Without autoSuggest", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venue"
+			placeholder="Search Cars"
 			autoSuggest={boolean("autoSuggest", false)}
 			showFilter={false}
 		/>
@@ -722,31 +721,31 @@ storiesOf("DataSearch", module)
 	.add("With defaultSelected", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venues"
+			placeholder="Search Cars"
 			showFilter={false}
-			defaultSelected={text("defaultSelected", "Jazz")}
+			defaultSelected={text("defaultSelected", "Audi")}
 		/>
 	)))
 	.add("With defaultSuggestions", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venues"
+			placeholder="Search Cars"
 			showFilter={false}
-			defaultSuggestions={[{ label: "Songwriting", value: "Songwriting" }, { label: "Jazz", value: "Jazz" }]}
+			defaultSuggestions={[{ label: "Audi", value: "Audi" }, { label: "Nissan", value: "Nissan" }]}
 		/>
 	)))
 	.add("With searchWeight", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venues"
-			searchWeight={array("searchWeight", [1,3])}
+			placeholder="Search Cars"
+			searchWeight={array("searchWeight", [1, 3])}
 			showFilter={false}
 		/>
 	)))
 	.add("With queryFormat", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venue"
+			placeholder="Search Cars"
 			showFilter={false}
 			queryFormat={select("queryFormat", { and: "and", or: "or" }, "and")}
 		/>
@@ -754,7 +753,7 @@ storiesOf("DataSearch", module)
 	.add("With fuzziness", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venues"
+			placeholder="Search Cars"
 			showFilter={false}
 			fuzziness={number("fuzziness", 1)}
 		/>
@@ -762,7 +761,7 @@ storiesOf("DataSearch", module)
 	.add("With highlight", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venues"
+			placeholder="Search Cars"
 			showFilter={false}
 			highlight={boolean("highlight", true)}
 		/>
@@ -770,39 +769,24 @@ storiesOf("DataSearch", module)
 	.add("With URLParams", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
 			title="DataSearch"
-			placeholder="Search Venues"
+			placeholder="Search Cars"
 			showFilter={false}
 			URLParams={boolean("URLParams (not visible on storybook)", true)}
 		/>
 	)))
 	.add("Playground", withReadme(removeFirstLine(DataSearchReadme), () => (
 		<DataSearchDefault
-			title={text("title", "DataSearch: Venues")}
-			placeholder={text("placeholder", "Search Venues")}
+			title={text("title", "DataSearch: Cars")}
+			placeholder={text("placeholder", "Search Cars")}
 			autoSuggest={boolean("autoSuggest", true)}
 			defaultSelected={text("defaultSelected", "")}
 			searchWeight={array("searchWeight", [1, 3])}
 			queryFormat={select("queryFormat", { and: "and", or: "or" }, "or")}
 			fuzziness={number("fuzziness", 1)}
 			showFilter={boolean("showFilter", true)}
-			filterLabel={text("filterLabel", "Venue filter")}
+			filterLabel={text("filterLabel", "Cars filter")}
 			highlight={boolean("highlight", false)}
 			URLParams={boolean("URLParams (not visible on storybook)", true)}
-		/>
-	)));
-
-storiesOf("DataSearchHighlight", module)
-	.addDecorator(withKnobs)
-	.add("Basic", withReadme(removeFirstLine(DataSearchReadme), () => (
-		<DataSearchHighlight
-			title="DataSearch"
-			highlight={boolean("highlight", true)}
-		/>
-	)))
-	.add("With filterLabel", withReadme(removeFirstLine(DataSearchReadme), () => (
-		<DataSearchHighlight
-			title="DataSearch"
-			filterLabel="Custom Filter Name"
 		/>
 	)));
 

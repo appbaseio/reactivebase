@@ -1,64 +1,48 @@
 import React, { Component } from "react";
 import { ReactiveBase, DataSearch, ReactiveList, SelectedFilters } from "../app.js";
 import ResponsiveStory from "./ReactiveElement/ResponsiveStory";
-import { Img } from "./Img.js";
 
 export default class DataSearchDefault extends Component {
 	constructor(props) {
 		super(props);
-		this.DEFAULT_IMAGE = "http://www.avidog.com/wp-content/uploads/2015/01/BellaHead082712_11-50x65.jpg";
+		this.onData = this.onData.bind(this);
 	}
 
 	componentDidMount() {
 		ResponsiveStory();
 	}
 
-	onData(markerData) {
-		const marker = markerData._source;
+	onData(data) {
+		const res = data._source;
 		return (
-			<a
-				className="full_row single-record single_record_for_clone"
-				href={marker.event ? marker.event.event_url : ""}
-				target="_blank"
-				key={markerData._id}
-			>
-				<div className="img-container">
-					<Img key={markerData._id} src={marker.member ? marker.member.photo : this.DEFAULT_IMAGE} />
+			<div className="row">
+				<div className="col s6 col-xs-6">
+					<img className="responsive-img img-responsive" src="https://www.enterprise.com/content/dam/global-vehicle-images/cars/FORD_FOCU_2012-1.png" />
 				</div>
-				<div className="text-container full_row">
-					<div className="text-head text-overflow full_row">
-						<span className="text-head-info text-overflow">
-							{marker.member ? marker.member.member_name : ""} is going to {marker.event ? marker.event.event_name : ""}
-						</span>
-						<span className="text-head-city">{marker.group ? marker.group.group_city : ""}</span>
-					</div>
-					<div className="text-description text-overflow full_row">
-						<ul className="highlight_tags">
-							{
-								marker.group.group_topics.map((tag, i) => (<li key={i}>{tag.topic_name}</li>))
-							}
-						</ul>
+				<div className="col s6 col-xs-6">
+					<div dangerouslySetInnerHTML={{ __html: res.name }} />
+					<div dangerouslySetInnerHTML={{ __html: res.brand }} />
+					<div className="highlight_tags">
+						{res.rating} stars
 					</div>
 				</div>
-			</a>
+			</div>
 		);
 	}
 
 	render() {
 		return (
 			<ReactiveBase
-				app="reactivemap_demo"
-				credentials="kvHgC64RP:e96d86fb-a1bc-465e-8756-02661ffebc05"
-				type="meetupdata1"
+				app="car-store"
+				credentials="cf7QByt5e:d2d60548-82a9-43cc-8b40-93cbbe75c34c"
 			>
 				<div className="row">
 					<div className="col s6 col-xs-6">
-						<SelectedFilters componentId="SelectedFilters" />
+						<SelectedFilters componentId="CarSensor" />
 						<DataSearch
-							appbaseField={[this.props.mapping.venue, this.props.mapping.topic]}
-							componentId="VenueSensor"
-							title="DataSearch"
-							searchInputId="CityVenue"
+							appbaseField={["name", "brand"]}
+							componentId="CarSensor"
+							placeholder="Search Cars"
 							{...this.props}
 						/>
 					</div>
@@ -66,7 +50,7 @@ export default class DataSearchDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.topic}
+							appbaseField="name"
 							title="Results"
 							sortBy="asc"
 							from={0}
@@ -74,7 +58,7 @@ export default class DataSearchDefault extends Component {
 							stream
 							onData={this.onData}
 							react={{
-								and: "VenueSensor"
+								and: "CarSensor"
 							}}
 						/>
 					</div>
@@ -83,10 +67,3 @@ export default class DataSearchDefault extends Component {
 		);
 	}
 }
-
-DataSearchDefault.defaultProps = {
-	mapping: {
-		topic: "group.group_topics.topic_name_raw",
-		venue: "venue_name_ngrams"
-	}
-};
