@@ -6,28 +6,30 @@ import { withKnobs, text, boolean, number, array, select, object } from "@storyb
 // importing READMEs first, to be used in playground for each component
 import withReadme from "storybook-readme/with-readme";
 
-import SingleListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/SingleList.md";
-import MultiListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiList.md";
-import SingleDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/SingleDropdownList.md";
-import MultiDropdownListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiDropdownList.md";
+import SingleListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/SingleList.md";
+import MultiListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/MultiList.md";
+import SingleDropdownListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/SingleDropdownList.md";
+import MultiDropdownListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/MultiDropdownList.md";
+import SingleDataListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/SingleDataList.md";
+import MultiDataListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/MultiDataList.md";
 
-import SingleRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/SingleRange.md";
-import MultiRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiRange.md";
-import SingleDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/SingleDropdownRange.md";
-import MultiDropdownRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/MultiDropdownRange.md";
+import SingleRangeReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/SingleRange.md";
+import MultiRangeReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/MultiRange.md";
+import SingleDropdownRangeReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/SingleDropdownRange.md";
+import MultiDropdownRangeReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/MultiDropdownRange.md";
 
-import RangeSliderReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/RangeSlider.md";
-import NumberBoxReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/NumberBox.md";
-import ToggleButtonReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ToggleButton.md";
-import DatePickerReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/DatePicker.md";
-import DateRangeReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/DateRange.md";
+import RangeSliderReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/RangeSlider.md";
+import NumberBoxReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/NumberBox.md";
+import ToggleButtonReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/ToggleButton.md";
+import DatePickerReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/DatePicker.md";
+import DateRangeReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/DateRange.md";
 
-import TextFieldReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/TextField.md";
-import DataSearchReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/DataSearch.md";
-import DataControllerReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/DataController.md";
+import TextFieldReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/TextField.md";
+import DataSearchReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/DataSearch.md";
+import DataControllerReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/DataController.md";
 
-import ReactiveElementReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ReactiveElement.md";
-import ReactiveListReadme from "@appbaseio/reactivemaps-manual/docs/v1.0.0/components/ReactiveList.md";
+import ReactiveElementReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/ReactiveElement.md";
+import ReactiveListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/ReactiveList.md";
 
 // importing individual component stories
 import SingleListDefault from "./SingleList.stories";
@@ -296,31 +298,31 @@ storiesOf("MultiDropdownList", module)
 
 storiesOf("SingleDataList", module)
 	.addDecorator(withKnobs)
-	.add("Basic", () => (
+	.add("Basic", withReadme(removeFirstLine(SingleDataListReadme), () => (
 		<SingleDataListDefault showFilter={false} />
-	))
-	.add("With title", () => (
+	)))
+	.add("With title", withReadme(removeFirstLine(SingleDataListReadme), () => (
 		<SingleDataListDefault showFilter={false} title={text("title", "Topics")} />
-	))
-	.add("With defaultSelected", () => (
+	)))
+	.add("With defaultSelected", withReadme(removeFirstLine(SingleDataListReadme), () => (
 		<SingleDataListDefault defaultSelected={text("defaultSelected", "Social")} showFilter={false} />
-	))
-	.add("With showSearch", () => (
+	)))
+	.add("With showSearch", withReadme(removeFirstLine(SingleDataListReadme), () => (
 		<SingleDataListDefault showFilter={false} showSearch={boolean("showSearch", true)} placeholder={text("placeholder", "Search topics")} />
-	))
-	.add("Without Radio", () => (
+	)))
+	.add("Without Radio", withReadme(removeFirstLine(SingleDataListReadme), () => (
 		<SingleDataListDefault showRadio={boolean("showRadio", false)} showFilter={false} />
-	))
-	.add("With selectAllLabel", () => (
+	)))
+	.add("With selectAllLabel", withReadme(removeFirstLine(SingleDataListReadme), () => (
 		<SingleDataListDefault showFilter={false} selectAllLabel={text("selectAllLabel", "Select All")} />
-	))
-	.add("With filter", () => (
+	)))
+	.add("With filter", withReadme(removeFirstLine(SingleDataListReadme), () => (
 		<SingleDataListDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Custom Filter Name")} />
-	))
-	.add("With URLParams", () => (
+	)))
+	.add("With URLParams", withReadme(removeFirstLine(SingleDataListReadme), () => (
 		<SingleDataListDefault showFilter={false} URLParams={boolean("URLParams (not visible on storybook)", true)} />
-	))
-	.add("Playground", () => (
+	)))
+	.add("Playground", withReadme(removeFirstLine(SingleDataListReadme), () => (
 		<SingleDataListDefault
 			title={text("title", "Topics")}
 			defaultSelected={text("defaultSelected", "Social")}
@@ -332,38 +334,38 @@ storiesOf("SingleDataList", module)
 			filterLabel={text("filterLabel", "Custom Filter Name")}
 			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
-	));
+	)));
 
 storiesOf("MultiDataList", module)
 	.addDecorator(withKnobs)
-	.add("Basic", () => (
+	.add("Basic", withReadme(removeFirstLine(MultiDataListReadme), () => (
 		<MultiDataListDefault showFilter={false} />
-	))
-	.add("With title", () => (
+	)))
+	.add("With title", withReadme(removeFirstLine(MultiDataListReadme), () => (
 		<MultiDataListDefault showFilter={false} title={text("title", "Topics")} />
-	))
-	.add("With defaultSelected", () => (
+	)))
+	.add("With defaultSelected", withReadme(removeFirstLine(MultiDataListReadme), () => (
 		<MultiDataListDefault defaultSelected={array("defaultSelected", ["Social", "Travel"])} showFilter={false} />
-	))
-	.add("With showSearch", () => (
+	)))
+	.add("With showSearch", withReadme(removeFirstLine(MultiDataListReadme), () => (
 		<MultiDataListDefault showFilter={false} showSearch={boolean("showSearch", true)} placeholder={text("placeholder", "Search topics")} />
-	))
-	.add("Without Checkbox", () => (
+	)))
+	.add("Without Checkbox", withReadme(removeFirstLine(MultiDataListReadme), () => (
 		<MultiDataListDefault showCheckbox={boolean("showCheckbox", false)} showFilter={false} />
-	))
-	.add("With selectAllLabel", () => (
+	)))
+	.add("With selectAllLabel", withReadme(removeFirstLine(MultiDataListReadme), () => (
 		<MultiDataListDefault showFilter={false} selectAllLabel={text("selectAllLabel", "Select All")} />
-	))
-	.add("With filter", () => (
+	)))
+	.add("With filter", withReadme(removeFirstLine(MultiDataListReadme), () => (
 		<MultiDataListDefault showFilter={boolean("showFilter", true)} filterLabel={text("filterLabel", "Custom Filter Name")} />
-	))
-	.add("With queryFormat", () => (
+	)))
+	.add("With queryFormat", withReadme(removeFirstLine(MultiDataListReadme), () => (
 		<MultiDataListDefault showFilter={false} queryFormat={select("queryFormat", { and: "and", or: "or" }, "and")} />
-	))
-	.add("With URLParams", () => (
+	)))
+	.add("With URLParams", withReadme(removeFirstLine(MultiDataListReadme), () => (
 		<MultiDataListDefault showFilter={false} URLParams={boolean("URLParams (not visible on storybook)", true)} />
-	))
-	.add("Playground", () => (
+	)))
+	.add("Playground", withReadme(removeFirstLine(MultiDataListReadme), () => (
 		<MultiDataListDefault
 			title={text("title", "Topics")}
 			defaultSelected={array("defaultSelected", ["Social", "Travel"])}
@@ -376,7 +378,7 @@ storiesOf("MultiDataList", module)
 			queryFormat={select("queryFormat", { and: "and", or: "or" }, "or")}
 			URLParams={boolean("URLParams (not visible on storybook)", false)}
 		/>
-	));
+	)));
 
 storiesOf("SingleRange", module)
 	.addDecorator(withKnobs)
