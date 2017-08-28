@@ -41,7 +41,7 @@ export default class DataSearch extends Component {
 	// Get the items from Appbase when component is mounted
 	componentWillMount() {
 		this.setReact(this.props);
-		this.setQueryInfo();
+		this.setQueryInfo(this.props);
 		this.createChannel();
 		this.checkDefault();
 		this.listenFilter();
@@ -68,6 +68,13 @@ export default class DataSearch extends Component {
 				});
 			}
 		}
+
+		if (this.props.highlight !== nextProps.highlight) {
+			this.setQueryInfo(nextProps);
+			this.handleSearch({
+				value: this.state.currentValue
+			});
+		}
 	}
 
 	// stop streaming request and remove listener when component will unmount
@@ -92,9 +99,9 @@ export default class DataSearch extends Component {
 		});
 	}
 
-	highlightQuery() {
+	highlightQuery(props) {
 		const fields = {};
-		const highlightField = this.props.highlightField ? this.props.highlightField : this.props.appbaseField;
+		const highlightField = props.highlightField ? props.highlightField : props.appbaseField;
 		if (typeof highlightField === "string") {
 			fields[highlightField] = {};
 		} else if (Array.isArray(highlightField)) {
@@ -112,29 +119,29 @@ export default class DataSearch extends Component {
 	}
 
 	// set the query type and input data
-	setQueryInfo() {
+	setQueryInfo(props) {
 		const obj = {
-			key: this.props.componentId,
+			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.defaultSearchQuery,
+				inputData: props.appbaseField,
+				customQuery: props.customQuery ? props.customQuery : this.defaultSearchQuery,
 				reactiveId: this.context.reactiveId,
-				showFilter: this.props.showFilter,
-				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
+				showFilter: props.showFilter,
+				filterLabel: props.filterLabel ? props.filterLabel : props.componentId,
 				component: "DataSearch",
-				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
+				defaultSelected: this.urlParams !== null ? this.urlParams : props.defaultSelected
 			}
 		};
-		if (this.props.highlight) {
-			obj.value.externalQuery = this.highlightQuery();
+		if (props.highlight) {
+			obj.value.externalQuery = this.highlightQuery(props);
 		}
 		helper.selectedSensor.setSensorInfo(obj);
 		const searchObj = {
 			key: this.searchInputId,
 			value: {
 				queryType: "multi_match",
-				inputData: this.props.appbaseField,
+				inputData: props.appbaseField,
 				customQuery: this.defaultSearchQuery,
 				component: "DataSearchInternal"
 			}
