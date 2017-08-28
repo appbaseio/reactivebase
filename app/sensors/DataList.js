@@ -100,7 +100,7 @@ export default class DataList extends Component {
 						console.error(`${this.props.componentId} - defaultSelected should be an array`);
 					}
 				} else {
-					this.state.data.some(record => {
+					const match = this.state.data.some((record) => {
 						if (record.label ? record.label === defaultValue : record === defaultValue) {
 							setTimeout(() => {
 								this.handleChange(record);
@@ -108,6 +108,9 @@ export default class DataList extends Component {
 							return true;
 						}
 					});
+					if (!match) {
+						this.handleChange(null);
+					}
 				}
 			} else if (defaultValue === null) {
 				if (this.props.multipleSelect) {
@@ -207,7 +210,7 @@ export default class DataList extends Component {
 	handleChange(record) {
 		let value = record;
 
-		if (typeof this.state.data[0] === "object") {
+		if (typeof this.state.data[0] === "object" && record) {
 			value = record.value;
 		}
 
