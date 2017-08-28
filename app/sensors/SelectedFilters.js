@@ -132,7 +132,7 @@ export default class SelectedFilters extends Component {
 						if (!this.props.blackList.includes(item)) {
 							return (<span key={item} className="rbc-tag-item col">
 								<button className="close" onClick={() => this.clearFilter(item)}>x</button>
-								<span className="rb-tag-text">
+								<span className="rbc-tag-text">
 									<strong>{this.state.filters[item].filterLabel}</strong> : {this.parseValue(this.state.filters[item])}
 								</span>
 							</span>);

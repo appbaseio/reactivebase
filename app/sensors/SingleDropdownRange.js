@@ -73,6 +73,7 @@ export default class SingleDropdownRange extends Component {
 				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: this.props.showFilter,
+				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
 				component: "SingleDropdownRange",
 				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
 			}
@@ -180,13 +181,16 @@ SingleDropdownRange.propTypes = {
 	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	showFilter: React.PropTypes.bool,
+	filterLabel: React.PropTypes.string
 };
 
 // Default props value
 SingleDropdownRange.defaultProps = {
 	componentStyle: {},
-	URLParams: false
+	URLParams: false,
+	showFilter: true
 };
 
 // context type
@@ -206,5 +210,7 @@ SingleDropdownRange.types = {
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	showFilter: TYPES.BOOLEAN,
+	filterLabel: TYPES.STRING
 };

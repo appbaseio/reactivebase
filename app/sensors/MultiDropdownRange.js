@@ -78,6 +78,10 @@ export default class MultiDropdownRange extends Component {
 				queryType: this.type,
 				inputData: this.props.appbaseField,
 				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				reactiveId: this.context.reactiveId,
+				showFilter: this.props.showFilter,
+				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
+				component: "MultiDropdownRange",
 				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
 			}
 		};
@@ -202,7 +206,8 @@ MultiDropdownRange.propTypes = {
 	customQuery: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool
+	showFilter: React.PropTypes.bool,
+	filterLabel: React.PropTypes.string
 };
 
 // Default props value
@@ -214,7 +219,8 @@ MultiDropdownRange.defaultProps = {
 // context type
 MultiDropdownRange.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	type: React.PropTypes.any.isRequired,
+	reactiveId: React.PropTypes.number
 };
 
 MultiDropdownRange.types = {
@@ -228,5 +234,6 @@ MultiDropdownRange.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
-	showFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN,
+	filterLabel: TYPES.STRING
 };
