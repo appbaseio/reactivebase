@@ -128,14 +128,17 @@ export default class SelectedFilters extends Component {
 		return Object.keys(this.state.filters).length ? (
 			<div className={`rbc rbc-selectedfilters rbc-tag-container row card thumbnail`} style={this.props.componentStyle}>
 				{
-					Object.keys(this.state.filters).map(item => (
-						<span key={item} className="rbc-tag-item col">
-							<button className="close" onClick={() => this.clearFilter(item)}>x</button>
-							<span className="rb-tag-text">
-								<strong>{this.state.filters[item].filterLabel}</strong> : {this.parseValue(this.state.filters[item])}
-							</span>
-						</span>
-					))
+					Object.keys(this.state.filters).map(item => {
+						if (!this.props.blackList.includes(item)) {
+							return (<span key={item} className="rbc-tag-item col">
+								<button className="close" onClick={() => this.clearFilter(item)}>x</button>
+								<span className="rb-tag-text">
+									<strong>{this.state.filters[item].filterLabel}</strong> : {this.parseValue(this.state.filters[item])}
+								</span>
+							</span>);
+						}
+						return null;
+					})
 				}
 			</div>
 		) : null
@@ -144,11 +147,13 @@ export default class SelectedFilters extends Component {
 
 SelectedFilters.propTypes = {
 	componentStyle: React.PropTypes.object,
-	componentId: React.PropTypes.string.isRequired
+	componentId: React.PropTypes.string,
+	blackList: React.PropTypes.arrayOf(React.PropTypes.string)
 };
 
 SelectedFilters.defaultProps = {
-	componentStyle: {}
+	componentStyle: {},
+	blackList: []
 };
 
 // context type

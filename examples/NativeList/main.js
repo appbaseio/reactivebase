@@ -59,7 +59,7 @@ class Main extends Component {
 				>
 					<div className="row">
 						<div className="col s12 col-xs-12">
-							<SelectedFilters componentId="SelectedFilters" />
+							<SelectedFilters componentId="SelectedFilters" blackList={["TopicSensor"]} />
 						</div>
 						<div className="col s6 col-xs-6">
 							<MultiList
