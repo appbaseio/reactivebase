@@ -26,13 +26,19 @@ export default class DateRange extends Component {
 
 	// Set query information
 	componentDidMount() {
-		this.setQueryInfo();
+		this.setQueryInfo(this.props);
 		this.checkDefault();
 		this.listenFilter();
 	}
 
-	componentWillReceiveProps() {
-		this.checkDefault();
+	componentWillReceiveProps(nextProps) {
+		if (this.props.defaultSelected !== nextProps.defaultSelected) {
+			this.checkDefault();
+		}
+		if (this.props.showFilter !== nextProps.showFilter || this.props.filterLabel !== nextProps.filterLabel) {
+			this.setQueryInfo(nextProps);
+			this.handleChange(this.state.currentValue);
+		}
 	}
 
 	componentWillUnmount() {
@@ -69,16 +75,16 @@ export default class DateRange extends Component {
 	}
 
 	// set the query type and input data
-	setQueryInfo() {
+	setQueryInfo(props) {
 		const obj = {
-			key: this.props.componentId,
+			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				inputData: props.appbaseField,
+				customQuery: props.customQuery ? props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
-				showFilter: this.props.showFilter,
-				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
+				showFilter: props.showFilter,
+				filterLabel: props.filterLabel ? props.filterLabel : props.componentId,
 				component: "DateRange"
 			}
 		};
