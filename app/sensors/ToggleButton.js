@@ -57,9 +57,9 @@ export default class ToggleButton extends Component {
 				this.defaultSelected = Array.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
 				const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 				if (records && records.length) {
-					records.forEach((singleRecord) => {
-						setTimeout(this.handleChange.bind(this, singleRecord), 1000);
-					});
+					this.handleChange(records, true);
+				} else {
+					this.handleChange(null);
 				}
 			} else {
 				this.handleChange(null);
@@ -110,31 +110,36 @@ export default class ToggleButton extends Component {
 	}
 
 	// handle the input change and pass the value inside sensor info
-	handleChange(record) {
+	handleChange(record, setTrue = false) {
 		let selected = this.state.selected;
 		let newSelection = null;
 		let selectedIndex = null;
 
-		if(record) {
+		if (record) {
 			newSelection = [];
-			selected = selected ? selected : [];
-			selected.forEach((selectedRecord, index) => {
-				if (record.label === selectedRecord.label) {
-					selectedIndex = index;
-					selected.splice(index, 1);
-				}
-			});
-			if (selectedIndex === null) {
-				if (this.props.multiSelect) {
-					selected.push(record);
-					newSelection = selected;
-				} else {
-					newSelection.push(record);
-				}
+			if (setTrue) {
+				// All the matching records should be selected and not toggled
+				newSelection = record;
 			} else {
-				newSelection = selected;
+				selected = selected ? selected : [];
+				selected.forEach((selectedRecord, index) => {
+					if (record.label === selectedRecord.label) {
+						selectedIndex = index;
+						selected.splice(index, 1);
+					}
+				});
+				if (selectedIndex === null) {
+					if (this.props.multiSelect) {
+						selected.push(record);
+						newSelection = selected;
+					} else {
+						newSelection.push(record);
+					}
+				} else {
+					newSelection = selected;
+				}
 			}
-			newSelection = newSelection.length ? newSelection : null ;
+			newSelection = newSelection.length ? newSelection : null;
 		} else {
 			newSelection = null;
 		}
