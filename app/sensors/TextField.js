@@ -17,7 +17,7 @@ export default class TextField extends Component {
 
 	// Set query information
 	componentWillMount() {
-		this.setQueryInfo();
+		this.setQueryInfo(this.props);
 		this.listenFilter();
 	}
 
@@ -26,7 +26,13 @@ export default class TextField extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.checkDefault(nextProps);
+		if (this.props.defaultSelected !== nextProps.defaultSelected) {
+			this.checkDefault(nextProps);
+		}
+		if (this.props.showFilter !== nextProps.showFilter || this.props.filterLabel !== nextProps.filterLabel) {
+			this.setQueryInfo(nextProps);
+			this.setValue(this.state.currentValue);
+		}
 	}
 
 	componentWillUnmount() {
@@ -57,18 +63,18 @@ export default class TextField extends Component {
 	}
 
 	// set the query type and input data
-	setQueryInfo() {
+	setQueryInfo(props) {
 		const obj = {
-			key: this.props.componentId,
+			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				inputData: props.appbaseField,
+				customQuery: props.customQuery ? props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
-				showFilter: this.props.showFilter,
-				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
+				showFilter: props.showFilter,
+				filterLabel: props.filterLabel ? props.filterLabel : props.componentId,
 				component: "TextField",
-				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
+				defaultSelected: this.urlParams !== null ? this.urlParams : props.defaultSelected
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
