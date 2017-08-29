@@ -18,7 +18,7 @@ export default class ToggleButton extends Component {
 
 	// Set query information
 	componentWillMount() {
-		this.setQueryInfo();
+		this.setQueryInfo(this.props);
 		this.checkDefault(this.props);
 		this.listenFilter();
 	}
@@ -26,6 +26,10 @@ export default class ToggleButton extends Component {
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.defaultSelected && !_.isEqual(nextProps.defaultSelected, this.props.defaultSelected)) {
 			this.checkDefault(nextProps);
+		}
+		if (this.props.showFilter !== nextProps.showFilter || this.props.filterLabel !== nextProps.filterLabel) {
+			this.setQueryInfo(nextProps);
+			this.handleChange(this.state.selected, true);
 		}
 	}
 
@@ -68,18 +72,18 @@ export default class ToggleButton extends Component {
 	}
 
 	// set the query type and input data
-	setQueryInfo() {
+	setQueryInfo(props) {
 		const obj = {
-			key: this.props.componentId,
+			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				inputData: props.appbaseField,
+				customQuery: props.customQuery ? props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
-				showFilter: this.props.showFilter,
-				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
+				showFilter: props.showFilter,
+				filterLabel: props.filterLabel ? props.filterLabel : props.componentId,
 				component: "ToggleButton",
-				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
+				defaultSelected: this.urlParams !== null ? this.urlParams : props.defaultSelected
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
