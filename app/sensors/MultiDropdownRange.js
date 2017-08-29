@@ -25,7 +25,7 @@ export default class MultiDropdownRange extends Component {
 
 	// Set query information
 	componentWillMount() {
-		this.setQueryInfo();
+		this.setQueryInfo(this.props);
 		if (this.defaultSelected) {
 			const records = this.state.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 			if (records && records.length) {
@@ -36,9 +36,15 @@ export default class MultiDropdownRange extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.urlParams = helper.URLParams.get(nextProps.componentId, true);
-		const defaultValue = this.urlParams !== null ? this.urlParams : nextProps.defaultSelected;
-		this.valueChange(defaultValue);
+		if (this.props.defaultSelected !== nextProps.defaultSelected) {
+			this.urlParams = helper.URLParams.get(nextProps.componentId, true);
+			const defaultValue = this.urlParams !== null ? this.urlParams : nextProps.defaultSelected;
+			this.valueChange(defaultValue);
+		}
+		if (this.props.showFilter !== nextProps.showFilter || this.props.filterLabel !== nextProps.filterLabel) {
+			this.setQueryInfo(nextProps);
+			this.valueChange(this.state.selected, true);
+		}
 	}
 
 	componentWillUnmount() {
@@ -56,8 +62,8 @@ export default class MultiDropdownRange extends Component {
 		});
 	}
 
-	valueChange(defaultValue) {
-		if (!_.isEqual(this.defaultSelected, defaultValue)) {
+	valueChange(defaultValue, execute) {
+		if (!_.isEqual(this.defaultSelected, defaultValue) || execute) {
 			this.defaultSelected = defaultValue;
 			const records = this.state.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 			if (records && records.length) {
@@ -66,23 +72,25 @@ export default class MultiDropdownRange extends Component {
 				} else {
 					setTimeout(this.handleChange.bind(this, records), 1000);
 				}
+			} else {
+				setTimeout(this.handleChange.bind(this, null), 1000);
 			}
 		}
 	}
 
 	// set the query type and input data
-	setQueryInfo() {
+	setQueryInfo(props) {
 		const obj = {
-			key: this.props.componentId,
+			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: this.props.appbaseField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				inputData: props.appbaseField,
+				customQuery: props.customQuery ? props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
-				showFilter: this.props.showFilter,
-				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
+				showFilter: props.showFilter,
+				filterLabel: props.filterLabel ? props.filterLabel : props.componentId,
 				component: "MultiDropdownRange",
-				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
+				defaultSelected: this.urlParams !== null ? this.urlParams : props.defaultSelected
 			}
 		};
 		helper.selectedSensor.setSensorInfo(obj);
