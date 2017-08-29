@@ -69,7 +69,11 @@ export default class DataSearch extends Component {
 			}
 		}
 
-		if (this.props.highlight !== nextProps.highlight) {
+		if (
+				this.props.highlight !== nextProps.highlight ||
+				this.props.showFilter !== nextProps.showFilter ||
+				this.props.filterLabel !== nextProps.filterLabel
+			) {
 			this.setQueryInfo(nextProps);
 			this.handleSearch({
 				value: this.state.currentValue
