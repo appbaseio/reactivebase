@@ -14,8 +14,15 @@ export default class DataController extends Component {
 
 	// Set query information
 	componentWillMount() {
-		this.setQueryInfo();
+		this.setQueryInfo(this.props);
 		this.checkDefault();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (this.props.showFilter !== nextProps.showFilter || this.props.filterLabel !== nextProps.filterLabel) {
+			this.setQueryInfo(nextProps);
+			this.setValue(this.defaultSelected);
+		}
 	}
 
 	componentWillUpdate() {
@@ -31,20 +38,20 @@ export default class DataController extends Component {
 	}
 
 	// set the query type and input data
-	setQueryInfo() {
+	setQueryInfo(props) {
 		const valObj = {
 			queryType: this.type,
 			reactiveId: this.context.reactiveId,
-			showFilter: this.props.showFilter,
-			filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
+			showFilter: props.showFilter,
+			filterLabel: props.filterLabel ? props.filterLabel : props.componentId,
 			component: "DataController",
-			defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
+			defaultSelected: this.urlParams !== null ? this.urlParams : props.defaultSelected
 		};
-		if (this.props.customQuery) {
-			valObj.customQuery = this.props.customQuery;
+		if (props.customQuery) {
+			valObj.customQuery = props.customQuery;
 		}
 		const obj = {
-			key: this.props.componentId,
+			key: props.componentId,
 			value: valObj
 		};
 		helper.selectedSensor.setSensorInfo(obj);
