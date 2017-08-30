@@ -6,20 +6,28 @@ const helper = require("./helper.js");
 export default class ReactiveBase extends Component {
 	constructor(props, context) {
 		super(props);
+
 		this.state = {};
 		this.type = this.props.type ? this.props.type : "*";
+
+		const credentials = this.props.url && this.props.url.trim() !== "" && !this.props.credentials
+			? "test:test"
+			: this.props.credentials;
+
 		this.appbaseRef = new Appbase({
-			url: "https://scalr.api.appbase.io",
+			url: this.props.url && this.props.url.trim() !== "" ? this.props.url : "https://scalr.api.appbase.io",
 			appname: this.props.app,
-			credentials: this.props.credentials,
+			credentials: credentials,
 			type: this.type
 		});
+
 		this.appbaseCrdentials = {
-			url: "https://scalr.api.appbase.io",
-			credentials: this.props.credentials,
+			url: this.props.url && this.props.url.trim() !== "" ? this.props.url : "https://scalr.api.appbase.io",
+			credentials: credentials,
 			appname: this.props.app,
 			type: this.type
 		};
+
 		this.reactiveId = helper.RecactivebaseComponents.length;
 		helper.RecactivebaseComponents[this.reactiveId] = [];
 	}
@@ -73,6 +81,7 @@ export default class ReactiveBase extends Component {
 }
 
 ReactiveBase.propTypes = {
+	url: React.PropTypes.string,
 	app: React.PropTypes.string.isRequired,
 	credentials: helper.reactiveBaseValidation,
 	type: React.PropTypes.string,

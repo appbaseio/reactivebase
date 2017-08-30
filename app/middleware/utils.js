@@ -59,7 +59,7 @@ export const pagesValidation = function(props, propName) {
 
 export const reactiveBaseValidation = (props, propName) => {
 	let err = null;
-	if (!props.credentials) {
+	if (!props.credentials && !props.url) {
 		err = new Error("ReactiveBase expects credentials as a prop instead of username:password.");
 	}
 	return err;
