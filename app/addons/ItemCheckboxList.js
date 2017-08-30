@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import _ from "lodash";
 import ListItem from "./ListItem";
 
 export default class ItemCheckboxList extends Component {
@@ -38,6 +39,19 @@ export default class ItemCheckboxList extends Component {
 		if (nextProps.defaultSelected === null && !nextProps.selectAll) {
 			this.setState({
 				selectedItems: []
+			});
+		}
+		if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
+			let items = [];
+			this.props.items.forEach(item => {
+				if (nextProps.defaultSelected.indexOf(item.key) >= 0) {
+					items.push(item.key);
+				}
+			});
+			this.setState({
+				selectedItems: items.length ? items : []
+			}, () => {
+				this.props.onSelect(this.state.selectedItems);
 			});
 		}
 	}
