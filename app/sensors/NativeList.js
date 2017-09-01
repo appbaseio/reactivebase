@@ -90,11 +90,12 @@ export default class NativeList extends Component {
 	// customQuery will receive 2 arguments, selected sensor value and select all.
 	customQuery(value) {
 		const defaultQuery = this.props.customQuery ? this.props.customQuery : this.defaultCustomQuery;
-		if (this.props.onQueryChange) {
-			this.props.onQueryChange(this.previousQuery, defaultQuery(value));
-			this.previousQuery = defaultQuery(value);
+		const currentQuery = defaultQuery(value);
+		if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+			this.props.onQueryChange(this.previousQuery, currentQuery);
+			this.previousQuery = currentQuery;
 		}
-		return defaultQuery(value);
+		return currentQuery;
 	}
 
 	defaultCustomQuery(value) {
