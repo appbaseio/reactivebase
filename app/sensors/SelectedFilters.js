@@ -112,7 +112,7 @@ export default class SelectedFilters extends Component {
 			}
 		} else if (item.component === "PlacesSearch") {
 			value = item.value.currentValue;
-		} else if (item.component === "NestedList") {
+		} else if (item.component === "NestedList" || item.component === "NestedMultiList") {
 			value = item.value.join(" > ");
 		} else if (item.component === "NumberBox") {	// currently not showing NumberBox
 			value = value.value;
