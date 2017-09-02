@@ -48,7 +48,7 @@ export default class SingleDropdownRangeDefault extends Component {
 						<SelectedFilters componentId="SelectedFilters" />
 						<SingleDropdownRange
 							componentId="PriceSensor"
-							appbaseField={this.props.mapping.price}
+							dataField={this.props.mapping.price}
 							title="SingleDropdownRange"
 							data={
 							[{ start: 0, end: 100, label: "Cheap" },
@@ -63,7 +63,7 @@ export default class SingleDropdownRangeDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.name}
+							dataField={this.props.mapping.name}
 							title="Results"
 							sortBy="asc"
 							from={0}

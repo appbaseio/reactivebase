@@ -70,7 +70,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<MultiDropdownList
 							componentId="CitySensor"
-							appbaseField={this.props.mapping.city}
+							dataField={this.props.mapping.city}
 							title="MultiDropdownList"
 							size={100}
 							URLParams={true}
@@ -82,7 +82,7 @@ class Main extends Component {
 
 						<MultiDropdownList
 							componentId="TopicsSensor"
-							appbaseField={this.props.mapping.topic}
+							dataField={this.props.mapping.topic}
 							title="queryFormat = and"
 							size={100}
 							URLParams={true}
@@ -95,7 +95,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.topic}
+							dataField={this.props.mapping.topic}
 							title="Results"
 							sortBy="asc"
 							from={0}

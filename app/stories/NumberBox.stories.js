@@ -48,7 +48,7 @@ export default class NumberBoxDefault extends Component {
 						<SelectedFilters componentId="SelectedFilters" />
 						<NumberBox
 							componentId="CarRatingSensor"
-							appbaseField={this.props.mapping.rating}
+							dataField={this.props.mapping.rating}
 							title="NumberBox"
 							{...this.props}
 						/>
@@ -57,7 +57,7 @@ export default class NumberBoxDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.rating}
+							dataField={this.props.mapping.rating}
 							title="Cars"
 							from={0}
 							size={20}

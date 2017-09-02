@@ -1046,17 +1046,17 @@ storiesOf("ReactiveList", module)
 			sortOptions={[
 				{
 					label: "Most Recent RSVP",
-					appbaseField: "mtime",
+					dataField: "mtime",
 					sortBy: "desc"
 				},
 				{
 					label: "Guests - High to Low",
-					appbaseField: "guests",
+					dataField: "guests",
 					sortBy: "desc"
 				},
 				{
 					label: "Guests - Low to High",
-					appbaseField: "guests",
+					dataField: "guests",
 					sortBy: "asc"
 				}
 			]}
@@ -1087,17 +1087,17 @@ storiesOf("ReactiveList", module)
 			sortOptions={[
 				{
 					label: "Most Recent RSVP",
-					appbaseField: "mtime",
+					dataField: "mtime",
 					sortBy: "desc"
 				},
 				{
 					label: "Guests - High to Low",
-					appbaseField: "guests",
+					dataField: "guests",
 					sortBy: "desc"
 				},
 				{
 					label: "Guests - Low to High",
-					appbaseField: "guests",
+					dataField: "guests",
 					sortBy: "asc"
 				}
 			]}

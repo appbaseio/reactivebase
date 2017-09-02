@@ -63,7 +63,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<TextField
 							componentId="NameTextSensor"
-							appbaseField={this.props.mapping.name}
+							dataField={this.props.mapping.name}
 							title="TextField"
 							customQuery={this.NameQuery}
 							URLParams={true}
@@ -74,7 +74,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.name}
+							dataField={this.props.mapping.name}
 							title="Cars"
 							from={0}
 							size={20}

@@ -71,7 +71,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<input value={this.state.defaultSelected} onChange={this.handleInputChange} placeholder="defaultSelected" />
 						<DataSearch
-							appbaseField={"venue_name_ngrams"}
+							dataField={"venue_name_ngrams"}
 							componentId="VenueSensor"
 							title="VenueSearch"
 							URLParams={true}
@@ -91,7 +91,7 @@ class Main extends Component {
 							]}
 						/>
 						<DataSearch
-							appbaseField={"group.group_topics.topic_name_raw"}
+							dataField={"group.group_topics.topic_name_raw"}
 							componentId="TopicSensor"
 							title="TopicSearch"
 							URLParams={true}
@@ -106,7 +106,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField="group.group_topics.topic_name_raw"
+							dataField="group.group_topics.topic_name_raw"
 							title="Results"
 							sortBy="asc"
 							from={0}

@@ -62,7 +62,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<DateRange
 							componentId="DateRangeSensor"
-							appbaseField="mtime"
+							dataField="mtime"
 							title="Date Range"
 							URLParams={true}
 							filterLabel="Date Range Label"
@@ -72,7 +72,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField="mtime"
+							dataField="mtime"
 							title="Results"
 							from={0}
 							size={20}

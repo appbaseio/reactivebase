@@ -14,7 +14,7 @@ export default function MultiDataList(props) {
 
 MultiDataList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string.isRequired,
+	dataField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -51,8 +51,8 @@ MultiDataList.contextTypes = {
 
 MultiDataList.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.STRING,
+	dataField: TYPES.STRING,
+	dataFieldType: TYPES.STRING,
 	title: TYPES.STRING,
 	data: TYPES.ARRAY,
 	defaultSelected: TYPES.ARRAY,

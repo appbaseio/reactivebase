@@ -62,7 +62,7 @@ export default class DatePickerDefault extends Component {
 						<SelectedFilters componentId="SelectedFilters" />
 						<DatePicker
 							componentId="DateSensor"
-							appbaseField="mtime"
+							dataField="mtime"
 							title="title"
 							{...this.props}
 						/>
@@ -71,7 +71,7 @@ export default class DatePickerDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField="mtime"
+							dataField="mtime"
 							title="Results"
 							from={0}
 							size={20}

@@ -35,13 +35,13 @@ export default class ReactiveList extends Component {
 		if (this.props.sortOptions) {
 			const obj = this.props.sortOptions[0];
 			this.sortObj = {
-				[obj.appbaseField]: {
+				[obj.dataField]: {
 					order: obj.sortBy
 				}
 			};
 		} else if (this.props.sortBy) {
 			this.sortObj = {
-				[this.props.appbaseField]: {
+				[this.props.dataField]: {
 					order: this.props.sortBy
 				}
 			};
@@ -389,7 +389,7 @@ export default class ReactiveList extends Component {
 	setQueryForPagination() {
 		const valObj = {
 			queryType: "match",
-			inputData: this.props.appbaseField,
+			inputData: this.props.dataField,
 			customQuery: () => null
 		};
 		const obj = {
@@ -500,7 +500,7 @@ export default class ReactiveList extends Component {
 	handleSortSelect(event) {
 		const index = event.target.value;
 		this.sortObj = {
-			[this.props.sortOptions[index].appbaseField]: {
+			[this.props.sortOptions[index].dataField]: {
 				order: this.props.sortOptions[index].sortBy
 			}
 		};
@@ -597,7 +597,7 @@ export default class ReactiveList extends Component {
 
 ReactiveList.propTypes = {
 	componentId: React.PropTypes.string,
-	appbaseField: React.PropTypes.string,
+	dataField: React.PropTypes.string,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -606,7 +606,7 @@ ReactiveList.propTypes = {
 	sortOptions: React.PropTypes.arrayOf(
 		React.PropTypes.shape({
 			label: React.PropTypes.string,
-			appbaseField: React.PropTypes.string,
+			dataField: React.PropTypes.string,
 			sortBy: React.PropTypes.string
 		})
 	),
@@ -659,7 +659,7 @@ ReactiveList.contextTypes = {
 
 ReactiveList.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
+	dataField: TYPES.STRING,
 	title: TYPES.STRING,
 	react: TYPES.OBJECT,
 	sortBy: TYPES.STRING,

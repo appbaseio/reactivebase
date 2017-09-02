@@ -77,7 +77,7 @@ export default class MultiRange extends Component {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: props.appbaseField,
+				inputData: props.dataField,
 				customQuery: props.customQuery ? props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
@@ -91,11 +91,11 @@ export default class MultiRange extends Component {
 
 	// build query for this sensor only
 	customQuery(record) {
-		function generateRangeQuery(appbaseField) {
+		function generateRangeQuery(dataField) {
 			if (record.length > 0) {
 				return record.map(singleRecord => ({
 					range: {
-						[appbaseField]: {
+						[dataField]: {
 							gte: singleRecord.start,
 							lte: singleRecord.end,
 							boost: 2.0
@@ -109,7 +109,7 @@ export default class MultiRange extends Component {
 		if (record) {
 			const query = {
 				bool: {
-					should: generateRangeQuery(this.props.appbaseField),
+					should: generateRangeQuery(this.props.dataField),
 					minimum_should_match: 1,
 					boost: 1.0
 				}
@@ -260,7 +260,7 @@ export default class MultiRange extends Component {
 }
 
 MultiRange.propTypes = {
-	appbaseField: React.PropTypes.string.isRequired,
+	dataField: React.PropTypes.string.isRequired,
 	componentId: React.PropTypes.string.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
@@ -294,8 +294,8 @@ MultiRange.contextTypes = {
 
 MultiRange.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.NUMBER,
+	dataField: TYPES.STRING,
+	dataFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,

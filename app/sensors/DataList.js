@@ -133,7 +133,7 @@ export default class DataList extends Component {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: props.appbaseField,
+				inputData: props.dataField,
 				customQuery: props.customQuery ? props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
@@ -149,7 +149,7 @@ export default class DataList extends Component {
 		if (this.state.selectAll) {
 			return {
 				exists: {
-					field: [this.props.appbaseField]
+					field: [this.props.dataField]
 				}
 			};
 		} else if (record) {
@@ -159,7 +159,7 @@ export default class DataList extends Component {
 				const queryArray = record.map(item => (
 					{
 						[this.type]: {
-							[this.props.appbaseField]: item
+							[this.props.dataField]: item
 						}
 					}
 				));
@@ -173,7 +173,7 @@ export default class DataList extends Component {
 			// for the default queryFormat = "or" and SingleDataList
 			return {
 				[this.type]: {
-					[this.props.appbaseField]: record
+					[this.props.dataField]: record
 				}
 			};
 		}
@@ -530,7 +530,7 @@ export default class DataList extends Component {
 
 DataList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string.isRequired,
+	dataField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element

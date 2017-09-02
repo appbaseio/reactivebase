@@ -110,7 +110,7 @@ export default class NumberBox extends Component {
 	exactQuery(value) {
 		return {
 			[this.type]: {
-				[this.props.appbaseField]: value
+				[this.props.dataField]: value
 			}
 		};
 	}
@@ -118,7 +118,7 @@ export default class NumberBox extends Component {
 	gteQuery(value) {
 		return {
 			range: {
-				[this.props.appbaseField]: {
+				[this.props.dataField]: {
 					gte: value,
 					boost: 2.0
 				}
@@ -129,7 +129,7 @@ export default class NumberBox extends Component {
 	lteQuery(value) {
 		return {
 			range: {
-				[this.props.appbaseField]: {
+				[this.props.dataField]: {
 					lte: value,
 					boost: 2.0
 				}
@@ -138,12 +138,12 @@ export default class NumberBox extends Component {
 	}
 
 	setQueryInfo() {
-		const { componentId, appbaseField } = this.props;
+		const { componentId, dataField } = this.props;
 		const obj = {
 			key: componentId,
 			value: {
 				queryType: this.type,
-				inputData: appbaseField,
+				inputData: dataField,
 				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
 				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected,
 				showFilter: this.props.showFilter,
@@ -242,7 +242,7 @@ export default class NumberBox extends Component {
 
 NumberBox.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string.isRequired,
+	dataField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -280,8 +280,8 @@ NumberBox.contextTypes = {
 
 NumberBox.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.NUMBER,
+	dataField: TYPES.STRING,
+	dataFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.NUMBER,

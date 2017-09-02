@@ -82,7 +82,7 @@ class Main extends Component {
 				<div className="row">
 					<div className="col s6 col-xs-6">
 						<SingleDataList
-							appbaseField={this.props.mapping.topic}
+							dataField={this.props.mapping.topic}
 							componentId="MeetupTops"
 							title="SingleDataList"
 							data={this.data}
@@ -96,7 +96,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField="group.group_topics.topic_name_raw"
+							dataField="group.group_topics.topic_name_raw"
 							title="Results"
 							sortBy="asc"
 							from={0}

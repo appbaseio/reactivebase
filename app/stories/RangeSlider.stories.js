@@ -54,7 +54,7 @@ export default class RangeSliderDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<RangeSlider
 							componentId="RangeSensor"
-							appbaseField={this.props.mapping.guests}
+							dataField={this.props.mapping.guests}
 							stepValue={2}
 							title="RangeSlider"
 							range={{
@@ -68,7 +68,7 @@ export default class RangeSliderDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.topic}
+							dataField={this.props.mapping.topic}
 							title="Results"
 							sortBy="asc"
 							from={0}

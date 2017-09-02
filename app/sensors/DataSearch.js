@@ -25,7 +25,7 @@ export default class DataSearch extends Component {
 		this.searchInputId = `internal-${this.props.componentId}`;
 		this.channelId = null;
 		this.channelListener = null;
-		this.fieldType = typeof this.props.appbaseField;
+		this.fieldType = typeof this.props.dataField;
 		this.handleSearch = this.handleSearch.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.setValue = this.setValue.bind(this);
@@ -105,7 +105,7 @@ export default class DataSearch extends Component {
 
 	highlightQuery(props) {
 		const fields = {};
-		const highlightField = props.highlightField ? props.highlightField : props.appbaseField;
+		const highlightField = props.highlightField ? props.highlightField : props.dataField;
 		if (typeof highlightField === "string") {
 			fields[highlightField] = {};
 		} else if (Array.isArray(highlightField)) {
@@ -128,7 +128,7 @@ export default class DataSearch extends Component {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: props.appbaseField,
+				inputData: props.dataField,
 				customQuery: props.customQuery ? props.customQuery : this.defaultSearchQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
@@ -145,7 +145,7 @@ export default class DataSearch extends Component {
 			key: this.searchInputId,
 			value: {
 				queryType: "multi_match",
-				inputData: props.appbaseField,
+				inputData: props.dataField,
 				customQuery: this.defaultSearchQuery,
 				component: "DataSearchInternal"
 			}
@@ -230,13 +230,13 @@ export default class DataSearch extends Component {
 	// set data after get the result
 	setData(data) {
 		let options = [];
-		const appbaseField = Array.isArray(this.props.appbaseField) ? this.props.appbaseField : [this.props.appbaseField];
+		const dataField = Array.isArray(this.props.dataField) ? this.props.dataField : [this.props.dataField];
 		data.hits.hits.map((hit) => {
 			if (this.fieldType === "string") {
-				const tempField = this.getValue(this.props.appbaseField.trim(), hit._source);
+				const tempField = this.getValue(this.props.dataField.trim(), hit._source);
 				options.push({ value: tempField, label: tempField });
 			} else if (this.fieldType === "object") {
-				this.props.appbaseField.map((field) => {
+				this.props.dataField.map((field) => {
 					const tempField = this.getValue(field, hit._source);
 					if (tempField) {
 						options.push({ value: tempField, label: tempField });
@@ -263,9 +263,9 @@ export default class DataSearch extends Component {
 			fields;
 		if (value) {
 			if (this.fieldType === "string") {
-				fields = [this.props.appbaseField];
+				fields = [this.props.dataField];
 			} else {
-				fields = this.props.appbaseField;
+				fields = this.props.dataField;
 			}
 			finalQuery = {
 				bool: {
@@ -284,8 +284,8 @@ export default class DataSearch extends Component {
 		return finalQuery;
 	}
 
-	shouldQuery(value, appbaseFields) {
-		const fields = appbaseFields.map(
+	shouldQuery(value, dataFields) {
+		const fields = dataFields.map(
 			(field, index) => `${field}${(Array.isArray(this.props.searchWeight) && this.props.searchWeight[index]) ? ("^" + this.props.searchWeight[index]) : ""}`
 		);
 
@@ -534,7 +534,7 @@ export default class DataSearch extends Component {
 
 DataSearch.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.oneOfType([
+	dataField: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.arrayOf(React.PropTypes.string)
 	]),
@@ -595,8 +595,8 @@ DataSearch.contextTypes = {
 
 DataSearch.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.STRING,
+	dataField: TYPES.STRING,
+	dataFieldType: TYPES.STRING,
 	react: TYPES.OBJECT,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,

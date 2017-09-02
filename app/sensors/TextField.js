@@ -68,7 +68,7 @@ export default class TextField extends Component {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: props.appbaseField,
+				inputData: props.dataField,
 				customQuery: props.customQuery ? props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
@@ -84,7 +84,7 @@ export default class TextField extends Component {
 	customQuery(value) {
 		return {
 			[this.type]: {
-				[this.props.appbaseField]: value
+				[this.props.dataField]: value
 			}
 		};
 	}
@@ -154,7 +154,7 @@ export default class TextField extends Component {
 
 TextField.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string,
+	dataField: React.PropTypes.string,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -186,8 +186,8 @@ TextField.contextTypes = {
 
 TextField.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.STRING,
+	dataField: TYPES.STRING,
+	dataFieldType: TYPES.STRING,
 	title: TYPES.STRING,
 	defaultSelected: TYPES.STRING,
 	placeholder: TYPES.STRING,

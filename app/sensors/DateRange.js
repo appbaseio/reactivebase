@@ -80,7 +80,7 @@ export default class DateRange extends Component {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: props.appbaseField,
+				inputData: props.dataField,
 				customQuery: props.customQuery ? props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
@@ -146,28 +146,28 @@ export default class DateRange extends Component {
 
 	generateQuery(value) {
 		let query;
-		if (Array.isArray(this.props.appbaseField) && this.props.appbaseField.length === 2) {
+		if (Array.isArray(this.props.dataField) && this.props.dataField.length === 2) {
 			query = {
 				bool: {
 					must: [{
 						range: {
-							[this.props.appbaseField[0]]: {
+							[this.props.dataField[0]]: {
 								lte: moment(value.startDate).format(helper.dateFormat[this.props.queryFormat])
 							}
 						}
 					}, {
 						range: {
-							[this.props.appbaseField[1]]: {
+							[this.props.dataField[1]]: {
 								gte: moment(value.endDate).format(helper.dateFormat[this.props.queryFormat])
 							}
 						}
 					}]
 				}
 			};
-		} else if (Array.isArray(this.props.appbaseField)) {
+		} else if (Array.isArray(this.props.dataField)) {
 			query = {
 				range: {
-					[this.props.appbaseField[0]]: {
+					[this.props.dataField[0]]: {
 						gte: moment(value.startDate).format(helper.dateFormat[this.props.queryFormat]),
 						lte: moment(value.endDate).format(helper.dateFormat[this.props.queryFormat])
 					}
@@ -176,7 +176,7 @@ export default class DateRange extends Component {
 		} else {
 			query = {
 				range: {
-					[this.props.appbaseField]: {
+					[this.props.dataField]: {
 						gte: moment(value.startDate).format(helper.dateFormat[this.props.queryFormat]),
 						lte: moment(value.endDate).format(helper.dateFormat[this.props.queryFormat])
 					}
@@ -284,7 +284,7 @@ export default class DateRange extends Component {
 
 DateRange.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.oneOfType([
+	dataField: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.array
 	]),
@@ -331,8 +331,8 @@ DateRange.contextTypes = {
 
 DateRange.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.ARRAY,
-	appbaseFieldType: TYPES.DATE,
+	dataField: TYPES.ARRAY,
+	dataFieldType: TYPES.DATE,
 	title: TYPES.STRING,
 	defaultSelected: TYPES.OBJECT,
 	numberOfMonths: TYPES.NUMBER,

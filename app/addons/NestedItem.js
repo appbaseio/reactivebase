@@ -107,11 +107,11 @@ class ItemRow extends Component {
 
 	renderList() {
 		let list;
-		if (this.props.value === this.props.selectedItem && this.props.appbaseField[1]) {
+		if (this.props.value === this.props.selectedItem && this.props.dataField[1]) {
 			list = (
 				<NestedList
 					componentId={`nested-${this.props.value}`}
-					appbaseField={[this.props.appbaseField[1]]}
+					dataField={[this.props.dataField[1]]}
 					react={this.props.react}
 				/>
 			);

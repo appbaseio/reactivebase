@@ -61,7 +61,7 @@ export default class DatePicker extends Component {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: props.appbaseField,
+				inputData: props.dataField,
 				customQuery: props.customQuery ? props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
@@ -88,7 +88,7 @@ export default class DatePicker extends Component {
 		if (value && this.props.queryFormat && helper.dateFormat[this.props.queryFormat]) {
 			query = {
 				range: {
-					[this.props.appbaseField]: {
+					[this.props.dataField]: {
 						gte: moment(value).subtract(24, "hours").format(helper.dateFormat[this.props.queryFormat]),
 						lte: moment(value).format(helper.dateFormat[this.props.queryFormat])
 					}
@@ -183,7 +183,7 @@ export default class DatePicker extends Component {
 
 DatePicker.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string,
+	dataField: React.PropTypes.string,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -226,8 +226,8 @@ DatePicker.contextTypes = {
 
 DatePicker.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.DATE,
+	dataField: TYPES.STRING,
+	dataFieldType: TYPES.DATE,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	defaultSelected: TYPES.OBJECT,

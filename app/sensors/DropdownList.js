@@ -156,7 +156,7 @@ export default class DropdownList extends Component {
 		if (this.selectAll) {
 			return {
 				exists: {
-					field: [this.props.appbaseField]
+					field: [this.props.dataField]
 				}
 			};
 		} else if (value) {
@@ -166,7 +166,7 @@ export default class DropdownList extends Component {
 				const queryArray = value.map(item => (
 					{
 						[this.type]: {
-							[this.props.appbaseField]: item
+							[this.props.dataField]: item
 						}
 					}
 				));
@@ -180,7 +180,7 @@ export default class DropdownList extends Component {
 			// for the default queryFormat = "or" and SingleDropdownList
 			return {
 				[this.type]: {
-					[this.props.appbaseField]: value
+					[this.props.dataField]: value
 				}
 			};
 		}
@@ -192,7 +192,7 @@ export default class DropdownList extends Component {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: props.appbaseField,
+				inputData: props.dataField,
 				customQuery: props.customQuery ? props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
@@ -227,7 +227,7 @@ export default class DropdownList extends Component {
 		// Set the react - add self aggs query as well with react
 		const react = Object.assign({}, props.react);
 		react.aggs = {
-			key: props.appbaseField,
+			key: props.dataField,
 			sort: props.sortBy,
 			size: props.size,
 			sortRef: `${props.componentId}-sort`
@@ -278,8 +278,8 @@ export default class DropdownList extends Component {
 	}
 
 	setData(data) {
-		if (data.aggregations && data.aggregations[this.props.appbaseField] && data.aggregations[this.props.appbaseField].buckets) {
-			this.addItemsToList(data.aggregations[this.props.appbaseField].buckets);
+		if (data.aggregations && data.aggregations[this.props.dataField] && data.aggregations[this.props.dataField].buckets) {
+			this.addItemsToList(data.aggregations[this.props.dataField].buckets);
 		}
 	}
 
@@ -430,7 +430,7 @@ export default class DropdownList extends Component {
 
 DropdownList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string.isRequired,
+	dataField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element

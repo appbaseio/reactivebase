@@ -51,7 +51,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<NumberBox
 							componentId="CarRatingSensor"
-							appbaseField={this.props.mapping.rating}
+							dataField={this.props.mapping.rating}
 							title="NumberBox"
 							data={{
 								label: "Car Ratings",
@@ -66,7 +66,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.rating}
+							dataField={this.props.mapping.rating}
 							title="Cars"
 							from={0}
 							size={20}

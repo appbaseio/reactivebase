@@ -71,7 +71,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<DataController
 							componentId="CustomSensor"
-							appbaseField="name"
+							dataField="name"
 							customQuery={this.CustomQuery}
 							URLParams={true}
 							defaultSelected={this.state.defaultSelected}
@@ -84,7 +84,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField="name"
+							dataField="name"
 							title="Cars"
 							from={0}
 							size={20}

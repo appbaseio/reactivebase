@@ -20,8 +20,8 @@ SingleDropdownList.propTypes = {
 
 SingleDropdownList.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.KEYWORD,
+	dataField: TYPES.STRING,
+	dataFieldType: TYPES.KEYWORD,
 	title: TYPES.STRING,
 	react: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,

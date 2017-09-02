@@ -58,7 +58,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<MultiList
 							componentId="TopicSensor"
-							appbaseField="group.group_topics.topic_name_raw.raw"
+							dataField="group.group_topics.topic_name_raw.raw"
 							title="MultiList"
 							size={100}
 							selectAllLabel="Select All"
@@ -72,7 +72,7 @@ class Main extends Component {
 						/>
 						<RangeSlider
 							componentId="RangeSensor"
-							appbaseField={this.props.mapping.guests}
+							dataField={this.props.mapping.guests}
 							stepValue={2}
 							title="RangeSlider"
 							range={{
@@ -99,7 +99,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.topic}
+							dataField={this.props.mapping.topic}
 							title="Results"
 							sortBy="asc"
 							from={0}

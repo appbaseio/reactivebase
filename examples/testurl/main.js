@@ -60,13 +60,13 @@ class Main extends Component {
 						<div className="col s6 col-xs-6">
 							<MultiList
 								componentId="TopicSensor"
-								appbaseField="group.group_topics.topic_name_raw.raw"
+								dataField="group.group_topics.topic_name_raw.raw"
 								title="MultiList"
 								size={100}
 							/>
 							<SingleList
 								componentId="CitySensor"
-								appbaseField="group.group_city.raw"
+								dataField="group.group_city.raw"
 								title="SingleList"
 								defaultSelected="London"
 								URLParams={true}
@@ -76,7 +76,7 @@ class Main extends Component {
 						<div className="col s6 col-xs-6">
 							<ReactiveList
 								componentId="SearchResult"
-								appbaseField="group.group_topics.topic_name_raw"
+								dataField="group.group_topics.topic_name_raw"
 								title="Results"
 								sortBy="asc"
 								from={0}

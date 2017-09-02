@@ -14,7 +14,7 @@ export default function MultiList(props) {
 
 MultiList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string.isRequired,
+	dataField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -58,8 +58,8 @@ MultiList.contextTypes = {
 
 MultiList.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.KEYWORD,
+	dataField: TYPES.STRING,
+	dataFieldType: TYPES.KEYWORD,
 	title: TYPES.STRING,
 	react: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,

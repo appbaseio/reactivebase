@@ -94,7 +94,7 @@ export default class WithTheme extends Component {
 					<div className="col s6 col-xs-6">
 						<MultiList
 							componentId="CitySensor"
-							appbaseField="group.group_city.group_city_simple"
+							dataField="group.group_city.group_city_simple"
 							showCount={true}
 							size={10}
 							title="Input Filter"

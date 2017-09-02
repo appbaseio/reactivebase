@@ -56,7 +56,7 @@ export default class DataControllerDefault extends Component {
 						<SelectedFilters componentId="SelectedFilters" />
 						<DataController
 							componentId="CustomSensor"
-							appbaseField="name"
+							dataField="name"
 							customQuery={this.CustomQuery}
 							{...this.props}
 						/>
@@ -65,7 +65,7 @@ export default class DataControllerDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField="name"
+							dataField="name"
 							title="Cars"
 							from={0}
 							size={20}

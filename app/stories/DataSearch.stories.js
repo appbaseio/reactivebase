@@ -40,7 +40,7 @@ export default class DataSearchDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<SelectedFilters componentId="CarSensor" />
 						<DataSearch
-							appbaseField={["name", "brand"]}
+							dataField={["name", "brand"]}
 							componentId="CarSensor"
 							placeholder="Search Cars"
 							{...this.props}
@@ -50,7 +50,7 @@ export default class DataSearchDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField="name"
+							dataField="name"
 							title="Results"
 							sortBy="asc"
 							from={0}

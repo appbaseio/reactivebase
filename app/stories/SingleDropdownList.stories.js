@@ -56,7 +56,7 @@ export default class SingleDropdownListDefault extends Component {
 						<SelectedFilters componentId="SelectedFilters" />
 						<SingleDropdownList
 							componentId="CitySensor"
-							appbaseField={this.props.mapping.city}
+							dataField={this.props.mapping.city}
 							title="SingleDropdownList"
 							size={100}
 							{...this.props}
@@ -66,7 +66,7 @@ export default class SingleDropdownListDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.topic}
+							dataField={this.props.mapping.topic}
 							title="Results"
 							sortBy="asc"
 							from={0}

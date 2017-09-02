@@ -52,7 +52,7 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<SingleRange
 							componentId="PriceSensor"
-							appbaseField={this.props.mapping.price}
+							dataField={this.props.mapping.price}
 							title="SingleRange"
 							data={
 							[{ start: 0, end: 100, label: "Cheap" },
@@ -68,22 +68,22 @@ class Main extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField={this.props.mapping.name}
+							dataField={this.props.mapping.name}
 							title="Results"
 							sortOptions={[
 								{
 									label: "Lowest Price First",
-									appbaseField: "price",
+									dataField: "price",
 									sortBy: "asc"
 								},
 								{
 									label: "Highest Price First",
-									appbaseField: "price",
+									dataField: "price",
 									sortBy: "desc"
 								},
 								{
 									label: "Most rated",
-									appbaseField: "rating",
+									dataField: "rating",
 									sortBy: "desc"
 								}
 							]}

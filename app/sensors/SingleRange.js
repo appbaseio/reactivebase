@@ -73,7 +73,7 @@ export default class SingleRange extends Component {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: props.appbaseField,
+				inputData: props.dataField,
 				customQuery: props.customQuery ? props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
@@ -90,7 +90,7 @@ export default class SingleRange extends Component {
 		if (record) {
 			return {
 				range: {
-					[this.props.appbaseField]: {
+					[this.props.dataField]: {
 						gte: record.start,
 						lte: record.end,
 						boost: 2.0
@@ -190,7 +190,7 @@ export default class SingleRange extends Component {
 
 SingleRange.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string.isRequired,
+	dataField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -223,8 +223,8 @@ SingleRange.contextTypes = {
 
 SingleRange.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.NUMBER,
+	dataField: TYPES.STRING,
+	dataFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.STRING,

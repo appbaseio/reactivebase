@@ -66,7 +66,7 @@ export default class ToggleButtonDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<SelectedFilters componentId="SelectedFilters" />
 						<ToggleButton
-							appbaseField={this.props.mapping.topic}
+							dataField={this.props.mapping.topic}
 							componentId="MeetupTops"
 							title="ToggleButton"
 							data={this.toggleData}
@@ -77,7 +77,7 @@ export default class ToggleButtonDefault extends Component {
 					<div className="col s6 col-xs-6">
 						<ReactiveList
 							componentId="SearchResult"
-							appbaseField="group.group_topics.topic_name_raw"
+							dataField="group.group_topics.topic_name_raw"
 							title="Results"
 							sortBy="asc"
 							from={0}

@@ -77,7 +77,7 @@ export default class ToggleButton extends Component {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
-				inputData: props.appbaseField,
+				inputData: props.dataField,
 				customQuery: props.customQuery ? props.customQuery : this.customQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
@@ -95,7 +95,7 @@ export default class ToggleButton extends Component {
 		if (record && record.length) {
 			query = {
 				bool: {
-					should: generateTermQuery(this.props.appbaseField),
+					should: generateTermQuery(this.props.dataField),
 					minimum_should_match: 1,
 					boost: 1.0
 				}
@@ -104,10 +104,10 @@ export default class ToggleButton extends Component {
 		}
 		return query;
 
-		function generateTermQuery(appbaseField) {
+		function generateTermQuery(dataField) {
 			return record.map((singleRecord, index) => ({
 				term: {
-					[appbaseField]: singleRecord.value
+					[dataField]: singleRecord.value
 				}
 			}));
 		}
@@ -227,7 +227,7 @@ export default class ToggleButton extends Component {
 
 ToggleButton.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
-	appbaseField: React.PropTypes.string.isRequired,
+	dataField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -264,8 +264,8 @@ ToggleButton.contextTypes = {
 
 ToggleButton.types = {
 	componentId: TYPES.STRING,
-	appbaseField: TYPES.STRING,
-	appbaseFieldType: TYPES.KEYWORD,
+	dataField: TYPES.STRING,
+	dataFieldType: TYPES.KEYWORD,
 	title: TYPES.STRING,
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
