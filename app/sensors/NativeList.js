@@ -49,6 +49,7 @@ export default class NativeList extends Component {
 		this.setQueryInfo(this.props);
 		this.createChannel(true);
 		this.defaultValue = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+		this.previousQuery = null;	// initial value for onQueryChange
 		this.changeValues(this.defaultValue);
 		this.listenFilter();
 	}
@@ -89,7 +90,12 @@ export default class NativeList extends Component {
 	// customQuery will receive 2 arguments, selected sensor value and select all.
 	customQuery(value) {
 		const defaultQuery = this.props.customQuery ? this.props.customQuery : this.defaultCustomQuery;
-		return defaultQuery(value);
+		const currentQuery = defaultQuery(value);
+		if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+			this.props.onQueryChange(this.previousQuery, currentQuery);
+			this.previousQuery = currentQuery;
+		}
+		return currentQuery;
 	}
 
 	defaultCustomQuery(value) {
@@ -510,6 +516,7 @@ NativeList.propTypes = {
 	react: React.PropTypes.object,
 	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
+	onQueryChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	showRadio: React.PropTypes.bool,
 	showCheckbox: React.PropTypes.bool,

@@ -79,6 +79,10 @@ class Main extends Component {
 								react={{
 									and: "CitySensor"
 								}}
+								onQueryChange={(prev, next) => {
+									console.log("multi prev query", prev);
+									console.log("multi next query", next);
+								}}
 							/>
 							<SingleList
 								componentId="CitySensor"
@@ -92,6 +96,10 @@ class Main extends Component {
 								beforeValueChange={() => new Promise((resolve, reject) => resolve())}
 								react={{
 									and: "TopicSensor"
+								}}
+								onQueryChange={(prev, next) => {
+									console.log("single prev query", prev);
+									console.log("single next query", next);
 								}}
 							/>
 						</div>
