@@ -1,5 +1,6 @@
 .rbc-selectedfilters {
 	padding: 0 5px 5px 0;
+	
 	.rbc-tag-item {
 		border-radius: 2px;
 		border: 1px solid;
@@ -12,21 +13,27 @@
 		padding: 0;
 		display: inline-block;
 		cursor: pointer;
+	
 		span {
 			padding: 0 5px;
 			position: relative;
 			top: 1px;
-			max-width: 200px;
 			height: 20px;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			float: left;
 			display: inline-block;
 			white-space: nowrap;
+
+			@media all and (max-width: 767px) {
+				max-width: 200px;
+			}
 		}
+	
 		strong {
 			font-weight: bold;
 		}
+	
 		.close {
 			display: inline-block;
 			float: left;
