@@ -14,6 +14,7 @@ export default class DataController extends Component {
 
 	// Set query information
 	componentWillMount() {
+		this.previousQuery = null;	// initial value for onQueryChange
 		this.setQueryInfo(this.props);
 		this.checkDefault();
 	}
@@ -48,7 +49,15 @@ export default class DataController extends Component {
 			defaultSelected: this.urlParams !== null ? this.urlParams : props.defaultSelected
 		};
 		if (props.customQuery) {
-			valObj.customQuery = props.customQuery;
+			const customQuery = (value) => {
+				const currentQuery = props.customQuery(value);
+				if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+					this.props.onQueryChange(this.previousQuery, currentQuery);
+				}
+				this.previousQuery = currentQuery;
+				return currentQuery;
+			};
+			valObj.customQuery = customQuery;
 		}
 		const obj = {
 			key: props.componentId,
@@ -135,6 +144,7 @@ DataController.propTypes = {
 	]),
 	customQuery: React.PropTypes.func.isRequired,
 	onValueChange: React.PropTypes.func,
+	onQueryChange: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	defaultSelected: React.PropTypes.any,
