@@ -2147,6 +2147,7 @@ a {
 .rbc-selectedfilters {
   padding: 0 5px 5px 0; }
   .rbc-selectedfilters .rbc-tag-item {
+    position: relative;
     border-radius: 2px;
     border: 1px solid;
     display: inline-block;
@@ -2158,7 +2159,7 @@ a {
     padding: 0;
     display: inline-block;
     cursor: pointer; }
-    .rbc-selectedfilters .rbc-tag-item span {
+    .rbc-selectedfilters .rbc-tag-item .rbc-tag-text {
       padding: 0 5px;
       position: relative;
       top: 1px;
@@ -2167,9 +2168,10 @@ a {
       text-overflow: ellipsis;
       float: left;
       display: inline-block;
-      white-space: nowrap; }
+      white-space: nowrap;
+      max-width: 400px; }
       @media all and (max-width: 767px) {
-        .rbc-selectedfilters .rbc-tag-item span {
+        .rbc-selectedfilters .rbc-tag-item .rbc-tag-text {
           max-width: 200px; } }
     .rbc-selectedfilters .rbc-tag-item strong {
       font-weight: bold; }
@@ -2182,3 +2184,29 @@ a {
       background: transparent;
       border: none;
       border-right: 1px solid; }
+  .rbc-selectedfilters .rbc-tooltip {
+    visibility: hidden;
+    width: auto;
+    min-width: 50px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 12px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: calc(100% + 5px);
+    left: 50%;
+    margin-left: calc(-20% - 20px); }
+    .rbc-selectedfilters .rbc-tooltip:after {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent black transparent; }
+  @media all and (min-width: 768px) {
+    .rbc-selectedfilters:hover .rbc-tooltip {
+      visibility: visible; } }

@@ -135,6 +135,9 @@ export default class SelectedFilters extends Component {
 								<span className="rbc-tag-text">
 									<strong>{this.state.filters[item].filterLabel}</strong> : {this.parseValue(this.state.filters[item])}
 								</span>
+								<span className="rbc-tooltip">
+									{this.parseValue(this.state.filters[item])}
+								</span>
 							</span>);
 						}
 						return null;
