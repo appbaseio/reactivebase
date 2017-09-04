@@ -19,7 +19,9 @@ export default class ToggleButton extends Component {
 	// Set query information
 	componentWillMount() {
 		this.setQueryInfo(this.props);
-		this.checkDefault(this.props);
+		setTimeout(() => {
+			this.checkDefault(this.props);
+		}, 100);
 		this.listenFilter();
 	}
 
@@ -115,7 +117,7 @@ export default class ToggleButton extends Component {
 
 	// handle the input change and pass the value inside sensor info
 	handleChange(record, setTrue = false) {
-		let selected = this.state.selected;
+		let { selected } = this.state;
 		let newSelection = null;
 		let selectedIndex = null;
 
