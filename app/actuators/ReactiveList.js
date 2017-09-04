@@ -380,7 +380,9 @@ export default class ReactiveList extends Component {
 		this.setReact(this.props);
 		this.createChannel(executeChannel);
 		if (this.state.requestOnScroll) {
-			this.listComponent();
+			setTimeout(() => {
+				this.listComponent();
+			}, 100);
 		} else {
 			this.setQueryForPagination();
 		}
@@ -643,7 +645,7 @@ ReactiveList.defaultProps = {
 	stream: false,
 	componentStyle: {},
 	showResultStats: true,
-	pagination: false,
+	pagination: true,
 	paginationAt: "bottom",
 	pages: 5,
 	pageURLParams: false
