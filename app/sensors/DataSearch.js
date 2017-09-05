@@ -160,9 +160,11 @@ export default class DataSearch extends Component {
 			value
 		};
 
+		const nextValue = obj.value ? obj.value : null;
+
 		const execQuery = () => {
 			if (this.props.onValueChange) {
-				this.props.onValueChange(obj.value);
+				this.props.onValueChange(nextValue);
 			}
 
 			this.defaultSelected = value;
@@ -188,7 +190,7 @@ export default class DataSearch extends Component {
 		};
 
 		if (this.props.beforeValueChange) {
-			this.props.beforeValueChange(obj.value)
+			this.props.beforeValueChange(nextValue)
 			.then(() => {
 				execQuery();
 			})
@@ -385,9 +387,11 @@ export default class DataSearch extends Component {
 			value
 		};
 
+		const nextValue = obj.value ? obj.value : null;
+
 		const execQuery = () => {
 			if (this.props.onValueChange) {
-				this.props.onValueChange(obj.value);
+				this.props.onValueChange(nextValue);
 			}
 
 			helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
@@ -398,7 +402,7 @@ export default class DataSearch extends Component {
 		};
 
 		if (this.props.beforeValueChange) {
-			this.props.beforeValueChange(obj.value)
+			this.props.beforeValueChange(nextValue)
 			.then(() => {
 				execQuery();
 			})
