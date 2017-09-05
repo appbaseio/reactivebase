@@ -104,18 +104,19 @@ export default class TextField extends Component {
 			value: inputVal
 		};
 		this.defaultSelected = inputVal;
+		const nextValue = obj.value ? obj.value : null;
 
 		const execQuery = () => {
 			const isExecuteQuery = true;
 			if (this.props.onValueChange) {
-				this.props.onValueChange(obj.value);
+				this.props.onValueChange(nextValue);
 			}
 			helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
 			helper.selectedSensor.set(obj, isExecuteQuery);
 		};
 
 		if (this.props.beforeValueChange) {
-			this.props.beforeValueChange(obj.value)
+			this.props.beforeValueChange(nextValue)
 			.then(() => {
 				execQuery();
 			})
