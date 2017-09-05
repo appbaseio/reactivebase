@@ -25,6 +25,7 @@ export default class MultiDropdownRange extends Component {
 
 	// Set query information
 	componentWillMount() {
+		this.previousQuery = null;	// initial value for onQueryChange
 		this.setQueryInfo(this.props);
 		if (this.defaultSelected) {
 			const records = this.state.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
@@ -80,12 +81,20 @@ export default class MultiDropdownRange extends Component {
 
 	// set the query type and input data
 	setQueryInfo(props) {
+		const getQuery = (value) => {
+			const currentQuery = props.customQuery ? props.customQuery(value) : this.customQuery(value);
+			if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+				this.props.onQueryChange(this.previousQuery, currentQuery);
+			}
+			this.previousQuery = currentQuery;
+			return currentQuery;
+		};
 		const obj = {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
 				inputData: props.dataField,
-				customQuery: props.customQuery ? props.customQuery : this.customQuery,
+				customQuery: getQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
 				filterLabel: props.filterLabel ? props.filterLabel : props.componentId,
@@ -210,6 +219,7 @@ MultiDropdownRange.propTypes = {
 	data: React.PropTypes.any.isRequired,
 	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
+	onQueryChange: React.PropTypes.func,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
@@ -243,5 +253,6 @@ MultiDropdownRange.types = {
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
+	onQueryChange: TYPES.FUNCTION,
 	filterLabel: TYPES.STRING
 };
