@@ -553,7 +553,9 @@ DataList.propTypes = {
 	showRadio: React.PropTypes.bool,
 	showCheckbox: React.PropTypes.bool,
 	selectAllLabel: React.PropTypes.string,
-	queryFormat: React.PropTypes.oneOf(["and", "or"])
+	queryFormat: React.PropTypes.oneOf(["and", "or"]),
+	onValueChange: React.PropTypes.func,
+	beforeValueChange: React.PropTypes.func
 };
 
 // Default props value
