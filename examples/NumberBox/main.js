@@ -60,6 +60,10 @@ class Main extends Component {
 							}}
 							URLParams={true}
 							beforeValueChange={() => new Promise((resolve, reject) => resolve())}
+							onQueryChange={(prev, next) => {
+								console.log("prevQuery", prev);
+								console.log("nextQuery", next);
+							}}
 							onValueChange={value => console.log("onValueChange:", value)}
 						/>
 					</div>

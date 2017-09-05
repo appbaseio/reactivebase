@@ -81,6 +81,10 @@ class Main extends Component {
 							URLParams={true}
 							multiSelect={false}
 							filterLabel="Toggle Label"
+							onQueryChange={(prev, next) => {
+								console.log("prevQuery", prev);
+								console.log("nextQuery", next);
+							}}
 							onValueChange={value => console.log("onValueChange:", value)}
 						/>
 						<SingleRange

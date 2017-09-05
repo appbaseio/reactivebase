@@ -61,6 +61,10 @@ class Main extends Component {
 								{ start: 501, end: 1000, label: "First Date" }]
 							}
 							URLParams={true}
+							onQueryChange={(prev, next) => {
+								console.log("prevQuery", prev);
+								console.log("nextQuery", next);
+							}}
 							onValueChange={value => console.log("onValueChange:", value)}
 							filterLabel="Price Label"
 						/>

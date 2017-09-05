@@ -79,6 +79,10 @@ class Main extends Component {
 							defaultSelected={this.state.defaultSelected}
 							filterLabel="Venue Label"
 							beforeValueChange={() => new Promise((resolve) => resolve())}
+							onQueryChange={(prev, next) => {
+								console.log("prevQuery", prev);
+								console.log("nextQuery", next);
+							}}
 							onValueChange={value => console.log("onValueChange:", value)}
 							defaultSuggestions={[
 								{

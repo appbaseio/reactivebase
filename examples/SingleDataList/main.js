@@ -89,6 +89,10 @@ class Main extends Component {
 							URLParams={true}
 							defaultSelected={this.state.defaultSelected}
 							filterLabel="Meetup Label"
+							onQueryChange={(prev, next) => {
+								console.log("prevQuery", prev);
+								console.log("nextQuery", next);
+							}}
 							onValueChange={value => console.log("onValueChange:", value)}
 						/>
 						<input value={this.state.defaultSelected} onChange={this.handleInputChange} placeholder="defaultSelected" />

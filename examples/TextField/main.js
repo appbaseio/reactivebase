@@ -68,6 +68,10 @@ class Main extends Component {
 							customQuery={this.NameQuery}
 							URLParams={true}
 							filterLabel="Text Label"
+							onQueryChange={(prev, next) => {
+								console.log("prevQuery", prev);
+								console.log("nextQuery", next);
+							}}
 							onValueChange={value => console.log("onValueChange:", value)}
 						/>
 					</div>

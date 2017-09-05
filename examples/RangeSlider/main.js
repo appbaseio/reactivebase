@@ -89,6 +89,10 @@ class Main extends Component {
 								end: "8"
 							}}
 							URLParams={true}
+							onQueryChange={(prev, next) => {
+								console.log("prevQuery", prev);
+								console.log("nextQuery", next);
+							}}
 							onValueChange={(value) => {console.log("value changed to", value)}}
 							beforeValueChange={() => new Promise((resolve) => resolve())}
 							react={{

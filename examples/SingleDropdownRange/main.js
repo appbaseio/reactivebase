@@ -60,6 +60,10 @@ class Main extends Component {
 								{ start: 201, end: 500, label: "Pricey" },
 								{ start: 501, end: 1000, label: "First Date" }]
 							}
+							onQueryChange={(prev, next) => {
+								console.log("prevQuery", prev);
+								console.log("nextQuery", next);
+							}}
 							onValueChange={value => console.log("onValueChange:", value)}
 							URLParams={true}
 						/>

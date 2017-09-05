@@ -77,6 +77,10 @@ class Main extends Component {
 							defaultSelected={this.state.defaultSelected}
 							filterLabel="City Label"
 							onValueChange={value => console.log("onValueChange:", value)}
+							onQueryChange={(prev, next) => {
+								console.log("prevQuery", prev);
+								console.log("nextQuery", next);
+							}}
 							beforeValueChange={() => new Promise((resolve, reject) => resolve())}
 						/>
 						<input value={this.state.defaultSelected} onChange={this.handleInputChange} placeholder="defaultSelected" />
