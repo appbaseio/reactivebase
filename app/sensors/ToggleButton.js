@@ -18,6 +18,7 @@ export default class ToggleButton extends Component {
 
 	// Set query information
 	componentWillMount() {
+		this.previousQuery = null;	// initial value for onQueryChange
 		this.setQueryInfo(this.props);
 		setTimeout(() => {
 			this.checkDefault(this.props);
@@ -75,12 +76,20 @@ export default class ToggleButton extends Component {
 
 	// set the query type and input data
 	setQueryInfo(props) {
+		const getQuery = (value) => {
+			const currentQuery = props.customQuery ? props.customQuery(value) : this.customQuery(value);
+			if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+				this.props.onQueryChange(this.previousQuery, currentQuery);
+			}
+			this.previousQuery = currentQuery;
+			return currentQuery;
+		};
 		const obj = {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
 				inputData: props.dataField,
-				customQuery: props.customQuery ? props.customQuery : this.customQuery,
+				customQuery: getQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
 				filterLabel: props.filterLabel ? props.filterLabel : props.componentId,
@@ -246,6 +255,7 @@ ToggleButton.propTypes = {
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
+	onQueryChange: React.PropTypes.func,
 	filterLabel: React.PropTypes.string
 };
 
@@ -276,5 +286,6 @@ ToggleButton.types = {
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
+	onQueryChange: TYPES.FUNCTION,
 	filterLabel: TYPES.STRING
 };
