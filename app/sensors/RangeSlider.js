@@ -51,6 +51,7 @@ export default class RangeSlider extends Component {
 
 	// Get the items from Appbase when component is mounted
 	componentWillMount() {
+		this.previousQuery = null;	// initial value for onQueryChange
 		this.setReact(this.props);
 		this.setQueryInfo();
 		this.createChannel();
@@ -283,12 +284,20 @@ export default class RangeSlider extends Component {
 				inputData: this.props.dataField
 			}
 		};
+		const getQuery = (value) => {
+			const currentQuery = this.props.customQuery ? this.props.customQuery(value) : this.customQuery(value);
+			if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+				this.props.onQueryChange(this.previousQuery, currentQuery);
+			}
+			this.previousQuery = currentQuery;
+			return currentQuery;
+		};
 		const obj1 = {
 			key: `${this.props.componentId}-internal`,
 			value: {
 				queryType: "range",
 				inputData: this.props.dataField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				customQuery: getQuery,
 				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
 			}
 		};
@@ -560,6 +569,7 @@ RangeSlider.propTypes = {
 	beforeValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	interval: React.PropTypes.number,
+	onQueryChange: React.PropTypes.func,
 	URLParams: React.PropTypes.bool
 };
 
@@ -600,5 +610,6 @@ RangeSlider.types = {
 	initialLoader: TYPES.OBJECT,
 	componentStyle: TYPES.OBJECT,
 	interval: TYPES.NUMBER,
+	onQueryChange: TYPES.FUNCTION,
 	URLParams: TYPES.BOOLEAN
 };
