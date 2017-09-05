@@ -203,17 +203,22 @@ export default class DateRange extends Component {
 			value: inputVal
 		};
 
+		const nextValue = {
+			start: inputVal.startDate,
+			end: inputVal.endDate
+		};
+
 		const execQuery = () => {
 			const isExecuteQuery = true;
 			if (this.props.onValueChange) {
-				this.props.onValueChange(obj.value);
+				this.props.onValueChange(nextValue);
 			}
 			helper.URLParams.update(this.props.componentId, this.urlFriendlyValue(inputVal), this.props.URLParams);
 			helper.selectedSensor.set(obj, isExecuteQuery);
 		};
 
 		if (this.props.beforeValueChange) {
-			this.props.beforeValueChange(obj.value)
+			this.props.beforeValueChange(nextValue)
 			.then(() => {
 				execQuery();
 			})
