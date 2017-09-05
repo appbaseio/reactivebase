@@ -35,6 +35,7 @@ export default class DropdownList extends Component {
 
 	// Get the items from Appbase when component is mounted
 	componentWillMount() {
+		this.previousQuery = null;	// initial value for onQueryChange
 		this.setReact(this.props);
 		this.size = this.props.size;
 		this.setQueryInfo(this.props);
@@ -188,12 +189,20 @@ export default class DropdownList extends Component {
 
 	// set the query type and input data
 	setQueryInfo(props) {
+		const getQuery = (value) => {
+			const currentQuery = props.customQuery ? props.customQuery(value) : this.customQuery(value);
+			if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+				this.props.onQueryChange(this.previousQuery, currentQuery);
+			}
+			this.previousQuery = currentQuery;
+			return currentQuery;
+		};
 		const obj = {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
 				inputData: props.dataField,
-				customQuery: props.customQuery ? props.customQuery : this.customQuery,
+				customQuery: getQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
 				filterLabel: props.filterLabel ? props.filterLabel : props.componentId,
@@ -453,6 +462,7 @@ DropdownList.propTypes = {
 	react: React.PropTypes.object,
 	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
+	onQueryChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
