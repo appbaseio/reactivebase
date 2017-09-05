@@ -47,37 +47,4 @@
 			border-right: 1px solid;
 		}
 	}
-
-	.rbc-tooltip {
-		visibility: hidden;
-		width: auto;
-		min-width: 50px;
-		background-color: black;
-		color: #fff;
-		text-align: center;
-		padding: 5px 12px;
-		border-radius: 6px;
-		position: absolute;
-		z-index: 1;
-		top: calc(100% + 5px);
-		left: 50%;
-		margin-left: calc(-20% - 20px);
-
-		&:after {
-			content: "";
-			position: absolute;
-			bottom: 100%;
-			left: 50%;
-			margin-left: -5px;
-			border-width: 5px;
-			border-style: solid;
-			border-color: transparent transparent black transparent;
-		}
-	}
-
-	@media all and (min-width: 768px) {
-		&:hover .rbc-tooltip {
-			visibility: visible;
-		}
-	}
 }

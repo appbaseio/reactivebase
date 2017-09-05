@@ -130,13 +130,10 @@ export default class SelectedFilters extends Component {
 				{
 					Object.keys(this.state.filters).map(item => {
 						if (!this.props.blackList.includes(item)) {
-							return (<span key={item} className="rbc-tag-item col">
+							return (<span key={item} className="rbc-tag-item col" title={this.parseValue(this.state.filters[item])}>
 								<button className="close" onClick={() => this.clearFilter(item)}>x</button>
 								<span className="rbc-tag-text">
 									<strong>{this.state.filters[item].filterLabel}</strong> : {this.parseValue(this.state.filters[item])}
-								</span>
-								<span className="rbc-tooltip">
-									{this.parseValue(this.state.filters[item])}
 								</span>
 							</span>);
 						}
