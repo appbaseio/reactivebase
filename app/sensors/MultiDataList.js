@@ -29,6 +29,7 @@ MultiDataList.propTypes = {
 	showFilter: React.PropTypes.bool,
 	showCheckbox: React.PropTypes.bool,
 	selectAllLabel: React.PropTypes.string,
+	onQueryChange: React.PropTypes.func,
 	queryFormat: React.PropTypes.oneOf(["and", "or"])
 };
 
@@ -57,6 +58,7 @@ MultiDataList.types = {
 	data: TYPES.ARRAY,
 	defaultSelected: TYPES.ARRAY,
 	customQuery: TYPES.FUNCTION,
+	onQueryChange: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
