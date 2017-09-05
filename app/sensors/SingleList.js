@@ -33,6 +33,7 @@ SingleList.propTypes = {
 	react: React.PropTypes.object,
 	componentStyle: React.PropTypes.object,
 	showRadio: React.PropTypes.bool,
+	onQueryChange: React.PropTypes.func,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool
 };
@@ -73,5 +74,6 @@ SingleList.types = {
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showRadio: TYPES.BOOLEAN,
+	onQueryChange: TYPES.FUNCTION,
 	showFilter: TYPES.BOOLEAN
 };
