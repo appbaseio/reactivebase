@@ -56,6 +56,7 @@ export default class NumberBox extends Component {
 	}
 
 	componentWillMount() {
+		this.previousQuery = null;	// initial value for onQueryChange
 		this.setQueryInfo();
 		if(this.urlParams !== null) {
 			this.updateQuery(this.urlParams);
@@ -139,12 +140,20 @@ export default class NumberBox extends Component {
 
 	setQueryInfo() {
 		const { componentId, dataField } = this.props;
+		const getQuery = (value) => {
+			const currentQuery = this.props.customQuery ? this.props.customQuery(value) : this.customQuery(value);
+			if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+				this.props.onQueryChange(this.previousQuery, currentQuery);
+			}
+			this.previousQuery = currentQuery;
+			return currentQuery;
+		};
 		const obj = {
 			key: componentId,
 			value: {
 				queryType: this.type,
 				inputData: dataField,
-				customQuery: this.props.customQuery ? this.props.customQuery : this.customQuery,
+				customQuery: getQuery,
 				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected,
 				showFilter: this.props.showFilter,
 				filterLabel: this.props.filterLabel ? this.props.filterLabel : this.props.componentId,
@@ -261,6 +270,7 @@ NumberBox.propTypes = {
 	queryFormat: React.PropTypes.oneOf(["exact", "gte", "lte"]),
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
+	onQueryChange: React.PropTypes.func,
 	filterLabel: React.PropTypes.string
 };
 
@@ -289,5 +299,6 @@ NumberBox.types = {
 	customQuery: TYPES.FUNCTION,
 	componentStyle: TYPES.OBJECT,
 	queryFormat: TYPES.STRING,
+	onQueryChange: TYPES.FUNCTION,
 	URLParams: TYPES.BOOLEAN
 };
