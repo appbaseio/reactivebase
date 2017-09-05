@@ -200,7 +200,7 @@ export default class DataList extends Component {
 		};
 
 		if (this.props.beforeValueChange) {
-			this.props.beforeValueChange(value)
+			this.props.beforeValueChange(null)
 			.then(() => {
 				execQuery();
 			})
@@ -263,12 +263,14 @@ export default class DataList extends Component {
 			value
 		};
 
+		const nextValue = this.props.multipleSelect && !value.length ? null : value;
+
 		const execQuery = () => {
 			if (this.props.onValueChange) {
 				if (this.state.selectAll) {
 					this.props.onValueChange(this.props.data);
 				} else {
-					this.props.onValueChange(value);
+					this.props.onValueChange(nextValue);
 				}
 			}
 
@@ -278,7 +280,7 @@ export default class DataList extends Component {
 		};
 
 		if (this.props.beforeValueChange) {
-			this.props.beforeValueChange(value)
+			this.props.beforeValueChange(nextValue)
 			.then(() => {
 				execQuery();
 			})
