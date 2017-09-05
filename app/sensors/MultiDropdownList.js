@@ -17,6 +17,7 @@ MultiDropdownList.propTypes = {
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
+	onQueryChange: React.PropTypes.func,
 	queryFormat: React.PropTypes.oneOf(["and", "or"])
 };
 
@@ -37,5 +38,6 @@ MultiDropdownList.types = {
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
+	onQueryChange: TYPES.FUNCTION,
 	queryFormat: TYPES.STRING
 };
