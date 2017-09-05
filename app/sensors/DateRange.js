@@ -26,6 +26,7 @@ export default class DateRange extends Component {
 
 	// Set query information
 	componentDidMount() {
+		this.previousQuery = null;	// initial value for onQueryChange
 		this.setQueryInfo(this.props);
 		this.checkDefault();
 		this.listenFilter();
@@ -76,12 +77,20 @@ export default class DateRange extends Component {
 
 	// set the query type and input data
 	setQueryInfo(props) {
+		const getQuery = (value) => {
+			const currentQuery = props.customQuery ? props.customQuery(value) : this.customQuery(value);
+			if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+				this.props.onQueryChange(this.previousQuery, currentQuery);
+			}
+			this.previousQuery = currentQuery;
+			return currentQuery;
+		};
 		const obj = {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
 				inputData: props.dataField,
-				customQuery: props.customQuery ? props.customQuery : this.customQuery,
+				customQuery: getQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
 				filterLabel: props.filterLabel ? props.filterLabel : props.componentId,
@@ -306,6 +315,7 @@ DateRange.propTypes = {
 	extra: React.PropTypes.any,
 	customQuery: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
+	onQueryChange: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat)),
