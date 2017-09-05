@@ -17,6 +17,7 @@ export default class TextField extends Component {
 
 	// Set query information
 	componentWillMount() {
+		this.previousQuery = null;	// initial value for onQueryChange
 		this.setQueryInfo(this.props);
 		this.listenFilter();
 	}
@@ -64,12 +65,20 @@ export default class TextField extends Component {
 
 	// set the query type and input data
 	setQueryInfo(props) {
+		const getQuery = (value) => {
+			const currentQuery = props.customQuery ? props.customQuery(value) : this.customQuery(value);
+			if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+				this.props.onQueryChange(this.previousQuery, currentQuery);
+			}
+			this.previousQuery = currentQuery;
+			return currentQuery;
+		};
 		const obj = {
 			key: props.componentId,
 			value: {
 				queryType: this.type,
 				inputData: props.dataField,
-				customQuery: props.customQuery ? props.customQuery : this.customQuery,
+				customQuery: getQuery,
 				reactiveId: this.context.reactiveId,
 				showFilter: props.showFilter,
 				filterLabel: props.filterLabel ? props.filterLabel : props.componentId,
@@ -167,6 +176,7 @@ TextField.propTypes = {
 	onValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
+	onQueryChange: React.PropTypes.func,
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string
 };
@@ -196,5 +206,6 @@ TextField.types = {
 	componentStyle: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
+	onQueryChange: TYPES.FUNCTION,
 	filterLabel: TYPES.STRING
 };
