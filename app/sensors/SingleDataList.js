@@ -28,6 +28,7 @@ SingleDataList.propTypes = {
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	showRadio: React.PropTypes.bool,
+	onQueryChange: React.PropTypes.func,
 	selectAllLabel: React.PropTypes.string
 };
 
@@ -61,5 +62,6 @@ SingleDataList.types = {
 	showSearch: TYPES.BOOLEAN,
 	placeholder: TYPES.STRING,
 	showRadio: TYPES.BOOLEAN,
+	onQueryChange: TYPES.FUNCTION,
 	selectAllLabel: TYPES.STRING
 };
