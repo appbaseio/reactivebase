@@ -70,7 +70,11 @@ export default class RangeSlider extends Component {
 
 		const execQuery = () => {
 			if (nextProps.onValueChange) {
-				nextProps.onValueChange(obj.value);
+				const nextValue = {
+					start: obj.value.from,
+					end: obj.value.to
+				};
+				nextProps.onValueChange(nextValue);
 			}
 			helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
 			helper.selectedSensor.set(obj, true);
@@ -105,7 +109,11 @@ export default class RangeSlider extends Component {
 					};
 					setTimeout(() => {
 						if (this.props.beforeValueChange) {
-							this.props.beforeValueChange(values)
+							const nextValue = {
+								start: values.min,
+								end: values.max
+							};
+							this.props.beforeValueChange(nextValue)
 							.then(() => {
 								execQuery();
 							})
@@ -133,7 +141,11 @@ export default class RangeSlider extends Component {
 					};
 					setTimeout(() => {
 						if (this.props.beforeValueChange) {
-							this.props.beforeValueChange(values)
+							const nextValue = {
+								start: values.min,
+								end: values.max
+							};
+							this.props.beforeValueChange(nextValue)
 							.then(() => {
 								execQuery();
 							})
@@ -180,7 +192,11 @@ export default class RangeSlider extends Component {
 						value: currentRange
 					};
 					if (this.props.beforeValueChange) {
-						this.props.beforeValueChange(values)
+						const nextValue = {
+							start: values.min,
+							end: values.max
+						};
+						this.props.beforeValueChange(nextValue)
 						.then(() => {
 							execQuery();
 						})
@@ -211,7 +227,11 @@ export default class RangeSlider extends Component {
 						}
 					};
 					if (this.props.onValueChange) {
-						this.props.onValueChange(obj.value);
+						const nextValue = {
+							start: obj.value.from,
+							end: obj.value.to
+						};
+						this.props.onValueChange(nextValue);
 					}
 					helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
 					helper.selectedSensor.set(obj, true);
@@ -430,16 +450,21 @@ export default class RangeSlider extends Component {
 			value: realValues
 		};
 
+		const nextValue = {
+			start: realValues.from,
+			end: realValues.to
+		};
+
 		const execQuery = () => {
 			if (this.props.onValueChange) {
-				this.props.onValueChange(obj.value);
+				this.props.onValueChange(nextValue);
 			}
 			helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
 			helper.selectedSensor.set(obj, true);
 		};
 
 		if (this.props.beforeValueChange) {
-			this.props.beforeValueChange(values)
+			this.props.beforeValueChange(nextValue)
 			.then(() => {
 				execQuery();
 			})
@@ -532,6 +557,7 @@ RangeSlider.propTypes = {
 	]),
 	react: React.PropTypes.object,
 	onValueChange: React.PropTypes.func,
+	beforeValueChange: React.PropTypes.func,
 	componentStyle: React.PropTypes.object,
 	interval: React.PropTypes.number,
 	URLParams: React.PropTypes.bool
