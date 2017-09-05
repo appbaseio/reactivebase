@@ -89,6 +89,7 @@ class Main extends Component {
 							URLParams={true}
 							defaultSelected={this.state.defaultSelected}
 							filterLabel="Meetup Label"
+							onValueChange={value => console.log("onValueChange:", value)}
 						/>
 						<input value={this.state.defaultSelected} onChange={this.handleInputChange} placeholder="defaultSelected" />
 					</div>

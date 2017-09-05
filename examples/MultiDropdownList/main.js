@@ -76,7 +76,7 @@ class Main extends Component {
 							URLParams={true}
 							filterLabel="City Label"
 							defaultSelected={this.state.defaultSelected}
-							onValueChange={value => console.log('callback', value)}
+							onValueChange={value => console.log("onValueChange:", value)}
 						/>
 						<input value={this.state.defaultSelected} onChange={this.handleInputChange} placeholder="defaultSelected" />
 

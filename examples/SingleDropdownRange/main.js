@@ -55,11 +55,12 @@ class Main extends Component {
 							dataField={this.props.mapping.price}
 							title="SingleDropdownRange"
 							data={
-							[{ start: 0, end: 100, label: "Cheap" },
+								[{ start: 0, end: 100, label: "Cheap" },
 								{ start: 101, end: 200, label: "Moderate" },
 								{ start: 201, end: 500, label: "Pricey" },
 								{ start: 501, end: 1000, label: "First Date" }]
 							}
+							onValueChange={value => console.log("onValueChange:", value)}
 							URLParams={true}
 						/>
 					</div>

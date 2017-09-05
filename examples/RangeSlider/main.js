@@ -69,6 +69,7 @@ class Main extends Component {
 							showSearch={true}
 							queryFormat="or"
 							filterLabel="Topic Label"
+							onValueChange={value => console.log("onValueChange:", value)}
 						/>
 						<RangeSlider
 							componentId="RangeSensor"

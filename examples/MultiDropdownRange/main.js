@@ -55,7 +55,7 @@ class Main extends Component {
 							dataField={this.props.mapping.price}
 							title="MultiDropdownRange"
 							data={
-							[{ start: 0, end: 100, label: "Cheap" },
+								[{ start: 0, end: 100, label: "Cheap" },
 								{ start: 101, end: 200, label: "Moderate" },
 								{ start: 201, end: 500, label: "Pricey" },
 								{ start: 501, end: 1000, label: "First Date" }]
@@ -63,6 +63,7 @@ class Main extends Component {
 							defaultSelected={["Cheap"]}
 							URLParams={true}
 							beforeValueChange={() => new Promise((resolve, reject) => resolve())}
+							onValueChange={value => console.log("onValueChange:", value)}
 						/>
 					</div>
 

@@ -81,6 +81,7 @@ class Main extends Component {
 							URLParams={true}
 							multiSelect={false}
 							filterLabel="Toggle Label"
+							onValueChange={value => console.log("onValueChange:", value)}
 						/>
 						<SingleRange
 							componentId="PriceSensor"

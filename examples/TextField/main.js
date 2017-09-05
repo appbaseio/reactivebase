@@ -68,6 +68,7 @@ class Main extends Component {
 							customQuery={this.NameQuery}
 							URLParams={true}
 							filterLabel="Text Label"
+							onValueChange={value => console.log("onValueChange:", value)}
 						/>
 					</div>
 

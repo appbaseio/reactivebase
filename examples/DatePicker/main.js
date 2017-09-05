@@ -67,6 +67,7 @@ class Main extends Component {
 							title="title"
 							URLParams={true}
 							filterLabel="Date Label"
+							onValueChange={value => console.log("onValueChange:", value)}
 						/>
 					</div>
 

@@ -83,6 +83,7 @@ class Main extends Component {
 									console.log("multi prev query", prev);
 									console.log("multi next query", next);
 								}}
+								onValueChange={value => console.log("multi onValueChange:", value)}
 							/>
 							<SingleList
 								componentId="CitySensor"
@@ -101,6 +102,7 @@ class Main extends Component {
 									console.log("single prev query", prev);
 									console.log("single next query", next);
 								}}
+								onValueChange={value => console.log("single onValueChange:", value)}
 							/>
 						</div>
 						<div className="col s6 col-xs-6">

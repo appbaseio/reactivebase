@@ -60,6 +60,7 @@ class Main extends Component {
 							}}
 							URLParams={true}
 							beforeValueChange={() => new Promise((resolve, reject) => resolve())}
+							onValueChange={value => console.log("onValueChange:", value)}
 						/>
 					</div>
 
