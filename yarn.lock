@@ -9,13 +9,6 @@
     grunt "~0.4.0"
     serve-static "^1.10.2"
 
-"@appbaseio/reactivemaps-manual@1.0.0-alpha":
-  version "1.0.0-alpha"
-  resolved "https://registry.yarnpkg.com/@appbaseio/reactivemaps-manual/-/reactivemaps-manual-1.0.0-alpha.tgz#d45c54758faad0171efb22b26a725bfc673c3107"
-  dependencies:
-    grunt "~0.4.0"
-    serve-static "^1.10.2"
-
 "@storybook/addon-actions@^3.1.8":
   version "3.1.8"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-3.1.8.tgz#2b6d7aa97530b19965c1010b822f40b130ebbc4d"

@@ -17,7 +17,7 @@ function testComponent(cb) {
 				<div className="col s6 col-xs-6">
 					<SingleRange
 						componentId="CitySensor"
-						appbaseField={config.mapping.price}
+						dataField={config.mapping.price}
 						title="SingleRange"
 						defaultSelected={config.SingleRange.defaultSelected}
 						data={config.SingleRange.data}
@@ -27,7 +27,7 @@ function testComponent(cb) {
 				<div className="col s6 col-xs-6">
 					<ReactiveList
 						componentId="SearchResult"
-						appbaseField={config.mapping.name}
+						dataField={config.mapping.name}
 						title="Results"
 						sortBy={config.ReactiveList.sortBy}
 						from={config.ReactiveList.from}
