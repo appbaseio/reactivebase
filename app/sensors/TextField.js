@@ -151,11 +151,13 @@ export default class TextField extends Component {
 			"rbc-placeholder-inactive": !this.props.placeholder
 		});
 
+		const customClass = this.props.className ? this.props.className : '';
+
 		return (
 			<div className={`rbc rbc-textfield col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{title}
 				<div className="rbc-input-container col s12 col-xs-12">
-					<input className="rbc-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue ? this.state.currentValue : ""} />
+					<input className={`rbc-input ${customClass}`} type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue ? this.state.currentValue : ""} />
 				</div>
 			</div>
 		);
@@ -178,7 +180,8 @@ TextField.propTypes = {
 	URLParams: React.PropTypes.bool,
 	onQueryChange: React.PropTypes.func,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -207,5 +210,6 @@ TextField.types = {
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	onQueryChange: TYPES.FUNCTION,
-	filterLabel: TYPES.STRING
+	filterLabel: TYPES.STRING,
+	className: TYPES.STRING
 };
