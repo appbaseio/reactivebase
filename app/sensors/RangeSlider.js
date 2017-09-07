@@ -69,7 +69,7 @@ export default class RangeSlider extends Component {
 			manager.update(this.channelId, this.react, nextProps.size, 0, false);
 		}
 
-		const execQuery = () => {
+		const execQuery = (obj) => {
 			if (nextProps.onValueChange) {
 				const nextValue = {
 					start: obj.value.from,
@@ -116,13 +116,13 @@ export default class RangeSlider extends Component {
 							};
 							this.props.beforeValueChange(nextValue)
 							.then(() => {
-								execQuery();
+								execQuery(obj);
 							})
 							.catch((e) => {
 								console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
 							});
 						} else {
-							execQuery();
+							execQuery(obj);
 						}
 					}, 1000);
 				} else {
@@ -148,13 +148,13 @@ export default class RangeSlider extends Component {
 							};
 							this.props.beforeValueChange(nextValue)
 							.then(() => {
-								execQuery();
+								execQuery(obj);
 							})
 							.catch((e) => {
 								console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
 							});
 						} else {
-							execQuery();
+							execQuery(obj);
 						}
 					}, 1000);
 				}
@@ -517,11 +517,21 @@ export default class RangeSlider extends Component {
 			"rbc-initialloader-inactive": !this.props.initialLoader
 		});
 
+		const keyAttributes = {
+			start: "start",
+			end: "end"
+		};
+
+		if (this.props.defaultSelected) {
+			keyAttributes.start = this.state.values.min;
+			keyAttributes.end = this.state.values.max;
+		}
+
 		return (
 			<div className={`rbc rbc-rangeslider card thumbnail col s12 col-xs-12 ${cx}`} style={this.props.componentStyle}>
 				{title}
 				{histogram}
-				<div className="rbc-rangeslider-container col s12 col-xs-12">
+				<div className="rbc-rangeslider-container col s12 col-xs-12" key={`rbc-rangeslider-${keyAttributes.start}-${keyAttributes.end}`}>
 					<Slider
 						range
 						defaultValue={[this.state.values.min, this.state.values.max]}
