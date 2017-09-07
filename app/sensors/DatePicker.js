@@ -39,6 +39,9 @@ export default class DatePicker extends Component {
 			this.setQueryInfo(nextProps);
 			this.handleChange(this.state.currentValue);
 		}
+		if (this.props.focused !== nextProps.focused) {
+			this.handleFocus(nextProps.focused);
+		}
 	}
 
 	componentWillUnmount() {
