@@ -17,7 +17,7 @@ function testComponent(cb) {
 				<div className="col s6 col-xs-6">
 					<MultiDropdownList
 						componentId="CitySensor"
-						appbaseField={config.mapping.city}
+						dataField={config.mapping.city}
 						title="MultiDropdownList"
 						defaultSelected={config.MultiDropdownList.defaultSelected}
 						size={100}
@@ -26,7 +26,7 @@ function testComponent(cb) {
 				<div className="col s6 col-xs-6">
 					<ReactiveList
 						componentId="SearchResult"
-						appbaseField={config.mapping.topic}
+						dataField={config.mapping.topic}
 						title="Results"
 						sortBy={config.ReactiveList.sortBy}
 						from={config.ReactiveList.from}

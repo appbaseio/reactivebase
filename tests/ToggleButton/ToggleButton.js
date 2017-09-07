@@ -18,7 +18,7 @@ function testComponent(cb) {
 				<div className="col s6 col-xs-6">
 					<ToggleButton
 						componentId="CitySensor"
-						appbaseField={config.mapping.topic}
+						dataField={config.mapping.topic}
 						title="ToggleButton"
 						data={config.ToggleButton.data}
 						defaultSelected={config.ToggleButton.defaultSelected}
@@ -28,7 +28,7 @@ function testComponent(cb) {
 				<div className="col s6 col-xs-6">
 					<ReactiveList
 						componentId="SearchResult"
-						appbaseField={config.mapping.topic}
+						dataField={config.mapping.topic}
 						title="Results"
 						sortBy={config.ReactiveList.sortBy}
 						from={config.ReactiveList.from}

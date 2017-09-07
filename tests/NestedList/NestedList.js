@@ -17,7 +17,7 @@ function testComponent(cb) {
 				<div className="col s6 col-xs-6">
 					<NestedList
 						componentId="CitySensor"
-						appbaseField={[config.mapping.brand, config.mapping.model]}
+						dataField={[config.mapping.brand, config.mapping.model]}
 						title="NestedList"
 						defaultSelected={config.NestedList.defaultSelected}
 						size={100}
@@ -26,7 +26,7 @@ function testComponent(cb) {
 				<div className="col s6 col-xs-6">
 					<ReactiveList
 						componentId="SearchResult"
-						appbaseField={config.mapping.price}
+						dataField={config.mapping.price}
 						title="Results"
 						sortBy={config.ReactiveList.sortBy}
 						from={config.ReactiveList.from}

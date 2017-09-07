@@ -17,7 +17,7 @@ function testComponent(cb) {
 				<div className="col s6 col-xs-6">
 					<NumberBox
 						componentId="CitySensor"
-						appbaseField={config.mapping.rating}
+						dataField={config.mapping.rating}
 						title="NumberBox"
 						data={config.NumberBox.data}
 						defaultSelected={config.NumberBox.defaultSelected}
@@ -27,7 +27,7 @@ function testComponent(cb) {
 				<div className="col s6 col-xs-6">
 					<ReactiveList
 						componentId="SearchResult"
-						appbaseField={config.mapping.rating}
+						dataField={config.mapping.rating}
 						title="Results"
 						from={config.ReactiveList.from}
 						size={config.ReactiveList.size}
