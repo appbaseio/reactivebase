@@ -24,6 +24,9 @@ export default class DataController extends Component {
 			this.setQueryInfo(nextProps);
 			this.setValue(this.defaultSelected);
 		}
+		if (this.props.defaultSelected !== nextProps.defaultSelected) {
+			this.setValue(nextProps.defaultSelected);
+		}
 	}
 
 	componentWillUpdate() {
