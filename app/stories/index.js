@@ -514,8 +514,8 @@ storiesOf("RangeSlider", module)
 	.add("With Default Selected", withReadme(removeFirstLine(RangeSliderReadme), () => (
 		<RangeSliderDefault
 			defaultSelected={object("defaultSelected", {
-				start: 10,
-				end: 50
+				start: 0,
+				end: 2
 			})}
 		/>
 	)))
