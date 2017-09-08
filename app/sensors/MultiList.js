@@ -31,7 +31,7 @@ MultiList.propTypes = {
 		React.PropTypes.element
 	]),
 	react: React.PropTypes.object,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	showCheckbox: React.PropTypes.bool,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
@@ -72,7 +72,7 @@ MultiList.types = {
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	initialLoader: TYPES.OBJECT,
-	componentStyle: TYPES.OBJECT,
+	style: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showCheckbox: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,

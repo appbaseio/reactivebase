@@ -521,7 +521,7 @@ export default class DataList extends Component {
 		}, this.props.className);
 
 		return (
-			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
+			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
 				{title}
 				{
 					this.props.showSearch
@@ -555,7 +555,7 @@ DataList.PropTypes = {
 	]),
 	multipleSelect: React.PropTypes.bool,
 	customQuery: React.PropTypes.func,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
@@ -574,7 +574,7 @@ DataList.defaultProps = {
 	title: null,
 	showSearch: false,
 	placeholder: "Search",
-	componentStyle: {},
+	style: {},
 	URLParams: false,
 	multipleSelect: false,
 	showFilter: true,

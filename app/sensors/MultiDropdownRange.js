@@ -188,7 +188,7 @@ export default class MultiDropdownRange extends Component {
 		}, this.props.className);
 
 		return (
-			<div className={`rbc rbc-multidropdownrange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
+			<div className={`rbc rbc-multidropdownrange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">
@@ -222,7 +222,7 @@ MultiDropdownRange.propTypes = {
 	onQueryChange: React.PropTypes.func,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
@@ -251,7 +251,7 @@ MultiDropdownRange.types = {
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT,
+	style: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	onQueryChange: TYPES.FUNCTION,

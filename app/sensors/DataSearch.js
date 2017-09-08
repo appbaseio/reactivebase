@@ -509,7 +509,7 @@ export default class DataSearch extends Component {
 							: this.state.options;
 
 		return (
-			<div className={`rbc rbc-datasearch col s12 col-xs-12 card thumbnail ${cx} ${this.state.isLoadingOptions ? "is-loading" : ""}`} style={this.props.componentStyle}>
+			<div className={`rbc rbc-datasearch col s12 col-xs-12 card thumbnail ${cx} ${this.state.isLoadingOptions ? "is-loading" : ""}`} style={this.props.style}>
 				{title}
 				{
 					this.props.autoSuggest ?
@@ -573,7 +573,7 @@ DataSearch.propTypes = {
 			value: React.PropTypes.string
 		})
 	),
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	highlight: React.PropTypes.bool,
 	highlightField: React.PropTypes.oneOfType([
 		React.PropTypes.string,
@@ -594,7 +594,7 @@ DataSearch.propTypes = {
 DataSearch.defaultProps = {
 	placeholder: "Search",
 	autoSuggest: true,
-	componentStyle: {},
+	style: {},
 	highlight: false,
 	URLParams: false,
 	showFilter: true,
@@ -618,7 +618,7 @@ DataSearch.types = {
 	autoSuggest: TYPES.BOOLEAN,
 	defaultSelected: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT,
+	style: TYPES.OBJECT,
 	highlight: TYPES.BOOLEAN,
 	highlightField: TYPES.STRING,
 	URLParams: TYPES.BOOLEAN,

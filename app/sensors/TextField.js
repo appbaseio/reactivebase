@@ -152,7 +152,7 @@ export default class TextField extends Component {
 		}, this.props.className);
 
 		return (
-			<div className={`rbc rbc-textfield col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
+			<div className={`rbc rbc-textfield col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
 				{title}
 				<div className="rbc-input-container col s12 col-xs-12">
 					<input className="rbc-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue ? this.state.currentValue : ""} />
@@ -174,7 +174,7 @@ TextField.propTypes = {
 	customQuery: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	onQueryChange: React.PropTypes.func,
 	showFilter: React.PropTypes.bool,
@@ -184,7 +184,7 @@ TextField.propTypes = {
 
 // Default props value
 TextField.defaultProps = {
-	componentStyle: {},
+	style: {},
 	URLParams: false,
 	showFilter: true
 };
@@ -204,7 +204,7 @@ TextField.types = {
 	defaultSelected: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT,
+	style: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	onQueryChange: TYPES.FUNCTION,

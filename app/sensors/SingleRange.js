@@ -185,7 +185,7 @@ export default class SingleRange extends Component {
 		}, this.props.className);
 
 		return (
-			<div className={`rbc rbc-singlerange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
+			<div className={`rbc rbc-singlerange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12 rbc-list-container">
@@ -209,7 +209,7 @@ SingleRange.propTypes = {
 	customQuery: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
 	onQueryChange: React.PropTypes.func,
@@ -220,7 +220,7 @@ SingleRange.propTypes = {
 // Default props value
 SingleRange.defaultProps = {
 	title: null,
-	componentStyle: {},
+	style: {},
 	showFilter: true,
 	showRadio: true
 };
@@ -240,7 +240,7 @@ SingleRange.types = {
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT,
+	style: TYPES.OBJECT,
 	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,
 	onQueryChange: TYPES.FUNCTION,

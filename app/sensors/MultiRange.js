@@ -256,7 +256,7 @@ export default class MultiRange extends Component {
 		}, this.props.className);
 
 		return (
-			<div className={`rbc rbc-multirange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
+			<div className={`rbc rbc-multirange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12 rbc-list-container">
@@ -280,7 +280,7 @@ MultiRange.propTypes = {
 	customQuery: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
@@ -311,7 +311,7 @@ MultiRange.types = {
 	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT,
+	style: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,

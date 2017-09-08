@@ -17,7 +17,7 @@ function testComponent(cb) {
 				<div className="col s6 col-xs-6">
 					<MultiRange
 						componentId="CitySensor"
-						appbaseField={config.mapping.price}
+						dataField={config.mapping.price}
 						title="MultiRange"
 						defaultSelected={config.MultiRange.defaultSelected}
 						data={config.MultiRange.data}
@@ -27,7 +27,7 @@ function testComponent(cb) {
 				<div className="col s6 col-xs-6">
 					<ReactiveList
 						componentId="SearchResult"
-						appbaseField={config.mapping.name}
+						dataField={config.mapping.name}
 						title="Results"
 						sortBy={config.ReactiveList.sortBy}
 						from={config.ReactiveList.from}

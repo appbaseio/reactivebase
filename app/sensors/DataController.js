@@ -119,7 +119,7 @@ export default class DataController extends Component {
 		}, this.props.className);
 
 		return (
-			<div className={`rbc rbc-datacontroller card thumbnail ${cx}`} style={this.props.componentStyle}>
+			<div className={`rbc rbc-datacontroller card thumbnail ${cx}`} style={this.props.style}>
 				{
 				this.props.visible ?
 				(
@@ -149,7 +149,7 @@ DataController.propTypes = {
 	onValueChange: React.PropTypes.func,
 	onQueryChange: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	defaultSelected: React.PropTypes.any,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
@@ -166,7 +166,7 @@ React.PropTypes.oneOfType([
 DataController.defaultProps = {
 	visible: false,
 	defaultSelected: "default",
-	componentStyle: {},
+	style: {},
 	URLParams: false,
 	showFilter: true
 };
@@ -184,7 +184,7 @@ DataController.types = {
 	visible: TYPES.BOOLEAN,
 	dataLabel: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT,
+	style: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,

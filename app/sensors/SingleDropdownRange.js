@@ -165,7 +165,7 @@ export default class SingleDropdownRange extends Component {
 		}, this.props.className);
 
 		return (
-			<div className={`rbc rbc-singledropdownrange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
+			<div className={`rbc rbc-singledropdownrange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
 				<div className="row">
 					{title}
 					<div className="col s12 col-xs-12">
@@ -197,7 +197,7 @@ SingleDropdownRange.propTypes = {
 	customQuery: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	onQueryChange: React.PropTypes.func,
@@ -207,7 +207,7 @@ SingleDropdownRange.propTypes = {
 
 // Default props value
 SingleDropdownRange.defaultProps = {
-	componentStyle: {},
+	style: {},
 	URLParams: false,
 	showFilter: true
 };
@@ -228,7 +228,7 @@ SingleDropdownRange.types = {
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT,
+	style: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	onQueryChange: TYPES.FUNCTION,
