@@ -306,7 +306,7 @@ export default class ReactiveElement extends Component {
 
 		return (
 			<div className="rbc-reactiveelement-container">
-				<div className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.componentStyle}>
+				<div className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.style}>
 					{title}
 					{this.state.resultStats && this.state.resultStats.resultFound && this.props.showResultStats ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
 					{this.state.resultMarkup}
@@ -330,7 +330,7 @@ ReactiveElement.propTypes = {
 	onAllData: React.PropTypes.func,
 	size: helper.sizeValidation,
 	stream: React.PropTypes.bool,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	initialLoader: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -353,7 +353,7 @@ ReactiveElement.defaultProps = {
 	size: 20,
 	stream: false,
 	showResultStats: true,
-	componentStyle: {}
+	style: {}
 };
 
 // context type
@@ -371,7 +371,7 @@ ReactiveElement.types = {
 	size: TYPES.NUMBER,
 	onAllData: TYPES.FUNCTION,
 	stream: TYPES.BOOLEAN,
-	componentStyle: TYPES.OBJECT,
+	style: TYPES.OBJECT,
 	initialLoader: TYPES.STRING,
 	noResults: TYPES.STRING,
 	showResultStats: TYPES.BOOLEAN,

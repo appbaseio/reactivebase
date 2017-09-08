@@ -838,7 +838,7 @@ storiesOf("DataController", module)
 			visible={boolean("visible", true)}
 			dataLabel={text("dataLabel", "★  A customizable UI widget ★")}
 			defaultSelected={text("defaultSelected", "default")}
-			componentStyle={object("componentStyle", { "paddingBottom": "10px" })}
+			style={object("style", { "paddingBottom": "10px" })}
 			showFilter={boolean("showFilter", true)}
 			filterLabel={text("filterLabel", "Custom Filter Name")}
 			URLParams={boolean("URLParams (not visible on storybook)", false)}

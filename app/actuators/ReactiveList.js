@@ -514,13 +514,13 @@ export default class ReactiveList extends Component {
 	}
 
 	getComponentStyle() {
-		let componentStyle = {};
+		let style = {};
 		if(this.props.scrollOnTarget) {
-			componentStyle.maxHeight = "none";
-			componentStyle.height = "auto";
+			style.maxHeight = "none";
+			style.height = "auto";
 		}
-		componentStyle = Object.assign(componentStyle, this.props.componentStyle);
-		return componentStyle;
+		style = Object.assign(style, this.props.style);
+		return style;
 	}
 
 	render() {
@@ -616,7 +616,7 @@ ReactiveList.propTypes = {
 	onAllData: React.PropTypes.func,
 	size: helper.sizeValidation,
 	stream: React.PropTypes.bool,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	initialLoader: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
@@ -643,7 +643,7 @@ ReactiveList.defaultProps = {
 	from: 0,
 	size: 20,
 	stream: false,
-	componentStyle: {},
+	style: {},
 	showResultStats: true,
 	pagination: true,
 	paginationAt: "bottom",
@@ -671,7 +671,7 @@ ReactiveList.types = {
 	onData: TYPES.FUNCTION,
 	size: TYPES.NUMBER,
 	stream: TYPES.BOOLEAN,
-	componentStyle: TYPES.OBJECT,
+	style: TYPES.OBJECT,
 	initialLoader: TYPES.STRING,
 	noResults: TYPES.FUNCTION,
 	showResultStats: TYPES.BOOLEAN,

@@ -276,7 +276,7 @@ export default class DateRange extends Component {
 			"rbc-title-inactive": !this.props.title
 		});
 		return (
-			<div className={`rbc rbc-daterange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
+			<div className={`rbc rbc-daterange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
 				{title}
 				<div className="rbc-daterange-component col s12 col-xs-12">
 					<DateRangePicker
@@ -317,7 +317,7 @@ DateRange.propTypes = {
 	onValueChange: React.PropTypes.func,
 	onQueryChange: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat)),
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,

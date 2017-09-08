@@ -24,7 +24,7 @@ MultiDataList.propTypes = {
 	data: React.PropTypes.array,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	showCheckbox: React.PropTypes.bool,
@@ -36,7 +36,7 @@ MultiDataList.propTypes = {
 // Default props value
 MultiDataList.defaultProps = {
 	title: null,
-	componentStyle: {},
+	style: {},
 	URLParams: false,
 	showSearch: false,
 	placeholder: "Search",
@@ -59,7 +59,7 @@ MultiDataList.types = {
 	defaultSelected: TYPES.ARRAY,
 	customQuery: TYPES.FUNCTION,
 	onQueryChange: TYPES.FUNCTION,
-	componentStyle: TYPES.OBJECT,
+	style: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	showSearch: TYPES.BOOLEAN,
