@@ -479,7 +479,7 @@ export default class NativeList extends Component {
 		});
 
 		return (
-			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
+			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
 				{title}
 				{searchComponent}
 				{listComponent}
@@ -517,7 +517,7 @@ NativeList.propTypes = {
 	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	onQueryChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	showRadio: React.PropTypes.bool,
 	showCheckbox: React.PropTypes.bool,
 	URLParams: React.PropTypes.bool,
@@ -536,7 +536,7 @@ NativeList.defaultProps = {
 	title: null,
 	placeholder: "Search",
 	selectAllLabel: null,
-	componentStyle: {},
+	style: {},
 	showRadio: true,
 	showCheckbox: true,
 	URLParams: false,

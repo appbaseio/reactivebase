@@ -411,7 +411,7 @@ export default class DropdownList extends Component {
 
 		if (this.state.items.length) {
 			return (
-				<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
+				<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
 					<div className="row">
 						{title}
 						<div className="col s12 col-xs-12">
@@ -463,7 +463,7 @@ DropdownList.propTypes = {
 	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	onQueryChange: React.PropTypes.func,
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,

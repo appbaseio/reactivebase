@@ -126,7 +126,7 @@ export default class SelectedFilters extends Component {
 
 	render() {
 		return Object.keys(this.state.filters).length ? (
-			<div className={`rbc rbc-selectedfilters rbc-tag-container row card thumbnail`} style={this.props.componentStyle}>
+			<div className={`rbc rbc-selectedfilters rbc-tag-container row card thumbnail`} style={this.props.style}>
 				{
 					Object.keys(this.state.filters).map(item => {
 						if (!this.props.blackList.includes(item)) {
@@ -146,13 +146,13 @@ export default class SelectedFilters extends Component {
 }
 
 SelectedFilters.propTypes = {
-	componentStyle: React.PropTypes.object,
+	style: React.PropTypes.object,
 	componentId: React.PropTypes.string,
 	blackList: React.PropTypes.arrayOf(React.PropTypes.string)
 };
 
 SelectedFilters.defaultProps = {
-	componentStyle: {},
+	style: {},
 	blackList: []
 };
 
