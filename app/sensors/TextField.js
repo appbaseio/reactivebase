@@ -148,16 +148,15 @@ export default class TextField extends Component {
 			"rbc-title-active": this.props.title,
 			"rbc-title-inactive": !this.props.title,
 			"rbc-placeholder-active": this.props.placeholder,
-			"rbc-placeholder-inactive": !this.props.placeholder
+			"rbc-placeholder-inactive": !this.props.placeholder,
+			[this.props.className]: this.props.className
 		});
-
-		const customClass = this.props.className ? this.props.className : '';
 
 		return (
 			<div className={`rbc rbc-textfield col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{title}
 				<div className="rbc-input-container col s12 col-xs-12">
-					<input className={`rbc-input ${customClass}`} type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue ? this.state.currentValue : ""} />
+					<input className="rbc-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue ? this.state.currentValue : ""} />
 				</div>
 			</div>
 		);
