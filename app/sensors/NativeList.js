@@ -475,9 +475,8 @@ export default class NativeList extends Component {
 			"rbc-singlelist": !this.props.multipleSelect,
 			"rbc-multilist": this.props.multipleSelect,
 			"rbc-initialloader-active": this.props.initialLoader,
-			"rbc-initialloader-inactive": !this.props.initialLoader,
-			[this.props.className]: this.props.className
-		});
+			"rbc-initialloader-inactive": !this.props.initialLoader
+		}, this.props.className);
 
 		return (
 			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>

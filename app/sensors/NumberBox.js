@@ -230,9 +230,8 @@ export default class NumberBox extends Component {
 		const ComponentTitle = title ? <TitleComponent title={title} /> : null;
 		const cx = classNames({
 			"rbc-title-active": title,
-			"rbc-title-inactive": !title,
-			[this.props.className]: this.props.className
-		});
+			"rbc-title-inactive": !title
+		}, this.props.className);
 		return (
 			<div className={`rbc rbc-numberbox col s12 col-xs-12 card thumbnail ${cx} rbc-label-${labelPosition}`} style={this.props.componentStyle}>
 				<div className="row">

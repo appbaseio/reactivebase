@@ -221,9 +221,8 @@ export default class ToggleButton extends Component {
 			"rbc-title-active": this.props.title,
 			"rbc-title-inactive": !this.props.title,
 			"rbc-multiselect-active": this.props.multiSelect,
-			"rbc-multiselect-inactive": !this.props.multiSelect,
-			[this.props.className]: this.props.className
-		});
+			"rbc-multiselect-inactive": !this.props.multiSelect
+		}, this.props.className);
 		return (
 			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				<div className="row">

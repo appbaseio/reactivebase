@@ -252,9 +252,8 @@ export default class MultiRange extends Component {
 			"rbc-title-active": this.props.title,
 			"rbc-title-inactive": !this.props.title,
 			"rbc-checkbox-active": this.props.showCheckbox,
-			"rbc-checkbox-inactive": !this.props.showCheckbox,
-			[this.props.className]: this.props.className
-		});
+			"rbc-checkbox-inactive": !this.props.showCheckbox
+		}, this.props.className);
 
 		return (
 			<div className={`rbc rbc-multirange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>

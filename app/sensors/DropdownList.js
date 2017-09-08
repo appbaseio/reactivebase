@@ -406,9 +406,8 @@ export default class DropdownList extends Component {
 			"rbc-count-active": this.props.showCount,
 			"rbc-count-inactive": !this.props.showCount,
 			"rbc-initialloader-active": this.props.initialLoader,
-			"rbc-initialloader-inactive": !this.props.initialLoader,
-			[this.props.className]: this.props.className
-		});
+			"rbc-initialloader-inactive": !this.props.initialLoader
+		}, this.props.className);
 
 		if (this.state.items.length) {
 			return (

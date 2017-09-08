@@ -514,9 +514,8 @@ export default class RangeSlider extends Component {
 			"rbc-labels-active": this.props.rangeLabels.start || this.props.rangeLabels.end,
 			"rbc-labels-inactive": !this.props.rangeLabels.start && !this.props.rangeLabels.end,
 			"rbc-initialloader-active": this.props.initialLoader,
-			"rbc-initialloader-inactive": !this.props.initialLoader,
-			[this.props.className]: this.props.className
-		});
+			"rbc-initialloader-inactive": !this.props.initialLoader
+		}, this.props.className);
 
 		const keyAttributes = {
 			start: "start",

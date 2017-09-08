@@ -161,9 +161,8 @@ export default class SingleDropdownRange extends Component {
 			"rbc-title-active": this.props.title,
 			"rbc-title-inactive": !this.props.title,
 			"rbc-placeholder-active": this.props.placeholder,
-			"rbc-placeholder-inactive": !this.props.placeholder,
-			[this.props.className]: this.props.className
-		});
+			"rbc-placeholder-inactive": !this.props.placeholder
+		}, this.props.className);
 
 		return (
 			<div className={`rbc rbc-singledropdownrange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>

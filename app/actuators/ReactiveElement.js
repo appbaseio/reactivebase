@@ -295,7 +295,7 @@ export default class ReactiveElement extends Component {
 			"rbc-resultstats-inactive": !this.props.showResultStats,
 			"rbc-noresults-active": this.props.noResults,
 			"rbc-noresults-inactive": !this.props.noResults
-		});
+		}, this.props.className);
 
 		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
@@ -345,7 +345,8 @@ ReactiveElement.propTypes = {
 	placeholder: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
-	])
+	]),
+	className: React.PropTypes.string
 };
 
 ReactiveElement.defaultProps = {
@@ -376,5 +377,6 @@ ReactiveElement.types = {
 	noResults: TYPES.STRING,
 	showResultStats: TYPES.BOOLEAN,
 	onResultStats: TYPES.FUNCTION,
-	placeholder: TYPES.STRING
+	placeholder: TYPES.STRING,
+	className: TYPES.STRING
 };

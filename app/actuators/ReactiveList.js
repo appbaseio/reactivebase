@@ -544,7 +544,7 @@ export default class ReactiveList extends Component {
 			"rbc-noresults-inactive": !this.props.noResults,
 			"rbc-pagination-active": this.props.pagination,
 			"rbc-pagination-inactive": !this.props.pagination
-		});
+		}, this.props.className);
 
 		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12" ref={(node) => { this.titleContainer = node; }}>{this.props.title}</h4>);
@@ -636,7 +636,8 @@ ReactiveList.propTypes = {
 	pagination: React.PropTypes.bool,
 	pages: React.PropTypes.number,
 	scrollOnTarget: React.PropTypes.object,
-	pageURLParams: React.PropTypes.bool
+	pageURLParams: React.PropTypes.bool,
+	className: React.PropTypes.string
 };
 
 ReactiveList.defaultProps = {
@@ -681,5 +682,6 @@ ReactiveList.types = {
 	paginationAt: TYPES.STRING,
 	pages: TYPES.NUMBER,
 	scrollOnTarget: TYPES.OBJECT,
-	pageURLParams: TYPES.BOOLEAN
+	pageURLParams: TYPES.BOOLEAN,
+	className: TYPES.STRING
 };

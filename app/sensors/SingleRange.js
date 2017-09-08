@@ -181,9 +181,8 @@ export default class SingleRange extends Component {
 			"rbc-title-active": this.props.title,
 			"rbc-title-inactive": !this.props.title,
 			"rbc-radio-active": this.props.showRadio,
-			"rbc-radio-inactive": !this.props.showRadio,
-			[this.props.className]: this.props.className
-		});
+			"rbc-radio-inactive": !this.props.showRadio
+		}, this.props.className);
 
 		return (
 			<div className={`rbc rbc-singlerange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>

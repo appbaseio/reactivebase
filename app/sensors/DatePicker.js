@@ -170,9 +170,8 @@ export default class DatePicker extends Component {
 
 		const cx = classNames({
 			"rbc-title-active": this.props.title,
-			"rbc-title-inactive": !this.props.title,
-			[this.props.className]: this.props.className
-		});
+			"rbc-title-inactive": !this.props.title
+		}, this.props.className);
 		return (
 			<div className={`rbc rbc-datepicker col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.componentStyle}>
 				{title}

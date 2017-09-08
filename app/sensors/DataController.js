@@ -115,9 +115,8 @@ export default class DataController extends Component {
 			"rbc-datalabel-active": this.props.dataLabel,
 			"rbc-datalabel-inactive": !this.props.dataLabel,
 			"rbc-visible-active": this.props.visible,
-			"rbc-visible-inactive": !this.props.visible,
-			[this.props.className]: this.props.className
-		});
+			"rbc-visible-inactive": !this.props.visible
+		}, this.props.className);
 
 		return (
 			<div className={`rbc rbc-datacontroller card thumbnail ${cx}`} style={this.props.componentStyle}>
