@@ -181,7 +181,8 @@ export default class SingleRange extends Component {
 			"rbc-title-active": this.props.title,
 			"rbc-title-inactive": !this.props.title,
 			"rbc-radio-active": this.props.showRadio,
-			"rbc-radio-inactive": !this.props.showRadio
+			"rbc-radio-inactive": !this.props.showRadio,
+			[this.props.className]: this.props.className
 		});
 
 		return (
@@ -213,7 +214,8 @@ SingleRange.propTypes = {
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
 	onQueryChange: React.PropTypes.func,
-	showRadio: React.PropTypes.bool
+	showRadio: React.PropTypes.bool,
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -243,5 +245,6 @@ SingleRange.types = {
 	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,
 	onQueryChange: TYPES.FUNCTION,
-	showRadio: TYPES.BOOLEAN
+	showRadio: TYPES.BOOLEAN,
+	className: TYPES.STRING
 };

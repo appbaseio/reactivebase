@@ -517,7 +517,8 @@ export default class DataList extends Component {
 			"rbc-singledatalist": !this.props.multipleSelect,
 			"rbc-multidatalist": this.props.multipleSelect,
 			"rbc-initialloader-active": this.props.initialLoader,
-			"rbc-initialloader-inactive": !this.props.initialLoader
+			"rbc-initialloader-inactive": !this.props.initialLoader,
+			[this.props.className]: this.props.className
 		});
 
 		return (
@@ -539,7 +540,7 @@ export default class DataList extends Component {
 	}
 }
 
-DataList.propTypes = {
+DataList.PropTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.oneOfType([
@@ -565,7 +566,8 @@ DataList.propTypes = {
 	queryFormat: React.PropTypes.oneOf(["and", "or"]),
 	onQueryChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	beforeValueChange: React.PropTypes.func
+	beforeValueChange: React.PropTypes.func,
+	className: React.PropTypes.string
 };
 
 // Default props value

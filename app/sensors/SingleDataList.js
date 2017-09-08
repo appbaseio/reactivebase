@@ -29,7 +29,8 @@ SingleDataList.propTypes = {
 	showFilter: React.PropTypes.bool,
 	showRadio: React.PropTypes.bool,
 	onQueryChange: React.PropTypes.func,
-	selectAllLabel: React.PropTypes.string
+	selectAllLabel: React.PropTypes.string,
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -63,5 +64,6 @@ SingleDataList.types = {
 	placeholder: TYPES.STRING,
 	showRadio: TYPES.BOOLEAN,
 	onQueryChange: TYPES.FUNCTION,
-	selectAllLabel: TYPES.STRING
+	selectAllLabel: TYPES.STRING,
+	className: TYPES.STRING
 };

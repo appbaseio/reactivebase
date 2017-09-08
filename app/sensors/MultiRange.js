@@ -252,7 +252,8 @@ export default class MultiRange extends Component {
 			"rbc-title-active": this.props.title,
 			"rbc-title-inactive": !this.props.title,
 			"rbc-checkbox-active": this.props.showCheckbox,
-			"rbc-checkbox-inactive": !this.props.showCheckbox
+			"rbc-checkbox-inactive": !this.props.showCheckbox,
+			[this.props.className]: this.props.className
 		});
 
 		return (
@@ -285,7 +286,8 @@ MultiRange.propTypes = {
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
 	onQueryChange: React.PropTypes.func,
-	showCheckbox: React.PropTypes.bool
+	showCheckbox: React.PropTypes.bool,
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -315,5 +317,6 @@ MultiRange.types = {
 	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,
 	onQueryChange: TYPES.FUNCTION,
-	showCheckbox: TYPES.BOOLEAN
+	showCheckbox: TYPES.BOOLEAN,
+	className: TYPES.STRING
 };

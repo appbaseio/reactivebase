@@ -230,7 +230,8 @@ export default class NumberBox extends Component {
 		const ComponentTitle = title ? <TitleComponent title={title} /> : null;
 		const cx = classNames({
 			"rbc-title-active": title,
-			"rbc-title-inactive": !title
+			"rbc-title-inactive": !title,
+			[this.props.className]: this.props.className
 		});
 		return (
 			<div className={`rbc rbc-numberbox col s12 col-xs-12 card thumbnail ${cx} rbc-label-${labelPosition}`} style={this.props.componentStyle}>
@@ -271,7 +272,8 @@ NumberBox.propTypes = {
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	onQueryChange: React.PropTypes.func,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	className: React.PropTypes.string
 };
 
 NumberBox.defaultProps = {
@@ -300,5 +302,6 @@ NumberBox.types = {
 	componentStyle: TYPES.OBJECT,
 	queryFormat: TYPES.STRING,
 	onQueryChange: TYPES.FUNCTION,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	className: TYPES.STRING
 };

@@ -475,7 +475,8 @@ export default class NativeList extends Component {
 			"rbc-singlelist": !this.props.multipleSelect,
 			"rbc-multilist": this.props.multipleSelect,
 			"rbc-initialloader-active": this.props.initialLoader,
-			"rbc-initialloader-inactive": !this.props.initialLoader
+			"rbc-initialloader-inactive": !this.props.initialLoader,
+			[this.props.className]: this.props.className
 		});
 
 		return (
@@ -523,7 +524,8 @@ NativeList.propTypes = {
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
-	queryFormat: React.PropTypes.oneOf(["and", "or"])
+	queryFormat: React.PropTypes.oneOf(["and", "or"]),
+	className: React.PropTypes.string
 };
 
 // Default props value

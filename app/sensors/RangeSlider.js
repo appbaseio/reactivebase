@@ -514,7 +514,8 @@ export default class RangeSlider extends Component {
 			"rbc-labels-active": this.props.rangeLabels.start || this.props.rangeLabels.end,
 			"rbc-labels-inactive": !this.props.rangeLabels.start && !this.props.rangeLabels.end,
 			"rbc-initialloader-active": this.props.initialLoader,
-			"rbc-initialloader-inactive": !this.props.initialLoader
+			"rbc-initialloader-inactive": !this.props.initialLoader,
+			[this.props.className]: this.props.className
 		});
 
 		const keyAttributes = {
@@ -580,7 +581,8 @@ RangeSlider.propTypes = {
 	componentStyle: React.PropTypes.object,
 	interval: React.PropTypes.number,
 	onQueryChange: React.PropTypes.func,
-	URLParams: React.PropTypes.bool
+	URLParams: React.PropTypes.bool,
+	className: React.PropTypes.string
 };
 
 RangeSlider.defaultProps = {
@@ -621,5 +623,6 @@ RangeSlider.types = {
 	componentStyle: TYPES.OBJECT,
 	interval: TYPES.NUMBER,
 	onQueryChange: TYPES.FUNCTION,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	className: TYPES.STRING
 };
