@@ -539,7 +539,7 @@ export default class DataList extends Component {
 	}
 }
 
-DataList.PropTypes = {
+DataList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
 	title: React.PropTypes.oneOfType([
