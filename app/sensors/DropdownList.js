@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import Select from "react-select";
 import classNames from "classnames";
+import _ from "lodash";
 import manager from "../middleware/ChannelManager";
 import InitialLoader from "../addons/InitialLoader";
-import _ from "lodash";
+import * as TYPES from "../middleware/constants";
 
 const helper = require("../middleware/helper");
 
@@ -488,4 +489,28 @@ DropdownList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired,
 	reactiveId: React.PropTypes.number
+};
+
+DropdownList.types = {
+	componentId: TYPES.STRING,
+	dataField: TYPES.STRING,
+	title: TYPES.STRING,
+	size: TYPES.NUMBER,
+	multipleSelect: TYPES.BOOLEAN,
+	showCount: TYPES.BOOLEAN,
+	sortBy: TYPES.STRING,
+	placeholder: TYPES.STRING,
+	selectAllLabel: TYPES.STRING,
+	initialLoader: TYPES.STRING,
+	defaultSelected: TYPES.ARRAY,
+	customQuery: TYPES.FUNCTION,
+	react: TYPES.OBJECT,
+	beforeValueChange: TYPES.FUNCTION,
+	onValueChange: TYPES.FUNCTION,
+	onQueryChange: TYPES.FUNCTION,
+	style: TYPES.OBJECT,
+	URLParams: TYPES.BOOLEAN,
+	showFilter: TYPES.BOOLEAN,
+	filterLabel: TYPES.STRING,
+	queryFormat: TYPES.STRING
 };
