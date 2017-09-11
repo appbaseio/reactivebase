@@ -537,6 +537,11 @@ export default class DataSearch extends Component {
 								placeholder={this.props.placeholder}
 								value={this.state.currentValue ? this.state.currentValue : ""}
 								onChange={this.handleInputChange}
+								onBlur={this.props.onBlur}
+								onFocus={this.props.onFocus}
+								onKeyPress={this.props.onKeyPress}
+								onKeyDown={this.props.onKeyDown}
+								onKeyUp={this.props.onKeyUp}
 							/>
 						</div>
 				}
@@ -586,7 +591,12 @@ DataSearch.propTypes = {
 	fuzziness: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.number,
-	])
+	]),
+	onBlur: React.PropTypes.func,
+	onFocus: React.PropTypes.func,
+	onKeyPress: React.PropTypes.func,
+	onKeyDown: React.PropTypes.func,
+	onKeyUp: React.PropTypes.func
 };
 
 // Default props value
@@ -625,5 +635,10 @@ DataSearch.types = {
 	filterLabel: TYPES.STRING,
 	searchWeight: TYPES.ARRAY,
 	queryFormat: TYPES.STRING,
-	fuzziness: TYPES.NUMBER
+	fuzziness: TYPES.NUMBER,
+	onBlur: TYPES.FUNCTION,
+	onFocus: TYPES.FUNCTION,
+	onKeyPress: TYPES.FUNCTION,
+	onKeyDown: TYPES.FUNCTION,
+	onKeyUp: TYPES.FUNCTION
 };
