@@ -462,11 +462,14 @@ export default class DataSearch extends Component {
 				value: this.state.currentValue
 			});
 		}
+		if (this.props.onBlur) this.props.onBlur(event);
 	}
 
 	handleKeyPress(event) {
 		if (event.key === "Enter") {
 			event.target.blur();
+		} else {
+			if (this.props.onKeyPress) this.props.onKeyPress(event);
 		}
 	}
 
@@ -527,7 +530,10 @@ export default class DataSearch extends Component {
 								value: this.state.currentValue === null ? "" : this.state.currentValue,
 								onChange: this.onInputChange,
 								onBlur: this.handleBlur,
-								onKeyPress: this.handleKeyPress
+								onKeyPress: this.handleKeyPress,
+								onFocus: this.props.onFocus,
+								onKeyDown: this.props.onKeyDown,
+								onKeyUp: this.props.onKeyUp
 							}}
 						/> :
 						<div className="rbc-search-container col s12 col-xs-12">
