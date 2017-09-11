@@ -515,11 +515,10 @@ export default class ReactiveList extends Component {
 
 	getComponentStyle() {
 		let style = {};
-		if(this.props.scrollOnTarget) {
+		if (this.props.scrollOnTarget) {
 			style.maxHeight = "none";
 			style.height = "auto";
 		}
-		style = Object.assign(style, this.props.style);
 		return style;
 	}
 
@@ -566,7 +565,7 @@ export default class ReactiveList extends Component {
 		}
 
 		return (
-			<div className=`rbc-reactivelist-container ${this.props.className ? this.props.className : ""}` ref={(node) => { this.listContainer = node; }}>
+			<div className=`rbc-reactivelist-container ${this.props.className ? this.props.className : ""}` ref={(node) => { this.listContainer = node; }} style={this.props.style}>
 				<div ref={(div) => { this.listParentElement = div; }} className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.getComponentStyle()}>
 					{title}
 					{sortOptions}
