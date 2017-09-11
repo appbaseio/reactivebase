@@ -544,7 +544,7 @@ export default class ReactiveList extends Component {
 			"rbc-noresults-inactive": !this.props.noResults,
 			"rbc-pagination-active": this.props.pagination,
 			"rbc-pagination-inactive": !this.props.pagination
-		}, this.props.className);
+		});
 
 		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12" ref={(node) => { this.titleContainer = node; }}>{this.props.title}</h4>);
@@ -566,7 +566,7 @@ export default class ReactiveList extends Component {
 		}
 
 		return (
-			<div className="rbc-reactivelist-container" ref={(node) => { this.listContainer = node; }}>
+			<div className=`rbc-reactivelist-container ${this.props.className ? this.props.className : ""}` ref={(node) => { this.listContainer = node; }}>
 				<div ref={(div) => { this.listParentElement = div; }} className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.getComponentStyle()}>
 					{title}
 					{sortOptions}

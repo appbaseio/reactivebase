@@ -295,7 +295,7 @@ export default class ReactiveElement extends Component {
 			"rbc-resultstats-inactive": !this.props.showResultStats,
 			"rbc-noresults-active": this.props.noResults,
 			"rbc-noresults-inactive": !this.props.noResults
-		}, this.props.className);
+		});
 
 		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
@@ -305,7 +305,7 @@ export default class ReactiveElement extends Component {
 		}
 
 		return (
-			<div className="rbc-reactiveelement-container">
+			<div className=`rbc-reactiveelement-container ${this.props.className ? this.props.className : ""}`>
 				<div className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.style}>
 					{title}
 					{this.state.resultStats && this.state.resultStats.resultFound && this.props.showResultStats ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
