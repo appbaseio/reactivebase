@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import classNames from "classnames";
 import _ from "lodash";
 import manager from "../middleware/ChannelManager";
-import * as TYPES from "../middleware/constants";
 import { StaticSearch } from "../addons/StaticSearch";
 
 const helper = require("../middleware/helper");
@@ -587,27 +586,4 @@ DataList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired,
 	reactiveId: React.PropTypes.number
-};
-
-DataList.types = {
-	componentId: TYPES.STRING,
-	dataField: TYPES.STRING,
-	data: TYPES.ARRAY,
-	title: TYPES.STRING,
-	showSearch: TYPES.BOOLEAN,
-	placeholder: TYPES.STRING,
-	defaultSelected: TYPES.ARRAY,
-	multipleSelect: TYPES.BOOLEAN,
-	customQuery: TYPES.FUNCTION,
-	style: TYPES.OBJECT,
-	URLParams: TYPES.BOOLEAN,
-	showFilter: TYPES.BOOLEAN,
-	filterLabel: TYPES.STRING,
-	showRadio: TYPES.BOOLEAN,
-	showCheckbox: TYPES.BOOLEAN,
-	selectAllLabel: TYPES.STRING,
-	queryFormat: TYPES.STRING,
-	onQueryChange: TYPES.FUNCTION,
-	onValueChange: TYPES.FUNCTION,
-	beforeValueChange: TYPES.FUNCTION
 };

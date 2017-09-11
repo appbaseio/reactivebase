@@ -7,7 +7,6 @@ import ItemList from "../addons/ItemList";
 import manager from "../middleware/ChannelManager";
 import { StaticSearch } from "../addons/StaticSearch";
 import InitialLoader from "../addons/InitialLoader";
-import * as TYPES from "../middleware/constants";
 
 const helper = require("../middleware/helper");
 
@@ -550,31 +549,4 @@ NativeList.contextTypes = {
 	appbaseRef: React.PropTypes.any.isRequired,
 	type: React.PropTypes.any.isRequired,
 	reactiveId: React.PropTypes.number
-};
-
-NativeList.types = {
-	dataField: TYPES.STRING,
-	componentId: TYPES.STRING,
-	title: TYPES.STRING,
-	size: TYPES.NUMBER,
-	showCount: TYPES.BOOLEAN,
-	multipleSelect: TYPES.BOOLEAN,
-	sortBy: TYPES.STRING,
-	showSearch: TYPES.BOOLEAN,
-	placeholder: TYPES.STRING,
-	selectAllLabel: TYPES.STRING,
-	customQuery: TYPES.FUNCTION,
-	initialLoader: TYPES.STRING,
-	defaultSelected: TYPES.ARRAY,
-	react: TYPES.OBJECT,
-	beforeValueChange: TYPES.FUNCTION,
-	onValueChange: TYPES.FUNCTION,
-	onQueryChange: TYPES.FUNCTION,
-	style: TYPES.OBJECT,
-	showRadio: TYPES.BOOLEAN,
-	showCheckbox: TYPES.BOOLEAN,
-	URLParams: TYPES.BOOLEAN,
-	showFilter: TYPES.BOOLEAN,
-	filterLabel: TYPES.STRING,
-	queryFormat: TYPES.STRING
 };
