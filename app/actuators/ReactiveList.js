@@ -565,7 +565,7 @@ export default class ReactiveList extends Component {
 		}
 
 		return (
-			<div className=`rbc-reactivelist-container ${this.props.className ? this.props.className : ""}` ref={(node) => { this.listContainer = node; }} style={this.props.style}>
+			<div className={`rbc-reactivelist-container ${this.props.className ? this.props.className : ""}`} ref={(node) => { this.listContainer = node; }} style={this.props.style}>
 				<div ref={(div) => { this.listParentElement = div; }} className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.getComponentStyle()}>
 					{title}
 					{sortOptions}
