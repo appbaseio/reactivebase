@@ -305,8 +305,8 @@ export default class ReactiveElement extends Component {
 		}
 
 		return (
-			<div className=`rbc-reactiveelement-container ${this.props.className ? this.props.className : ""}`>
-				<div className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.style}>
+			<div className=`rbc-reactiveelement-container ${this.props.className ? this.props.className : ""}` style={this.props.style}>
+				<div className={`rbc rbc-reactiveelement card thumbnail ${cx}`}>
 					{title}
 					{this.state.resultStats && this.state.resultStats.resultFound && this.props.showResultStats ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
 					{this.state.resultMarkup}
