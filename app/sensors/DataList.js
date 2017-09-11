@@ -518,7 +518,7 @@ export default class DataList extends Component {
 			"rbc-multidatalist": this.props.multipleSelect,
 			"rbc-initialloader-active": this.props.initialLoader,
 			"rbc-initialloader-inactive": !this.props.initialLoader
-		});
+		}, this.props.className);
 
 		return (
 			<div className={`rbc col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
@@ -542,13 +542,13 @@ export default class DataList extends Component {
 DataList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
+	data: React.PropTypes.array.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
 	showSearch: React.PropTypes.bool,
 	placeholder: React.PropTypes.string,
-	data: React.PropTypes.array,
 	defaultSelected: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.array
@@ -565,7 +565,8 @@ DataList.propTypes = {
 	queryFormat: React.PropTypes.oneOf(["and", "or"]),
 	onQueryChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
-	beforeValueChange: React.PropTypes.func
+	beforeValueChange: React.PropTypes.func,
+	className: React.PropTypes.string
 };
 
 // Default props value

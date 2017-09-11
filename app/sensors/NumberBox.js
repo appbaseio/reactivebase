@@ -231,7 +231,7 @@ export default class NumberBox extends Component {
 		const cx = classNames({
 			"rbc-title-active": title,
 			"rbc-title-inactive": !title
-		});
+		}, this.props.className);
 		return (
 			<div className={`rbc rbc-numberbox col s12 col-xs-12 card thumbnail ${cx} rbc-label-${labelPosition}`} style={this.props.style}>
 				<div className="row">
@@ -252,15 +252,15 @@ export default class NumberBox extends Component {
 NumberBox.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
-	]),
 	data: React.PropTypes.shape({
 		start: helper.validateThreshold,
 		end: helper.validateThreshold,
 		label: React.PropTypes.string
-	}),
+	}).isRequired,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	defaultSelected: helper.valueValidation,
 	labelPosition: React.PropTypes.oneOf(["top", "bottom", "left", "right"]),
 	customQuery: React.PropTypes.func,
@@ -271,7 +271,8 @@ NumberBox.propTypes = {
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	onQueryChange: React.PropTypes.func,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	className: React.PropTypes.string
 };
 
 NumberBox.defaultProps = {
@@ -291,14 +292,15 @@ NumberBox.contextTypes = {
 NumberBox.types = {
 	componentId: TYPES.STRING,
 	dataField: TYPES.STRING,
+	data: TYPES.OBJECT,
 	dataFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
-	data: TYPES.OBJECT,
 	defaultSelected: TYPES.NUMBER,
 	labelPosition: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	style: TYPES.OBJECT,
 	queryFormat: TYPES.STRING,
 	onQueryChange: TYPES.FUNCTION,
-	URLParams: TYPES.BOOLEAN
+	URLParams: TYPES.BOOLEAN,
+	className: TYPES.STRING
 };

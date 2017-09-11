@@ -182,7 +182,7 @@ export default class SingleRange extends Component {
 			"rbc-title-inactive": !this.props.title,
 			"rbc-radio-active": this.props.showRadio,
 			"rbc-radio-inactive": !this.props.showRadio
-		});
+		}, this.props.className);
 
 		return (
 			<div className={`rbc rbc-singlerange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
@@ -200,11 +200,11 @@ export default class SingleRange extends Component {
 SingleRange.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
+	data: React.PropTypes.any.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
-	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
@@ -213,7 +213,8 @@ SingleRange.propTypes = {
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
 	onQueryChange: React.PropTypes.func,
-	showRadio: React.PropTypes.bool
+	showRadio: React.PropTypes.bool,
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -234,14 +235,15 @@ SingleRange.contextTypes = {
 SingleRange.types = {
 	componentId: TYPES.STRING,
 	dataField: TYPES.STRING,
+	data: TYPES.OBJECT,
 	dataFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
-	data: TYPES.OBJECT,
 	defaultSelected: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	style: TYPES.OBJECT,
 	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,
 	onQueryChange: TYPES.FUNCTION,
-	showRadio: TYPES.BOOLEAN
+	showRadio: TYPES.BOOLEAN,
+	className: TYPES.STRING
 };

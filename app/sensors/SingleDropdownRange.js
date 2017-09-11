@@ -162,7 +162,7 @@ export default class SingleDropdownRange extends Component {
 			"rbc-title-inactive": !this.props.title,
 			"rbc-placeholder-active": this.props.placeholder,
 			"rbc-placeholder-inactive": !this.props.placeholder
-		});
+		}, this.props.className);
 
 		return (
 			<div className={`rbc rbc-singledropdownrange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
@@ -187,12 +187,12 @@ export default class SingleDropdownRange extends Component {
 SingleDropdownRange.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
+	data: React.PropTypes.any.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
 	placeholder: React.PropTypes.string,
-	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
@@ -201,7 +201,8 @@ SingleDropdownRange.propTypes = {
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	onQueryChange: React.PropTypes.func,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -221,8 +222,8 @@ SingleDropdownRange.contextTypes = {
 SingleDropdownRange.types = {
 	componentId: TYPES.STRING,
 	dataField: TYPES.STRING,
-	dataFieldType: TYPES.NUMBER,
 	data: TYPES.OBJECT,
+	dataFieldType: TYPES.NUMBER,
 	defaultSelected: TYPES.STRING,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
@@ -231,5 +232,6 @@ SingleDropdownRange.types = {
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	onQueryChange: TYPES.FUNCTION,
-	filterLabel: TYPES.STRING
+	filterLabel: TYPES.STRING,
+	className: TYPES.STRING
 };

@@ -35,7 +35,8 @@ SingleList.propTypes = {
 	showRadio: React.PropTypes.bool,
 	onQueryChange: React.PropTypes.func,
 	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool
+	showFilter: React.PropTypes.bool,
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -75,5 +76,6 @@ SingleList.types = {
 	URLParams: TYPES.BOOLEAN,
 	showRadio: TYPES.BOOLEAN,
 	onQueryChange: TYPES.FUNCTION,
-	showFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN,
+	className: TYPES.STRING
 };

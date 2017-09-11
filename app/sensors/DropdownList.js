@@ -407,7 +407,7 @@ export default class DropdownList extends Component {
 			"rbc-count-inactive": !this.props.showCount,
 			"rbc-initialloader-active": this.props.initialLoader,
 			"rbc-initialloader-inactive": !this.props.initialLoader
-		});
+		}, this.props.className);
 
 		if (this.state.items.length) {
 			return (
@@ -467,7 +467,8 @@ DropdownList.propTypes = {
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
-	queryFormat: React.PropTypes.oneOf(["and", "or"])
+	queryFormat: React.PropTypes.oneOf(["and", "or"]),
+	className: React.PropTypes.string
 };
 
 // Default props value

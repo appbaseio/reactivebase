@@ -185,7 +185,7 @@ export default class MultiDropdownRange extends Component {
 			"rbc-title-inactive": !this.props.title,
 			"rbc-placeholder-active": this.props.placeholder,
 			"rbc-placeholder-inactive": !this.props.placeholder
-		});
+		}, this.props.className);
 
 		return (
 			<div className={`rbc rbc-multidropdownrange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
@@ -211,12 +211,12 @@ export default class MultiDropdownRange extends Component {
 MultiDropdownRange.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
+	data: React.PropTypes.any.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
 	placeholder: React.PropTypes.string,
-	data: React.PropTypes.any.isRequired,
 	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	onQueryChange: React.PropTypes.func,
@@ -225,7 +225,8 @@ MultiDropdownRange.propTypes = {
 	style: React.PropTypes.object,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -244,8 +245,8 @@ MultiDropdownRange.contextTypes = {
 MultiDropdownRange.types = {
 	componentId: TYPES.STRING,
 	dataField: TYPES.STRING,
-	dataFieldType: TYPES.NUMBER,
 	data: TYPES.OBJECT,
+	dataFieldType: TYPES.NUMBER,
 	defaultSelected: TYPES.ARRAY,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,
@@ -254,5 +255,6 @@ MultiDropdownRange.types = {
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	onQueryChange: TYPES.FUNCTION,
-	filterLabel: TYPES.STRING
+	filterLabel: TYPES.STRING,
+	className: TYPES.STRING
 };

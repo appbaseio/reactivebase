@@ -16,7 +16,8 @@ SingleDropdownList.propTypes = {
 	defaultSelected: React.PropTypes.string,
 	style: React.PropTypes.object,
 	onQueryChange: React.PropTypes.func,
-	showFilter: React.PropTypes.bool
+	showFilter: React.PropTypes.bool,
+	className: React.PropTypes.string
 };
 
 SingleDropdownList.types = {
@@ -36,5 +37,6 @@ SingleDropdownList.types = {
 	style: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	onQueryChange: TYPES.FUNCTION,
-	showFilter: TYPES.BOOLEAN
+	showFilter: TYPES.BOOLEAN,
+	className: TYPES.STRING
 };

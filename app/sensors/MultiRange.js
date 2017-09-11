@@ -253,7 +253,7 @@ export default class MultiRange extends Component {
 			"rbc-title-inactive": !this.props.title,
 			"rbc-checkbox-active": this.props.showCheckbox,
 			"rbc-checkbox-inactive": !this.props.showCheckbox
-		});
+		}, this.props.className);
 
 		return (
 			<div className={`rbc rbc-multirange col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
@@ -269,13 +269,13 @@ export default class MultiRange extends Component {
 }
 
 MultiRange.propTypes = {
-	dataField: React.PropTypes.string.isRequired,
 	componentId: React.PropTypes.string.isRequired,
+	dataField: React.PropTypes.string.isRequired,
+	data: React.PropTypes.any.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
-	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
@@ -285,7 +285,8 @@ MultiRange.propTypes = {
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
 	onQueryChange: React.PropTypes.func,
-	showCheckbox: React.PropTypes.bool
+	showCheckbox: React.PropTypes.bool,
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -305,9 +306,9 @@ MultiRange.contextTypes = {
 MultiRange.types = {
 	componentId: TYPES.STRING,
 	dataField: TYPES.STRING,
+	data: TYPES.OBJECT,
 	dataFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
-	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
 	customQuery: TYPES.FUNCTION,
 	style: TYPES.OBJECT,
@@ -315,5 +316,6 @@ MultiRange.types = {
 	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,
 	onQueryChange: TYPES.FUNCTION,
-	showCheckbox: TYPES.BOOLEAN
+	showCheckbox: TYPES.BOOLEAN,
+	className: TYPES.STRING
 };
