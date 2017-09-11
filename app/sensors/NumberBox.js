@@ -252,15 +252,15 @@ export default class NumberBox extends Component {
 NumberBox.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
-	]),
 	data: React.PropTypes.shape({
 		start: helper.validateThreshold,
 		end: helper.validateThreshold,
 		label: React.PropTypes.string
-	}),
+	}).isRequired,
+	title: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.element
+	]),
 	defaultSelected: helper.valueValidation,
 	labelPosition: React.PropTypes.oneOf(["top", "bottom", "left", "right"]),
 	customQuery: React.PropTypes.func,
@@ -291,9 +291,9 @@ NumberBox.contextTypes = {
 NumberBox.types = {
 	componentId: TYPES.STRING,
 	dataField: TYPES.STRING,
+	data: TYPES.OBJECT,
 	dataFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
-	data: TYPES.OBJECT,
 	defaultSelected: TYPES.NUMBER,
 	labelPosition: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,

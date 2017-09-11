@@ -269,13 +269,13 @@ export default class MultiRange extends Component {
 }
 
 MultiRange.propTypes = {
-	dataField: React.PropTypes.string.isRequired,
 	componentId: React.PropTypes.string.isRequired,
+	dataField: React.PropTypes.string.isRequired,
+	data: React.PropTypes.any.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
-	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
@@ -305,9 +305,9 @@ MultiRange.contextTypes = {
 MultiRange.types = {
 	componentId: TYPES.STRING,
 	dataField: TYPES.STRING,
+	data: TYPES.OBJECT,
 	dataFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
-	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
 	customQuery: TYPES.FUNCTION,
 	style: TYPES.OBJECT,

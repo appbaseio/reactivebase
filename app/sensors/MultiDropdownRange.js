@@ -211,12 +211,12 @@ export default class MultiDropdownRange extends Component {
 MultiDropdownRange.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
+	data: React.PropTypes.any.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
 	placeholder: React.PropTypes.string,
-	data: React.PropTypes.any.isRequired,
 	beforeValueChange: React.PropTypes.func,
 	onValueChange: React.PropTypes.func,
 	onQueryChange: React.PropTypes.func,
@@ -244,8 +244,8 @@ MultiDropdownRange.contextTypes = {
 MultiDropdownRange.types = {
 	componentId: TYPES.STRING,
 	dataField: TYPES.STRING,
-	dataFieldType: TYPES.NUMBER,
 	data: TYPES.OBJECT,
+	dataFieldType: TYPES.NUMBER,
 	defaultSelected: TYPES.ARRAY,
 	title: TYPES.STRING,
 	placeholder: TYPES.STRING,

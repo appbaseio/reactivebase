@@ -15,13 +15,13 @@ export default function MultiDataList(props) {
 MultiDataList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
+	data: React.PropTypes.array.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
 	showSearch: React.PropTypes.bool,
 	placeholder: React.PropTypes.string,
-	data: React.PropTypes.array,
 	defaultSelected: React.PropTypes.array,
 	customQuery: React.PropTypes.func,
 	style: React.PropTypes.object,

@@ -239,11 +239,11 @@ export default class ToggleButton extends Component {
 ToggleButton.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
+	data: React.PropTypes.any.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
-	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.oneOfType([
 		React.PropTypes.array,
 		React.PropTypes.string
@@ -277,9 +277,9 @@ ToggleButton.contextTypes = {
 ToggleButton.types = {
 	componentId: TYPES.STRING,
 	dataField: TYPES.STRING,
+	data: TYPES.OBJECT,
 	dataFieldType: TYPES.KEYWORD,
 	title: TYPES.STRING,
-	data: TYPES.OBJECT,
 	defaultSelected: TYPES.ARRAY,
 	multiSelect: TYPES.BOOLEAN,
 	customQuery: TYPES.FUNCTION,

@@ -15,13 +15,13 @@ export default function SingleDataList(props) {
 SingleDataList.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
+	data: React.PropTypes.array.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
 	showSearch: React.PropTypes.bool,
 	placeholder: React.PropTypes.string,
-	data: React.PropTypes.array,
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	style: React.PropTypes.object,
@@ -51,9 +51,9 @@ SingleDataList.contextTypes = {
 SingleDataList.types = {
 	componentId: TYPES.STRING,
 	dataField: TYPES.STRING,
+	data: TYPES.ARRAY,
 	dataFieldType: TYPES.STRING,
 	title: TYPES.STRING,
-	data: TYPES.ARRAY,
 	defaultSelected: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	style: TYPES.OBJECT,

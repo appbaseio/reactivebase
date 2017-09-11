@@ -200,11 +200,11 @@ export default class SingleRange extends Component {
 SingleRange.propTypes = {
 	componentId: React.PropTypes.string.isRequired,
 	dataField: React.PropTypes.string.isRequired,
+	data: React.PropTypes.any.isRequired,
 	title: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
 	]),
-	data: React.PropTypes.any.isRequired,
 	defaultSelected: React.PropTypes.string,
 	customQuery: React.PropTypes.func,
 	beforeValueChange: React.PropTypes.func,
@@ -234,9 +234,9 @@ SingleRange.contextTypes = {
 SingleRange.types = {
 	componentId: TYPES.STRING,
 	dataField: TYPES.STRING,
+	data: TYPES.OBJECT,
 	dataFieldType: TYPES.NUMBER,
 	title: TYPES.STRING,
-	data: TYPES.OBJECT,
 	defaultSelected: TYPES.STRING,
 	customQuery: TYPES.FUNCTION,
 	style: TYPES.OBJECT,
