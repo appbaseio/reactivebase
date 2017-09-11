@@ -116,7 +116,7 @@ export default class DataController extends Component {
 			"rbc-datalabel-inactive": !this.props.dataLabel,
 			"rbc-visible-active": this.props.visible,
 			"rbc-visible-inactive": !this.props.visible
-		});
+		}, this.props.className);
 
 		return (
 			<div className={`rbc rbc-datacontroller card thumbnail ${cx}`} style={this.props.style}>
@@ -153,7 +153,8 @@ DataController.propTypes = {
 	defaultSelected: React.PropTypes.any,
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	className: React.PropTypes.string
 };
 
 React.PropTypes.oneOfType([
@@ -186,5 +187,6 @@ DataController.types = {
 	style: TYPES.OBJECT,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
-	filterLabel: TYPES.STRING
+	filterLabel: TYPES.STRING,
+	className: TYPES.STRING
 };

@@ -171,7 +171,7 @@ export default class DatePicker extends Component {
 		const cx = classNames({
 			"rbc-title-active": this.props.title,
 			"rbc-title-inactive": !this.props.title
-		});
+		}, this.props.className);
 		return (
 			<div className={`rbc rbc-datepicker col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
 				{title}
@@ -214,7 +214,8 @@ DatePicker.propTypes = {
 	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat)),
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -253,5 +254,6 @@ DatePicker.types = {
 	queryFormat: TYPES.STRING,
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
-	filterLabel: TYPES.STRING
+	filterLabel: TYPES.STRING,
+	className: TYPES.STRING
 };

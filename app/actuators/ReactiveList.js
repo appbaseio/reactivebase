@@ -566,7 +566,7 @@ export default class ReactiveList extends Component {
 		}
 
 		return (
-			<div className="rbc-reactivelist-container" ref={(node) => { this.listContainer = node; }}>
+			<div className=`rbc-reactivelist-container ${this.props.className ? this.props.className : ""}` ref={(node) => { this.listContainer = node; }}>
 				<div ref={(div) => { this.listParentElement = div; }} className={`rbc rbc-reactivelist card thumbnail ${cx}`} style={this.getComponentStyle()}>
 					{title}
 					{sortOptions}
@@ -636,7 +636,8 @@ ReactiveList.propTypes = {
 	pagination: React.PropTypes.bool,
 	pages: React.PropTypes.number,
 	scrollOnTarget: React.PropTypes.object,
-	pageURLParams: React.PropTypes.bool
+	pageURLParams: React.PropTypes.bool,
+	className: React.PropTypes.string
 };
 
 ReactiveList.defaultProps = {
@@ -681,5 +682,6 @@ ReactiveList.types = {
 	paginationAt: TYPES.STRING,
 	pages: TYPES.NUMBER,
 	scrollOnTarget: TYPES.OBJECT,
-	pageURLParams: TYPES.BOOLEAN
+	pageURLParams: TYPES.BOOLEAN,
+	className: TYPES.STRING
 };

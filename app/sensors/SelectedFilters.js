@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import classNames from "classnames";
 import _ from "lodash";
 import moment from "moment";
 const helper = require("../middleware/helper.js");
@@ -126,7 +125,7 @@ export default class SelectedFilters extends Component {
 
 	render() {
 		return Object.keys(this.state.filters).length ? (
-			<div className={`rbc rbc-selectedfilters rbc-tag-container row card thumbnail`} style={this.props.style}>
+			<div className={`rbc rbc-selectedfilters rbc-tag-container row card thumbnail ${this.props.className ? this.props.className : ""}`} style={this.props.style}>
 				{
 					Object.keys(this.state.filters).map(item => {
 						if (!this.props.blackList.includes(item)) {
@@ -148,7 +147,8 @@ export default class SelectedFilters extends Component {
 SelectedFilters.propTypes = {
 	style: React.PropTypes.object,
 	componentId: React.PropTypes.string,
-	blackList: React.PropTypes.arrayOf(React.PropTypes.string)
+	blackList: React.PropTypes.arrayOf(React.PropTypes.string),
+	className: React.PropTypes.string
 };
 
 SelectedFilters.defaultProps = {

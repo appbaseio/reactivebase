@@ -500,7 +500,7 @@ export default class DataSearch extends Component {
 			"rbc-placeholder-inactive": !this.props.placeholder,
 			"rbc-autoSuggest-active": this.props.autoSuggest,
 			"rbc-autoSuggest-inactive": !this.props.autoSuggest
-		});
+		}, this.props.className);
 
 		const options = this.state.currentValue === "" || this.state.currentValue === null
 							? this.props.defaultSuggestions && this.props.defaultSuggestions.length
@@ -586,7 +586,8 @@ DataSearch.propTypes = {
 	fuzziness: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.number,
-	])
+	]),
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -625,5 +626,6 @@ DataSearch.types = {
 	filterLabel: TYPES.STRING,
 	searchWeight: TYPES.ARRAY,
 	queryFormat: TYPES.STRING,
-	fuzziness: TYPES.NUMBER
+	fuzziness: TYPES.NUMBER,
+	className: TYPES.STRING
 };

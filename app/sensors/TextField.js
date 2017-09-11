@@ -149,7 +149,7 @@ export default class TextField extends Component {
 			"rbc-title-inactive": !this.props.title,
 			"rbc-placeholder-active": this.props.placeholder,
 			"rbc-placeholder-inactive": !this.props.placeholder
-		});
+		}, this.props.className);
 
 		return (
 			<div className={`rbc rbc-textfield col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
@@ -178,7 +178,8 @@ TextField.propTypes = {
 	URLParams: React.PropTypes.bool,
 	onQueryChange: React.PropTypes.func,
 	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -207,5 +208,6 @@ TextField.types = {
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	onQueryChange: TYPES.FUNCTION,
-	filterLabel: TYPES.STRING
+	filterLabel: TYPES.STRING,
+	className: TYPES.STRING
 };

@@ -305,7 +305,7 @@ export default class ReactiveElement extends Component {
 		}
 
 		return (
-			<div className="rbc-reactiveelement-container">
+			<div className=`rbc-reactiveelement-container ${this.props.className ? this.props.className : ""}`>
 				<div className={`rbc rbc-reactiveelement card thumbnail ${cx}`} style={this.props.style}>
 					{title}
 					{this.state.resultStats && this.state.resultStats.resultFound && this.props.showResultStats ? (<ResultStats onResultStats={this.props.onResultStats} took={this.state.resultStats.took} total={this.state.resultStats.total} />) : null}
@@ -345,7 +345,8 @@ ReactiveElement.propTypes = {
 	placeholder: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.element
-	])
+	]),
+	className: React.PropTypes.string
 };
 
 ReactiveElement.defaultProps = {
@@ -376,5 +377,6 @@ ReactiveElement.types = {
 	noResults: TYPES.STRING,
 	showResultStats: TYPES.BOOLEAN,
 	onResultStats: TYPES.FUNCTION,
-	placeholder: TYPES.STRING
+	placeholder: TYPES.STRING,
+	className: TYPES.STRING
 };

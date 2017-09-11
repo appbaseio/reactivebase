@@ -222,7 +222,7 @@ export default class ToggleButton extends Component {
 			"rbc-title-inactive": !this.props.title,
 			"rbc-multiselect-active": this.props.multiSelect,
 			"rbc-multiselect-inactive": !this.props.multiSelect
-		});
+		}, this.props.className);
 		return (
 			<div className={`rbc rbc-togglebutton col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
 				<div className="row">
@@ -256,7 +256,8 @@ ToggleButton.propTypes = {
 	URLParams: React.PropTypes.bool,
 	showFilter: React.PropTypes.bool,
 	onQueryChange: React.PropTypes.func,
-	filterLabel: React.PropTypes.string
+	filterLabel: React.PropTypes.string,
+	className: React.PropTypes.string
 };
 
 // Default props value
@@ -287,5 +288,6 @@ ToggleButton.types = {
 	URLParams: TYPES.BOOLEAN,
 	showFilter: TYPES.BOOLEAN,
 	onQueryChange: TYPES.FUNCTION,
-	filterLabel: TYPES.STRING
+	filterLabel: TYPES.STRING,
+	className: TYPES.STRING
 };
