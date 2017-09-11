@@ -1,9 +1,9 @@
 /* eslint max-lines: 0 */
 import React, { Component } from "react";
 import classNames from "classnames";
+import _ from "lodash";
 import manager from "../middleware/ChannelManager";
 import { StaticSearch } from "../addons/StaticSearch";
-import _ from "lodash";
 
 const helper = require("../middleware/helper");
 

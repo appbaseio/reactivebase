@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import moment from "moment";
+import * as TYPES from "../middleware/constants";
+
 const helper = require("../middleware/helper.js");
 
 export default class SelectedFilters extends Component {
@@ -159,4 +161,10 @@ SelectedFilters.defaultProps = {
 // context type
 SelectedFilters.contextTypes = {
 	reactiveId: React.PropTypes.number
+};
+
+SelectedFilters.types = {
+	style: TYPES.OBJECT,
+	componentId: TYPES.STRING,
+	blackList: TYPES.ARRAY
 };
