@@ -462,14 +462,17 @@ export default class DataSearch extends Component {
 				value: this.state.currentValue
 			});
 		}
-		if (this.props.onBlur) this.props.onBlur(event);
+		if (this.props.onBlur) {
+			this.props.onBlur(event);
+		}
 	}
 
 	handleKeyPress(event) {
 		if (event.key === "Enter") {
 			event.target.blur();
-		} else {
-			if (this.props.onKeyPress) this.props.onKeyPress(event);
+		}
+		if (this.props.onKeyPress) {
+			this.props.onKeyPress(event);
 		}
 	}
 
