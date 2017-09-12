@@ -155,7 +155,18 @@ export default class TextField extends Component {
 			<div className={`rbc rbc-textfield col s12 col-xs-12 card thumbnail ${cx}`} style={this.props.style}>
 				{title}
 				<div className="rbc-input-container col s12 col-xs-12">
-					<input className="rbc-input" type="text" onChange={this.handleChange} placeholder={this.props.placeholder} value={this.state.currentValue ? this.state.currentValue : ""} />
+					<input
+						className="rbc-input"
+						type="text"
+						onChange={this.handleChange}
+						placeholder={this.props.placeholder}
+						value={this.state.currentValue ? this.state.currentValue : ""}
+						onBlur={this.props.onBlur}
+						onFocus={this.props.onFocus}
+						onKeyPress={this.props.onKeyPress}
+						onKeyDown={this.props.onKeyDown}
+						onKeyUp={this.props.onKeyUp}
+					/>
 				</div>
 			</div>
 		);
@@ -179,7 +190,12 @@ TextField.propTypes = {
 	onQueryChange: React.PropTypes.func,
 	showFilter: React.PropTypes.bool,
 	filterLabel: React.PropTypes.string,
-	className: React.PropTypes.string
+	className: React.PropTypes.string,
+	onBlur: React.PropTypes.func,
+	onFocus: React.PropTypes.func,
+	onKeyPress: React.PropTypes.func,
+	onKeyDown: React.PropTypes.func,
+	onKeyUp: React.PropTypes.func
 };
 
 // Default props value
@@ -209,5 +225,10 @@ TextField.types = {
 	showFilter: TYPES.BOOLEAN,
 	onQueryChange: TYPES.FUNCTION,
 	filterLabel: TYPES.STRING,
-	className: TYPES.STRING
+	className: TYPES.STRING,
+	onBlur: TYPES.FUNCTION,
+	onFocus: TYPES.FUNCTION,
+	onKeyPress: TYPES.FUNCTION,
+	onKeyDown: TYPES.FUNCTION,
+	onKeyUp: TYPES.FUNCTION
 };
