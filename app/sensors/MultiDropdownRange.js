@@ -131,6 +131,7 @@ export default class MultiDropdownRange extends Component {
 			};
 			return query;
 		}
+		return null;
 	}
 
 	// handle the input change and pass the value inside sensor info
