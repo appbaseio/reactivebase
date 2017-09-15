@@ -107,6 +107,7 @@ export default class SingleRange extends Component {
 				}
 			};
 		}
+		return null;
 	}
 
 	// handle the input change and pass the value inside sensor info
