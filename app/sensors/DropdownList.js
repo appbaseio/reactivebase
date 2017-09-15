@@ -185,6 +185,7 @@ export default class DropdownList extends Component {
 				}
 			};
 		}
+		return null;
 	}
 
 	// set the query type and input data
