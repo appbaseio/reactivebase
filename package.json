@@ -25,7 +25,7 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "appbase-js": "^0.11.0",
+    "appbase-js": "^2.0.0-alpha-03",
     "classnames": "^2.2.5",
     "fbemitter": "^2.1.1",
     "lodash": "^4.17.4",
