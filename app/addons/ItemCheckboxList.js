@@ -22,7 +22,7 @@ export default class ItemCheckboxList extends Component {
 			} else {
 				let items = [];
 				this.props.items.forEach(item => {
-					if (this.props.defaultSelected.indexOf(item.key) >= 0) {
+					if (Array.isArray(this.props.defaultSelected) && this.props.defaultSelected.indexOf(item.key) >= 0) {
 						items.push(item.key);
 					}
 				});
@@ -44,7 +44,7 @@ export default class ItemCheckboxList extends Component {
 		if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
 			let items = [];
 			this.props.items.forEach(item => {
-				if (nextProps.defaultSelected.indexOf(item.key) >= 0) {
+				if (Array.isArray(nextProps.defaultSelected) &&  nextProps.defaultSelected.indexOf(item.key) >= 0) {
 					items.push(item.key);
 				}
 			});
