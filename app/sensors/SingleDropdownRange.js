@@ -51,7 +51,7 @@ export default class SingleDropdownRange extends Component {
 	}
 
 	checkDefault(props) {
-		this.urlParams = helper.URLParams.get(props.componentId);
+		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId) : null;
 		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
 		this.changeValue(defaultValue);
 	}

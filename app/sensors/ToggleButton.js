@@ -11,7 +11,7 @@ export default class ToggleButton extends Component {
 			selected: []
 		};
 		this.type = "term";
-		this.urlParams = helper.URLParams.get(props.componentId, true);
+		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId, true) : null;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -52,7 +52,7 @@ export default class ToggleButton extends Component {
 	}
 
 	checkDefault(props) {
-		this.urlParams = helper.URLParams.get(props.componentId, true);
+		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId, true) : null;
 		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
 		this.valueChange(defaultValue);
 	}

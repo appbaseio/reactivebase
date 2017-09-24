@@ -55,7 +55,7 @@ export default class NativeList extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.urlParams = helper.URLParams.get(nextProps.componentId, nextProps.multipleSelect);
+		this.urlParams = nextProps.URLParams ? helper.URLParams.get(nextProps.componentId, nextProps.multipleSelect) : null;
 
 		if (this.props.queryFormat !== nextProps.queryFormat) {
 			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "Terms" : "Term";

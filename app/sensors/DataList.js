@@ -70,7 +70,7 @@ export default class DataList extends Component {
 	}
 
 	checkDefault(props) {
-		this.urlParams = helper.URLParams.get(props.componentId, props.multipleSelect);
+		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId, props.multipleSelect) : null;
 		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
 		if (props.multipleSelect && Array.isArray(defaultValue) && props.selectAllLabel === defaultValue[0] ||
 			!props.multipleSelect && props.selectAllLabel === defaultValue) {

@@ -16,7 +16,7 @@ export default class RangeSlider extends Component {
 		const startThreshold = props.range.start ? props.range.start : 0;
 		const endThreshold = props.range.end ? props.range.end : 5;
 		const values = {};
-		this.urlParams = helper.URLParams.get(props.componentId, false, true);
+		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId, false, true) : null;
 		this.defaultSelected = this.urlParams !== null ? this.urlParams : props.defaultSelected;
 		if (!this.defaultSelected) {
 			this.defaultSelected = {
