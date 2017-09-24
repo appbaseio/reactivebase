@@ -18,7 +18,7 @@ export default class DataList extends Component {
 		};
 
 		this.type = this.props.multipleSelect ? "Terms" : "Term";
-		this.urlParams = helper.URLParams.get(this.props.componentId, props.multipleSelect);
+		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId, props.multipleSelect) : null;
 		this.customQuery = this.customQuery.bind(this);
 		this.renderObjectList = this.renderObjectList.bind(this);
 		this.renderStringList = this.renderStringList.bind(this);

@@ -35,7 +35,7 @@ export default class DataSearch extends Component {
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.defaultSearchQuery = this.defaultSearchQuery.bind(this);
 		this.previousSelectedSensor = {};
-		this.urlParams = helper.URLParams.get(this.props.componentId);
+		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId) : null;
 	}
 
 	// Get the items from Appbase when component is mounted

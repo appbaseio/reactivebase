@@ -26,7 +26,7 @@ export default class DropdownList extends Component {
 		this.channelId = null;
 		this.channelListener = null;
 		this.previousSelectedSensor = {};
-		this.urlParams = helper.URLParams.get(this.props.componentId, this.props.multipleSelect);
+		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId, props.multipleSelect) : null;
 		this.handleChange = this.handleChange.bind(this);
 		this.type = this.props.multipleSelect && this.props.queryFormat === "or" ? "Terms" : "Term";
 		this.customQuery = this.customQuery.bind(this);

@@ -13,7 +13,7 @@ export default class SingleDropdownRange extends Component {
 			selected: null
 		};
 		this.type = "range";
-		this.urlParams = helper.URLParams.get(this.props.componentId);
+		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId) : null;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}

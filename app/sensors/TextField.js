@@ -10,7 +10,7 @@ export default class TextField extends Component {
 			currentValue: ""
 		};
 		this.type = "match";
-		this.urlParams = helper.URLParams.get(this.props.componentId);
+		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId) : null;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}
@@ -51,7 +51,7 @@ export default class TextField extends Component {
 	}
 
 	checkDefault(props) {
-		this.urlParams = helper.URLParams.get(this.props.componentId);
+		this.urlParams = props.URLParams ? helper.URLParams.get(this.props.componentId) : null;
 		const defaultValue = this.urlParams !== null ? this.urlParams : props.defaultSelected;
 		this.valueChange(defaultValue);
 	}

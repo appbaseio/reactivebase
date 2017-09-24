@@ -44,7 +44,7 @@ export default class NumberBox extends Component {
 	constructor(props, context) {
 		super(props);
 		const { focused } = this.props;
-		this.urlParams = helper.URLParams.get(this.props.componentId);
+		this.urlParams = props.URLParams ? helper.URLParams.get(this.props.componentId) : null;
 		const defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.state = {
 			currentValue: defaultSelected ? defaultSelected : this.props.data.start,

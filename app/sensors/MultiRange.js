@@ -12,7 +12,7 @@ export default class MultiRange extends Component {
 			selected: []
 		};
 		this.type = "range";
-		this.urlParams = helper.URLParams.get(this.props.componentId, true);
+		this.urlParams = helper.URLParams.get(props.componentId, true);
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}

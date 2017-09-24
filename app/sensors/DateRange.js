@@ -18,7 +18,7 @@ export default class DateRange extends Component {
 			focusedInput: null
 		};
 		this.type = "range";
-		this.urlParams = this.getURLParams();
+		this.urlParams = props.URLParams ? this.getURLParams() : null;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 		this.onFocusChange = this.onFocusChange.bind(this);

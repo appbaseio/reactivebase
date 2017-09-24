@@ -9,7 +9,7 @@ export default class DataController extends Component {
 		super(props);
 		this.type = "match";
 		this.value = "customValue";
-		this.urlParams = helper.URLParams.get(this.props.componentId);
+		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId) : null;
 	}
 
 	// Set query information

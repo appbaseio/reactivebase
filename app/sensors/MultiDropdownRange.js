@@ -13,12 +13,12 @@ export default class MultiDropdownRange extends Component {
 			selected: ""
 		};
 		this.type = "range";
-		this.state.data = this.props.data.map((item) => {
+		this.state.data = props.data.map((item) => {
 			item.value = item.label;
 			return item;
 		});
-		this.urlParams = helper.URLParams.get(this.props.componentId, true);
-		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+		this.urlParams = helper.URLParams.get(props.componentId, true);
+		this.defaultSelected = this.urlParams !== null ? this.urlParams : props.defaultSelected;
 		this.handleChange = this.handleChange.bind(this);
 		this.customQuery = this.customQuery.bind(this);
 	}

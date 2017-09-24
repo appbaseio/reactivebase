@@ -13,11 +13,11 @@ const helper = require("../middleware/helper");
 export default class RangeSlider extends Component {
 	constructor(props) {
 		super(props);
-		const startThreshold = this.props.range.start ? this.props.range.start : 0;
-		const endThreshold = this.props.range.end ? this.props.range.end : 5;
+		const startThreshold = props.range.start ? props.range.start : 0;
+		const endThreshold = props.range.end ? props.range.end : 5;
 		const values = {};
-		this.urlParams = helper.URLParams.get(this.props.componentId, false, true);
-		this.defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
+		this.urlParams = helper.URLParams.get(props.componentId, false, true);
+		this.defaultSelected = this.urlParams !== null ? this.urlParams : props.defaultSelected;
 		if (!this.defaultSelected) {
 			this.defaultSelected = {
 				start: startThreshold,
