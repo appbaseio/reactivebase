@@ -27,8 +27,14 @@ export default class ToggleButton extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.defaultSelected && !_.isEqual(nextProps.defaultSelected, this.props.defaultSelected)) {
-			this.checkDefault(nextProps);
+		if (nextProps.multiSelect) {
+			if (nextProps.defaultSelected && !_.isEqual(nextProps.defaultSelected, this.props.defaultSelected)) {
+				this.valueChange(nextProps.defaultSelected);
+			}
+		} else {
+			if (nextProps.defaultSelected && nextProps.defaultSelected !== this.props.defaultSelected) {
+				this.valueChange(nextProps.defaultSelected);
+			}
 		}
 		if (this.props.showFilter !== nextProps.showFilter || this.props.filterLabel !== nextProps.filterLabel) {
 			this.setQueryInfo(nextProps);
