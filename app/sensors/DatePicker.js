@@ -125,7 +125,9 @@ export default class DatePicker extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(obj.value);
 			}
-			helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
+			if(this.props.URLParams){
+				helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
+			}
 			helper.selectedSensor.set(obj, isExecuteQuery);
 		};
 

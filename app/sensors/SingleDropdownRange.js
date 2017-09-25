@@ -128,7 +128,9 @@ export default class SingleDropdownRange extends Component {
 				this.props.onValueChange(obj.value);
 			}
 			this.defaultSelected = record;
-			helper.URLParams.update(this.props.componentId, record ? record.label : null, this.props.URLParams);
+			if(this.props.URLParams){
+				helper.URLParams.update(this.props.componentId, record ? record.label : null, this.props.URLParams);
+			}
 			helper.selectedSensor.set(obj, isExecuteQuery);
 		};
 
