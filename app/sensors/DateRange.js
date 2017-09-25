@@ -222,7 +222,9 @@ export default class DateRange extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(nextValue);
 			}
-			helper.URLParams.update(this.props.componentId, this.urlFriendlyValue(inputVal), this.props.URLParams);
+			if(this.props.URLParams){
+				helper.URLParams.update(this.props.componentId, this.urlFriendlyValue(inputVal), this.props.URLParams);
+			}
 			helper.selectedSensor.set(obj, isExecuteQuery);
 		};
 

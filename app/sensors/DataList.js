@@ -204,7 +204,9 @@ export default class DataList extends Component {
 				this.props.onValueChange(null);
 			}
 
-			helper.URLParams.update(this.props.componentId, null, this.props.URLParams);
+			if(this.props.URLParams){
+				helper.URLParams.update(this.props.componentId, null, this.props.URLParams);
+			}
 			helper.selectedSensor.set(obj, true);
 		};
 
@@ -284,7 +286,9 @@ export default class DataList extends Component {
 			}
 
 			const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
-			helper.URLParams.update(this.props.componentId, selectedValue, this.props.URLParams);
+			if(this.props.URLParams){
+				helper.URLParams.update(this.props.componentId, selectedValue, this.props.URLParams);
+			}
 			helper.selectedSensor.set(obj, true);
 		};
 

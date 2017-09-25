@@ -177,7 +177,9 @@ export default class DataSearch extends Component {
 			}
 
 			this.defaultSelected = value;
-			helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
+			if(this.props.URLParams){
+				helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
+			}
 			helper.selectedSensor.set(obj, true);
 
 			if (value && value.trim() !== "") {
@@ -403,7 +405,9 @@ export default class DataSearch extends Component {
 				this.props.onValueChange(nextValue);
 			}
 
-			helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
+			if(this.props.URLParams){
+				helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
+			}
 			helper.selectedSensor.set(obj, true);
 			this.setState({
 				currentValue: value
@@ -439,7 +443,9 @@ export default class DataSearch extends Component {
 			}
 			// pass the selected sensor value with componentId as key,
 			const isExecuteQuery = true;
-			helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
+			if(this.props.URLParams){
+				helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
+			}
 			helper.selectedSensor.set(obj, isExecuteQuery);
 		};
 

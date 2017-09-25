@@ -77,7 +77,9 @@ export default class RangeSlider extends Component {
 				};
 				nextProps.onValueChange(nextValue);
 			}
-			helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
+			if(nextProps.URLParams){
+				helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
+			}
 			helper.selectedSensor.set(obj, true);
 		};
 
@@ -234,7 +236,9 @@ export default class RangeSlider extends Component {
 						};
 						this.props.onValueChange(nextValue);
 					}
-					helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
+					if(this.props.URLParams){
+						helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
+					}
 					helper.selectedSensor.set(obj, true);
 				}
 			}
@@ -468,7 +472,9 @@ export default class RangeSlider extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(nextValue);
 			}
-			helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
+			if(this.props.URLParams){
+				helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
+			}
 			helper.selectedSensor.set(obj, true);
 		};
 

@@ -373,7 +373,9 @@ export default class DropdownList extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(value);
 			}
-			helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
+			if(this.props.URLParams){
+				helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
+			}
 			helper.selectedSensor.set(obj, isExecuteQuery);
 		};
 
