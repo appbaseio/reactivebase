@@ -90,8 +90,8 @@ export default class RangeSlider extends Component {
 			}
 
 			// check defaultSelected
-			if ((defaultValue && defaultValue.start !== this.state.values.min) ||
-				(defaultValue && defaultValue.end !== this.state.values.max) &&
+			if ((defaultValue && defaultValue.start !== this.props.defaultSelected.start) ||
+				(defaultValue && defaultValue.end !== this.props.defaultSelected.end) &&
 				nextProps.range.start <= defaultValue.start &&
 				nextProps.range.end >= defaultValue.end) {
 				const rem = (defaultValue.end - defaultValue.start) % nextProps.stepValue;
