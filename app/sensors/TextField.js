@@ -168,7 +168,7 @@ export default class TextField extends Component {
 						onKeyPress={this.props.onKeyPress}
 						onKeyDown={this.props.onKeyDown}
 						onKeyUp={this.props.onKeyUp}
-						autoFocus={this.props.autoFocus ? this.props.autoFocus : false}
+						autoFocus={this.props.autoFocus}
 					/>
 				</div>
 			</div>
@@ -206,7 +206,8 @@ TextField.propTypes = {
 TextField.defaultProps = {
 	style: {},
 	URLParams: false,
-	showFilter: true
+	showFilter: true,
+	autoFocus: false
 };
 
 // context type

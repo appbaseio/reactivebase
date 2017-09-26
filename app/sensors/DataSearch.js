@@ -557,7 +557,7 @@ export default class DataSearch extends Component {
 								onKeyPress={this.props.onKeyPress}
 								onKeyDown={this.props.onKeyDown}
 								onKeyUp={this.props.onKeyUp}
-								autoFocus={this.props.autoFocus ? this.props.autoFocus : false}
+								autoFocus={this.props.autoFocus}
 							/>
 						</div>
 				}
@@ -625,7 +625,8 @@ DataSearch.defaultProps = {
 	highlight: false,
 	URLParams: false,
 	showFilter: true,
-	queryFormat: "or"
+	queryFormat: "or",
+	autoFocus: false
 };
 
 // context type
