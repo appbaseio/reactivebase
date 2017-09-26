@@ -557,6 +557,7 @@ export default class DataSearch extends Component {
 								onKeyPress={this.props.onKeyPress}
 								onKeyDown={this.props.onKeyDown}
 								onKeyUp={this.props.onKeyUp}
+								autoFocus={this.props.autoFocus}
 							/>
 						</div>
 				}
@@ -612,7 +613,8 @@ DataSearch.propTypes = {
 	onFocus: React.PropTypes.func,
 	onKeyPress: React.PropTypes.func,
 	onKeyDown: React.PropTypes.func,
-	onKeyUp: React.PropTypes.func
+	onKeyUp: React.PropTypes.func,
+	autoFocus: React.PropTypes.bool
 };
 
 // Default props value
@@ -623,7 +625,8 @@ DataSearch.defaultProps = {
 	highlight: false,
 	URLParams: false,
 	showFilter: true,
-	queryFormat: "or"
+	queryFormat: "or",
+	autoFocus: false
 };
 
 // context type
@@ -657,5 +660,6 @@ DataSearch.types = {
 	onFocus: TYPES.FUNCTION,
 	onKeyPress: TYPES.FUNCTION,
 	onKeyDown: TYPES.FUNCTION,
-	onKeyUp: TYPES.FUNCTION
+	onKeyUp: TYPES.FUNCTION,
+	autoFocus: TYPES.BOOLEAN
 };
