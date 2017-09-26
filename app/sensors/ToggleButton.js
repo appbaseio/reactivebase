@@ -28,11 +28,11 @@ export default class ToggleButton extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.multiSelect) {
-			if (nextProps.defaultSelected && !_.isEqual(nextProps.defaultSelected, this.props.defaultSelected)) {
+			if (nextProps.defaultSelected !== null && nextProps.defaultSelected !== undefined && !_.isEqual(nextProps.defaultSelected, this.props.defaultSelected)) {
 				this.valueChange(nextProps.defaultSelected);
 			}
 		} else {
-			if (nextProps.defaultSelected && nextProps.defaultSelected !== this.props.defaultSelected) {
+			if (nextProps.defaultSelected !== null && nextProps.defaultSelected !== undefined && nextProps.defaultSelected !== this.props.defaultSelected) {
 				this.valueChange(nextProps.defaultSelected);
 			}
 		}
@@ -66,7 +66,7 @@ export default class ToggleButton extends Component {
 	valueChange(defaultValue) {
 		if (!_.isEqual(this.defaultSelected, defaultValue)) {
 			this.defaultSelected = defaultValue;
-			if(this.defaultSelected) {
+			if(this.defaultSelected !== null && this.defaultSelected !== undefined) {
 				this.defaultSelected = Array.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
 				const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 				if (records && records.length) {
