@@ -168,6 +168,7 @@ export default class TextField extends Component {
 						onKeyPress={this.props.onKeyPress}
 						onKeyDown={this.props.onKeyDown}
 						onKeyUp={this.props.onKeyUp}
+						autoFocus={this.props.autoFocus ? this.props.autoFocus : false}
 					/>
 				</div>
 			</div>
@@ -197,7 +198,8 @@ TextField.propTypes = {
 	onFocus: React.PropTypes.func,
 	onKeyPress: React.PropTypes.func,
 	onKeyDown: React.PropTypes.func,
-	onKeyUp: React.PropTypes.func
+	onKeyUp: React.PropTypes.func,
+	autoFocus: React.PropTypes.bool
 };
 
 // Default props value
@@ -232,5 +234,6 @@ TextField.types = {
 	onFocus: TYPES.FUNCTION,
 	onKeyPress: TYPES.FUNCTION,
 	onKeyDown: TYPES.FUNCTION,
-	onKeyUp: TYPES.FUNCTION
+	onKeyUp: TYPES.FUNCTION,
+	autoFocus: TYPES.BOOLEAN
 };
