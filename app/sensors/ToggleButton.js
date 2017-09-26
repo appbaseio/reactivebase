@@ -83,12 +83,20 @@ export default class ToggleButton extends Component {
 	// set the query type and input data
 	setQueryInfo(props) {
 		const getQuery = (value) => {
-			const currentQuery = props.customQuery ? props.customQuery(value) : this.customQuery(value);
-			if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
-				this.props.onQueryChange(this.previousQuery, currentQuery);
+			if (Array.isArray(value)) {
+				const currentQuery = props.customQuery ? props.customQuery(value) : this.customQuery(value);
+				if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+					this.props.onQueryChange(this.previousQuery, currentQuery);
+				}
+				this.previousQuery = currentQuery;
+				return currentQuery;
+			} else {
+				const currentQuery = null;
+				if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+					this.props.onQueryChange(this.previousQuery, currentQuery);
+				}
+				return currentQuery;
 			}
-			this.previousQuery = currentQuery;
-			return currentQuery;
 		};
 		const obj = {
 			key: props.componentId,
