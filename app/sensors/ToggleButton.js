@@ -120,7 +120,7 @@ export default class ToggleButton extends Component {
 		if (record && record.length) {
 			query = {
 				bool: {
-					should: generatetermQuery(this.props.dataField),
+					should: generateTermQuery(this.props.dataField),
 					minimum_should_match: 1,
 					boost: 1.0
 				}
@@ -129,7 +129,7 @@ export default class ToggleButton extends Component {
 		}
 		return query;
 
-		function generatetermQuery(dataField) {
+		function generateTermQuery(dataField) {
 			return record.map((singleRecord, index) => ({
 				term: {
 					[dataField]: singleRecord.value
