@@ -83,117 +83,33 @@ export default class RangeSlider extends Component {
 			helper.selectedSensor.set(obj, true);
 		};
 
-		setTimeout(() => {
-			let defaultValue = this.urlParams !== null ? this.urlParams : nextProps.defaultSelected;
-			if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
-				defaultValue = nextProps.defaultSelected;
-			}
+		let defaultValue = this.urlParams !== null ? this.urlParams : nextProps.defaultSelected;
+		if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
+			defaultValue = nextProps.defaultSelected;
+		}
 
-			// check defaultSelected
-			if ((defaultValue && defaultValue.start !== this.props.defaultSelected.start) ||
-				(defaultValue && defaultValue.end !== this.props.defaultSelected.end) &&
-				nextProps.range.start <= defaultValue.start &&
-				nextProps.range.end >= defaultValue.end) {
-				const rem = (defaultValue.end - defaultValue.start) % nextProps.stepValue;
-				if (rem) {
-					const values = {
-						min: this.state.values.min,
-						max: defaultValue.end - rem
-					}
-					this.setState({
-						values
-					});
-					const obj = {
-						key: nextProps.componentId,
-						value: {
-							from: values.min,
-							to: values.max
-						}
-					};
-					setTimeout(() => {
-						if (this.props.beforeValueChange) {
-							const nextValue = {
-								start: values.min,
-								end: values.max
-							};
-							this.props.beforeValueChange(nextValue)
-							.then(() => {
-								execQuery(obj);
-							})
-							.catch((e) => {
-								console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
-							});
-						} else {
-							execQuery(obj);
-						}
-					}, 1000);
-				} else {
-					const values = {};
-					values.min = defaultValue.start;
-					values.max = defaultValue.end;
-					this.setState({
-						values,
-						currentValues: values
-					});
-					const obj = {
-						key: nextProps.componentId,
-						value: {
-							from: values.min,
-							to: values.max
-						}
-					};
-					setTimeout(() => {
-						if (this.props.beforeValueChange) {
-							const nextValue = {
-								start: values.min,
-								end: values.max
-							};
-							this.props.beforeValueChange(nextValue)
-							.then(() => {
-								execQuery(obj);
-							})
-							.catch((e) => {
-								console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
-							});
-						} else {
-							execQuery(obj);
-						}
-					}, 1000);
+		// check defaultSelected
+		if ((defaultValue && defaultValue.start !== this.props.defaultSelected.start) ||
+			(defaultValue && defaultValue.end !== this.props.defaultSelected.end) &&
+			nextProps.range.start <= defaultValue.start &&
+			nextProps.range.end >= defaultValue.end) {
+			const rem = (defaultValue.end - defaultValue.start) % nextProps.stepValue;
+			if (rem) {
+				const values = {
+					min: this.state.values.min,
+					max: defaultValue.end - rem
 				}
-			}
-			// check range
-			if (nextProps.range.start !== this.state.startThreshold ||
-				nextProps.range.end !== this.state.endThreshold) {
-				if (nextProps.range.start <= defaultValue.start &&
-					nextProps.range.end >= defaultValue.end) {
-					this.setState({
-						startThreshold: nextProps.range.start,
-						endThreshold: nextProps.range.end
-					});
-				} else {
-					const values = {
-						min: this.state.values.min,
-						max: this.state.values.max
-					};
-					if (this.state.values.min < nextProps.range.start) {
-						values.min = nextProps.range.start;
-					}
-					if (this.state.values.max > nextProps.range.end) {
-						values.max = nextProps.range.end;
-					}
-					this.setState({
-						startThreshold: nextProps.range.start,
-						endThreshold: nextProps.range.end,
-						values
-					});
-					const currentRange = {
+				this.setState({
+					values
+				});
+				const obj = {
+					key: nextProps.componentId,
+					value: {
 						from: values.min,
 						to: values.max
-					};
-					const obj = {
-						key: this.props.componentId,
-						value: currentRange
-					};
+					}
+				};
+				setTimeout(() => {
 					if (this.props.beforeValueChange) {
 						const nextValue = {
 							start: values.min,
@@ -201,48 +117,130 @@ export default class RangeSlider extends Component {
 						};
 						this.props.beforeValueChange(nextValue)
 						.then(() => {
-							execQuery();
+							execQuery(obj);
 						})
 						.catch((e) => {
 							console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
 						});
 					} else {
-						execQuery();
+						execQuery(obj);
 					}
-				}
-				this.setRangeValue();
-			}
-			// drop value if it exceeds the threshold (based on step value)
-			if (nextProps.stepValue !== this.props.stepValue) {
-				const rem = (defaultValue.end - defaultValue.start) % nextProps.stepValue;
-				if (rem) {
-					this.setState({
-						values: {
-							min: this.state.values.min,
-							max: defaultValue.end - rem
-						}
-					});
-					const obj = {
-						key: this.props.componentId,
-						value: {
-							from: this.state.values.min,
-							to: defaultValue.end - rem
-						}
-					};
-					if (this.props.onValueChange) {
+				}, 1000);
+			} else {
+				const values = {};
+				values.min = defaultValue.start;
+				values.max = defaultValue.end;
+				this.setState({
+					values,
+					currentValues: values
+				});
+				const obj = {
+					key: nextProps.componentId,
+					value: {
+						from: values.min,
+						to: values.max
+					}
+				};
+				setTimeout(() => {
+					if (this.props.beforeValueChange) {
 						const nextValue = {
-							start: obj.value.from,
-							end: obj.value.to
+							start: values.min,
+							end: values.max
 						};
-						this.props.onValueChange(nextValue);
+						this.props.beforeValueChange(nextValue)
+						.then(() => {
+							execQuery(obj);
+						})
+						.catch((e) => {
+							console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+						});
+					} else {
+						execQuery(obj);
 					}
-					if(this.props.URLParams){
-						helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
-					}
-					helper.selectedSensor.set(obj, true);
+				}, 1000);
+			}
+		}
+		// check range
+		if (nextProps.range.start !== this.state.startThreshold ||
+			nextProps.range.end !== this.state.endThreshold) {
+			if (nextProps.range.start <= defaultValue.start &&
+				nextProps.range.end >= defaultValue.end) {
+				this.setState({
+					startThreshold: nextProps.range.start,
+					endThreshold: nextProps.range.end
+				});
+			} else {
+				const values = {
+					min: this.state.values.min,
+					max: this.state.values.max
+				};
+				if (this.state.values.min < nextProps.range.start) {
+					values.min = nextProps.range.start;
+				}
+				if (this.state.values.max > nextProps.range.end) {
+					values.max = nextProps.range.end;
+				}
+				this.setState({
+					startThreshold: nextProps.range.start,
+					endThreshold: nextProps.range.end,
+					values
+				});
+				const currentRange = {
+					from: values.min,
+					to: values.max
+				};
+				const obj = {
+					key: this.props.componentId,
+					value: currentRange
+				};
+				if (this.props.beforeValueChange) {
+					const nextValue = {
+						start: values.min,
+						end: values.max
+					};
+					this.props.beforeValueChange(nextValue)
+					.then(() => {
+						execQuery();
+					})
+					.catch((e) => {
+						console.warn(`${this.props.componentId} - beforeValueChange rejected the promise with`, e);
+					});
+				} else {
+					execQuery();
 				}
 			}
-		}, 300);
+			this.setRangeValue();
+		}
+		// drop value if it exceeds the threshold (based on step value)
+		if (nextProps.stepValue !== this.props.stepValue) {
+			const rem = (defaultValue.end - defaultValue.start) % nextProps.stepValue;
+			if (rem) {
+				this.setState({
+					values: {
+						min: this.state.values.min,
+						max: defaultValue.end - rem
+					}
+				});
+				const obj = {
+					key: this.props.componentId,
+					value: {
+						from: this.state.values.min,
+						to: defaultValue.end - rem
+					}
+				};
+				if (this.props.onValueChange) {
+					const nextValue = {
+						start: obj.value.from,
+						end: obj.value.to
+					};
+					this.props.onValueChange(nextValue);
+				}
+				if(this.props.URLParams){
+					helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
+				}
+				helper.selectedSensor.set(obj, true);
+			}
+		}
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
