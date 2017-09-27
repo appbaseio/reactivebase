@@ -1036,6 +1036,12 @@ storiesOf("ReactiveList", module)
 			title="Meetups"
 		/>
 	)))
+	.add("With infinite loading", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
+		<ReactiveListDefault
+			pagination={false}
+			scrollOnTarget={window}
+		/>
+	)))
 	.add("With custom sort order", withReadme(removeFirstLine(ReactiveListReadme, 3), () => (
 		<ReactiveListDefault onAllData={null} stream={false} sortBy={select("sortBy", { asc: "asc", desc: "desc", default: "default" }, "asc")} />
 	)))
