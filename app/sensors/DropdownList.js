@@ -28,7 +28,7 @@ export default class DropdownList extends Component {
 		this.previousSelectedSensor = {};
 		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId, props.multipleSelect) : null;
 		this.handleChange = this.handleChange.bind(this);
-		this.type = this.props.multipleSelect && this.props.queryFormat === "or" ? "Terms" : "Term";
+		this.type = this.props.multipleSelect && this.props.queryFormat === "or" ? "terms" : "term";
 		this.customQuery = this.customQuery.bind(this);
 		this.renderOption = this.renderOption.bind(this);
 	}
@@ -53,7 +53,7 @@ export default class DropdownList extends Component {
 		}
 
 		if (this.props.queryFormat !== nextProps.queryFormat) {
-			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "Terms" : "Term";
+			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "terms" : "term";
 		}
 
 		if (this.sortBy !== nextProps.sortBy) {

@@ -37,7 +37,7 @@ export default class NativeList extends Component {
 		this.handleRemove = this.handleRemove.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
 		this.onSelectAll = this.onSelectAll.bind(this);
-		this.type = this.props.multipleSelect && this.props.queryFormat === "or" ? "Terms" : "Term";
+		this.type = this.props.multipleSelect && this.props.queryFormat === "or" ? "terms" : "term";
 		this.customQuery = this.customQuery.bind(this);
 		this.defaultCustomQuery = this.defaultCustomQuery.bind(this);
 	}
@@ -58,7 +58,7 @@ export default class NativeList extends Component {
 		this.urlParams = nextProps.URLParams ? helper.URLParams.get(nextProps.componentId, nextProps.multipleSelect) : null;
 
 		if (this.props.queryFormat !== nextProps.queryFormat) {
-			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "Terms" : "Term";
+			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "terms" : "term";
 		}
 
 		if (!_.isEqual(this.props.react, nextProps.react) || this.props.size !== nextProps.size) {

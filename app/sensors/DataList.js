@@ -17,14 +17,14 @@ export default class DataList extends Component {
 			selectAll: false
 		};
 
-		this.type = this.props.multipleSelect ? "Terms" : "Term";
+		this.type = this.props.multipleSelect ? "terms" : "term";
 		this.urlParams = props.URLParams ? helper.URLParams.get(props.componentId, props.multipleSelect) : null;
 		this.customQuery = this.customQuery.bind(this);
 		this.renderObjectList = this.renderObjectList.bind(this);
 		this.renderStringList = this.renderStringList.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
 		this.onSelectAll = this.onSelectAll.bind(this);
-		this.type = this.props.multipleSelect && this.props.queryFormat === "or" ? "Terms" : "Term";
+		this.type = this.props.multipleSelect && this.props.queryFormat === "or" ? "terms" : "term";
 	}
 
 	componentWillMount() {
@@ -52,7 +52,7 @@ export default class DataList extends Component {
 			}
 		}
 		if (this.props.queryFormat !== nextProps.queryFormat) {
-			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "Terms" : "Term";
+			this.type = nextProps.multipleSelect && nextProps.queryFormat === "or" ? "terms" : "term";
 		}
 
 		if (this.props.showFilter !== nextProps.showFilter || this.props.filterLabel !== nextProps.filterLabel) {
