@@ -1,5 +1,6 @@
 /* eslint max-lines: 0 */
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 import _ from "lodash";
 import ItemCheckboxList from "../addons/ItemCheckboxList";
@@ -492,41 +493,41 @@ export default class NativeList extends Component {
 }
 
 NativeList.propTypes = {
-	dataField: React.PropTypes.string.isRequired,
-	componentId: React.PropTypes.string.isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	dataField: PropTypes.string.isRequired,
+	componentId: PropTypes.string.isRequired,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
 	size: helper.sizeValidation,
-	showCount: React.PropTypes.bool,
-	multipleSelect: React.PropTypes.bool,
-	sortBy: React.PropTypes.oneOf(["asc", "desc", "count"]),
-	showSearch: React.PropTypes.bool,
-	placeholder: React.PropTypes.string,
-	selectAllLabel: React.PropTypes.string,
-	customQuery: React.PropTypes.func,
-	initialLoader: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	showCount: PropTypes.bool,
+	multipleSelect: PropTypes.bool,
+	sortBy: PropTypes.oneOf(["asc", "desc", "count"]),
+	showSearch: PropTypes.bool,
+	placeholder: PropTypes.string,
+	selectAllLabel: PropTypes.string,
+	customQuery: PropTypes.func,
+	initialLoader: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	defaultSelected: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.number,
-		React.PropTypes.array
+	defaultSelected: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number,
+		PropTypes.array
 	]),
-	react: React.PropTypes.object,
-	beforeValueChange: React.PropTypes.func,
-	onValueChange: React.PropTypes.func,
-	onQueryChange: React.PropTypes.func,
-	style: React.PropTypes.object,
-	showRadio: React.PropTypes.bool,
-	showCheckbox: React.PropTypes.bool,
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string,
-	queryFormat: React.PropTypes.oneOf(["and", "or"]),
-	className: React.PropTypes.string
+	react: PropTypes.object,
+	beforeValueChange: PropTypes.func,
+	onValueChange: PropTypes.func,
+	onQueryChange: PropTypes.func,
+	style: PropTypes.object,
+	showRadio: PropTypes.bool,
+	showCheckbox: PropTypes.bool,
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	filterLabel: PropTypes.string,
+	queryFormat: PropTypes.oneOf(["and", "or"]),
+	className: PropTypes.string
 };
 
 // Default props value
@@ -549,7 +550,7 @@ NativeList.defaultProps = {
 
 // context type
 NativeList.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	reactiveId: React.PropTypes.number
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	reactiveId: PropTypes.number
 };

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
 
@@ -137,31 +138,31 @@ export default class DataController extends Component {
 }
 
 DataController.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string.isRequired,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	visible: React.PropTypes.bool,
-	dataLabel: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	visible: PropTypes.bool,
+	dataLabel: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	customQuery: React.PropTypes.func.isRequired,
-	onValueChange: React.PropTypes.func,
-	onQueryChange: React.PropTypes.func,
-	beforeValueChange: React.PropTypes.func,
-	style: React.PropTypes.object,
-	defaultSelected: React.PropTypes.any,
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string,
-	className: React.PropTypes.string
+	customQuery: PropTypes.func.isRequired,
+	onValueChange: PropTypes.func,
+	onQueryChange: PropTypes.func,
+	beforeValueChange: PropTypes.func,
+	style: PropTypes.object,
+	defaultSelected: PropTypes.any,
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	filterLabel: PropTypes.string,
+	className: PropTypes.string
 };
 
-React.PropTypes.oneOfType([
-	React.PropTypes.string,
-	React.PropTypes.element
+PropTypes.oneOfType([
+	PropTypes.string,
+	PropTypes.element
 ]);
 
 // Default props value
@@ -175,9 +176,9 @@ DataController.defaultProps = {
 
 // context type
 DataController.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	reactiveId: React.PropTypes.number
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	reactiveId: PropTypes.number
 };
 
 DataController.types = {

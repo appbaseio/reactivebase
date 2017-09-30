@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import Select from "react-select";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
@@ -212,24 +213,24 @@ export default class MultiDropdownRange extends Component {
 }
 
 MultiDropdownRange.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.string.isRequired,
-	data: React.PropTypes.any.isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.string.isRequired,
+	data: PropTypes.any.isRequired,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	placeholder: React.PropTypes.string,
-	beforeValueChange: React.PropTypes.func,
-	onValueChange: React.PropTypes.func,
-	onQueryChange: React.PropTypes.func,
-	defaultSelected: React.PropTypes.array,
-	customQuery: React.PropTypes.func,
-	style: React.PropTypes.object,
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string,
-	className: React.PropTypes.string
+	placeholder: PropTypes.string,
+	beforeValueChange: PropTypes.func,
+	onValueChange: PropTypes.func,
+	onQueryChange: PropTypes.func,
+	defaultSelected: PropTypes.array,
+	customQuery: PropTypes.func,
+	style: PropTypes.object,
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	filterLabel: PropTypes.string,
+	className: PropTypes.string
 };
 
 // Default props value
@@ -240,9 +241,9 @@ MultiDropdownRange.defaultProps = {
 
 // context type
 MultiDropdownRange.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	reactiveId: React.PropTypes.number
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	reactiveId: PropTypes.number
 };
 
 MultiDropdownRange.types = {

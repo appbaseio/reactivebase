@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
 const helper = require("../middleware/helper.js");
@@ -196,11 +197,11 @@ export default class Pagination extends Component {
 }
 
 Pagination.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string,
-	onPageChange: React.PropTypes.func,
+	componentId: PropTypes.string.isRequired,
+	title: PropTypes.string,
+	onPageChange: PropTypes.func,
 	pages: helper.pagesValidation,
-	pageURLParams: React.PropTypes.bool
+	pageURLParams: PropTypes.bool
 };
 
 // Default props value
@@ -210,6 +211,6 @@ Pagination.defaultProps = {
 
 // context type
 Pagination.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired
 };

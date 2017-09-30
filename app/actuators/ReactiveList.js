@@ -1,5 +1,6 @@
 /* eslint max-lines: 0 */
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
 import JsonPrint from "../addons/JsonPrint";
@@ -597,46 +598,46 @@ export default class ReactiveList extends Component {
 }
 
 ReactiveList.propTypes = {
-	componentId: React.PropTypes.string,
-	dataField: React.PropTypes.string,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string,
+	dataField: PropTypes.string,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	sortBy: React.PropTypes.oneOf(["asc", "desc", "default"]),
-	sortOptions: React.PropTypes.arrayOf(
-		React.PropTypes.shape({
-			label: React.PropTypes.string,
-			dataField: React.PropTypes.string,
-			sortBy: React.PropTypes.string
+	sortBy: PropTypes.oneOf(["asc", "desc", "default"]),
+	sortOptions: PropTypes.arrayOf(
+		PropTypes.shape({
+			label: PropTypes.string,
+			dataField: PropTypes.string,
+			sortBy: PropTypes.string
 		})
 	),
 	from: helper.validation.resultListFrom,
-	onAllData: React.PropTypes.func,
+	onAllData: PropTypes.func,
 	size: helper.sizeValidation,
-	stream: React.PropTypes.bool,
-	style: React.PropTypes.object,
-	initialLoader: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	stream: PropTypes.bool,
+	style: PropTypes.object,
+	initialLoader: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	noResults: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	noResults: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	showResultStats: React.PropTypes.bool,
-	onResultStats: React.PropTypes.func,
-	placeholder: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	showResultStats: PropTypes.bool,
+	onResultStats: PropTypes.func,
+	placeholder: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	react: React.PropTypes.object,
-	paginationAt: React.PropTypes.string,
-	pagination: React.PropTypes.bool,
-	pages: React.PropTypes.number,
-	scrollOnTarget: React.PropTypes.object,
-	pageURLParams: React.PropTypes.bool,
-	className: React.PropTypes.string
+	react: PropTypes.object,
+	paginationAt: PropTypes.string,
+	pagination: PropTypes.bool,
+	pages: PropTypes.number,
+	scrollOnTarget: PropTypes.object,
+	pageURLParams: PropTypes.bool,
+	className: PropTypes.string
 };
 
 ReactiveList.defaultProps = {
@@ -653,10 +654,10 @@ ReactiveList.defaultProps = {
 
 // context type
 ReactiveList.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	app: React.PropTypes.any.isRequired,
-	appbaseCrdentials: React.PropTypes.any.isRequired
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	app: PropTypes.any.isRequired,
+	appbaseCrdentials: PropTypes.any.isRequired
 };
 
 ReactiveList.types = {

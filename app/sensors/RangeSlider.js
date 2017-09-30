@@ -1,5 +1,6 @@
 /* eslint max-lines: 0 */
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import Slider from "rc-slider";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
@@ -553,39 +554,39 @@ export default class RangeSlider extends Component {
 }
 
 RangeSlider.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.string.isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.string.isRequired,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	range: React.PropTypes.shape({
+	range: PropTypes.shape({
 		start: helper.validateThreshold,
 		end: helper.validateThreshold
 	}),
-	rangeLabels: React.PropTypes.shape({
-		start: React.PropTypes.string,
-		end: React.PropTypes.string
+	rangeLabels: PropTypes.shape({
+		start: PropTypes.string,
+		end: PropTypes.string
 	}),
-	defaultSelected: React.PropTypes.shape({
-		start: React.PropTypes.number,
-		end: React.PropTypes.number
+	defaultSelected: PropTypes.shape({
+		start: PropTypes.number,
+		end: PropTypes.number
 	}),
 	stepValue: helper.stepValidation,
-	showHistogram: React.PropTypes.bool,
-	customQuery: React.PropTypes.func,
-	initialLoader: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	showHistogram: PropTypes.bool,
+	customQuery: PropTypes.func,
+	initialLoader: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	react: React.PropTypes.object,
-	onValueChange: React.PropTypes.func,
-	beforeValueChange: React.PropTypes.func,
-	style: React.PropTypes.object,
-	interval: React.PropTypes.number,
-	onQueryChange: React.PropTypes.func,
-	URLParams: React.PropTypes.bool,
-	className: React.PropTypes.string
+	react: PropTypes.object,
+	onValueChange: PropTypes.func,
+	beforeValueChange: PropTypes.func,
+	style: PropTypes.object,
+	interval: PropTypes.number,
+	onQueryChange: PropTypes.func,
+	URLParams: PropTypes.bool,
+	className: PropTypes.string
 };
 
 RangeSlider.defaultProps = {
@@ -606,8 +607,8 @@ RangeSlider.defaultProps = {
 
 // context type
 RangeSlider.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired
 };
 
 RangeSlider.types = {

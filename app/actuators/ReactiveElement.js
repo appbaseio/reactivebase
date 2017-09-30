@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
 import PoweredBy from "../sensors/PoweredBy";
@@ -321,32 +322,32 @@ export default class ReactiveElement extends Component {
 }
 
 ReactiveElement.propTypes = {
-	componentId: React.PropTypes.string,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
 	from: helper.validation.resultListFrom,
-	onAllData: React.PropTypes.func,
+	onAllData: PropTypes.func,
 	size: helper.sizeValidation,
-	stream: React.PropTypes.bool,
-	style: React.PropTypes.object,
-	initialLoader: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	stream: PropTypes.bool,
+	style: PropTypes.object,
+	initialLoader: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	noResults: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	noResults: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	showResultStats: React.PropTypes.bool,
-	onResultStats: React.PropTypes.func,
-	react: React.PropTypes.object,
-	placeholder: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	showResultStats: PropTypes.bool,
+	onResultStats: PropTypes.func,
+	react: PropTypes.object,
+	placeholder: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	className: React.PropTypes.string
+	className: PropTypes.string
 };
 
 ReactiveElement.defaultProps = {
@@ -359,9 +360,9 @@ ReactiveElement.defaultProps = {
 
 // context type
 ReactiveElement.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	app: React.PropTypes.any.isRequired
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	app: PropTypes.any.isRequired
 };
 
 ReactiveElement.types = {

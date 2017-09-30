@@ -1,5 +1,6 @@
 /* eslint max-lines: 0 */
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 import _ from "lodash";
 import manager from "../middleware/ChannelManager";
@@ -544,33 +545,33 @@ export default class DataList extends Component {
 }
 
 DataList.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.string.isRequired,
-	data: React.PropTypes.array.isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.string.isRequired,
+	data: PropTypes.array.isRequired,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	showSearch: React.PropTypes.bool,
-	placeholder: React.PropTypes.string,
-	defaultSelected: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.array
+	showSearch: PropTypes.bool,
+	placeholder: PropTypes.string,
+	defaultSelected: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.array
 	]),
-	multipleSelect: React.PropTypes.bool,
-	customQuery: React.PropTypes.func,
-	style: React.PropTypes.object,
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string,
-	showRadio: React.PropTypes.bool,
-	showCheckbox: React.PropTypes.bool,
-	selectAllLabel: React.PropTypes.string,
-	queryFormat: React.PropTypes.oneOf(["and", "or"]),
-	onQueryChange: React.PropTypes.func,
-	onValueChange: React.PropTypes.func,
-	beforeValueChange: React.PropTypes.func,
-	className: React.PropTypes.string
+	multipleSelect: PropTypes.bool,
+	customQuery: PropTypes.func,
+	style: PropTypes.object,
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	filterLabel: PropTypes.string,
+	showRadio: PropTypes.bool,
+	showCheckbox: PropTypes.bool,
+	selectAllLabel: PropTypes.string,
+	queryFormat: PropTypes.oneOf(["and", "or"]),
+	onQueryChange: PropTypes.func,
+	onValueChange: PropTypes.func,
+	beforeValueChange: PropTypes.func,
+	className: PropTypes.string
 };
 
 // Default props value
@@ -588,7 +589,7 @@ DataList.defaultProps = {
 };
 
 DataList.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	reactiveId: React.PropTypes.number
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	reactiveId: PropTypes.number
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 export default function NoResults(props) {
 	return (
@@ -9,9 +10,9 @@ export default function NoResults(props) {
 }
 
 NoResults.propTypes = {
-	defaultText: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	defaultText: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	])
 };
 

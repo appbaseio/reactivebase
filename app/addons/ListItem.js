@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 
 export default class ListItem extends Component {
@@ -67,9 +68,9 @@ export default class ListItem extends Component {
 }
 
 ListItem.propTypes = {
-	status: React.PropTypes.bool,
-	handleClick: React.PropTypes.func,
-	value: React.PropTypes.string,
-	countField: React.PropTypes.bool,
-	doc_count: React.PropTypes.number
+	status: PropTypes.bool,
+	handleClick: PropTypes.func,
+	value: PropTypes.string,
+	countField: PropTypes.bool,
+	doc_count: PropTypes.number
 };

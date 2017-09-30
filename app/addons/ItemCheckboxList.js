@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import _ from "lodash";
 import ListItem from "./ListItem";
 
@@ -189,13 +190,13 @@ export default class ItemCheckboxList extends Component {
 }
 
 ItemCheckboxList.propTypes = {
-	defaultSelected: React.PropTypes.array,
-	items: React.PropTypes.array,
-	onRemove: React.PropTypes.func,
-	onSelect: React.PropTypes.func,
-	onSelectAll: React.PropTypes.func,
-	selectAllLabel: React.PropTypes.string,
-	selectAll: React.PropTypes.bool,
-	showCount: React.PropTypes.bool,
-	defaultSelectall: React.PropTypes.bool
+	defaultSelected: PropTypes.array,
+	items: PropTypes.array,
+	onRemove: PropTypes.func,
+	onSelect: PropTypes.func,
+	onSelectAll: PropTypes.func,
+	selectAllLabel: PropTypes.string,
+	selectAll: PropTypes.bool,
+	showCount: PropTypes.bool,
+	defaultSelectall: PropTypes.bool
 };

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import manager from "./ChannelManager";
 const Appbase = require("appbase-js");
 const helper = require("./helper.js");
@@ -81,11 +82,11 @@ export default class ReactiveBase extends Component {
 }
 
 ReactiveBase.propTypes = {
-	url: React.PropTypes.string,
-	app: React.PropTypes.string.isRequired,
+	url: PropTypes.string,
+	app: PropTypes.string.isRequired,
 	credentials: helper.reactiveBaseValidation,
-	type: React.PropTypes.string,
-	theme: React.PropTypes.string
+	type: PropTypes.string,
+	theme: PropTypes.string
 };
 
 // Default props value
@@ -94,9 +95,9 @@ ReactiveBase.defaultProps = {
 };
 
 ReactiveBase.childContextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	app: React.PropTypes.any,
-	appbaseCrdentials: React.PropTypes.any.isRequired,
-	reactiveId: React.PropTypes.number
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	app: PropTypes.any,
+	appbaseCrdentials: PropTypes.any.isRequired,
+	reactiveId: PropTypes.number
 };

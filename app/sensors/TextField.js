@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 const helper = require("../middleware/helper.js");
 import * as TYPES from "../middleware/constants.js";
@@ -177,29 +178,29 @@ export default class TextField extends Component {
 }
 
 TextField.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.string,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.string,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	defaultSelected: React.PropTypes.string,
-	placeholder: React.PropTypes.string,
-	customQuery: React.PropTypes.func,
-	beforeValueChange: React.PropTypes.func,
-	onValueChange: React.PropTypes.func,
-	style: React.PropTypes.object,
-	URLParams: React.PropTypes.bool,
-	onQueryChange: React.PropTypes.func,
-	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string,
-	className: React.PropTypes.string,
-	onBlur: React.PropTypes.func,
-	onFocus: React.PropTypes.func,
-	onKeyPress: React.PropTypes.func,
-	onKeyDown: React.PropTypes.func,
-	onKeyUp: React.PropTypes.func,
-	autoFocus: React.PropTypes.bool
+	defaultSelected: PropTypes.string,
+	placeholder: PropTypes.string,
+	customQuery: PropTypes.func,
+	beforeValueChange: PropTypes.func,
+	onValueChange: PropTypes.func,
+	style: PropTypes.object,
+	URLParams: PropTypes.bool,
+	onQueryChange: PropTypes.func,
+	showFilter: PropTypes.bool,
+	filterLabel: PropTypes.string,
+	className: PropTypes.string,
+	onBlur: PropTypes.func,
+	onFocus: PropTypes.func,
+	onKeyPress: PropTypes.func,
+	onKeyDown: PropTypes.func,
+	onKeyUp: PropTypes.func,
+	autoFocus: PropTypes.bool
 };
 
 // Default props value
@@ -212,9 +213,9 @@ TextField.defaultProps = {
 
 // context type
 TextField.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	reactiveId: React.PropTypes.number
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	reactiveId: PropTypes.number
 };
 
 TextField.types = {

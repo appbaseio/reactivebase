@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import DropdownList from "./DropdownList";
 import * as TYPES from "../middleware/constants";
 
@@ -13,13 +14,13 @@ export default function MultiDropdownList(props) {
 }
 
 MultiDropdownList.propTypes = {
-	defaultSelected: React.PropTypes.array,
-	style: React.PropTypes.object,
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	onQueryChange: React.PropTypes.func,
-	queryFormat: React.PropTypes.oneOf(["and", "or"]),
-	className: React.PropTypes.string
+	defaultSelected: PropTypes.array,
+	style: PropTypes.object,
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	onQueryChange: PropTypes.func,
+	queryFormat: PropTypes.oneOf(["and", "or"]),
+	className: PropTypes.string
 };
 
 MultiDropdownList.types = {
