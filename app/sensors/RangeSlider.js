@@ -9,6 +9,8 @@ import InitialLoader from "../addons/InitialLoader";
 import * as TYPES from "../middleware/constants";
 import _ from "lodash";
 
+const Range = Slider.Range;
+
 const helper = require("../middleware/helper");
 
 export default class RangeSlider extends Component {
@@ -537,8 +539,7 @@ export default class RangeSlider extends Component {
 				{title}
 				{histogram}
 				<div className="rbc-rangeslider-container col s12 col-xs-12" key={`rbc-rangeslider-${keyAttributes.start}-${keyAttributes.end}`}>
-					<Slider
-						range
+					<Range
 						defaultValue={[this.state.values.min, this.state.values.max]}
 						min={this.state.startThreshold}
 						max={this.state.endThreshold}
