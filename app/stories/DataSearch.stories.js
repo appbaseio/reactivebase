@@ -15,7 +15,7 @@ export default class DataSearchDefault extends Component {
 	onData(data) {
 		const res = data._source;
 		return (
-			<div className="row">
+			<div className="row" key={data._id}>
 				<div className="col s6 col-xs-6">
 					<img className="responsive-img img-responsive" src="https://www.enterprise.com/content/dam/global-vehicle-images/cars/FORD_FOCU_2012-1.png" />
 				</div>
