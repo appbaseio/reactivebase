@@ -180,7 +180,6 @@ export default class DatePicker extends Component {
 				{title}
 				<div className="col s12 col-xs-12">
 					<SingleDatePicker
-						id={this.props.componentId}
 						date={this.state.currentValue}
 						placeholder={this.props.placeholder}
 						focused={this.state.focused}

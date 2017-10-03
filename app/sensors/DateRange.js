@@ -283,7 +283,6 @@ export default class DateRange extends Component {
 				{title}
 				<div className="rbc-daterange-component col s12 col-xs-12">
 					<DateRangePicker
-						id={this.props.componentId}
 						startDate={this.state.currentValue ? this.state.currentValue.startDate : null}
 						endDate={this.state.currentValue ? this.state.currentValue.endDate : null}
 						focusedInput={this.state.focusedInput}
