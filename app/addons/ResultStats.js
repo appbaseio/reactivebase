@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 export default function ResultStats(props) {
 	if (props.onResultStats) {
@@ -16,5 +17,5 @@ export default function ResultStats(props) {
 }
 
 ResultStats.propTypes = {
-	onResultStats: React.PropTypes.func
+	onResultStats: PropTypes.func
 };

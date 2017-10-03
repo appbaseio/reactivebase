@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 const helper = require("../middleware/helper.js");
 import * as TYPES from "../middleware/constants.js";
@@ -252,29 +253,29 @@ export default class NumberBox extends Component {
 }
 
 NumberBox.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.string.isRequired,
-	data: React.PropTypes.shape({
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.string.isRequired,
+	data: PropTypes.shape({
 		start: helper.validateThreshold,
 		end: helper.validateThreshold,
-		label: React.PropTypes.string
+		label: PropTypes.string
 	}).isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
 	defaultSelected: helper.valueValidation,
-	labelPosition: React.PropTypes.oneOf(["top", "bottom", "left", "right"]),
-	customQuery: React.PropTypes.func,
-	beforeValueChange: React.PropTypes.func,
-	onValueChange: React.PropTypes.func,
-	style: React.PropTypes.object,
-	queryFormat: React.PropTypes.oneOf(["exact", "gte", "lte"]),
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	onQueryChange: React.PropTypes.func,
-	filterLabel: React.PropTypes.string,
-	className: React.PropTypes.string
+	labelPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+	customQuery: PropTypes.func,
+	beforeValueChange: PropTypes.func,
+	onValueChange: PropTypes.func,
+	style: PropTypes.object,
+	queryFormat: PropTypes.oneOf(["exact", "gte", "lte"]),
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	onQueryChange: PropTypes.func,
+	filterLabel: PropTypes.string,
+	className: PropTypes.string
 };
 
 NumberBox.defaultProps = {
@@ -286,9 +287,9 @@ NumberBox.defaultProps = {
 
 // context type
 NumberBox.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	reactiveId: React.PropTypes.number
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	reactiveId: PropTypes.number
 };
 
 NumberBox.types = {

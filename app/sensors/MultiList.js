@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import NativeList from "./NativeList";
 import * as TYPES from "../middleware/constants.js";
 
@@ -13,31 +14,31 @@ export default function MultiList(props) {
 }
 
 MultiList.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.string.isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.string.isRequired,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	defaultSelected: React.PropTypes.array,
-	size: React.PropTypes.number,
-	showCount: React.PropTypes.bool,
-	sortBy: React.PropTypes.string,
-	showSearch: React.PropTypes.bool,
-	placeholder: React.PropTypes.string,
-	customQuery: React.PropTypes.func,
-	initialLoader: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	defaultSelected: PropTypes.array,
+	size: PropTypes.number,
+	showCount: PropTypes.bool,
+	sortBy: PropTypes.string,
+	showSearch: PropTypes.bool,
+	placeholder: PropTypes.string,
+	customQuery: PropTypes.func,
+	initialLoader: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	react: React.PropTypes.object,
-	style: React.PropTypes.object,
-	showCheckbox: React.PropTypes.bool,
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	onQueryChange: React.PropTypes.func,
-	queryFormat: React.PropTypes.oneOf(["and", "or"]),
-	className: React.PropTypes.string
+	react: PropTypes.object,
+	style: PropTypes.object,
+	showCheckbox: PropTypes.bool,
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	onQueryChange: PropTypes.func,
+	queryFormat: PropTypes.oneOf(["and", "or"]),
+	className: PropTypes.string
 };
 
 // Default props value
@@ -54,8 +55,8 @@ MultiList.defaultProps = {
 
 // context type
 MultiList.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired
 };
 
 MultiList.types = {

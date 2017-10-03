@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 const helper = require("../middleware/helper.js");
 import * as TYPES from "../middleware/constants.js";
@@ -253,27 +254,27 @@ export default class ToggleButton extends Component {
 }
 
 ToggleButton.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.string.isRequired,
-	data: React.PropTypes.any.isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.string.isRequired,
+	data: PropTypes.any.isRequired,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	defaultSelected: React.PropTypes.oneOfType([
-		React.PropTypes.array,
-		React.PropTypes.string
+	defaultSelected: PropTypes.oneOfType([
+		PropTypes.array,
+		PropTypes.string
 	]),
-	multiSelect: React.PropTypes.bool,
-	customQuery: React.PropTypes.func,
-	beforeValueChange: React.PropTypes.func,
-	onValueChange: React.PropTypes.func,
-	style: React.PropTypes.object,
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	onQueryChange: React.PropTypes.func,
-	filterLabel: React.PropTypes.string,
-	className: React.PropTypes.string
+	multiSelect: PropTypes.bool,
+	customQuery: PropTypes.func,
+	beforeValueChange: PropTypes.func,
+	onValueChange: PropTypes.func,
+	style: PropTypes.object,
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	onQueryChange: PropTypes.func,
+	filterLabel: PropTypes.string,
+	className: PropTypes.string
 };
 
 // Default props value
@@ -286,9 +287,9 @@ ToggleButton.defaultProps = {
 
 // context type
 ToggleButton.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	reactiveId: React.PropTypes.number
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	reactiveId: PropTypes.number
 };
 
 ToggleButton.types = {

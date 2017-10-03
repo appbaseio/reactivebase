@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import Autosuggest from "react-autosuggest";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
@@ -567,54 +568,54 @@ export default class DataSearch extends Component {
 }
 
 DataSearch.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.arrayOf(React.PropTypes.string)
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.arrayOf(PropTypes.string)
 	]),
-	searchWeight: React.PropTypes.arrayOf(React.PropTypes.number),
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	searchWeight: PropTypes.arrayOf(PropTypes.number),
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	placeholder: React.PropTypes.string,
-	autoSuggest: React.PropTypes.bool,
-	defaultSelected: React.PropTypes.string,
-	customQuery: React.PropTypes.func,
-	onQueryChange: React.PropTypes.func,
-	onValueChange: React.PropTypes.func,
-	beforeValueChange: React.PropTypes.func,
-	react: React.PropTypes.object,
-	defaultSuggestions: React.PropTypes.arrayOf(
-		React.PropTypes.shape({
-			label: React.PropTypes.oneOfType([
-				React.PropTypes.string,
-				React.PropTypes.element
+	placeholder: PropTypes.string,
+	autoSuggest: PropTypes.bool,
+	defaultSelected: PropTypes.string,
+	customQuery: PropTypes.func,
+	onQueryChange: PropTypes.func,
+	onValueChange: PropTypes.func,
+	beforeValueChange: PropTypes.func,
+	react: PropTypes.object,
+	defaultSuggestions: PropTypes.arrayOf(
+		PropTypes.shape({
+			label: PropTypes.oneOfType([
+				PropTypes.string,
+				PropTypes.element
 			]),
-			value: React.PropTypes.string
+			value: PropTypes.string
 		})
 	),
-	style: React.PropTypes.object,
-	highlight: React.PropTypes.bool,
-	highlightField: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.arrayOf(React.PropTypes.string)
+	style: PropTypes.object,
+	highlight: PropTypes.bool,
+	highlightField: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.arrayOf(PropTypes.string)
 	]),
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string,
-	queryFormat: React.PropTypes.oneOf(["and", "or"]),
-	fuzziness: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.number,
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	filterLabel: PropTypes.string,
+	queryFormat: PropTypes.oneOf(["and", "or"]),
+	fuzziness: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number,
 	]),
-	className: React.PropTypes.string,
-	onBlur: React.PropTypes.func,
-	onFocus: React.PropTypes.func,
-	onKeyPress: React.PropTypes.func,
-	onKeyDown: React.PropTypes.func,
-	onKeyUp: React.PropTypes.func,
-	autoFocus: React.PropTypes.bool
+	className: PropTypes.string,
+	onBlur: PropTypes.func,
+	onFocus: PropTypes.func,
+	onKeyPress: PropTypes.func,
+	onKeyDown: PropTypes.func,
+	onKeyUp: PropTypes.func,
+	autoFocus: PropTypes.bool
 };
 
 // Default props value
@@ -631,9 +632,9 @@ DataSearch.defaultProps = {
 
 // context type
 DataSearch.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	reactiveId: React.PropTypes.number
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	reactiveId: PropTypes.number
 };
 
 DataSearch.types = {

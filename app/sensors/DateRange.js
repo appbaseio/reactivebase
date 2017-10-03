@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { DateRangePicker } from "react-dates";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
@@ -282,7 +283,6 @@ export default class DateRange extends Component {
 				{title}
 				<div className="rbc-daterange-component col s12 col-xs-12">
 					<DateRangePicker
-						id={this.props.componentId}
 						startDate={this.state.currentValue ? this.state.currentValue.startDate : null}
 						endDate={this.state.currentValue ? this.state.currentValue.endDate : null}
 						focusedInput={this.state.focusedInput}
@@ -299,32 +299,32 @@ export default class DateRange extends Component {
 }
 
 DateRange.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.array
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.array
 	]),
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	defaultSelected: React.PropTypes.shape({
+	defaultSelected: PropTypes.shape({
 		start: momentPropTypes.momentObj,
 		end: momentPropTypes.momentObj
 	}),
-	numberOfMonths: React.PropTypes.number,
-	allowAllDates: React.PropTypes.bool,
-	extra: React.PropTypes.any,
-	customQuery: React.PropTypes.func,
-	onValueChange: React.PropTypes.func,
-	onQueryChange: React.PropTypes.func,
-	beforeValueChange: React.PropTypes.func,
-	style: React.PropTypes.object,
-	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat)),
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string,
-	className: React.PropTypes.string
+	numberOfMonths: PropTypes.number,
+	allowAllDates: PropTypes.bool,
+	extra: PropTypes.any,
+	customQuery: PropTypes.func,
+	onValueChange: PropTypes.func,
+	onQueryChange: PropTypes.func,
+	beforeValueChange: PropTypes.func,
+	style: PropTypes.object,
+	queryFormat: PropTypes.oneOf(Object.keys(helper.dateFormat)),
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	filterLabel: PropTypes.string,
+	className: PropTypes.string
 };
 
 // Default props value
@@ -342,9 +342,9 @@ DateRange.defaultProps = {
 
 // context type
 DateRange.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	reactiveId: React.PropTypes.number
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	reactiveId: PropTypes.number
 };
 
 DateRange.types = {

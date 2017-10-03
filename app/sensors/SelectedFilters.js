@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import _ from "lodash";
 import moment from "moment";
 import * as TYPES from "../middleware/constants";
@@ -147,10 +148,10 @@ export default class SelectedFilters extends Component {
 }
 
 SelectedFilters.propTypes = {
-	style: React.PropTypes.object,
-	componentId: React.PropTypes.string,
-	blackList: React.PropTypes.arrayOf(React.PropTypes.string),
-	className: React.PropTypes.string
+	style: PropTypes.object,
+	componentId: PropTypes.string,
+	blackList: PropTypes.arrayOf(PropTypes.string),
+	className: PropTypes.string
 };
 
 SelectedFilters.defaultProps = {
@@ -160,7 +161,7 @@ SelectedFilters.defaultProps = {
 
 // context type
 SelectedFilters.contextTypes = {
-	reactiveId: React.PropTypes.number
+	reactiveId: PropTypes.number
 };
 
 SelectedFilters.types = {

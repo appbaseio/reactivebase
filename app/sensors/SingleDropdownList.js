@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import DropdownList from "./DropdownList";
 import * as TYPES from "../middleware/constants";
 
@@ -13,11 +14,11 @@ export default function SingleDropdownList(props) {
 }
 
 SingleDropdownList.propTypes = {
-	defaultSelected: React.PropTypes.string,
-	style: React.PropTypes.object,
-	onQueryChange: React.PropTypes.func,
-	showFilter: React.PropTypes.bool,
-	className: React.PropTypes.string
+	defaultSelected: PropTypes.string,
+	style: PropTypes.object,
+	onQueryChange: PropTypes.func,
+	showFilter: PropTypes.bool,
+	className: PropTypes.string
 };
 
 SingleDropdownList.types = {

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import DataList from "./DataList";
 import * as TYPES from "../middleware/constants.js";
 
@@ -13,25 +14,25 @@ export default function MultiDataList(props) {
 }
 
 MultiDataList.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.string.isRequired,
-	data: React.PropTypes.array.isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.string.isRequired,
+	data: PropTypes.array.isRequired,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	showSearch: React.PropTypes.bool,
-	placeholder: React.PropTypes.string,
-	defaultSelected: React.PropTypes.array,
-	customQuery: React.PropTypes.func,
-	style: React.PropTypes.object,
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	showCheckbox: React.PropTypes.bool,
-	selectAllLabel: React.PropTypes.string,
-	onQueryChange: React.PropTypes.func,
-	queryFormat: React.PropTypes.oneOf(["and", "or"]),
-	className: React.PropTypes.string
+	showSearch: PropTypes.bool,
+	placeholder: PropTypes.string,
+	defaultSelected: PropTypes.array,
+	customQuery: PropTypes.func,
+	style: PropTypes.object,
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	showCheckbox: PropTypes.bool,
+	selectAllLabel: PropTypes.string,
+	onQueryChange: PropTypes.func,
+	queryFormat: PropTypes.oneOf(["and", "or"]),
+	className: PropTypes.string
 };
 
 // Default props value
@@ -47,8 +48,8 @@ MultiDataList.defaultProps = {
 
 // context type
 MultiDataList.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired
 };
 
 MultiDataList.types = {

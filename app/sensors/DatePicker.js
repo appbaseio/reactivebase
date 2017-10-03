@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { SingleDatePicker } from "react-dates";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
@@ -179,7 +180,6 @@ export default class DatePicker extends Component {
 				{title}
 				<div className="col s12 col-xs-12">
 					<SingleDatePicker
-						id={this.props.componentId}
 						date={this.state.currentValue}
 						placeholder={this.props.placeholder}
 						focused={this.state.focused}
@@ -196,28 +196,28 @@ export default class DatePicker extends Component {
 }
 
 DatePicker.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.string,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.string,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	placeholder: React.PropTypes.string,
+	placeholder: PropTypes.string,
 	defaultSelected: momentPropTypes.momentObj,
-	focused: React.PropTypes.bool,
-	numberOfMonths: React.PropTypes.number,
-	allowAllDates: React.PropTypes.bool,
-	extra: React.PropTypes.any,
-	customQuery: React.PropTypes.func,
-	onValueChange: React.PropTypes.func,
-	onQueryChange: React.PropTypes.func,
-	beforeValueChange: React.PropTypes.func,
-	style: React.PropTypes.object,
-	queryFormat: React.PropTypes.oneOf(Object.keys(helper.dateFormat)),
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string,
-	className: React.PropTypes.string
+	focused: PropTypes.bool,
+	numberOfMonths: PropTypes.number,
+	allowAllDates: PropTypes.bool,
+	extra: PropTypes.any,
+	customQuery: PropTypes.func,
+	onValueChange: PropTypes.func,
+	onQueryChange: PropTypes.func,
+	beforeValueChange: PropTypes.func,
+	style: PropTypes.object,
+	queryFormat: PropTypes.oneOf(Object.keys(helper.dateFormat)),
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	filterLabel: PropTypes.string,
+	className: PropTypes.string
 };
 
 // Default props value
@@ -235,9 +235,9 @@ DatePicker.defaultProps = {
 
 // context type
 DatePicker.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	reactiveId: React.PropTypes.number
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	reactiveId: PropTypes.number
 };
 
 DatePicker.types = {

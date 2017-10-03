@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 const helper = require("../middleware/helper.js");
 import * as TYPES from "../middleware/constants.js";
@@ -201,23 +202,23 @@ export default class SingleRange extends Component {
 }
 
 SingleRange.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.string.isRequired,
-	data: React.PropTypes.any.isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.string.isRequired,
+	data: PropTypes.any.isRequired,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	defaultSelected: React.PropTypes.string,
-	customQuery: React.PropTypes.func,
-	beforeValueChange: React.PropTypes.func,
-	onValueChange: React.PropTypes.func,
-	style: React.PropTypes.object,
-	showFilter: React.PropTypes.bool,
-	filterLabel: React.PropTypes.string,
-	onQueryChange: React.PropTypes.func,
-	showRadio: React.PropTypes.bool,
-	className: React.PropTypes.string
+	defaultSelected: PropTypes.string,
+	customQuery: PropTypes.func,
+	beforeValueChange: PropTypes.func,
+	onValueChange: PropTypes.func,
+	style: PropTypes.object,
+	showFilter: PropTypes.bool,
+	filterLabel: PropTypes.string,
+	onQueryChange: PropTypes.func,
+	showRadio: PropTypes.bool,
+	className: PropTypes.string
 };
 
 // Default props value
@@ -230,9 +231,9 @@ SingleRange.defaultProps = {
 
 // context type
 SingleRange.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired,
-	reactiveId: React.PropTypes.number
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired,
+	reactiveId: PropTypes.number
 };
 
 SingleRange.types = {

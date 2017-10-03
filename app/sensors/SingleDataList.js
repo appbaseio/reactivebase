@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import DataList from "./DataList";
 import * as TYPES from "../middleware/constants.js";
 
@@ -13,24 +14,24 @@ export default function SingleDataList(props) {
 }
 
 SingleDataList.propTypes = {
-	componentId: React.PropTypes.string.isRequired,
-	dataField: React.PropTypes.string.isRequired,
-	data: React.PropTypes.array.isRequired,
-	title: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.element
+	componentId: PropTypes.string.isRequired,
+	dataField: PropTypes.string.isRequired,
+	data: PropTypes.array.isRequired,
+	title: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
 	]),
-	showSearch: React.PropTypes.bool,
-	placeholder: React.PropTypes.string,
-	defaultSelected: React.PropTypes.string,
-	customQuery: React.PropTypes.func,
-	style: React.PropTypes.object,
-	URLParams: React.PropTypes.bool,
-	showFilter: React.PropTypes.bool,
-	showRadio: React.PropTypes.bool,
-	onQueryChange: React.PropTypes.func,
-	selectAllLabel: React.PropTypes.string,
-	className: React.PropTypes.string
+	showSearch: PropTypes.bool,
+	placeholder: PropTypes.string,
+	defaultSelected: PropTypes.string,
+	customQuery: PropTypes.func,
+	style: PropTypes.object,
+	URLParams: PropTypes.bool,
+	showFilter: PropTypes.bool,
+	showRadio: PropTypes.bool,
+	onQueryChange: PropTypes.func,
+	selectAllLabel: PropTypes.string,
+	className: PropTypes.string
 };
 
 // Default props value
@@ -45,8 +46,8 @@ SingleDataList.defaultProps = {
 
 // context type
 SingleDataList.contextTypes = {
-	appbaseRef: React.PropTypes.any.isRequired,
-	type: React.PropTypes.any.isRequired
+	appbaseRef: PropTypes.any.isRequired,
+	type: PropTypes.any.isRequired
 };
 
 SingleDataList.types = {
