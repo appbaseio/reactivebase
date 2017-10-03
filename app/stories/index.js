@@ -6,30 +6,30 @@ import { withKnobs, text, boolean, number, array, select, object } from "@storyb
 // importing READMEs first, to be used in playground for each component
 import withReadme from "storybook-readme/with-readme";
 
-import SingleListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/SingleList.md";
-import MultiListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/MultiList.md";
-import SingleDropdownListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/SingleDropdownList.md";
-import MultiDropdownListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/MultiDropdownList.md";
-import SingleDataListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/SingleDataList.md";
-import MultiDataListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/MultiDataList.md";
+import SingleListReadme from "@appbaseio/reactive-manual/docs/v1/components/SingleList.md";
+import MultiListReadme from "@appbaseio/reactive-manual/docs/v1/components/MultiList.md";
+import SingleDropdownListReadme from "@appbaseio/reactive-manual/docs/v1/components/SingleDropdownList.md";
+import MultiDropdownListReadme from "@appbaseio/reactive-manual/docs/v1/components/MultiDropdownList.md";
+import SingleDataListReadme from "@appbaseio/reactive-manual/docs/v1/components/SingleDataList.md";
+import MultiDataListReadme from "@appbaseio/reactive-manual/docs/v1/components/MultiDataList.md";
 
-import SingleRangeReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/SingleRange.md";
-import MultiRangeReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/MultiRange.md";
-import SingleDropdownRangeReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/SingleDropdownRange.md";
-import MultiDropdownRangeReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/MultiDropdownRange.md";
+import SingleRangeReadme from "@appbaseio/reactive-manual/docs/v1/components/SingleRange.md";
+import MultiRangeReadme from "@appbaseio/reactive-manual/docs/v1/components/MultiRange.md";
+import SingleDropdownRangeReadme from "@appbaseio/reactive-manual/docs/v1/components/SingleDropdownRange.md";
+import MultiDropdownRangeReadme from "@appbaseio/reactive-manual/docs/v1/components/MultiDropdownRange.md";
 
-import RangeSliderReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/RangeSlider.md";
-import NumberBoxReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/NumberBox.md";
-import ToggleButtonReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/ToggleButton.md";
-import DatePickerReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/DatePicker.md";
-import DateRangeReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/DateRange.md";
+import RangeSliderReadme from "@appbaseio/reactive-manual/docs/v1/components/RangeSlider.md";
+import NumberBoxReadme from "@appbaseio/reactive-manual/docs/v1/components/NumberBox.md";
+import ToggleButtonReadme from "@appbaseio/reactive-manual/docs/v1/components/ToggleButton.md";
+import DatePickerReadme from "@appbaseio/reactive-manual/docs/v1/components/DatePicker.md";
+import DateRangeReadme from "@appbaseio/reactive-manual/docs/v1/components/DateRange.md";
 
-import TextFieldReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/TextField.md";
-import DataSearchReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/DataSearch.md";
-import DataControllerReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/DataController.md";
+import TextFieldReadme from "@appbaseio/reactive-manual/docs/v1/components/TextField.md";
+import DataSearchReadme from "@appbaseio/reactive-manual/docs/v1/components/DataSearch.md";
+import DataControllerReadme from "@appbaseio/reactive-manual/docs/v1/components/DataController.md";
 
-import ReactiveElementReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/ReactiveElement.md";
-import ReactiveListReadme from "@appbaseio/reactive-manual/docs/v1.0.0/components/ReactiveList.md";
+import ReactiveElementReadme from "@appbaseio/reactive-manual/docs/v1/components/ReactiveElement.md";
+import ReactiveListReadme from "@appbaseio/reactive-manual/docs/v1/components/ReactiveList.md";
 
 // importing individual component stories
 import SingleListDefault from "./SingleList.stories";
