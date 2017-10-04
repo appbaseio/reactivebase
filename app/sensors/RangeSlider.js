@@ -52,15 +52,11 @@ export default class RangeSlider extends Component {
 		this.histogramQuery = this.histogramQuery.bind(this);
 	}
 
-	// Get the items from Appbase when component is mounted
 	componentWillMount() {
 		this.previousQuery = null;	// initial value for onQueryChange
 		this.setReact(this.props);
 		this.setQueryInfo();
 		this.createChannel();
-	}
-
-	componentDidMount() {
 		if (this.props.defaultSelected) {
 			this.handleResults(null, {min: this.props.defaultSelected.start, max: this.props.defaultSelected.end});
 		}
@@ -282,13 +278,6 @@ export default class RangeSlider extends Component {
 
 	// set the query type and input data
 	setQueryInfo() {
-		const obj = {
-			key: this.props.componentId,
-			value: {
-				queryType: this.type,
-				inputData: this.props.dataField
-			}
-		};
 		const getQuery = (value) => {
 			const currentQuery = this.props.customQuery ? this.props.customQuery(value) : this.customQuery(value);
 			if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
@@ -296,6 +285,15 @@ export default class RangeSlider extends Component {
 			}
 			this.previousQuery = currentQuery;
 			return currentQuery;
+		};
+		const obj = {
+			key: this.props.componentId,
+			value: {
+				queryType: this.type,
+				inputData: this.props.dataField,
+				customQuery: this.customQuery,
+				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
+			}
 		};
 		const obj1 = {
 			key: `${this.props.componentId}-internal`,
@@ -476,7 +474,7 @@ export default class RangeSlider extends Component {
 			if(this.props.URLParams){
 				helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
 			}
-			helper.selectedSensor.set(obj, true);
+			helper.selectedSensor.set(nextValue, true);
 		};
 
 		if (this.props.beforeValueChange) {
