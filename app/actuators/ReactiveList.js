@@ -1,6 +1,6 @@
 /* eslint max-lines: 0 */
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
 import JsonPrint from "../addons/JsonPrint";
@@ -515,7 +515,7 @@ export default class ReactiveList extends Component {
 	}
 
 	getComponentStyle() {
-		let style = {};
+		const style = {};
 		if (this.props.scrollOnTarget) {
 			style.maxHeight = "none";
 			style.height = "auto";

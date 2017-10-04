@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import _ from "lodash";
 import ListItem from "./ListItem";
 
@@ -21,8 +21,8 @@ export default class ItemCheckboxList extends Component {
 			if (this.props.defaultSelected.indexOf(this.props.selectAllLabel) >= 0) {
 				this.handleListClickAll(this.props.selectAllLabel, true);
 			} else {
-				let items = [];
-				this.props.items.forEach(item => {
+				const items = [];
+				this.props.items.forEach((item) => {
 					if (Array.isArray(this.props.defaultSelected) && this.props.defaultSelected.indexOf(item.key) >= 0) {
 						items.push(item.key);
 					}
@@ -43,9 +43,9 @@ export default class ItemCheckboxList extends Component {
 			});
 		}
 		if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
-			let items = [];
-			this.props.items.forEach(item => {
-				if (Array.isArray(nextProps.defaultSelected) &&  nextProps.defaultSelected.indexOf(item.key) >= 0) {
+			const items = [];
+			this.props.items.forEach((item) => {
+				if (Array.isArray(nextProps.defaultSelected) && nextProps.defaultSelected.indexOf(item.key) >= 0) {
 					items.push(item.key);
 				}
 			});

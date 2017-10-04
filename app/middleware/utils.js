@@ -1,4 +1,4 @@
-export const sizeValidation = function(props, propName) {
+export const sizeValidation = function (props, propName) {
 	let err = null;
 	if (props[propName] < 1 || props[propName] > 1000) {
 		err = new Error("Size value is invalid, it should be between 1 and 1000.");
@@ -6,7 +6,7 @@ export const sizeValidation = function(props, propName) {
 	return err;
 };
 
-export const stepValidation = function(props, propName) {
+export const stepValidation = function (props, propName) {
 	let err = null;
 	if (props[propName] > Math.floor((props.range.end - props.range.start) / 2)) {
 		err = new Error(`Step value is invalid, it should be less than or equal to ${Math.floor((props.range.end - props.range.start) / 2)}.`);
@@ -16,7 +16,7 @@ export const stepValidation = function(props, propName) {
 	return err;
 };
 
-export const validateThreshold = function(props, propName, componentName) {
+export const validateThreshold = function (props, propName, componentName) {
 	let err = null;
 	if (!(!isNaN(props[propName]) && props.end > props.start)) {
 		err = new Error("Threshold value validation has failed, end value should be greater than start value.");
@@ -29,7 +29,7 @@ export const validateThreshold = function(props, propName, componentName) {
 	return err;
 };
 
-export const valueValidation = function(props, propName) {
+export const valueValidation = function (props, propName) {
 	let err = null;
 	const end = props.data.end ? props.data.end : props.defaultSelected;
 	const start = props.data.start ? props.data.start : props.defaultSelected;
@@ -49,13 +49,13 @@ export const validation = {
 	}
 };
 
-export const pagesValidation = function(props, propName) {
+export const pagesValidation = function (props, propName) {
 	let err = null;
 	if (!(!isNaN(props[propName]) && props[propName] > 2 && props[propName] < 21)) {
 		err = new Error("Pages should be between 3 and 20.");
 	}
 	return err;
-}
+};
 
 export const reactiveBaseValidation = (props, propName) => {
 	let err = null;
@@ -66,17 +66,17 @@ export const reactiveBaseValidation = (props, propName) => {
 };
 
 export const dateFormat = {
-	"epoch_millis": "x",
-	"epoch_seconds": "X",
-	"date": "YYYY-MM-DD",
-	"date_time": "YYYY-MM-DDTHH:mm:ss.SSSZZ",
-	"date_time_no_millis": "YYYY-MM-DDTHH:mm:ssZZ",
-	"basic_date": "YYYYMMDD",
-	"basic_date_time": "YYYYMMDDTHHmmss.SSSZ",
-	"basic_date_time_no_millis": "YYYYMMDDTHHmmssZ",
-	"basic_time": "HHmmss.SSSZ",
-	"basic_time_no_millis": "HHmmssZ"
-}
+	epoch_millis: "x",
+	epoch_seconds: "X",
+	date: "YYYY-MM-DD",
+	date_time: "YYYY-MM-DDTHH:mm:ss.SSSZZ",
+	date_time_no_millis: "YYYY-MM-DDTHH:mm:ssZZ",
+	basic_date: "YYYYMMDD",
+	basic_date_time: "YYYYMMDDTHHmmss.SSSZ",
+	basic_date_time_no_millis: "YYYYMMDDTHHmmssZ",
+	basic_time: "HHmmss.SSSZ",
+	basic_time_no_millis: "HHmmssZ"
+};
 
 export const setupReact = (react, reactAnd) => {
 	if (react && react.and) {
@@ -92,4 +92,4 @@ export const setupReact = (react, reactAnd) => {
 		react.and = reactAnd;
 	}
 	return react;
-}
+};

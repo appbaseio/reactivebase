@@ -2,7 +2,7 @@ const helper = require("./helper");
 
 // queryBuild
 // Builds the query by using react object and values of sensor
-export const queryBuild = function(channelObj, previousSelectedSensor) {
+export const queryBuild = function (channelObj, previousSelectedSensor) {
 	const sortObj = [];
 	let requestOptions = null;
 

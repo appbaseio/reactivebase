@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Autosuggest from "react-autosuggest";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
@@ -91,14 +91,14 @@ export default class DataSearch extends Component {
 		if (this.channelListener) {
 			this.channelListener.remove();
 		}
-		if(this.filterListener) {
+		if (this.filterListener) {
 			this.filterListener.remove();
 		}
 	}
 
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
-			if(data === this.props.componentId) {
+			if (data === this.props.componentId) {
 				this.defaultValue = "";
 				this.changeValue(this.defaultValue);
 			}
@@ -178,7 +178,7 @@ export default class DataSearch extends Component {
 			}
 
 			this.defaultSelected = value;
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, true);
@@ -291,8 +291,8 @@ export default class DataSearch extends Component {
 
 		if (value === "") {
 			finalQuery = {
-				"match_all": {}
-			}
+				match_all: {}
+			};
 		}
 
 		return finalQuery;
@@ -300,7 +300,7 @@ export default class DataSearch extends Component {
 
 	shouldQuery(value, dataFields) {
 		const fields = dataFields.map(
-			(field, index) => `${field}${(Array.isArray(this.props.searchWeight) && this.props.searchWeight[index]) ? ("^" + this.props.searchWeight[index]) : ""}`
+			(field, index) => `${field}${(Array.isArray(this.props.searchWeight) && this.props.searchWeight[index]) ? (`^${this.props.searchWeight[index]}`) : ""}`
 		);
 
 		if (this.props.queryFormat === "and") {
@@ -406,7 +406,7 @@ export default class DataSearch extends Component {
 				this.props.onValueChange(nextValue);
 			}
 
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, true);
@@ -444,7 +444,7 @@ export default class DataSearch extends Component {
 			}
 			// pass the selected sensor value with componentId as key,
 			const isExecuteQuery = true;
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, isExecuteQuery);
@@ -498,7 +498,7 @@ export default class DataSearch extends Component {
 	}
 
 	renderSuggestion(suggestion) {
-		return <span>{suggestion.label}</span>
+		return <span>{suggestion.label}</span>;
 	}
 
 	render() {
@@ -607,7 +607,7 @@ DataSearch.propTypes = {
 	queryFormat: PropTypes.oneOf(["and", "or"]),
 	fuzziness: PropTypes.oneOfType([
 		PropTypes.string,
-		PropTypes.number,
+		PropTypes.number
 	]),
 	className: PropTypes.string,
 	onBlur: PropTypes.func,

@@ -1,6 +1,6 @@
 /* eslint max-lines: 0 */
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import classNames from "classnames";
 import _ from "lodash";
 import ItemCheckboxList from "../addons/ItemCheckboxList";
@@ -172,7 +172,7 @@ export default class NativeList extends Component {
 
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
-			if(data === this.props.componentId) {
+			if (data === this.props.componentId) {
 				this.changeValues(null);
 			}
 		});
@@ -188,7 +188,7 @@ export default class NativeList extends Component {
 		if (this.loadListener) {
 			this.loadListener.remove();
 		}
-		if(this.filterListener) {
+		if (this.filterListener) {
 			this.filterListener.remove();
 		}
 	}
@@ -291,7 +291,7 @@ export default class NativeList extends Component {
 	}
 
 	addItemsToList(newItems) {
-		let items = [];
+		const items = [];
 		newItems.forEach((item) => {
 			const key = item.key.toString();
 			if (key.trim() !== "") {
@@ -327,8 +327,8 @@ export default class NativeList extends Component {
 				if (this.props.onValueChange) {
 					this.props.onValueChange(value);
 				}
-				const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
-				if(this.props.URLParams){
+				const selectedValue = typeof value === "string" ? (value.trim() ? value : null) : value;
+				if (this.props.URLParams) {
 					helper.URLParams.update(this.props.componentId, selectedValue, this.props.URLParams);
 				}
 				helper.selectedSensor.set(obj, isExecuteQuery);
@@ -345,7 +345,7 @@ export default class NativeList extends Component {
 			} else {
 				execQuery();
 			}
-		}
+		};
 
 		const obj = {
 			key: this.props.componentId,

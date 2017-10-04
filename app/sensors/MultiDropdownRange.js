@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Select from "react-select";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
@@ -50,14 +50,14 @@ export default class MultiDropdownRange extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.filterListener) {
+		if (this.filterListener) {
 			this.filterListener.remove();
 		}
 	}
 
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
-			if(data === this.props.componentId) {
+			if (data === this.props.componentId) {
 				this.defaultSelected = null;
 				this.handleChange(null);
 			}
@@ -69,7 +69,7 @@ export default class MultiDropdownRange extends Component {
 			this.defaultSelected = defaultValue;
 			const records = this.state.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 			if (records && records.length) {
-				if(this.urlParams !== null) {
+				if (this.urlParams !== null) {
 					this.handleChange(records);
 				} else {
 					setTimeout(this.handleChange.bind(this, records), 1000);
@@ -138,7 +138,7 @@ export default class MultiDropdownRange extends Component {
 	// handle the input change and pass the value inside sensor info
 	handleChange(record) {
 		let selected = record ? [] : null;
-		if(record) {
+		if (record) {
 			selected = record.map(item => item.label);
 			selected = selected.join();
 		}
@@ -158,7 +158,7 @@ export default class MultiDropdownRange extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(obj.value);
 			}
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, selected, this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, isExecuteQuery);

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { DateRangePicker } from "react-dates";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
@@ -44,14 +44,14 @@ export default class DateRange extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.filterListener) {
+		if (this.filterListener) {
 			this.filterListener.remove();
 		}
 	}
 
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
-			if(data === this.props.componentId) {
+			if (data === this.props.componentId) {
 				this.startDate = null;
 				this.endDate = null;
 				const dateSelectionObj = null;
@@ -62,7 +62,7 @@ export default class DateRange extends Component {
 
 	getURLParams() {
 		let urlParams = helper.URLParams.get(this.props.componentId, false, true);
-		if(urlParams !== null) {
+		if (urlParams !== null) {
 			urlParams = {
 				start: moment(urlParams.start),
 				end: moment(urlParams.end)
@@ -112,7 +112,7 @@ export default class DateRange extends Component {
 				flag1 = true;
 			}
 			return flag1;
-		}
+		};
 
 		const isChanged = (defaultSelected) => {
 			if (moment(this.startDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(defaultSelected.start).format(helper.dateFormat[this.props.queryFormat]) && moment(this.endDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(defaultSelected.end).format(helper.dateFormat[this.props.queryFormat])) {
@@ -121,7 +121,7 @@ export default class DateRange extends Component {
 				flag = true;
 			}
 			return flag;
-		}
+		};
 		const defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		try {
 			if (this.startDate && this.endDate) {
@@ -223,7 +223,7 @@ export default class DateRange extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(nextValue);
 			}
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, this.urlFriendlyValue(inputVal), this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, isExecuteQuery);
@@ -243,7 +243,7 @@ export default class DateRange extends Component {
 	}
 
 	urlFriendlyValue(value) {
-		if(value && value.startDate && value.endDate) {
+		if (value && value.startDate && value.endDate) {
 			value = {
 				start: value.startDate,
 				end: value.endDate
@@ -252,7 +252,7 @@ export default class DateRange extends Component {
 		} else {
 			value = null;
 		}
-		return value
+		return value;
 	}
 
 	// allow all dates
@@ -362,4 +362,4 @@ DateRange.types = {
 	showFilter: TYPES.BOOLEAN,
 	filterLabel: TYPES.STRING,
 	className: TYPES.STRING
-}
+};

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import classNames from "classnames";
+
 const helper = require("../middleware/helper.js");
+
 import * as TYPES from "../middleware/constants.js";
 
 const TitleComponent = props => (
@@ -48,7 +50,7 @@ export default class NumberBox extends Component {
 		this.urlParams = props.URLParams ? helper.URLParams.get(this.props.componentId) : null;
 		const defaultSelected = this.urlParams !== null ? this.urlParams : this.props.defaultSelected;
 		this.state = {
-			currentValue: defaultSelected ? defaultSelected : this.props.data.start,
+			currentValue: defaultSelected || this.props.data.start,
 			focused
 		};
 		this.type = "term";
@@ -59,7 +61,7 @@ export default class NumberBox extends Component {
 	componentWillMount() {
 		this.previousQuery = null;	// initial value for onQueryChange
 		this.setQueryInfo();
-		if(this.urlParams !== null) {
+		if (this.urlParams !== null) {
 			this.updateQuery(this.urlParams);
 		} else {
 			setTimeout(this.handleChange.bind(this), 1000);
@@ -195,7 +197,7 @@ export default class NumberBox extends Component {
 		}, this.updateQuery.bind(this));
 	}
 
-	updateQuery(currentValue=this.state.currentValue) {
+	updateQuery(currentValue = this.state.currentValue) {
 		const obj = {
 			key: this.props.componentId,
 			value: {
@@ -208,7 +210,7 @@ export default class NumberBox extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(obj.value);
 			}
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, currentValue, this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, true);

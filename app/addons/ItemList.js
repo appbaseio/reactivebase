@@ -36,10 +36,10 @@ export default class ItemList extends Component {
 					selectedItem: nextProps.selectAllLabel
 				});
 			}
-		} else if(nextProps.defaultSelected !== "undefined" && !Array.isArray(nextProps.defaultSelected)
+		} else if (nextProps.defaultSelected !== "undefined" && !Array.isArray(nextProps.defaultSelected)
 			&& this.defaultSelected !== nextProps.defaultSelected) {
 			this.defaultSelected = nextProps.defaultSelected;
-			if(nextProps.defaultSelected === null) {
+			if (nextProps.defaultSelected === null) {
 				this.setState({
 					selectedItem: null
 				});

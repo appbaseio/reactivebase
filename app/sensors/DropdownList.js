@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Select from "react-select";
 import classNames from "classnames";
 import _ from "lodash";
@@ -94,7 +94,7 @@ export default class DropdownList extends Component {
 
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
-			if(data === this.props.componentId) {
+			if (data === this.props.componentId) {
 				this.defaultSelected = null;
 				this.handleChange(null);
 			}
@@ -127,7 +127,7 @@ export default class DropdownList extends Component {
 			if (records.length) {
 				this.handleChange(records[0]);	// multipleSelect is false
 			} else {
-				this.handleChange({value: this.defaultSelected});
+				this.handleChange({ value: this.defaultSelected });
 			}
 		}
 		if (this.sortBy !== this.props.sortBy) {
@@ -243,7 +243,7 @@ export default class DropdownList extends Component {
 			size: props.size,
 			sortRef: `${props.componentId}-sort`
 		};
-		const reactAnd = [`${props.componentId}-sort`, "dropdownListChanges"]
+		const reactAnd = [`${props.componentId}-sort`, "dropdownListChanges"];
 		this.react = helper.setupReact(react, reactAnd);
 	}
 
@@ -374,7 +374,7 @@ export default class DropdownList extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(value);
 			}
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, isExecuteQuery);

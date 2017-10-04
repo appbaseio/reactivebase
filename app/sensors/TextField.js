@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import classNames from "classnames";
+
 const helper = require("../middleware/helper.js");
+
 import * as TYPES from "../middleware/constants.js";
 
 export default class TextField extends Component {
@@ -38,14 +40,14 @@ export default class TextField extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.filterListener) {
+		if (this.filterListener) {
 			this.filterListener.remove();
 		}
 	}
 
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
-			if(data === this.props.componentId) {
+			if (data === this.props.componentId) {
 				this.valueChange(null);
 			}
 		});
@@ -121,7 +123,7 @@ export default class TextField extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(nextValue);
 			}
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, isExecuteQuery);

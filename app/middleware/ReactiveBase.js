@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import manager from "./ChannelManager";
+
 const Appbase = require("appbase-js");
 const helper = require("./helper.js");
 
@@ -18,13 +19,13 @@ export default class ReactiveBase extends Component {
 		this.appbaseRef = new Appbase({
 			url: this.props.url && this.props.url.trim() !== "" ? this.props.url : "https://scalr.api.appbase.io",
 			appname: this.props.app,
-			credentials: credentials,
+			credentials,
 			type: this.type
 		});
 
 		this.appbaseCrdentials = {
 			url: this.props.url && this.props.url.trim() !== "" ? this.props.url : "https://scalr.api.appbase.io",
-			credentials: credentials,
+			credentials,
 			appname: this.props.app,
 			type: this.type
 		};
@@ -49,14 +50,14 @@ export default class ReactiveBase extends Component {
 
 	getComponents(children) {
 		children = Array.isArray(children) ? children : [children];
-		children.forEach(child => {
-			if(child && child.props && child.props.componentId && child.props.showFilter !== false) {
+		children.forEach((child) => {
+			if (child && child.props && child.props.componentId && child.props.showFilter !== false) {
 				this.components.push({
 					component: child.type.name,
 					componentId: child.props.componentId
 				});
 			}
-			if(child && child.props && child.props.children) {
+			if (child && child.props && child.props.children) {
 				this.getComponents(child.props.children);
 			}
 		});

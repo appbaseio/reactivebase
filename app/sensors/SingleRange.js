@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import classNames from "classnames";
+
 const helper = require("../middleware/helper.js");
+
 import * as TYPES from "../middleware/constants.js";
 import _ from "lodash";
 
@@ -36,14 +38,14 @@ export default class SingleRange extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.filterListener) {
+		if (this.filterListener) {
 			this.filterListener.remove();
 		}
 	}
 
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
-			if(data === this.props.componentId) {
+			if (data === this.props.componentId) {
 				this.changeValue(null);
 			}
 		});
@@ -58,7 +60,7 @@ export default class SingleRange extends Component {
 	changeValue(defaultValue) {
 		if (!_.isEqual(this.defaultSelected, defaultValue)) {
 			this.defaultSelected = defaultValue;
-			if(this.defaultSelected) {
+			if (this.defaultSelected) {
 				const records = this.props.data.filter(record => record.label === this.defaultSelected);
 				if (records && records.length) {
 					setTimeout(this.handleChange.bind(this, records[0]), 1000);
@@ -127,7 +129,7 @@ export default class SingleRange extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(obj.value);
 			}
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, record ? record.label : null, this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, isExecuteQuery);

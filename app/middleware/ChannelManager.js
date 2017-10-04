@@ -42,7 +42,7 @@ class ChannelManager {
 	// It receives which dependency changes and which channeldId should be affected.
 	receive(depend, channelId, queryOptions = null) {
 		const self = this;
-		var channelObj = this.channels[channelId];
+		const channelObj = this.channels[channelId];
 		let queryObj;
 
 		function setQueryState(channelResponse) {
@@ -97,7 +97,7 @@ class ChannelManager {
 			if (channelObj.stream) {
 				activateStream.call(this, channelId, queryObj, appbaseRef);
 			}
-		}
+		};
 
 		if (channelObj) {
 			if (!queryOptions) {
@@ -124,7 +124,7 @@ class ChannelManager {
 				const searchQueryObj = queryObj;
 				searchQueryObj.type = this.type[channelId] === "*" ? "" : this.type[channelId];
 				searchQueryObj.preference = this.app[channelId];
-				if(!_.isEqual(this.channelQueries[channelId], searchQueryObj)) {
+				if (!_.isEqual(this.channelQueries[channelId], searchQueryObj)) {
 					this.channelQueries[channelId] = searchQueryObj;
 					setQueryState(channelResponse);
 					const qOptions = this.queryOptions && this.queryOptions[channelId] ? this.queryOptions[channelId] : {};
@@ -202,7 +202,7 @@ class ChannelManager {
 
 	// Create the channel by passing react
 	// if react are same it will create single channel for them
-	create(appbaseRef, type, react, size = 100, from = 0, stream = false, app = "reactivebase", appbaseCrdentials=null) {
+	create(appbaseRef, type, react, size = 100, from = 0, stream = false, app = "reactivebase", appbaseCrdentials = null) {
 		const channelId = btoa(JSON.stringify(react));
 		const optionValues = {
 			size,

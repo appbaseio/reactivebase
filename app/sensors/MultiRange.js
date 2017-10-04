@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
 import _ from "lodash";
@@ -37,14 +37,14 @@ export default class MultiRange extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.filterListener) {
+		if (this.filterListener) {
 			this.filterListener.remove();
 		}
 	}
 
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
-			if(data === this.props.componentId) {
+			if (data === this.props.componentId) {
 				this.changeValue(null);
 			}
 		});
@@ -192,7 +192,7 @@ export default class MultiRange extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(obj.value);
 			}
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, this.getSelectedLabels(selected), this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, isExecuteQuery);

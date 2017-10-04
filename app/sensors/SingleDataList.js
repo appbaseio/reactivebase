@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import DataList from "./DataList";
 import * as TYPES from "../middleware/constants.js";
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
 
@@ -82,7 +82,7 @@ export default class DataController extends Component {
 			}
 			// pass the selected sensor value with componentId as key,
 			const isExecuteQuery = true;
-			if(this.props.URLParams) {
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, value, this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, isExecuteQuery);

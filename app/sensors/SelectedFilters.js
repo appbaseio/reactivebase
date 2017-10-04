@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import _ from "lodash";
 import moment from "moment";
 import * as TYPES from "../middleware/constants";
@@ -32,7 +32,7 @@ export default class SelectedFilters extends Component {
 	updateSensors(data) {
 		let isanyChange = false;
 		let { filters } = this.state;
-		Object.keys(data).forEach(item => {
+		Object.keys(data).forEach((item) => {
 			const selectedFilter = this.isSibling(item);
 			if (selectedFilter) {
 				if (data[item] && (
@@ -45,14 +45,12 @@ export default class SelectedFilters extends Component {
 						component: selectedFilter.component,
 						filterLabel: selectedFilter.filterLabel
 					};
-				} else {
-					if (item in filters) {
-						delete filters[item];
-					}
+				} else if (item in filters) {
+					delete filters[item];
 				}
 				isanyChange = true;
 			}
-		})
+		});
 		if (!isanyChange) {
 			filters = [];
 		}
@@ -90,7 +88,7 @@ export default class SelectedFilters extends Component {
 			value = {
 				start: item.value.startDate ? moment(item.value.startDate).format("YYYY-MM-DD") : null,
 				end: item.value.endDate ? moment(item.value.endDate).format("YYYY-MM-DD") : null
-			}
+			};
 			value = JSON.stringify(value);
 		} else if (item.component === "MultiDropdownRange" || item.component === "MultiRange" || item.component === "ToggleButton" || item.component === "ToggleList") {
 			value = item.value.map(range => range.label);
@@ -100,17 +98,17 @@ export default class SelectedFilters extends Component {
 		} else if (item.component === "GeoDistanceSlider") {
 			value = item.value.currentValue;
 			if (value && item.value.currentDistance) {
-				value += " (" + item.value.currentDistance + ")";
+				value += ` (${item.value.currentDistance})`;
 			}
 		} else if (item.component === "GeoDistanceDropdown") {
 			value = item.value.currentValue;
 			if (value && item.value.unit && item.value.end) {
-				value += " (" + item.value.start + item.value.unit + " - " + item.value.end + item.value.unit + ")";
+				value += ` (${item.value.start}${item.value.unit} - ${item.value.end}${item.value.unit})`;
 			}
 		} else if (item.component === "CategorySearch") {
 			value = item && item.value && item.value.value ? item.value.value : null;
 			if (item.value.category && value) {
-				value += " in " + item.value.category;
+				value += ` in ${item.value.category}`;
 			}
 		} else if (item.component === "PlacesSearch") {
 			value = item.value.currentValue;
@@ -130,7 +128,7 @@ export default class SelectedFilters extends Component {
 		return Object.keys(this.state.filters).length ? (
 			<div className={`rbc rbc-selectedfilters rbc-tag-container row card thumbnail ${this.props.className ? this.props.className : ""}`} style={this.props.style}>
 				{
-					Object.keys(this.state.filters).map(item => {
+					Object.keys(this.state.filters).map((item) => {
 						if (!this.props.blackList.includes(item)) {
 							return (<span key={item} className="rbc-tag-item col" title={this.parseValue(this.state.filters[item])}>
 								<button className="close" onClick={() => this.clearFilter(item)}>x</button>
@@ -143,7 +141,7 @@ export default class SelectedFilters extends Component {
 					})
 				}
 			</div>
-		) : null
+		) : null;
 	}
 }
 

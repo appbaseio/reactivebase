@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { SingleDatePicker } from "react-dates";
 import classNames from "classnames";
 import * as TYPES from "../middleware/constants";
@@ -25,7 +25,7 @@ export default class DatePicker extends Component {
 	componentDidMount() {
 		this.previousQuery = null;	// initial value for onQueryChange
 		this.setQueryInfo(this.props);
-		if(this.urlParams !== null) {
+		if (this.urlParams !== null) {
 			this.handleChange(moment(this.urlParams), true);
 		}
 		this.checkDefault();
@@ -46,14 +46,14 @@ export default class DatePicker extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.filterListener) {
+		if (this.filterListener) {
 			this.filterListener.remove();
 		}
 	}
 
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
-			if(data === this.props.componentId) {
+			if (data === this.props.componentId) {
 				this.defaultDate = null;
 				this.handleChange(this.defaultDate);
 			}
@@ -86,7 +86,7 @@ export default class DatePicker extends Component {
 	}
 
 	checkDefault() {
-		if(this.urlParams !== null && this.props.queryFormat && helper.dateFormat[this.props.queryFormat] && moment(this.defaultDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(this.urlParams).format(helper.dateFormat[this.props.queryFormat])) {
+		if (this.urlParams !== null && this.props.queryFormat && helper.dateFormat[this.props.queryFormat] && moment(this.defaultDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(this.urlParams).format(helper.dateFormat[this.props.queryFormat])) {
 			this.defaultDate = moment(this.urlParams);
 			setTimeout(this.handleChange.bind(this, this.defaultDate), 1000);
 		} else if (this.props.defaultSelected && this.props.queryFormat && helper.dateFormat[this.props.queryFormat] && moment(this.defaultDate).format(helper.dateFormat[this.props.queryFormat]) !== moment(this.props.defaultSelected).format(helper.dateFormat[this.props.queryFormat])) {
@@ -126,7 +126,7 @@ export default class DatePicker extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(obj.value);
 			}
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, inputVal, this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, isExecuteQuery);

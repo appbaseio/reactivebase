@@ -1,6 +1,6 @@
 /* eslint max-lines: 0 */
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Slider from "rc-slider";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
@@ -58,7 +58,7 @@ export default class RangeSlider extends Component {
 		this.setQueryInfo();
 		this.createChannel();
 		if (this.props.defaultSelected) {
-			this.handleResults(null, {min: this.props.defaultSelected.start, max: this.props.defaultSelected.end});
+			this.handleResults(null, { min: this.props.defaultSelected.start, max: this.props.defaultSelected.end });
 		}
 	}
 
@@ -76,7 +76,7 @@ export default class RangeSlider extends Component {
 				};
 				nextProps.onValueChange(nextValue);
 			}
-			if(nextProps.URLParams){
+			if (nextProps.URLParams) {
 				helper.URLParams.update(nextProps.componentId, this.setURLParam(obj.value), nextProps.URLParams);
 			}
 			helper.selectedSensor.set(obj, true);
@@ -97,7 +97,7 @@ export default class RangeSlider extends Component {
 				const values = {
 					min: this.state.values.min,
 					max: defaultValue.end - rem
-				}
+				};
 				this.setState({
 					values
 				});
@@ -234,7 +234,7 @@ export default class RangeSlider extends Component {
 					};
 					this.props.onValueChange(nextValue);
 				}
-				if(this.props.URLParams){
+				if (this.props.URLParams) {
 					helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
 				}
 				helper.selectedSensor.set(obj, true);
@@ -267,7 +267,7 @@ export default class RangeSlider extends Component {
 	}
 
 	setURLParam(value) {
-		if("from" in value && "to" in value) {
+		if ("from" in value && "to" in value) {
 			value = {
 				start: value.from,
 				end: value.to
@@ -334,9 +334,9 @@ export default class RangeSlider extends Component {
 	histogramQuery() {
 		return {
 			[this.props.dataField]: {
-				"histogram": {
-					"field": this.props.dataField,
-					"interval": this.props.interval ? this.props.interval : Math.ceil((this.props.range.end - this.props.range.start)/10)
+				histogram: {
+					field: this.props.dataField,
+					interval: this.props.interval ? this.props.interval : Math.ceil((this.props.range.end - this.props.range.start) / 10)
 				}
 			}
 		};
@@ -351,7 +351,7 @@ export default class RangeSlider extends Component {
 			size: 1000,
 			customQuery: this.histogramQuery
 		};
-		const reactAnd = [`${props.componentId}-internal`]
+		const reactAnd = [`${props.componentId}-internal`];
 		this.react = helper.setupReact(react, reactAnd);
 	}
 
@@ -435,7 +435,7 @@ export default class RangeSlider extends Component {
 				}
 			};
 			this.setState(rangeValue, () => {
-				if(!_.isEqual(rangeValue.values, this.state.currentValues)) {
+				if (!_.isEqual(rangeValue.values, this.state.currentValues)) {
 					this.handleResults(null, rangeValue.values);
 				}
 			});
@@ -471,7 +471,7 @@ export default class RangeSlider extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(nextValue);
 			}
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
 			}
 			helper.selectedSensor.set(nextValue, true);

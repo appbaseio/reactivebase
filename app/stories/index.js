@@ -838,7 +838,7 @@ storiesOf("DataController", module)
 			visible={boolean("visible", true)}
 			dataLabel={text("dataLabel", "★  A customizable UI widget ★")}
 			defaultSelected={text("defaultSelected", "default")}
-			style={object("style", { "paddingBottom": "10px" })}
+			style={object("style", { paddingBottom: "10px" })}
 			showFilter={boolean("showFilter", true)}
 			filterLabel={text("filterLabel", "Custom Filter Name")}
 			URLParams={boolean("URLParams (not visible on storybook)", false)}
@@ -903,7 +903,7 @@ storiesOf("DatePicker", module)
 				withFullScreenPortal: false,
 				showClearDate: false
 			})}
-			queryFormat={select("queryFormat", {"epoch_millis":"epoch_millis","epoch_seconds":"epoch_seconds","date":"date","date_time":"date_time","date_time_no_millis":"date_time_no_millis","basic_date":"basic_date","basic_date_time":"basic_date_time","basic_date_time_no_millis":"basic_date_time_no_millis","basic_time":"basic_time","basic_time_no_millis":"basic_time_no_millis"}, "epoch_millis")}
+			queryFormat={select("queryFormat", { epoch_millis: "epoch_millis", epoch_seconds: "epoch_seconds", date: "date", date_time: "date_time", date_time_no_millis: "date_time_no_millis", basic_date: "basic_date", basic_date_time: "basic_date_time", basic_date_time_no_millis: "basic_date_time_no_millis", basic_time: "basic_time", basic_time_no_millis: "basic_time_no_millis" }, "epoch_millis")}
 			showFilter={boolean("showFilter", true)}
 			filterLabel={text("filterLabel", "Date")}
 			URLParams={boolean("URLParams (not visible on storybook)", false)}
@@ -963,7 +963,7 @@ storiesOf("DateRange", module)
 				withFullScreenPortal: true,
 				showClearDate: true
 			})}
-			queryFormat={select("queryFormat", {"epoch_millis":"epoch_millis","epoch_seconds":"epoch_seconds","date":"date","date_time":"date_time","date_time_no_millis":"date_time_no_millis","basic_date":"basic_date","basic_date_time":"basic_date_time","basic_date_time_no_millis":"basic_date_time_no_millis","basic_time":"basic_time","basic_time_no_millis":"basic_time_no_millis"}, "epoch_millis")}
+			queryFormat={select("queryFormat", { epoch_millis: "epoch_millis", epoch_seconds: "epoch_seconds", date: "date", date_time: "date_time", date_time_no_millis: "date_time_no_millis", basic_date: "basic_date", basic_date_time: "basic_date_time", basic_date_time_no_millis: "basic_date_time_no_millis", basic_time: "basic_time", basic_time_no_millis: "basic_time_no_millis" }, "epoch_millis")}
 			showFilter={boolean("showFilter", true)}
 			filterLabel={text("filterLabel", "Date range")}
 			URLParams={boolean("URLParams (not visible on storybook)", false)}

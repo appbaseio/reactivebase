@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
+
 const helper = require("../middleware/helper.js");
 
 export default class Pagination extends Component {
@@ -138,8 +139,8 @@ export default class Pagination extends Component {
 	}
 
 	getStart() {
-		const midValue = parseInt(this.props.pages/2, 10);
-		const start =  this.state.currentValue - midValue;
+		const midValue = parseInt(this.props.pages / 2, 10);
+		const start = this.state.currentValue - midValue;
 		return start > 1 ? start : 1;
 	}
 
@@ -160,7 +161,7 @@ export default class Pagination extends Component {
 				<li className={(this.state.currentValue === 1 ? "disabled" : "waves-effect")}><a className="rbc-page-previous" onClick={this.prePage}><i className="fa fa-angle-left" /></a></li>
 				{
 					start !== 1 ? (
-						<li className={"rbc-page-one "+(this.state.currentValue === 1 ? "disabled" : "waves-effect")}><a className="rbc-page-previous" onClick={this.firstPage}>1</a></li>
+						<li className={`rbc-page-one ${this.state.currentValue === 1 ? "disabled" : "waves-effect"}`}><a className="rbc-page-previous" onClick={this.firstPage}>1</a></li>
 					) : null
 				}
 				{numbers}

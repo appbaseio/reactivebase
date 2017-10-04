@@ -28,7 +28,7 @@ export const WatchForDependencyChange = function (react, previousSelectedSensor,
 	};
 
 	// initialize the process
-	this.init = function (rbcInitialize=false) {
+	this.init = function (rbcInitialize = false) {
 		react.forEach((depend) => {
 			if (!(depend.indexOf("channel-options-") > -1 || depend.indexOf("aggs") > -1)) {
 				checkDependExists(depend);
@@ -134,7 +134,7 @@ function SelectedSensorFn() {
 	// Set fieldname
 	const setSensorInfo = function (obj) {
 		self.sensorInfo[obj.key] = obj.value;
-		if(obj.value && obj.value.defaultSelected) {
+		if (obj.value && obj.value.defaultSelected) {
 			self.selectedSensor[obj.key] = obj.value.defaultSelected;
 		}
 	};
@@ -304,21 +304,21 @@ const SerializeDepends = function () {
 		}
 
 		function setnewquery(sub) {
-			if(!sub.query && sub.components) {
+			if (!sub.query && sub.components) {
 				sub.query = [];
 				const child = serializeResultQuery.filter(item => item.parentId === sub.componentId);
 				child.forEach((sub2, index2) => {
 					const semiquery = setnewquery(sub2);
-					if(semiquery) {
-						if(Array.isArray(semiquery)) {
-							if(semiquery.length) {
+					if (semiquery) {
+						if (Array.isArray(semiquery)) {
+							if (semiquery.length) {
 								sub.query.push(semiquery);
 							}
 						} else {
 							sub.query.push(semiquery);
 						}
 					}
-					if(index2 === child.length -1 && sub.query.length && sub.conjunction && sub.conjunction !== "aggs") {
+					if (index2 === child.length - 1 && sub.query.length && sub.conjunction && sub.conjunction !== "aggs") {
 						sub.query = createBoolQuery(sub.conjunction, sub.query);
 					}
 				});
@@ -343,7 +343,7 @@ const SerializeDepends = function () {
 			if (query && Object.keys(query).length) {
 				fullQuery = {
 					body: {
-						query: query
+						query
 					}
 				};
 			}

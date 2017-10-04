@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import classNames from "classnames";
 import manager from "../middleware/ChannelManager";
 import PoweredBy from "../sensors/PoweredBy";

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import classNames from "classnames";
+
 const helper = require("../middleware/helper.js");
+
 import * as TYPES from "../middleware/constants.js";
 import _ from "lodash";
 
@@ -32,10 +34,8 @@ export default class ToggleButton extends Component {
 			if (nextProps.defaultSelected !== null && nextProps.defaultSelected !== undefined && !_.isEqual(nextProps.defaultSelected, this.props.defaultSelected)) {
 				this.valueChange(nextProps.defaultSelected);
 			}
-		} else {
-			if (nextProps.defaultSelected !== null && nextProps.defaultSelected !== undefined && nextProps.defaultSelected !== this.props.defaultSelected) {
-				this.valueChange(nextProps.defaultSelected);
-			}
+		} else if (nextProps.defaultSelected !== null && nextProps.defaultSelected !== undefined && nextProps.defaultSelected !== this.props.defaultSelected) {
+			this.valueChange(nextProps.defaultSelected);
 		}
 		if (this.props.showFilter !== nextProps.showFilter || this.props.filterLabel !== nextProps.filterLabel) {
 			this.setQueryInfo(nextProps);
@@ -44,14 +44,14 @@ export default class ToggleButton extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.filterListener) {
+		if (this.filterListener) {
 			this.filterListener.remove();
 		}
 	}
 
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
-			if(data === this.props.componentId) {
+			if (data === this.props.componentId) {
 				this.defaultSelected = null;
 				this.handleChange(null);
 			}
@@ -67,7 +67,7 @@ export default class ToggleButton extends Component {
 	valueChange(defaultValue) {
 		if (!_.isEqual(this.defaultSelected, defaultValue)) {
 			this.defaultSelected = defaultValue;
-			if(this.defaultSelected !== null && this.defaultSelected !== undefined) {
+			if (this.defaultSelected !== null && this.defaultSelected !== undefined) {
 				this.defaultSelected = Array.isArray(this.defaultSelected) ? this.defaultSelected : [this.defaultSelected];
 				const records = this.props.data.filter(record => this.defaultSelected.indexOf(record.label) > -1);
 				if (records && records.length) {
@@ -91,13 +91,12 @@ export default class ToggleButton extends Component {
 				}
 				this.previousQuery = currentQuery;
 				return currentQuery;
-			} else {
-				const currentQuery = null;
-				if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
-					this.props.onQueryChange(this.previousQuery, currentQuery);
-				}
-				return currentQuery;
 			}
+			const currentQuery = null;
+			if (this.props.onQueryChange && JSON.stringify(this.previousQuery) !== JSON.stringify(currentQuery)) {
+				this.props.onQueryChange(this.previousQuery, currentQuery);
+			}
+			return currentQuery;
 		};
 		const obj = {
 			key: props.componentId,
@@ -151,7 +150,7 @@ export default class ToggleButton extends Component {
 				// All the matching records should be selected and not toggled
 				newSelection = record;
 			} else {
-				selected = selected ? selected : [];
+				selected = selected || [];
 				selected.forEach((selectedRecord, index) => {
 					if (record.label === selectedRecord.label) {
 						selectedIndex = index;
@@ -188,11 +187,11 @@ export default class ToggleButton extends Component {
 			if (this.props.onValueChange) {
 				this.props.onValueChange(obj.value);
 			}
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, this.setURLValue(newSelection), this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, isExecuteQuery);
-		}
+		};
 
 		if (this.props.beforeValueChange) {
 			this.props.beforeValueChange(obj.value)

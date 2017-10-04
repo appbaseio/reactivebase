@@ -1,6 +1,6 @@
 /* eslint max-lines: 0 */
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import classNames from "classnames";
 import _ from "lodash";
 import manager from "../middleware/ChannelManager";
@@ -36,7 +36,7 @@ export default class DataList extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.filterListener) {
+		if (this.filterListener) {
 			this.filterListener.remove();
 		}
 	}
@@ -64,7 +64,7 @@ export default class DataList extends Component {
 
 	listenFilter() {
 		this.filterListener = helper.sensorEmitter.addListener("clearFilter", (data) => {
-			if(data === this.props.componentId) {
+			if (data === this.props.componentId) {
 				this.reset();
 			}
 		});
@@ -84,12 +84,12 @@ export default class DataList extends Component {
 	changeValue(defaultValue) {
 		if (!_.isEqual(this.defaultSelected, defaultValue)) {
 			this.defaultSelected = defaultValue;
-			if(defaultValue) {
+			if (defaultValue) {
 				if (this.props.multipleSelect) {
 					if (Array.isArray(defaultValue)) {
-						let selected = [];
-						defaultValue.forEach(item => {
-							this.state.data.some(record => {
+						const selected = [];
+						defaultValue.forEach((item) => {
+							this.state.data.some((record) => {
 								if (record.label ? record.label === item : record === item) {
 									selected.push(item);
 									return true;
@@ -205,7 +205,7 @@ export default class DataList extends Component {
 				this.props.onValueChange(null);
 			}
 
-			if(this.props.URLParams){
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, null, this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, true);
@@ -261,7 +261,7 @@ export default class DataList extends Component {
 		}
 
 		this.setState({
-			selected: selected,
+			selected,
 			selectAll: false
 		}, () => {
 			this.defaultSelected = selected;
@@ -286,8 +286,8 @@ export default class DataList extends Component {
 				}
 			}
 
-			const selectedValue = typeof value === "string" ? ( value.trim() ? value : null ) : value;
-			if(this.props.URLParams){
+			const selectedValue = typeof value === "string" ? (value.trim() ? value : null) : value;
+			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, selectedValue, this.props.URLParams);
 			}
 			helper.selectedSensor.set(obj, true);
@@ -319,7 +319,8 @@ export default class DataList extends Component {
 					<div
 						className={`rbc-list-item row ${cx} ${selected && selected.indexOf(record.value) >= 0 ? "rbc-list-item-active" : ""}`}
 						key={`${record.label}-${i}`}
-						onClick={() => {this.handleCheckboxChange(record)}}>
+						onClick={() => { this.handleCheckboxChange(record); }}
+					>
 						<input
 							type="checkbox"
 							className="rbc-checkbox-item"
@@ -338,7 +339,8 @@ export default class DataList extends Component {
 					<div
 						className={`rbc-list-item row ${cx} ${selected && selected === record.value ? "rbc-list-item-active" : ""}`}
 						key={`${record.label}-${i}`}
-						onClick={() => this.handleChange(record)}>
+						onClick={() => this.handleChange(record)}
+					>
 						<input
 							type="radio"
 							className="rbc-radio-item"
@@ -370,12 +372,13 @@ export default class DataList extends Component {
 					<div
 						className={`rbc-list-item row ${cx} ${selected && selected.indexOf(record) >= 0 ? "rbc-list-item-active" : ""}`}
 						key={`${record}-${i}`}
-						onClick={() => {this.handleCheckboxChange(record)}}>
+						onClick={() => { this.handleCheckboxChange(record); }}
+					>
 						<input
 							type="checkbox"
 							className="rbc-checkbox-item"
 							checked={selected && selected.indexOf(record) >= 0}
-							onChange={() =>  {}}
+							onChange={() => {}}
 						/>
 						<label className="rbc-label">{record}</label>
 					</div>
@@ -389,7 +392,8 @@ export default class DataList extends Component {
 					<div
 						className={`rbc-list-item row ${cx} ${selected === record ? "rbc-list-item-active" : ""}`}
 						key={`${record}-${i}`}
-						onClick={() => this.handleChange(record)}>
+						onClick={() => this.handleChange(record)}
+					>
 						<input
 							type="radio"
 							className="rbc-radio-item"
@@ -418,7 +422,8 @@ export default class DataList extends Component {
 				<div
 					className={`rbc-list-item row ${cx} ${this.state.selectAll ? "rbc-list-item-active" : ""}`}
 					key="select-all"
-					onClick={this.onSelectAll}>
+					onClick={this.onSelectAll}
+				>
 					<input
 						type="checkbox"
 						className="rbc-checkbox-item"
@@ -437,7 +442,8 @@ export default class DataList extends Component {
 				<div
 					className={`rbc-list-item row ${cx} ${this.state.selectAll ? "rbc-list-item-active" : ""}`}
 					key="select-all"
-					onClick={this.onSelectAll}>
+					onClick={this.onSelectAll}
+				>
 					<input
 						type="radio"
 						className="rbc-radio-item"
@@ -502,13 +508,13 @@ export default class DataList extends Component {
 
 		if (this.props.data.length === 0) {
 			return null;
-		} else {
-			if (typeof this.props.data[0] === "object") {
-				listComponent = this.renderObjectList();
-			} else {
-				listComponent = this.renderStringList();
-			}
 		}
+		if (typeof this.props.data[0] === "object") {
+			listComponent = this.renderObjectList();
+		} else {
+			listComponent = this.renderStringList();
+		}
+
 
 		if (this.props.title) {
 			title = (<h4 className="rbc-title col s12 col-xs-12">{this.props.title}</h4>);
