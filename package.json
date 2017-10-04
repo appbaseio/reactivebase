@@ -44,7 +44,7 @@
     "react-dom": "^16.0.0"
   },
   "devDependencies": {
-    "@appbaseio/reactive-manual": "^1.0.0-beta",
+    "@appbaseio/reactive-manual": "^1.1.0",
     "@storybook/addon-info": "^3.1.6",
     "@storybook/addon-knobs": "^3.1.8",
     "@storybook/addon-options": "^3.1.6",
