@@ -44,7 +44,7 @@
     "react-dom": "^16.0.0"
   },
   "devDependencies": {
-    "@appbaseio/reactive-manual": "^1.1.0",
+    "@appbaseio/reactive-manual": "1.1.0",
     "@storybook/addon-info": "^3.1.6",
     "@storybook/addon-knobs": "^3.1.8",
     "@storybook/addon-options": "^3.1.6",
@@ -88,7 +88,6 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-test-renderer": "^15.4.2",
-    "shebang-loader": "0.0.1",
     "storybook-readme": "^3.0.6",
     "style-loader": "^0.13.1",
     "webpack": "^3.2.0",

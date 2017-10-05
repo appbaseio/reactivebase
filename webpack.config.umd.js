@@ -27,10 +27,6 @@ module.exports = {
 				test: /.jsx?$/,
 				use: "babel-loader",
 				exclude: /node_modules/
-			},
-			{
-				test: /node_modules\/JSONStream\/index\.js$/,
-				use: ["shebang-loader", "babel-loader"]
 			}
 		]
 	},
