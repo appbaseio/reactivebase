@@ -29,7 +29,7 @@
     "classnames": "^2.2.5",
     "fbemitter": "^2.1.1",
     "lodash": "^4.17.4",
-    "moment": "^2.18.1",
+    "moment": "2.18.1",
     "prop-types": "^15.6.0",
     "rc-slider": "^8.3.1",
     "react-addons-shallow-compare": "^15.4.2",
