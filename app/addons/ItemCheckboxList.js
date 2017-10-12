@@ -42,7 +42,7 @@ export default class ItemCheckboxList extends Component {
 				selectedItems: []
 			});
 		}
-		if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected)) {
+		if (!_.isEqual(this.props.defaultSelected, nextProps.defaultSelected) && !nextProps.selectAll) {
 			const items = [];
 			this.props.items.forEach((item) => {
 				if (Array.isArray(nextProps.defaultSelected) && nextProps.defaultSelected.indexOf(item.key) >= 0) {
@@ -51,8 +51,6 @@ export default class ItemCheckboxList extends Component {
 			});
 			this.setState({
 				selectedItems: items.length ? items : []
-			}, () => {
-				this.props.onSelect(this.state.selectedItems);
 			});
 		}
 	}
