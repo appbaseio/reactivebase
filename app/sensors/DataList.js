@@ -162,7 +162,7 @@ export default class DataList extends Component {
 					field: [this.props.dataField]
 				}
 			};
-		} else if (record) {
+		} else if (record && (this.props.multipleSelect ? record.length : true)) {
 			// queryFormat should not affect SingleDataList
 			if (this.props.queryFormat === "and" && this.props.multipleSelect) {
 				// adds a sub-query with must as an array of objects for each terms/value
