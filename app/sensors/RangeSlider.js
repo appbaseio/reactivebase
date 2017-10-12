@@ -292,7 +292,10 @@ export default class RangeSlider extends Component {
 				queryType: this.type,
 				inputData: this.props.dataField,
 				customQuery: this.customQuery,
-				defaultSelected: this.urlParams !== null ? this.urlParams : this.props.defaultSelected
+				defaultSelected: {
+					start: this.state.values.min,
+					end: this.state.values.max
+				}
 			}
 		};
 		const obj1 = {
@@ -474,7 +477,11 @@ export default class RangeSlider extends Component {
 			if (this.props.URLParams) {
 				helper.URLParams.update(this.props.componentId, this.setURLParam(obj.value), this.props.URLParams);
 			}
-			helper.selectedSensor.set(nextValue, true);
+			const newObj = {
+				key: this.props.componentId,
+				value: nextValue
+			};
+			helper.selectedSensor.set(newObj, true);
 		};
 
 		if (this.props.beforeValueChange) {
