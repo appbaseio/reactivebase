@@ -248,12 +248,28 @@ export default class DataSearch extends Component {
 		data.hits.hits.map((hit) => {
 			if (this.fieldType === "string") {
 				const tempField = this.getValue(this.props.dataField.trim(), hit._source);
-				options.push({ value: tempField, label: tempField });
+				if (Array.isArray(tempField)) {
+					tempField.forEach(str => {
+						if (str.includes(this.state.currentValue)) {
+							options.push({ value: str, label: str });
+						}
+					})
+				} else {
+					options.push({ value: tempField, label: tempField });
+				}
 			} else if (this.fieldType === "object") {
 				this.props.dataField.map((field) => {
 					const tempField = this.getValue(field, hit._source);
 					if (tempField) {
-						options.push({ value: tempField, label: tempField });
+						if (Array.isArray(tempField)) {
+							tempField.forEach(str => {
+								if (str.includes(this.state.currentValue)) {
+									options.push({ value: str, label: str });
+								}
+							})
+						} else {
+							options.push({ value: tempField, label: tempField });
+						}
 					}
 				});
 			}
