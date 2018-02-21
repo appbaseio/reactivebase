@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/appbaseio/reactivebase/badges/gpa.svg)](https://codeclimate.com/github/appbaseio/reactivebase) [![Coverage Status](https://coveralls.io/repos/github/appbaseio/reactivebase/badge.svg?branch=dev)](https://coveralls.io/github/appbaseio/reactivebase?branch=dev)
+[![Coverage Status](https://coveralls.io/repos/github/appbaseio/reactivebase/badge.svg?branch=dev)](https://coveralls.io/github/appbaseio/reactivebase?branch=dev)
 
 # Data components for building reactive UIs
 
